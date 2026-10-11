@@ -1,0 +1,125 @@
+trigger:
+  branches:
+    include:
+    - main
+
+pr:
+  branches:
+    include:
+    - main
+    exclude:
+    - docs/*
+    - images/*
+    - '*.md'
+    - '*.txt'
+
+pool:
+  name: Default
+  demands:
+    - LabVIEW_32
+    - LabVIEW_32_PORT
+    - LabVIEW_64
+    - LabVIEW_64_PORT
+
+variables:
+  libssh2.version: '1.11.1'
+  libssh2.commit: 'a312b43325e3383c865a87bb1d26cb52e3292641'
+  openssl.version: '4.0.2'
+  openssl.commit: 'f089acdf4bc7ba94a79f4bf6eb7362c3e7d14aa9'
+  DLL_CACHE_FOLDER: '$(System.DefaultWorkingDirectory)/Cache'
+
+jobs:
+  - job: Test
+    timeoutInMinutes: 180 # Increase timeout to accomodate long build times for OpenSSL
+    strategy:
+      matrix:
+        'x64-win-openssl-debug':
+          architecture: 'x64'
+          labview: '%LabVIEW_64%'
+          labview_port: '%LabVIEW_64_PORT%'
+          backend: 'OpenSSL'
+          config: 'Debug'
+          debugLogging: 'ON'
+        'x64-win-openssl-release':
+          architecture: 'x64'
+          labview: '%LabVIEW_64%'
+          labview_port: '%LabVIEW_64_PORT%'
+          backend: 'OpenSSL'
+          config: 'Release'
+          debugLogging: 'OFF'
+        'x86-win-openssl-release':
+          architecture: 'Win32'
+          labview: '%LabVIEW_32%'
+          labview_port: '%LabVIEW_32_PORT%'
+          backend: 'OpenSSL'
+          config: 'Release'
+          debugLogging: 'OFF'
+    steps:
+    - task: Cache@2
+      displayName: 'Cache built DLLs'
+      inputs:
+        key: '"dlls" | "$(architecture)" | "$(backend)" | "$(config)" | "$(libssh2.commit)" | "$(openssl.commit)" | CMakeLists.txt | extensions/**/*.*'
+        path: '$(DLL_CACHE_FOLDER)'
+        cacheHitVar: CACHE_RESTORED
+    - task: CmdLine@2
+      displayName: 'Restore cache files'
+      condition: eq(variables.CACHE_RESTORED, 'true')
+      inputs:
+        script: |
+          if not exist "$(DLL_CACHE_FOLDER)\*.dll" (
+            echo "No cached DLLs found."
+          ) else (
+            echo "Restoring cached DLLs..."
+            xcopy "$(DLL_CACHE_FOLDER)\*.dll" "$(Build.SourcesDirectory)\libssh2\" /Y /I
+          )
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: CmdLine@2
+      displayName: 'Prepare build configurations'
+      condition: ne(variables.CACHE_RESTORED, 'true')
+      inputs:
+        script: cmake -B build/$(architecture) -S . -G "Visual Studio 18 2026" -A $(architecture) -DLIBSSH2_SOURCE=GitHub -DLIBSSH2_COMMIT_HASH=$(libssh2.commit) -DCRYPTO_BACKEND=$(backend) -DOPENSSL_COMMIT_HASH=$(openssl.commit) -DLVSSH2_ENABLE_UNSAFESEH_WIN32=ON -DLIBSSH2_ENABLE_DEBUG_LOGGING=$(debugLogging)
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: CmdLine@2
+      displayName: 'Build libraries'
+      condition: ne(variables.CACHE_RESTORED, 'true')
+      inputs:
+        script: cmake --build build/$(architecture) --config $(config)
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - script: docker compose up -d --force-recreate
+      displayName: 'Start SSH server'
+      workingDirectory: '$(Build.SourcesDirectory)/docker'
+    - task: CmdLine@2
+      displayName: 'Restore packages'
+      inputs:
+        script: 'LabVIEWCLI -LabVIEWPath "$(labview)\LabVIEW.exe" -PortNumber $(labview_port) -AdditionalOperationDirectory "$(Build.SourcesDirectory)\Toolchain" -OperationName Restore -Configuration "$(Build.SourcesDirectory)\lvssh2-dev.vipc"'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: CmdLine@2
+      displayName: 'Run tests'
+      inputs:
+        script: 'LabVIEWCLI -LabVIEWPath "$(labview)\LabVIEW.exe" -PortNumber $(labview_port) -AdditionalOperationDirectory "$(Build.SourcesDirectory)\Toolchain" -OperationName Test -Project "$(Build.SourcesDirectory)\lvssh2.lvproj" -ResultsFolder "$(System.DefaultWorkingDirectory)\TestResults"'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - script: docker compose down
+      displayName: 'Stop SSH server'
+      workingDirectory: '$(Build.SourcesDirectory)/docker'
+    - publish: '$(System.DefaultWorkingDirectory)/docker/openssh-server/config/logs/openssh/current'
+      displayName: 'Publish SSH server logs'
+      artifact: server-log-($(Agent.JobName).$(System.JobAttempt))
+    - task: PublishTestResults@2
+      displayName: 'Publish test results'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        failTaskOnFailedTests: true
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '**/COVERAGE-*.xml'
+        pathToSources: '$(System.DefaultWorkingDirectory)/src'
+        failIfCoverageEmpty: true
+    - task: CmdLine@2
+      displayName: 'Prepare cache files'
+      inputs:
+        script: |
+          if not exist "$(DLL_CACHE_FOLDER)" (
+            mkdir "$(DLL_CACHE_FOLDER)"
+          )
+          xcopy "$(Build.SourcesDirectory)\libssh2\*.dll" "$(DLL_CACHE_FOLDER)\" /Y /I

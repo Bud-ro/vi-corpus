@@ -1,0 +1,23 @@
+---
+services:
+  openssh-server:
+    # https://hub.docker.com/r/linuxserver/openssh-server
+    image: linuxserver/openssh-server:version-10.0_p1-r7
+    container_name: openssh-server
+    hostname: openssh-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PASSWORD_ACCESS=true
+      - USER_NAME=openssh
+      - USER_PASSWORD=openssh
+      - PUBLIC_KEY_FILE=/authorized_keys/lvssh2_rsa.pub
+    volumes:
+      - ./openssh-server/config/sshd/sshd_config:/config/sshd/sshd_config
+      - ./openssh-server/config/banner:/config/banner
+      - ./openssh-server/config/logs:/config/logs
+      - ./openssh-server/lvssh2:/lvssh2
+      - ./openssh-server/authorized_keys:/authorized_keys
+    ports:
+      - 22:2222 # SSH port
+      - 44:4444 # Gateway port for remote forwarding
