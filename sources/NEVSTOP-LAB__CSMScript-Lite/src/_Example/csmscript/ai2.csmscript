@@ -1,0 +1,36 @@
+AUTO_ERROR_HANDLE_ENABLE >> TRUE
+
+<setup>
+//setup
+UI: Front Panel State >> Open -@ Chart
+Action: Reset Chart -@Chart
+
+Channels -@ ai
+
+<main>
+
+//ai/0
+wait >> 1.5s
+
+read >> ai/0;100 -@ ai
+read >> ai/0;2 -@ ai
+read >> ai/0;2 -@ ai
+read >> ai/0;2 -@ ai
+read(massdata) >> ai/0;100 -@ ai => waveform
+Action: Update Chart >> ${waveform} -@ Chart
+
+THROW_ERROR_AS_NOT_SUPPPORT_CMD >> arguments
+
+//ai/1
+wait(ms) >> 1000ms
+
+read >> ai/1;2 -@ ai
+read >> ai/1;2 -@ ai
+read >> ai/1;2 -@ ai
+read >> ai/2;2 -@ ai
+read(massdata) >> ai/0;100 -@ ai => waveform
+Action: Update Chart >> ${waveform} -@ Chart
+
+<cleanup>
+wait >> 2s
+UI: Front Panel State >> Close -@ Chart
