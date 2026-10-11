@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+  <XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>National Instruments::Waveform Data Logger</eng>
+    <loc>National Instruments::Waveform Data Logger</loc>
+  </AddMenu>
+  <Version>1.4.3</Version>
+  <Type>Inline HW Interface</Type>
+  <MaxOccurrence>1</MaxOccurrence>
+  <MainPageGUID>BC5AD968-EDEC-4A39-A53C-A70162F6F464</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Waveform Data Logger Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+	<SourceDistribution>
+    <Source>
+      <SupportedTarget>Windows</SupportedTarget>
+      <Source>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Engine Windows.llb\Waveform Data Logger RT Driver VI.vi</Path>
+      </Source>
+      <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Waveform Data Logger\Waveform Data Logger Engine Windows.llb\Waveform Data Logger RT Driver VI.vi</RealTimeSystemDestination>
+    </Source>
+  	  <Source>
+				<SupportedTarget>Linux_x64</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\Waveform Data Logger\Linux_x64\Waveform Data Logger Engine Linux64.llb\Waveform Data Logger RT Driver VI.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Waveform Data Logger\Waveform Data Logger Engine Linux64.llb\Waveform Data Logger RT Driver VI.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+  </CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Waveform Data Logger</eng>
+        <loc>Waveform Data Logger</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>false</DeleteProtection>
+      <GUID>BC5AD968-EDEC-4A39-A53C-A70162F6F464</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Waveform Data Logger\Windows\Glyphs\Wfm Data Logger.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Waveform Data Logger Main Page.vi</Path>
+      </Item2Launch>
+	  <RunTimeMenu>
+        <MenuItem>
+          <GUID>9FCD9F35-FC4D-4E1B-8FBB-48293042BAD3</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Log File</eng>
+            <loc>Add Log File</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Add Log File - Right Click.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+		<MenuItem>
+          <GUID>4648488D-0A2D-4E45-BE59-1589AA1A75B1</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Logging Group</eng>
+            <loc>Add Logging Group</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Add Logging Group - Right Click.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+	  <ActionVIOnLoad>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Main - On Load - Mutation Code.vi</Path>
+		</ActionVIOnLoad>
+    </Page>
+	<Page>
+      <Name>
+        <eng>Logging Enabled Page</eng>
+        <loc>Logging Enabled Page</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>true</DeleteProtection>
+      <GUID>C7CD7F5B-9AA0-449F-B96F-5A38696788F1</GUID>
+      <Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\export.png</Path>
+			</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Logging Enabled Page.vi</Path>
+      </Item2Launch>
+    </Page>
+	<Page>
+      <Name>
+        <eng>Start New File Page</eng>
+        <loc>Start New File Page</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>true</DeleteProtection>
+      <GUID>95DF4880-8622-4437-A2B8-4A33619268EB</GUID>
+      <Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\NewProj.png</Path>
+			</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Start New File Page.vi</Path>
+      </Item2Launch>
+    </Page>
+	<Page>
+      <Name>
+        <eng>File Status Page</eng>
+        <loc>File Status Page</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>true</DeleteProtection>
+      <GUID>09B4C131-8B17-4783-89F0-ADA0D62A49B5</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\NI-XNET Status.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\File Status Page.vi</Path>
+      </Item2Launch>
+    </Page>
+	<Page>
+      <Name>
+        <eng>TDMS Error Code Page</eng>
+        <loc>TDMS Error Code Page</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>true</DeleteProtection>
+      <GUID>055BD3EF-920F-47E9-818D-A5F1CAC04AB2</GUID>
+      <Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\NI-XNET Error.png</Path>
+			</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\File Status Page.vi</Path>
+      </Item2Launch>
+    </Page>
+	<Page>
+      <Name>
+        <eng>Missed Samples Page</eng>
+        <loc>Missed Samples Page</loc>
+      </Name>
+	  <DisallowRenaming>true</DisallowRenaming>
+	  <DeleteProtection>true</DeleteProtection>
+      <GUID>312422B9-1139-4EBC-94A0-F12CDE6EA8BF</GUID>
+      <Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\NI-XNET #Files.png</Path>
+			</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\File Status Page.vi</Path>
+      </Item2Launch>
+    </Page>
+	<Page>
+      <Name>
+        <eng>File Page</eng>
+        <loc>File Page</loc>
+      </Name>
+	  <DeleteProtection>false</DeleteProtection>
+      <GUID>DFFDB176-AB83-475E-94F4-749A89FBE3A1</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Waveform Data Logger\Windows\Glyphs\Wfm Log.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\File Page.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Logging Group Page</eng>
+        <loc>Logging Group Page</loc>
+      </Name>
+	  <DeleteProtection>false</DeleteProtection>
+      <GUID>50203BE4-F1CF-4448-B6B5-1A70CE9F8A31</GUID>
+      <Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\NI-XNET RawFrameDataLogging.png</Path>
+			</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Logging Group Page.vi</Path>
+      </Item2Launch>
+	  <RunTimeMenu>
+        <MenuItem>
+          <GUID>304B413F-C5D2-495D-AE7F-2267910DD3E6</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Log File</eng>
+            <loc>Add Log File</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Waveform Data Logger\Windows\Waveform Data Logger Configuration.llb\Add Log File - Right Click.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
