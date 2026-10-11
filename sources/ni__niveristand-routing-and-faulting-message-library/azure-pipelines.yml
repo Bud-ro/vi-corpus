@@ -1,0 +1,69 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+      - release/*
+
+variables:
+  - name: ConvertNetCore
+    value: false
+
+resources:
+  repositories:
+    - repository: niveristand-custom-device-build-tools
+      type: github
+      ref: main
+      endpoint: nivs-custom-devices
+      name: ni/niveristand-custom-device-build-tools
+  pipelines:
+    - pipeline: VeristandMessageLibrary
+      source:   ni.niveristand-custom-device-message-library
+      trigger:  
+        branches: 
+          include:
+            - main
+
+stages:
+  - template: azure-templates/stages.yml@niveristand-custom-device-build-tools
+    parameters:
+      lvVersionsToBuild:
+        - version: '2024'
+          bitness: '64bit'
+        - version: '2025'
+          bitness: '64bit'
+        - version: '2026'
+          bitness: '64bit'
+        - version: '2027'
+          bitness: '64bit'
+
+      dependencies:
+        - source: '\\nirvana\Measurements\VeriStandAddons\messaging_library'
+          file: '$target\CDMessaging.lvlibp'
+          destination: 'Includes'
+
+      buildSteps:
+        - projectLocation: 'Source\SLSC Switch\SLSC Switch Messaging.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'My Computer'
+          buildSpec: 'SLSC Switch Messaging'
+
+        - projectLocation: 'Source\SLSC Switch\SLSC Switch Messaging.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'Linux x64'
+          buildSpec: 'SLSC Switch Messaging'
+
+        - projectLocation: 'Source\NI-SWITCH\NI-SWITCH Messaging.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'My Computer'
+          buildSpec: 'NI-SWITCH Messaging'
+
+        - projectLocation: 'Source\NI-SWITCH\NI-SWITCH Messaging.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'Linux x64'
+          buildSpec: 'NI-SWITCH Messaging'
+
+      releaseVersion: '26.8.0'
+      buildOutputLocation: 'Source\Built'
+      archiveLocation: '\\nirvana\Measurements\VeriStandAddons\slsc_switch_messaging_library'
+      repoName: 'niveristand-routing-and-faulting-message-library'

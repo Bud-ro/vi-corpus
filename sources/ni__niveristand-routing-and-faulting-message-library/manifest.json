@@ -1,0 +1,786 @@
+{
+ "repo": "ni/niveristand-routing-and-faulting-message-library",
+ "url": "https://github.com/ni/niveristand-routing-and-faulting-message-library",
+ "commit": "950643c46ae4dd318c752a767a8c6da538ab887b",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Connect.vi",
+   "bytes": 16943,
+   "sha256": "e131a182abaa8b7f900a507c80f50e145d8e3f9ea73f7e5b6616c6b1abb4762a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Disconnect All.vi",
+   "bytes": 16094,
+   "sha256": "69a7b65b2d25294f1a39e090257b2983e3f020af72eb8b1768948e0f5a82f6b1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Disconnect.vi",
+   "bytes": 16966,
+   "sha256": "dfc7be1ef4612961e765df86bddfa1b6686435029e37d9fb9a6f0cd208db9780",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Initialize Configuration Channels.vi",
+   "bytes": 15193,
+   "sha256": "f10dc9cf7f9dcb6c7828e6c19b13fccd4eef4e9648076035f1a84629e0cd3198",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Initialize Source Channels.vi",
+   "bytes": 15150,
+   "sha256": "5733202aa8f111cb3f5355852fbf0c545debe9ba1cdc1c02a55045684fd6dcb5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Initialize with Switch Parameters Core.vi",
+   "bytes": 22858,
+   "sha256": "d5199e68462d3c50f070a992c5ff293b5b10e49a08363356c7b7b163e034966f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/NI-SWITCH Consumer.lvclass",
+   "bytes": 59601,
+   "sha256": "9e5b268480513094deb58c4cb717e05e60fdc02c121ceb6ea61d25531b79eb7e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/NI-SWITCH Initialize Simulated Session.vi",
+   "bytes": 15354,
+   "sha256": "8a98c02fa998cfe11dcf203d2debfbf676d3b8b1773fce0cb765550982fb3882",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Consumer/Shutdown Core.vi",
+   "bytes": 16817,
+   "sha256": "1e86a26cc07584077e22ae7021c1078f7f5578b55eca15c57aaea73883f330db",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/NI-SWITCH Init Parameters.lvclass",
+   "bytes": 51975,
+   "sha256": "e0daf2b114efe60ba0f3f41876be048dbc5992417c7bd01574f145eb7e6ed684",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Read Configuration Channels.vi",
+   "bytes": 13763,
+   "sha256": "2798c80af01e2a8f0e0a19db4f85c58f5d4f2dcf7ee376b7b35247c5c0ca819d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Read Simulated.vi",
+   "bytes": 13498,
+   "sha256": "0f5e4bc1f9bdac17fcc295d33b611da67c0512afeeb2e2067a3ca54dab5f366d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Read Source Channels.vi",
+   "bytes": 13740,
+   "sha256": "c89b84bd659db79b6580a8e9cb508e636bbf69cfdee50953bdecd6b3b42c44e6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Write Configuration Channels.vi",
+   "bytes": 15384,
+   "sha256": "d5fb4f1fa8c4dc9e54b15ff2320af5966bed4c67d26a54ee3a77fd6179eda4c6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Write Simulated.vi",
+   "bytes": 15115,
+   "sha256": "ef168dcdf8a576ed9cea29914be1515d84e32be26b0898f574c67aa07cf34906",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Init Parameters/Write Source Channels.vi",
+   "bytes": 15361,
+   "sha256": "22282c2fa834ec7ea9d2f315ef4142000e2cf9939bc44744585bd4b0402e40a4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Messaging.lvlib",
+   "bytes": 25915,
+   "sha256": "1ac0c9598db7ab241933c0a785841db3b6983fac4cbaedcb8b4f474582f15efc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/NI-SWITCH Messaging.lvproj",
+   "bytes": 81894,
+   "sha256": "a5ef773f089164b39f345a96584c32d79ea50c5116983cec68be540c75f95ea2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/NI-SWITCH Messaging Tests.lvclass",
+   "bytes": 34756,
+   "sha256": "2da8fdc0a631191fecb579e0d1722f2288b521dbf46a2705d7eac9406a96f0a9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/setUp.vi",
+   "bytes": 23837,
+   "sha256": "3bbb25f6279472b861780814a9e1c11b15f340abbb4bcd713c46fb825db92cd3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/tearDown.vi",
+   "bytes": 10880,
+   "sha256": "d6ed37527ecaf1ec5acc2a867724d40deff332c5567367b0d94d3b2d63b85e19",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/test Connect Disconnect Multiple.vi",
+   "bytes": 21160,
+   "sha256": "246b11f723ecac123e65251d02730dec846365ed629c4cac06e579e5d381c3cc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/test Connect Disconnect.vi",
+   "bytes": 20419,
+   "sha256": "9ce5aa3ad02aa0dfcd36d0c939f74908ed78dcbea40aa79baeffdf52d41d5344",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/test Connect Multiple.vi",
+   "bytes": 17817,
+   "sha256": "423e7563ff5e1ee50fa0310a4cc3015082cf74b054ded5ec4d96f5ba320bf78b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/test Connect.vi",
+   "bytes": 17072,
+   "sha256": "6836f18a96e6b1160ce28a526d35f46cb7d6f88a6d41d09a3e5635d366051784",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/test Disconnect All.vi",
+   "bytes": 16227,
+   "sha256": "1134ed55e4cb71ef7966c2f9e1ca62736cb926b98b3c6bcde2371eada9c1dbf4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/NI-SWITCH Messaging Tests/testExample.vit",
+   "bytes": 9596,
+   "sha256": "33a0e106a82f012a53182bfda855cc0d95076373aa80c533d68ff06beeea9a36",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Connect.vi",
+   "bytes": 17691,
+   "sha256": "c3e4d080ebf47526f25032063082c2b2c827ce6fe25e19b3ab982b4b2f4f0abf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Disconnect All.vi",
+   "bytes": 16882,
+   "sha256": "fa993aa96f3b87b36d7d682cae9d85848af35ddd06ce5de4b8be60c50ad6cf17",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Disconnect.vi",
+   "bytes": 18418,
+   "sha256": "a5094a759b1cdeead411308060707218a02e1c31ec8263ef0745976968e45fd0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Initialize with Switch Parameters Core.vi",
+   "bytes": 17242,
+   "sha256": "68a7d8a74c6aff49126224c0d8842180e92916fc0a9b58269bb311dbffd7f36f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Mock NI-SWITCH Consumer.lvclass",
+   "bytes": 30889,
+   "sha256": "19021b4caf63c6da6a4ff22998c0257354b79729983bf0fd7f2eaa12462f959f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Tests/Support/Read Connections.vi",
+   "bytes": 13460,
+   "sha256": "ac9e797e899aba2d50cceeb8b4da2db9fa973374948c2c520a72b5f35dd2c855",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI-SWITCH/Utility/Post-Build Action.vi",
+   "bytes": 10837,
+   "sha256": "b516fa435d73d0b8e51b293d3bfc2c1a7c144794297e83152bf7bfc2bf9d91ed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Check Reservation Groups Supported.vi",
+   "bytes": 33290,
+   "sha256": "b776d49913e5ac7b19f5adb038671d653adb42f8867346aa183605cd61866926",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Connect.vi",
+   "bytes": 16923,
+   "sha256": "89e1514e0962a25dd73f819bf51e6eef2782c58fff23ce3a7d4146f97aae0401",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Disconnect All.vi",
+   "bytes": 16094,
+   "sha256": "8d79c7c7a4d3a83298e77bf8103b892f544d9cb0b0661f23dad18d392318ccee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Disconnect.vi",
+   "bytes": 16938,
+   "sha256": "f24452b02bf0c5e6e2fca3568b6266d0e024339267b5ead210513c0291e7980c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Initialize Configuration Channels.vi",
+   "bytes": 14881,
+   "sha256": "4a2ccdc1d3fb531ef0db469bc22e55e1fbb533d5976b555b9417193fadf41f0d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Initialize Source Channels.vi",
+   "bytes": 14858,
+   "sha256": "0e7ebce478a9554d2a345a3d3898966b8e238348a873a5b8e5fe812ee717ca99",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Initialize with Switch Parameters Core.vi",
+   "bytes": 26526,
+   "sha256": "38b2e188bf58a7ca5793f4ff9387e25bf53ab862c6f1d9fa143c9faffc0b7e9c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/SLSC Switch - Initialize with Topology (Reservation Group and Override Switches).vi",
+   "bytes": 21972,
+   "sha256": "6558610a2b5764631bec6dee7fd418a834dd220e550710680d1cea12d511cc28",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/SLSC Switch Consumer.lvclass",
+   "bytes": 36257,
+   "sha256": "c2b29a00075c80a08882f9f7e4a3561a62165f7042d72486946ceea24b975db3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Consumer/Shutdown Core.vi",
+   "bytes": 16885,
+   "sha256": "7a634fd64cc9b172bf5f4959d6fcd339a2b225409922e062c00244deaa7edb1c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Read Configuration Channels.vi",
+   "bytes": 16495,
+   "sha256": "900e9def6424787046dd18ca668eafb6533e3f77c056886ee7864e33b7e0ad1a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Read Reservation Group.vi",
+   "bytes": 16142,
+   "sha256": "cfe4daec06b1a1c21e8d482fec02eeff5ab1b4059b4382fab0b231d5d8d7b1cb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Read Simulated.vi",
+   "bytes": 16762,
+   "sha256": "f0a721952d652ef2e8c479d48c71c2e5f352dc16331c3597497a084d30315e8f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Read Source Channels.vi",
+   "bytes": 16468,
+   "sha256": "46022aca9a5a64fcff2716bee8f7fc25e55fa3ed5dec0699920b2bb76b62a3dc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Read Switches JSON.vi",
+   "bytes": 16654,
+   "sha256": "e624cad461b1ea43d1c85c6eb238d030ade5c9775d68e2b597bb9a018e8b44c0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/SLSC Switch Init Parameters.lvclass",
+   "bytes": 44407,
+   "sha256": "75e233cd3e6b8cab303470b999b461ca9d14497913dcf942a2cd3d6002e87af1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Write Configuration Channels.vi",
+   "bytes": 16312,
+   "sha256": "5bd0dc24bb355f8de335fb0a4f6dacfb64f05cd17fa23684f2735677160689fa",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Write Reservation Group.vi",
+   "bytes": 15951,
+   "sha256": "36a562e59f4d8d4686e4cb8ad57741b26ffb8e6b642944d66477a2067ff81a01",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Write Simulated.vi",
+   "bytes": 16575,
+   "sha256": "3524d0297edd4fc15e11b2aaed52d48a8bb77e6210474d79f0f627267c8c8a90",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Write Source Channels.vi",
+   "bytes": 16285,
+   "sha256": "58753e7403580fe840c90124380511089181c379e6217d17c1e425088b4f7931",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Init Parameters/Write Switches JSON.vi",
+   "bytes": 16475,
+   "sha256": "4aeb3553d70d1861ef2d0eb62a70f035ebe29c8fd703aa6309041bc066a3a36e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Messaging.lvlib",
+   "bytes": 13851,
+   "sha256": "e44145acdecd5fe84a8ed941a34f434d6eb67edafcc6ca5eb54a17f2e96ad373",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/SLSC Switch Messaging.lvproj",
+   "bytes": 81853,
+   "sha256": "c755f6a67e6f309fad271af681e6cd98edca5427fa9c64503fad9ca2393c3478",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/SLSC Switch Messaging Tests.lvclass",
+   "bytes": 33838,
+   "sha256": "7f630b65e1ef17e326b61226aeea8fdaae884714323243b500617f0d17a09e5d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/setUp.vi",
+   "bytes": 24945,
+   "sha256": "d3df61b58cb060af0d53b320b583cd91fd9b9905cc757325d8a1302aa3efb143",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/tearDown.vi",
+   "bytes": 10920,
+   "sha256": "8527e31caf6b17d0b60b191134faae343a13e9a7d0bd1b5de472189660dc39dd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/test Connect Disconnect Multiple.vi",
+   "bytes": 21240,
+   "sha256": "9b71c96714d3fd663d850b4363f72cec9cdaff4fa154732e3144c31543c06879",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/test Connect Disconnect.vi",
+   "bytes": 20507,
+   "sha256": "c55259fa00df499d99340f528218052f32273065587399cac4e688bbb5968d0e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/test Connect Multiple.vi",
+   "bytes": 17889,
+   "sha256": "3a7a17031f60e242f7d09002daec4286550fdecd3a6b15e46d0040ce7d49df1c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/test Connect.vi",
+   "bytes": 17144,
+   "sha256": "2a56ac919060691dddee7b835327426a717d997f1d014492361255d89e40a7bf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/test Disconnect All.vi",
+   "bytes": 16303,
+   "sha256": "6ec5ce779db154ca14c6ff979bb595ec6a07b73df191ebd4f1250adee6bb89ad",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/SLSC Switch Messaging Tests/testExample.vit",
+   "bytes": 9612,
+   "sha256": "454127b7a6f80624fcff7b18b9b94088a7252eaed038c28cbedaff1297633fde",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Connect.vi",
+   "bytes": 17695,
+   "sha256": "52bb23753aa22b98162cfbeb897f189b7bdaeac01e52ae2a20875549c5143a08",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Disconnect All.vi",
+   "bytes": 16870,
+   "sha256": "5916f4ec8589aaded36d81e91ec883edbc3be832f9624d361721dff7ec5360ce",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Disconnect.vi",
+   "bytes": 18426,
+   "sha256": "629371ce1da83267e5c648096314ac011f06d75e84e486e1221bc815e4fcc8c7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Initialize with Switch Parameters Core.vi",
+   "bytes": 17230,
+   "sha256": "d325815db1c56f2fbbcabea70357909acc698b8945867fa669483be09fb9bad7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Mock SLSC Switch Consumer.lvclass",
+   "bytes": 31680,
+   "sha256": "31ada445d9f718a0891f37a9129dd57a8ec83c586ea05bb01fe22170a787e3bf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Support/Read Connections.vi",
+   "bytes": 13572,
+   "sha256": "500c5195a7d4c75ce46796619babcae664fbd355f865711bef76cc93b5460352",
+   "via": "extension"
+  },
+  {
+   "path": "Source/SLSC Switch/Utility/Post-Build Action.vi",
+   "bytes": 10837,
+   "sha256": "b516fa435d73d0b8e51b293d3bfc2c1a7c144794297e83152bf7bfc2bf9d91ed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/%DEVICE% Messaging.lvlib",
+   "bytes": 25885,
+   "sha256": "6df2911afaed92e463543895ce58516af21a4198cd70c0e0d2c2384ba9297747",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/%DEVICE% Messaging.lvproj",
+   "bytes": 78620,
+   "sha256": "a3322cdb04f8416e8362b2718b903b9c7be07564bae2e1f403a89a13a065e34a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Connect.vi",
+   "bytes": 15583,
+   "sha256": "ba194388eb90065f7c5eabce7cb2350f5c2a09169ecebcfd1328d22e80a90a01",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Consumer.lvclass",
+   "bytes": 61482,
+   "sha256": "0e75bb64e23e286bfda4d157e63cc0ef7bb45d2e3f93e9d1c3e6656b80e62a74",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Disconnect All.vi",
+   "bytes": 15318,
+   "sha256": "7b0975e8cdf54dc0bf1dbaf69cfb183db75fb2ffd6b152dd77c8c187e85447ad",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Disconnect.vi",
+   "bytes": 15582,
+   "sha256": "01418a2a2dd7198619563ee58d0176e3c011d5d0d2d748c506876a2220d4c66a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Initialize Configuration Channels.vi",
+   "bytes": 14721,
+   "sha256": "e67e43478a1810ae3fa84672a397a499359502f772cbdd7c93618b7b0e691e8f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Initialize Source Channels.vi",
+   "bytes": 15130,
+   "sha256": "89261383a9ff388c87dfd69886380225b629cea7988ea4aba0601ddf810ba5c8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Initialize with Switch Parameters Core.vi",
+   "bytes": 20198,
+   "sha256": "69c56efbd03026382f9cfa3cda7bdebc106e08416e8bc4577a81f98e7b8de266",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Session Type.ctl",
+   "bytes": 15057,
+   "sha256": "d0d1cacef926c3077b90e4304cb5942fb082063c36965c5ab5509bd2a9a2535c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Consumer/Shutdown Core.vi",
+   "bytes": 16549,
+   "sha256": "89cdb659d12ea3813402b782febc2beb7a1af9ae751b9a621de71e628ebf51eb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Init Parameters.lvclass",
+   "bytes": 54956,
+   "sha256": "3918a88d60f569382d76891c41f53a1f3006d64892a1c65ee122ab7c6be09b21",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Read Configuration Channels.vi",
+   "bytes": 13507,
+   "sha256": "bcf9e64f8abe9212568b1fb68fa268a89fdc85eae6d01a3c0b1f5ffc5c1dfc91",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Read Simulated.vi",
+   "bytes": 16346,
+   "sha256": "93a7658396f47f798139dc5d6649be37688d257a8db154308a30c4d9ab56c721",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Read Source Channels.vi",
+   "bytes": 13488,
+   "sha256": "87c755f289c5b1c8101703e98cf963dbadde969a954ae7da94ef31b5510fbf6f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Write Configuration Channels.vi",
+   "bytes": 15124,
+   "sha256": "4d884f3f314f141a9b80f9150dfbaaa3b850dc92a8d25fa4e815bfd6e965b8db",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Write Simulated.vi",
+   "bytes": 17971,
+   "sha256": "6ec3964bdd3a11a4a8e7734f9f343e8cbbcec6c8dd6af8ef56a5e4c71830081c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Init Parameters/Write Source Channels.vi",
+   "bytes": 15105,
+   "sha256": "3db65b8b44268733a04fe9ef828a04d31682b6bf4f5d463a679832f555b0f9fb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/%DEVICE% Messaging Tests.lvclass",
+   "bytes": 35560,
+   "sha256": "e7fb37e1ac0a487b98bdffb9f8b39eb7341a6ea8f45862be1c9ac80138619672",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/setUp.vi",
+   "bytes": 23701,
+   "sha256": "34c88bc44dba1f8bd4c809f1f2a5dc2383d8a90dcfbca110073dc35c506cffc7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/tearDown.vi",
+   "bytes": 10876,
+   "sha256": "bd76f88a35c5982f37de507fb92ddb0687cdc047a22ea6af200c06d181d396e8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/test Connect Disconnect Multiple.vi",
+   "bytes": 21144,
+   "sha256": "7139246d7d3d7dc2a6b96e815d45d3750aedf6b0179d47c744c4256b901bb705",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/test Connect Disconnect.vi",
+   "bytes": 20407,
+   "sha256": "d8e74251e617a00f82d72288e4a6d02764fcf1064ae16e8960a8cc2e9b11f606",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/test Connect Multiple.vi",
+   "bytes": 17809,
+   "sha256": "82806680a9a5b1dbb1ee5ac0a09200dc639b798daf2f9fd688c0d4f94c2926e9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/test Connect.vi",
+   "bytes": 17064,
+   "sha256": "23d60a126b67b2bc3fb7a1f735b9156f7c498500e9b875b0b67570a2b9b0a257",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/test Disconnect All.vi",
+   "bytes": 16223,
+   "sha256": "a255244cefbfc82c8d033e4e319a7e9e64324961adb7aa4ccdca16f487ec00b9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Messaging Tests/testExample.vit",
+   "bytes": 9592,
+   "sha256": "a91f0d94bb9def49e0faf38dbeb2edfdf54643e486b87609104fee47ce968a7b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Connect.vi",
+   "bytes": 17551,
+   "sha256": "910d66514bfde56c0ff711bfefe62c209e32a8137c40ae62a664dcd3084cebf7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Disconnect All.vi",
+   "bytes": 16722,
+   "sha256": "e5297902a09eb99a22af88d4135358df42a6afbb430d2f9a4e41180b20a35e46",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Disconnect.vi",
+   "bytes": 18266,
+   "sha256": "ff496318ea7814963571e2cf35b8de8276e8248643df23a2ffc48df74a7d542c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Initialize with Switch Parameters Core.vi",
+   "bytes": 17074,
+   "sha256": "9f83206172c2ba89ffbf6154f69359ab65bcd02e856abc5f7f23436b66dc5bd6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Mock %DEVICE% Consumer.lvclass",
+   "bytes": 31882,
+   "sha256": "e5ccb52628a9aa38dc9da532d831a78097f6acef19b14312821483c399f1c3a6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Tests/Support/Read Connections.vi",
+   "bytes": 13412,
+   "sha256": "b326f673dc0668e8313bf9fab9deca9cb1eccbbfad7891a661a0d84644404c57",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Template/Utility/Post-Build Action.vi",
+   "bytes": 10837,
+   "sha256": "0f9ec056b7459238ead75881538800725a9bdb6f38e4a83bd852d558eff0555d",
+   "via": "extension"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "bytes": 65,
+   "sha256": "b6bdeeed6c0c8e20827b2145fb7623138895046cc86fbd7908e29b6d776a80ec",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "bytes": 637,
+   "sha256": "5088f7541aacfa80dc898f70ef8497b852cd9d4eeddb832cb461c0386421e0ca",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "bytes": 604,
+   "sha256": "72a5f467b083c24507b1e848bbb958800f783fe1d313a8ca017f2a2673acad47",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/support_request_template.md",
+   "bytes": 696,
+   "sha256": "f8ffbdf146555ca5838487041d4ef501bfab171113a775171daaa058df06949f",
+   "via": "tree"
+  },
+  {
+   "path": ".github/PULL_REQUEST_TEMPLATE.md",
+   "bytes": 697,
+   "sha256": "c33914b952968678880e6f6c8f6b7b631362ce0311e88e05f3b810b8c0147de4",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 186,
+   "sha256": "73a62a6801dc194674b6a289c71f94af4de59d5155fbc1ef124b7832591454de",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 2996,
+   "sha256": "807aaeadc878d507263144e7dc3b7d8e6e116ac2320e6b362dbae1faaf00a1bf",
+   "via": "tree"
+  },
+  {
+   "path": "Includes/README.md",
+   "bytes": 274,
+   "sha256": "7a286f3f0d86a064cb452d1203986ec86e592332ac6d726b3a887081ebc54690",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1071,
+   "sha256": "0303e400d7eb01938ce5295363e8dd1f09a7eff4d89d90006040012dbe3a8943",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1270,
+   "sha256": "f295fc8dd9892db7b7cdf58f1ab0f887f638f505997174e0ab0b38c9e8fb5f78",
+   "via": "tree"
+  },
+  {
+   "path": "Source/SLSC Switch/Tests/Assets/SET GmbH www.smart-e-tech.com-8208(000000DC).caps",
+   "bytes": 289192,
+   "sha256": "59063220ad1ef282398d05278dfb4dc4436468207943dd3940c8cd5ca2f042a7",
+   "via": "tree"
+  },
+  {
+   "path": "Source/template-instructions.md",
+   "bytes": 870,
+   "sha256": "5bbcb8f0910bead9420e27ee29fe9084a6852a4d437df0f8aa22f2969a71e048",
+   "via": "tree"
+  },
+  {
+   "path": "azure-pipelines.yml",
+   "bytes": 2084,
+   "sha256": "993998f283a26656271d55e0a10faf22443d099629c482c8bb79caa985345732",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\slscswitchviref.chm",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Close.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Connect Channels (Multiple).vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Connect Channels.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Disconnect All Channels.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Disconnect Channels (Multiple).vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Disconnect Channels.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Initialize With Topology.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Reset.vi",
+  "<resource>\\objmgr\\nislscsl.rc",
+  "<userlib>\\_OpenG.lib\\appcontrol\\appcontrol.llb\\Current VIs Reference__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Append Path to Root if Relative - Scalar__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Append Path to Root if Relative__ogtk.vi",
+  "<vilib>\\NI\\VeriStand Custom Device Testing Tools\\VeriStandTestUtilities\\GetVIFolderPath.vi",
+  "<vilib>\\NI\\VeriStand Custom Device Testing Tools\\VeriStandTestUtilities\\VeriStandTestUtilities.lvlib",
+  "<vilib>\\SLSC_Switch\\Close.vi",
+  "<vilib>\\SLSC_Switch\\Connect Channels (Multiple).vi",
+  "<vilib>\\SLSC_Switch\\Connect Channels.vi",
+  "<vilib>\\SLSC_Switch\\Disconnect All Channels.vi",
+  "<vilib>\\SLSC_Switch\\Disconnect Channels (Multiple).vi",
+  "<vilib>\\SLSC_Switch\\Disconnect Channels.vi",
+  "<vilib>\\SLSC_Switch\\Initialize with Topology (Override Switches).vi",
+  "<vilib>\\SLSC_Switch\\Initialize with Topology (Simulate).vi",
+  "<vilib>\\SLSC_Switch\\Initialize with Topology.vi",
+  "<vilib>\\SLSC_Switch\\Reset.vi",
+  "<vilib>\\SLSC_Switch\\SLSC Switch.lvlib",
+  "<vilib>\\Utility\\SystemLogging\\NI_SystemLogging.lvlib",
+  "<vilib>\\Utility\\SystemLogging\\Write to System Log.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\WaitOnTestComplete.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\skip.vi",
+  "<vilib>\\nisyscfg\\Close (System).vi",
+  "<vilib>\\nisyscfg\\Close.vi",
+  "<vilib>\\nisyscfg\\Get Installed Components.vi",
+  "<vilib>\\nisyscfg\\Get Installed Software.vi",
+  "<vilib>\\nisyscfg\\Initialize Session.vi",
+  "<vilib>\\nisyscfg\\nisyscfg.lvlib",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "<vilib>\\userdefined\\High Color\\SLSC_Switch\\nislscslSession.ctl",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Consumer\\Abstract Consumer\\Abstract Consumer.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Message Queue\\Abstract Message Queue\\Abstract Message Queue.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Message Queue\\Message Queue\\Message Queue.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Message\\Abstract Message\\Abstract Message.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Parameters\\Abstract Init Parameters\\Abstract Init Parameters.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Switch\\Abstract Switch Consumer\\Abstract Switch Consumer.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Includes\\CDMessaging.lvlibp\\Switch\\Abstract Switch Init Parameters\\Abstract Switch Init Parameters.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Source\\SLSC Switch\\SLSC Switch Consumer\\SLSC Switch Consumer.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Source\\SLSC Switch\\SLSC Switch Init Parameters\\SLSC Switch Init Parameters.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Source\\SLSC Switch\\Tests\\SLSC Switch Messaging Tests\\SLSC Switch Messaging Tests.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-routing-and-faulting-message-library\\Source\\SLSC Switch\\Tests\\Support\\Mock SLSC Switch Consumer.lvclass"
+ ]
+}
