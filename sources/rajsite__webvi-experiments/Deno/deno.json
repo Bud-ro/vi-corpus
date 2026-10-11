@@ -1,0 +1,38 @@
+{
+  "tasks": {
+    "chat:start": "export COMPONENT=ChatServer && deno task tool:start:main",
+    "chat:publish": "export COMPONENT=ChatServer && deno task tool:publish:main",
+    "chat:compile": "export COMPONENT=ChatServer && deno task tool:compile:main",
+    "smoke:start": "export COMPONENT=SmokeTests && deno task tool:start:main",
+    "test": "deno task build && deno test --trace-leaks --unstable-kv -A",
+    "build": "deno task tool:build:gweb && deno task tool:build:deno",
+    "tool:start:main": "deno task build && deno run --inspect --unstable-kv -A \"./Builds/$(echo $COMPONENT)_Default Web Server/main.ts\"",
+    "tool:publish:main": "deno task build && deployctl deploy --entrypoint=\"./Builds/$(echo $COMPONENT)_Default Web Server/main.ts\" --import-map=./deno.json",
+    "tool:compile:main": "deno task build && deno compile --unstable-kv -A -o \"./$(echo $COMPONENT).exe\" \"./Builds/$(echo $COMPONENT)_Default Web Server/main.ts\"",
+    "tool:build:gweb": "\"C:/Program Files/National Instruments/G Web Development Software/gwebcli.exe\" distribution -p Deno.gwebproject --dn Deno.lvdist",
+    "tool:build:deno": "deno run -A ./Support/convert-html.ts ./Builds/**/*.via.txt",
+    "tool:rebuild-vireo-data-url": "deno run -A ./Support/make-vireo-dataurl.ts",
+    "tool:deno-cache": "deno cache ./Support/all-typescript-packages.ts",
+    "tool:publish:install-deployctl": "deno install -Arf jsr:@deno/deployctl"
+  },
+  "imports": {
+    "@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom@^0.1.47",
+    "@kitsonk/xhr": "jsr:@kitsonk/xhr@^0.4.3",
+    "@std/http": "jsr:@std/http@^0.224.5",
+    "@std/path": "jsr:@std/path@^1.0.1",
+    "@std/ulid": "jsr:@std/ulid@^1.0.0"
+  },
+  "deploy": {
+    "exclude": [
+      "./Builds/Deno",
+      "./Builds/SmokeTests*"
+    ],
+    "include": [
+      "deno.json",
+      "./Builds/**/*",
+      "./Library/Support/**/*",
+      "./Builds/**/node_modules/*",
+      "./Library/Support/**/node_modules/*"
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="00B402DF1E2ED2FADFFC4F2A5FDDCAF30FD57644878A56A0DCC9988042598F78AF188D6795ADFB2A9C50BDF3BAA0B1656B2ECCE3F00D4C016B1439682CB59F3A" Timestamp="1D587B07E452E93" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="JavaScript Library" Name="http://www.ni.com/JavaScriptLibrary" OldestCompatibleVersion="6.4.0.49152" Version="6.4.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="6.2.0.49154" Version="6.2.0.49154" />
+		<ApplicationVersionInfo Build="6.4.1.50844" Name="LabVIEW NXG" Version="3.1.0" />
+	</SourceModelFeatureSet>
+	<JavaScriptLibrary Id="59594636a16a45e8803c6ea84d34cab7" xmlns="http://www.ni.com/JavaScriptLibrary">
+		<Icon Id="9b7810ed3eaf403a938699a86cedd2e0" ListViewIconCrop="0 0 40 40" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]40" Id="a158e461f608484484ec3bbe58a137f2" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<IconTemplate Height="[float]40" Id="a6d2ed3cb4fd443387b56f1f536b07b4" Left="[float]0" TemplateName="[string]Blank" Top="[float]0" Width="[float]40" />
+			</IconPanel>
+		</Icon>
+		<DependenciesTextBox Id="a238148f06814eb588b62b74786d0499" ScriptAndLinkDependencies="&quot;&amp;lt;script src=&amp;quot;node_modules/@tensorflow/tfjs/dist/tf.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;\r\n&amp;lt;script src=&amp;quot;TensorFlow.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;\r\n&quot;" />
+	</JavaScriptLibrary>
+	<EnvoyManagerFile Id="cf692f2e9b1f4279bab47389853e5bf2" xmlns="http://www.ni.com/PlatformFramework">
+		<ProjectSettings Id="92a99cbc87a7429cafbbed74afaf548a" ModelDefinitionType="ProjectSettings" Name="ZProjectSettings" />
+		<NameScopingEnvoy AutomaticallyResolveUp="True" Id="8a65fe4c310043b0842c6c22e7b00256" Name="TensorFlow.jsli" NameTracksFileName="True">
+			<EmbeddedDefinitionReference Id="e4b5b95a4104196965c4c8dcf43ac9d" ModelDefinitionType="{http://www.ni.com/JavaScriptLibrary}JavaScriptLibraryEntryPoint" Name="IncludeTensorFlow">
+				<JavaScriptLibraryEntryPoint Id="b3ecd5b4972b45a79355cd79c82ccb64" Symbol="WebVITensorFlow.includeTensorFlow" xmlns="http://www.ni.com/JavaScriptLibrary">
+					<Icon Id="51bb53ad6e064d51bb96fb76f3681d7e" ListViewIconCrop="0 0 40 40" xmlns="http://www.ni.com/PlatformFramework">
+						<IconPanel Height="[float]40" Id="b8106b90c4d94d089313b48b468f403b" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Id="c7621931d3824d7d897eca3e9bb11eeb" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" Id="12a03f81d11e4e9a9ab5b22b199cda67" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" Id="377831ef10574c78ad92945187e08ce6" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Height="[float]36" Id="3a6c592fc6e049d0837b2283cf60d12e" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]IncludeTensorFlow" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+									<FontSetting FontFamily="Verdana" FontSize="6" Id="9cfac35dcaa14952a4759a0e2e81dc7e" />
+								</FileNameText>
+							</IconTemplate>
+						</IconPanel>
+					</Icon>
+					<ConnectorPane Height="40" Id="1fc42dddf5448ac9559940a03ebd5ec" ListViewHeight="70" ListViewWidth="150" Width="40" xmlns="http://www.ni.com/PlatformFramework">
+						<ConnectorPaneTerminal />
+						<ConnectorPaneTerminal Hotspot="0 15" />
+						<ConnectorPaneTerminal Hotspot="0 25" />
+						<ConnectorPaneTerminal Hotspot="0 35" ListViewHotspot="0 35" Parameter="9daa63495d164b3796b1767cd10c5842" />
+						<ConnectorPaneTerminal Hotspot="15 0" />
+						<ConnectorPaneTerminal Hotspot="25 0" />
+						<ConnectorPaneTerminal Hotspot="40 5" />
+						<ConnectorPaneTerminal Hotspot="40 15" />
+						<ConnectorPaneTerminal Hotspot="40 25" />
+						<ConnectorPaneTerminal Hotspot="40 35" ListViewHotspot="150 50" Parameter="cc6d249eee224fd4bca2c055f2bfb18c" />
+						<ConnectorPaneTerminal Hotspot="15 40" />
+						<ConnectorPaneTerminal Hotspot="25 40" />
+					</ConnectorPane>
+					<JavaScriptLibraryDiagramParameter CallDirection="Input" Id="9daa63495d164b3796b1767cd10c5842" IsError="True" Name="error in" />
+					<JavaScriptLibraryDiagramParameter CallDirection="Output" Id="cc6d249eee224fd4bca2c055f2bfb18c" IsError="True" Name="error out" />
+					<JavaScriptLibraryParameter Id="8c949890c541445f910aec77da5461ae" IsReturnParameter="True" Name="return">
+						<JavaScriptType ActualDataType="@944905d42fe342679bc16a8700965d81" Id="b13ce7b1983f4055a07315a17e622dfd" />
+						<JavaScriptLibraryDiagramParameter CallDirection="Output" Id="b7f0e9375588459e97359359b25ad835" Name="return out" Visible="False" />
+					</JavaScriptLibraryParameter>
+				</JavaScriptLibraryEntryPoint>
+			</EmbeddedDefinitionReference>
+		</NameScopingEnvoy>
+	</EnvoyManagerFile>
+	<DataTypeReferenceTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.TypeReference TypeId="944905d42fe342679bc16a8700965d81">
+			<Attributed AttributedType="Void">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.JavaScriptType" Value="[string]" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+	</DataTypeReferenceTable>
+</SourceFile>

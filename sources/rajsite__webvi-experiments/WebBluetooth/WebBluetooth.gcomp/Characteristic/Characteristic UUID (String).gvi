@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="F0B0EDDCD95A28DA96B8919CFE97FDEBE76A406FB58D4960AD27C4555F82914D4B64DF7538AE2EE752E97B812AFCE6D41FADE7859F91B19B938083DDDD7BB2E2" Timestamp="1D63CF6FC4838C9" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="LabVIEW Virtual Instrument" Name="http://www.ni.com/LabVIEW.VI" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Common language components" Name="http://www.ni.com/MocCommon" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ApplicationVersionInfo Build="8.1.0.50414" Name="LabVIEW NXG" Version="5.0.0" />
+	</SourceModelFeatureSet>
+	<VirtualInstrument Id="c199b45975e94080b0734def58ae7aec" xmlns="http://www.ni.com/LabVIEW.VI">
+		<Icon Id="d2653658efc24d08a6e197f44c87d77e" ListViewIconCrop="0 0 40 30" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]30" Id="c9ba0a7b9af148388c95f825b5609606" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]30" HorizontalAlignment="[HorizontalAlignment]Stretch" Id="ab45b958745c408190a4affa1ff1a773" Left="[float]0" TemplateName="[string]GrayNoText" Top="[float]0" VerticalAlignment="[VerticalAlignment]Stretch" Width="[float]40">
+					<Rectangle Fill="[SMSolidColorBrush]#ff727272" Id="38593375ca5f4c84b0f70c256bc62aec" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+					<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" Id="69cce1e6c8dc49ba87c8ca1a7a9474df" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+				</IconTemplate>
+				<Text Id="fa4bb3f24c004f909d392b7bc0f231fb" Left="[float]16" Text="[string]UUID" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]18" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]20">
+					<FontSetting FontFamily="Arial" FontSize="6" Id="cfa9066444ba4571beb0a90ec673dcf9" />
+				</Text>
+				<Image BaseName="[string]Image" Height="[float]13" Id="c695b13426b0413daa5997a2d1657291" Left="[float]2" MinHeight="[float]13" MinWidth="[float]13" Source="[EmbeddedDrawingImage]&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#xA;&lt;svg&#xA;   xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot;&#xA;   xmlns:cc=&quot;http://creativecommons.org/ns#&quot;&#xA;   xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&#xA;   xmlns:svg=&quot;http://www.w3.org/2000/svg&quot;&#xA;   xmlns=&quot;http://www.w3.org/2000/svg&quot;&#xA;   xmlns:sodipodi=&quot;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&quot;&#xA;   xmlns:inkscape=&quot;http://www.inkscape.org/namespaces/inkscape&quot;&#xA;   data-name=&quot;Layer 1&quot;&#xA;   viewBox=&quot;0 0 100 125&quot;&#xA;   x=&quot;0px&quot;&#xA;   y=&quot;0px&quot;&#xA;   version=&quot;1.1&quot;&#xA;   id=&quot;svg10&quot;&#xA;   sodipodi:docname=&quot;noun_Tag_2510255.svg&quot;&#xA;   inkscape:version=&quot;0.92.3 (2405546, 2018-03-11)&quot;&gt;&#xA;  &lt;metadata&#xA;     id=&quot;metadata16&quot;&gt;&#xA;    &lt;rdf:RDF&gt;&#xA;      &lt;cc:Work&#xA;         rdf:about=&quot;&quot;&gt;&#xA;        &lt;dc:format&gt;image/svg+xml&lt;/dc:format&gt;&#xA;        &lt;dc:type&#xA;           rdf:resource=&quot;http://purl.org/dc/dcmitype/StillImage&quot; /&gt;&#xA;      &lt;/cc:Work&gt;&#xA;    &lt;/rdf:RDF&gt;&#xA;  &lt;/metadata&gt;&#xA;  &lt;defs&#xA;     id=&quot;defs14&quot; /&gt;&#xA;  &lt;sodipodi:namedview&#xA;     pagecolor=&quot;#ffffff&quot;&#xA;     bordercolor=&quot;#666666&quot;&#xA;     borderopacity=&quot;1&quot;&#xA;     objecttolerance=&quot;10&quot;&#xA;     gridtolerance=&quot;10&quot;&#xA;     guidetolerance=&quot;10&quot;&#xA;     inkscape:pageopacity=&quot;0&quot;&#xA;     inkscape:pageshadow=&quot;2&quot;&#xA;     inkscape:window-width=&quot;640&quot;&#xA;     inkscape:window-height=&quot;480&quot;&#xA;     id=&quot;namedview12&quot;&#xA;     showgrid=&quot;false&quot;&#xA;     inkscape:zoom=&quot;1.888&quot;&#xA;     inkscape:cx=&quot;50&quot;&#xA;     inkscape:cy=&quot;62.5&quot;&#xA;     inkscape:window-x=&quot;0&quot;&#xA;     inkscape:window-y=&quot;0&quot;&#xA;     inkscape:window-maximized=&quot;0&quot;&#xA;     inkscape:current-layer=&quot;svg10&quot; /&gt;&#xA;  &lt;title&#xA;     id=&quot;title2&quot;&gt;B__57&lt;/title&gt;&#xA;  &lt;path&#xA;     d=&quot;M91.65431,8.8863A11.33375,11.33375,0,0,0,87.3107,6.20491a11.49552,11.49552,0,0,0-5.09-.5405L60.69125,8.21014c-5.51063.653-9.57658,1.52811-15.63066,7.50358L7.2859,52.99791A7.6413,7.6413,0,0,0,7.279,63.89236L35.92522,92.16662a7.88631,7.88631,0,0,0,11.03717-.00747L84.737,54.875c6.05546-5.97685,6.94145-9.988,7.603-15.427l2.57922-21.24985a11.08762,11.08762,0,0,0-.55387-5.03965A11.26956,11.26956,0,0,0,91.65431,8.8863Zm-1.70016,8.72427L87.375,38.86042c-.56766,4.66754-1.13394,7.55063-6.1736,12.52486L43.42675,88.66941a2.83413,2.83413,0,0,1-3.96589.00747L10.81467,60.40263a2.74618,2.74618,0,0,1,.00687-3.915L48.59623,19.20345c5.039-4.97351,7.96069-5.5331,12.69028-6.0927L82.81594,10.565a6.4834,6.4834,0,0,1,5.30274,1.811,6.30543,6.30543,0,0,1,1.83547,5.23453Zm-25.266,2.91177a10.50561,10.50561,0,0,0,0,14.97721,10.84267,10.84267,0,0,0,15.17426,0A10.50478,10.50478,0,0,0,79.86171,20.523,10.84178,10.84178,0,0,0,64.68817,20.52234ZM76.32679,32.00982a5.78983,5.78983,0,0,1-8.103,0,5.60992,5.60992,0,0,1,0-7.99775,5.789,5.789,0,0,1,8.10227.00066A5.60906,5.60906,0,0,1,76.32679,32.00982ZM50.97141,40.66613,28.63334,62.7142a2.01877,2.01877,0,0,1-2.82845,0,1.956,1.956,0,0,1,0-2.7917L48.143,37.87449a2.01866,2.01866,0,0,1,2.82845,0A1.95588,1.95588,0,0,1,50.97141,40.66613Zm11.31368,8.37511a1.956,1.956,0,0,1,0,2.7917L39.947,73.88094a2.01864,2.01864,0,0,1-2.82845,0,1.95588,1.95588,0,0,1,0-2.79164L59.4567,49.04124A2.01868,2.01868,0,0,1,62.28509,49.04124Z&quot;&#xA;     id=&quot;path4&quot; /&gt;&#xA;&lt;/svg&gt;&#xA;" Stretch="[SMStretch]Uniform" Top="[float]15" Width="[float]13" />
+			</IconPanel>
+		</Icon>
+		<ConnectorPane Height="30" Id="d3c9f02ca39e4c8d89c97446fc2d8cfc" ListViewHeight="100" ListViewWidth="150" Width="40" xmlns="http://www.ni.com/PlatformFramework">
+			<ConnectorPaneTerminal ListViewHotspot="0 80" Parameter="ab7c968c60ba4fe88cd9f72091274ea5" />
+			<ConnectorPaneTerminal Hotspot="0 15" ListViewHotspot="0 65" Parameter="bba1ad317a18423ea3d76c8447be2fca" />
+			<ConnectorPaneTerminal Hotspot="0 25" />
+			<ConnectorPaneTerminal Hotspot="15 0" />
+			<ConnectorPaneTerminal Hotspot="40 5" ListViewHotspot="150 35" Parameter="51acfddbd2414751ac46800ad4371391" />
+			<ConnectorPaneTerminal Hotspot="40 15" ListViewHotspot="150 50" Parameter="44d99ef903e64c7d966b84b1a5ad9566" />
+			<ConnectorPaneTerminal Hotspot="40 25" />
+			<ConnectorPaneTerminal Hotspot="15 30" />
+			<ConnectorPaneTerminal Hotspot="25 0" />
+			<ConnectorPaneTerminal Hotspot="25 30" />
+		</ConnectorPane>
+		<DiagramUnplacedItems Id="9344c6f0d0ad43a8a3de873468ebcd54" xmlns="http://www.ni.com/MocCommon" />
+		<FrontPanelUnplacedItems Id="1e599a3aad9f47e5843c7f9c29361672" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0" />
+		<BlockDiagram Id="16af9e352144cab97bd6f678f977574">
+			<MethodCall Bounds="530 260 40 40" Id="a5ba1134b75240538ad497b11df7c59e" ResolveFailedHint="BluetoothUUIDGetCharacteristicString" Signature="@c7a85c7330a644b6832c0e86e1be3147" Target="WebBluetooth::Support::WebBluetooth.jsli::BluetoothUUIDGetCharacteristicString" xmlns="http://www.ni.com/MocCommon">
+				<p.MethodDeclaration>
+					<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+						<Parameter Id="L1" Desc="name" />
+						<Parameter Id="L3" Desc="error in" />
+						<Parameter Id="R0" Desc="uuid" />
+						<Parameter Id="R3" Desc="error out" />
+					</MethodDeclaration>
+				</p.MethodDeclaration>
+				<Terminal DataType="String" Direction="Input" Hotspot="0 15" Id="L1" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Error" Direction="Input" Hotspot="0 35" Id="L3" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="String" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Error" Direction="Output" Hotspot="40 35" Id="R3" xmlns="http://www.ni.com/PlatformFramework" />
+			</MethodCall>
+			<DataAccessor Bounds="620 260 40 15" DataItem="51acfddbd2414751ac46800ad4371391" Id="2328fe6f402940beaa9df07a7a30fd2e" Label="91dec32cc7f943fe85fab6b42f2b58fa" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="@c24f6765509344a7b4e2a34190e1ec1f" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="2328fe6f402940beaa9df07a7a30fd2e" Bounds="665 260 24 14" Id="91dec32cc7f943fe85fab6b42f2b58fa" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>uuid</p.Text>
+			</NodeLabel>
+			<Wire Id="9d82df7144c04564b2e3488e4b6c56d5" Joints="N(a5ba1134b75240538ad497b11df7c59e:R0)|(570,265) N(2328fe6f402940beaa9df07a7a30fd2e:Value)|(623,265)" xmlns="http://www.ni.com/PlatformFramework" />
+			<DataAccessor Bounds="600 290 40 15" DataItem="44d99ef903e64c7d966b84b1a5ad9566" Id="76186d10fba3432b91decd1fa7a578c5" Label="c4af1fbdcc1348a8a5a2bb4d8691924e" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Error" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="76186d10fba3432b91decd1fa7a578c5" Bounds="645 290 50 14" Id="c4af1fbdcc1348a8a5a2bb4d8691924e" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>error out</p.Text>
+			</NodeLabel>
+			<Wire Id="4ab6bb813679436c89cb0a8983d9a0a6" Joints="N(a5ba1134b75240538ad497b11df7c59e:R3)|(570,295) N(76186d10fba3432b91decd1fa7a578c5:Value)|(603,295)" xmlns="http://www.ni.com/PlatformFramework" />
+			<DataAccessor Bounds="460 290 40 15" DataItem="bba1ad317a18423ea3d76c8447be2fca" Id="5eec67bed97041c6a853a53ed805c907" Label="3827f77d19c44f4ae9d1bc06a805c87" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Error" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="5eec67bed97041c6a853a53ed805c907" Bounds="413 290 42 14" Id="3827f77d19c44f4ae9d1bc06a805c87" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>error in</p.Text>
+			</NodeLabel>
+			<Wire Id="11a0af676275405791dff16c32e1f25a" Joints="N(5eec67bed97041c6a853a53ed805c907:Value)|(500,295) N(a5ba1134b75240538ad497b11df7c59e:L3)|(530,295)" xmlns="http://www.ni.com/PlatformFramework" />
+			<DataAccessor Bounds="460 270 40 15" DataItem="ab7c968c60ba4fe88cd9f72091274ea5" Id="d02c0649099f45d7ab0d3023815de7ee" Label="c719b71cf6074a79b8759792e2452882" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="String" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="d02c0649099f45d7ab0d3023815de7ee" Bounds="424 270 31 14" Id="c719b71cf6074a79b8759792e2452882" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>name</p.Text>
+			</NodeLabel>
+			<Wire Id="c0aa892a26f94a909ece80f8ad586edd" Joints="N(d02c0649099f45d7ab0d3023815de7ee:Value)|(500,275) N(a5ba1134b75240538ad497b11df7c59e:L1)|(530,275)" xmlns="http://www.ni.com/PlatformFramework" />
+		</BlockDiagram>
+		<NativeFrontPanel AllowMaximize="[bool]False" EnforceMaximumSize="[bool]True" Height="[float]1600" HtmlPanel="[bool]False" Id="167f5902bd444ddb854ee718e9ba1ed" Left="[float]0" MaxHeight="[float]1600" MaxWidth="[float]2000" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]2000" WindowTitleOption="[WindowTitleOption]None">
+			<PanelExecutionWindow Id="65eb26b5b6bb43c2a83f186d166e46b6" />
+			<Cluster BaseName="[string]Error" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]Error" Height="[float]176" Id="d446e4c127a54abf9ee2a11ad6ad3325" IsTabStop="[bool]True" Label="[UIModel]47d39b1934e447949164d676b66fc043" LabelLinked="[bool]True" Left="[float]292" MinHeight="[float]128" MinWidth="[float]112" TabIndex="[int]0" Top="[float]260" Value="{DataItemBinding Id=bba1ad317a18423ea3d76c8447be2fca}" Width="[float]176" p4:ControlDefinitionChecksum="J+f/EiASvnzghyjtgi4nEE7z+0udh8Z1+KU2hWC1ppw=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/PanelCommon">
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="NI::G Core::Error::Error.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+				<LVCheckBox Content="[string]" ContentVisibility="[Visibility]Collapsed" Height="[float]22" Id="8acd62c5ee6646e18f1816c5dc492cca" Label="[UIModel]a8b47fce02f149689ddefd7086f4ce9c" Left="[float]3" TabIndex="[int]0" Top="[float]24" Value="{ClusterBinding FieldName=status}" Width="[float]22" p6:DisplayAsErrorStatus="True" xmlns:p6="http://www.ni.com/Controls.LabVIEW.Design" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="a8b47fce02f149689ddefd7086f4ce9c" LabelOwner="[UIModel]8acd62c5ee6646e18f1816c5dc492cca" Left="[float]3" Text="[string]status" Top="[float]4" Width="[float]32" />
+				<NumericText Height="[float]24" Id="b670d3d41e6e4b81ac1b685580216a74" Label="[UIModel]9b939e5aa01a4aeda3502317c8fb1eed" Left="[float]54" RadixVisibility="[SMVisibility]Visible" TabIndex="[int]1" Top="[float]24" Value="{ClusterBinding FieldName=code}" ValueFormatter="[string]LV:G6" ValueType="[Type]Int32" Width="[float]111" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="9b939e5aa01a4aeda3502317c8fb1eed" LabelOwner="[UIModel]b670d3d41e6e4b81ac1b685580216a74" Left="[float]54" Text="[string]code" Top="[float]4" Width="[float]26" />
+				<StringControl AcceptsReturn="[bool]True" Height="[float]95" Id="68575b0bb2274fe2895a0ae500a26e8f" Label="[UIModel]e8fb64afb0484a278364fc1c4e12a258" Left="[float]3" TabIndex="[int]2" Text="{ClusterBinding FieldName=source}" Top="[float]70" Width="[float]162" WordWrap="[bool]True" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="e8fb64afb0484a278364fc1c4e12a258" LabelOwner="[UIModel]68575b0bb2274fe2895a0ae500a26e8f" Left="[float]3" Text="[string]source" Top="[float]50" Width="[float]35" />
+			</Cluster>
+			<Label Height="[float]16" Id="47d39b1934e447949164d676b66fc043" LabelOwner="[UIModel]d446e4c127a54abf9ee2a11ad6ad3325" Left="[float]292" Text="[string]error in" Top="[float]240" Width="[float]26" xmlns="http://www.ni.com/PanelCommon" />
+			<Cluster BaseName="[string]Error" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]Error" Height="[float]176" Id="ac1fa19837dd4066990ef99474d62b93" IsTabStop="[bool]True" Label="[UIModel]afea09310a924d04ad5bae20e2d2ee4d" LabelLinked="[bool]True" Left="[float]564" MinHeight="[float]128" MinWidth="[float]112" TabIndex="[int]1" Top="[float]260" Value="{DataItemBinding Id=44d99ef903e64c7d966b84b1a5ad9566}" Width="[float]176" p4:ControlDefinitionChecksum="J+f/EiASvnzghyjtgi4nEE7z+0udh8Z1+KU2hWC1ppw=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/PanelCommon">
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="NI::G Core::Error::Error.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+				<LVCheckBox Content="[string]" ContentVisibility="[Visibility]Collapsed" Height="[float]22" Id="b0d382a183214967927c8ae78aa64fa4" IsReadOnly="[bool]True" Label="[UIModel]7209996fd3ce418a9de1e7bd41fb8dca" Left="[float]3" TabIndex="[int]0" Top="[float]24" Value="{ClusterBinding FieldName=status}" Width="[float]22" p6:DisplayAsErrorStatus="True" xmlns:p6="http://www.ni.com/Controls.LabVIEW.Design" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="7209996fd3ce418a9de1e7bd41fb8dca" LabelOwner="[UIModel]b0d382a183214967927c8ae78aa64fa4" Left="[float]3" Text="[string]status" Top="[float]4" Width="[float]32" />
+				<NumericText Height="[float]24" Id="8615d011a61f4c10a901d242e4c8ce19" IsReadOnly="[bool]True" Label="[UIModel]8b48652a1f0d4d99b35295dbc17c7772" Left="[float]54" RadixVisibility="[SMVisibility]Visible" TabIndex="[int]1" Top="[float]24" Value="{ClusterBinding FieldName=code}" ValueFormatter="[string]LV:G6" ValueType="[Type]Int32" Width="[float]111" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="8b48652a1f0d4d99b35295dbc17c7772" LabelOwner="[UIModel]8615d011a61f4c10a901d242e4c8ce19" Left="[float]54" Text="[string]code" Top="[float]4" Width="[float]26" />
+				<StringControl AcceptsReturn="[bool]True" Height="[float]95" Id="a0cc2ab58e124a1c8879da70898d2f10" IsReadOnly="[bool]True" Label="[UIModel]ad060c60d80f4d72b6eeae3ba09c1903" Left="[float]3" TabIndex="[int]2" Text="{ClusterBinding FieldName=source}" Top="[float]70" Width="[float]162" WordWrap="[bool]True" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="ad060c60d80f4d72b6eeae3ba09c1903" LabelOwner="[UIModel]a0cc2ab58e124a1c8879da70898d2f10" Left="[float]3" Text="[string]source" Top="[float]50" Width="[float]35" />
+			</Cluster>
+			<Label Height="[float]16" Id="afea09310a924d04ad5bae20e2d2ee4d" LabelOwner="[UIModel]ac1fa19837dd4066990ef99474d62b93" Left="[float]564" Text="[string]error out" Top="[float]240" Width="[float]47" xmlns="http://www.ni.com/PanelCommon" />
+			<StringControl AcceptsReturn="[bool]True" BaseName="[string]String" Height="[float]24" HorizontalScrollBarVisibility="[ScrollBarVisibility]Hidden" Id="2aff9f4f83dd4c48a69bf7a23eb30e15" IsReadOnly="[bool]False" Label="[UIModel]890affbd1039415e9b5086875d1c761d" Left="[float]292" TabIndex="[int]2" Text="{DataItemBinding Id=ab7c968c60ba4fe88cd9f72091274ea5}" Top="[float]180" VerticalScrollBarVisibility="[ScrollBarVisibility]Auto" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Height="[float]16" Id="890affbd1039415e9b5086875d1c761d" LabelOwner="[UIModel]2aff9f4f83dd4c48a69bf7a23eb30e15" Left="[float]292" Text="[string]name" Top="[float]160" Width="[float]30" xmlns="http://www.ni.com/PanelCommon" />
+			<StringControl AcceptsReturn="[bool]True" BaseName="[string]uuid" Height="[float]24" HorizontalScrollBarVisibility="[ScrollBarVisibility]Hidden" Id="c81184f608e5400ea48bdd9ebb4bfdf6" IsReadOnly="[bool]True" IsTabStop="[bool]True" Label="[UIModel]2d0c7377af704621b80f32ae2f771968" LabelLinked="[bool]True" Left="[float]564" TabIndex="[int]3" Text="{DataItemBinding Id=51acfddbd2414751ac46800ad4371391}" Top="[float]180" VerticalScrollBarVisibility="[ScrollBarVisibility]Auto" Width="[float]72" p4:ControlDefinitionChecksum="J0cy0inZWdn6BRZkKXWpaCarrFXjPKar56kGRMtoDDI=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="WebBluetooth::Support::uuid.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+			</StringControl>
+			<Label Height="[float]16" Id="2d0c7377af704621b80f32ae2f771968" LabelOwner="[UIModel]c81184f608e5400ea48bdd9ebb4bfdf6" Left="[float]564" Text="[string]uuid" Top="[float]160" Width="[float]24" xmlns="http://www.ni.com/PanelCommon" />
+		</NativeFrontPanel>
+		<DataItem CallDirection="Output" CallIndex="0" DataType="@c24f6765509344a7b4e2a34190e1ec1f" Id="51acfddbd2414751ac46800ad4371391" Name="uuid" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>""</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="WebBluetooth::Support::uuid.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+		<DataItem CallDirection="Output" CallIndex="1" DataType="Error" Id="44d99ef903e64c7d966b84b1a5ad9566" Name="error out" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>
+				<Cluster>
+					<Field1>False</Field1>
+					<Field2>0</Field2>
+					<Field3>""</Field3>
+				</Cluster>
+			</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="NI::G Core::Error::Error.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+		<DataItem CallDirection="Input" CallIndex="1" DataType="Error" Id="bba1ad317a18423ea3d76c8447be2fca" Name="error in" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>
+				<Cluster>
+					<Field1>False</Field1>
+					<Field2>0</Field2>
+					<Field3>""</Field3>
+				</Cluster>
+			</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="NI::G Core::Error::Error.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Input" CallIndex="0" CallUsage="Required" DataType="String" Id="ab7c968c60ba4fe88cd9f72091274ea5" Name="name" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>""</p.DefaultValue>
+		</DataItem>
+	</VirtualInstrument>
+	<DataTypeReferenceTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.TypeReference TypeId="c7a85c7330a644b6832c0e86e1be3147">
+			<Attributed AttributedType="@e516decf0abf41f5970342180c286184">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.Compiler.ParameterCallIndex" Value="[ParameterCallIndexFields]0|1|0|1" />
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]40" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="c24f6765509344a7b4e2a34190e1ec1f">
+			<Attributed AttributedType="@270b98aec8fb4731a406f7feab8baf02">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]WebBluetooth::Support" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="e516decf0abf41f5970342180c286184">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="BluetoothUUIDGetCharacteristicString" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@069cf77559a645a087566635e390a7da">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]name" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@7ebe9db9b81b4243a45350ff812f4aea">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]error in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@5ac833270cbb4c859aa020c9ecd9c829">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]uuid" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@53891f63cfae4b43ac656ee8e64de405">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]error out" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="270b98aec8fb4731a406f7feab8baf02">
+			<Typedef TypedefName="uuid.gtype" UnderlyingType="String" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="069cf77559a645a087566635e390a7da">
+			<Parameter InputParameterPassingRule="Recommended" OutputParameterPassingRule="NotAllowed" Name="L1" DataType="String" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="7ebe9db9b81b4243a45350ff812f4aea">
+			<Parameter InputParameterPassingRule="Recommended" OutputParameterPassingRule="NotAllowed" Name="L3" DataType="Error" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="5ac833270cbb4c859aa020c9ecd9c829">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R0" DataType="String" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="53891f63cfae4b43ac656ee8e64de405">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R3" DataType="Error" />
+		</p.TypeReference>
+	</DataTypeReferenceTable>
+	<IconTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.IconModel Target="WebBluetooth::Support::WebBluetooth.jsli::BluetoothUUIDGetCharacteristicString">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 40">
+						<IconPanel Height="[float]40" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]BluetoothUUIDGetCharacteristicString" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden">
+									<FontSetting FontFamily="Verdana" FontSize="6" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" HorizontalAlignment="[HorizontalAlignment]Stretch" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]WebBluetooth.gcomp" Top="[float]0" VerticalAlignment="[VerticalAlignment]Stretch" Width="[float]40">
+								<Path Data="[PathGeometry]M 0,11 L 0,2 C 0,0.899999976 0.899999976,0 2,0 L 2,11 L 0,11 Z" Fill="[SMSolidColorBrush]#ff0070bc" Height="[float]11" HorizontalAlignment="[HorizontalAlignment]Left" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]2,2,2,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]2" />
+								<Rectangle Fill="[SMSolidColorBrush]#ff0070bc" Height="[float]11" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]4,2,4,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]NaN" />
+								<Path Data="[PathGeometry]M 2,11 L 2,2 C 2,0.899999976 1.10000002,0 0,0 L 0,11 L 2,11 Z" Fill="[SMSolidColorBrush]#ff0070bc" Height="[float]11" HorizontalAlignment="[HorizontalAlignment]Right" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]2,2,2,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]2" />
+								<Text Foreground="[SMColor]#ffffffff" HorizontalAlignment="[HorizontalAlignment]Left" IsHitTestVisible="[bool]False" Left="[float]4" Text="[string]Bluetooth" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]4" VerticalAlignment="[VerticalAlignment]Top" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]32">
+									<FontSetting FontFamily="Arial" FontSize="5" FontStyle="Bold" />
+								</Text>
+							</IconTemplate>
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][JSLI]&lt;WebBluetooth.jsli&gt;" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]WebBluetooth" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden">
+									<FontSetting FontFamily="Verdana" FontSize="6" />
+								</FileNameText>
+							</IconTemplate>
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+	</IconTable>
+</SourceFile>

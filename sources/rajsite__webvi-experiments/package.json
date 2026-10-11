@@ -1,0 +1,33 @@
+{
+  "name": "webvi-experiments",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A collection of experiments for WebVIs 🧪.",
+  "scripts": {
+    "link": "glob-exec --foreach \"{./*.md,./.github/*.md,./.github/**/*.md}\" -- \"npm run markdown-link-check -- --verbose -c .linkcheck.json {{file}}\"",
+    "lint": "npm run lint:markdown && npm run lint:js && npm run lint:spelling",
+    "lint:markdown": "markdownlint {./*.md,./.github/*.md,./.github/**/*.md}",
+    "lint:js": "eslint .",
+    "lint:spelling": "cspell --verbose --exclude \"**/node_modules/**\" \"**/*.md\"",
+    "test": "npm run lint && npm run link",
+    "markdown-link-check": "markdown-link-check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajsite/webvi-experiments.git"
+  },
+  "author": "Milan Raj (@rajsite)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajsite/webvi-experiments/issues"
+  },
+  "homepage": "https://github.com/rajsite/webvi-experiments#readme",
+  "dependencies": {
+    "@ni/eslint-config-javascript": "^5.0.0",
+    "cspell": "^9.2.1",
+    "globals": "^14.0.0",
+    "glob-exec": "^0.1.1",
+    "markdown-link-check": "^3.13.7",
+    "markdownlint-cli": "^0.45.0"
+  }
+}

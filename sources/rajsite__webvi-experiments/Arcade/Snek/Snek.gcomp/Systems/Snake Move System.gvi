@@ -1,0 +1,882 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="DD5C6EC2B33917277D1710A6724236D6A05E1B1042BF411562ED47F0A1BDB0749C0BB32E94398424BDDA38B33C1721E8D6B4C177A319D75DCA67C76B2F411289" Timestamp="1D5951BA92C1AE3" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="6.2.0.49152" Version="6.2.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="LabVIEW Virtual Instrument" Name="http://www.ni.com/LabVIEW.VI" OldestCompatibleVersion="6.2.0.49152" Version="6.2.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="Common language components" Name="http://www.ni.com/MocCommon" OldestCompatibleVersion="6.2.0.49153" Version="6.2.0.49153" />
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="6.4.1.50844" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="6.2.0.49154" Version="6.2.0.49154" />
+		<ApplicationVersionInfo Build="6.4.1.50844" Name="LabVIEW NXG" Version="3.1.0" />
+	</SourceModelFeatureSet>
+	<VirtualInstrument Id="1" xmlns="http://www.ni.com/LabVIEW.VI">
+		<Icon Id="2" ListViewIconCrop="0 0 40 50" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]50" Id="3" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]50" Id="4" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+					<Rectangle Fill="[SMSolidColorBrush]#ff727272" Id="5" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+					<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" Id="6" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+					<FileNameText Attached="[bool]False" Height="[float]46" Id="7" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]Snake Move System&#xD;&#xA;🐍🏃&#xD;&#xA;" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+						<FontSetting FontFamily="Verdana" FontSize="6.75" Id="8" />
+					</FileNameText>
+				</IconTemplate>
+			</IconPanel>
+		</Icon>
+		<ConnectorPane Height="50" Id="9" ListViewHeight="70" ListViewWidth="150" Width="40" xmlns="http://www.ni.com/PlatformFramework">
+			<ConnectorPaneTerminal ListViewHotspot="0 35" Parameter="62" />
+			<ConnectorPaneTerminal Hotspot="0 15" />
+			<ConnectorPaneTerminal Hotspot="0 25" />
+			<ConnectorPaneTerminal Hotspot="0 35" />
+			<ConnectorPaneTerminal Hotspot="15 0" />
+			<ConnectorPaneTerminal Hotspot="25 0" />
+			<ConnectorPaneTerminal Hotspot="40 5" ListViewHotspot="150 50" Parameter="558" />
+			<ConnectorPaneTerminal Hotspot="40 15" />
+			<ConnectorPaneTerminal Hotspot="40 25" />
+			<ConnectorPaneTerminal Hotspot="40 35" />
+			<ConnectorPaneTerminal Hotspot="15 50" />
+			<ConnectorPaneTerminal Hotspot="25 50" />
+			<ConnectorPaneTerminal Hotspot="40 45" />
+			<ConnectorPaneTerminal Hotspot="0 45" />
+		</ConnectorPane>
+		<DiagramUnplacedItems Id="10" xmlns="http://www.ni.com/MocCommon" />
+		<FrontPanelUnplacedItems Id="11" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0">
+			<Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@e2d01fc6803a4534920038d676d348fe" Height="[float]654" Id="63" IsTabStop="[bool]True" Label="[UIModel]756" Left="[float]397" TabIndex="[int]0" Top="[float]335" Value="{DataItemBinding Id=62}" Width="[float]390" p4:ControlDefinitionChecksum="hzYUZrPolyarlOkpFxF0Byf0Ch3Nn5qpefKsZZ6sxww=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/PanelCommon">
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="Snek::Game State.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+				<p4:ArrayViewer ArrayElement="[UIModel]586de70020c340699fd78dd30ae1daf0" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]509" Id="1458fe84209b427c9ff4a4108a834dd9" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]dc3ef321cdf242508555cf573fde9281" Left="[float]7" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]1" Top="[float]137" Value="{ClusterBinding FieldName=Entities}" Width="[float]370">
+					<p.DefaultElementValue>
+						<Cluster>
+							<Field1>null</Field1>
+							<Field2>null</Field2>
+							<Field3>null</Field3>
+							<Field4>null</Field4>
+							<Field5>null</Field5>
+						</Cluster>
+					</p.DefaultElementValue>
+					<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@1df5feb9245c4d69bee45e5cf358f312" Height="[float]497" Id="586de70020c340699fd78dd30ae1daf0" IsTabStop="[bool]True" Label="[UIModel]9d8c4f5a50d847319b983e930225e6e1" TabIndex="[int]0" Width="[float]303" p4:ControlDefinitionChecksum="jKGVzjrHjCN+cog9wj4o/2G1FmBNm8frCWSKXoHZ2no=">
+						<p4:p.TypeDefinitionTargets>
+							<p4:TypeDefinitionTarget TargetName="Snek::Entity.gtype::ControlDefinition" />
+						</p4:p.TypeDefinitionTargets>
+						<p4:ArrayViewer ArrayElement="[UIModel]ca1c90a8c78b415fba8122538da75817" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]137" Id="aaf95af0b580468bb9504a1aef6ed216" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]443178cdac0b450a9e9e99b690f91387" Left="[float]10" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]2" Top="[float]150" Value="{ClusterBinding FieldName=Position}" Width="[float]161">
+							<p.DefaultElementValue>0_0_</p.DefaultElementValue>
+							<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@cfc1bc770c274413879d99c0e7094df0" Height="[float]125" Id="ca1c90a8c78b415fba8122538da75817" IsTabStop="[bool]True" Label="[UIModel]7229e2aef78445a59ed6716c3184bd39" TabIndex="[int]0" Width="[float]94" p4:ControlDefinitionChecksum="qrERNHZHTV/R7cqixe5Q5dCWd5ZO3QX71TYlZn8JRNw=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Position::Position.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<NumericText BaseName="[string]Numeric" Height="[float]24" Id="130dca188a6644de880492642e56a37d" Interval="[int]1" Label="[UIModel]e2abd0b12b8744eebf7145926d03baeb" Left="[float]5" MinHeight="[float]24" TabIndex="[int]0" Top="[float]26" Value="{ClusterBinding FieldName=X}" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+								<p4:Label Height="[float]16" Id="e2abd0b12b8744eebf7145926d03baeb" LabelOwner="[UIModel]130dca188a6644de880492642e56a37d" Left="[float]5" Text="[string]X" Top="[float]6" />
+								<NumericText BaseName="[string]Numeric" Height="[float]24" Id="34925b8f6982412ca4316ef4a3106e71" Interval="[int]1" Label="[UIModel]76ad31df7b9845b48b763d456075bdfb" Left="[float]6" MinHeight="[float]24" TabIndex="[int]1" Top="[float]81" Value="{ClusterBinding FieldName=Y}" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+								<p4:Label Height="[float]16" Id="76ad31df7b9845b48b763d456075bdfb" LabelOwner="[UIModel]34925b8f6982412ca4316ef4a3106e71" Left="[float]6" Text="[string]Y" Top="[float]61" />
+								<p4:Label Height="[float]16" Id="7229e2aef78445a59ed6716c3184bd39" IsVisualChild="[bool]False" LabelOwner="[UIModel]ca1c90a8c78b415fba8122538da75817" Left="[float]0" Text="[string]Physics" Top="[float]-20" Width="[float]42" />
+							</p4:Cluster>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="443178cdac0b450a9e9e99b690f91387" LabelOwner="[UIModel]aaf95af0b580468bb9504a1aef6ed216" Left="[float]10" Text="[string]Position" Top="[float]130" Width="[float]42" />
+						<p4:ArrayViewer ArrayElement="[UIModel]5f317de16b5449f6a80a6aedf171810f" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="67c1c538a8914e36975a132cea13e99f" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]d6d1d03cf09b49b080e28a10715e04b3" Left="[float]11" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]1" Top="[float]86" Value="{ClusterBinding FieldName=Edible}" Width="[float]91">
+							<p.DefaultElementValue>False</p.DefaultElementValue>
+							<LED BaseName="[string]Round LED" FalseContent="[string]Off" Height="[float]24" Id="5f317de16b5449f6a80a6aedf171810f" IsReadOnly="[bool]False" IsTabStop="[bool]True" Label="[UIModel]aac25aaefcc04833b539f524fe429026" MinHeight="[float]24" MinWidth="[float]24" Shape="[LEDShape]Round" TabIndex="[int]0" TrueContent="[string]On" Width="[float]24" p4:ControlDefinitionChecksum="NVkuOrEfi3X6k0ciTQzJ2Qc8BtqNSzM01UsZCbP5LVE=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Edible::Edible.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:Label Height="[float]16" Id="aac25aaefcc04833b539f524fe429026" IsVisualChild="[bool]False" LabelOwner="[UIModel]5f317de16b5449f6a80a6aedf171810f" Left="[float]0" Text="[string]Edible?" Top="[float]-20" Width="[float]38" />
+							</LED>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="d6d1d03cf09b49b080e28a10715e04b3" LabelOwner="[UIModel]67c1c538a8914e36975a132cea13e99f" Left="[float]11" Text="[string]Edible" Top="[float]66" Width="[float]32" />
+						<p4:ArrayViewer ArrayElement="[UIModel]fd82313fd2bd422d969eb30d461c6baf" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]98" Id="98ef2550d00f4684b4b1a7dfcbdfb15f" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]24acdd3fd60341308482d8ba29d97b60" Left="[float]5" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]4" Top="[float]379" Value="{ClusterBinding FieldName=Snake\ Head}" Width="[float]239">
+							<p.DefaultElementValue>
+								<Cluster>
+									<Field1>null</Field1>
+								</Cluster>
+							</p.DefaultElementValue>
+							<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@7b71a7c0090e407ba556a18b398bf32c" Height="[float]86" Id="fd82313fd2bd422d969eb30d461c6baf" IsTabStop="[bool]True" Label="[UIModel]882ab1596fd94c98add4b8b11a9501b1" TabIndex="[int]0" Width="[float]172" p4:ControlDefinitionChecksum="QSkIn7B03AX4R/5RdNv+U48qHGn39EE1Vhe4tlTra3g=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Snake Head::Snake Head.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:ArrayViewer ArrayElement="[UIModel]e0630a690d094de3a53b0946b92c065a" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="54f144a2d7a245ecadcb5a83166c7a59" IndexVisibility="[Visibility]Visible" Label="[UIModel]e8ffef8f4a5f4e478076fa1f71679a3a" Left="[float]8" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]0" Top="[float]30" Value="{ClusterBinding FieldName=Snake\ Body\ Entities\ Index}" Width="[float]139">
+									<p.DefaultElementValue>0</p.DefaultElementValue>
+									<NumericText BaseName="[string]Numeric" Height="[float]24" Id="e0630a690d094de3a53b0946b92c065a" InteractionMode="[NumericTextBoxInteractionModes]ArrowKeys, ScrollWheel, ButtonClicks, TextInput" Interval="[int]1" IsReadOnly="[bool]False" Label="[UIModel]cb1678c2854247b484fcec7d678d7117" MinHeight="[float]24" TabIndex="[int]0" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+										<p4:Label Height="[float]16" Id="cb1678c2854247b484fcec7d678d7117" IsVisualChild="[bool]False" LabelOwner="[UIModel]e0630a690d094de3a53b0946b92c065a" Left="[float]0" Text="[string]Numeric" Top="[float]-20" Width="[float]45" />
+									</NumericText>
+								</p4:ArrayViewer>
+								<p4:Label Height="[float]16" Id="e8ffef8f4a5f4e478076fa1f71679a3a" LabelOwner="[UIModel]54f144a2d7a245ecadcb5a83166c7a59" Left="[float]8" Text="[string]Snake Body Entities Index" Top="[float]10" Width="[float]135" />
+								<p4:Label Height="[float]16" Id="882ab1596fd94c98add4b8b11a9501b1" IsVisualChild="[bool]False" LabelOwner="[UIModel]fd82313fd2bd422d969eb30d461c6baf" Left="[float]0" Text="[string]Snake Head" Top="[float]-20" Width="[float]63" />
+							</p4:Cluster>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="24acdd3fd60341308482d8ba29d97b60" LabelOwner="[UIModel]98ef2550d00f4684b4b1a7dfcbdfb15f" Left="[float]5" Text="[string]Snake Head" Top="[float]359" Width="[float]63" />
+						<p4:ArrayViewer ArrayElement="[UIModel]1d5fbf9859694532af02f97918c63ee4" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="7acd8b76cd31415f8f4aff6858dc4d8a" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]600d703dc522448389d2c9e2c4326085" Left="[float]7" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]3" Top="[float]315" Value="{ClusterBinding FieldName=Snake\ Body}" Width="[float]91">
+							<p.DefaultElementValue>False</p.DefaultElementValue>
+							<LED BaseName="[string]Round LED" FalseContent="[string]Off" Height="[float]24" Id="1d5fbf9859694532af02f97918c63ee4" IsReadOnly="[bool]False" IsTabStop="[bool]True" Label="[UIModel]d3f3bc408b894ca48b77cfa4fde4d025" MinHeight="[float]24" MinWidth="[float]24" Shape="[LEDShape]Round" TabIndex="[int]0" TrueContent="[string]On" Width="[float]24" p4:ControlDefinitionChecksum="G84EWXnjYPHgBgpu11YDx4rjOcz6N+F4XozxUWx0g+0=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Snake Body::Snake Body.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:Label Height="[float]16" Id="d3f3bc408b894ca48b77cfa4fde4d025" IsVisualChild="[bool]False" LabelOwner="[UIModel]1d5fbf9859694532af02f97918c63ee4" Left="[float]0" Text="[string]Snake Body?" Top="[float]-20" Width="[float]67" />
+							</LED>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="600d703dc522448389d2c9e2c4326085" LabelOwner="[UIModel]7acd8b76cd31415f8f4aff6858dc4d8a" Left="[float]7" Text="[string]Snake Body" Top="[float]295" Width="[float]62" />
+						<p4:ArrayViewer ArrayElement="[UIModel]cce2bd9e6da544bd944a2bfe7875c3dd" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="de3cd866ae434e23956eb9a1d29fa72c" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]d5403b40825948fea52d32e559713958" Left="[float]10" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]0" Top="[float]22" Value="{ClusterBinding FieldName=Direction}" Width="[float]139">
+							<p.DefaultElementValue>0</p.DefaultElementValue>
+							<EnumSelector AllowUndefinedValueEntry="[bool]False" BaseName="[string]Enum" Height="[float]24" Id="cce2bd9e6da544bd944a2bfe7875c3dd" InteractionMode="[SelectorInteractionModes]ArrowKeys, Keyboard, MouseClick, ScrollWheel, ButtonClicks" IsTabStop="[bool]True" IsTypeAheadEnabled="[bool]True" Label="[UIModel]95e69f571084438690c1a78957d75db5" MinHeight="[float]24" TabIndex="[int]0" ValueType="[Type]UInt8" VisualMode="[SelectorVisualMode]RingStyle" Width="[float]72" p4:ControlDefinitionChecksum="j80XVCKXRkbK42Qh48QRY5acr1Hd4A4Du+lpOEDqm6c=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Direction::Direction.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<EnumSelectorInfo DisplayValue="[string]⬆️" DisplayValueOverride="[string]" Id="26" IsEnabled="[bool]True" Value="[byte]0" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↗️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]1" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]➡️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]2" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↘️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]3" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]⬇️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]4" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↙️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]5" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]⬅️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]6" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↖️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]7" ValueType="[Type]UInt8" />
+								<p4:Label Height="[float]16" Id="95e69f571084438690c1a78957d75db5" IsVisualChild="[bool]False" LabelOwner="[UIModel]cce2bd9e6da544bd944a2bfe7875c3dd" Left="[float]0" Text="[string]Direction" Top="[float]-20" Width="[float]48" />
+							</EnumSelector>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="d5403b40825948fea52d32e559713958" LabelOwner="[UIModel]de3cd866ae434e23956eb9a1d29fa72c" Left="[float]10" Text="[string]Direction" Top="[float]2" Width="[float]48" />
+						<p4:Label Height="[float]16" Id="9d8c4f5a50d847319b983e930225e6e1" IsVisualChild="[bool]False" LabelOwner="[UIModel]586de70020c340699fd78dd30ae1daf0" Left="[float]0" Text="[string]Entity" Top="[float]-20" Width="[float]30" />
+					</p4:Cluster>
+				</p4:ArrayViewer>
+				<p4:Label Height="[float]16" Id="dc3ef321cdf242508555cf573fde9281" LabelOwner="[UIModel]1458fe84209b427c9ff4a4108a834dd9" Left="[float]7" Text="[string]Entities" Top="[float]117" Width="[float]38" />
+				<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@ec87cfc60bdb42a48f247b36b537654d" Height="[float]75" Id="f836e28480114cb6a47abb7df3fd9890" Label="[UIModel]6b9e7a07761748188254f0845061a1c7" Left="[float]9" TabIndex="[int]0" Top="[float]23" Value="{ClusterBinding FieldName=World\ Size}" Width="[float]193">
+					<NumericText BaseName="[string]Numeric" Height="[float]24" Id="f364f7d156dc43ee960ebbbdd867468d" Interval="[uint]1" Label="[UIModel]ae97e229d3d54e2086041b06eacf3d9c" Left="[float]8" MinHeight="[float]24" TabIndex="[int]0" Top="[float]27" Value="{ClusterBinding FieldName=Width}" ValueFormatter="[string]LV:0" ValueType="[Type]UInt32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+					<p4:Label Height="[float]16" Id="ae97e229d3d54e2086041b06eacf3d9c" LabelOwner="[UIModel]f364f7d156dc43ee960ebbbdd867468d" Left="[float]8" Text="[string]Width" Top="[float]7" Width="[float]32" />
+					<NumericText BaseName="[string]Numeric" Height="[float]24" Id="2d9b1315a2a34cdcb53321a21cf92975" Interval="[uint]1" Label="[UIModel]82b5f1a73bee450e94ef9e36618eef0c" Left="[float]96" MinHeight="[float]24" TabIndex="[int]1" Top="[float]26" Value="{ClusterBinding FieldName=Height}" ValueFormatter="[string]LV:0" ValueType="[Type]UInt32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+					<p4:Label Height="[float]16" Id="82b5f1a73bee450e94ef9e36618eef0c" LabelOwner="[UIModel]2d9b1315a2a34cdcb53321a21cf92975" Left="[float]96" Text="[string]Height" Top="[float]6" Width="[float]36" />
+				</p4:Cluster>
+				<p4:Label Height="[float]16" Id="6b9e7a07761748188254f0845061a1c7" LabelOwner="[UIModel]f836e28480114cb6a47abb7df3fd9890" Left="[float]9" Text="[string]World Size" Top="[float]3" Width="[float]56" />
+				<OpaqueRefnum BaseName="[string]OpaqueRefnum" Height="[float]24" Id="1f31b37f60de4c9da7fe07900367bdf5" Label="[UIModel]e1fbccceeb8d4176be78c36816c7ca40" Left="[float]229" RefnumType="[Type]@29a6220ea3224841af79e74d17821cb0" TabIndex="[int]2" Top="[float]24" Value="{ClusterBinding FieldName=User\ Actions}" Width="[float]24" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="e1fbccceeb8d4176be78c36816c7ca40" LabelOwner="[UIModel]1f31b37f60de4c9da7fe07900367bdf5" Left="[float]229" Text="[string]User Actions" Top="[float]4" Width="[float]67" />
+			</Cluster>
+			<Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@e2d01fc6803a4534920038d676d348fe" Height="[float]654" Id="559" IsTabStop="[bool]True" Label="[UIModel]797" Left="[float]397" TabIndex="[int]1" Top="[float]335" Value="{DataItemBinding Id=558}" Width="[float]390" p4:ControlDefinitionChecksum="hzYUZrPolyarlOkpFxF0Byf0Ch3Nn5qpefKsZZ6sxww=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/PanelCommon">
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="Snek::Game State.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+				<p4:ArrayViewer ArrayElement="[UIModel]fe71f81aadd14db1a8f4f93b14060c31" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]509" Id="818b473a41794c089e3de7b94c18252e" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]25f4b9ca48cd4b47b50c50d055e4c05b" Left="[float]7" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]1" Top="[float]137" Value="{ClusterBinding FieldName=Entities}" Width="[float]370">
+					<p.DefaultElementValue>
+						<Cluster>
+							<Field1>null</Field1>
+							<Field2>null</Field2>
+							<Field3>null</Field3>
+							<Field4>null</Field4>
+							<Field5>null</Field5>
+						</Cluster>
+					</p.DefaultElementValue>
+					<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@1df5feb9245c4d69bee45e5cf358f312" Height="[float]497" Id="fe71f81aadd14db1a8f4f93b14060c31" IsTabStop="[bool]True" Label="[UIModel]3cc1dc974374f409fb5327c7b45a9b3" TabIndex="[int]0" Width="[float]303" p4:ControlDefinitionChecksum="jKGVzjrHjCN+cog9wj4o/2G1FmBNm8frCWSKXoHZ2no=">
+						<p4:p.TypeDefinitionTargets>
+							<p4:TypeDefinitionTarget TargetName="Snek::Entity.gtype::ControlDefinition" />
+						</p4:p.TypeDefinitionTargets>
+						<p4:ArrayViewer ArrayElement="[UIModel]56b2fdad07ab48278334a0b952e2fd1c" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]137" Id="f8cfad17f7a8421b89d9c7426dd1ea51" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]a6e9be0052144bb19d61f3d9047e7306" Left="[float]10" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]2" Top="[float]150" Value="{ClusterBinding FieldName=Position}" Width="[float]161">
+							<p.DefaultElementValue>0_0_</p.DefaultElementValue>
+							<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@cfc1bc770c274413879d99c0e7094df0" Height="[float]125" Id="56b2fdad07ab48278334a0b952e2fd1c" IsTabStop="[bool]True" Label="[UIModel]26c8ca4532044e2784d4f305d17ba6c3" TabIndex="[int]0" Width="[float]94" p4:ControlDefinitionChecksum="qrERNHZHTV/R7cqixe5Q5dCWd5ZO3QX71TYlZn8JRNw=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Position::Position.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<NumericText BaseName="[string]Numeric" Height="[float]24" Id="6d0ce7214fbe4976bc4446c0b908858b" InteractionMode="[NumericTextBoxInteractionModes]ReadOnly" Interval="[int]1" IsReadOnly="[bool]True" Label="[UIModel]54c45479ee5445b6860faa8d1fbf2798" Left="[float]5" MinHeight="[float]24" TabIndex="[int]0" Top="[float]26" Value="{ClusterBinding FieldName=X}" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+								<p4:Label Height="[float]16" Id="54c45479ee5445b6860faa8d1fbf2798" LabelOwner="[UIModel]6d0ce7214fbe4976bc4446c0b908858b" Left="[float]5" Text="[string]X" Top="[float]6" />
+								<NumericText BaseName="[string]Numeric" Height="[float]24" Id="2692a7333adf4ce9b656e3e4abd4b9c6" InteractionMode="[NumericTextBoxInteractionModes]ReadOnly" Interval="[int]1" IsReadOnly="[bool]True" Label="[UIModel]a033a4c506f4820bf8e9cbd5ac1631b" Left="[float]6" MinHeight="[float]24" TabIndex="[int]1" Top="[float]81" Value="{ClusterBinding FieldName=Y}" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+								<p4:Label Height="[float]16" Id="a033a4c506f4820bf8e9cbd5ac1631b" LabelOwner="[UIModel]2692a7333adf4ce9b656e3e4abd4b9c6" Left="[float]6" Text="[string]Y" Top="[float]61" />
+								<p4:Label Height="[float]16" Id="26c8ca4532044e2784d4f305d17ba6c3" IsVisualChild="[bool]False" LabelOwner="[UIModel]56b2fdad07ab48278334a0b952e2fd1c" Left="[float]0" Text="[string]Physics" Top="[float]-20" Width="[float]42" />
+							</p4:Cluster>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="a6e9be0052144bb19d61f3d9047e7306" LabelOwner="[UIModel]f8cfad17f7a8421b89d9c7426dd1ea51" Left="[float]10" Text="[string]Position" Top="[float]130" Width="[float]42" />
+						<p4:ArrayViewer ArrayElement="[UIModel]d0533707e091457d8c22b1d6a99f68ec" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="4a7a77735823455a99a29ce319c8bb1f" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]d6e491a951684a4d8b03e45dfb53f56d" Left="[float]11" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]1" Top="[float]86" Value="{ClusterBinding FieldName=Edible}" Width="[float]91">
+							<p.DefaultElementValue>False</p.DefaultElementValue>
+							<LED BaseName="[string]Round LED" FalseContent="[string]Off" Height="[float]24" Id="d0533707e091457d8c22b1d6a99f68ec" IsReadOnly="[bool]True" IsTabStop="[bool]True" Label="[UIModel]320e933ad1674ce282bb4aa686f6cde4" MinHeight="[float]24" MinWidth="[float]24" Shape="[LEDShape]Round" TabIndex="[int]0" TrueContent="[string]On" Width="[float]24" p4:ControlDefinitionChecksum="NVkuOrEfi3X6k0ciTQzJ2Qc8BtqNSzM01UsZCbP5LVE=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Edible::Edible.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:Label Height="[float]16" Id="320e933ad1674ce282bb4aa686f6cde4" IsVisualChild="[bool]False" LabelOwner="[UIModel]d0533707e091457d8c22b1d6a99f68ec" Left="[float]0" Text="[string]Edible?" Top="[float]-20" Width="[float]38" />
+							</LED>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="d6e491a951684a4d8b03e45dfb53f56d" LabelOwner="[UIModel]4a7a77735823455a99a29ce319c8bb1f" Left="[float]11" Text="[string]Edible" Top="[float]66" Width="[float]32" />
+						<p4:ArrayViewer ArrayElement="[UIModel]2ad2fdefd684e7face379129202fa42" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]98" Id="56f99ece3eae459bb83f91da2ab6d37b" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]d7a1ee83e92b4729a967f70d2909393b" Left="[float]5" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]4" Top="[float]379" Value="{ClusterBinding FieldName=Snake\ Head}" Width="[float]239">
+							<p.DefaultElementValue>
+								<Cluster>
+									<Field1>null</Field1>
+								</Cluster>
+							</p.DefaultElementValue>
+							<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@7b71a7c0090e407ba556a18b398bf32c" Height="[float]86" Id="2ad2fdefd684e7face379129202fa42" IsTabStop="[bool]True" Label="[UIModel]ae30695c90584d2a84eba59fbc79f44e" TabIndex="[int]0" Width="[float]172" p4:ControlDefinitionChecksum="QSkIn7B03AX4R/5RdNv+U48qHGn39EE1Vhe4tlTra3g=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Snake Head::Snake Head.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:ArrayViewer ArrayElement="[UIModel]a0a6035015c4490dac7cfb5805b0b957" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="5356ed369a86443e83c027e0f3342bab" IndexVisibility="[Visibility]Visible" Label="[UIModel]27d39064bee64636b5e630c4817443f4" Left="[float]8" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]0" Top="[float]30" Value="{ClusterBinding FieldName=Snake\ Body\ Entities\ Index}" Width="[float]139">
+									<p.DefaultElementValue>0</p.DefaultElementValue>
+									<NumericText BaseName="[string]Numeric" Height="[float]24" Id="a0a6035015c4490dac7cfb5805b0b957" InteractionMode="[NumericTextBoxInteractionModes]ReadOnly" Interval="[int]1" IsReadOnly="[bool]True" Label="[UIModel]22d68b256a594132a8f50981fde0c83a" MinHeight="[float]24" TabIndex="[int]0" ValueFormatter="[string]LV:0" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+										<p4:Label Height="[float]16" Id="22d68b256a594132a8f50981fde0c83a" IsVisualChild="[bool]False" LabelOwner="[UIModel]a0a6035015c4490dac7cfb5805b0b957" Left="[float]0" Text="[string]Numeric" Top="[float]-20" Width="[float]45" />
+									</NumericText>
+								</p4:ArrayViewer>
+								<p4:Label Height="[float]16" Id="27d39064bee64636b5e630c4817443f4" LabelOwner="[UIModel]5356ed369a86443e83c027e0f3342bab" Left="[float]8" Text="[string]Snake Body Entities Index" Top="[float]10" Width="[float]135" />
+								<p4:Label Height="[float]16" Id="ae30695c90584d2a84eba59fbc79f44e" IsVisualChild="[bool]False" LabelOwner="[UIModel]2ad2fdefd684e7face379129202fa42" Left="[float]0" Text="[string]Snake Head" Top="[float]-20" Width="[float]63" />
+							</p4:Cluster>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="d7a1ee83e92b4729a967f70d2909393b" LabelOwner="[UIModel]56f99ece3eae459bb83f91da2ab6d37b" Left="[float]5" Text="[string]Snake Head" Top="[float]359" Width="[float]63" />
+						<p4:ArrayViewer ArrayElement="[UIModel]92811f7ad65b4e8888e5a2efdbeecca1" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="8ecae2cc012f4635bf4dca2f2bb85b26" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]73a294fca03a445b8dd95f90d3d9426d" Left="[float]7" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]3" Top="[float]315" Value="{ClusterBinding FieldName=Snake\ Body}" Width="[float]91">
+							<p.DefaultElementValue>False</p.DefaultElementValue>
+							<LED BaseName="[string]Round LED" FalseContent="[string]Off" Height="[float]24" Id="92811f7ad65b4e8888e5a2efdbeecca1" IsReadOnly="[bool]True" IsTabStop="[bool]True" Label="[UIModel]d0f01985a7804bafa28aba2a9a553623" MinHeight="[float]24" MinWidth="[float]24" Shape="[LEDShape]Round" TabIndex="[int]0" TrueContent="[string]On" Width="[float]24" p4:ControlDefinitionChecksum="G84EWXnjYPHgBgpu11YDx4rjOcz6N+F4XozxUWx0g+0=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="WebApp::Entitiy Components::Snake Body::Snake Body.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<p4:Label Height="[float]16" Id="d0f01985a7804bafa28aba2a9a553623" IsVisualChild="[bool]False" LabelOwner="[UIModel]92811f7ad65b4e8888e5a2efdbeecca1" Left="[float]0" Text="[string]Snake Body?" Top="[float]-20" Width="[float]67" />
+							</LED>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="73a294fca03a445b8dd95f90d3d9426d" LabelOwner="[UIModel]8ecae2cc012f4635bf4dca2f2bb85b26" Left="[float]7" Text="[string]Snake Body" Top="[float]295" Width="[float]62" />
+						<p4:ArrayViewer ArrayElement="[UIModel]44ed6cf7f9b24fab89901a2c250754b2" BaseName="[string]Array" Columns="[int]1" Dimensions="[int]1" Height="[float]36" Id="1b42bb719a20448c9686f10558556cfe" IndexVisibility="[Visibility]Visible" IsFixedSize="[bool]False" Label="[UIModel]ba4fd53730a740e694e97dd9f96a7af5" Left="[float]10" Orientation="[SMOrientation]Horizontal" Rows="[int]1" TabIndex="[int]0" Top="[float]22" Value="{ClusterBinding FieldName=Direction}" Width="[float]139">
+							<p.DefaultElementValue>0</p.DefaultElementValue>
+							<EnumSelector AllowUndefinedValueEntry="[bool]False" BaseName="[string]Enum" Height="[float]24" Id="44ed6cf7f9b24fab89901a2c250754b2" InteractionMode="[SelectorInteractionModes]ReadOnly" IsTabStop="[bool]True" IsTypeAheadEnabled="[bool]True" Label="[UIModel]dcb937c9a6854721986788eb733db4b0" MinHeight="[float]24" TabIndex="[int]0" ValueType="[Type]UInt8" VisualMode="[SelectorVisualMode]RingStyle" Width="[float]72" p4:ControlDefinitionChecksum="j80XVCKXRkbK42Qh48QRY5acr1Hd4A4Du+lpOEDqm6c=" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Direction::Direction.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<EnumSelectorInfo DisplayValue="[string]⬆️" DisplayValueOverride="[string]" Id="26" IsEnabled="[bool]True" Value="[byte]0" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↗️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]1" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]➡️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]2" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↘️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]3" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]⬇️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]4" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↙️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]5" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]⬅️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]6" ValueType="[Type]UInt8" />
+								<EnumSelectorInfo DisplayValue="[string]↖️" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[byte]7" ValueType="[Type]UInt8" />
+								<p4:Label Height="[float]16" Id="dcb937c9a6854721986788eb733db4b0" IsVisualChild="[bool]False" LabelOwner="[UIModel]44ed6cf7f9b24fab89901a2c250754b2" Left="[float]0" Text="[string]Direction" Top="[float]-20" Width="[float]48" />
+							</EnumSelector>
+						</p4:ArrayViewer>
+						<p4:Label Height="[float]16" Id="ba4fd53730a740e694e97dd9f96a7af5" LabelOwner="[UIModel]1b42bb719a20448c9686f10558556cfe" Left="[float]10" Text="[string]Direction" Top="[float]2" Width="[float]48" />
+						<p4:Label Height="[float]16" Id="3cc1dc974374f409fb5327c7b45a9b3" IsVisualChild="[bool]False" LabelOwner="[UIModel]fe71f81aadd14db1a8f4f93b14060c31" Left="[float]0" Text="[string]Entity" Top="[float]-20" Width="[float]30" />
+					</p4:Cluster>
+				</p4:ArrayViewer>
+				<p4:Label Height="[float]16" Id="25f4b9ca48cd4b47b50c50d055e4c05b" LabelOwner="[UIModel]818b473a41794c089e3de7b94c18252e" Left="[float]7" Text="[string]Entities" Top="[float]117" Width="[float]38" />
+				<p4:Cluster BaseName="[string]Cluster" BorderThickness="[SMThickness]1,1,1,1" ClusterType="[Type]@ec87cfc60bdb42a48f247b36b537654d" Height="[float]75" Id="ce33c7fd8e1844208556bb39265b1830" Label="[UIModel]aac91ac63a7a44fc82782f1170949558" Left="[float]9" TabIndex="[int]0" Top="[float]23" Value="{ClusterBinding FieldName=World\ Size}" Width="[float]193">
+					<NumericText BaseName="[string]Numeric" Height="[float]24" Id="1fd3789bfd334c95aa354980799b4137" InteractionMode="[NumericTextBoxInteractionModes]ReadOnly" Interval="[uint]1" IsReadOnly="[bool]True" Label="[UIModel]db22d114732e4e1fa26062182652355a" Left="[float]8" MinHeight="[float]24" TabIndex="[int]0" Top="[float]27" Value="{ClusterBinding FieldName=Width}" ValueFormatter="[string]LV:0" ValueType="[Type]UInt32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+					<p4:Label Height="[float]16" Id="db22d114732e4e1fa26062182652355a" LabelOwner="[UIModel]1fd3789bfd334c95aa354980799b4137" Left="[float]8" Text="[string]Width" Top="[float]7" Width="[float]32" />
+					<NumericText BaseName="[string]Numeric" Height="[float]24" Id="85142358a14e48b79289ab596fcb4fe0" InteractionMode="[NumericTextBoxInteractionModes]ReadOnly" Interval="[uint]1" IsReadOnly="[bool]True" Label="[UIModel]62802a413d404edab40dee15f21d636a" Left="[float]96" MinHeight="[float]24" TabIndex="[int]1" Top="[float]26" Value="{ClusterBinding FieldName=Height}" ValueFormatter="[string]LV:0" ValueType="[Type]UInt32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+					<p4:Label Height="[float]16" Id="62802a413d404edab40dee15f21d636a" LabelOwner="[UIModel]85142358a14e48b79289ab596fcb4fe0" Left="[float]96" Text="[string]Height" Top="[float]6" Width="[float]36" />
+				</p4:Cluster>
+				<p4:Label Height="[float]16" Id="aac91ac63a7a44fc82782f1170949558" LabelOwner="[UIModel]ce33c7fd8e1844208556bb39265b1830" Left="[float]9" Text="[string]World Size" Top="[float]3" Width="[float]56" />
+				<OpaqueRefnum BaseName="[string]OpaqueRefnum" Height="[float]24" Id="8023fab3950248c6ac59fe10ca5b9092" Label="[UIModel]977c531e482f4873a518beb41367319f" Left="[float]229" RefnumType="[Type]@29a6220ea3224841af79e74d17821cb0" TabIndex="[int]2" Top="[float]24" Value="{ClusterBinding FieldName=User\ Actions}" Width="[float]24" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+				<p4:Label Height="[float]16" Id="977c531e482f4873a518beb41367319f" LabelOwner="[UIModel]8023fab3950248c6ac59fe10ca5b9092" Left="[float]229" Text="[string]User Actions" Top="[float]4" Width="[float]67" />
+			</Cluster>
+			<Label Height="[float]16" Id="756" LabelOwner="[UIModel]63" Left="[float]397" Text="[string]game state in" Top="[float]315" Width="[float]61" xmlns="http://www.ni.com/PanelCommon" />
+			<Label Height="[float]16" Id="797" LabelOwner="[UIModel]559" Left="[float]397" Text="[string]game state out" Top="[float]315" Width="[float]61" xmlns="http://www.ni.com/PanelCommon" />
+		</FrontPanelUnplacedItems>
+		<BlockDiagram Id="12">
+			<DataAccessor Bounds="780 150 40 15" DataItem="62" Id="103" Label="104" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="103" Bounds="699 150 76 14" Id="104" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>game state in</p.Text>
+			</NodeLabel>
+			<MethodCall Bounds="780 175 40 20" Id="534" ResolveFailedHint="&quot;C:\\dev\\Github\\webvi-experiments\\Arcade\\Snek\\Snek.gcomp\\SubVIs\\Snake Head Index.gvi&quot;" Signature="@8eca3a53763a4a7eb50e8fb5100d0296" Target="Snek::SubVIs::Snake Head Index.gvi" xmlns="http://www.ni.com/MocCommon">
+				<p.MethodDeclaration>
+					<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+						<Parameter Id="R0" Desc="Index" />
+					</MethodDeclaration>
+				</p.MethodDeclaration>
+				<Terminal DataType="Int32" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+			</MethodCall>
+			<MethodCall Bounds="875 165 40 40" Id="535" ResolveFailedHint="&quot;C:\\dev\\Github\\webvi-experiments\\Arcade\\Snek\\Snek.gcomp\\Entity Components\\Direction\\Direction Get.gvi&quot;" Signature="@0cfc6c1e593b4f5bb7b46f22f1efe2ba" Target="Snek::Entity Components::Direction::Direction Get.gvi" xmlns="http://www.ni.com/MocCommon">
+				<p.MethodDeclaration>
+					<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+						<Parameter Id="L0" Desc="game state in" />
+						<Parameter Id="L1" Desc="entity index in" />
+						<Parameter Id="R0" Desc="game state out" />
+						<Parameter Id="R1" Desc="enitity index out" />
+						<Parameter Id="R2" Desc="direction" />
+						<Parameter Id="T1" Desc="exists?" />
+					</MethodDeclaration>
+				</p.MethodDeclaration>
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Id="L0" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Input" Hotspot="0 15" Id="L1" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Output" Hotspot="40 15" Id="R1" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@b6eb17e731c04b4d9136cb388dd24dd3" Direction="Output" Hotspot="40 25" Id="R2" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Boolean" Direction="Output" Hotspot="25 0" Id="T1" xmlns="http://www.ni.com/PlatformFramework" />
+			</MethodCall>
+			<DataAccessor Bounds="1475 165 40 15" DataItem="558" Id="599" Label="600" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<NodeLabel AttachedTo="599" Bounds="1520 165 84 14" Id="600" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>game state out</p.Text>
+			</NodeLabel>
+			<MethodCall Bounds="980 165 40 40" Id="825" ResolveFailedHint="&quot;C:\\dev\\Github\\webvi-experiments\\Arcade\\Snek\\Snek.gcomp\\Entity Components\\Position\\Translate Position.gvi&quot;" Signature="@e08dcd0c25bd49d2b523bf4ffdbf4f0d" Target="Snek::Entity Components::Position::Translate Position.gvi" xmlns="http://www.ni.com/MocCommon">
+				<p.MethodDeclaration>
+					<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+						<Parameter Id="L0" Desc="game state in" />
+						<Parameter Id="L1" Desc="entity index in" />
+						<Parameter Id="L2" Desc="direction" />
+						<Parameter Id="L3" Desc="spaces" />
+						<Parameter Id="R0" Desc="game state out" />
+						<Parameter Id="R1" Desc="enitity index out" />
+						<Parameter Id="R2" Desc="updated position" />
+					</MethodDeclaration>
+				</p.MethodDeclaration>
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Id="L0" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Input" Hotspot="0 15" Id="L1" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@b6eb17e731c04b4d9136cb388dd24dd3" Direction="Input" Hotspot="0 25" Id="L2" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Input" Hotspot="0 35" Id="L3" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Output" Hotspot="40 15" Id="R1" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@79d6762b44cb416488b56138c027e807" Direction="Output" Hotspot="40 25" Id="R2" xmlns="http://www.ni.com/PlatformFramework" />
+			</MethodCall>
+			<Wire Id="74513cdc4ae04955a1834b1996d37164" Joints="N(103:Value)|(820,155) h(10) v(15) N(535:L0)|(875,170)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="1387a7c4376f4260ba517a6e6c12dd35" Joints="N(534:R0)|(820,180) N(535:L1)|(875,180)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="f2593c2e56b04856a88367e9c9746f02" Joints="N(535:R0)|(915,170) N(825:L0)|(980,170)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="a0d5460e159e4e09888706f87712e9c7" Joints="N(535:R1)|(915,180) N(825:L1)|(980,180)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="b06a11afec3644158d52ccb8f0437142" Joints="N(535:R2)|(915,190) h(25) B(1) N(825:L2)|(980,190) B(1) v(50) N(c624cac490d943e584439d892c849b5f:o0)|(1338,240)" xmlns="http://www.ni.com/PlatformFramework" />
+			<ForLoop Bounds="1343 118 121 186" DiagramId="d7c79e725f874a0188d31e6863d87444" Id="607531389b43c7ae064ef02e4e7bf7">
+				<LoopIteration Bounds="5 155 15 15" Id="b3f005a6fa7f4b499b804bfe0fce2b4f" />
+				<MethodCall Bounds="55 45 40 40" Id="504c09b546424dd3b934aa4fec57d756" ResolveFailedHint="&quot;C:\\dev\\Github\\webvi-experiments\\Arcade\\Snek\\Snek.gcomp\\Entity Components\\Position\\Translate Position.gvi&quot;" Signature="@e08dcd0c25bd49d2b523bf4ffdbf4f0d" Target="Snek::Entity Components::Position::Translate Position.gvi" xmlns="http://www.ni.com/MocCommon">
+					<p.MethodDeclaration>
+						<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+							<Parameter Id="L0" Desc="game state in" />
+							<Parameter Id="L1" Desc="entity index in" />
+							<Parameter Id="L2" Desc="direction" />
+							<Parameter Id="L3" Desc="spaces" />
+							<Parameter Id="R0" Desc="game state out" />
+							<Parameter Id="R1" Desc="enitity index out" />
+							<Parameter Id="R2" Desc="updated position" />
+						</MethodDeclaration>
+					</p.MethodDeclaration>
+					<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Id="L0" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="Int32" Direction="Input" Hotspot="0 15" Id="L1" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="@b6eb17e731c04b4d9136cb388dd24dd3" Direction="Input" Hotspot="0 25" Id="L2" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="Int32" Direction="Input" Hotspot="0 35" Id="L3" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="Int32" Direction="Output" Hotspot="40 15" Id="R1" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="@79d6762b44cb416488b56138c027e807" Direction="Output" Hotspot="40 25" Id="R2" xmlns="http://www.ni.com/PlatformFramework" />
+				</MethodCall>
+				<Wire Id="de6cd5e1c5794279a15cc23a64e0ed01" Joints="N(e501bc90295b4d168109089dbb135208:i0)|(6,50) N(504c09b546424dd3b934aa4fec57d756:L0)|(55,50)" xmlns="http://www.ni.com/PlatformFramework" />
+				<Wire Id="ab4acccf064089ba4b87201b78c8f5" Joints="N(a49a8e66448b484aa73c5ea59b7a47b7:i0)|(6,60) N(504c09b546424dd3b934aa4fec57d756:L1)|(55,60)" xmlns="http://www.ni.com/PlatformFramework" />
+				<Wire Id="dd018ab676f74eb28ed226b6bb6d3931" Joints="N(c624cac490d943e584439d892c849b5f:i0)|(6,120) h(5) v(-50) N(504c09b546424dd3b934aa4fec57d756:L2)|(55,70)" xmlns="http://www.ni.com/PlatformFramework" />
+				<Wire Id="54b93c39c4b345cdba4b24301c02e834" Joints="N(504c09b546424dd3b934aa4fec57d756:R0)|(95,50) N(4257657fc6c549ca8de3fd83a9bd24b0:d7c79e725f874a0188d31e6863d87444)|(109,50)" xmlns="http://www.ni.com/PlatformFramework" />
+				<LoopCount Bounds="1 1 15 15" Docking="Left" Id="e9d0ab96457f4db08d416a790998185e" Terminals="607531389b43c7ae064ef02e4e7bf7, d7c79e725f874a0188d31e6863d87444" />
+				<LoopTunnel AutoIndex="True" Bounds="-5 57 13 10" Docking="Left" Id="a49a8e66448b484aa73c5ea59b7a47b7" Terminals="o0=632e29b81f204271aef33f901e8ea1c6, i0=ab4acccf064089ba4b87201b78c8f5" TunnelMode="0" />
+				<LoopTunnel Bounds="-5 117 13 10" Docking="Left" Id="c624cac490d943e584439d892c849b5f" Terminals="o0=b06a11afec3644158d52ccb8f0437142, i0=dd018ab676f74eb28ed226b6bb6d3931" />
+				<RightShiftRegister Bounds="111 47 13 10" Docking="Right" Id="4257657fc6c549ca8de3fd83a9bd24b0" Terminals="607531389b43c7ae064ef02e4e7bf7=62f1d97a288419aad92f604d6e29f33, d7c79e725f874a0188d31e6863d87444=54b93c39c4b345cdba4b24301c02e834" />
+				<LeftShiftRegister Bounds="-5 47 13 10" Docking="Left" Id="e501bc90295b4d168109089dbb135208" RightRegister="4257657fc6c549ca8de3fd83a9bd24b0" Terminals="o0=a561c35f68e7438784368ecad19e860c, i0=de6cd5e1c5794279a15cc23a64e0ed01" />
+			</ForLoop>
+			<MethodCall Bounds="1080 165 40 40" Id="cc3d62fd3e324a529e17b824c7bd3ee4" ResolveFailedHint="&quot;C:\\dev\\Github\\webvi-experiments\\Arcade\\Snek\\Snek.gcomp\\Entity Components\\Snake Head\\Snake Head Get.gvi&quot;" Signature="@55df091ad88d4b6eb90b8de542447166" Target="Snek::Entity Components::Snake Head::Snake Head Get.gvi" xmlns="http://www.ni.com/MocCommon">
+				<p.MethodDeclaration>
+					<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+						<Parameter Id="L0" Desc="game state in" />
+						<Parameter Id="L1" Desc="entity index" />
+						<Parameter Id="R0" Desc="game state out" />
+						<Parameter Id="R1" Desc="enitity index out" />
+						<Parameter Id="R2" Desc="snake head" />
+						<Parameter Id="T1" Desc="exists?" />
+					</MethodDeclaration>
+				</p.MethodDeclaration>
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Id="L0" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Input" Hotspot="0 15" Id="L1" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Output" Hotspot="40 5" Id="R0" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Int32" Direction="Output" Hotspot="40 15" Id="R1" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="@5fcd621cc92c4605b4386c249b8d28ec" Direction="Output" Hotspot="40 25" Id="R2" xmlns="http://www.ni.com/PlatformFramework" />
+				<Terminal DataType="Boolean" Direction="Output" Hotspot="25 0" Id="T1" xmlns="http://www.ni.com/PlatformFramework" />
+			</MethodCall>
+			<Wire Id="8f50cdc828774b759e31aa4ec743a597" Joints="N(825:R0)|(1020,170) N(cc3d62fd3e324a529e17b824c7bd3ee4:L0)|(1080,170)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="224e4be3729d4bc193e66209da9c2662" Joints="N(825:R1)|(1020,180) N(cc3d62fd3e324a529e17b824c7bd3ee4:L1)|(1080,180)" xmlns="http://www.ni.com/PlatformFramework" />
+			<PropertyNode Bounds="1150 185 180 35" HasErrorTerminals="False" Id="d9bc2f5486cb4051b881e755b98ac226" InstanceDataType="@5fcd621cc92c4605b4386c249b8d28ec" Mode="InstanceProperties" xmlns="http://www.ni.com/MocCommon">
+				<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+					<TypeDefinitionTarget TargetName="Snek::Entity Components::Snake Head::Snake Head.gtype" />
+				</p.TypeDefinitionTargets>
+				<PropertyItemTerminal DataType="Int32[]" Hotspot="180 15" Id="c0t0v" Path="Snake Body Entities Index" PathElementMemberKinds="Field" Usage="Optional" />
+			</PropertyNode>
+			<Wire Id="d68855f8f528467c8eaa1604ef9f68f3" Joints="N(cc3d62fd3e324a529e17b824c7bd3ee4:R2)|(1120,190) N(d9bc2f5486cb4051b881e755b98ac226:instance in)|(1150,190)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="632e29b81f204271aef33f901e8ea1c6" Joints="N(d9bc2f5486cb4051b881e755b98ac226:c0t0v)|(1330,200) h(3) v(-20) N(a49a8e66448b484aa73c5ea59b7a47b7:o0)|(1338,180)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="a561c35f68e7438784368ecad19e860c" Joints="N(cc3d62fd3e324a529e17b824c7bd3ee4:R0)|(1120,170) N(e501bc90295b4d168109089dbb135208:o0)|(1338,170)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="62f1d97a288419aad92f604d6e29f33" Joints="N(4257657fc6c549ca8de3fd83a9bd24b0:607531389b43c7ae064ef02e4e7bf7)|(1467,170) N(599:Value)|(1478,170)" xmlns="http://www.ni.com/PlatformFramework" />
+		</BlockDiagram>
+		<NativeFrontPanel Height="[float]1600" Id="13" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]2000">
+			<PanelExecutionWindow Id="14" />
+		</NativeFrontPanel>
+		<DataItem CallDirection="Input" CallIndex="0" CallUsage="Required" DataType="@e2d01fc6803a4534920038d676d348fe" Id="62" Name="game state in" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>
+				<Cluster>
+					<Field1>0_0_</Field1>
+					<Field2>null</Field2>
+					<Field3>0</Field3>
+				</Cluster>
+			</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="Snek::Game State.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+		<DataItem CallDirection="Output" CallIndex="0" DataType="@e2d01fc6803a4534920038d676d348fe" Id="558" Name="game state out" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>
+				<Cluster>
+					<Field1>0_0_</Field1>
+					<Field2>null</Field2>
+					<Field3>0</Field3>
+				</Cluster>
+			</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="Snek::Game State.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+	</VirtualInstrument>
+	<DataTypeReferenceTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.TypeReference TypeId="e2d01fc6803a4534920038d676d348fe">
+			<Attributed AttributedType="@709aefbbdbb645348782ae3ed124a0e9">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="1df5feb9245c4d69bee45e5cf358f312">
+			<Attributed AttributedType="@3ca3ab980bd94a97953a305e3eb3db28">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="cfc1bc770c274413879d99c0e7094df0">
+			<Attributed AttributedType="@6ed59168d59240a3b6657fc20600957c">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]WebApp::Entitiy Components::Position" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="7b71a7c0090e407ba556a18b398bf32c">
+			<Attributed AttributedType="@5f06f7e466444709ae2992bfec0fd49c">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]WebApp::Entitiy Components::Snake Head" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="ec87cfc60bdb42a48f247b36b537654d">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Width" DataType="UInt32" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Height" DataType="UInt32" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="29a6220ea3224841af79e74d17821cb0">
+			<Attributed AttributedType="@cf1768cc27e540569c60333aa7871cc6">
+				<AttributeValues>
+					<AttributeValue Name="NI_PlatformFramework_RefnumAttributes" Value="[NI_PlatformFramework_RefnumAttributes]Refnum" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="8eca3a53763a4a7eb50e8fb5100d0296">
+			<Attributed AttributedType="@4f1200adab994c129faae37d1533b006">
+				<AttributeValues>
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]20" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="0cfc6c1e593b4f5bb7b46f22f1efe2ba">
+			<Attributed AttributedType="@933a768d0ee143869c7d22198de79710">
+				<AttributeValues>
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]40" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="b6eb17e731c04b4d9136cb388dd24dd3">
+			<Attributed AttributedType="@367b21a4ba224699ad4c3a789bee737f">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Direction" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="e08dcd0c25bd49d2b523bf4ffdbf4f0d">
+			<Attributed AttributedType="@554b28f5407f40ad8dc1c6f495a22030">
+				<AttributeValues>
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]40" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="79d6762b44cb416488b56138c027e807">
+			<Attributed AttributedType="@6ed59168d59240a3b6657fc20600957c">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Position" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="55df091ad88d4b6eb90b8de542447166">
+			<Attributed AttributedType="@763f7bb5af6747ac804d0214b7538a2e">
+				<AttributeValues>
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]40" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="5fcd621cc92c4605b4386c249b8d28ec">
+			<Attributed AttributedType="@5f06f7e466444709ae2992bfec0fd49c">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Snake Head" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="709aefbbdbb645348782ae3ed124a0e9">
+			<Typedef TypedefName="Game State.gtype" UnderlyingType="@a8f59312b3f941ff968c382362001ee1" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="3ca3ab980bd94a97953a305e3eb3db28">
+			<Typedef TypedefName="Entity.gtype" UnderlyingType="@7423eba18b3f491b91674dbbe7b60e32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="6ed59168d59240a3b6657fc20600957c">
+			<Typedef TypedefName="Position.gtype" UnderlyingType="@c60bb2c6365b4a668bc2e5ddb3b8b3ca" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="5f06f7e466444709ae2992bfec0fd49c">
+			<Typedef TypedefName="Snake Head.gtype" UnderlyingType="@ae9a4418c6bf427b91b06c3b38542464" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="cf1768cc27e540569c60333aa7871cc6">
+			<Composite Id="1" Name="NationalInstruments.SourceModel.DataTypes.Queue" ReferenceClass="" Sealed="" GenericTypeDefinition="@e1eac224cf8146e583d80ef6aac0d732">
+				<ClosedGenericParameters>
+					<TypeRef>@7d52fdeda93b40819d95bd86aef680fd</TypeRef>
+				</ClosedGenericParameters>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="4f1200adab994c129faae37d1533b006">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="Snake Head Index.gvi" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@0b57fd13b8b446b68a5975bcb525e368">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]Index" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="933a768d0ee143869c7d22198de79710">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="Direction Get.gvi" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@4ed819d41d7442e6896a0c2ca6014d5a">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@be157c56cb794a89aeb29b0ed1ef2491">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]entity index in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@8d376f1ab6c34003bc504efeb61bf6c8">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@6272eda1a9e6467dac607aceef1f1c02">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]enitity index out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@4ce76ea2fe474ec1918c5d5451d6c2b1">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]direction" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@9b5c69e241a149079cae77b0f5098f23">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]exists?" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="367b21a4ba224699ad4c3a789bee737f">
+			<Typedef TypedefName="Direction.gtype" UnderlyingType="@5378f9884dd144cea76ba62eb648d7fb" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="554b28f5407f40ad8dc1c6f495a22030">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="Translate Position.gvi" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@4ed819d41d7442e6896a0c2ca6014d5a">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@be157c56cb794a89aeb29b0ed1ef2491">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]entity index in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@3a786c6c2fbb4332a8dd0b015f2d1b84">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]direction" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@1b12a4cb8ae74ba2aa306a8464d11073">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]spaces" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@8d376f1ab6c34003bc504efeb61bf6c8">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@6272eda1a9e6467dac607aceef1f1c02">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]enitity index out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@b2b6d1f84a0c407aa1d211512c2389ee">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]updated position" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="763f7bb5af6747ac804d0214b7538a2e">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="Snake Head Get.gvi" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@4ed819d41d7442e6896a0c2ca6014d5a">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state in" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@be157c56cb794a89aeb29b0ed1ef2491">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]entity index" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@8d376f1ab6c34003bc504efeb61bf6c8">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]game state out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@6272eda1a9e6467dac607aceef1f1c02">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]enitity index out" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@833c0eca45254a3e8181b3ffa03b0710">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]snake head" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@9b5c69e241a149079cae77b0f5098f23">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]exists?" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="a8f59312b3f941ff968c382362001ee1">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="World Size" DataType="@ec87cfc60bdb42a48f247b36b537654d" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Entities" DataType="@a90bdf54690441cb940205f913f32bef" />
+					<Field FieldAccessPolicy="ReadWrite" Name="User Actions" DataType="@29a6220ea3224841af79e74d17821cb0" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="7423eba18b3f491b91674dbbe7b60e32">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Direction" DataType="@c4dfb577390746baba6cac2f165ddc4b" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Edible" DataType="@93dd6422ef5441798ed32357aa403ea9" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Position" DataType="@b5bf7a315d65428286744938703f7410" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Body" DataType="@3af7d5ff956448f588f3dc5e5562cecd" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Head" DataType="@0ef60655238b4f5d9b8dcc0c5bc7febe" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="c60bb2c6365b4a668bc2e5ddb3b8b3ca">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="X" DataType="Int32" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Y" DataType="Int32" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="ae9a4418c6bf427b91b06c3b38542464">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Body Entities Index" DataType="Int32[]" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="e1eac224cf8146e583d80ef6aac0d732">
+			<Attributed AttributedType="@a61cd5f0a45c4fd3b2af39f92d775a86">
+				<AttributeValues>
+					<AttributeValue Name="NI_PlatformFramework_RefnumAttributes" Value="[NI_PlatformFramework_RefnumAttributes]Refnum" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="7d52fdeda93b40819d95bd86aef680fd">
+			<Attributed AttributedType="@351fc7166f1b4b3faae2293142394149">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Event Queues" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="0b57fd13b8b446b68a5975bcb525e368">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R0" DataType="Int32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="4ed819d41d7442e6896a0c2ca6014d5a">
+			<Parameter InputParameterPassingRule="Required" OutputParameterPassingRule="NotAllowed" Name="L0" DataType="@e2d01fc6803a4534920038d676d348fe" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="be157c56cb794a89aeb29b0ed1ef2491">
+			<Parameter InputParameterPassingRule="Required" OutputParameterPassingRule="NotAllowed" Name="L1" DataType="Int32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="8d376f1ab6c34003bc504efeb61bf6c8">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R0" DataType="@e2d01fc6803a4534920038d676d348fe" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="6272eda1a9e6467dac607aceef1f1c02">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R1" DataType="Int32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="4ce76ea2fe474ec1918c5d5451d6c2b1">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R2" DataType="@b6eb17e731c04b4d9136cb388dd24dd3" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="9b5c69e241a149079cae77b0f5098f23">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="T1" DataType="Boolean" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="5378f9884dd144cea76ba62eb648d7fb">
+			<Enumeration>
+				<Members>
+					<EnumerationMember Value="0" Name="⬆️" />
+					<EnumerationMember Value="1" Name="↗️" />
+					<EnumerationMember Value="2" Name="➡️" />
+					<EnumerationMember Value="3" Name="↘️" />
+					<EnumerationMember Value="4" Name="⬇️" />
+					<EnumerationMember Value="5" Name="↙️" />
+					<EnumerationMember Value="6" Name="⬅️" />
+					<EnumerationMember Value="7" Name="↖️" />
+				</Members>
+				<DataType>UInt8</DataType>
+			</Enumeration>
+		</p.TypeReference>
+		<p.TypeReference TypeId="3a786c6c2fbb4332a8dd0b015f2d1b84">
+			<Parameter InputParameterPassingRule="Required" OutputParameterPassingRule="NotAllowed" Name="L2" DataType="@b6eb17e731c04b4d9136cb388dd24dd3" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="1b12a4cb8ae74ba2aa306a8464d11073">
+			<Parameter InputParameterPassingRule="Recommended" OutputParameterPassingRule="NotAllowed" Name="L3" DataType="Int32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="b2b6d1f84a0c407aa1d211512c2389ee">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R2" DataType="@79d6762b44cb416488b56138c027e807" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="833c0eca45254a3e8181b3ffa03b0710">
+			<Parameter InputParameterPassingRule="NotAllowed" OutputParameterPassingRule="Recommended" Name="R2" DataType="@5fcd621cc92c4605b4386c249b8d28ec" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="a90bdf54690441cb940205f913f32bef">
+			<VariableArray DereferenceType="@1df5feb9245c4d69bee45e5cf358f312" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="c4dfb577390746baba6cac2f165ddc4b">
+			<VariableArray DereferenceType="@b6eb17e731c04b4d9136cb388dd24dd3" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="93dd6422ef5441798ed32357aa403ea9">
+			<VariableArray DereferenceType="@cd4ad6bb548c4ebeb004ff111d328ef5" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="b5bf7a315d65428286744938703f7410">
+			<VariableArray DereferenceType="@79d6762b44cb416488b56138c027e807" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="3af7d5ff956448f588f3dc5e5562cecd">
+			<VariableArray DereferenceType="@318211d5a39846a5b0e1394b3e780a69" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="0ef60655238b4f5d9b8dcc0c5bc7febe">
+			<VariableArray DereferenceType="@5fcd621cc92c4605b4386c249b8d28ec" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="a61cd5f0a45c4fd3b2af39f92d775a86">
+			<Composite Id="1" Name="NationalInstruments.SourceModel.DataTypes.Queue" ReferenceClass="" Sealed="" GenericTypeDefinition="@e1eac224cf8146e583d80ef6aac0d732">
+				<GenericParameters>
+					<Generic GenericName="DataType" />
+				</GenericParameters>
+				<BaseType>Void</BaseType>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="351fc7166f1b4b3faae2293142394149">
+			<Typedef TypedefName="User Action.gtype" UnderlyingType="@e788aadf0d7f46449b2c38ff2ecdcef0" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="cd4ad6bb548c4ebeb004ff111d328ef5">
+			<Attributed AttributedType="@45b5d601469b49cbbf2ab30b00b42ffa">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Edible" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="318211d5a39846a5b0e1394b3e780a69">
+			<Attributed AttributedType="@c4f7c40429d5428e90ebb9dc5fdaaaa0">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Snake Body" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="e788aadf0d7f46449b2c38ff2ecdcef0">
+			<Enumeration>
+				<Members>
+					<EnumerationMember Value="0" Name="rotate ccw" />
+					<EnumerationMember Value="1" Name="rotate cw" />
+				</Members>
+				<DataType>UInt16</DataType>
+			</Enumeration>
+		</p.TypeReference>
+		<p.TypeReference TypeId="45b5d601469b49cbbf2ab30b00b42ffa">
+			<Typedef TypedefName="Edible.gtype" UnderlyingType="Boolean" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="c4f7c40429d5428e90ebb9dc5fdaaaa0">
+			<Typedef TypedefName="Snake Body.gtype" UnderlyingType="Boolean" />
+		</p.TypeReference>
+	</DataTypeReferenceTable>
+	<IconTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.IconModel Target="Snek::SubVIs::Snake Head Index.gvi">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 20">
+						<IconPanel Height="[float]20" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]20" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]False" Height="[float]16" HorizontalAlignment="[HorizontalAlignment]Left" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]🐍😃📍" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+									<FontSetting FontFamily="Verdana" FontSize="7.5" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate Height="[float]20" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]Snek.gcomp" Top="[float]0" Width="[float]40" />
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+		<p.IconModel Target="Snek::Entity Components::Direction::Direction Get.gvi">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 40">
+						<IconPanel Height="[float]40" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Height="[float]36" HorizontalAlignment="[HorizontalAlignment]Left" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]Fixed" Text="[string]Direction Get" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+									<FontSetting FontFamily="Verdana" FontSize="6" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate Height="[float]40" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]Snek.gcomp" Top="[float]0" Width="[float]40" />
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+		<p.IconModel Target="Snek::Entity Components::Position::Translate Position.gvi">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 40">
+						<IconPanel Height="[float]40" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Height="[float]36" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]Translate Position" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+									<FontSetting FontFamily="Verdana" FontSize="6" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate Height="[float]40" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]Snek.gcomp" Top="[float]0" Width="[float]40" />
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+		<p.IconModel Target="Snek::Entity Components::Snake Head::Snake Head Get.gvi">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 40">
+						<IconPanel Height="[float]40" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" MinHeight="[float]1" MinWidth="[float]1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Height="[float]36" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]Snake Head Get" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]36">
+									<FontSetting FontFamily="Verdana" FontSize="6.75" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate Height="[float]40" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]Snek.gcomp" Top="[float]0" Width="[float]40" />
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+	</IconTable>
+</SourceFile>

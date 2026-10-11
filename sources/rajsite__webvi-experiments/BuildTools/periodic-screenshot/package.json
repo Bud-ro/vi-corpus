@@ -1,0 +1,14 @@
+{
+  "name": "periodic-screenshot",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "mkdirp": "^3.0.1",
+    "pm2": "^5.3.1",
+    "screenshot-desktop": "^1.15.0"
+  },
+  "scripts": {
+    "start": "pm2 start index.js",
+    "stop": "pm2 kill"
+  }
+}

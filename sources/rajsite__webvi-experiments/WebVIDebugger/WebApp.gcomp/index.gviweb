@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="F200F3F8ADA883A71B88B0A1935DCDD7D3AD902D871E4040CE0461AFDD6C9BB7018011E3D0F27D7DDBF826C051D0280C3A7F7CE1EF0F0663F6E94B48A81D88B5" Timestamp="1DB8F8919D47605" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="LabVIEW Virtual Instrument" Name="http://www.ni.com/LabVIEW.VI" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="Common language components" Name="http://www.ni.com/MocCommon" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="Web Module: WebVI" Name="http://www.ni.com/NationalInstruments.LabVIEW.HtmlVI" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.3.55052" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ApplicationVersionInfo Build="9.5.3.55052" Name="G Web Development Software" Version="22.3.0" />
+	</SourceModelFeatureSet>
+	<VirtualInstrument Id="1" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" xmlns="http://www.ni.com/LabVIEW.VI">
+		<Icon Id="2" ListViewIconCrop="0 0 40 40" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]40" Id="37" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<Canvas Id="38" Left="[float]0" Top="[float]0">
+					<Path Data="[PathGeometry]M 39,36 C 39,37.6500015 37.6500015,39 36,39 L 4,39 C 2.3499999,39 1,37.6500015 1,36 L 1,4 C 1,2.3499999 2.3499999,1 4,1 L 36,1 C 37.6500015,1 39,2.3499999 39,4 L 39,36 Z" Fill="[SMSolidColorBrush]#ffffffff" Height="[float]40" Id="39" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" Width="[float]40" />
+					<Path Data="[PathGeometry]M 36,1 C 37.6539993,1 39,2.34599996 39,4 L 39,36 C 39,37.6539993 37.6539993,39 36,39 L 4,39 C 2.34599996,39 1,37.6539993 1,36 L 1,4 C 1,2.34599996 2.34599996,1 4,1 L 36,1 M 36,0 L 4,0 C 1.79999995,0 0,1.79999995 0,4 L 0,36 C 0,38.2000008 1.79999995,40 4,40 L 36,40 C 38.2000008,40 40,38.2000008 40,36 L 40,4 C 40,1.79999995 38.2000008,0 36,0 L 36,0 Z" Fill="[SMSolidColorBrush]#ff727272" Height="[float]40" Id="40" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" Width="[float]40" />
+					<Path Data="[PathGeometry]M 38,36 C 38,37.0999985 37.0999985,38 36,38 L 4,38 C 2.9000001,38 2,37.0999985 2,36 L 2,4 C 2,2.9000001 2.9000001,2 4,2 L 36,2 C 37.0999985,2 38,2.9000001 38,4 L 38,36 Z" Fill="[SMSolidColorBrush]#ffebebeb" Height="[float]40" Id="41" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" Width="[float]40" />
+					<Path Data="[PathGeometry]M 30.1270008,18.5489998 C 31.2910004,19.2229996 31.2910004,20.3260002 30.1270008,21 L 11.1169996,31.7119999 C 9.95300007,32.3860016 9,31.8369999 9,30.4909992 L 9,9.50899982 C 9,8.16399956 9.95300007,7.61399984 11.1169996,8.28800011 L 30.1270008,18.5489998 Z M 21,19 L 17,19 L 17,15 L 15,15 L 15,19 L 11,19 L 11,21 L 15,21 L 15,25 L 17,25 L 17,21 L 21,21 L 21,19 Z" Fill="[SMSolidColorBrush]#b2000000" Height="[float]40" Id="42" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" Width="[float]40" />
+					<Path Data="[PathGeometry]M 38,10 L 38,19 L 35.9080009,19 C 35.7010002,18.4190006 35.1520004,18 34.5,18 C 33.6720009,18 33,18.6720009 33,19.5 C 33,20.3279991 33.6720009,21 34.5,21 C 35.1520004,21 35.7019997,20.5809994 35.9080009,20 L 38,20 L 38,30 L 16.1919994,30 L 30.618,21.8710003 C 31.5,21.3610001 32,20.5979996 32,19.7740002 C 32,18.9500008 31.5,18.1879997 30.6280003,17.6830006 L 16.3929996,10 L 38,10 Z M 2,10 L 2,14 L 4.09200001,14 C 4.29899979,13.4189997 4.84800005,13 5.5,13 C 6.32800007,13 7,13.6719999 7,14.5 C 7,15.3280001 6.32800007,16 5.5,16 C 4.84800005,16 4.29799986,15.5810003 4.09200001,15 L 2,15 L 2,25 L 4.09200001,25 C 4.29899979,24.4190006 4.84800005,24 5.5,24 C 6.32800007,24 7,24.6720009 7,25.5 C 7,26.3279991 6.32800007,27 5.5,27 C 4.84800005,27 4.29799986,26.5809994 4.09200001,26 L 2,26 L 2,30 L 8,30 L 8,10 L 2,10 Z" Fill="[SMSolidColorBrush]#ff62839d" Height="[float]40" Id="43" Left="[float]0" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" Width="[float]40" />
+				</Canvas>
+			</IconPanel>
+		</Icon>
+		<ConnectorPane Height="40" Id="9" ListViewHeight="40" ListViewWidth="150" Width="40" xmlns="http://www.ni.com/PlatformFramework">
+			<ConnectorPaneTerminal />
+			<ConnectorPaneTerminal Hotspot="0 15" />
+			<ConnectorPaneTerminal Hotspot="0 25" />
+			<ConnectorPaneTerminal Hotspot="0 35" />
+			<ConnectorPaneTerminal Hotspot="15 0" />
+			<ConnectorPaneTerminal Hotspot="25 0" />
+			<ConnectorPaneTerminal Hotspot="40 5" />
+			<ConnectorPaneTerminal Hotspot="40 15" />
+			<ConnectorPaneTerminal Hotspot="40 25" />
+			<ConnectorPaneTerminal Hotspot="40 35" />
+			<ConnectorPaneTerminal Hotspot="15 40" />
+			<ConnectorPaneTerminal Hotspot="25 40" />
+		</ConnectorPane>
+		<DiagramUnplacedItems Id="10" xmlns="http://www.ni.com/MocCommon" />
+		<FrontPanelUnplacedItems Id="11" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0" />
+		<BlockDiagram Id="12">
+			<WhileLoop Bounds="285 110 541 355" DiagramId="17" Id="16">
+				<LoopIteration Bounds="5 325 15 15" Id="18" />
+				<LoopCondition Bounds="475 320 15 15" Id="19" />
+				<Literal Bounds="420 320 25 15" DataType="Boolean" Id="20" Label="21" xmlns="http://www.ni.com/MocCommon">
+					<p.Data>False</p.Data>
+					<BooleanBehavior />
+				</Literal>
+				<NodeLabel AttachedTo="20" Bounds="385 320 30 15" Id="21" Visible="False" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>stop</p.Text>
+				</NodeLabel>
+				<Wire Id="22" Joints="N(20:Out)|(445,325) N(19:Input)|(475,325)" xmlns="http://www.ni.com/PlatformFramework" />
+				<Wait Bounds="450 265 40 40" Id="23" />
+				<Literal Bounds="395 280 45 15" DataType="UInt32" Id="24" Label="25" xmlns="http://www.ni.com/MocCommon">
+					<p.Data>1000</p.Data>
+					<NumericBehavior Interpretation="Exact" ValueFormatter="LV:G6" />
+				</Literal>
+				<NodeLabel AttachedTo="24" Bounds="360 280 30 15" Id="25" Visible="False" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>milliseconds to wait</p.Text>
+				</NodeLabel>
+				<Wire Id="26" Joints="N(24:Out)|(440,285) N(23:time to wait)|(450,285)" xmlns="http://www.ni.com/PlatformFramework" />
+				<DataAccessor Bounds="50 325 40 15" DataItem="67b9fdd5648d4a1380cf3c16c790b24a" Id="44192443f6b44c8a860c09eca64241dc" Label="d52f839ee1e44c1ca03194766a88f692" xmlns="http://www.ni.com/MocCommon">
+					<Terminal DataType="Int32" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+				</DataAccessor>
+				<NodeLabel AttachedTo="44192443f6b44c8a860c09eca64241dc" Bounds="95 325 74 14" Id="d52f839ee1e44c1ca03194766a88f692" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>loop iteration</p.Text>
+				</NodeLabel>
+				<Wire Id="273677e2b3da4000a9d98c890ef8dd72" Joints="N(18:Output)|(20,330) N(44192443f6b44c8a860c09eca64241dc:Value)|(53,330)" xmlns="http://www.ni.com/PlatformFramework" />
+				<DataAccessor Bounds="45 40 40 15" DataItem="47a79f10045f432e81a4b2ee7f5ed57a" Id="b3992ec45f4549b9bd6879f018535bfb" Label="32eeb73079044c469332b54780f9344a" xmlns="http://www.ni.com/MocCommon">
+					<Terminal DataType="@e2d01fc6803a4534920038d676d348fe" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+				</DataAccessor>
+				<NodeLabel AttachedTo="b3992ec45f4549b9bd6879f018535bfb" Bounds="45 23 66 14" Id="32eeb73079044c469332b54780f9344a" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>Game State</p.Text>
+				</NodeLabel>
+				<Wire Id="d090748e3bba45359a6d8f144f8cd6d1" Joints="N(972286cf3bd4438db47152b263786de8:i0)|(4,45) h(26) B(1) N(b3992ec45f4549b9bd6879f018535bfb:Value)|(48,45) B(1) v(50) N(a073ca33e9984f128d035c1ae965f6f4:L1)|(155,95)" xmlns="http://www.ni.com/PlatformFramework" />
+				<MethodCall Bounds="155 80 40 40" Id="a073ca33e9984f128d035c1ae965f6f4" ResolveFailedHint="&quot;C:\\dev\\github\\webvi-experiments\\WebVIDebugger\\WebVIDebugger.gcomp\\Probe.gvi&quot;" Signature="@37dd9bc27c5c4253b176de77fffe6746" Target="WebVIDebugger::Probe.gvi" xmlns="http://www.ni.com/MocCommon">
+					<p.MethodDeclaration>
+						<MethodDeclaration xmlns="http://www.ni.com/PlatformFramework">
+							<Parameter Id="L0" Desc="name" />
+							<Parameter Id="L1" Desc="probe" />
+						</MethodDeclaration>
+					</p.MethodDeclaration>
+					<Terminal DataType="String" Direction="Input" Id="L0" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+					<Terminal DataType="@bd2232353db34e3ebe062acdcac878ce" Direction="Input" Hotspot="0 15" Id="L1" Usage="Required" xmlns="http://www.ni.com/PlatformFramework" />
+				</MethodCall>
+				<Literal Bounds="50 70 80 15" DataType="String" Id="f0b755d2195d45a99c6dc19c8c107547" Label="e62b8d1ee0a45ff908b6c600a58c5de" xmlns="http://www.ni.com/MocCommon">
+					<p.Data>game state</p.Data>
+					<StringBehavior TextDisplayMode="Default" />
+				</Literal>
+				<NodeLabel AttachedTo="f0b755d2195d45a99c6dc19c8c107547" Bounds="50 52 30 15" Id="e62b8d1ee0a45ff908b6c600a58c5de" Visible="False" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>name</p.Text>
+				</NodeLabel>
+				<Wire Id="2f0ee9b477654b90a5e6e565b78aab22" Joints="N(f0b755d2195d45a99c6dc19c8c107547:Out)|(130,75) h(5) v(10) N(a073ca33e9984f128d035c1ae965f6f4:L0)|(155,85)" xmlns="http://www.ni.com/PlatformFramework" />
+				<LoopTunnel Bounds="-4 45 13 10" Docking="Left" Id="972286cf3bd4438db47152b263786de8" Terminals="o0=7b00e05f51094c80879ef5c730c2230b, i0=d090748e3bba45359a6d8f144f8cd6d1" />
+			</WhileLoop>
+			<Comment Bounds="295 480 520 42" Id="28" SizeToText="False" xmlns="http://www.ni.com/MocCommon">
+				<p.Text>Top-Level WebVIs usually contain a While Loop that never stops so that they can continue running as long as the web page is open in the user's web browser.</p.Text>
+			</Comment>
+			<Comment Bounds="80 230 170 90" Id="29" SizeToText="False" xmlns="http://www.ni.com/MocCommon">
+				<p.Text>Place setup code before the loop. For example, perform initial data communication and wire the results into the loop.</p.Text>
+			</Comment>
+			<Wire Id="7b00e05f51094c80879ef5c730c2230b" Joints="N(f8f3f401f92e4280bcfad87ab432473c:Out)|(63,260) h(5) v(-100) N(972286cf3bd4438db47152b263786de8:o0)|(281,160)" xmlns="http://www.ni.com/PlatformFramework" />
+			<ClusterLiteral Bounds="-258 255 321 520" DataType="@e2d01fc6803a4534920038d676d348fe" Id="f8f3f401f92e4280bcfad87ab432473c" Label="c32ff26ae5bd43978c8106a508facd67" p4:ControlDefinitionChecksum="875NtxQv/sRZS1bu8SrPs3haWbXflFUGtYTX1hrThYs=" xmlns:p4="http://www.ni.com/PanelCommon" xmlns="http://www.ni.com/MocCommon">
+				<p.Data>
+					<Cluster>
+						<Field1>10_20_</Field1>
+						<Field2>
+							<Array Lengths="2">
+								<Rank1>
+									<Elem>
+										<Cluster>
+											<Field1>
+												<Array Lengths="1">
+													<Elements>2</Elements>
+												</Array>
+											</Field1>
+											<Field2>
+												<Array Lengths="1">
+													<Elements>True</Elements>
+												</Array>
+											</Field2>
+											<Field3>
+												<Array Lengths="1">
+													<Elements>90_80_</Elements>
+												</Array>
+											</Field3>
+											<Field4>
+												<Array Lengths="1">
+													<Elements>True</Elements>
+												</Array>
+											</Field4>
+											<Field5>
+												<Array Lengths="3">
+													<Rank1>
+														<Elem>
+															<Cluster>
+																<Field1>
+																	<Array Lengths="1">
+																		<Elements>1</Elements>
+																	</Array>
+																</Field1>
+															</Cluster>
+														</Elem>
+														<Elem>
+															<Cluster>
+																<Field1>
+																	<Array Lengths="1">
+																		<Elements>2</Elements>
+																	</Array>
+																</Field1>
+															</Cluster>
+														</Elem>
+														<Elem>
+															<Cluster>
+																<Field1>
+																	<Array Lengths="1">
+																		<Elements>3</Elements>
+																	</Array>
+																</Field1>
+															</Cluster>
+														</Elem>
+													</Rank1>
+												</Array>
+											</Field5>
+										</Cluster>
+									</Elem>
+									<Elem>
+										<Cluster>
+											<Field1>
+												<Array Lengths="1">
+													<Elements>1</Elements>
+												</Array>
+											</Field1>
+											<Field2>
+												<Array Lengths="1">
+													<Elements>True</Elements>
+												</Array>
+											</Field2>
+											<Field3>
+												<Array Lengths="0" />
+											</Field3>
+											<Field4>
+												<Array Lengths="1">
+													<Elements>False</Elements>
+												</Array>
+											</Field4>
+											<Field5>
+												<Array Lengths="1">
+													<Rank1>
+														<Elem>
+															<Cluster>
+																<Field1>
+																	<Array Lengths="1">
+																		<Elements>1</Elements>
+																	</Array>
+																</Field1>
+															</Cluster>
+														</Elem>
+													</Rank1>
+												</Array>
+											</Field5>
+										</Cluster>
+									</Elem>
+								</Rank1>
+							</Array>
+						</Field2>
+						<Field3>0</Field3>
+					</Cluster>
+				</p.Data>
+				<p4:p.TypeDefinitionTargets>
+					<p4:TypeDefinitionTarget TargetName="Snek::Game State.gtype" />
+					<p4:TypeDefinitionTarget TargetName="Snek::Game State.gtype::ControlDefinition" />
+				</p4:p.TypeDefinitionTargets>
+				<ClusterBehavior AutoArrange="ArrangeVertically" />
+				<ClusterLiteral Bounds="2 19 61 82" DataType="@ec87cfc60bdb42a48f247b36b537654d" Id="4f07f65e5b34530823dc74134240325" Label="c6090b6ee1154085a83e39e8ebed182e">
+					<p.Data>10_20_</p.Data>
+					<ClusterBehavior AutoArrange="ArrangeVertically" />
+					<Literal Bounds="2 19 40 15" DataType="UInt32" Id="d97dd912f93f407d928517ecd17cb72f" Label="472529f08a1c48e2a3c256c3c499f62b">
+						<p.Data>10</p.Data>
+						<NumericBehavior Interpretation="Exact" ValueFormatter="LV:0" />
+					</Literal>
+					<NodeLabel AttachedTo="d97dd912f93f407d928517ecd17cb72f" Bounds="2 2 33 14" Id="472529f08a1c48e2a3c256c3c499f62b" xmlns="http://www.ni.com/PlatformFramework">
+						<p.Text>Width</p.Text>
+					</NodeLabel>
+					<Literal Bounds="2 55 40 15" DataType="UInt32" Id="9a98a326209f4ac49619a8a94de42710" Label="3fc875c65c1f44f29c1c39cfb7e143a4">
+						<p.Data>20</p.Data>
+						<NumericBehavior Interpretation="Exact" ValueFormatter="LV:0" />
+					</Literal>
+					<NodeLabel AttachedTo="9a98a326209f4ac49619a8a94de42710" Bounds="2 38 36 14" Id="3fc875c65c1f44f29c1c39cfb7e143a4" xmlns="http://www.ni.com/PlatformFramework">
+						<p.Text>Height</p.Text>
+					</NodeLabel>
+				</ClusterLiteral>
+				<NodeLabel AttachedTo="4f07f65e5b34530823dc74134240325" Bounds="2 2 59 14" Id="c6090b6ee1154085a83e39e8ebed182e" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>World Size</p.Text>
+				</NodeLabel>
+				<ArrayLiteral Bounds="2 122 300 350" DataType="@a90bdf54690441cb940205f913f32bef" Id="c8126a9d95e847fcb0d8ffe02012ef6c" Label="2b60514b2c054305ad30afb0178f0bf2">
+					<p.Data>
+						<Array Lengths="2">
+							<Rank1>
+								<Elem>
+									<Cluster>
+										<Field1>
+											<Array Lengths="1">
+												<Elements>2</Elements>
+											</Array>
+										</Field1>
+										<Field2>
+											<Array Lengths="1">
+												<Elements>True</Elements>
+											</Array>
+										</Field2>
+										<Field3>
+											<Array Lengths="1">
+												<Elements>90_80_</Elements>
+											</Array>
+										</Field3>
+										<Field4>
+											<Array Lengths="1">
+												<Elements>True</Elements>
+											</Array>
+										</Field4>
+										<Field5>
+											<Array Lengths="3">
+												<Rank1>
+													<Elem>
+														<Cluster>
+															<Field1>
+																<Array Lengths="1">
+																	<Elements>1</Elements>
+																</Array>
+															</Field1>
+														</Cluster>
+													</Elem>
+													<Elem>
+														<Cluster>
+															<Field1>
+																<Array Lengths="1">
+																	<Elements>2</Elements>
+																</Array>
+															</Field1>
+														</Cluster>
+													</Elem>
+													<Elem>
+														<Cluster>
+															<Field1>
+																<Array Lengths="1">
+																	<Elements>3</Elements>
+																</Array>
+															</Field1>
+														</Cluster>
+													</Elem>
+												</Rank1>
+											</Array>
+										</Field5>
+									</Cluster>
+								</Elem>
+								<Elem>
+									<Cluster>
+										<Field1>
+											<Array Lengths="1">
+												<Elements>1</Elements>
+											</Array>
+										</Field1>
+										<Field2>
+											<Array Lengths="1">
+												<Elements>True</Elements>
+											</Array>
+										</Field2>
+										<Field3>
+											<Array Lengths="0" />
+										</Field3>
+										<Field4>
+											<Array Lengths="1">
+												<Elements>False</Elements>
+											</Array>
+										</Field4>
+										<Field5>
+											<Array Lengths="1">
+												<Rank1>
+													<Elem>
+														<Cluster>
+															<Field1>
+																<Array Lengths="1">
+																	<Elements>1</Elements>
+																</Array>
+															</Field1>
+														</Cluster>
+													</Elem>
+												</Rank1>
+											</Array>
+										</Field5>
+									</Cluster>
+								</Elem>
+							</Rank1>
+						</Array>
+					</p.Data>
+					<ArrayBehavior ElementType="@1df5feb9245c4d69bee45e5cf358f312" IndexEditorWidth="42" Orientation="Horizontal">
+						<p.DefaultElementValue>
+							<Cluster>
+								<Field1>null</Field1>
+								<Field2>null</Field2>
+								<Field3>null</Field3>
+								<Field4>null</Field4>
+								<Field5>null</Field5>
+							</Cluster>
+						</p.DefaultElementValue>
+					</ArrayBehavior>
+					<ClusterLiteral Bounds="48 2 246 344.019958" DataType="@1df5feb9245c4d69bee45e5cf358f312" Id="a3fac9595f074038a8460e56a0e5ee70" p4:ControlDefinitionChecksum="jKGVzjrHjCN+cog9wj4o/2G1FmBNm8frCWSKXoHZ2no=">
+						<p4:p.TypeDefinitionTargets>
+							<p4:TypeDefinitionTarget TargetName="Snek::Entity.gtype" />
+							<p4:TypeDefinitionTarget TargetName="Snek::Entity.gtype::ControlDefinition" />
+						</p4:p.TypeDefinitionTargets>
+						<ClusterBehavior AutoArrange="ArrangeVertically" />
+						<ArrayLiteral Bounds="2 20 99 24.3399887" DataType="@c4dfb577390746baba6cac2f165ddc4b" Id="849c2e482b2b411f8b6b507d6364eabd" Label="c3976cccc91e4f6386de2e02a953ee34">
+							<ArrayBehavior ElementType="@b6eb17e731c04b4d9136cb388dd24dd3" IndexEditorWidth="42" Orientation="Horizontal">
+								<p.DefaultElementValue>0</p.DefaultElementValue>
+							</ArrayBehavior>
+							<Literal Bounds="48 2 45 15" DataType="@b6eb17e731c04b4d9136cb388dd24dd3" Id="5631ec422804748bd541ce78ac7f027" p4:ControlDefinitionChecksum="Y8nEV54SS02e/OF40AfaYUM7cSsAcgeo4iQ3O3kmMJA=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Direction::Direction.gtype" />
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Direction::Direction.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<EnumBehavior />
+							</Literal>
+						</ArrayLiteral>
+						<NodeLabel AttachedTo="849c2e482b2b411f8b6b507d6364eabd" Bounds="2 2 50 15" Id="c3976cccc91e4f6386de2e02a953ee34" xmlns="http://www.ni.com/PlatformFramework">
+							<p.Text>Direction</p.Text>
+						</NodeLabel>
+						<ArrayLiteral Bounds="2 66.33999 69 24.3399887" DataType="@93dd6422ef5441798ed32357aa403ea9" Id="a7ff6cd0a7e4ade82acd6a415356dbd" Label="97d8b91ee3c84500aa73fdcb55ee0f5c">
+							<ArrayBehavior ElementType="@cd4ad6bb548c4ebeb004ff111d328ef5" IndexEditorWidth="42" Orientation="Horizontal">
+								<p.DefaultElementValue>False</p.DefaultElementValue>
+							</ArrayBehavior>
+							<Literal Bounds="48 1.66001 15 15" DataType="@cd4ad6bb548c4ebeb004ff111d328ef5" Id="f185d3d9cc46432aa456335f93f9b684" p4:ControlDefinitionChecksum="KmsoPXx8pif/wGWYiDqlRrd4AKsEmk5wNBgnX3aezug=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Edible::Edible.gtype" />
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Edible::Edible.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<BooleanBehavior />
+							</Literal>
+						</ArrayLiteral>
+						<NodeLabel AttachedTo="a7ff6cd0a7e4ade82acd6a415356dbd" Bounds="2 48.33999 35 15" Id="97d8b91ee3c84500aa73fdcb55ee0f5c" xmlns="http://www.ni.com/PlatformFramework">
+							<p.Text>Edible</p.Text>
+						</NodeLabel>
+						<ArrayLiteral Bounds="2 112.679977 115 89" DataType="@b5bf7a315d65428286744938703f7410" Id="3529a9ab593f42f9b9f6e139b5bd65b0" Label="cb3161ff754c42d1baca5a1fa291067d">
+							<ArrayBehavior ElementType="@79d6762b44cb416488b56138c027e807" IndexEditorWidth="42" Orientation="Horizontal">
+								<p.DefaultElementValue>0_0_</p.DefaultElementValue>
+							</ArrayBehavior>
+							<ClusterLiteral Bounds="48 2.32 61 84" DataType="@79d6762b44cb416488b56138c027e807" Id="2f1106b78a4f415bb0853c730fef31a6" Label="7c39ccce55bf4681b9e4b734a68a741b" p4:ControlDefinitionChecksum="XYbe6hLMd5mycDaqM6NipFhJk1ZfRXUaoQbdgbckv9o=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Position::Position.gtype" />
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Position::Position.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<ClusterBehavior AutoArrange="ArrangeVertically" />
+								<Literal Bounds="2 20 40 15" DataType="Int32" Id="ac4e883b25c546b1bb90e2b2989110ba" Label="8b2d1812ab194b0d9c03ffe6fc8c8b61">
+									<NumericBehavior Interpretation="Exact" ValueFormatter="LV:0" />
+								</Literal>
+								<NodeLabel AttachedTo="ac4e883b25c546b1bb90e2b2989110ba" Bounds="2 2 15 15" Id="8b2d1812ab194b0d9c03ffe6fc8c8b61" xmlns="http://www.ni.com/PlatformFramework">
+									<p.Text>X</p.Text>
+								</NodeLabel>
+								<Literal Bounds="2 57 40 15" DataType="Int32" Id="ca1b267a0dc641998d6346786e18e658" Label="b66de841885048ef89059b526ad478c4">
+									<NumericBehavior Interpretation="Exact" ValueFormatter="LV:0" />
+								</Literal>
+								<NodeLabel AttachedTo="ca1b267a0dc641998d6346786e18e658" Bounds="2 39 15 15" Id="b66de841885048ef89059b526ad478c4" xmlns="http://www.ni.com/PlatformFramework">
+									<p.Text>Y</p.Text>
+								</NodeLabel>
+							</ClusterLiteral>
+							<NodeLabel AttachedTo="2f1106b78a4f415bb0853c730fef31a6" Bounds="48 -15.68 30 15" Id="7c39ccce55bf4681b9e4b734a68a741b" xmlns="http://www.ni.com/PlatformFramework">
+								<p.Text>Position</p.Text>
+							</NodeLabel>
+						</ArrayLiteral>
+						<NodeLabel AttachedTo="3529a9ab593f42f9b9f6e139b5bd65b0" Bounds="2 94.67998 45 15" Id="cb3161ff754c42d1baca5a1fa291067d" xmlns="http://www.ni.com/PlatformFramework">
+							<p.Text>Position</p.Text>
+						</NodeLabel>
+						<ArrayLiteral Bounds="2 223.679977 69 24.3399887" DataType="@3af7d5ff956448f588f3dc5e5562cecd" Id="91aac9794dbb473f8a638133348eb5ac" Label="1a74f07887f4e8887a12a0d70f0532a">
+							<ArrayBehavior ElementType="@318211d5a39846a5b0e1394b3e780a69" IndexEditorWidth="42" Orientation="Horizontal">
+								<p.DefaultElementValue>False</p.DefaultElementValue>
+							</ArrayBehavior>
+							<Literal Bounds="48 2.32 15 15" DataType="@318211d5a39846a5b0e1394b3e780a69" Id="8859a8e93d184e8a9756ab81337b44e2" Label="948d1773908445aeb0f356611981ce33" p4:ControlDefinitionChecksum="q4p9bN2/PcVpea/dcyVl/3HeKTvwQDo0dZlfO2O7k9k=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Snake Body::Snake Body.gtype" />
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Snake Body::Snake Body.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<BooleanBehavior />
+							</Literal>
+							<NodeLabel AttachedTo="8859a8e93d184e8a9756ab81337b44e2" Bounds="48 -15.68 30 15" Id="948d1773908445aeb0f356611981ce33" xmlns="http://www.ni.com/PlatformFramework">
+								<p.Text>Snake Body</p.Text>
+							</NodeLabel>
+						</ArrayLiteral>
+						<NodeLabel AttachedTo="91aac9794dbb473f8a638133348eb5ac" Bounds="2 205.679977 70 15" Id="1a74f07887f4e8887a12a0d70f0532a" xmlns="http://www.ni.com/PlatformFramework">
+							<p.Text>Snake Body</p.Text>
+						</NodeLabel>
+						<ArrayLiteral Bounds="2 270.019958 225 62" DataType="@0ef60655238b4f5d9b8dcc0c5bc7febe" Id="41dc5215dd3f4948b8b70fb529e888ae" Label="2a2867b6982e4b91b13c8f14526431b2">
+							<ArrayBehavior ElementType="@5fcd621cc92c4605b4386c249b8d28ec" IndexEditorWidth="42" Orientation="Horizontal">
+								<p.DefaultElementValue>
+									<Cluster>
+										<Field1>null</Field1>
+									</Cluster>
+								</p.DefaultElementValue>
+							</ArrayBehavior>
+							<ClusterLiteral Bounds="48 1.98 171 56.33999" DataType="@5fcd621cc92c4605b4386c249b8d28ec" Id="311d620682ca40769fcba793549d699f" Label="a8ead2dfceae423ab49014354e3a543a" p4:ControlDefinitionChecksum="Jhk5nkA47Aeql4KSYrPm9CC8fhKFmYDWnIvLC0zexnI=">
+								<p4:p.TypeDefinitionTargets>
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Snake Head::Snake Head.gtype" />
+									<p4:TypeDefinitionTarget TargetName="Snek::Entity Components::Snake Head::Snake Head.gtype::ControlDefinition" />
+								</p4:p.TypeDefinitionTargets>
+								<ClusterBehavior AutoArrange="ArrangeVertically" />
+								<ArrayLiteral Bounds="2 20 94 24.3399887" DataType="Int32[]" Id="3c5147406fef443393a2a338271a11af" Label="e778a538e6c6489b86122eb83b4908d9">
+									<ArrayBehavior ElementType="Int32" IndexEditorWidth="42" Orientation="Horizontal">
+										<p.DefaultElementValue>0</p.DefaultElementValue>
+									</ArrayBehavior>
+									<Literal Bounds="48 2 40 15" DataType="Int32" Id="13228cbdd4c5408ab42112df57b13455">
+										<NumericBehavior Interpretation="Exact" ValueFormatter="LV:0" />
+									</Literal>
+								</ArrayLiteral>
+								<NodeLabel AttachedTo="3c5147406fef443393a2a338271a11af" Bounds="2 2 150 15" Id="e778a538e6c6489b86122eb83b4908d9" xmlns="http://www.ni.com/PlatformFramework">
+									<p.Text>Snake Body Entities Index</p.Text>
+								</NodeLabel>
+							</ClusterLiteral>
+							<NodeLabel AttachedTo="311d620682ca40769fcba793549d699f" Bounds="48 -16.02 30 15" Id="a8ead2dfceae423ab49014354e3a543a" xmlns="http://www.ni.com/PlatformFramework">
+								<p.Text>Snake Head</p.Text>
+							</NodeLabel>
+						</ArrayLiteral>
+						<NodeLabel AttachedTo="41dc5215dd3f4948b8b70fb529e888ae" Bounds="2 252.019958 70 15" Id="2a2867b6982e4b91b13c8f14526431b2" xmlns="http://www.ni.com/PlatformFramework">
+							<p.Text>Snake Head</p.Text>
+						</NodeLabel>
+					</ClusterLiteral>
+				</ArrayLiteral>
+				<NodeLabel AttachedTo="c8126a9d95e847fcb0d8ffe02012ef6c" Bounds="2 105 41 14" Id="2b60514b2c054305ad30afb0178f0bf2" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>Entities</p.Text>
+				</NodeLabel>
+				<OpaqueRefnumLiteral Bounds="2 493 40 15" DataType="@29a6220ea3224841af79e74d17821cb0" Id="5f4e4c19a5e84cbdb7a7c5a0f163b67e" Label="bdb1fcb19ce54142b4675d81e5c5ca75">
+					<p.Data>0</p.Data>
+					<p4:p.TypeDefinitionTargets>
+						<p4:TypeDefinitionTarget TargetName="Snek::Event Queues::User Action.gtype" />
+					</p4:p.TypeDefinitionTargets>
+					<OpaqueRefnumLiteralBehavior />
+				</OpaqueRefnumLiteral>
+				<NodeLabel AttachedTo="5f4e4c19a5e84cbdb7a7c5a0f163b67e" Bounds="2 476 69 14" Id="bdb1fcb19ce54142b4675d81e5c5ca75" xmlns="http://www.ni.com/PlatformFramework">
+					<p.Text>User Actions</p.Text>
+				</NodeLabel>
+			</ClusterLiteral>
+			<NodeLabel AttachedTo="f8f3f401f92e4280bcfad87ab432473c" Bounds="-258 237 30 15" Id="c32ff26ae5bd43978c8106a508facd67" Visible="False" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Game State</p.Text>
+			</NodeLabel>
+		</BlockDiagram>
+		<HtmlFrontPanel Height="[float]768" Id="15" Left="[float]0" MinHeight="[float]0" MinWidth="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]1024" xmlns="http://www.ni.com/NationalInstruments.LabVIEW.HtmlVI">
+			<Text BaseName="[string]Text" Height="[float]32" Id="36" Left="[float]180" MinHeight="[float]11" MinWidth="[float]11" Text="[string]On the WebVI Panel, place controls and indicators to respond to user input and display data.&#xD;&#xA;These controls will appear on the web page that is created when you build this Web Application." TextWrapping="[TextWrapping]Wrap" Top="[float]132" Width="[float]516" xmlns="http://www.ni.com/PlatformFramework" />
+			<NumericText BaseName="[string]Numeric" Height="[float]24" Id="db433aa170a849f680266d21a75a19b6" Interval="[int]1" IsReadOnly="[bool]True" Label="[UIModel]65911156d8624fa3ad5d20c8930e5ae8" Left="[float]68" MinHeight="[float]24" RadixBase="[RadixBase]Decimal" TabIndex="[int]0" Top="[float]260" Value="{DataItemBinding Id=67b9fdd5648d4a1380cf3c16c790b24a}" ValueFormatter="[string]Decimal, Uppercase, Signed" ValueType="[Type]Int32" Width="[float]72" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Height="[float]16" Id="65911156d8624fa3ad5d20c8930e5ae8" LabelOwner="[UIModel]db433aa170a849f680266d21a75a19b6" Left="[float]68" Text="[string]loop iteration" Top="[float]240" Width="[float]72" xmlns="http://www.ni.com/PanelCommon" />
+		</HtmlFrontPanel>
+		<DataItem AdaptToDiagramType="True" DataType="Int32" Id="67b9fdd5648d4a1380cf3c16c790b24a" Name="loop iteration" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0</p.DefaultValue>
+		</DataItem>
+		<DataItem DataType="@e2d01fc6803a4534920038d676d348fe" Id="47a79f10045f432e81a4b2ee7f5ed57a" Name="Game State" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>
+				<Cluster>
+					<Field1>0_0_</Field1>
+					<Field2>null</Field2>
+					<Field3>0</Field3>
+				</Cluster>
+			</p.DefaultValue>
+			<p.TypeDefinitionTargets xmlns="http://www.ni.com/PanelCommon">
+				<TypeDefinitionTarget TargetName="Snek::Game State.gtype" />
+			</p.TypeDefinitionTargets>
+		</DataItem>
+	</VirtualInstrument>
+	<DataTypeReferenceTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.TypeReference TypeId="e2d01fc6803a4534920038d676d348fe">
+			<Attributed AttributedType="@709aefbbdbb645348782ae3ed124a0e9">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="37dd9bc27c5c4253b176de77fffe6746">
+			<Attributed AttributedType="@19f2b738843b459098b396a7eaa3ed42">
+				<AttributeValues>
+					<AttributeValue Name="NI.ConnectorPaneHeight" Value="[int]40" />
+					<AttributeValue Name="NI.ConnectorPaneWidth" Value="[int]40" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="bd2232353db34e3ebe062acdcac878ce">
+			<Composite Id="1" Name="Variant" Sealed="" GenericTypeDefinition="Void" BaseType="Void" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="ec87cfc60bdb42a48f247b36b537654d">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Width" DataType="UInt32" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Height" DataType="UInt32" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="a90bdf54690441cb940205f913f32bef">
+			<VariableArray DereferenceType="@1df5feb9245c4d69bee45e5cf358f312" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="1df5feb9245c4d69bee45e5cf358f312">
+			<Attributed AttributedType="@3ca3ab980bd94a97953a305e3eb3db28">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="c4dfb577390746baba6cac2f165ddc4b">
+			<VariableArray DereferenceType="@b6eb17e731c04b4d9136cb388dd24dd3" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="b6eb17e731c04b4d9136cb388dd24dd3">
+			<Attributed AttributedType="@367b21a4ba224699ad4c3a789bee737f">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Direction" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="93dd6422ef5441798ed32357aa403ea9">
+			<VariableArray DereferenceType="@cd4ad6bb548c4ebeb004ff111d328ef5" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="cd4ad6bb548c4ebeb004ff111d328ef5">
+			<Attributed AttributedType="@45b5d601469b49cbbf2ab30b00b42ffa">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Edible" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="b5bf7a315d65428286744938703f7410">
+			<VariableArray DereferenceType="@79d6762b44cb416488b56138c027e807" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="79d6762b44cb416488b56138c027e807">
+			<Attributed AttributedType="@224f3e17a7764a63aba29bd2905633ae">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Position" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="3af7d5ff956448f588f3dc5e5562cecd">
+			<VariableArray DereferenceType="@318211d5a39846a5b0e1394b3e780a69" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="318211d5a39846a5b0e1394b3e780a69">
+			<Attributed AttributedType="@c4f7c40429d5428e90ebb9dc5fdaaaa0">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Snake Body" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="0ef60655238b4f5d9b8dcc0c5bc7febe">
+			<VariableArray DereferenceType="@5fcd621cc92c4605b4386c249b8d28ec" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="5fcd621cc92c4605b4386c249b8d28ec">
+			<Attributed AttributedType="@5f06f7e466444709ae2992bfec0fd49c">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Entity Components::Snake Head" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="29a6220ea3224841af79e74d17821cb0">
+			<Attributed AttributedType="@cf1768cc27e540569c60333aa7871cc6">
+				<AttributeValues>
+					<AttributeValue Name="NI_PlatformFramework_RefnumAttributes" Value="[NI_PlatformFramework_RefnumAttributes]Refnum" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="709aefbbdbb645348782ae3ed124a0e9">
+			<Typedef TypedefName="Game State.gtype" UnderlyingType="@a8f59312b3f941ff968c382362001ee1" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="19f2b738843b459098b396a7eaa3ed42">
+			<Function Id="1" IsStatic="True" IsConstructor="False" Name="Probe.gvi" ReturnType="Void" GenericTypeDefinition="Void">
+				<Parameters>
+					<Attributed AttributedType="@8e9fd4e289ce4c30b7d1d23ffcb8f608">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]name" />
+						</AttributeValues>
+					</Attributed>
+					<Attributed AttributedType="@3e4bbf5e0e414d6d925bc986653e640a">
+						<AttributeValues>
+							<AttributeValue Name="NI.UserDefinedName" Value="[string]probe" />
+						</AttributeValues>
+					</Attributed>
+				</Parameters>
+			</Function>
+		</p.TypeReference>
+		<p.TypeReference TypeId="3ca3ab980bd94a97953a305e3eb3db28">
+			<Typedef TypedefName="Entity.gtype" UnderlyingType="@7423eba18b3f491b91674dbbe7b60e32" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="367b21a4ba224699ad4c3a789bee737f">
+			<Typedef TypedefName="Direction.gtype" UnderlyingType="@5378f9884dd144cea76ba62eb648d7fb" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="45b5d601469b49cbbf2ab30b00b42ffa">
+			<Typedef TypedefName="Edible.gtype" UnderlyingType="Boolean" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="224f3e17a7764a63aba29bd2905633ae">
+			<Typedef TypedefName="Position.gtype" UnderlyingType="@7cd944d925cc48b3af342632d2e0b8b7" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="c4f7c40429d5428e90ebb9dc5fdaaaa0">
+			<Typedef TypedefName="Snake Body.gtype" UnderlyingType="Boolean" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="5f06f7e466444709ae2992bfec0fd49c">
+			<Typedef TypedefName="Snake Head.gtype" UnderlyingType="@ae9a4418c6bf427b91b06c3b38542464" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="cf1768cc27e540569c60333aa7871cc6">
+			<Composite Id="1" Name="NationalInstruments.SourceModel.DataTypes.Queue" ReferenceClass="" Sealed="" GenericTypeDefinition="@4e89858796a845a5ac60855798b7baa2">
+				<ClosedGenericParameters>
+					<TypeRef>@7d52fdeda93b40819d95bd86aef680fd</TypeRef>
+				</ClosedGenericParameters>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="a8f59312b3f941ff968c382362001ee1">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="World Size" DataType="@ec87cfc60bdb42a48f247b36b537654d" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Entities" DataType="@a90bdf54690441cb940205f913f32bef" />
+					<Field FieldAccessPolicy="ReadWrite" Name="User Actions" DataType="@29a6220ea3224841af79e74d17821cb0" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="8e9fd4e289ce4c30b7d1d23ffcb8f608">
+			<Parameter InputParameterPassingRule="Required" OutputParameterPassingRule="NotAllowed" Name="L0" DataType="String" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="3e4bbf5e0e414d6d925bc986653e640a">
+			<Parameter InputParameterPassingRule="Required" OutputParameterPassingRule="NotAllowed" Name="L1" DataType="@bd2232353db34e3ebe062acdcac878ce" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="7423eba18b3f491b91674dbbe7b60e32">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Direction" DataType="@c4dfb577390746baba6cac2f165ddc4b" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Edible" DataType="@93dd6422ef5441798ed32357aa403ea9" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Position" DataType="@b5bf7a315d65428286744938703f7410" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Body" DataType="@3af7d5ff956448f588f3dc5e5562cecd" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Head" DataType="@0ef60655238b4f5d9b8dcc0c5bc7febe" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="5378f9884dd144cea76ba62eb648d7fb">
+			<Enumeration>
+				<Members>
+					<EnumerationMember Value="0" Name="⬆️" />
+					<EnumerationMember Value="1" Name="↗️" />
+					<EnumerationMember Value="2" Name="➡️" />
+					<EnumerationMember Value="3" Name="↘️" />
+					<EnumerationMember Value="4" Name="⬇️" />
+					<EnumerationMember Value="5" Name="↙️" />
+					<EnumerationMember Value="6" Name="⬅️" />
+					<EnumerationMember Value="7" Name="↖️" />
+				</Members>
+				<DataType>UInt8</DataType>
+			</Enumeration>
+		</p.TypeReference>
+		<p.TypeReference TypeId="7cd944d925cc48b3af342632d2e0b8b7">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="X" DataType="Int32" />
+					<Field FieldAccessPolicy="ReadWrite" Name="Y" DataType="Int32" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="ae9a4418c6bf427b91b06c3b38542464">
+			<Composite Id="1" Name="" Cluster="" GenericTypeDefinition="Void" BaseType="Void">
+				<Members>
+					<Field FieldAccessPolicy="ReadWrite" Name="Snake Body Entities Index" DataType="Int32[]" />
+				</Members>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="4e89858796a845a5ac60855798b7baa2">
+			<Attributed AttributedType="@63ae3dbde5244ba9940d50007101fda3">
+				<AttributeValues>
+					<AttributeValue Name="NI_PlatformFramework_RefnumAttributes" Value="[NI_PlatformFramework_RefnumAttributes]Refnum" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="7d52fdeda93b40819d95bd86aef680fd">
+			<Attributed AttributedType="@351fc7166f1b4b3faae2293142394149">
+				<AttributeValues>
+					<AttributeValue Name="NationalInstruments.NamespaceName" Value="[QualifiedName]Snek::Event Queues" />
+				</AttributeValues>
+			</Attributed>
+		</p.TypeReference>
+		<p.TypeReference TypeId="63ae3dbde5244ba9940d50007101fda3">
+			<Composite Id="1" Name="NationalInstruments.SourceModel.DataTypes.Queue" ReferenceClass="" Sealed="" GenericTypeDefinition="@4e89858796a845a5ac60855798b7baa2">
+				<GenericParameters>
+					<Generic GenericName="DataType" />
+				</GenericParameters>
+				<BaseType>Void</BaseType>
+			</Composite>
+		</p.TypeReference>
+		<p.TypeReference TypeId="351fc7166f1b4b3faae2293142394149">
+			<Typedef TypedefName="User Action.gtype" UnderlyingType="@e788aadf0d7f46449b2c38ff2ecdcef0" />
+		</p.TypeReference>
+		<p.TypeReference TypeId="e788aadf0d7f46449b2c38ff2ecdcef0">
+			<Enumeration>
+				<Members>
+					<EnumerationMember Value="0" Name="rotate ccw" />
+					<EnumerationMember Value="1" Name="rotate cw" />
+				</Members>
+				<DataType>UInt16</DataType>
+			</Enumeration>
+		</p.TypeReference>
+	</DataTypeReferenceTable>
+	<IconTable xmlns="http://www.ni.com/PlatformFramework">
+		<p.IconModel Target="WebVIDebugger::Probe.gvi">
+			<MergeScript>
+				<MergeItem Path="." IsPrimary="True">
+					<Icon ListViewIconCrop="0 0 40 40">
+						<IconPanel Height="[float]40" Left="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+							<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" Left="[float]0" TemplateName="[string]Gray" Top="[float]0" Width="[float]40">
+								<Rectangle Fill="[SMSolidColorBrush]#ff727272" IsHitTestVisible="[bool]False" Left="[float]0" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+								<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#fff2f2f2" Top="[float]0" />
+								<FileNameText Attached="[bool]True" Left="[float]0" Margin="[SMThickness]2,2,2,2" SizeMode="[TextModelSizeMode]AutoFont" Text="[string]Probe" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]0" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden">
+									<FontSetting FontFamily="Segoe UI" FontSize="9.75" />
+								</FileNameText>
+							</IconTemplate>
+							<IconTemplate Height="[float]40" IsHitTestVisible="[bool]False" Left="[float]0" TemplateName="[string][Comp]WebVIDebugger.gcomp" Top="[float]0" Width="[float]40" />
+						</IconPanel>
+					</Icon>
+				</MergeItem>
+			</MergeScript>
+		</p.IconModel>
+	</IconTable>
+</SourceFile>
