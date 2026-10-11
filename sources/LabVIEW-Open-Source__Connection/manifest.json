@@ -1,0 +1,661 @@
+{
+ "repo": "LabVIEW-Open-Source/Connection",
+ "url": "https://github.com/LabVIEW-Open-Source/Connection",
+ "commit": "b879ad18bf51271db8faf1941d22e88714361700",
+ "license": "0BSD",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "GOSPL Connection.lvproj",
+   "bytes": 6052,
+   "sha256": "05befb435fe6e54e2193819dbc288826af9a555fee0d755084ef64353f8862bc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Configure Queue Connection.vi",
+   "bytes": 24338,
+   "sha256": "47f4aea07263056e34cfd0473cb619eea5f7cbfc9eace850b6bf1ade10df57ec",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Connect LocalQueue.vi",
+   "bytes": 23386,
+   "sha256": "c2b12d462cceaaed5bb8602c3c0747eb07d5961feec400483153b03b546bbdd9",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Connection.LocalQueue.lvclass",
+   "bytes": 51084,
+   "sha256": "0c7d595cd28d66e96ef08cc8d1917b997cb5dc0ccc8050c49c859970d5a3b584",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Connection.Queue_GOSPL.lvlib",
+   "bytes": 1268,
+   "sha256": "2be0430c4dd6b3bcaf2ab66a18fb4e49ebe19da91af1f9f01995b4d11713108c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Create Queue Connection.vi",
+   "bytes": 20131,
+   "sha256": "b0159aed15f66e675ed7be4715eef9d8796df6dc8467248a9b62ed5568a9a960",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Handshake.vi",
+   "bytes": 26749,
+   "sha256": "c0b1e0431d4618ac39c80dc1299f61c39d92ad6bf026b13ac1169f66a3439c9a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Read Incoming Bytes.vi",
+   "bytes": 25695,
+   "sha256": "13a60739f823ff0a36afff8e7218fa4c06c304a939a722f7e64a69cfc36eb52a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/Write Outgoing Bytes.vi",
+   "bytes": 23476,
+   "sha256": "c93e8efbe70e4cefefef6194ebe282e12bd013cd861ba7871927c80e2c3396b5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/getAnonymousCredentials.vi",
+   "bytes": 15575,
+   "sha256": "898e60d60fa5651fd39b565adc4cd6d6063254c630a0754077166ad24a1f243c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/getLocalQueueType.vi",
+   "bytes": 15977,
+   "sha256": "5e9beb68c9b77704c95e5e40cfd3d174a0537b8de61d518d25ff4b9b23642d32",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/onCheckConnection.vi",
+   "bytes": 21937,
+   "sha256": "e99977621abb8cfdf2d19612f6cd5da8bdbc217b22da81aa085d306edf03b64f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/onConnection.vi",
+   "bytes": 22720,
+   "sha256": "04296d8669c8ef832c2195bd3f604724f510af4a3435368bdfcb23876b87212d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/onCreateListener.vi",
+   "bytes": 24064,
+   "sha256": "e90c6e0349ac63135140330be43b204cb51ebd409de449897f404cc870b13cfc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/onDisconnection.vi",
+   "bytes": 20111,
+   "sha256": "ff80769d9f56a4a57e6b35506a30272401a9569bf18470a4c280d2c3008bb795",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.LocalQueue/onListenForNewConnection.vi",
+   "bytes": 36640,
+   "sha256": "fec0d615acbc60098e306d58afa98e9ead682fb37fba256424c01cab8d5d0ba2",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Configure TCP Connection.vi",
+   "bytes": 25708,
+   "sha256": "80cb893c7167b455b172beb9d68406c941808db2a11f1cb44db5b84f3dc72620",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Connect TCP.vi",
+   "bytes": 25527,
+   "sha256": "c605cc876c58a727cd9f31144e753ae7cdfb5af2d609a578d1270d9ea665295d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Connection.TCP.lvclass",
+   "bytes": 77339,
+   "sha256": "bd725def2102c97d1c85801dac5b6a5f19e434d6625212889370ff60e811c97f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Connection.TCP_GOSPL.lvlib",
+   "bytes": 1279,
+   "sha256": "98a41ebcbeb550d20dcc255528361ec0c0ff4d6767c3c3ad7779193d4830e242",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Create TCP Connection.vi",
+   "bytes": 19093,
+   "sha256": "15f3dbb2edddfde6eeb9265ccd299f1a314f497125b836deb3389f00a39ba5a7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Read Incoming Bytes.vi",
+   "bytes": 23067,
+   "sha256": "3fafb5ba1976e067dad1c4d3869bbfa289bbd9e2c58cd4fc5bb14d7b4e94f7ce",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Read Read Mode.vi",
+   "bytes": 19770,
+   "sha256": "ec824d52bf82e9eafd23b1067673a87426c9c56908f822a888ae3ec30eb4e69f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Read address.vi",
+   "bytes": 19636,
+   "sha256": "62eded4152a7ee8fbbe06bbaefee4339cda5764d2e019104a2da90b7b1016346",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Read connection ID.vi",
+   "bytes": 19626,
+   "sha256": "b95004caaadf9ef35db4fa4dd2917630ed92b193cc39707639db3cb55f3ad318",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Read remote port.vi",
+   "bytes": 19720,
+   "sha256": "dc88332d7c42445ffd398fa61d0c9924e900386b6a9e315dcec0aa44cbaaf416",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/TCP Read Bytes.vi",
+   "bytes": 20522,
+   "sha256": "64410ba15dd64ddf1ddf548f739edd5b1544b8900f38447108e4ebd9eac13427",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/TCP Write Bytes.vi",
+   "bytes": 18063,
+   "sha256": "e9bfa3e4d4e3e33abea3f7a1857d39830a3c37ca0506b45c2fbaf4be689e2f8c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Write Outgoing Bytes.vi",
+   "bytes": 22544,
+   "sha256": "6c69c140783ef55e0d1a73e7f6769105c1c2fb8a1f9f9eedf5580604875a59af",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Write Read Mode.vi",
+   "bytes": 19591,
+   "sha256": "66154153e925f40c7db10b3fa396c7762b667856ac537a3ad392ee93459f6195",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Write address.vi",
+   "bytes": 19469,
+   "sha256": "90336a66b7ef45ece515b973a1fe4de059f8b376a5186b0a2c0126574915c2bc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Write connection ID.vi",
+   "bytes": 19431,
+   "sha256": "67f2d4165af51ae025ae71b953a8e23dff16637cc0b9082a69d6038e5eda81a4",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/Write remote port.vi",
+   "bytes": 19569,
+   "sha256": "fe9400766874c333007ed4d2f94df4905469c787536cd04a50057814e7dc715c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/onConnection.vi",
+   "bytes": 22236,
+   "sha256": "535a32f82d9a6b8f9f9fb3fcee8240f534fd039e6bbbce454527d87d1ec1e306",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/onCreateListener.vi",
+   "bytes": 22644,
+   "sha256": "f3ca025b62074bb9317e2398f156445c8f62031008c41f75318e3e685d2c3005",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/onDisconnection.vi",
+   "bytes": 19815,
+   "sha256": "2a7b394f7fc861b0e3a7807177a7c604b3fe9c8d21ed4fc43fefc1a7ebc07794",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.TCP/onListenForNewConnection.vi",
+   "bytes": 28848,
+   "sha256": "d07ef6a37135ef3bc0bf8b9a1c65ca2613769309db52e36e32894f8f37a59cdd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Configure Websockets Connection.vi",
+   "bytes": 28167,
+   "sha256": "b3e8da7280ff80f363e44ce2036dc56fd2790c485724c4a3bf528884a2f37906",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Connection.WS.lvclass",
+   "bytes": 102789,
+   "sha256": "1b3a79e1c353c837c2c38d24833ce43a2d28e2fd259644724d08c50c1cf18d3e",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Connection.WS_GOSPL.lvlib",
+   "bytes": 1277,
+   "sha256": "759a720241293f4a5225d8591b231c1c1912ec30e6980f4d14e2659b2079badc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Encode Secret.vi",
+   "bytes": 17413,
+   "sha256": "0e771551c029382cd08be34cf62259f780fbcfe87dadeb3f4e414c4b666854ce",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Dictionary to Header String.vi",
+   "bytes": 23476,
+   "sha256": "e1e9c12a4a45b11b0580320157ff7ae8e5b75cc70fc9828daf6c2e39f9043009",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Get Header.vi",
+   "bytes": 24547,
+   "sha256": "40a152bd3d9edc2721a113df289dd25fdb8adfdc2760c97f2538db7eecd7a16a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Header String to Dictionary.vi",
+   "bytes": 23172,
+   "sha256": "5ef13df4fd296a834d496b87dbc1a1827406ac7e80a5a4fb300f2f89b6347bb7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Read Request Headers.vi",
+   "bytes": 32493,
+   "sha256": "7207110085169ba81cd0552e7d28d04296d745e3bb3456b16c5778f6ceea86af",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Send.vi",
+   "bytes": 18425,
+   "sha256": "2a55ac93555c13c70e23324e54e22c9f40a2074d98396b56de5dea5795b43b4a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.Set Header.vi",
+   "bytes": 24287,
+   "sha256": "68a21e8e74586c0ab5f887a1a9b1e254aa3ecde66286a00903445d077bdbc391",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/HTTP.StringToArray.vi",
+   "bytes": 19098,
+   "sha256": "f7987409c702a40ab90a908614cea86f0c7fafe4b3befb71ae6cab4e8dc46406",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Handshake.vi",
+   "bytes": 38069,
+   "sha256": "7cae80e7b3e01a2f66495dba1aa388a5012d62281cf2b176225083a39fdcb3ff",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Header Fields -- combo.ctl",
+   "bytes": 5643,
+   "sha256": "7cb0985122c6a5bc9ecf8ffcbb9dfa54284647623276e0a7b4974ef8319de6d2",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Mask Payload.vi",
+   "bytes": 16656,
+   "sha256": "2957383d263ac937719b0a495aedd9b7b378d8c2031232e7e580f4f0cd692108",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Read Frame (Text).vi",
+   "bytes": 23473,
+   "sha256": "ad4d88d775f048f491d7ba77a96e7c783343c5a97b9a0f9ee21608c118ef157f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Read Frame.vi",
+   "bytes": 23274,
+   "sha256": "7b5ff1c5e2a4756fcd386a9665482b23278a3f456ec4c5edffdc9f17eab2ce86",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Read Incoming Bytes.vi",
+   "bytes": 23231,
+   "sha256": "2e7af07604acd6696d186542ad0ecfffc0fbbcb0d3215a092f39b81290aae1c0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Read Incoming Frame.vi",
+   "bytes": 43855,
+   "sha256": "a2f77d71aff0525490c231c8775de53e9f901c4dc0670a6e1a54d1d1fd247ec4",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Read Supported Protocols.vi",
+   "bytes": 20172,
+   "sha256": "a5b9e9c21eca4450fe5709b11c9f192731b124776b4aa321887a5cb9ae9e14fc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Select SubProtocol.vi",
+   "bytes": 21806,
+   "sha256": "6e71ccf324f4cc159d955644da2b1533b8e6588b5f7d0cb46f63a22a58e96bce",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Websocket Frame Type -- ring.ctl",
+   "bytes": 4913,
+   "sha256": "c8ba7367c2c72e9a9dbf2c9581752d353fb03106f29675734b6b1ef8d4b88962",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Frame (Binary).vi",
+   "bytes": 23032,
+   "sha256": "9b8d326a4ac79d1250b79c8ec6dc7fdc73fc282e75d62d6122469243150632c4",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Frame (Ping).vi",
+   "bytes": 19726,
+   "sha256": "f9acf53545eb2e14884fb8f03d81f577cdf268b29e45e77008c05650b870db5b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Frame (Text).vi",
+   "bytes": 22958,
+   "sha256": "d1d43dece0aa21056f3fab1d9c7d4bd53050a4949619b93cb88df9cb14dc765b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Outgoing Bytes.vi",
+   "bytes": 23440,
+   "sha256": "8e3c27486207d1cf836c912004d4090419b13c2856e0b550e51fadbd88d22352",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Outgoing Frame.vi",
+   "bytes": 46152,
+   "sha256": "1f0eee3e38c934e399059c1dbc6c4d4c344ab6273493cc85b1419eceb53f329c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/Write Supported Protocols.vi",
+   "bytes": 19633,
+   "sha256": "f8168bd279aff46c936514ef9644b47785e0df0f8f29bc58f27b7543dffcc56b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection.Websockets/onDisconnection.vi",
+   "bytes": 22267,
+   "sha256": "2da4470924b45c382b32702ef0c88f1972d8d1d3be183c196a46caa57ab37b38",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Close Connection.vi",
+   "bytes": 20204,
+   "sha256": "b3132ad2e908aac507c6687d1df5754bd064516a152ffc0c5c320adfe175b770",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Connect.vi",
+   "bytes": 27159,
+   "sha256": "058d13e1d4c2c1fd60f82bab9fc71fac80634fbfe9aa4503eb8cd02373c3ab25",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Connection.lvclass",
+   "bytes": 123915,
+   "sha256": "d3ce1a08d23f0b8a40c8b0cb33b5a92022a3a9a2ae6dc4bd404a0a699a3e281a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Connection_GOSPL.lvlib",
+   "bytes": 1271,
+   "sha256": "e344c9e8187dd4ea314f509b6987bb02dd613e7a3176bc144ff53890f14b30b5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Create Listener.vi",
+   "bytes": 24619,
+   "sha256": "cd0741a7b64053eab8c819b601f9aff1481f884f1b5dff262e87583aaeacf509",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/CreateReferences.vi",
+   "bytes": 21684,
+   "sha256": "bf161026833b5b0d1d991e05de91e1d7eab37f7b07cecc25d6a00f34b3599a81",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Handshake.vi",
+   "bytes": 18941,
+   "sha256": "76029737cce962abc98b32d4a0d9d2e2a24c4a7c67b4acac4ea0e9dd04661030",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/ListenForConnection.vi",
+   "bytes": 27275,
+   "sha256": "8ddebd29719eaf715e04582558652e4a000dedec69f99d04565ec88460005757",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Read Connection Event.vi",
+   "bytes": 24609,
+   "sha256": "5d5a61f9b60e7f1e394aa5fc8b8d7c067458e1bc04e899df83a828f08dfb9119",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Read Debug Public Events.vi",
+   "bytes": 23536,
+   "sha256": "d0d17664bd95a25333daa3bdabe8106a732b172086b50b8251d6fc8d65b3a3b7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Read Incoming Bytes.vi",
+   "bytes": 22827,
+   "sha256": "ab64005bf7a215e73c1edba04cbbf0e3e8646c100154ecb6a6e23c3eb1794ebf",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Read connection timeout (ms).vi",
+   "bytes": 20536,
+   "sha256": "4d3f024588252dc8da183411ed5df99ce5007785c73a9a38570035b42f8e75a7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Read.vi",
+   "bytes": 27792,
+   "sha256": "27ab73e5d070211ba8525768e0d47420aea2e37567bcc7b21665ebe6e5ed24aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Write Outgoing Bytes.vi",
+   "bytes": 22396,
+   "sha256": "54d2aaa468145b593fc38f579831737fcb2f3a86b0315415358d3250fdedc9d3",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Write connection timeout (ms).vi",
+   "bytes": 20353,
+   "sha256": "cf5104c94d75904bc54711ab34595a61ddec966da95e97714fcfbff86b057b78",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/Write.vi",
+   "bytes": 25913,
+   "sha256": "566a9ef575ce4bcdf07bbe774e9594849cac620a20e729c67323f7b63d9f12f2",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/connection event -- cluster.ctl",
+   "bytes": 16468,
+   "sha256": "0324b37798b99703eb997f6c2fb7cf0fe2b4b142967b6da1a4c68672a7439e6d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/connection notifier.ctl",
+   "bytes": 14120,
+   "sha256": "78af7386a5ca3b130861afa74e06a2b00cbcb9b99c0dca21dd10cdb43428cfaf",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/connection_process.vi",
+   "bytes": 25502,
+   "sha256": "04e9b16d5fa51422174b1820ac7e4494c0bdcbdee917704d2d277723eb3880bd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/createSelfReference.vi",
+   "bytes": 18083,
+   "sha256": "a9a8e350ed20574f4f473308add78a96eab8d739c6ecc025a335bdbdd136fa39",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/debugBytes.vi",
+   "bytes": 20470,
+   "sha256": "840a4b437d6686f67b600fcc4b831f560696267436e7acd50324a39502583c30",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/evaluate_timeout.vi",
+   "bytes": 17036,
+   "sha256": "66405eb3f468620b4eba90ae867108ee0674c8c5d7a728816f16b9e5b00c1ab5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/getReasonText.vi",
+   "bytes": 21065,
+   "sha256": "1b9b296012b58f45cd2cdcbdcddba86cc42d96b9c8006f54358465c7b09ba752",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/isConnected.vi",
+   "bytes": 24663,
+   "sha256": "75c1c2edbd46f9dc29228fdecac113268698f85299b8bc34ab8082fd9c593200",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/isServer.vi",
+   "bytes": 21764,
+   "sha256": "a47d872276e873fcbac89d2df9496fe0bbc9291bb5e59418c90733a19eb7a81e",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/onCheckConnection.vi",
+   "bytes": 19089,
+   "sha256": "eeca5f44b559c518412368d301ea2b450dc26e31472229331f9223cb9db28ddd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/onConnection.vi",
+   "bytes": 18292,
+   "sha256": "92b60be6aea5dc29a2b5fa09e1500765e1b123849bf22fdb2caa320b3aef6fe7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/onCreateListener.vi",
+   "bytes": 23648,
+   "sha256": "f0057318a71562eb3c2d55f998e1ea9be7a9e919d14ac92e120e22fc6f22c688",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/onDisconnection.vi",
+   "bytes": 23559,
+   "sha256": "8f1e76440dbefaaad8169beb602a021aa395431e76f49ffac20f8fdcdbc87610",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/onListenForNewConnection.vi",
+   "bytes": 25672,
+   "sha256": "2cb10d45da93f8f62680e67b0927592cf46f962f182e05071b9017fda98fc335",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/process.vi",
+   "bytes": 18283,
+   "sha256": "22ae66e3c122a6cf3ad2bfa2b064b29a8c0d8a9a9fcf5baf64d965de12047fed",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/reason -- ring.ctl",
+   "bytes": 15947,
+   "sha256": "2ba979e7b8938f2c80551195d2c9e2fd2e8561db5a9905f896fb59c4cc8b5c52",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/setAsServer.vi",
+   "bytes": 19887,
+   "sha256": "45781bff7d6836758cf2acce1f430a5e28e4ecc8580fa706f232d85895d7c3c5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Connection/setConnected.vi",
+   "bytes": 27372,
+   "sha256": "e7d3bfaf9d01b79074a0a8141b46ccf51ffb46715c9e348de9040618ca62a161",
+   "via": "extension"
+  },
+  {
+   "path": "source/Example LocalQueue Client-Server.vi",
+   "bytes": 26468,
+   "sha256": "abe5baca1619295f52209cd025790640914b37a8fb75c8655ba33f2aced9e86f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Example TCP Client-Server.vi",
+   "bytes": 25505,
+   "sha256": "58990025457df29a09fc9f22a61dac1d70405e2f1a294587d1d4fa7c40224974",
+   "via": "extension"
+  },
+  {
+   "path": "source/Example Websockets Client-Server.vi",
+   "bytes": 30324,
+   "sha256": "cafdc9a300c1e92261cdeee7b4c7cb81808da8c41d3c9ae8905ec31be87688dd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Example Websockets ServerOnly.vi",
+   "bytes": 38109,
+   "sha256": "92fb1e4026827e24ee1ff17cf238d498f234e42a2456414dae120c3dc9392425",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 165,
+   "sha256": "14dd43e90b3d825f4d69eaa37891b6d635d116475c479fa9f8c9e90c4d3288e9",
+   "via": "tree"
+  },
+  {
+   "path": "GOSPL Connection.vipb",
+   "bytes": 113107,
+   "sha256": "7d0386514e7e99cd5b86854b26f0ac8d78830b77415aa5b74b2ad0696edbc215",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 661,
+   "sha256": "b1176d1c5be52508bee5ee0744137faa88016c692d0a8bf90f32492ea61d7cfc",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\LabVIEW Open Source Project\\Cryptographic Functions\\SHA-1\\SHA-1.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Cryptographic Functions\\SHA-1\\SHA-1.lvlib",
+  "<vilib>\\LabVIEW Open Source Project\\Cryptographic Functions\\SHA-1\\SHA-1.vi",
+  "<vilib>\\LabVIEW Open Source Project\\OpenSerializer.Base64\\Base64_CharSet.vi",
+  "<vilib>\\LabVIEW Open Source Project\\OpenSerializer.Base64\\Base64_Encode.vi",
+  "<vilib>\\LabVIEW Open Source Project\\OpenSerializer.Base64\\Serializer.Base64.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\RandomStringGenerator\\Generate Random String.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\RandomStringGenerator\\RandomStringGenerator.lvclass",
+  "<vilib>\\Utility\\MD5Checksum.llb\\MD5Checksum string.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi"
+ ]
+}
