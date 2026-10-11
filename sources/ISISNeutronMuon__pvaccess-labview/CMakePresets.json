@@ -1,0 +1,61 @@
+{
+	"version": 6,
+	"configurePresets": [
+		{
+			"name": "windows-x64",
+			"generator": "Visual Studio 18 2026",
+			"architecture": "x64",
+			"binaryDir": "${sourceDir}/build/windows-x64",
+			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+			"environment": {
+				"EPICS_HOST_ARCH": "windows-x64-static",
+				"LABVIEW_LIB": "$env{ProgramFiles}/National Instruments/LabVIEW 2025/cintools"
+			},
+			"cacheVariables": {
+				"CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE": "${sourceDir}/labview/libraries/windows-x64"
+			}
+		},
+		{
+			"name": "linux-x86_64",
+			"binaryDir": "${sourceDir}/build/linux-x86_64",
+			"environment": {
+				"EPICS_HOST_ARCH": "linux-x86_64"
+			},
+			"cacheVariables": {
+				"CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/labview/libraries/linux-x86_64"
+			}
+		},
+		{
+			"name": "nilrt",
+			"binaryDir": "${sourceDir}/build/nilrt",
+			"environment": {
+				"EPICS_HOST_ARCH": "linux-x86_64"
+			},
+			"cacheVariables": {
+				"NILRT": true,
+				"CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "windows-x64",
+			"configurePreset": "windows-x64",
+			"configuration": "Release"
+		},
+		{
+			"name": "linux-x86_64",
+			"configurePreset": "linux-x86_64"
+		},
+		{
+			"name": "nilrt",
+			"configurePreset": "nilrt"
+		}
+	],
+	"packagePresets": [
+		{
+			"name": "nilrt",
+			"configurePreset": "nilrt"
+		}
+	]
+}
