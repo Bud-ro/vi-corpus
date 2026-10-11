@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<title>Unlock ECU</title>
+		<link rel="STYLESHEET" type="text/css" href="css/VSsystemexplorer.css">
+		<script src="common.js" type="text/javascript"></script><script src="js/expandable_tree.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="css/expandable_tree.css">
+		<script src="launchhelp.js" type="text/javascript"></script><script src="js/dynamicjumps.js" type="text/javascript"></script>
+	</head>
+<body>
+	<noscript>
+		<p class="Body">JavaScript is disabled. <a href="veristandmerge.chm::/JavaScript_Disabled.html">Details</a></p>
+		<hr width="100%" noshade>
+	</noscript>
+<h1>Unlock ECU</h1>
+<p class="Body">Unlocks the ECU using various methods.</p>
+<ul>
+<li>SeedKey DLL: Read seed -> generate key from local dll -> write key
+<li>MasterKey (Channel): Read seed -> generate key from VeriStand channel -> write key
+<li>MasterKey (Static): Read seed -> generate key from VeriStand property -> write key
+<li>SeedKey DLL (Windows): Read seed -> forward to Windows host -> generate key from dll -> return key to target -> write key
+</ul>
+<p>Note: For SeedKey DLL (Windows), Diagnostic Unlock ECU Service Launcher.vi must be manually added to the VeriStand Project as a service. The file location is:</p>
+<p>C:\Users\Public\Documents\National Instruments\NI VeriStand <YEAR>\Services\Diagnostic Unlock ECU Service</p>
+<p>To add, follow the instructions here:</p>
+<p>https://www.ni.com/documentation/en/veristand/latest/manual/add-services/</p>
+</body>
+</html>

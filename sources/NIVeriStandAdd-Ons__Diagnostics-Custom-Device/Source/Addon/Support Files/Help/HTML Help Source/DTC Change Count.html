@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<title>DTC Change Count</title>
+		<link rel="STYLESHEET" type="text/css" href="css/VSsystemexplorer.css">
+		<script src="common.js" type="text/javascript"></script><script src="js/expandable_tree.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="css/expandable_tree.css">
+		<script src="launchhelp.js" type="text/javascript"></script><script src="js/dynamicjumps.js" type="text/javascript"></script>
+	</head>
+<body>
+	<noscript>
+		<p class="Body">JavaScript is disabled. <a href="veristandmerge.chm::/JavaScript_Disabled.html">Details</a></p>
+		<hr width="100%" noshade>
+	</noscript>
+<h1>DTC Change Count</h1>
+<p class="Body">Enables the ECU to publish a count of how many DTCs have occurred. When an update is recieved by the addon, the Start DTCs message is automatically sent to read the updated list.</p>
+<p>NOTE: This is a GMLAN specific service</p>
+<h2>Settings</h2>
+<p><strong>Enable</strong></p>
+<ul>
+<li>0 = Commands the ECU to stop generating the DTC change count message.
+<li>1 = Commands the ECU to start generating the DTC change count message.
+</ul>
+<p><strong>Status Mask</strong> </p>
+<ul>
+<li>Bit 0 = DTC supported by calibration
+<li>Bit 1 = Current DTC
+<li>Bit 2 = test not passed since DTC cleared
+<li>Bit 3 = test failed since DTC cleared
+<li>Bit 4 = history DTC
+<li>Bit 5 = test not passed since current power up
+<li>Bit 6 = current DTC since power up
+<li>Bit 7 = warning indicator requested state
+</ul>
+</body>
+</html>
