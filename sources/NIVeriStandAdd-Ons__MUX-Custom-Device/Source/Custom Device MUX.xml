@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>PXI-2569 MUX</eng>
+    <loc>PXI-2569 MUX</loc>
+  </AddMenu>
+  <Version>1.0.1</Version>
+  <Type>Asynchronous</Type>
+  <MaxOccurrence>2474</MaxOccurrence>
+  <MainPageGUID>089da2c4-0dd2-4e45-afce-1763af171c8d</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\MUX\MUX Configuration.llb\MUX Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>PharlapWindows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\MUX\MUX Engine.llb\MUX RT Driver VI.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\MUX\MUX Engine.llb\MUX RT Driver VI.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>PXI-2569 MUX</eng>
+        <loc>PXI-2569 MUX</loc>
+      </Name>
+      <GUID>089da2c4-0dd2-4e45-afce-1763af171c8d</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\MUX\Glyphs\Device2.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\MUX\MUX Configuration.llb\MUX Main Page.vi</Path>
+      </Item2Launch>
+	  <RunTimeMenu>
+		<MenuItem>
+			<GUID>f594008e-94dd-4239-b997-e614af1a9e64</GUID>
+			<Type>Action</Type>
+			<Execution>default</Execution>
+			<Name>
+				<eng>Add MUX</eng>
+				<loc>Add MUX</loc>
+			</Name>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\MUX\MUX Configuration.llb\Add MUX.vi</Path>
+			</Item2Launch>
+		</MenuItem>
+      <MenuItem>
+        <GUID>fb56240a-f7d1-4ec9-a1a2-6a57c09b6cf1</GUID>
+        <Type>Separator</Type>
+        <Name>
+          <eng>.</eng>
+          <loc>.</loc>
+        </Name>
+        <Item2Launch>
+          <Type>Absolute</Type>
+          <Path>.</Path>
+        </Item2Launch>
+      </MenuItem>
+		<MenuItem>
+			<GUID>20f55cc2-f8f3-4a22-ac0e-ab7f27861abd</GUID>
+			<Type>VI</Type>
+			<Execution>modal</Execution>
+			<Name>
+				<eng>Import</eng>
+				<loc>Import</loc>
+			</Name>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\MUX\MUX Configuration.llb\Import From File.vi</Path>
+			</Item2Launch>
+		</MenuItem>
+		<MenuItem>
+			<GUID>270f8cae-8f06-40b7-a8c5-eda5c186cf2e</GUID>
+			<Type>VI</Type>
+			<Execution>modal</Execution>
+			<Name>
+				<eng>Export</eng>
+				<loc>Export</loc>
+			</Name>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\MUX\MUX Configuration.llb\Export To File.vi</Path>
+			</Item2Launch>
+		</MenuItem>
+      <MenuItem>
+        <GUID>aeb3dea6-c5d4-4391-b3a7-db7aa5be7176</GUID>
+        <Type>Separator</Type>
+        <Name>
+          <eng>.</eng>
+          <loc>.</loc>
+        </Name>
+        <Item2Launch>
+          <Type>Absolute</Type>
+          <Path>.</Path>
+        </Item2Launch>
+      </MenuItem>
+      <MenuItem>
+        <GUID>0af30a80-a885-41cd-b7ac-20883a1fcea7</GUID>
+        <Type>Action</Type>
+        <Execution>default</Execution>
+        <Name>
+          <eng>Disable</eng>
+          <loc>Disable</loc>
+        </Name>
+        <Item2Launch>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\MUX\MUX Configuration.llb\EnableDisable Custom Device.vi</Path>
+        </Item2Launch>
+      </MenuItem>
+	  </RunTimeMenu>
+	  <ButtonList>
+		<Button>
+			<ID>MUXAdd</ID>
+			<Glyph>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\MUX\Glyphs\Multiplexer.png</Path>
+			</Glyph>
+			<Type>Action</Type>
+			<ReferencedGUID>f594008e-94dd-4239-b997-e614af1a9e64</ReferencedGUID>
+			<ButtonText>
+				<eng>Add MUX</eng>
+				<loc>Add MUX</loc>
+			</ButtonText>
+			<Caption>
+				<eng>Add MUX</eng>
+				<loc>Add MUX</loc>
+			</Caption>
+			<TipStrip>
+				<eng>Add MUX</eng>
+				<loc>Add MUX</loc>
+			</TipStrip>
+			<Documentation>
+				<eng>Add MUX</eng>
+				<loc>Add MUX</loc>
+			</Documentation>
+		</Button>
+      <Button>
+        <ID>Sep1</ID>
+        <Glyph>
+          <Type>To Application Data Dir</Type>
+          <Path>System Explorer\Glyphs\Separator.png</Path>
+        </Glyph>
+        <Type>Separator</Type>
+        <ReferencedGUID></ReferencedGUID>
+        <ButtonText>
+          <eng></eng>
+          <loc></loc>
+        </ButtonText>
+        <Caption>
+          <eng></eng>
+          <loc></loc>
+        </Caption>
+        <TipStrip>
+          <eng></eng>
+          <loc></loc>
+        </TipStrip>
+        <Documentation>
+          <eng></eng>
+          <loc></loc>
+        </Documentation>
+      </Button>
+		<Button>
+			<ID>MUXImport</ID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\import.png</Path>
+			</Glyph>
+			<Type>Dialog</Type>
+			<ReferencedGUID>20f55cc2-f8f3-4a22-ac0e-ab7f27861abd</ReferencedGUID>
+			<ButtonText>
+				<eng>Import</eng>
+				<loc>Import</loc>
+			</ButtonText>
+			<Caption>
+				<eng>Import</eng>
+				<loc>Import</loc>
+			</Caption>
+			<TipStrip>
+				<eng>Import from file</eng>
+				<loc>Import from file</loc>
+			</TipStrip>
+			<Documentation>
+				<eng>Import from file</eng>
+				<loc>Import from file</loc>
+			</Documentation>
+		</Button>
+		<Button>
+			<ID>MUXExport</ID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\export.png</Path>
+			</Glyph>
+			<Type>Dialog</Type>
+			<ReferencedGUID>270f8cae-8f06-40b7-a8c5-eda5c186cf2e</ReferencedGUID>
+			<ButtonText>
+				<eng>Export</eng>
+				<loc>Export</loc>
+			</ButtonText>
+			<Caption>
+				<eng>Export</eng>
+				<loc>Export</loc>
+			</Caption>
+			<TipStrip>
+				<eng>Export to file</eng>
+				<loc>Export to file</loc>
+			</TipStrip>
+			<Documentation>
+				<eng>Export to file</eng>
+				<loc>Export to file</loc>
+			</Documentation>
+		</Button>
+      <Button>
+        <ID>Sep2</ID>
+        <Glyph>
+          <Type>To Application Data Dir</Type>
+          <Path>System Explorer\Glyphs\Separator.png</Path>
+        </Glyph>
+        <Type>Separator</Type>
+        <ReferencedGUID></ReferencedGUID>
+        <ButtonText>
+          <eng></eng>
+          <loc></loc>
+        </ButtonText>
+        <Caption>
+          <eng></eng>
+          <loc></loc>
+        </Caption>
+        <TipStrip>
+          <eng></eng>
+          <loc></loc>
+        </TipStrip>
+        <Documentation>
+          <eng></eng>
+          <loc></loc>
+        </Documentation>
+      </Button>
+      <Button>
+        <ID>DisableCD</ID>
+        <Glyph>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\MUX\Glyphs\disable.png</Path>
+        </Glyph>
+        <Type>Action</Type>
+        <ReferencedGUID>0af30a80-a885-41cd-b7ac-20883a1fcea7</ReferencedGUID>
+        <ButtonText>
+          <eng>Disable</eng>
+          <loc>Disable</loc>
+        </ButtonText>
+        <Caption>
+          <eng>Disable</eng>
+          <loc>Disable</loc>
+        </Caption>
+        <TipStrip>
+          <eng>Disable</eng>
+          <loc>Disable</loc>
+        </TipStrip>
+        <Documentation>
+          <eng>Disable</eng>
+          <loc>Disable</loc>
+        </Documentation>
+      </Button>
+	  </ButtonList>
+    </Page>
+    <Page>
+      <Name>
+        <eng>DisabledCD</eng>
+        <loc>DisabledCD</loc>
+      </Name>
+      <GUID>896153da-8ec0-45cb-8df2-51d3fb756fd4</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\MUX\Glyphs\DeviceDisabled.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\MUX\MUX Configuration.llb\MUX Main Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>68b476c5-0feb-461f-9ed6-4da43e6eb792</GUID>
+          <Type>Action</Type>
+          <Execution>default</Execution>
+          <Name>
+            <eng>Add MUX</eng>
+            <loc>Add MUX</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\MUX Configuration.llb\Add MUX.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>c91cfd1e-9f10-4665-9f4b-5cda3c28b678</GUID>
+          <Type>Separator</Type>
+          <Name>
+            <eng>.</eng>
+            <loc>.</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>.</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>a3bf939f-529a-43db-a776-77b369af2e2b</GUID>
+          <Type>VI</Type>
+          <Execution>modal</Execution>
+          <Name>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\MUX Configuration.llb\Import From File.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>d11e83d5-cd04-4f7e-8194-13bfb8d8777b</GUID>
+          <Type>VI</Type>
+          <Execution>modal</Execution>
+          <Name>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\MUX Configuration.llb\Export To File.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>5e656f02-eca7-4030-b8f3-ff82d4a78ca2</GUID>
+          <Type>Separator</Type>
+          <Name>
+            <eng>.</eng>
+            <loc>.</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>.</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>aaa2300e-31ac-4079-a2c2-57be31ac14c5</GUID>
+          <Type>Action</Type>
+          <Execution>default</Execution>
+          <Name>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\MUX Configuration.llb\EnableDisable Custom Device.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>MUXAdd</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\Glyphs\Multiplexer.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>68b476c5-0feb-461f-9ed6-4da43e6eb792</ReferencedGUID>
+          <ButtonText>
+            <eng>Add MUX</eng>
+            <loc>Add MUX</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add MUX</eng>
+            <loc>Add MUX</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add MUX</eng>
+            <loc>Add MUX</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Add MUX</eng>
+            <loc>Add MUX</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Sep3</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\Separator.png</Path>
+          </Glyph>
+          <Type>Separator</Type>
+          <ReferencedGUID></ReferencedGUID>
+          <ButtonText>
+            <eng></eng>
+            <loc></loc>
+          </ButtonText>
+          <Caption>
+            <eng></eng>
+            <loc></loc>
+          </Caption>
+          <TipStrip>
+            <eng></eng>
+            <loc></loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>MUXImport</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\import.png</Path>
+          </Glyph>
+          <Type>Dialog</Type>
+          <ReferencedGUID>a3bf939f-529a-43db-a776-77b369af2e2b</ReferencedGUID>
+          <ButtonText>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Import from file</eng>
+            <loc>Import from file</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Import from file</eng>
+            <loc>Import from file</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>MUXExport</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\export.png</Path>
+          </Glyph>
+          <Type>Dialog</Type>
+          <ReferencedGUID>d11e83d5-cd04-4f7e-8194-13bfb8d8777b</ReferencedGUID>
+          <ButtonText>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Export to file</eng>
+            <loc>Export to file</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Export to file</eng>
+            <loc>Export to file</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Sep4</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\Separator.png</Path>
+          </Glyph>
+          <Type>Separator</Type>
+          <ReferencedGUID></ReferencedGUID>
+          <ButtonText>
+            <eng></eng>
+            <loc></loc>
+          </ButtonText>
+          <Caption>
+            <eng></eng>
+            <loc></loc>
+          </Caption>
+          <TipStrip>
+            <eng></eng>
+            <loc></loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>EnabledCD</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\Glyphs\enable.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>aaa2300e-31ac-4079-a2c2-57be31ac14c5</ReferencedGUID>
+          <ButtonText>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </Documentation>
+        </Button>
+      </ButtonList>
+    </Page>
+    <Page>
+      <Name>
+        <eng>MUX</eng>
+        <loc>MUX</loc>
+      </Name>
+      <GUID>f32baacb-0ae2-4499-b68e-b9a8bc9bfad0</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\MUX\Glyphs\Multiplexer.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\MUX\MUX Configuration.llb\MUX Sub Page.vi</Path>
+      </Item2Launch>
+	  <RunTimeMenu>
+			<MenuItem>
+			<GUID>26f5b2c5-43d9-4ad6-9c39-10ab3b701c6f</GUID>
+			<Type>VI</Type>
+			<Execution>modal</Execution>
+			<Name>
+				<eng>Configure Relays</eng>
+				<loc>Configure Relays</loc>
+			</Name>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\MUX\MUX Configuration.llb\Add Relays.vi</Path>
+			</Item2Launch>
+		  </MenuItem>
+	  </RunTimeMenu>
+    <ButtonList>
+        <Button>
+          <ID>RelayAdd</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\MUX\Glyphs\SwitchOpenIcon.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>26f5b2c5-43d9-4ad6-9c39-10ab3b701c6f</ReferencedGUID>
+          <ButtonText>
+            <eng>Configure Relays</eng>
+            <loc>Configure Relays</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Configure Relays</eng>
+            <loc>Configure Relays</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Configure Relays</eng>
+            <loc>Configure Relays</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Configure Relays</eng>
+            <loc>Configure Relays</loc>
+          </Documentation>
+        </Button>
+    </ButtonList>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>MUX Channel</eng>
+        <loc>MUX Channel</loc>
+      </Name>
+      <GUID>b7606957-8ed9-4652-a85b-1af88f81eb0e</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\MUX\Glyphs\SwitchOpenIcon.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\MUX\MUX Configuration.llb\MUX Channel Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
