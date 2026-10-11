@@ -1,0 +1,425 @@
+/***************************************************************************
+ *   Copyright (C) 2026 by Kyle Hayes                                      *
+ *   Author Kyle Hayes  kyle.hayes@gmail.com                               *
+ *                                                                         *
+ * This software is available under either the Mozilla Public License      *
+ * version 2.0 or the GNU LGPL version 2 (or later) license, whichever     *
+ * you choose.                                                             *
+ *                                                                         *
+ * MPL 2.0:                                                                *
+ *                                                                         *
+ *   This Source Code Form is subject to the terms of the Mozilla Public   *
+ *   License, v. 2.0. If a copy of the MPL was not distributed with this   *
+ *   file, You can obtain one at http://mozilla.org/MPL/2.0/.              *
+ *                                                                         *
+ *                                                                         *
+ * LGPL 2:                                                                 *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Library General Public License as       *
+ *   published by the Free Software Foundation; either version 2 of the    *
+ *   License, or (at your option) any later version.                       *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this program; if not, write to the                 *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#include <libplctag/lib/libplctag.h>
+#include <platform.h>
+#include <stdlib.h>
+#include <utils/debug.h>
+#include <utils/rc.h>
+#include <utils/vector.h>
+
+struct vector_t {
+    int len;
+    int capacity;
+    int max_inc;
+    void **data;
+};
+
+
+static int ensure_capacity(vector_p vec, int capacity);
+
+
+vector_p vector_create(int capacity, int max_inc) {
+    vector_p vec = NULL;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    if(capacity <= 0) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Called with negative capacity!");
+        return NULL;
+    }
+
+    if(max_inc <= 0) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Called with negative maximum size increment!");
+        return NULL;
+    }
+
+    vec = mem_alloc((int)sizeof(struct vector_t));
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_ERROR, 0, "Unable to allocate memory for vector!");
+        return NULL;
+    }
+
+    vec->len = 0;
+    vec->capacity = capacity;
+    vec->max_inc = max_inc;
+
+    vec->data = mem_alloc(capacity * (int)sizeof(void *));
+    if(!vec->data) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_ERROR, 0, "Unable to allocate memory for vector data!");
+        vector_destroy(vec);
+        return NULL;
+    }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return vec;
+}
+
+
+int vector_length(vector_p vec) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    /* check to see if the vector ref is valid */
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return vec->len;
+}
+
+int vector_insert(vector_p vec, int index, void *data) {
+    int rc = PLCTAG_STATUS_OK;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    do {
+        if(!vec) {
+            pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+            rc = PLCTAG_ERR_NULL_PTR;
+            break;
+        }
+
+        if(index < 0) {
+            pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Index is negative!");
+            rc = PLCTAG_ERR_OUT_OF_BOUNDS;
+            break;
+        }
+
+        /* inserting outside the vector works */
+        if(index >= vec->len) {
+            rc = vector_set(vec, index, data);
+            break;
+        }
+
+        /* make sure we have room */
+        if(vec->len >= vec->capacity) {
+            rc = ensure_capacity(vec, vec->len + 1);
+            if(rc != PLCTAG_STATUS_OK) {
+                pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Unable to ensure capacity!");
+                break;
+            }
+        }
+
+        /* move everything up one slot */
+        mem_move(&vec->data[index + 1], &vec->data[index], (int)((sizeof(void *) * (size_t)(vec->len - index))));
+
+        /* put in the new value */
+        vec->data[index] = data;
+
+        /* adjust the length */
+        vec->len++;
+    } while(0);
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return rc;
+}
+
+
+int vector_set(vector_p vec, int index, void *data) {
+    int rc = PLCTAG_STATUS_OK;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    /* check to see if the vector ref is valid */
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    if(index < 0) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Index is negative!");
+        return PLCTAG_ERR_OUT_OF_BOUNDS;
+    }
+
+    if(index >= vec->capacity) {
+        rc = ensure_capacity(vec, index + 1);
+        if(rc != PLCTAG_STATUS_OK) {
+            pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Unable to ensure capacity!");
+            return rc;
+        }
+    }
+
+    /* reference the new data. */
+    vec->data[index] = data;
+
+    /* adjust the length, if needed */
+    if(index >= vec->len) { vec->len = index + 1; }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return rc;
+}
+
+
+void *vector_get(vector_p vec, int index) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    /* check to see if the vector ref is valid */
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return NULL;
+    }
+
+    if(index < 0 || index >= vec->len) {
+        // pdebug(DEBUG_MODULE_UTILS, DEBUG_DETAIL, 0, "Index %d is out of bounds.", index);
+        return NULL;
+    }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return vec->data[index];
+}
+
+
+void *vector_remove(vector_p vec, int index) {
+    void *result = NULL;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    /* check to see if the vector ref is valid */
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return NULL;
+    }
+
+    if(index < 0 || index >= vec->len) {
+        // pdebug(DEBUG_MODULE_UTILS, DEBUG_DETAIL, 0, "Index %d is out of bounds.", index);
+        return NULL;
+    }
+
+    /* get the value in this slot before we overwrite it. */
+    result = vec->data[index];
+
+    /* move the rest of the data over this. */
+    mem_move(&vec->data[index], &vec->data[index + 1], (int)((sizeof(void *) * (size_t)(vec->len - index - 1))));
+
+    /* make sure that we do not have old data hanging around. */
+    vec->data[vec->len - 1] = NULL;
+
+    /* adjust the length to the new size */
+    vec->len--;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return result;
+}
+
+
+int vector_find_index(vector_p vec, void *val) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    for(int i = 0; i < vec->len; i++) {
+        if(vec->data[i] == val) {
+            // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+            return i;
+        }
+    }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done (not found)");
+    return -1;
+}
+
+
+int vector_reset(vector_p vec) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    /* check to see if the vector ref is valid */
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    /* reset the length, we do not clear the data. */
+    vec->len = 0;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return PLCTAG_STATUS_OK;
+}
+
+
+int vector_destroy(vector_p vec) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting.");
+
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    mem_free(vec->data);
+    mem_free(vec);
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done.");
+
+    return PLCTAG_STATUS_OK;
+}
+
+
+int vector_sort(vector_p vec, vector_compare_func compare) {
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Starting");
+
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    if(!compare) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null comparison function passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    if(vec->len > 1) {
+        /* Sort directly on internal array - no overhead */
+        qsort(vec->data, (size_t)vec->len, sizeof(void *), compare);
+    }
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return PLCTAG_STATUS_OK;
+}
+
+
+int vector_swap_element(vector_p vec, int current_index, int insert_before_index) {
+    void *elem = NULL;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_DETAIL, 0, "Starting with current_index=%d, insert_before_index=%d", current_index,
+    //        insert_before_index);
+
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    if(current_index < 0 || current_index >= vec->len) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "current_index %d is out of bounds!", current_index);
+        return PLCTAG_ERR_OUT_OF_BOUNDS;
+    }
+
+    if(insert_before_index < 0 || insert_before_index > vec->len) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "insert_before_index %d is out of bounds!", insert_before_index);
+        return PLCTAG_ERR_OUT_OF_BOUNDS;
+    }
+
+    /* The element's final slot depends on direction:
+     *   moving right (current < insert_before): lands at insert_before_index - 1
+     *   moving left  (current > insert_before): lands at insert_before_index
+     * If the final slot is already current_index, nothing to do. */
+    int final_index = (current_index < insert_before_index) ? insert_before_index - 1 : insert_before_index;
+    if(final_index == current_index) {
+        // pdebug(DEBUG_MODULE_UTILS, DEBUG_DETAIL, 0, "Done (no-op)");
+        return PLCTAG_STATUS_OK;
+    }
+
+    /* Save the element to move before the shift overwrites its slot. */
+    elem = vec->data[current_index];
+
+    if(current_index < insert_before_index) {
+        /*
+         * Moving right: shift [current_index+1 .. insert_before_index-1] one slot left,
+         * then place elem at insert_before_index-1.
+         *
+         * Before: [... A B C D E ...]   A at current_index, E at insert_before_index-1
+         *                               (insert_before_index points one past E)
+         * After:  [... B C D E A ...]
+         */
+        mem_move(&vec->data[current_index], &vec->data[current_index + 1],
+                 (int)(sizeof(void *) * (size_t)(insert_before_index - 1 - current_index)));
+    } else {
+        /*
+         * Moving left: shift [insert_before_index .. current_index-1] one slot right,
+         * then place elem at insert_before_index.
+         *
+         * Before: [... A B C D E ...]   A at insert_before_index, E at current_index
+         * After:  [... E A B C D ...]
+         */
+        mem_move(&vec->data[insert_before_index + 1], &vec->data[insert_before_index],
+                 (int)(sizeof(void *) * (size_t)(current_index - insert_before_index)));
+    }
+
+    vec->data[final_index] = elem;
+
+    // pdebug(DEBUG_MODULE_UTILS, DEBUG_SPEW, 0, "Done");
+
+    return PLCTAG_STATUS_OK;
+}
+
+
+/***********************************************************************
+ *************** Private Helper Functions ******************************
+ **********************************************************************/
+
+
+int ensure_capacity(vector_p vec, int capacity) {
+    int new_inc = 0;
+    void **new_data = NULL;
+
+    if(!vec) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_WARN, 0, "Null pointer or invalid pointer to vector passed!");
+        return PLCTAG_ERR_NULL_PTR;
+    }
+
+    /* is there anything to do? */
+    if(capacity <= vec->capacity) { return PLCTAG_STATUS_OK; }
+
+    /* determine how many increments to use */
+    int num_incs = ((capacity - vec->capacity) + (vec->max_inc - 1)) / vec->max_inc; /* round up division */
+    new_inc = num_incs * vec->max_inc;
+
+    /* allocate the new data area */
+    new_data = (void **)mem_realloc(vec->data, (int)((sizeof(void *) * (size_t)(vec->capacity + new_inc))));
+    if(!new_data) {
+        pdebug(DEBUG_MODULE_UTILS, DEBUG_ERROR, 0, "Unable to allocate new data area!");
+        return PLCTAG_ERR_NO_MEM;
+    }
+
+    /* clear the new area */
+    mem_set(&new_data[vec->capacity], 0, (int)(sizeof(void *) * (size_t)new_inc)); /* clear the new area */
+
+    vec->data = new_data;
+
+    vec->capacity += new_inc;
+
+    pdebug(DEBUG_MODULE_UTILS, DEBUG_DETAIL, 0, "Increased vector capacity to %d (added %d)", vec->capacity, new_inc);
+
+    return PLCTAG_STATUS_OK;
+}
