@@ -1,0 +1,562 @@
+{
+ "repo": "ale914/C64_labview_emu",
+ "url": "https://github.com/ale914/C64_labview_emu",
+ "commit": "e508bb42096e23ab12620a46838731884b9e054e",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "bin/C64_main_T.vi",
+   "bytes": 34638,
+   "sha256": "f495584e648919f01877989d6643578c14b7e6ef88db381c5e7ea8ee78974abd",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CIA/CIA1/CIA main.vi",
+   "bytes": 15260,
+   "sha256": "e6b715a8c744dd1c7e82ba0244ee5f4cdff6c9e8c04b5f56a123b823d92a50d8",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CIA/CIA1/CIA1_IRQ.vi",
+   "bytes": 16188,
+   "sha256": "24a8d9dc0ed72d880bb0ec88bf18d7fc149653176a5d4a0c616281c0dc033e14",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CIA/CIA1/CIA1_glb.vi",
+   "bytes": 5540,
+   "sha256": "03ef8c2c36e6f27728c660f63a1b4bd61970af5d95ae09d4b926dfc3b0ee6410",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CIA/CIA_IRQ_oper.ctl",
+   "bytes": 4069,
+   "sha256": "6b6d013673ae37758a6d0a5172407d35d6c3a4696f5765b211f8d06f388d099d",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_IRQ_handle.vi",
+   "bytes": 19442,
+   "sha256": "353d906711f49128880cd229d58ac006d8787cafc5a018c139acee39409c1a82",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_MEM_read_mem.vi",
+   "bytes": 25484,
+   "sha256": "9611351bb99977a5a81fb0b220a6b48e465299f4852684ac08bade434a86ae5b",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_MEM_read_mem_16.vi",
+   "bytes": 13371,
+   "sha256": "9a84b36acea5f73667c8d634c1ea4b473f16666b1e89d5815b04e12c70014bb9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_MEM_write_mem.vi",
+   "bytes": 24585,
+   "sha256": "15d955ad9ba701adb119efcc4da19c500c5ea717d1d88bf7d5547c9596eed121",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_PC_inc.vi",
+   "bytes": 15374,
+   "sha256": "590f34c9e59fa808e5bd646513d11c9a5a425a891790c9c4dffd9b94e80fda80",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_P_get_flag.vi",
+   "bytes": 20234,
+   "sha256": "b5f8f987e6b444d06eef7c7e5e065bfe4bca61aea3ab4aeb65966df39bacbab1",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_P_update.vi",
+   "bytes": 23876,
+   "sha256": "ad89b13dfa2f4f28c3447633411725937d4473042b7dbacf7d7c109e1e04a16f",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_P_update_ZN.vi",
+   "bytes": 19991,
+   "sha256": "0409ccc92bc54d1041c380614a3f62a30018f22bdcd52ff80eeb0e3600a8aeb2",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_Port.vi",
+   "bytes": 12768,
+   "sha256": "b46d401fa58e75f342181c5a5100df2fae50a8433cf2f6a3bfacf318baabbd4a",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_RESET_handle.vi",
+   "bytes": 14756,
+   "sha256": "aa0d75877a6b4cc110083ef8d2d3357fbb8997902fd449c0fb69cb7dae32b70a",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_SP_pop.vi",
+   "bytes": 16510,
+   "sha256": "1f18e853e673faf3f92a6ac79be01af5668b96ff588b9efbb4bff79a09b6f106",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_SP_push.vi",
+   "bytes": 13223,
+   "sha256": "af0c05db885715c6f5272e7d1b66888981f312d5745bc03b9cdd3afa133a8f7a",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_calc_speed.vi",
+   "bytes": 12538,
+   "sha256": "ca0df524bf72dc2f0ff390f79ca8d1d5eadc92b02598bdddf16cd70cd44a0e3f",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_clock_ticks_lookup.vi",
+   "bytes": 14742,
+   "sha256": "f8777566d4e70e356593c59e05a32d35776434c4213f8d532363782fa50d7096",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_core.vi",
+   "bytes": 176496,
+   "sha256": "31ed1f1487936bbf1c5eea3293439ef48a96d2d551f84a98b36c65229fd7f7cf",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/CPU_registers.ctl",
+   "bytes": 4666,
+   "sha256": "2d4cf0ff9b42baaa0a9f78128bb7dedd9499109015e5fd72848aff56f6d66049",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Basic_ROM_RE.vi",
+   "bytes": 14852,
+   "sha256": "cdee5a30c643c4e551a7de5cb996c46e5fefc140f0cd2024019bfcb0e15d9dc0",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_CIA 1.vi",
+   "bytes": 23969,
+   "sha256": "f7cfbe2775a64e2197af04e18e378ec9dd80c7443856bf686e40dcce2a007679",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_CIA 2.vi",
+   "bytes": 20245,
+   "sha256": "11d52f64bb01480d6458e69f4eea18b5747bb038557bd8accf5c82ad2d60ec20",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Char_ROM_RE.vi",
+   "bytes": 14855,
+   "sha256": "fc6bad27745634db8a06dc3af3624c906c92bb438eae3fd63773c0936c33b19c",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Color_RE.vi",
+   "bytes": 14800,
+   "sha256": "71f8407bead174d94379fa608cdd4a2b1f1b6ae705c8d52dc45b2bd42104f166",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Color_RE_All.vi",
+   "bytes": 14768,
+   "sha256": "49807ca3a22309d6a5b8c108616b10d1dadf0819706ff61ffcc1311a605fc680",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Color_WR.vi",
+   "bytes": 14804,
+   "sha256": "c53667d8e219aacb5d2ee17fec1208993653eea59d17f0d5bc0778c5256e59a9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Expansion.vi",
+   "bytes": 16541,
+   "sha256": "2e06e89eb03170e434188c432738067f8318e1a4d34e0c00da74601f15782d34",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_Kernal_ROM_RE.vi",
+   "bytes": 11573,
+   "sha256": "9eb81707f0afec3289c19b0a140c07cb7b08fc640d4302cb998a88dcb69ffc80",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_RAM.vi",
+   "bytes": 14067,
+   "sha256": "2bbad25be20458c4ba951d9c3c01bb82a94902a18de93e5e304a7ee601fbd47c",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_RAM_RE.vi",
+   "bytes": 11550,
+   "sha256": "a65e299c9f023db44422dea4adecb4ee6c3d27d9d9b0ca83e8bde21b2261fbb6",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_RAM_RE_All.vi",
+   "bytes": 11546,
+   "sha256": "a7650a46023fd9bba89f2cef3bf59af1f0e01da4d8600e2fc71c3fd8fed337b1",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_RAM_WR.vi",
+   "bytes": 11550,
+   "sha256": "34422e30cb58b3a02e9baf3a1f1c4ea001bcaa0bb7f9f894ddab009e8ca9b5d4",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_SID_RE.vi",
+   "bytes": 11498,
+   "sha256": "6904033a7a425d7a3a311f16b8095259c7d245671b76a8d8468ed5772b918fdc",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_SID_RE_All.vi",
+   "bytes": 11546,
+   "sha256": "68fa3c4fa9889fc9410cddb6d2e7f351ae030ba751c9c015d8347b5a265dfe76",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_SID_WR.vi",
+   "bytes": 11498,
+   "sha256": "56c632632e5a7eac74dc4e37c413225f10dae9a1e25c1111a1fc7295a516f0eb",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_VIC-II.vi",
+   "bytes": 24850,
+   "sha256": "9e87b53e3e55f5c12db37a739536dba9d51fe8b212ea06a2458876f8ea6715e8",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_initialize_MEMs.vi",
+   "bytes": 17643,
+   "sha256": "3f310959cf4d6a5a790e77165c0a8fe814649cfa85a267f4de74626f4ac9c9e6",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_initialize_ROMs.vi",
+   "bytes": 18987,
+   "sha256": "967f0d09a4e7aa244f36240322f497aff482b547017e0b108df1d908f541451a",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/memory/CPU_MEM_references.vi",
+   "bytes": 6190,
+   "sha256": "88858b5ad221ef2baadc439dc47c43b31a12164ba1764df18292e6b5e45f88fa",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/opcode/OC_ADC_core.vi",
+   "bytes": 21363,
+   "sha256": "ae3db26509cb3ab69bfed3bcaabc8e11e96b688de96315cd1b5f73c738ecbedf",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/opcode/OC_Branch_core.vi",
+   "bytes": 15182,
+   "sha256": "1de810bcc5a4abe217fda092d1ad2edd906f8d4c3e05e8c1fd2c8078f98fbdc0",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/opcode/OC_SBC_core.vi",
+   "bytes": 25071,
+   "sha256": "7a8794fc4b3186934e3dfb57b4e60d7086ce6d4b3e45b5e6281db89929aedb01",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/opcode/OC_read_ind_core.vi",
+   "bytes": 15040,
+   "sha256": "17ef565dc6b1be09f2f1de0841ea30e58778ca1674600a43c780bb60d1500497",
+   "via": "extension"
+  },
+  {
+   "path": "bin/CPU/test/CPU_klaus_dorman_test.vi",
+   "bytes": 25877,
+   "sha256": "e8ec44cab027e3197f4dbab20a208746bfeeae99ba3a689ec93517f4df0e9850",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID calc filter freq.vi",
+   "bytes": 13796,
+   "sha256": "ed07fa99abf3819420b99c10a1520cb0bd27b2252b5ff3da74f26fe64a770958",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID reverb.vi",
+   "bytes": 16642,
+   "sha256": "d4bb87a267365a42b92782ddb41e7e9164c4ff6fef5ef5f8ab8924fb413eaa74",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_DC_blocking.vi",
+   "bytes": 15367,
+   "sha256": "32da423d64ee27d913759dd6a7c0897411d887f25fc712e6af7a6945bdade388",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_adsr.vi",
+   "bytes": 28456,
+   "sha256": "492b29f73a5fc6cd09e31c0e51408bdf8303ce644c27a4b9cd5d60bbd5dfa63f",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_filter_V2.vi",
+   "bytes": 24461,
+   "sha256": "fae9149d8b68c63351618a465aebc70886102274cde25ad5479c6d123ff6d7b2",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_filter_reg.ctl",
+   "bytes": 5091,
+   "sha256": "1d46239cc1d8742507bf3f4be6bc838cea396378ff263d313a7fa6c6e0dd46fd",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_main.vi",
+   "bytes": 46852,
+   "sha256": "a5709505993ab7a62e9be3becee7ab6ccea53b0bdd43e15578647e768880ef16",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_mem_to_filter.vi",
+   "bytes": 16333,
+   "sha256": "eba0c97241720d1d5ec37c274df6558540c61ab1bfe4a0e1bcef92db365d260c",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_mem_to_voice.vi",
+   "bytes": 20660,
+   "sha256": "9d09feba1e951013e2b88a654bd25911cb536df9efb5f09991a5a579ceb69c1f",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_oscillator.vi",
+   "bytes": 16214,
+   "sha256": "c074de999e6824d056cbdd63ad293d09e4c4b581e1003a5f7d653a6a3d1a6092",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_oscillator_core.vi",
+   "bytes": 30727,
+   "sha256": "43536da2207772ca791c2381a1fe74f475d616e983f898ffe237548d368bf804",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/SID_voice_reg.ctl",
+   "bytes": 6534,
+   "sha256": "5d6a1d1caceff46f6773ad441ecc1b278837c9020813cd9a0e54d530fbfae179",
+   "via": "extension"
+  },
+  {
+   "path": "bin/SID/_tester/SID_test_dump_player.vi",
+   "bytes": 139740,
+   "sha256": "40f70c9619f21860c78e035d27c8915163e5b228f4c5c6a7867d2c8f6b8d8cca",
+   "via": "extension"
+  },
+  {
+   "path": "bin/VIC/VIC_IRQ.vi",
+   "bytes": 19067,
+   "sha256": "6544ce9d6870cd56abd7fe51dd031e9aa86076d9c5ea5fc92d0714e761e49e49",
+   "via": "extension"
+  },
+  {
+   "path": "bin/VIC/VIC_IRQ_oper.ctl",
+   "bytes": 4073,
+   "sha256": "191cc75362de3e8880469eebb70114509ae2b01ea3287a0a9de9c87cb70fdaa5",
+   "via": "extension"
+  },
+  {
+   "path": "bin/VIC/VIC_glb.vi",
+   "bytes": 4567,
+   "sha256": "5b051259d9cc9b7ea24a073feb23a2c8327d1b0d75908ae70df949e410d6638c",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_Draw 8-Bit Pixmap.vi",
+   "bytes": 8825,
+   "sha256": "12e41d83a38001b679c492d9b3350a20edab07c60cd25e3ea9c68161352edbbd",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_Draw Flattened Pixmap.vi",
+   "bytes": 23149,
+   "sha256": "c422eae4c40967fdbab91b65a26b83de304a7d9b603cd8574914625f5526d3ca",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_VIC-II_reg_D018.ctl",
+   "bytes": 4560,
+   "sha256": "f7773a41d04a19792bfad3699a458df7f7da9eec146ce9721be41a9ef7e2c024",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_VIC-II_registry.ctl",
+   "bytes": 5072,
+   "sha256": "577fcd4d1a5c5a4f0b7135336b29fb8e166db0f33bb70c377192d98c0ecaa4f9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_calc_char_pos_offset.vi",
+   "bytes": 18132,
+   "sha256": "7e16132e278c55df6443aad9f0a1f022c8d8f32b7b18a6502606f8784114b49c",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_character_bitmap.ctl",
+   "bytes": 4753,
+   "sha256": "6a1eb21b809899737ce8f3b484d28999f03db880f9799ff5bdc355b32282c5cd",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_color_palette.vi",
+   "bytes": 8949,
+   "sha256": "ed374c7ccb3fdb79e421bbc28fc80510abca37dce35285a8b628e41baaacf68a",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_create_border.vi",
+   "bytes": 24581,
+   "sha256": "317e6a2769ad4c1b727c8504c277052c93f5be0310dcab43b1636239c76f32d9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_enab_dis_row_col_screen.vi",
+   "bytes": 17855,
+   "sha256": "0ae66705bbf6cb785f2f461a34ab91d21fba0fb86f40adea991c1b7a3b929d4e",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_flatten_pixmap.vi",
+   "bytes": 18422,
+   "sha256": "9b9d724d5ef8ef32ad2d3f9177baa1fd68193102fef435924991a1a616205438",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_load_charset_ROM.vi",
+   "bytes": 19868,
+   "sha256": "c732f894ac124efeeb5e5ea30bc124975a112cf8409d8dda11689fc351db60c9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_parse_VIC_reg_D018.vi",
+   "bytes": 74186,
+   "sha256": "26ef9c35b98acf8790b6f1072f50a53158850b7f117c836f9e9df3bfce21f43f",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_parse_VIC_registry.vi",
+   "bytes": 15734,
+   "sha256": "7d9b539c62cba18b21d952d495a9b6bfec184855ba7b82cd6a3b2b60056f3331",
+   "via": "extension"
+  },
+  {
+   "path": "bin/screen/SCE_screen_main.vi",
+   "bytes": 63179,
+   "sha256": "f007ecdfb58850e6c7b083eaf5a5890aeb9bb192c143e3ce0ea2ac71bd66d453",
+   "via": "extension"
+  },
+  {
+   "path": "bin/utils/C64_scheduler.vi",
+   "bytes": 14125,
+   "sha256": "b624836897515ecc25142bb80a57cdd803d95fed8bcc0c24e2bdd6a01ca09cac",
+   "via": "extension"
+  },
+  {
+   "path": "bin/utils/JKI/State Machine/JKI State Machine.lvproj",
+   "bytes": 66446,
+   "sha256": "b909bcc7340788a8d9f76ec6636810ccb7985450dfa770f5c836d089179bd2f9",
+   "via": "extension"
+  },
+  {
+   "path": "bin/utils/JKI/State Machine/_JKI_lib_State_Machine.llb",
+   "bytes": 197212,
+   "sha256": "081786016c2f5d5e884ed06169cc3ba5f6221aeccf618b6bc5d30852bf425a30",
+   "via": "extension"
+  },
+  {
+   "path": "bin/utils/MGL_relativePathMode.ctl",
+   "bytes": 10969,
+   "sha256": "69e1f4023647a505749168bcf29c0ec66ffe5205edb610254eef4502c8a0d121",
+   "via": "extension"
+  },
+  {
+   "path": "bin/utils/MGL_relativePath_cls.vi",
+   "bytes": 33920,
+   "sha256": "8490e9ffa7ac2a0071f781267f475910acbbab85c9e46c90d4905956a092100f",
+   "via": "extension"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1116,
+   "sha256": "5666a1e76774a4e3ff2a31a1eb6882afb5a7d88eaa1cc6fb3859892fe175beaf",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 3588,
+   "sha256": "bd74713fc4afde4406e6f453301278fb0e9b8e00f84e286e344b95869c41f72b",
+   "via": "tree"
+  },
+  {
+   "path": "ROM/readme.md",
+   "bytes": 28,
+   "sha256": "16eaeab10a4422af088571e8a44f72e034c4b4e40a2c432069509c54b349c37f",
+   "via": "tree"
+  },
+  {
+   "path": "bin/SID/_tester/readme.md",
+   "bytes": 10,
+   "sha256": "16133f46db355f02255a6b087e7c3aa4e7499588557e14bb85419034907e9ab9",
+   "via": "tree"
+  },
+  {
+   "path": "bin/SID/readme.md",
+   "bytes": 33,
+   "sha256": "4ef0052c0579dad2c92eed6c463f667563e471e52749f4d497e312e9ef901aca",
+   "via": "tree"
+  },
+  {
+   "path": "bin/readme.md",
+   "bytes": 28,
+   "sha256": "16eaeab10a4422af088571e8a44f72e034c4b4e40a2c432069509c54b349c37f",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\lvpict.chm",
+  "<vilib>\\Utility\\High Resolution Polling Wait.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Add State(s) to Queue__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Build State String with Arguments__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Parse State Queue__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\String-Based Queued State Machine (Basic 1.0)__JKI_lib_State_Machine.vi",
+  "<vilib>\\gmath\\NI_Gmath.lvlib",
+  "<vilib>\\gmath\\interp.llb\\Interpolate 1D.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Rectangle.vi",
+  "<vilib>\\picture\\picture.llb\\imagedata.ctl",
+  "<vilib>\\sound2\\lvsound2.llb\\Sampling Mode.ctl",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Data Format.ctl",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Clear.vi",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Configure.vi",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Set Volume (Single).vi",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Set Volume.vi",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Write (DBL Single).vi",
+  "<vilib>\\sound2\\lvsound2.llb\\Sound Output Write.vi",
+  "C:\\app\\bin\\uno\\due\\tre\\Path.vi",
+  "D:\\work\\experimets\\C64\\rom\\c64.bin",
+  "D:\\work\\experimets\\C64\\rom\\characters.901225-01.bin"
+ ]
+}
