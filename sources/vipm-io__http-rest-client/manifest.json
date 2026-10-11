@@ -1,0 +1,973 @@
+{
+ "repo": "vipm-io/http-rest-client",
+ "url": "https://github.com/vipm-io/http-rest-client",
+ "commit": "f29a8f51be40dd86941c2ad72cf85f75aa93a105",
+ "license": "BSD-3-Clause",
+ "licenseFile": "LICENSE.md",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "source/REST Client.lvlib",
+   "bytes": 1978,
+   "sha256": "0360c3fd4770b2d3af12192b41907eaaa405eb66a069f9dcd7b5352c2665485d",
+   "via": "extension"
+  },
+  {
+   "path": "source/REST Client.lvproj",
+   "bytes": 3208,
+   "sha256": "4f61f3610e3c12a912da3365b337bf63625c707e8059e95266fb4cf65a768e59",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Create REST Client (plugin).vi",
+   "bytes": 32087,
+   "sha256": "696075470db09e0fbdce3629bf6befbdcc77e547ea82c67d4ae673d5fe8be1f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Create REST Client.vi",
+   "bytes": 29886,
+   "sha256": "b96e4d429c4e3c725bbdd6c5406b4372826108da7c1498b3ddfab35de774ecad",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Destroy REST Client.vi",
+   "bytes": 20879,
+   "sha256": "cc3a056770b9ae1917c1899396b6cc028f73ce91be784ef579b3337734ada884",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Error Handler.vi",
+   "bytes": 18761,
+   "sha256": "622de0ac34dadadd6c433cb1aedcd7ffa8c3a25d2a9a6e74de2a76b32d902e26",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Escape HTTP URL String.vi",
+   "bytes": 17542,
+   "sha256": "8594a284276612a69aabc0c21e2d3f125569885a416716eafa606dd39b288f01",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Flush Client Handles.vi",
+   "bytes": 17040,
+   "sha256": "3daf26aef4983174937a99a3d4044e2cfa855d56142d32b2c76b38ff7faf51e6",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Get client handle.vi",
+   "bytes": 23973,
+   "sha256": "9085b4efbbd088b7a65c39bb3040a337d7173c89387202d67974b5f758779283",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP DELETE.vi",
+   "bytes": 22219,
+   "sha256": "e58cbb53c3626778e029c8d0929210ce106644808960d0b101240fbe451cd7d2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP GET.vi",
+   "bytes": 21328,
+   "sha256": "4822050b6ad29d3ccafa16a9957f62dd6f40148fdc084b53ead2383fd904043b",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP HEAD.vi",
+   "bytes": 21329,
+   "sha256": "896619467b1e8aaaa55f677ef828a0469f894dc5a14e79141d8ddea7218e3e4a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP Header.ctl",
+   "bytes": 14124,
+   "sha256": "3f67b721c13a5e830f32c2745a93e20d6d94992811588b4a1419a2600e3e981f",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP Methods.ctl",
+   "bytes": 12349,
+   "sha256": "143bb3bf66d2b775e5b4188a0736fde1b9aeda6df976d55755f25a5483422de8",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP PATCH.vi",
+   "bytes": 20406,
+   "sha256": "addb943d7c3a4495c1ec907a524610cd8dd8ffaf5f785f3938441b4859b8cfdb",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP POST Multipart.vi",
+   "bytes": 24511,
+   "sha256": "3bd78887436d2d740b89026e62700b2bb2418bf1952e86ff71c8c7f296511a13",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP POST.vi",
+   "bytes": 22437,
+   "sha256": "c8398b5d147b959c656261eb9a314b93b7efc0fdb6c5c451bb217161fc4d35a9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP PUT.vi",
+   "bytes": 22408,
+   "sha256": "952ed651527d5140bff49bbb66b268292c4d9ebc98047fc716c38987e617b629",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/HTTP Request.vi",
+   "bytes": 33432,
+   "sha256": "b9ce6294116b2d8c3572ceba5170649c48d538a85857cb56e58faf260c4f6699",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/New Client Handle.vi",
+   "bytes": 21681,
+   "sha256": "f3d397e0f05789107c26a6095664a7e08139d9cce2067458fc8396e721eeb0e6",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/REST Client.lvclass",
+   "bytes": 154134,
+   "sha256": "912325f714b45f74dd23d4644619f20a2cfe822aed865ef134924db362a2fa70",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Read Base URL.vi",
+   "bytes": 16965,
+   "sha256": "9024dc6325bdd0e726155f5cd2149f3bae28a1af44f35b1eacaf3cc5fc8e347e",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Read Default Headers.vi",
+   "bytes": 18372,
+   "sha256": "606c079a0a5c9275f70beb4d873b81729c978b6465334d1b2c9313095cf2859a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Read Escape URLs.vi",
+   "bytes": 16508,
+   "sha256": "c3a29041b862ea84c02ef9117522a72a47407aa15a6ba5c044e3653c479b6fa4",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Read Timeout.vi",
+   "bytes": 17340,
+   "sha256": "1d3cd479eb207a577e706ebf40edb38747ac0f5e8ad5b350922021aae413147c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Read Verify Server.vi",
+   "bytes": 16538,
+   "sha256": "2f04f93598aa575d9997cff434a6ada9d6b5e8274d781eb96d69bc452abdd906",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Resolve Headers.vi",
+   "bytes": 17615,
+   "sha256": "ebd62198f6f878f63cf924c84cadfc6bb94d0e64b553bffe0ee9b88291a056b5",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Resolve URL.vi",
+   "bytes": 14231,
+   "sha256": "e62828e22d5b9eb6933b1cf8a024ff05af8537483664e25b9c2b3b4fb74aef86",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Return client handle.vi",
+   "bytes": 22184,
+   "sha256": "9cbeae760056aa2ffa9b3a3eef58cdddb76d9dffe8d5fb10435f711fbcdcfa8e",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Write Base URL.vi",
+   "bytes": 16778,
+   "sha256": "fa8db4cccb6dcf0085fcf31b41becf9c476d589bd428c4771403fbabe3106dc6",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Write Default Headers.vi",
+   "bytes": 19377,
+   "sha256": "87e3e9c6c2325b6cbb051d49c210b18f6bb665a5fcd94183d7097f075e2842d0",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Write Escape URLs.vi",
+   "bytes": 16321,
+   "sha256": "924762e998717bf5996d5aa8e7787fbf2bb7a5476d9e66ec4fa454138faa0419",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Write Timeout.vi",
+   "bytes": 18349,
+   "sha256": "a791409a7da7839d260d407f84e6f592bbe90998edd42f4d88e682471af5e52e",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/Write Verify Server.vi",
+   "bytes": 16903,
+   "sha256": "44979d683eaa72540fa376cbdfb75f4161ccdcbb7fd65cb2ef464beb8975c493",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onAddHeader.vi",
+   "bytes": 22115,
+   "sha256": "6f8baeea3513a8726ce118462b440eaa7ff2949deb50c5466df40b877d2dbea3",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onDestroyHttpSession.vi",
+   "bytes": 19348,
+   "sha256": "816e6cb21646c87230e5b4c1a8ba5807ecd834a56a2aa9c27127836b6169fad8",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpDelete.vi",
+   "bytes": 19588,
+   "sha256": "a8e3b68acb6be16cebfd4b211bdf521432676933df4241859be54e5cbd1ddc3c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpGet.vi",
+   "bytes": 18877,
+   "sha256": "fcd2d2dc723041c331998b45cf7963dba87ccd7da3282e53a89b35caf415442b",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpHead.vi",
+   "bytes": 18278,
+   "sha256": "2df88d3f765c4f7a655ebcf197d1d8a5d55b00eda69af5d15c0e0074bdb2740b",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPatch (Buffer).vi",
+   "bytes": 19044,
+   "sha256": "a1c150f5a5985f71054fbcd0edf4c1f761ef53187003407d230535ae07331390",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPatch (File).vi",
+   "bytes": 19178,
+   "sha256": "19a2e00406e217cf36dd76b7af12c0daacd522647bb95a028723768f2f277f87",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPost (Buffer).vi",
+   "bytes": 19087,
+   "sha256": "5b50422b51defaa82d763d88d47766b0010c0ce8102070f900a7cb726e1abd14",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPost (File).vi",
+   "bytes": 19193,
+   "sha256": "f490d7bc6557dcee010e28ff64b0d55460eeb513ce8e7dd0b22a66fabf297966",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPost (Multipart).vi",
+   "bytes": 22118,
+   "sha256": "fa819266aa6bf6c9cf9b7a01ccedcd91cc41b69cb469190f1339c071a1490841",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPut (Buffer).vi",
+   "bytes": 19054,
+   "sha256": "f1489286360a250a2376c1e896908611479424cfba71ea3a44bb3ab2c0ef6715",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onHttpPut (File).vi",
+   "bytes": 19156,
+   "sha256": "86e5e6098d041de386007de34a7f097dbc1216fecad7101ef73ed85fe07b305a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onNewHttpSession.vi",
+   "bytes": 20796,
+   "sha256": "a5ca596bc730b75c7c0e5c14b9a449b4f2b639aab0934ddcab38c14d9391e0db",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/REST Client/onRemoveHeader.vi",
+   "bytes": 21482,
+   "sha256": "51361d87db1bf2735be4c7dedcd7b4648da3fd4f936499786617032f5ebae7bb",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Build Dictionary.vi",
+   "bytes": 17216,
+   "sha256": "b92371cb111fb2d1263888245bdfa479d8262fd3c043487ae4381caeba02d3e9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Create Response Headers.vi",
+   "bytes": 24651,
+   "sha256": "b29faaa4d793657b4ffa7ef59ddfc6093270b76bfe73a6aa68c44089e033a816",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Get All Headers.vi",
+   "bytes": 27651,
+   "sha256": "bffd4afe0a09e08aec71de4e8393cd3a54c8a20b874e6500ff825c3521a3b420",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Get Header By Name.vi",
+   "bytes": 23710,
+   "sha256": "33d1a616eef7c5820498d36f7b2725825eb7737c165167b2c304074ad71faf3f",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Parse Headers.vi",
+   "bytes": 15245,
+   "sha256": "971cee0c0245c8a293343ce40511ef1961e8c4cd589ef122040abc7360d94252",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/Response Headers/Response Headers.lvclass",
+   "bytes": 92604,
+   "sha256": "ffb85eef44c79b5a47fe2a47b1b08f2aafccfd5f7323bea17e3208b6f4b267a2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/_os_not_supported.vi",
+   "bytes": 13765,
+   "sha256": "23d1563d6c58fbfb8cff08f968112e6b4899683195f7cbd171849ce833247408",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/advanced-http-client.lvclass",
+   "bytes": 66018,
+   "sha256": "904d24e0cdf426e93551aa7d7f49124edec60a96f38d348bd36e753ce3fe5899",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onAddHeader.vi",
+   "bytes": 20535,
+   "sha256": "50bb65f72e8e4471b564e5cba6378f3db0b77ccec92601b8476720d323336132",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onDestroyHttpSession.vi",
+   "bytes": 20032,
+   "sha256": "b085af38e26aa233d89921f30cf2c435e1d6140b4821fc5f3f8a1e186cbefce4",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpDelete.vi",
+   "bytes": 17056,
+   "sha256": "b54f76f4a5749f35c1e766bb20cde4e251036dad34da2586bd501fe7ec4e0f53",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpGet.vi",
+   "bytes": 16729,
+   "sha256": "a42b1b6b74fb8605e8bd356e56e23fe35d46212bebbc000bc4c6e883b10d2847",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpHead.vi",
+   "bytes": 16438,
+   "sha256": "aade3fe6329145983b17ed89f16cdb0572a71f3af8474110705203c120627dcd",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPatch (Buffer).vi",
+   "bytes": 17984,
+   "sha256": "56404092394f80dfdd5020c58cd67fea924664034aea4dfdadac8b3db1bc1fdd",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPatch (File).vi",
+   "bytes": 17994,
+   "sha256": "8257e18707ec86e48d765e4cb3f04e5d6e27b00766a50f83354b217ad91d28c6",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPost (Buffer).vi",
+   "bytes": 17851,
+   "sha256": "640127fe67822fa8c51cd989c12f8466d87fa331539b4c4e1caf5d820331464a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPost (File).vi",
+   "bytes": 17857,
+   "sha256": "03bd6fbc02a61d94b3b6cbfbd1938fa19ca5cd18f3c973e534750f1ff1c324e4",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPost (Multipart).vi",
+   "bytes": 20918,
+   "sha256": "70b2776b41ee521734edb6e74d0fea18c49e8dd3ec4f36a2780e53c650cf1b2f",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPut (Buffer).vi",
+   "bytes": 17962,
+   "sha256": "d9131ffa95499cb48249fc09bfdd545f8630bf10ab38a46bb11f46cf006900e9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onHttpPut (File).vi",
+   "bytes": 17968,
+   "sha256": "dfc58d3464854885d20757dc62090bc10a0c4023f7335a237e105f849da27e17",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onNewHttpSession.vi",
+   "bytes": 21188,
+   "sha256": "6170c8a7a3c7ec0275cda33ce61831461cf14280796d53eb21890161983fbbef",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/advanced-http-client/onRemoveHeader.vi",
+   "bytes": 20402,
+   "sha256": "e44f6ff83fde1723b35bf0fe4ee9bb12b1028ca7124378ee8765f5f1af6c45a1",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/basic-http-client.lvclass",
+   "bytes": 57263,
+   "sha256": "2470f8d2689d3cd17c961991756a36c1a2021421084d95df35c5e2ffc756b454",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onAddHeader.vi",
+   "bytes": 19531,
+   "sha256": "0cc213c4d6ed6aba815875c4fb25ca8c757364b0a7859c199ed43e6bc273660c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onDestroyHttpSession.vi",
+   "bytes": 19116,
+   "sha256": "d79ba069e004c936d69f1ee026df95f756bf9b5f4a62298d9bd958741f83a713",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpDelete.vi",
+   "bytes": 15860,
+   "sha256": "c00a2e433b9058add80e0f0c62ab6b60893c53e79301d1fc9b7ca125a0c9c49d",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpGet.vi",
+   "bytes": 15833,
+   "sha256": "477c5e9d798cca878e99047b53bef2285542d73bb103222f42661089f46dc6e1",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpHead.vi",
+   "bytes": 15322,
+   "sha256": "b2aa41909a84b5d7d083031d551d7a023c2b767213f185991a900585ec00fb02",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPatch (Buffer).vi",
+   "bytes": 16512,
+   "sha256": "755a873dd18883fb15e4d107e32c9ed64fb2bfee0d374cf304718d44bd27241c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPatch (File).vi",
+   "bytes": 16526,
+   "sha256": "4de64f27fb710b7dd2260afc1c9dec885427742e762e15f74d70fd747fe654fb",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPost (Buffer).vi",
+   "bytes": 16519,
+   "sha256": "cf6655365ee374f12e06818992de368db898c47bfb084a028e708d291dc100ac",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPost (File).vi",
+   "bytes": 16529,
+   "sha256": "62431090eff6e65f052f287da914e906618b3612e40da8a40ab4d09d4a17ecf2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPost (Multipart).vi",
+   "bytes": 19022,
+   "sha256": "8d43cca2289fb701816c5180818ef4adb8d42cab249c64a6bd8c47b4787cb3f8",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPut (Buffer).vi",
+   "bytes": 16622,
+   "sha256": "79ed98990e7b512337301ec80d5f9172fd4ff66d40f70c6c6a2bcf9f88f3e5e2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onHttpPut (File).vi",
+   "bytes": 16624,
+   "sha256": "1fdea680308f4e26c5726171a22361891c742c8c7ad74c5b407512d8b4ad8918",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onNewHttpSession.vi",
+   "bytes": 20076,
+   "sha256": "578a4bb03e6888a306b9e4ae51f6e9117d554f75a6bf23b2327a44a6903bcfa9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/basic-http-client/onRemoveHeader.vi",
+   "bytes": 19450,
+   "sha256": "70adcb70c9950118bad289c63ec3f150854c77a6569f871128935b79ff687102",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Add Header.vi",
+   "bytes": 18886,
+   "sha256": "a0838482094e87a74c51a586c57476dc3f95fa31205afb3f2dbd955594db2477",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Add Multiple Headers.vi",
+   "bytes": 24772,
+   "sha256": "ad6766bc2bb19bfa83ab1ea0b2a3c9dd0905ad62635630fe22b0008ec49a75a4",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Assert_Buffer_Is_File.vi",
+   "bytes": 17717,
+   "sha256": "8b488ae730ec25bf2c487a71469680bb5cb31030e815d71a59d9f7cd53b818dc",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/DELETE.vi",
+   "bytes": 26366,
+   "sha256": "4fff48bfc372e39614dd9d860a55dcf83049a03beb545900d8973cf30d183eb2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Destroy HTTP Session.vi",
+   "bytes": 21232,
+   "sha256": "46866de222b9d4a47e64b6ac70e50c14fe622883a33384a01c4d42edd9b293e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Escape URL String.vi",
+   "bytes": 13761,
+   "sha256": "f52b187d8b1769506ca178ed28146664e7bf3dd1590e2469ebef1539fe54e3ae",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/GET.vi",
+   "bytes": 20151,
+   "sha256": "d9849db0f0fc695e656a994979ece3fbde3c5477ba5cc065a6f2a619778905c1",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/HEAD.vi",
+   "bytes": 22460,
+   "sha256": "e1d4075fedf72f614c186de9c9be59ee4814cade94e36fd50b26064ed4fdaa68",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/New HTTP Session.vi",
+   "bytes": 22776,
+   "sha256": "63d1c4f5269afa465a980aedde7916940cf620d6e79b1b276515fa503752a52a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/PATCH.vi",
+   "bytes": 24909,
+   "sha256": "63a37d772d60ab2f2a110c93daa4820e9b45d965d441529a34b889cbdb2b03e9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/POST-Multipart.vi",
+   "bytes": 26322,
+   "sha256": "a584760b2ba0a6f07613d8798a4647aff56bd55e6c8f0d3e09b5667890e54ad9",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/POST.vi",
+   "bytes": 24896,
+   "sha256": "7473b1c02f9050372194522b4869f13ce2ddb04d34662ad2706511d5c4dbad4a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/PUT.vi",
+   "bytes": 24923,
+   "sha256": "a370b84ad11c465ac7908910a98871e2d595148b39ae727ab7dc445eb50f90c8",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Parse Status Line.vi",
+   "bytes": 15257,
+   "sha256": "e390d48c23f87269ab994362dd91355bc94c209cbc43eec4658a7805c3851737",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/Remove Header.vi",
+   "bytes": 18753,
+   "sha256": "4aaf4fc39e92b766e9723f719b84765a091e00aa2503fa08d0814f0820df9a5b",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/handle HTTP Error.vi",
+   "bytes": 17217,
+   "sha256": "0ccaa61a4367032401159590e8d18441183e7525496f292c3003a802243fca96",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/headers -- array.ctl",
+   "bytes": 7753,
+   "sha256": "0479df11d1ab36eb99c212601af62b7525d15cc655d9f28499aec5e974d0584c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/http-client.lvclass",
+   "bytes": 55646,
+   "sha256": "339df1bd085b1a5bc69f6c12cfe3d87856bc8dae11db0ac3b35ec665ff7ac936",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onAddHeader.vi",
+   "bytes": 17743,
+   "sha256": "fb49e98cba3e2733a486b4d45586b6af0f3c86af3d8d597df6e394a9935397c8",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onDestroyHttpSession.vi",
+   "bytes": 17396,
+   "sha256": "693657fb12a5c6d7410bf4103658966bc084a281476aac1cf8308ad9c542cf71",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpDelete.vi",
+   "bytes": 14636,
+   "sha256": "983787e1abf72bf7485cd692559bb56ffa4382185504b23ff8649c8c6024efa0",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpGet.vi",
+   "bytes": 14633,
+   "sha256": "667295f8e415a0b30106f9830f386263dd48d5c6f8ebbbf4bcbf6f2423111b81",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpHead.vi",
+   "bytes": 14154,
+   "sha256": "2b59b2d36dfe24e82c0283629296ad194b3bb80c50393533837080106dd1e9ca",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPatch (Buffer).vi",
+   "bytes": 14760,
+   "sha256": "2587dfed635991128f85961c411209f9dbe7c6598d84c832144c6785e84a275c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPatch (File).vi",
+   "bytes": 14778,
+   "sha256": "4aaef10c264c6830869eef3c4027229994bfd58876ed9aa48e7008a2b33f0469",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPost (Buffer).vi",
+   "bytes": 14751,
+   "sha256": "6fdad230990f339bcd0695f1304f115ff54ba05047a9ae576a68c0c346124347",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPost (File).vi",
+   "bytes": 14773,
+   "sha256": "3cd3d2f2b448c5ccaf2ab59d349e2656fb9cc80733f07198def32c7f587fb3f2",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPost (Multipart).vi",
+   "bytes": 17754,
+   "sha256": "58e02bcb3c7280b2d48083e539519dffda9484867de97ee876f1060eb761a24c",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPut (Buffer).vi",
+   "bytes": 14762,
+   "sha256": "df3065907625aabf3ef4d085dd7f7745dce989afa45ae3f92db3ac923f283225",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onHttpPut (File).vi",
+   "bytes": 14780,
+   "sha256": "f85ec0f3843862420d9670867a45e0a3125d2d32c538c8237800e6e04910da3a",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onNewHttpSession.vi",
+   "bytes": 18832,
+   "sha256": "98b91e94d4996fd76132b7331ab3c77fc8146f2d4cc1681ccb908be7384f9f92",
+   "via": "extension"
+  },
+  {
+   "path": "source/classes/http-client/onRemoveHeader.vi",
+   "bytes": 17642,
+   "sha256": "42ce19153a2a1f161e921df1c014de378d57aa48d444e1b8ce39a3d7ef742b9a",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/Add Post.vi",
+   "bytes": 19272,
+   "sha256": "f39d618fe7e0971698ff9e47ebacdc5520286df88c56d1fce31f3384417aa2c4",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/Create My API.vi",
+   "bytes": 22789,
+   "sha256": "55d6c41d22e276e7f141f148a62b9b4f0f046a053ed90483a61fa918646e28cb",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/Destroy My API.vi",
+   "bytes": 21338,
+   "sha256": "e3c6fd91cd725f57c858bae8893a146e9f7027e82e9649c494b556364368c6d4",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/Get Post.vi",
+   "bytes": 19092,
+   "sha256": "d9310221708b36fdf7b031b45eaf7810f7a83dd1135004d1a2ebe40e86dda1c4",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/My API.lvclass",
+   "bytes": 35362,
+   "sha256": "463773e5e8fc47688b20e8fc619bb12ecb8ba23157952a28badeede80f2591a2",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Classes/My API/Post.ctl",
+   "bytes": 12877,
+   "sha256": "4feb5675dd49855a6f7c4f3dac4923b8f177614a1e04a64ccd4b051f84d095f5",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/Main.vi",
+   "bytes": 22300,
+   "sha256": "78f7011ee6e2b798fae3b8dccd1313f46475e4fd26974d30491b14454caa528b",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/REST.lvproj",
+   "bytes": 3888,
+   "sha256": "87ee265076658c7f517c9132717075bf190837f6596b76d31560e5bda40b158f",
+   "via": "extension"
+  },
+  {
+   "path": "source/projects/REST Client - VI Tree.vi",
+   "bytes": 25389,
+   "sha256": "5bad715fef9f107df0de2e3b680a8ace9db1d6e360eee2c56b4fb66cb8594a20",
+   "via": "extension"
+  },
+  {
+   "path": "source/README.html",
+   "bytes": 34265,
+   "sha256": "6cbf9756df503e067772afde66056efb383b7026ad83102e5f79998fd94752af",
+   "via": "ref:source/classes/REST Client/Create REST Client (plugin).vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 35,
+   "sha256": "c965e943046b4b783923506221110867dbe0744819206cdc3df40056a0fd1887",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.md",
+   "bytes": 1484,
+   "sha256": "10a84c7faae304bc77a9a7853acdd82681a16ad30ff90f76dffabc8f92adae8d",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 7988,
+   "sha256": "7bd40266b84291ddfedf59a97a1a1b6af1c88e85f1d2b03bda81a2de2284c24c",
+   "via": "tree"
+  },
+  {
+   "path": "img/JKI-REST-logo.png",
+   "bytes": 6877,
+   "sha256": "46142068d6f1feeb21b5d26e7f96143a74e4fa5d1d8be192e06feea89300ee97",
+   "via": "tree"
+  },
+  {
+   "path": "img/create-rest-client.png",
+   "bytes": 27897,
+   "sha256": "fe5fc1bc7c36c56579650467ef9096b772b290c4b734e1dfae34521f9c0bf41d",
+   "via": "tree"
+  },
+  {
+   "path": "img/destroy-rest-client.png",
+   "bytes": 8310,
+   "sha256": "7f7470d77d852724dcda29bf922590073b79d5abc122ea9d8a5dfc7229f18e96",
+   "via": "tree"
+  },
+  {
+   "path": "img/get-all-headers.png",
+   "bytes": 16374,
+   "sha256": "814974c9546d4031d0fa2503f8c9adb978d83acdba2c17e72c648704c26b34ba",
+   "via": "tree"
+  },
+  {
+   "path": "img/get-header-by-name.png",
+   "bytes": 17341,
+   "sha256": "db4539d229a54d1b71aac8ac850da237771d6d401235b412a3f45eae43dd7565",
+   "via": "tree"
+  },
+  {
+   "path": "img/http-delete.png",
+   "bytes": 27294,
+   "sha256": "2316d1e0879898cdc3f9888fa9578b87fb667732018c18f22fea0bef9af7f93e",
+   "via": "tree"
+  },
+  {
+   "path": "img/http-get.png",
+   "bytes": 27245,
+   "sha256": "906a430be2bcc1cfb13f0619328c2e548bde0b917fed0b80b3090ab57547c6dc",
+   "via": "tree"
+  },
+  {
+   "path": "img/http-head.png",
+   "bytes": 27618,
+   "sha256": "e93bece3d201adc51f817b579cafdfbed069ed081aeecfcf6640ab5431df8bfc",
+   "via": "tree"
+  },
+  {
+   "path": "img/http-post.png",
+   "bytes": 29850,
+   "sha256": "e50ef405b454e40c27c0dd4198d8d84ae9670e3f0f7f874fe8216ed39c142308",
+   "via": "tree"
+  },
+  {
+   "path": "img/http-put.png",
+   "bytes": 30072,
+   "sha256": "1c8b3d016fecd3d555e5d8072fd00c6c0b43d80c11733adf5bffc30cac6dd1de",
+   "via": "tree"
+  },
+  {
+   "path": "img/open-get-close.png",
+   "bytes": 16695,
+   "sha256": "ef4c32c7a1f35f4c638666cc6c1162048d82cd50487fb0abef8af44d2af89ea0",
+   "via": "tree"
+  },
+  {
+   "path": "img/rest-palette-accessors.png",
+   "bytes": 59998,
+   "sha256": "eaaac2a997bef122b1ecd78177466ef0bc0284ec42a63fe348c441044d613cf8",
+   "via": "tree"
+  },
+  {
+   "path": "img/rest-palette-open.png",
+   "bytes": 52975,
+   "sha256": "0e2db7ab8e02c96c1880e311b37a2fff3cf85845aa71793ac6916077830bbb9d",
+   "via": "tree"
+  },
+  {
+   "path": "img/rest-palette-response-headers.png",
+   "bytes": 21628,
+   "sha256": "f76e6ae16790d4003f54218315090ea90d55c82f90da42e0b473e98a7ffd09cf",
+   "via": "tree"
+  },
+  {
+   "path": "img/rest-palette-utilities.png",
+   "bytes": 15280,
+   "sha256": "901381fee873c1b03d795325c23299395e0e35922c7b428a595372680cc81edf",
+   "via": "tree"
+  },
+  {
+   "path": "img/rest-palette.png",
+   "bytes": 39351,
+   "sha256": "9b313fd278be35075b4039f412fb4d506de504e8c5c3fad6c156ae3c7fdabfab",
+   "via": "tree"
+  },
+  {
+   "path": "source/.vipb",
+   "bytes": 829219,
+   "sha256": "4481b3aa5f65746c401bf1bd2959787271ee6176e9063a604fcd7b0529dd4af3",
+   "via": "tree"
+  },
+  {
+   "path": "source/REST Client.dragon",
+   "bytes": 107,
+   "sha256": "ec797eb47ef78bcb66c865ba5baaf225e010b45639bbc3323b72d94f710cd79c",
+   "via": "tree"
+  },
+  {
+   "path": "source/examples/JSONPlaceholder/REST.dragon",
+   "bytes": 118,
+   "sha256": "bb493b6cc4339f49c57e1e6357802180d8bed481e3658d0c9f8e568e37905437",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\JKI\\REST Client\\README.html",
+  "<vilib>\\NI\\Advanced HTTP Client\\Add Header.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\Close Session.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\DELETE.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\GET.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\HEAD.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\Header--Combo Box.ctl",
+  "<vilib>\\NI\\Advanced HTTP Client\\Open Session.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PATCH (Buffer).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PATCH (File).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PATCH.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\POST (Buffer).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\POST (File).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\POST (Multipart).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\POST.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PUT (Buffer).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PUT (File).vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\PUT.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\Remove Header.vi",
+  "<vilib>\\NI\\Advanced HTTP Client\\Session.lvclass",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\httpClient\\AddHeader.vi",
+  "<vilib>\\httpClient\\CloseHandle.vi",
+  "<vilib>\\httpClient\\DELETE.vi",
+  "<vilib>\\httpClient\\GET.vi",
+  "<vilib>\\httpClient\\HEAD.vi",
+  "<vilib>\\httpClient\\LabVIEWHTTPClient.lvlib",
+  "<vilib>\\httpClient\\MultipartData.ctl",
+  "<vilib>\\httpClient\\OpenHandle.vi",
+  "<vilib>\\httpClient\\POST.vi",
+  "<vilib>\\httpClient\\POSTBuffer.vi",
+  "<vilib>\\httpClient\\POSTFile.vi",
+  "<vilib>\\httpClient\\POSTMultipart.vi",
+  "<vilib>\\httpClient\\PUT.vi",
+  "<vilib>\\httpClient\\PUTBuffer.vi",
+  "<vilib>\\httpClient\\PUTFile.vi",
+  "<vilib>\\httpClient\\RemoveHeader.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\http-client.lvclass",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onAddHeader.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onDestroyHttpSession.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpDelete.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpGet.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpHead.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPatch (Buffer).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPatch (File).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPost (Buffer).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPost (File).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPost (Multipart).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPut (Buffer).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onHttpPut (File).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onNewHttpSession.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\classes\\http-client\\onRemoveHeader.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onAddHeader.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onDestroyHttpSession.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpDelete.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpGet.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpHead.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpPatch (Buffer).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpPost (Buffer).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpPost (File).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onHttpPost (Multipart).vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onNewHttpSession.vi",
+  "C:\\Repositories\\JKI\\http-rest-client\\source\\http-client\\onRemoveHeader.vi"
+ ]
+}
