@@ -1,0 +1,34 @@
+# Libraries
+
+*.lvlibp
+!rust-proxy/test_data/*.lvlibp
+!/Integration Tests/*.lvlibp
+*.llb
+
+#Outputs
+Builds
+lv-results.xml
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+!/Integration Tests/exes/*.exe
+
+# Metadata
+*.aliases
+*.lvlps
+/Installer
+
+# Rust Files
+/rust-proxy/target
+
+/*.vip
+
+# IDE Files
+.idea
+.vscode
