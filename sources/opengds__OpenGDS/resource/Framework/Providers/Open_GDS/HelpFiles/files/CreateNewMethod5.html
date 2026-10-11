@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <title>Create New Method</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css">
+    <!--
+    body {
+      margin: 5px;
+    }
+
+    hr,
+    body,
+    table,
+    span.rvts0 {
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: none;
+    }
+
+    span.rvts1 {
+      font-weight: bold;
+    }
+
+    span.rvts2 {
+      font-weight: bold;
+    }
+
+    span.rvts3 {
+      font-style: italic;
+    }
+
+    a.rvts4,
+    span.rvts4 {
+      text-decoration: underline;
+    }
+
+    a.rvts5,
+    span.rvts5 {
+      text-decoration: underline;
+    }
+
+    span.rvts7 {
+      font-weight: bold;
+    }
+
+    span.rvts8 {
+      font-weight: bold;
+    }
+
+    span.rvts9 {
+      font-style: italic;
+    }
+
+    span.rvts11 {
+      font-weight: bold;
+    }
+
+    span.rvts12 {
+      font-style: italic;
+    }
+
+    span.rvts13 {
+      font-weight: bold;
+    }
+
+    span.rvts14 {
+      font-weight: bold;
+    }
+
+    p,
+    ul,
+    ol {
+      text-align: left;
+      text-indent: 0px;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    ul,
+    ol {
+      padding-left: 35px;
+    }
+
+    .rvps1 {
+      text-align: center;
+    }
+
+    .rvps2 {
+      margin: 0px 0px 0px 29px;
+    }
+
+    .rvps3 {
+      margin: 0px 0px 0px 87px;
+    }
+
+    .rvps4 {
+      margin: 0px 0px 0px 26px;
+    }
+
+    .rvps5 {
+      background: #000000;
+      padding: 5px 5px 2px 5px;
+      margin: -5px -5px 18px -5px;
+    }
+
+    .rvps6 {
+      text-align: center;
+      background: #e4e4e4;
+      margin: 20px 0px 0px 0px;
+    }
+    -->
+  </style>
+  <link rel="StyleSheet" href="content.css" type="text/css" />
+  <script
+    type="text/javascript">if (top.frames.length == 0) { sTopic = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length); top.location.href = "../index.html#" + sTopic; }</script>
+
+
+
+
+<body>
+  <h1>Create New Method</h1>
+  <p>
+    <b>Dialog Create New Method</b>
+  </p>
+  <p>To add a new method to the class right click on the class in the project explorer and select
+    <b>GOOP&gt;&gt; Add Method</b>
+  <p>... </p>
+  <p><b>The </b><b>Create Method Dialog</b> box will
+    appear.</p>
+  <p><b>Dialog Box Options</b></p>
+  <div>
+    <table>
+      <tr>
+        <td>
+          <p><b>Method Type</b></p>
+        </td>
+        <td>
+          <p><b>Normal Method</b></p>
+          <p><b>Override Method</b></p>
+          <p>This method override inherited methods. It is only when the class inherits
+            from another class that it is possible to select this method. A window with the label Override Methods
+            appears showing the selectable methods.</p>
+          <p><br></p>
+          <p><b>Property Method</b></p>
+          <p>This method can get and set the attributes in the object or the class.&nbsp;
+            A window with the label Property appears showing
+            the available attributes.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Dynamic dispatch</b></p>
+        </td>
+        <td>
+          <p>If the box is checked the method will be possible to override.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Must override</b></p>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Must call parent</b></p>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Method Template</b></p>
+        </td>
+        <td>
+          <p>The available method templates are displayed. </p>
+          <p><br></p>
+          <p>Select what type of method you want to create and the method VI block diagram will be equipped with the
+            necessary VI:s. These are the default method templates for a <b>Normal Method</b>: </p>
+          <p>Read Attribute</p>
+          <p>Write Attribute</p>
+          <p>Read &amp; Write Attribute</p>
+          <p>None Modifying Method</p>
+          <p>Send message to process</p>
+          <p>Read Class Attribute</p>
+          <p>Read &amp; Write Class Attribute</p>
+          <p>None Modifying Method</p>
+          <p>Send message to process</p>
+          <p>Read Class Attribute</p>
+          <p>Read &amp; Write Class Attribute</p>
+          <p></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Method description</b></p>
+        </td>
+        <td>
+          <p>Description for the method. </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Visibility and Method Location</b></p>
+        </td>
+        <td>
+          <p>In the <b>Method Location </b>select either
+            &lt;class root&gt; or a specific project sub folder. If &lt;class root&gt; is selected the method will be
+            placed directly below the lvclass in the project independently of selected visibility. If &lt;class
+            root&gt; is selected you should use the radio buttons to
+            choose visibility. Otherwise you select a project sub folder in the Method
+            Location table. The radio buttons will be shaded but still indicate the visibility. </p>
+
+          <p>All project sub folders of the lvclass will be displayed in the Method Location table.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p><img alt="" hspace=1 vspace=1 src="img_4.png"></p>
+  <p><span class=rvts11><br></span></p>
+
+</body>
+
+</html>

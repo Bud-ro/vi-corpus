@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <title>Create VI Icon</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <style type="text/css">
+    <!--
+    body {
+      margin: 5px;
+    }
+
+    hr,
+    body,
+    table,
+    span.rvts0 {
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: none;
+    }
+
+    span.rvts1 {
+      font-weight: bold;
+    }
+
+    span.rvts2 {
+      font-weight: bold;
+    }
+
+    span.rvts3 {
+      font-style: italic;
+    }
+
+    a.rvts4,
+    span.rvts4 {
+      text-decoration: underline;
+    }
+
+    a.rvts5,
+    span.rvts5 {
+      text-decoration: underline;
+    }
+
+    span.rvts7 {
+      font-weight: bold;
+    }
+
+    span.rvts8 {
+      font-weight: bold;
+    }
+
+    span.rvts9 {
+      font-style: italic;
+    }
+
+    span.rvts11 {
+      font-weight: bold;
+    }
+
+    span.rvts14 {
+      font-weight: bold;
+    }
+
+    span.rvts15 {
+      font-weight: bold;
+    }
+
+    p,
+    ul,
+    ol {
+      text-align: left;
+      text-indent: 0px;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .rvps1 {
+      text-align: center;
+    }
+
+    .rvps2 {
+      background: #000000;
+      padding: 5px 5px 2px 5px;
+      margin: -5px -5px 18px -5px;
+    }
+
+    .rvps3 {
+      text-align: center;
+      background: #e4e4e4;
+      margin: 20px 0px 0px 0px;
+    }
+    -->
+  </style>
+  <link rel="StyleSheet" href="content.css" type="text/css" />
+  <script
+    type="text/javascript">if (top.frames.length == 0) { sTopic = top.location.href.substring(top.location.href.lastIndexOf("/") + 1, top.location.href.length); top.location.href = "../index.html#" + sTopic; }</script>
+
+
+
+
+<body>
+  <h1>Create VI Icon</h1>
+  <p>
+    <b>Dialog Create VI Icon</b>
+  </p>
+  <p>To open the Create VI Icon Dialog Box , open a VI and select
+    <b>Tools&gt;&gt; GOOP&gt;&gt; Create VI Icon</b>...
+  </p>
+  <p>Create VI Icon helps you to create an manage an icon template for a group of VI's giving them
+    the same header and coloring. Create VI Icon operates both on standard VI's and VI's of a lvclass.</p>
+  <p>The tool supports text based icons. You can define a header text and color and have it used for
+    all VI's placed in the same folder. In the body part of the VI icon you write an abbreviation of the VI name. When
+    launched for a VI of an lvclass you cannot edit the header part since it is already defined for the class.</p>
+  <p>To use this tool you have to save the VI first and then launch Create VI Icon from the opened
+    VI's Tools menu.</p>
+  <p><b>Dialog Box Options</b></p>
+  <div>
+    <table>
+      <tr>
+        <td>
+          <p><b>VI Path</b></p>
+        </td>
+        <td>
+          <p>Shows the path to the current VI.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Prefix found</b></p>
+        </td>
+        <td>
+          <p>Indicates if a prefix was found for the current VI or a Template VI.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Visibility</b></p>
+        </td>
+        <td>
+          <p>Indicates the visibility of the current VI.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Body Background</b></p>
+        </td>
+        <td>
+          <p>Select the color for the body background</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Body Text</b></p>
+        </td>
+        <td>
+          <p>Write the text to appear in the lower (body) part of the icon.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Font Compression</b></p>
+        </td>
+        <td>
+          <p>Select the compression for the body text. Auto changes the text size automatically and
+            add&nbsp; rows to fit the text into the body area in the best way.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Force Capital Letters</b></p>
+        </td>
+        <td>
+          <p>Check the box if you want the body text to use only capital letters.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Icon Preview</b></p>
+        </td>
+        <td>
+          <p>Shows a preview of the icon</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Current</b></p>
+        </td>
+        <td>
+          <p>Shows the original VI icon</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>After</b></p>
+        </td>
+        <td>
+          <p>Shows the icon to be applied if Accept is pressed.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Edit Header...</b></p>
+        </td>
+        <td>
+          <p>Change the header text and colors.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Template VI...</b></p>
+        </td>
+        <td>
+          <p>Use the icon from another VI as template. Brows and select any VI.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><b>Apply this header to all VI:s/Ctrl's in this folder</b></p>
+        </td>
+        <td>
+          <p>Check the box if you want the header to be applied to all the VI icons in the folder
+            selected in VI Path.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p><img alt="" hspace=1 vspace=1 src="img_7.png"></p>
+
+</body>
+
+</html>
