@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2011" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>National Instruments::PXI-2510</eng>
+		<loc>National Instruments::PXI-2510</loc>
+	</AddMenu>
+	<Version>1.0</Version>
+	<Type>Asynchronous</Type>
+	<MaxOccurrence>2474</MaxOccurrence>
+	<MainPageGUID>BAE3B2AA-1010-B3CF-1600-CCDDC4410D51</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-2510\PXI-2510 Configuration.llb\PXI-2510 Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<Source>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-2510\PXI-2510 Engine.llb\PXI-2510 RT Driver VI.vi</Path>
+		</Source>
+		<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\PXI-2510\PXI-2510 Engine.llb\PXI-2510 RT Driver VI.vi</RealTimeSystemDestination>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>PXI-2510</eng>
+				<loc>PXI-2510</loc>
+			</Name>
+			<GUID>BAE3B2AA-1010-B3CF-1600-CCDDC4410D51</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-2510\PXI-2510 Configuration.llb\PXI-2510 Main Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>PXI-2510 Channel</eng>
+				<loc>PXI-2510 Channel</loc>
+			</Name>
+			<GUID>58A32CF1-4004-805F-65E3-76DB05DAFAA1</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-2510\PXI-2510 Configuration.llb\PXI-2510 Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>PXI-2510 Fault Bus</eng>
+				<loc>PXI-2510 Fault Bus</loc>
+			</Name>
+			<GUID>BB42E4F8-6E2F-5207-90DA-526D267476FC</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-2510\PXI-2510 Configuration.llb\PXI-2510 Fault Bus Page.vi</Path>
+			</Item2Launch>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<Dummy />
+	</CustomXML>
+</CustomDevice>
