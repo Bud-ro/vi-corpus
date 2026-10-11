@@ -1,0 +1,790 @@
+{
+ "repo": "ByteQX/ByteQX-LabVIEW-APIs",
+ "url": "https://github.com/ByteQX/ByteQX-LabVIEW-APIs",
+ "commit": "5ea12570beacd81e1e41e23e1b58d5d7ef5662bd",
+ "license": "GPL-3.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "source/ByteQXAPIBase/AddMeasurement/AddMeasurement.vi",
+   "bytes": 41330,
+   "sha256": "cf431191b260621982cd59f393c59005d6fafc60afca45d47cb16bb082d207a9",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/AddMeasurement/AddMeasurementReqData.ctl",
+   "bytes": 12846,
+   "sha256": "cc2316e9c3299eaeffea8ea8f0f5f1df812cb2ae1c273639c0fa89ccc9e9110c",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/AddMeasurement/EditMeasurement.vi",
+   "bytes": 36783,
+   "sha256": "7a8cd5b513c6d1f1bf10bf7bf0cfdcdbbb4c81c9d48d9119ea3b74a670518e54",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/AddMeasurement/GetMeasurements.vi",
+   "bytes": 29951,
+   "sha256": "2834e1fde15a1f9bbcf72980236a644db6a5607fb0714d0b5967fdfd5335525d",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/AddMeasurement/MeasurementResData.ctl",
+   "bytes": 12995,
+   "sha256": "a9e0123804f7fe32765d8210b54936d6556e25545a5ba70b7481e74890846de6",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ApproveCalibration/RequestApproval.ctl",
+   "bytes": 13420,
+   "sha256": "d8cbda3dbbe98663be0823fa515d98be619044f0ac6a823b8db245a32e7a44a0",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ApproveCalibration/SendRequestApproval.vi",
+   "bytes": 37247,
+   "sha256": "d999e1cd3dab20af560b63d452102c67ef0844f827a43e05dc4731e2fd4ba821",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ByteQXAPIBase.lvclass",
+   "bytes": 89787,
+   "sha256": "0b825d8cf1cf4b15acc7e0cfa4ee8f64d6711e08a87b963d0f21199cbe8493b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/CalibrationMeasurements/CalibMeasure.ctl",
+   "bytes": 16449,
+   "sha256": "b3ea22cb09f417142ff925cbf2d0aea588d1446d7f9fee1eacef321ab19571c1",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/CalibrationMeasurements/ExecutingCalibration.vi",
+   "bytes": 36608,
+   "sha256": "8772952f4c06cb257f2e6a8ec2da9a6de4f2a19d1267c99c1d70d9e11c67534d",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ChannelsList/ChannelsList_ReqData.ctl",
+   "bytes": 14285,
+   "sha256": "bafa8a5cc31a3f64c9706d7f9d998a47f2933072231f468425e21365924e1ca8",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ChannelsList/GetChannelList.vi",
+   "bytes": 23134,
+   "sha256": "cd0ee1f9254dd095160443623d939051e83ba0d928875b98cd07421aebc92cd3",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ChannelsList/GetChannels_ResData.ctl",
+   "bytes": 14128,
+   "sha256": "b681027b541027409f627277f39716b93b95091a4c9cd6c00de06e6c96d10910",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ChannelsList/UpdateChannelsList.vi",
+   "bytes": 34290,
+   "sha256": "b541be024499a310d7e89b5246d00c5b3a2369f930299093c976b237bc5ac8ac",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ControlPlans/ControlPlan.ctl",
+   "bytes": 16516,
+   "sha256": "9590e486a6d49a5a3244ef8ce95d856cf2ef3df91ff329517c482d8523b1b691",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/ControlPlans/ControlPlans.vi",
+   "bytes": 29428,
+   "sha256": "69f236f7705805296b6b4cbed650709b533f0ece7d5d2b13acf2507183ac940f",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/FetchCalibration/Converted_Slug_Cluster.ctl",
+   "bytes": 13211,
+   "sha256": "e171aaa0f070ffaff441ec0329dbb01eaedbb4e3368d966b64ecb0e448f0180a",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/FetchCalibration/FetchCalibration.vi",
+   "bytes": 35484,
+   "sha256": "8f95b721878b7243ceb664681cc5635757b2f56d34f967ffb7b38ccb3b88c138",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/FetchCalibration/JSON_Slug_Cluster.ctl",
+   "bytes": 12902,
+   "sha256": "6d5d4461b68f017669078c9380be9d26f416cf51d0c007da56aafa3d6d488376",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/GetLimsTestSteps/GetLimsTestSteps.vi",
+   "bytes": 47628,
+   "sha256": "94a10ee1d008e10acde0959664f1e0da0917df056b918d082805e69b0e515fed",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/GetLimsTestsForBench/GetLimsTestsForBench.vi",
+   "bytes": 43580,
+   "sha256": "3e837b71a6e8c6e2aec75c357a574885e2eaca0d6fb78b1f98b6da41d2a2376d",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Initialization/Init.vi",
+   "bytes": 33732,
+   "sha256": "1bf26316d24774d65a8c0d3e88a7d9e8da585655c2231b6577d6554289f2c5b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Initialization/InitFromCfgFile.vi",
+   "bytes": 27023,
+   "sha256": "ce6564029b2d41e192425c474583aaa470b3a747dcab07b7ea8259d0e8ee64e0",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Instruments/Instrument.ctl",
+   "bytes": 15555,
+   "sha256": "a1c83d9ad8e1956fec03bf7f8b92f9f2121eac5f8087fcf6c0f20bf141c5e340",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Instruments/InstrumentsList.vi",
+   "bytes": 33995,
+   "sha256": "ba749ef7ba2078a01d72480d5ea3a9a1d8ceae5e61e11d514f47dcd2d496acb6",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/LimsTestStep/EditLimsTestStepValues.vi",
+   "bytes": 37858,
+   "sha256": "81fd6254f0ace90650ae06ef8b20eea2d2bb0575933d260446deba06cc29e6e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/LimsTestStep/GetLimsTestStep.vi",
+   "bytes": 45835,
+   "sha256": "f6a70a3e84d1c5767c7eff04f5e0301b4e1074475cda574a892d1e98be90ecb2",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/LimsTestStep/UpdateLimsTestStepAutomation.vi",
+   "bytes": 38328,
+   "sha256": "7998c117c272f646031daba975dc61dd50ae4935af1608e961a695ac32a970f1",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/LimsTestStep/UpdateLimsTestStepValues.vi",
+   "bytes": 42148,
+   "sha256": "dd160098e48939e0c79d7106ee023819cf9c221e69b22d432ad34d5ee7ba7b8b",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/LimsTestStep/UploadAcquisitions_ReqData.ctl",
+   "bytes": 13039,
+   "sha256": "7a03f2e41e3b5e9ba430dab9c9df66a87ef730b6474bdf7d6c538f0921fe63da",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/MeasurementGroups/GetMeasurementsGroups.vi",
+   "bytes": 29517,
+   "sha256": "3dae75c594771d5ad2b65c22c4c7739f10718fa39f495b7707a3fe1b37a558e2",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/MeasurementGroups/MeasGroupResult.vi",
+   "bytes": 34783,
+   "sha256": "4fde1065d8ca3af9adff86e5472b2b9fc15550dec805401d0a7f934f65d17c93",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/MeasurementGroups/TypeDef/Meas_Group_Res_Data.ctl",
+   "bytes": 14564,
+   "sha256": "5f9084fcc310f634b419e9449b0220bba0151dfac712117336ff81355f0158ad",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/MeasurementGroups/TypeDef/Meas_Group_Res_REQ.ctl",
+   "bytes": 12195,
+   "sha256": "6a4f015b03dcea5aab13aa42f2bd80230ff16bfb3e7adee85a7b7da8fe467e23",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/MeasurementGroups/TypeDef/MeasurementGroup.ctl",
+   "bytes": 12957,
+   "sha256": "0585798154ca84ae5e4930c87f449931e9f3fe2087c2e5d7ca18d9702c523c97",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Private/GetURLandRoot.vi",
+   "bytes": 17461,
+   "sha256": "6bd867ad5cf2e1100dac194555863f6957e65c269cfd28f9e7b33b2dda7b7722",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Private/SetRESTURLandRoot.vi",
+   "bytes": 23105,
+   "sha256": "91c8fe48cad3d39d14eb6b4d5be8f2763eb8bcac514d5e1d0422230f804ec170",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Private/module.ctl",
+   "bytes": 11819,
+   "sha256": "9677831c06a090b6782468ea6e045683265f3fcfa33e1e17acc8240942929432",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/Asset.ctl",
+   "bytes": 16110,
+   "sha256": "20640ee07d7eef883087c2fb440687ab8960097f34779ef3cba1051ea535acb9",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/EditMeasurementReqData.ctl",
+   "bytes": 12427,
+   "sha256": "4537a573d09ce8044d7262f0c51ad6be000448a059733efd010dc47af1ddec47",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/Measurement2.ctl",
+   "bytes": 5313,
+   "sha256": "811126a0d73bd7107177c424496f42cdc1f8f241d7c755df5a65bf82e102403f",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/Step.ctl",
+   "bytes": 21305,
+   "sha256": "8e709c0d81abe7ae18f249d3cc1619a0c641ba889fc40d52ec6e06c881e7dc2b",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/Test.ctl",
+   "bytes": 18065,
+   "sha256": "e0eb44669c27df39638e3714196f2443af52f00cc95c5362eb62bbdefbce6309",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/TypeDef/UpdateLimsTestStepData.ctl",
+   "bytes": 17071,
+   "sha256": "be8077e428d42689c3d5b10d724ab6c9b2c5fb4284936ae9c7506018195766eb",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Utilities/DateTimeToString.vi",
+   "bytes": 32316,
+   "sha256": "aba08341f369baf8040766643a77a412592bd9bba2c31e8cdf4e96b2a8f55b03",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Utilities/OutcomeStringToBool.vi",
+   "bytes": 27963,
+   "sha256": "7c4fe9abbc71b353367ceb2c650f6f29d4dc91e04ed8d140ce34a783a6e484c1",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/Utilities/StringToDateTime.vi",
+   "bytes": 28300,
+   "sha256": "bdc024d75ab9a98b88ef3e9f701ea943c8b741b53a9c2e056838c035436e1c69",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/iLOGAcquisition/Acquisition_ReqData.ctl",
+   "bytes": 11472,
+   "sha256": "8dcd6c363824b51e1eda1d1da5c4e5f1638541675bce7327c18f7f7768448652",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/iLOGAcquisition/Acquisitions.ctl",
+   "bytes": 14009,
+   "sha256": "652cdd92e055541d8f10d0fa0294292b5090d16285d394eda8a06faee7023774",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXAPIBase/iLOGAcquisition/UploadAcquisitions.vi",
+   "bytes": 40214,
+   "sha256": "3d88ca3121b5845cc24be3d74ca7e4a4a5204893e199f5a876df5b7cc5650712",
+   "via": "extension"
+  },
+  {
+   "path": "source/ByteQXWebAPI.lvlib",
+   "bytes": 13351,
+   "sha256": "776dcc91eb3a2c3ff28882d5f39527a6c3aa393192f51e4526c5673b7cb1bb35",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/CalibrationManagementDemo.vi",
+   "bytes": 326545,
+   "sha256": "7b29358acff5ec459dcb02c5637242ba7aa3d0bda5e1921b44b20fd2e8d5a1d1",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Demo_Ita.vi",
+   "bytes": 164680,
+   "sha256": "df4fcd4b9c5b2fd54003dc423e8cdc0c780cffa53e60e4e8964efdc4fc067b8c",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/DimostratoreUpdateAutomation.vi",
+   "bytes": 61428,
+   "sha256": "916cff2d6e4d12a2c927230fdf1dfd0f9630bdfae382a29eafb118c10ef74e4a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TestStepSimulator.vi",
+   "bytes": 157273,
+   "sha256": "d95de0b06c76e2bfaf8d95ab2d2e7a172c5805840161afd8b87b29d18fc57aa0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/CalibrationStates.ctl",
+   "bytes": 4482,
+   "sha256": "8fef89bb47abd87ecc930b5ffe41ea8ee3064402d3e64e1777c62d27fb60bec5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/FullTransparentButton.ctl",
+   "bytes": 3882,
+   "sha256": "15773b1cf245693968c7b40e995eef7eed355e7ab43cc3e4f13b4037cc2b8d38",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/MachineStates.ctl",
+   "bytes": 4418,
+   "sha256": "aed129a566141f24b43a4418f3c40452016c25e337095ebd3038a14367562837",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/ProcessStatus.ctl",
+   "bytes": 5182,
+   "sha256": "8bd116260a9be117aecfcc86d66416272b2c0dbea5a96f799c1dbb038372e90b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/SimulatoreStates.ctl",
+   "bytes": 4437,
+   "sha256": "fd9d0c32753b681eb52a71a7bffd934ef7f8ddf69e2ebb0fbdae7ece847d08fe",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/SlugExpiration.ctl",
+   "bytes": 6091,
+   "sha256": "6c1a36f74aafff358c81ac411b00ce6d09efa4ce65456d5f7a181080f236753b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/StatusControl.ctl",
+   "bytes": 6646,
+   "sha256": "525dd31ba9adf8eb90abee9f3c08171f662617884f7ff98dbb77704756548886",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/TypeDef/StepSimulationInfo.ctl",
+   "bytes": 6127,
+   "sha256": "9dfefe2a1da75f69cbf6422954cd1518d167979e557bb8709c74ae4ae79e7d49",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/BenchFromIni.vi",
+   "bytes": 21744,
+   "sha256": "1dce98722ca35fb212c89ed6d1f0e54106e232cde0e410a2f9e90f5792011534",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/BlinkCurrentProcess.vi",
+   "bytes": 20987,
+   "sha256": "94609803be006845cb4cfdc66dcfdc100b8f15865bb8308b0945e24574cd2408",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/BoolToString.vi",
+   "bytes": 13980,
+   "sha256": "6edf92835b58abf8608cb0124bd5218447577f8bc5a0b869bd5cd44ee1131f61",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/ControlVisibility.vi",
+   "bytes": 17021,
+   "sha256": "c3f10e70d07cfb04c19e508afc536f8fab2708ef307ef8427568a6b84afbad85",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/CurrentStep.vi",
+   "bytes": 17467,
+   "sha256": "f1ed777a59f075566a4b3acf730b941b36ee61cbf032d29497ddac53d3589f45",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/DisableControls.vi",
+   "bytes": 17771,
+   "sha256": "470c233de3107ff132912c539f6a69e64b92d6cd34419af373627d0ddaac4cca",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/FGVTimer.vi",
+   "bytes": 22416,
+   "sha256": "e5663a34838a1afc96e27c678fb768113aaa5fb20a47c905756445987234cf86",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/GetResult.vi",
+   "bytes": 11745,
+   "sha256": "dcc23cb30e93ef3e645cdb4851b1ce7a36a27bbb0bcd17396078e21d2c961157",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/IndexStepsArray.vi",
+   "bytes": 20487,
+   "sha256": "f98889c6b39116e4ba9329b15c10bda2d9a0f94139608c1a9cc6bc0e544d337b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/InfoResult.vi",
+   "bytes": 20798,
+   "sha256": "a2dd5b53ce3acdd4528a29fc7e91fc005e65ce6bc7e53e574af05d73c7754ff5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/InfoStep.vi",
+   "bytes": 21908,
+   "sha256": "59efe76bdbcb9fe45b36843603f62ba4cfa503f0fe1f122ff5914c12d1402d00",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/InfoTest.vi",
+   "bytes": 23004,
+   "sha256": "dd42d13a2959dd1db86948cae3cb98dcd67f24a8931416521b5221ce1cb322e6",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/InstrSlugFromIni.vi",
+   "bytes": 21824,
+   "sha256": "c878be2b32340e4af51cb29bcac65671873abe85ef9325c2cc6178d752553767",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/MisurazioniString.vi",
+   "bytes": 24065,
+   "sha256": "f6261029f57b4719aa2185a98100536df6671dc22608c9602ca6a58f0d883367",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/Pop-up.vi",
+   "bytes": 33966,
+   "sha256": "cd12457427dc4e677532a0460b750ae292c4889d1714ccce803378c7edb24c19",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Utilities/infoStepMini.vi",
+   "bytes": 29320,
+   "sha256": "4d93fbf3ee90c918af019b5d986f38e3981850f3c794c31243a4e9bcb4f21474",
+   "via": "extension"
+  },
+  {
+   "path": "source/Tests/Test_GetChannelsList.vi",
+   "bytes": 10956,
+   "sha256": "7ce300b5161b5a43783e0c44f15d5e691fbbfcef06645763d7cbe05a92d11cdb",
+   "via": "extension"
+  },
+  {
+   "path": "source/Tests/Test_UpdateChannelsList.vi",
+   "bytes": 11367,
+   "sha256": "44b666c7a77da4477e43b9439da99224e54e2b1b45414ff2136b3087b2e0d79d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Tests/Test_iLOGAcquisition.vi",
+   "bytes": 15172,
+   "sha256": "3e2a91cf66b0bf0a57cba591d86ed3a65b981cbb24bebc89b0ef0069f960904d",
+   "via": "extension"
+  },
+  {
+   "path": "source/WebAPIByteQX.lvproj",
+   "bytes": 10188,
+   "sha256": "ac51db55d8c75120ea48d34710d03a29dec33c7cca1b8fa5cf8a68be134135ff",
+   "via": "extension"
+  },
+  {
+   "path": "tests/WebAPIByteQXTests.lvproj",
+   "bytes": 2900,
+   "sha256": "43c862020da216b8614b07447d27ffe7a92db267972d095b83b475b366a3d39d",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/ChannelSettings.vi",
+   "bytes": 99535,
+   "sha256": "51325d200518ded1af9c5eb151a2a80a848eeaaf5f212fda3276b5da41d76f6f",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Host.vi",
+   "bytes": 62400,
+   "sha256": "cce622b7462ecddc9a8b0dc43cfc7ae22923971525592bd1ab4c64fac31809bf",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/CloseActiveSubPanel.vi",
+   "bytes": 27743,
+   "sha256": "9a28450feac7b7aa20f10cc8a2f108154d5cca1dd0b221df073c7136115e965f",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/DeleteChannelConfirmation.vi",
+   "bytes": 21717,
+   "sha256": "b8d0d95e91a2548d176f79a78c6afff415c0ce3bbdeeebc7ebc4f5c44d1e0447",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/ExitChannelSettings.vi",
+   "bytes": 20903,
+   "sha256": "24594f6def658f25915c58610978b5679ce17f58859e4902294f2defbe5569e9",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/TreeFirstitem.vi",
+   "bytes": 21677,
+   "sha256": "00d737a0f7d3fa5928e0139560fae8bdc91a1b49792ba83c88146909413eb1f9",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/TreeSymbols.vi",
+   "bytes": 30395,
+   "sha256": "50841948aac4e8d559100eb5900909436cfd9047f94125c7dbc25c6d2f8d28b4",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/Host/Utilities/WDAV.vi",
+   "bytes": 18432,
+   "sha256": "195b3619965c2d236d3ec71e62448bfe4100532da49b996fa69a3bcd4f57fd9e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/RT/FGVTimer.vi",
+   "bytes": 17396,
+   "sha256": "22e1a7e2eea13ba6823804a6ef67373a9900363f4dbde6c60411fc02b1e1098d",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/RT/MultiSend.vi",
+   "bytes": 61189,
+   "sha256": "3d5e96c4a31d4ea521440b685dc62cd6b923b98a2c58b03ab1a04ab47020ca3a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/RT/RealTime.vi",
+   "bytes": 136732,
+   "sha256": "f117d8ad00dc03f58db5489b7e40e12bf64cd0abe8875ada90f985b64816ea03",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/ChannelInfo.ctl",
+   "bytes": 5444,
+   "sha256": "a8d7206fc3d0376a8dd68a5768e3e5429f26fa71d6530e574a11d2fe69ea883e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/StepList.ctl",
+   "bytes": 10405,
+   "sha256": "1a6a0954b72af5446bb070d78d8eb58132d41ee1395e1cd9d654c64913d17379",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/SubPanelType.ctl",
+   "bytes": 4993,
+   "sha256": "aa1399ea06c22c159423eee2bb92be1a66ba27d89a01bee65b059a5e27a2d9fb",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/TCPMessage.ctl",
+   "bytes": 5071,
+   "sha256": "a779e9b7d36b3ffce995dea2434016a7c05f2fb6c55fa46f32ad629adb16a3d8",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/listChannel.ctl",
+   "bytes": 5176,
+   "sha256": "4ad5a610d70c0147f429ab9850a10878a7ce39f9573dac2f20d05fd57642393e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/cRio/TypeDef/update_channels_list.ctl",
+   "bytes": 6753,
+   "sha256": "eaa47eea98e1ea4a45c2e8bfa3060b75e52eab0109545a039cff6da50b10b176",
+   "via": "extension"
+  },
+  {
+   "path": "source/Demos/Cfg/RESTServerCfg.ini",
+   "bytes": 101,
+   "sha256": "5d608701dfaddb7129016da062d740a6c20facf8da2987ca0374243e33fb5d7a",
+   "via": "ref:source/Demos/CalibrationManagementDemo.vi"
+  },
+  {
+   "path": "source/Demos/Cfg/RESTServerCfg_LIMS.ini",
+   "bytes": 158,
+   "sha256": "d71e3640d6aae7063684e03d86dd630d6b3c6c7599fb30e8de0128e69a028efd",
+   "via": "ref:source/Demos/DimostratoreUpdateAutomation.vi"
+  },
+  {
+   "path": "tests/channels.xml",
+   "bytes": 2682,
+   "sha256": "8d61e145a67fb1dbea6af4ec0ab78faa118fb961b228bc17d36d8ede791161bc",
+   "via": "ref:tests/cRio/Host/ChannelSettings.vi"
+  },
+  {
+   "path": ".gitattributes",
+   "bytes": 31,
+   "sha256": "021bc2f58886c58cfb64df88dc9eb10b9deb9ac75aa6248b08308a310d5256e1",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "bytes": 660,
+   "sha256": "fd192cfbdebe480dee463007b0ae5b50b0377602d23b04a84529df7fc3166c89",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "bytes": 610,
+   "sha256": "de09bb4f7d3c38071ae65824284d8c16e9858acb79046ae10c9531a5522f358f",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 674,
+   "sha256": "496a735a181e35bf5b02cb53bd8c42575c6ee71b294bd1e87c42eb20a626d66e",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 35142,
+   "sha256": "60871566fe8ee63a1721778c7c43904fe3b917fa87107ad429ffd0bded8abf37",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1461,
+   "sha256": "94a2d6169810337510ac480e244be2300a1e5d1e6ae9ceffc1aba5bd35122c1d",
+   "via": "tree"
+  },
+  {
+   "path": "VIPM/ByteQXAPI.vipb",
+   "bytes": 94112,
+   "sha256": "ab789914275e0a912f8228ac6221a761d364da2bb914bb56f19815e9236649a2",
+   "via": "tree"
+  },
+  {
+   "path": "source/Settings.ini",
+   "bytes": 43,
+   "sha256": "c5d56521ddcd589f20cc026b23892fd14b854128a9c48a1e07bf78d6b59407f2",
+   "via": "tree"
+  },
+  {
+   "path": "tests/Settings.ini",
+   "bytes": 20,
+   "sha256": "21987ef3d5240d9d39f77a1320f1f41b07027c3602af7e6ab0616cfc5791dcf1",
+   "via": "tree"
+  },
+  {
+   "path": "tests/cRio/Host/Data/dac-chip-icon.png",
+   "bytes": 595,
+   "sha256": "df7e0fe9188795352f3b468f3ea97554673514afcb499f1c8dc8630e97645114",
+   "via": "tree"
+  },
+  {
+   "path": "tests/cRio/Host/Data/led-icon.png",
+   "bytes": 450,
+   "sha256": "42632fafe0339692b918288c54382fbb3aee97079d56712cd406ab3d707dd677",
+   "via": "tree"
+  },
+  {
+   "path": "tests/cRio/Host/Data/pulse-symbol-icon.png",
+   "bytes": 464,
+   "sha256": "96e626622cfcbf836364f8d7495adffef36435cda72a35bb153c76f87d5833c6",
+   "via": "tree"
+  },
+  {
+   "path": "tests/cRio/Host/Data/round-sine-wave-icon.png",
+   "bytes": 520,
+   "sha256": "d4053f9c0b93a0ec44030328da398861c96c907d7890b69747acd9b31520400d",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<vilib>\\Array\\Sort 2D Array - Pop Stack.vi",
+  "<vilib>\\Array\\Sort 2D Array - Push Stack.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelAnalog\\AnalogIn\\AnalogIn.lvclass",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelAnalog\\AnalogIn\\WriteRawValue.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelAnalog\\AnalogRio\\AnalogRio.lvclass",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelBase\\Accessors\\Read HW_resource.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelBase\\Accessors\\Read tag.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelBase\\ChannelBase.lvclass",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelBase\\ChannelBase.lvclass\\ChannelBase.ctl",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\Accessors\\Read Map.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\ChannelsRepoBase.lvclass",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\DeleteChannel.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\GetChannel.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\Load.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\ShowChannelConfiguration.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\ShowCreateUI.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\SortTagsByParentAndType.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoXML\\ChannelsRepoXML.lvclass",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoXML\\Init.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\Examples\\AquisitionTest\\Utils\\CloseActiveSubPanel.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\Examples\\AquisitionTest\\Utils\\DeleteChannelConfirmation.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\Examples\\AquisitionTest\\Utils\\ExitChannelSettings.vi",
+  "<vilib>\\Bytelabs\\ByteChannelsSetting\\Examples\\AquisitionTest\\Utils\\TreeFirstitem.vi",
+  "<vilib>\\Bytelabs\\ByteREST\\ByteRESTClass\\ByteRESTBase\\Auth\\Authentication_type.ctl",
+  "<vilib>\\Bytelabs\\ByteREST\\ByteRESTClass\\ByteRESTBase\\HTTP\\Status_Code.ctl",
+  "<vilib>\\Bytelabs\\ByteREST\\ByteRESTClass\\ByteRESTBase\\Helpers\\Build_Full_Address.vi",
+  "<vilib>\\Bytelabs\\ByteREST\\ByteRESTClass\\ByteRESTBase\\RESTBase.lvclass",
+  "<vilib>\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderBase\\RESTLoaderBase.lvclass",
+  "<vilib>\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderBase\\ServerParams.ctl",
+  "<vilib>\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderConstant\\InitParams.vi",
+  "<vilib>\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderConstant\\RESTLoaderConstant.lvclass",
+  "<vilib>\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderConstant\\RESTLoaderConstant.lvclass\\RESTLoaderConstant.ctl",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\ByteSimpleQ.lvlib",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Create.vi",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Dequeue.vi",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Enqueue.vi",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Flush.vi",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Release.vi",
+  "<vilib>\\Bytelabs\\ByteSimpleQ\\ByteSimpleQ\\Typedefs\\message_cluster.ctl",
+  "<vilib>\\Bytelabs\\ByteTCP\\TCP_Class\\TCP-Client.vi",
+  "<vilib>\\Bytelabs\\ByteTCP\\TCP_Class\\TCP-Create TCP.vi",
+  "<vilib>\\Bytelabs\\ByteTCP\\TCP_Class\\TCP.lvclass",
+  "<vilib>\\Bytelabs\\ByteTCP\\TCP_Class\\TCP_Server.vi",
+  "<vilib>\\Bytelabs\\Message Box\\MessageBox.lvlib",
+  "<vilib>\\Bytelabs\\Message Box\\bin\\IconType.ctl",
+  "<vilib>\\Bytelabs\\{Package_File_Name}\\Source\\ByTree.lvlib",
+  "<vilib>\\Bytelabs\\{Package_File_Name}\\Source\\Load_ItemsIconsFromFile.vi",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\Utility\\Stall Data Flow.vim",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Get Key Names.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (U32).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\file.llb\\Dflt Data Dir.vi",
+  "<vilib>\\WebDAVClient\\NI_WebDAV.lvlib",
+  "<vilib>\\WebDAVClient\\Simple Put File.vi",
+  "<vilib>\\WebDAVClient\\Simple Put.vi",
+  "<vilib>\\numeric\\Random Number (Range) DBL.vi",
+  "<vilib>\\numeric\\Random Number (Range) I64.vi",
+  "<vilib>\\numeric\\Random Number (Range) U64.vi",
+  "<vilib>\\numeric\\Random Number (Range).vi",
+  "<vilib>\\numeric\\sub_Random U32.vi",
+  "C:\\BytelabsRepository\\webapibytegs\\RESTServerCfg.ini",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsClasses\\ChannelAnalog\\AnalogIn\\AnalogIn.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\Bytelabs\\ByteChannelsSetting\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\ChannelsRepoBase.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\Bytelabs\\ByteREST\\CfgLoaders\\LoaderBase\\RESTLoaderBase.lvclass",
+  "C:\\Users\\DavideAntonoea\\Desktop\\Repository\\channels-setting\\source\\ChannelSettingsLib\\ChannelsRepos\\ChannelsRepoBase\\ChannelsRepoBase.lvclass"
+ ]
+}
