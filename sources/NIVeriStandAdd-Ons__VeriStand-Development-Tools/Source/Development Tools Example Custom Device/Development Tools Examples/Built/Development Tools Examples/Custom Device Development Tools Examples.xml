@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>National Instruments::Development Tools Examples</eng>
+    <loc>National Instruments::Development Tools Examples</loc>
+  </AddMenu>
+  <Version>1.0.0</Version>
+  <Type>Inline HW Interface</Type>
+  <MaxOccurrence>1</MaxOccurrence>
+  <MainPageGUID>bfffa973-ae72-4159-bc33-e28886d74963</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>Windows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\Development Tools Examples\Windows\Development Tools Examples Engine Windows.llb\RT Driver VI.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\Development Tools Examples\Development Tools Examples Engine Windows.llb\RT Driver VI.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Development Tools Examples</eng>
+        <loc>Development Tools Examples</loc>
+      </Name>
+      <GUID>bfffa973-ae72-4159-bc33-e28886d74963</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\example.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Main Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    
+<Page>
+      <Name>
+        <eng>Errors</eng>
+        <loc>Errors</loc>
+      </Name>
+      <GUID>6b16e173-82d5-42e9-a892-d10f89a4f636</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\error.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Errors.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Help Files</eng>
+        <loc>Help Files</loc>
+      </Name>
+      <GUID>fdf68f10-9de1-44bc-8b47-931a3c579c52</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\help.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Help Files.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Saving and Loading Configurations</eng>
+        <loc>Saving and Loading Configurations</loc>
+      </Name>
+      <GUID>f3dfc745-ee33-4d05-b2e4-57350711bddf</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\configuration.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Saving and Loading Configurations.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Compatible Device Detection</eng>
+        <loc>Compatible Device Detection</loc>
+      </Name>
+      <GUID>3f10f15f-eaac-42d5-800e-6ed9a110e412</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\compatiblecards.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Compatible Device Detection.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Host Dependency Validation</eng>
+        <loc>Host Dependency Validation</loc>
+      </Name>
+      <GUID>99003fca-bc00-4e11-813a-550b118cc181</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\hostdependencies.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Host Dependency Validation.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Target Dependency Validation</eng>
+        <loc>Target Dependency Validation</loc>
+      </Name>
+      <GUID>236ba180-38b2-4067-b903-51e377536b9e</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Development Tools Examples\Data\targetdependencies.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Target Dependency Validation.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Custom Device XML Editor</eng>
+        <loc>Custom Device XML Editor</loc>
+      </Name>
+      <GUID>1ca38015-fda9-4fcc-96bd-c39a2a0966e9</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Custom Device XML Editor.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Extra1</eng>
+        <loc>Extra1</loc>
+      </Name>
+      <GUID>ee00d7ec-8989-46a0-8cb1-5dba9537858e</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Extra1.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Extra2</eng>
+        <loc>Extra2</loc>
+      </Name>
+      <GUID>737ee67f-c0c4-40f9-9da4-7090f62c5999</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Extra2.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Extra3</eng>
+        <loc>Extra3</loc>
+      </Name>
+      <GUID>fc0f4418-f86b-4d7f-bfba-57ff7a0fe79f</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Extra3.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Extra4</eng>
+        <loc>Extra4</loc>
+      </Name>
+      <GUID>fb24e185-1071-4b44-a3a8-c31abe3238b8</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Extra4.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Extra5</eng>
+        <loc>Extra5</loc>
+      </Name>
+      <GUID>d73f1a02-2631-461f-ab2a-6db747e9e32f</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Development Tools Examples\Development Tools Examples Configuration.llb\Extra5.vi</Path>
+      </Item2Launch>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
