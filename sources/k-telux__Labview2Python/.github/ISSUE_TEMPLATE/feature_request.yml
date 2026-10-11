@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a reusable migration, validation, or distribution improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Reusable use case
+      description: Describe the LabVIEW-to-Python problem and why it belongs in the shared skill.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance evidence
+      description: What artifact or runtime result would prove the change works?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Existing approach
+      description: Which existing reference, rule, platform feature, or dependency was considered?

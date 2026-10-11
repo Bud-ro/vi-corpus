@@ -1,0 +1,53 @@
+[
+  {
+    "id": "labview-industrial-001",
+    "question": "Supervise two LabVIEW pump-probe migrations, one regular map and one power-dependent map. Require two UIs per project, simulator tests, SDK inventory, and EXE delivery.",
+    "expected_skill": "labview-to-python-industrial",
+    "expected_script": null,
+    "ground_truth": "The agent separates project ownership and phase gates, prioritizes logic/data parity, requires one shared workflow per project, and keeps simulator, source UI, EXE, and real hardware statuses independent.",
+    "expected_behavior": [
+      "The agent freezes VI, subVI, front-panel, known-output, and SDK inputs before implementation",
+      "The agent assigns hard write boundaries and does not accept worker self-reports as approval",
+      "The agent requires a resolved scan plan and independent saved-output readback",
+      "The agent keeps real hardware unvalidated until an approved dry run"
+    ]
+  },
+  {
+    "id": "labview-industrial-002",
+    "question": "A migrated power-dependent scan is much slower and its heatmap does not match the original resolution. Diagnose it without reducing 50 powers, 5 delays, 1024 wavelengths, raw saves, or event semantics.",
+    "expected_skill": "labview-to-python-industrial",
+    "expected_script": null,
+    "ground_truth": "The agent distinguishes verifier and product cost, measures core and real UI paths, compares workflow/disk/display arrays, verifies pixel registration with real mouse input, and labels target-derived fixtures honestly.",
+    "expected_behavior": [
+      "The agent separates quick_preview and full_parity claims",
+      "The agent tests processEvents plus sleep before adding logging complexity",
+      "The agent rejects target-versus-target and internal setter proof",
+      "The agent keeps independent LabVIEW algorithm parity blocked without raw fixtures"
+    ]
+  },
+  {
+    "id": "labview-industrial-003",
+    "question": "The source UI is approved. Build and verify a one-file Windows EXE with root/dist identity and Industrial and LabVIEW shortcuts.",
+    "expected_skill": "labview-to-python-industrial",
+    "expected_script": null,
+    "ground_truth": "The agent proves current-source build lineage, launches the exact root binary and shortcuts, repeats critical runtime scenarios and output readback, and does not confuse build success with packaged runtime verification.",
+    "expected_behavior": [
+      "The agent requires build time after relevant source and verifier changes",
+      "The agent verifies hash identity, shortcut arguments, working directory, icon, and GUI subsystem",
+      "The agent requires actual packaged UI interactions and saved-output readback",
+      "The agent keeps packaged EXE and real hardware verdicts independent"
+    ]
+  },
+  {
+    "id": "labview-industrial-004",
+    "question": "The simulator completed successfully. Can I report that the vendor driver and connected hardware are verified?",
+    "expected_skill": "labview-to-python-industrial",
+    "expected_script": null,
+    "ground_truth": "The agent refuses to promote simulator evidence to real hardware and explains the required fail-closed dry-run evidence.",
+    "expected_behavior": [
+      "The agent states that SDK inventory and simulation do not prove driver loading or hardware communication",
+      "The agent keeps real_hardware_unvalidated_blocked",
+      "The agent does not initiate hardware output without operator approval"
+    ]
+  }
+]
