@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "User Actions" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">User actions</h1>
+  <p class="subtitle">Manage account settings and sign out.</p>
+
+  <div class="row">
+    <a class="btn" href="{% url 'mfa_index' %}">Open 2FA</a>
+    <a class="btn ghost" href="{% url 'account_change_password' %}">Change password</a>
+    <a class="btn ghost" href="{% url 'account_logout' %}">Log out</a>
+  </div>
+{% endblock %}

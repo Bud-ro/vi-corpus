@@ -1,0 +1,35 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Activate Authenticator App" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Activate Authenticator App</h1>
+  <p class="subtitle">Scan the QR code, then enter the verification code.</p>
+
+  <div class="card">
+    <div style="text-align:center; margin-bottom: 1rem;">
+      <img src="{{ totp_svg_data_uri }}" alt="QR" style="max-width: 220px;" />
+    </div>
+
+    <form method="post" action="{% url 'mfa_activate_totp' %}">
+      {% csrf_token %}
+
+      {% for field in form.visible_fields %}
+        {% if field.name != "secret" %}
+          <div class="field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="helptext">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <div class="actions">
+        <button type="submit">Activate</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

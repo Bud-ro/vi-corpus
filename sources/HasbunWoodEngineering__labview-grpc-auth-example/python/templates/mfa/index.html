@@ -1,0 +1,52 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Two-Factor Authentication" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Two-Factor Authentication</h1>
+  <p class="subtitle">Configure your authenticator app and recovery codes.</p>
+
+  {% if "totp" in MFA_SUPPORTED_TYPES %}
+    <div class="card">
+      <h2>Authenticator App</h2>
+      {% if authenticators.totp %}
+        <p>Authenticator app is active.</p>
+        <div class="row">
+          <a class="btn ghost" href="{% url 'mfa_deactivate_totp' %}">Deactivate</a>
+        </div>
+      {% else %}
+        <p>Authenticator app is not active.</p>
+        <div class="row">
+          <a class="btn" href="{% url 'mfa_activate_totp' %}">Activate</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if "recovery_codes" in MFA_SUPPORTED_TYPES %}
+    {% with total_count=authenticators.recovery_codes.generate_codes|length unused_count=authenticators.recovery_codes.get_unused_codes|length %}
+      <div class="card">
+        <h2>Recovery Codes</h2>
+        {% if authenticators.recovery_codes %}
+          <p>{{ unused_count }} of {{ total_count }} codes unused.</p>
+        {% else %}
+          <p>No recovery codes set up.</p>
+        {% endif %}
+        {% if is_mfa_enabled %}
+          <div class="row">
+            {% if authenticators.recovery_codes and unused_count > 0 %}
+              <a class="btn" href="{% url 'mfa_view_recovery_codes' %}">View</a>
+              <a class="btn ghost" href="{% url 'mfa_download_recovery_codes' %}">Download</a>
+            {% endif %}
+            <a class="btn ghost" href="{% url 'mfa_generate_recovery_codes' %}">Generate</a>
+          </div>
+        {% endif %}
+      </div>
+    {% endwith %}
+  {% endif %}
+
+  <div class="actions">
+    <a class="btn ghost" href="{% url 'user_actions' %}">Back</a>
+  </div>
+{% endblock %}

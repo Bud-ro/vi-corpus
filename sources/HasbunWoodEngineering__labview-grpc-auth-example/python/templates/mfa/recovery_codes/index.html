@@ -1,0 +1,27 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Recovery Codes" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Recovery Codes</h1>
+  <p class="subtitle">Keep these codes safe. Each code can be used once.</p>
+
+  <div class="card">
+    <p>{{ unused_codes|length }} of {{ total_count }} codes unused.</p>
+
+    <div class="field">
+      <label>Unused codes</label>
+      <textarea rows="{{ unused_codes|length }}" readonly>
+{% for code in unused_codes %}{{ code }}
+{% endfor %}</textarea>
+    </div>
+
+    <div class="row">
+      {% if unused_codes %}
+        <a class="btn" href="{% url 'mfa_download_recovery_codes' %}">Download</a>
+      {% endif %}
+      <a class="btn ghost" href="{% url 'mfa_generate_recovery_codes' %}">Generate new</a>
+    </div>
+  </div>
+{% endblock %}

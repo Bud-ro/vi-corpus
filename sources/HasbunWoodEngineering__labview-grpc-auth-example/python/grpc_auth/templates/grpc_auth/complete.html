@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login Complete</title>
+    <style>
+      :root {
+        --blue: #032ca6;
+        --white: #ffffff;
+        --black: #000000;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("{% static 'fonts/JetBrainsMono-Regular.woff2' %}") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("{% static 'fonts/JetBrainsMono-Medium.woff2' %}") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      body {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        margin: 2rem;
+        background: var(--white);
+        color: var(--black);
+      }
+      .panel { max-width: 540px; border: 2px solid var(--blue); border-radius: 12px; padding: 2rem; }
+      .msg { padding: 0.75rem; margin-bottom: 1rem; border: 2px solid var(--blue); border-radius: 8px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+      .btn {
+        display: inline-block;
+        background: var(--blue);
+        color: var(--white);
+        font-weight: 600;
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--black);
+        border: 2px solid var(--black);
+      }
+      .muted { color: var(--black); }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Login Complete</h1>
+
+      {% if error %}
+        <div class="msg err">{{ error }}</div>
+      {% endif %}
+
+      <p class="muted">This window will attempt to close automatically.</p>
+
+      <p class="muted">Login complete. Returning to the app…</p>
+    </div>
+
+    <script>
+      setTimeout(function () {
+        window.close();
+      }, 800);
+    </script>
+  </body>
+</html>

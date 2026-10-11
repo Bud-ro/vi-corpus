@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Email Addresses" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Email Addresses</h1>
+  <p class="subtitle">Manage email addresses for your account.</p>
+
+  {% if emailaddresses %}
+    <div class="card">
+      <form method="post" action="{% url 'account_email' %}">
+        {% csrf_token %}
+        {% for radio in emailaddress_radios %}
+          {% with emailaddress=radio.emailaddress %}
+            <div class="field">
+              <label>
+                <input type="radio" name="email" value="{{ emailaddress.email }}" {% if radio.checked %}checked{% endif %} />
+                {{ emailaddress.email }}
+                {% if emailaddress.primary %}(Primary){% endif %}
+                {% if emailaddress.verified %}(Verified){% else %}(Unverified){% endif %}
+              </label>
+            </div>
+          {% endwith %}
+        {% endfor %}
+
+        <div class="row">
+          <button type="submit" name="action_primary">Make Primary</button>
+          <button type="submit" name="action_send" class="ghost">Re-send Verification</button>
+          <button type="submit" name="action_remove" class="ghost">Remove</button>
+        </div>
+      </form>
+    </div>
+  {% endif %}
+
+  {% if can_add_email %}
+    <div class="card">
+      <h2>Add Email Address</h2>
+      <form method="post" action="{% url 'account_email' %}">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+          <div class="field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="helptext">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="actions">
+          <button type="submit" name="action_add">Add Email</button>
+        </div>
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}

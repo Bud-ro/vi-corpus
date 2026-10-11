@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Two-Factor Authentication" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Two-Factor Authentication</h1>
+  <p class="subtitle">Enter the 6-digit code from your authenticator app.</p>
+
+  {% if form.non_field_errors %}
+    <div class="errors">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'mfa_authenticate' %}">
+    {% csrf_token %}
+
+    {% for field in form.visible_fields %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="helptext">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="actions">
+      <button type="submit">Verify</button>
+      <button type="submit" form="logout-from-stage" class="ghost">{% trans "Cancel" %}</button>
+    </div>
+  </form>
+
+  <form id="logout-from-stage" method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'account_login' %}">
+  </form>
+
+  <div class="footer">
+    {% trans "Use a recovery code if you do not have your authenticator device." %}
+  </div>
+{% endblock %}

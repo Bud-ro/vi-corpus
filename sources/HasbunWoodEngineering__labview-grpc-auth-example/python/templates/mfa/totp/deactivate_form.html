@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Deactivate Authenticator App" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Deactivate Authenticator App</h1>
+  <p class="subtitle">You are about to deactivate authenticator app based authentication.</p>
+
+  <div class="card">
+    <form method="post" action="{% url 'mfa_deactivate_totp' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button type="submit">Deactivate</button>
+        <a class="btn ghost" href="{% url 'mfa_index' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
