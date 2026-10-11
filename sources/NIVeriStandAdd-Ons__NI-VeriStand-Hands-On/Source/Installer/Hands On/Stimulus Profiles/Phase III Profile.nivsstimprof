@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StimulusProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<FileFormatVersion Major="2011" Minor="0" Fix="0" Build="5" />
+	<Version Major="1" Minor="0" Fix="0" Build="0" />
+	<Setup Name="Setup">
+		<Step xsi:type="RealTimeSequenceGroupStep" Name="New Group">
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="NewValue">
+						<Value xsi:type="DoubleValue">
+							<Value>0</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Channel">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Elevation Set Point" />
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;CommonDocuments&gt;:\Stimulus Profiles\Hands On\Set Single Value.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="NewValue">
+						<Value xsi:type="DoubleValue">
+							<Value>0</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Channel">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Travel Set Point" />
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;CommonDocuments&gt;:\Stimulus Profiles\Hands On\Set Single Value.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+		</Step>
+		<Step xsi:type="StartLoggingStep">
+			<ConfigurationName>Log1</ConfigurationName>
+			<FilePath>Phase III.tdms</FilePath>
+			<Rate>100</Rate>
+			<TriggerChannel Path="" />
+			<TriggerCondition>none</TriggerCondition>
+			<HighLimit>100</HighLimit>
+			<LowLimit>0</LowLimit>
+			<ReplaceFile>true</ReplaceFile>
+			<TimestampFile>false</TimestampFile>
+			<ChannelGroups>
+				<ChannelGroup Name="Channel Group">
+					<Channel Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Travel Set Point" />
+					<Channel Path="Targets/Controller/Simulation Models/Models/Linear Helicopter Model/Outports/output/travel angle (deg)" />
+				</ChannelGroup>
+			</ChannelGroups>
+		</Step>
+		<Step xsi:type="RealTimeSequenceCallStep">
+			<ParameterAssignments>
+				<ParameterAssignment Name="Duration">
+					<Value xsi:type="DoubleValue" Units="sec">
+						<Value>5</Value>
+					</Value>
+				</ParameterAssignment>
+			</ParameterAssignments>
+			<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Timing\Wait.nivsseq</SequencePath>
+			<Target />
+			<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+		</Step>
+	</Setup>
+	<Main Name="Main">
+		<Step xsi:type="RealTimeSequenceGroupStep" Name="New Group">
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="RampOut">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Elevation Set Point" />
+					</ParameterAssignment>
+					<ParameterAssignment Name="InitialValue">
+						<Value xsi:type="DoubleValue">
+							<Value>0</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="FinalValue">
+						<Value xsi:type="DoubleValue">
+							<Value>11</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Duration">
+						<Value xsi:type="DoubleValue" Units="sec">
+							<Value>1</Value>
+						</Value>
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Waveforms\Ramp.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="RampOut">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Travel Set Point" />
+					</ParameterAssignment>
+					<ParameterAssignment Name="InitialValue">
+						<Value xsi:type="DoubleValue">
+							<Value>0</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="FinalValue">
+						<Value xsi:type="DoubleValue">
+							<Value>33</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Duration">
+						<Value xsi:type="DoubleValue" Units="sec">
+							<Value>1</Value>
+						</Value>
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Waveforms\Ramp.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+		</Step>
+		<Step xsi:type="RealTimeSequenceCallStep">
+			<ParameterAssignments>
+				<ParameterAssignment Name="Duration">
+					<Value xsi:type="DoubleValue" Units="sec">
+						<Value>10</Value>
+					</Value>
+				</ParameterAssignment>
+			</ParameterAssignments>
+			<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Timing\Wait.nivsseq</SequencePath>
+			<Target />
+			<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+		</Step>
+	</Main>
+	<CleanUp Name="Clean Up">
+		<Step xsi:type="RealTimeSequenceGroupStep" Name="New Group">
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="RampOut">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Elevation Set Point" />
+					</ParameterAssignment>
+					<ParameterAssignment Name="InitialValue">
+						<Value xsi:type="DoubleValue">
+							<Value>11</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="FinalValue">
+						<Value xsi:type="DoubleValue">
+							<Value>19</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Duration">
+						<Value xsi:type="DoubleValue" Units="sec">
+							<Value>1</Value>
+						</Value>
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Waveforms\Ramp.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+			<RealTimeSequence>
+				<ParameterAssignments>
+					<ParameterAssignment Name="RampOut">
+						<Value xsi:type="SystemDefinitionChannelResource" Path="Targets/Controller/Hardware/Chassis/FPGA/RIO0/Output/Set Points/Travel Set Point" />
+					</ParameterAssignment>
+					<ParameterAssignment Name="InitialValue">
+						<Value xsi:type="DoubleValue">
+							<Value>33</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="FinalValue">
+						<Value xsi:type="DoubleValue">
+							<Value>-12</Value>
+						</Value>
+					</ParameterAssignment>
+					<ParameterAssignment Name="Duration">
+						<Value xsi:type="DoubleValue" Units="sec">
+							<Value>1</Value>
+						</Value>
+					</ParameterAssignment>
+				</ParameterAssignments>
+				<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Waveforms\Ramp.nivsseq</SequencePath>
+				<Target />
+				<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+			</RealTimeSequence>
+		</Step>
+		<Step xsi:type="RealTimeSequenceCallStep">
+			<ParameterAssignments>
+				<ParameterAssignment Name="Duration">
+					<Value xsi:type="DoubleValue" Units="sec">
+						<Value>10</Value>
+					</Value>
+				</ParameterAssignment>
+			</ParameterAssignments>
+			<SequencePath>&lt;VeriStand&gt;:\nivs.lib\Sequence Library\Standard\Timing\Wait.nivsseq</SequencePath>
+			<Target />
+			<OutputEvaluation xsi:type="AlwaysPassEvaluation" />
+		</Step>
+		<Step xsi:type="StopLoggingStep">
+			<ConfigurationName>Log1</ConfigurationName>
+		</Step>
+	</CleanUp>
+	<ResultsDirectory>Test Results</ResultsDirectory>
+</StimulusProfile>
