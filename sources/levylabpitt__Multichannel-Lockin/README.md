@@ -1,0 +1,104 @@
+# Multichannel Lockin
+
+Multichannel Lockin for National Instruments Dynamic Signal Acquisition hardware (4431, 4461, 4462). This version is configured to handle multiple cards for simultaneous, synchronized AI/AO. You can configure a number of analog outputs (8 or more) to output sine, square, sawtooth, or triangle functions with DC offsets. Each of the analog inputs (8 or more) can be demodulated at multiple frequencies.
+
+![Multichannel Lockin Front Panel](documentation/images/Lockin-Front-Panel.png)
+
+## Installation
+- LabVIEW: developed in 2019, but should be compatible with any future version, 32 or 64 bit will both work
+- Multichannel Lockin.exe can be installed by downloading the latest installer found here [here](https://github.com/levylabpitt/Multichannel-Lockin/releases/latest)
+- The LabVIEW API can be installed using VI Package Manager as described [here](https://levylabpitt.github.io/)
+
+## Usage
+### Basic Usage
+
+![Block Diagram 1](documentation/images/Lockin-Block-Diagram-1.png)
+
+The main controls are found on the "AO/REF Setup" tab:
+- Analog outputs are configured in the "Output" section.
+- Input channels are configured in the "Input" section.
+- The lockin stage is configured in the "Reference" section.
+- Sampling Rate and buffer size are configured on the DAQ Settings tab
+- The time constant and filter order of reference channel 1 are used to figure all output filters 
+
+AO/AI Graphs
+
+The software has an oscilloscope display to to view AO, References, and AI (with gain: input = Device; wihout gain: input = ADC) channels. The following diagram shows where in the signal path the waveforms are displayed. Note that the input filters (60 Hz/LP) are only applied to the waveforms going to the oscilloscope display.
+
+![Block Diagram 2](documentation/images/Lockin-Block-Diagram-2.png)
+
+X,Y,R,Theta charts are graphed after the final downsampling. Similarly AO and AI waveforms are passed through the same output filters in sweep mode (see section below for further discussion).
+
+![Block Diagram 3](documentation/images/Lockin-Block-Diagram-3.png)
+
+The DSA DAQ settings (hardware addresses, input/output ranges, ac/dc coupling) are configured on the "DAQ Settings" section.
+
+![Device Settings](documentation/images/Lockin-Device-Setting.png)
+
+### Sweep Mode
+
+- Sweep Mode will ramp a DC offset of **Sweep Channel** from the **Sweep Start** to **Sweep End** values in time givem by **Sweep Time**.
+- Sweep Channel, Sweep Start, and Sweep End are all arrays.
+- One can choose different starting and ending values (and directions) for each channel, but the Sweep Time is a global setting.
+- The program will wait **Sweep Initial Wait** before beginning the sweep.
+- **Step Size** will indicate how much the voltage changes per each refresh of the lockin for the first sweep channel. This value is determined by (Sweep Start - Sweep End)/(Sweep Time/Lock Refresh Time). You can also change this value and the Sweep Time will be calculated
+
+![Block Diagram 5](documentation/images/Lockin-Block-Diagram-5.png)
+
+### Power Spectrum
+
+The power spectrum or power spectral density can be plotted for any of AI, AO, or demodulated lockin channels X, Y, R, Theta
+
+![Power Spectrum](documentation/images/Lockin-Power-Spectrum.png)
+
+## Simulation Mode
+
+If the lockin is configured to use simulated DAQ hardware, the lockin operates in "simulation mode".
+
+Simulated hardware can be configured in [NI MAX](http://www.ni.com/tutorial/3698/en/). 
+
+![MAX-Create-Simulated-Device](documentation/images/MAX-Create-Simulated-Device.png)
+
+### AI Simulation
+
+In simulation mode the analog inputs can be somulated in three different ways:
+
+- Hardware: AI is simulated by NI MAX.
+  - This mode can be used to check DAQ configuration like input range
+- Noisy AI: Each AO is connected to a corresponding AI (AO1 --> AI1)
+  - A small amount of noise (~10 mV) is applied to the signal. AI1 = AO1 + noise
+  - This mode can be used to test the functionality of the lockin demodulation
+- Waveguide: An electron waveguide [1](#references) [2](#references) is modeled 
+
+#### Hardware Simulation
+
+**(TODO)**
+
+#### Noisy AI Simulation
+
+AI = AO + noise
+
+#### Waveguide Simulation
+The simulated device is a 3 terminal quantum wire with conductance that quanitized in units of e2/h as a function of an applied gate voltage.
+
+- AO1 = source voltage (Vsd)
+- AO5 = gate voltage (V_sg)
+- AI1 = source current (I+)
+- AI2 = drain current (I-)
+- AI3 = Voltage on source terminal (V+)
+- AI4 = Voltage on drain terminal (V-)
+
+![Block Diagram 4](documentation/images/Lockin-Block-Diagram-4.png)
+
+## Contributing
+
+Please contact [Patrick Irvin](https://github.com/ciozi137)
+
+## License
+
+[BSD-3](https://opensource.org/licenses/BSD-3-Clause)
+
+## References
+
+1. https://science.sciencemag.org/content/367/6479/769
+2. https://arxiv.org/abs/1909.05698
