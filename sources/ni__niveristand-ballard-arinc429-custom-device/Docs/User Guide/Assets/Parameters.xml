@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<parameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- ++++++++++++++++++++++++++++ Rx Channels ++++++++++++++++++++++++++++ -->
+	<channel>
+		<hardwareChannel>0</hardwareChannel>
+		<direction>incoming</direction>
+		<speed>high</speed>
+		<label>
+			<labelDecimal>07</labelDecimal>
+			<parameter>
+				<encoding>BNR</encoding>
+				<signed>true</signed>
+				<startBit>10</startBit>
+				<numberOfBits>19</numberOfBits>
+				<scale>1.0</scale>
+				<offset>0.0</offset>
+				<name>07_Parameter 0</name>
+				<unit>psi</unit>
+			</parameter>
+		</label>
+		<label>
+			<labelDecimal>23</labelDecimal>
+			<parameter>
+				<encoding>BNR</encoding>
+				<signed>true</signed>
+				<startBit>10</startBit>
+				<numberOfBits>19</numberOfBits>
+				<scale>1.0</scale>
+				<offset>0.0</offset>
+				<name>23_Parameter 0</name>
+				<unit>psi</unit>
+			</parameter>
+		</label>
+	</channel>
+	<!-- +++++++++++++++++++++++++ Tx Channels +++++++++++++++++++++++++ -->
+	<channel>
+		<hardwareChannel>16</hardwareChannel>
+		<direction>outgoing</direction>
+		<speed>high</speed>
+		<label>
+			<labelDecimal>07</labelDecimal>
+			<transferType>1</transferType>
+			<parameter>
+				<encoding>BNR</encoding>
+				<signed>true</signed>
+				<startBit>10</startBit>
+				<numberOfBits>19</numberOfBits>
+				<scale>1.0</scale>
+				<offset>0.0</offset>
+				<name>07_Parameter 0</name>
+				<unit>psi</unit>
+				<defaultValue>50.0</defaultValue>
+			</parameter>
+		</label>
+		<label>
+			<labelDecimal>23</labelDecimal>
+			<transferType>0</transferType>
+			<period>10000</period>
+			<parameter>
+				<encoding>BNR</encoding>
+				<signed>true</signed>
+				<startBit>10</startBit>
+				<numberOfBits>19</numberOfBits>
+				<scale>1.0</scale>
+				<offset>0.0</offset>
+				<name>23_Parameter 0</name>
+				<unit>psi</unit>
+				<defaultValue>52.0</defaultValue>
+			</parameter>
+		</label>
+	</channel>
+</parameters>
+
