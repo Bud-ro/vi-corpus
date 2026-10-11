@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>Interpolate 1D Array</eng>
+		<loc>Interpolate 1D Array</loc>
+	</AddMenu>
+	<Version>1.0.1</Version>
+	<Type>Inline Model Interface</Type>
+	<MaxOccurrence>2474</MaxOccurrence>
+	<MainPageGUID>9C8EC547-E9AE-80AF-A363-F76E43D82FA5</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Interpolate 1D Array\Interpolate 1D Array Configuration.llb\Interpolate 1D Array Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<Source>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Interpolate 1D Array\Interpolate 1D Array Engine.llb\Interpolate 1D Array RT Driver VI.vi</Path>
+		</Source>
+		<RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Interpolate 1D Array\Interpolate 1D Array Engine.llb\Interpolate 1D Array RT Driver VI.vi</RealTimeSystemDestination>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>Interpolate 1D Array</eng>
+				<loc>Interpolate 1D Array</loc>
+			</Name>
+			<GUID>9C8EC547-E9AE-80AF-A363-F76E43D82FA5</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\Interpolate 1D Array\Interpolate 1D Array Configuration.llb\Interpolate 1D Array Main Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>Input Channel Page</eng>
+				<loc>Input Channel Page</loc>
+			</Name>
+			<GUID>F0B0EF7F-E5E7-62B5-3368-3B368F65E307</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\Interpolate 1D Array\Interpolate 1D Array Configuration.llb\Input Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>Output Channel Page</eng>
+				<loc>Output Channel Page</loc>
+			</Name>
+			<GUID>1E082279-25E3-FB69-BA5C-59FC8A3384CE</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\Interpolate 1D Array\Interpolate 1D Array Configuration.llb\Output Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<Dummy />
+	</CustomXML>
+</CustomDevice>
