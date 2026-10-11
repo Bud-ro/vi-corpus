@@ -1,0 +1,4798 @@
+{
+ "repo": "NI-Measurement-Plug-Ins/pmic-labview",
+ "url": "https://github.com/NI-Measurement-Plug-Ins/pmic-labview",
+ "commit": "3a50fc6cada84eff2efc69435f33928b8290624b",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming UI/Measurement UI.vi",
+   "bytes": 71530,
+   "sha256": "cb8b41759685c6cc4f9c87819b4fc270ed2de82b781aa6cfb59eeff4f21c6cff",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming UI/PWM Dimming UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming.lvproj",
+   "bytes": 50340,
+   "sha256": "505fbfaf7254d0c376f3f67ee2250c6fb3b2ef490614cd601ca88ef35a78ed48",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9961,
+   "sha256": "10bf0760fd7d745cda17ddf354d74ca1a2205a051e45b25f0ff063943a87e50d",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Advanced/Get Plugin Paths.vi",
+   "bytes": 18888,
+   "sha256": "c58374470fdc2e325b9a43aa61bd739b9e444a43bc8c5407a19bb513eb97cbd4",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Advanced/Measurement Plugin.lvclass",
+   "bytes": 19384,
+   "sha256": "5dacf0fa1411b67a2b49e7ce952100e382030358d69ccf50a8cacbb3c219f395",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Advanced/Pack for gRPC.vi",
+   "bytes": 84117,
+   "sha256": "b492a32d1b5a5ce02aa69b17316db1833c2c0bf650264766160984bc5985d353",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Advanced/Unpack for gRPC.vi",
+   "bytes": 88183,
+   "sha256": "52738bcd0f4037892945f9972bb53105d88a80d78e0dd803211e5e89fe02f8bc",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/BuiltUI/PWM Dimming UI.lvlibp",
+   "bytes": 72192,
+   "sha256": "3764409b3d74fab078cc33609cfb62615d904fcf2b9e83b7b242bf80b401cf3a",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Get Measurement Details.vi",
+   "bytes": 18315,
+   "sha256": "1e252eec30b9623aa3739d6615525eca3a90b650feb2f181d59deb6f70c3c993",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Get Type Specializations.vi",
+   "bytes": 19612,
+   "sha256": "70bd6833f7b3f5532e465c12f3cbac538300641d0331cfafd61bc8e7cf2a355c",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Get UI Details.vi",
+   "bytes": 20022,
+   "sha256": "934efabeff3d01c230608cbcc85bd0e99f672991d2a75c49c5bfe86e22ccd120",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Measurement Configuration.ctl",
+   "bytes": 16954,
+   "sha256": "c69d0c129dbd04a8f76e259122ca7d52010bdfd20617ced8bec0f21661124979",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Measurement Logic.vi",
+   "bytes": 122037,
+   "sha256": "735512f83f6180906c6cd7b5b48cfcfeb58d082951ac724c772d9ba8c93d44a5",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Measurement Results.ctl",
+   "bytes": 12888,
+   "sha256": "b43df26446c7e967ce2b16fced5b7102706c51ec8bcf3353daa6172450497547",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/PWM Dimming.lvlib",
+   "bytes": 1998,
+   "sha256": "1c1aa36b0cd851c943e518885562b72affea034464897eed187314d8a6cf0ef9",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Run Service.vi",
+   "bytes": 13331,
+   "sha256": "d504f22e3f90e5334addbb99bdf154d76201c385c5210034054e42a3c7f4400d",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Sub-VI/Calculate Duty Cycle.vi",
+   "bytes": 19736,
+   "sha256": "6e9eff73d755ff66eebbde8f66c81657ff614314c74827279a849d1533b6024b",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/PWM dimming/PWM Dimming/Sub-VI/PWM measurement data.ctl",
+   "bytes": 15001,
+   "sha256": "d886b9b2fbab96264aa145cf4c53754dd9a5b64e9b6860ebc7e5ad84d8376ea0",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit UI/Measurement UI.vi",
+   "bytes": 348726,
+   "sha256": "9009cdd116691b27c6ff54bb1c0f3f36e3a6ee493252536801b58e0a82f35c72",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit UI/Short-Circuit UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit.lvproj",
+   "bytes": 42934,
+   "sha256": "5d886113646eaede1518434aca508423bd7510680c0495c2307f0725dfaf1fff",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10357,
+   "sha256": "ebc199a133e1b75a6359564118790ee056b23d1eabcc5509e3b313d8ae84636c",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Advanced/Get Plugin Paths.vi",
+   "bytes": 18932,
+   "sha256": "0c75ce560cb59c2f6f32b49932a2d02f22ce0391ff4aa1d7bd58212361fc71a4",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20289,
+   "sha256": "c667085d292fc1de01ba43a73644a7fb2563c871a7d8aa0b3e52aee0f9b7b9f1",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Advanced/Pack for gRPC.vi",
+   "bytes": 82709,
+   "sha256": "ea03bc014d19b3f4c54e8c8418a857dd7a163346a854ead90a8db5edce9447ab",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Advanced/Unpack for gRPC.vi",
+   "bytes": 83839,
+   "sha256": "4302cc03937784b010963a786302b673f07d0f58ccdec264eaf3ddd9a22b37bc",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/BuiltUI/Short-Circuit UI.lvlibp",
+   "bytes": 88064,
+   "sha256": "b97909733958b494a8f6a3ae0ef5512be859b77e02cca6b37a2b594c7adf0b2d",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Controls/LED_SCT_Data.ctl",
+   "bytes": 10385,
+   "sha256": "f79d820304c5b13109da8edf3b8cc1434fb64ea4966df4452bc992cff71c07fb",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Get Measurement Details.vi",
+   "bytes": 18315,
+   "sha256": "386bb1a1a244678e2adeefa24bf2c818b9179307cae4df787e399b5594021642",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Get Type Specializations.vi",
+   "bytes": 19504,
+   "sha256": "72538a4a0ca9612dad3e73a3b176726a66e21106bce563f0d4c2a3e614a3d422",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Get UI Details.vi",
+   "bytes": 19546,
+   "sha256": "d1031baf3b39d459cd16e905d24d649dea074a7a400af182e393c3adf141ea53",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Measurement Configuration.ctl",
+   "bytes": 15334,
+   "sha256": "f952a69c55d4610b481e3fed250f80d6ffac8ae3c118f2fe083f58b29692ce19",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Measurement Logic.vi",
+   "bytes": 81041,
+   "sha256": "b729c12e3a0e08c0b525f5769848d8d262b283335678eea1155a97660e888843",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Measurement Results.ctl",
+   "bytes": 12356,
+   "sha256": "bd5ceb4980abc4171ee4037ab1361e94736ef422f17209f5f175f7a264c1a1be",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Run Service.vi",
+   "bytes": 13767,
+   "sha256": "baefc9919615b6b338f1e79bc7214c572855b42f6464e275119dc0aeaca3e238",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/short circuit/Short-Circuit/Short-Circuit.lvlib",
+   "bytes": 2195,
+   "sha256": "01a97ea67ffee79b26ef688e717177c2f964dc5237766cacbeac85cde335ab8c",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up UI/Measurement UI.vi",
+   "bytes": 42002,
+   "sha256": "a166d0a37639b02a6933201eb23725809584a94161f7340a6ba6cce690e75e97",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up UI/start-up UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up.lvproj",
+   "bytes": 41429,
+   "sha256": "687dbd9c7898456a1448c945eeb8eb2d8c4f49055bd8b3ea29bffd37e34fda11",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9781,
+   "sha256": "b228ee7c1f1d674f54e0ee06e06f4ee053805d819455a9bb74ad0e101a06b4e3",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Advanced/Get Plugin Paths.vi",
+   "bytes": 18876,
+   "sha256": "7527c4f2bb932dcccb64489d7884746ccd0e369ceb9902528e9b17caa67e6d81",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20476,
+   "sha256": "59b678f9a22042d6c4f537b8441693317ea38f4dfef8ff29922549b94222aaca",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Advanced/Pack for gRPC.vi",
+   "bytes": 77521,
+   "sha256": "23c69f7c6920ba196b545aabfa10ab0c13fe6e1cb89c0654bf166927dcc3fee0",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Advanced/Unpack for gRPC.vi",
+   "bytes": 78171,
+   "sha256": "851fe07754495d9f960b0c25ddfc651cb6bddcaa61a479bc4ca0baebc6eae9e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/BuiltUI/Start-up UI.lvlibp",
+   "bytes": 36352,
+   "sha256": "b78627d08ace5438c449c99a6207951244cc9ce0b872c1b4bb613de6b3b685c9",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Controls/LEDStartup_Data.ctl",
+   "bytes": 10960,
+   "sha256": "53186f9a7a323d1ce9b67a467265fb097b0ffa7b23b7296b6c59e42140533a2c",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Get Measurement Details.vi",
+   "bytes": 18303,
+   "sha256": "5f4a9bd78c19c1b0dc23e511b2e231391de47516e59865e0522dd5f503a15e71",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Get Type Specializations.vi",
+   "bytes": 18920,
+   "sha256": "e8869480616eb882880b327a357a5c7d6595e0891a06ccb5244f861938c7c08d",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Get UI Details.vi",
+   "bytes": 19538,
+   "sha256": "44d4ca83f1c227623c705c2ed5422a7b262ac536c40a1db13e5746f850efde2c",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Measurement Configuration.ctl",
+   "bytes": 13474,
+   "sha256": "99876295d3c27b294907b4206c60949a029c3f79f1fcf42373bbd44f3a3e6790",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Measurement Logic.vi",
+   "bytes": 94405,
+   "sha256": "cea8874179f3a01c2eabd5066d0b5fdc6918e56e52456e5432b2e76717d8610e",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Measurement Results.ctl",
+   "bytes": 12348,
+   "sha256": "723d959a9f5a82fd4881bf54e2214e4126c4bdff2f4041578df2ed79f4a8b895",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/Run Service.vi",
+   "bytes": 13131,
+   "sha256": "aecfa2005eff1ff92483decca4223755e865de30805bad07f3a3039f05b51355",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/start-up.lvlib",
+   "bytes": 2724,
+   "sha256": "404258dd18b7fe79afcb658a56dfff50f308a1716dd7dd3039b60980e2672d00",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/subVIs/LED_Calc Resistance Values.vi",
+   "bytes": 19838,
+   "sha256": "6fca3c650616297567413af80d8261c00301dca17de26da297ea86c78fb073f6",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/subVIs/LED_Load Current Limit.vi",
+   "bytes": 15670,
+   "sha256": "6273f0bc78a70a130d68cf6d2e479f7dcc38f1c44a566f6ad2cd76a561ddff83",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/subVIs/LED_Load_Ref-Offset.vi",
+   "bytes": 25803,
+   "sha256": "7ebdc31f6371e101e32ffcd411f6592baf5bdad7e5e4bbffbd999a60c8f6027a",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/subVIs/LED_Perform Measurements.vi",
+   "bytes": 36068,
+   "sha256": "2df14aa2935e3811b3d7612d7f5e5f8d44f96ce865d0e5cfa48c163d412e0f7b",
+   "via": "extension"
+  },
+  {
+   "path": "source/LED Driver/start-up/start-up/subVIs/LED_Source_Ref-Offset.vi",
+   "bytes": 18193,
+   "sha256": "65666b881df90cfdfdecdc8ca31ea083a985137d003403be49052e57b5d9500e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging UI/Eff And Load Reg_Channel Ganging_UI.lvlib",
+   "bytes": 1263,
+   "sha256": "6e1c339eefa713d8f8bd65db218129d7ebddad16295a722f13d843e184e7ca05",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 99502,
+   "sha256": "12ca77b0457ed3e257bba2f575c790aed77ccbbcdf12451b535b6eec6f5e2ada",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging.lvproj",
+   "bytes": 33914,
+   "sha256": "64c9375245876e7e3be3591a5374019786bf7e67fba315c674a8c2d71b22b1f8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10457,
+   "sha256": "aa0133cef79875aed05645d130291d6d7d7724c20a8122611b4e7fc0f22eed67",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19092,
+   "sha256": "cbe5ff4caf1c01d056224afcf3f703c0e354c6ab0d3a39ea3d3e5d9c5bd8fadf",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20569,
+   "sha256": "b9018b42fc2c3a9833650419202d7bd5f894655d8c276cef7d836eeb7061eae2",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 84181,
+   "sha256": "3e61fc7a21f278ed1d2d0f1902634be25c44d307205ccf9dca7739ea993a7cbc",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 87611,
+   "sha256": "949d795a47565bedc52effbdeb50b25a0577364029aec302b3ddb09f5991bdf6",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/BuiltUI/Eff And Load Reg_Channel Ganging_UI.lvlibp",
+   "bytes": 74752,
+   "sha256": "250845a63117bb36734f3044a703a4682b57cef50059da06e4bb1bd497788107",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Controls/Efficency fetch measurement control.ctl",
+   "bytes": 18508,
+   "sha256": "1279163b55ac3fb28798bf0563662cc00915bfc3b40057ecb645764266e2abd9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Controls/Efficency perform meaasurement.ctl",
+   "bytes": 19227,
+   "sha256": "cb3e9b3b3e75028d1c5da1d8f40ebf246cefb50760aff0110f1373e9cc803a8c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Eff And Load Reg_Channel Ganging.lvlib",
+   "bytes": 2623,
+   "sha256": "8cc05b0c46493eb4f5397f4631643e2efeeca52f5142b97e494115166f99b494",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 15063,
+   "sha256": "d6dfd0040051ed6f90111695628b72ecf965e6af228dc37061d70cf9827e88de",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 16204,
+   "sha256": "be67d9540ad9d83f0400b6f2dd9a7e22e205c60209be58e41ebfd4b42875300d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Get UI Details.vi",
+   "bytes": 13070,
+   "sha256": "f67bdfad3d077966e65fb6108d215227870a361c5279e6ac45f2b094c500c4d1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 13066,
+   "sha256": "6ec7c61b61047dc5b2798e315b150f0cfacfaf454fc892e788e67590bb21f45d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Measurement Logic.vi",
+   "bytes": 32345,
+   "sha256": "49cdf3c3863120eb24ab2483dce845b67a889b1bfa4083bd03e3340d42b7e395",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Measurement Results.ctl",
+   "bytes": 9696,
+   "sha256": "c162d51e8dc6339d9b3a3967753c74c3a75be64bf3d2ee6c1cfd1a7e324a013b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Run Service.vi",
+   "bytes": 12219,
+   "sha256": "0a79155576bd68264145d19065ff3c3517a8d94bab823c1d8937038e38083462",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Sub VI/Fetch Measurement-Efficiency and Load Reg.vi",
+   "bytes": 49989,
+   "sha256": "c5d088429b6a00f1dab16b7b2e680c72946d482908caca5188961d8f6c350757",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/efficiency and load regulation channel ganging/Eff And Load Reg_Channel Ganging/Sub VI/Perform Measurement.vi",
+   "bytes": 85671,
+   "sha256": "80dc44b8e7a3be791e6da1dae0bf7b8802a7c55e65afbf9b2dfb4e1f7ab38baa",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging UI/Line Regulation_Channel Ganging_UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 39314,
+   "sha256": "b369c00cde4d218cc98a5ff710918ff517bf72fcfda804f1caab3946eb8343fe",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging.lvproj",
+   "bytes": 30089,
+   "sha256": "c3fe6a701f9a6059d0595558aab38ea04f75b05e4a2be4275a52925e78e23235",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10433,
+   "sha256": "6b7e878d92a58a66a2512a67ca9d3cf750d00ca3d313a5abc3f3de23a543489f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19908,
+   "sha256": "2d5abc0f44f94f92b29154d9c1900e48cfdd2632a9414ae2cfd10c1e60b9fd20",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20488,
+   "sha256": "4b9245321ee94001099bf6489efed7e91b1bbad22a9a2ecc121900fc9ff725a6",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 82845,
+   "sha256": "fb970ba06986bbc10304aa1e72e422c154fa2ee06278e506f36e0ce2b30129b2",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 84675,
+   "sha256": "4b441ee8256a22029c7f7efd2ddb25b9cb6516dd5e7acf27d054479a40a328eb",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/BuiltUI/Line Regulation_Channel Ganging_UI.lvlibp",
+   "bytes": 53760,
+   "sha256": "92ce5a95560616e3cdac2549475f333a01a78045695488894791e83c0767dd6c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 15063,
+   "sha256": "91d4ecff5425edc1d58d7faa66aa03ed346f2ae521313cf95ec3b29186508507",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 16244,
+   "sha256": "7f373fd1594ae6bc1fe76785643c144d1d2c32cf2609227b6b0c342cd962ce00",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Get UI Details.vi",
+   "bytes": 13062,
+   "sha256": "8ddd33019bdf5cb808135bf080383b2b1fbed64c72c856f690fcf6bd8a2cc5e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Line Regulation_Channel Ganging.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 12690,
+   "sha256": "6f15ee2be73757700617f6807c400238207b0883451be364f761a28e486da4ee",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Measurement Logic.vi",
+   "bytes": 53717,
+   "sha256": "c83527b4ca3d3074735eed5cb34129fff0ad5f01f29a2c1d366bf03897a7144f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Measurement Results.ctl",
+   "bytes": 8836,
+   "sha256": "418d01a4f526938293f3bcc812e61a77c85854058a9e2507787dc1c42241c07c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line regulation channel ganging/Line Regulation_Channel Ganging/Run Service.vi",
+   "bytes": 12219,
+   "sha256": "d235f6c509755e88beb70117ba678e7423d9f46f4698d446e977aadf66f5ede0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging UI/Line Transient_Channel Ganging UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 52838,
+   "sha256": "94ab58bad5d5f3ea529dc0321632801e7caaa2423a4d6442cf441360ecfcf5f4",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging.lvproj",
+   "bytes": 48709,
+   "sha256": "378cf85361ca37256f8bb2efe2c7fb671c0b87393e8d002822d86facca5fe10b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10433,
+   "sha256": "cd044fcc7fb236bf9894e3fdb618b3ac908c5309f2da2fc46cb455029c554ba4",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19908,
+   "sha256": "c40b63577fcbdb4e84a3547831790748f1cc053bf9df7066850ec655a1d4b34e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20513,
+   "sha256": "53d727b7a6e3c16ef7b2d81e80b9dd57694604bf62807b8b4b796cf1b6590c62",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 82129,
+   "sha256": "acdad47df9764ecf8f6413aaf4ec63c2161424de35e88a8d7cee5a8142d341aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 86863,
+   "sha256": "8c8d4e85cc14c4b2bc87a0530ab21ed3ca6a09d6fd76e79805fd036ff289eab3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/BuiltUI/Line Transient_Channel Ganging_PMIC_UI.lvlibp",
+   "bytes": 61440,
+   "sha256": "f1b8ef2f29ae7a714697dd18613665051db185a3eb7ac232dcb0223abdfddf7b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 17855,
+   "sha256": "b94c0681242dc4d65bbd8ab1b629915252c48d663d84a41631ff48de02f5570e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 19540,
+   "sha256": "04cba0e3fb665e8685a09723d6fdd10d373c9124b0f3df633c9807caca217345",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Get UI Details.vi",
+   "bytes": 19442,
+   "sha256": "76ce2390925f4e0b5796214442d357c14059028528511e64fbd96e0a28552693",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Line Transient_Channel Ganging.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 17434,
+   "sha256": "3e830241477eb04dd6d4595e54b3bd70abc1a147489cddeae9b113e1d9f08a47",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Measurement Logic.vi",
+   "bytes": 79137,
+   "sha256": "9099fa835d4af34fc6b5656877c4f7d6ea626f12d2013ae30529060e9194f69d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Measurement Results.ctl",
+   "bytes": 12324,
+   "sha256": "7284d221d9f44b84f3ee6c18fee9946dd29fbad10c64ff112a2b6de8b6fcfd92",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/line transient channel ganging/Line Transient_Channel Ganging/Run Service.vi",
+   "bytes": 13839,
+   "sha256": "5c6e0258e5b3ab3273b98c3a348b81ef8b006c63f950097c5b6273108500bc3f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging UI/Load Transient_Channel Ganging_UI.lvlib",
+   "bytes": 1228,
+   "sha256": "dd94e21f6a74c5706beb36a3d9b9b6104b540de72d7b5ceb98d1eded42abcb8c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 46706,
+   "sha256": "a2e3e5b5eed5c25ec3028d5a101cd8965c756b2299c45d848f59d1b9f274835e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging.lvproj",
+   "bytes": 30074,
+   "sha256": "2292990c32ff5d18c01f6ee5c1f492772f8b19f542170936740fdb74a3d0e2d9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10433,
+   "sha256": "81a28e78fb36339cb5ed7f5bce84e1f99471831e1f9c2195fde4dd97d6ad68f1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19908,
+   "sha256": "6cc15c1d58c6fbe38838dd7faeef93702127acc426ac06c0a48d38189f45afb3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20517,
+   "sha256": "453be308f257219f05f446fc9467d9f7e0e5729ce81d05b6f12fbca42fffc412",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 81197,
+   "sha256": "09ac86cefe7f2f5a256ad6013ed83dffbec769c1f9e6e16d07d6815870c66880",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 82695,
+   "sha256": "5825fa12260e472d5e4bc38c54d8df1827b3bdae3969922d426c025e245e9668",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/BuiltUI/Load Transient_Channel Ganging_PMIC_UI.lvlibp",
+   "bytes": 55296,
+   "sha256": "f71ce159830d0c53ada2d9ad7bde1b7234c694596246f88aad39936b2b6545f5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 18403,
+   "sha256": "b1ce81c8b959d87106ea3a3d9fe502d24b9b41eb9a6ec8d572224e1165d5f07b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 19540,
+   "sha256": "f6d317c4d89f612a8937a2020f99fed3b94f641889c38e48d637c6417f1f0a20",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Get UI Details.vi",
+   "bytes": 19634,
+   "sha256": "d0ad5c9a03efd63c1d5ef1f6aec329aef7387bd265dd938b5cf6256521c5e5b3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Load Transient_Channel Ganging.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 15470,
+   "sha256": "76ccd15b86b33a073c3c50bed503aca44df0ae6b95f777f2b0d459ea6aac98d7",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Measurement Logic.vi",
+   "bytes": 52005,
+   "sha256": "97bd1e7e3feb76bf2b68cfbedc8560f471ca920fc7c760ffa85bc427a046b910",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Measurement Results.ctl",
+   "bytes": 12428,
+   "sha256": "6d600cda94dc8c6b8750a7b52deaef1720f47ba1b58993df0083f2cc2768c388",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/load transient channel ganging/Load Transient_Channel Ganging/Run Service.vi",
+   "bytes": 13843,
+   "sha256": "0b8c5185baf407055032ebeb381e2e92e4803b515694fe024948c24694d5fb14",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 32838,
+   "sha256": "626a08a1f1478a07e4090f1930dda1702beb4d8e87406c788233f34d516dc80b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging UI/Quiescent Current_Channel Ganging_UI.lvlib",
+   "bytes": 1263,
+   "sha256": "5d511d1d5887ad36ea788ee9ad369421ebaf616b6ff790f52e9e8078a949c825",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging.lvproj",
+   "bytes": 34285,
+   "sha256": "721475721ee27dd64942bd4b3a441dd9735ef4e3ecbd72f99c301c4694432d79",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10453,
+   "sha256": "019e4f5cd237c2004bd26091abacbe21ac843e4e8762fe7e244f7fa3b74ff90a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19932,
+   "sha256": "a3c4600ecc63fe18c8a702fdab32cc70e195a2bb7a313568d4428d602e35a73f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20505,
+   "sha256": "0cccbca8607ab1bb7e2920adff470b4581da08fcc7213bb3c06cfc40f865c0b9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 78925,
+   "sha256": "656e23443c01c2cff2ab69f486086d0e77be4ec1ba6b1c2fa8e6ea2d7b69a0d6",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 79611,
+   "sha256": "5245af29a99f4261a9bc2c1b1cb143ed064aa403f6025228850096746ffb4aee",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/BuiltUI/Quiescent Current_Channel Ganging_UI.lvlibp",
+   "bytes": 46080,
+   "sha256": "50559216251376b42bcb3cff247cf1cc9dd48788c16bfc4913221d1eaa6a90d8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 15043,
+   "sha256": "3cc51cadac92454473fd10c011ec6227a72f00cdccdb0259ba36bced49f69bc5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 16204,
+   "sha256": "408656683af067094cd25f9a4ce8539d0653f1b61273ceeb7eb12f2196782822",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Get UI Details.vi",
+   "bytes": 13042,
+   "sha256": "218a9af511673884f1764a1e1332dfdecf3782a246543a577289193e133ea9d5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 10670,
+   "sha256": "3059027b4e287b391ed0a7f72f6bccad178682f016153c8a319bce3f4768f81d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Measurement Logic.vi",
+   "bytes": 31717,
+   "sha256": "e30154ce58492599c45dac3923a8de00e66f17f3588f6e16242b808f4589ca15",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Measurement Results.ctl",
+   "bytes": 9020,
+   "sha256": "632fcb8b75c4515076a39ede979d515c7e4628101c2d90ef69b1aa25bae109bc",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Quiescent Current_Channel Ganging.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/quiescent current channel ganging/Quiescent Current_Channel Ganging/Run Service.vi",
+   "bytes": 12207,
+   "sha256": "788110085f023b7c1419551d14aada7ae17e380f5488ed36879ce00996acc017",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Control/NIDCPower_channel_ganging - abort.vi",
+   "bytes": 49077,
+   "sha256": "f4214406ca3c13a50d6c64f238b0f0c3d7379af2c90a869ebf55f988229069ed",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Control/NIDCPower_channel_ganging - commit.vi",
+   "bytes": 32722,
+   "sha256": "2fafda547687721d20ef2db12c190600713ec3564d64c2b65a488e8cf6fe0bdc",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Control/NIDCPower_channel_ganging - initiate.vi",
+   "bytes": 54776,
+   "sha256": "66a0761776cf2caec72affa97393c764f65bf79f4ae77f64c751cc71e83e8647",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Measure/NIDCPower_channel_ganging - configure aperture time.vi",
+   "bytes": 26071,
+   "sha256": "7a60646c873d3b3dc1fe1a2666ee1cd74787b9b506b838120a53df65b6ef2e43",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Measure/NIDCPower_channel_ganging - configure sense.vi",
+   "bytes": 23539,
+   "sha256": "4dfa1126937e29890f197103426e1126aa745d2e10b92abb7b47260a8f73d558",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Measure/NIDCPower_channel_ganging - fetch multiple.vi",
+   "bytes": 50986,
+   "sha256": "819293782f2d26799a276164f8c0d34a4f725de8bf07649e20f78f3982da50b5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Measure/NIDCPower_channel_ganging - measure multiple.vi",
+   "bytes": 56500,
+   "sha256": "204db1173d7a05d3f56fabc8be69894431432f4f302df1d41d247bdd9f3dd62e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/NIDCPower_channel_ganging - check channel list.vi",
+   "bytes": 35482,
+   "sha256": "f05f11b8f658d6e97bce867ed0e12fec47b2e7088d57281b8d18046347eda210",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/NIDCPower_channel_ganging - close.vi",
+   "bytes": 53369,
+   "sha256": "9d7c621450bea1f88dd9f01eef192a0683b04b8e6a953c90b3a45e9dac9835fd",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/NIDCPower_channel_ganging - initialize.vi",
+   "bytes": 31314,
+   "sha256": "dcc9d6376dff0da37d831ee5facf3996f447f46394b7bc7de42acfd410b4ccf7",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - confgure sequence.vi",
+   "bytes": 22345,
+   "sha256": "7718f6269aa4eb121ea3a5d7922ad95f27655345baa0ad57c879e96d358537a1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure current level range.vi",
+   "bytes": 20689,
+   "sha256": "1e80d63bc73eec027e5b1bb8485425b61b8f76ca25d56f7875d1b14152b8cde8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure current level.vi",
+   "bytes": 20643,
+   "sha256": "92773fc85e7abd91e6167f7533c138fcf40204108fcf6d21ae131a6a99c22538",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure current limit range.vi",
+   "bytes": 20005,
+   "sha256": "f8613a2dc5c9f4707616c9cf1f162fbf4a635ef227636b2757f827d2aa9aa993",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure current limit.vi",
+   "bytes": 51735,
+   "sha256": "e7280d7ce5703486744e36940d5fd140333d2504afda3679843292b02e93d584",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure output function.vi",
+   "bytes": 23677,
+   "sha256": "5dfd9a3f820da16383a9413155d1a5df8f430e7077b7422404c6fc99a4902837",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure source mode.vi",
+   "bytes": 29781,
+   "sha256": "8a465af3086277817a42bd3769b4ce9c6c0d365cdcb1fad45f93bf7753f71956",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure voltage level range.vi",
+   "bytes": 20509,
+   "sha256": "3f578a4294ab9eb1bd3bca3c197c4c69422625b0cba3060c344fe89536560a0c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure voltage level.vi",
+   "bytes": 30931,
+   "sha256": "239ad0783ce4d31ef65cc384cd1fac5f58882a7e97363a819a3c0e7631b1639c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure voltage limit range.vi",
+   "bytes": 20517,
+   "sha256": "00a85a3a78e2ba70f779d1ce0ee6aa0cf699103faf155538b9951cc691d342d5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - configure voltage limit.vi",
+   "bytes": 50991,
+   "sha256": "4bd1fe62604aaee680abe5d320687720b515e75bd09d864bd4bc2ff129c6d4ee",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - create advanced sequence.vi",
+   "bytes": 18500,
+   "sha256": "bdefa53d9db01a6ae36f4af13835cd71dc28a7fdce9078b99a93a8bb9e5cc8d5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - delete advanced sequence.vi",
+   "bytes": 14384,
+   "sha256": "e5b13deea6637d8a6d282f51671dd058cd0f72f1656920e0b233dfe556471986",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - output connected.vi",
+   "bytes": 42320,
+   "sha256": "67a3d45c735e06ee3d982d5950dfb373c81775d07bcdb6afaa77c6e43a4186f5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Source/NIDCPower_channel_ganging - output enabled.vi",
+   "bytes": 39814,
+   "sha256": "0c3c5657ed5f2fbc21f2914c82b2fe3f2abe02525ce6a0c7fd191c21126bec52",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/Disable Pulse Trigger.vi",
+   "bytes": 22697,
+   "sha256": "a8347cb8ca9abce173adb961e2ed4101b7baaa38643c0078859727f8d43433ce",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/Disable Sequence Advance Trigger.vi",
+   "bytes": 22752,
+   "sha256": "69cc3346554210e7ea723556c441505311df41ebb662dff0cbc349eb6ba32521",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/Disable Source Trigger.vi",
+   "bytes": 22702,
+   "sha256": "6bbd46df47c4ed5d13ce89fdb11e02e36ce6268c43d8ea84e9c0fdf50b91e61f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/Disable Start Trigger.vi",
+   "bytes": 22697,
+   "sha256": "bcd314e0a434ef00394a19aa47ab4d8626ca57d82b844170af03a31e29b4c027",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Digital Edge Measure Trigger.vi",
+   "bytes": 27206,
+   "sha256": "7ebc8d59fa3e7c5c87d9ff4f9e6ab997e786ad5ee49e3875381ae6dbb225a53f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Digital Edge Pulse Trigger.vi",
+   "bytes": 27196,
+   "sha256": "70699149d77358664ecc0ac651d981e7281cd6513e20228615beaf56e11d9576",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Digital Edge Sequence Advance Trigger.vi",
+   "bytes": 27251,
+   "sha256": "be83b9996a39d93e9c523aee1f51e0e6a2840da3b65c50cf6c2e35285d2e19bd",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Digital Edge Source Trigger.vi",
+   "bytes": 27201,
+   "sha256": "cdbc596be501311b3d74b2088c3ade327d9c84064723ef68e0c08ad8fb15132d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Digital Edge Start Trigger.vi",
+   "bytes": 27196,
+   "sha256": "ef8efcf1b5a93a1bc3839622aa395dd1097897710e362830222293cce1f82b3a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Software Edge Measure Trigger.vi",
+   "bytes": 22811,
+   "sha256": "7125dc2dd8cdead007dd2416ba9e61dbcfaf9685533461c86c4ee824fc5e7a48",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Software Edge Pulse Trigger.vi",
+   "bytes": 22805,
+   "sha256": "5ebbcc36bbe8b090317536228221b5f9057a83d2b8dcc0557d7f3c70355a253d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Software Edge Sequence Advance Trigger.vi",
+   "bytes": 22860,
+   "sha256": "eb0c79a90b09e85b5d14144085516362e367215fd8678c2e19517894b3cfb337",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Software Edge Source Trigger.vi",
+   "bytes": 22810,
+   "sha256": "836bc92af97f7b0ea4e8ec317d5d3bf16d2f91fec705d0837bc94cca21ebfb45",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Software Edge Start Trigger.vi",
+   "bytes": 22805,
+   "sha256": "91a288cf5ff0528a20463a5da0e3e6fbdefd7fbc560695437eb4ecf58ad042c0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Configure Triggers (Poly).vi",
+   "bytes": 16113,
+   "sha256": "b40fb698c083838edd57fabb7e71a3a5d98cdea1ccc591b70accff8ca9b752ce",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Disable Pulse Trigger.vi",
+   "bytes": 22725,
+   "sha256": "014c85ae47579c23498593f3d73a5b5c4877fee2dc3f281a85ee402739a1a2e1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Disable Sequence Advance Trigger.vi",
+   "bytes": 22780,
+   "sha256": "1b8407238625bae2f4bbcefe9637dbf7107f50602c5a8404d6a9c1f858695a58",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Disable Source Trigger.vi",
+   "bytes": 22730,
+   "sha256": "a1e3221c87fecc8ed076eeffdacfa14fa174dbc0963df5d1301500cb8a4042c3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - Disable Start Trigger.vi",
+   "bytes": 22725,
+   "sha256": "c82c4ab341f1698e4b50f134ce4b992c26e9401e3cd2fee144cc3cae2c8b5864",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - confgure triggers waveform mode.vi",
+   "bytes": 23607,
+   "sha256": "b38d28a0a41effa7f1a238b97d8d04a8b9fd308d0e72e27c2ad30c775965f862",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - configure triggers.vi",
+   "bytes": 41586,
+   "sha256": "cc564cf74461cdce4b391fb864b523b235b3aa28012fb48da54dc524644ea914",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - export signal.vi",
+   "bytes": 26865,
+   "sha256": "161b6398065dddb48df9aeab7f70620ca21e5df96a4a68dcd8c32b14185fc8f3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Triggers and Events/NIDCPower_channel_ganging - wait for event.vi",
+   "bytes": 19958,
+   "sha256": "c152f37cc4ac1e7376666466640b7aec5fe14417803e329e02197ed10b8392a0",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Utility/NIDCPower_channel_ganging - reset device.vi",
+   "bytes": 42036,
+   "sha256": "39c52e2f7c23a0a08ed32500c4b143fb72487628a9b9b55f29d56a23895c6b72",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/Utility/NIDCPower_channel_ganging - reset.vi",
+   "bytes": 39905,
+   "sha256": "fe0a377598c8ae40c4074468c13e4057fba2b4a76963f84f8469a70a95b22898",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - channel def.ctl",
+   "bytes": 6866,
+   "sha256": "9809b4aa4606b07900373c190ce5244493125a4898aa0dc88ce4b4f4e7b28729",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - channel list.ctl",
+   "bytes": 7811,
+   "sha256": "919f6cf791c22c2e2e3a7ca6f35c3786f2ebe75f981cb5344529e9abe0c8de0e",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - channel mode.ctl",
+   "bytes": 4451,
+   "sha256": "c457b6afb8ea823df105ef261275cd3e4ea7788530a4fad525b6dd8054e74733",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - ganged config.ctl",
+   "bytes": 4448,
+   "sha256": "876244a99c213ed3ebe574f0ffd7e7535bfad8a69c5265041827537fd5b0158d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - ganged session.ctl",
+   "bytes": 8045,
+   "sha256": "449bb08176811b3a1f33f0723a219848d9695032335f37d5c86c1e4f3a7a6322",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/ctl/NIDCPower_channel_ganging - ctl - voltage output level limits.ctl",
+   "bytes": 4842,
+   "sha256": "9ad9143e71b423f7cb4ebbd02d412f876c5b72c4e18e3a1157871aeeee70c927",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/Calculate Mean, Min, Max Values.vi",
+   "bytes": 8511,
+   "sha256": "0b9831b10cb501b2d706c92ac30d19dd596422fcc7ddfbe57a9adac217e05e34",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/Convert 2D Array to 1D Array.vi",
+   "bytes": 8208,
+   "sha256": "8284fbd69536f808e25a62445f2629bc2df58322da6ab1ee80fe191393f78415",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/Get Channel List.vi",
+   "bytes": 15504,
+   "sha256": "ecd6e77816e2c1a56a6b7ddee651f29b1b6f6e1d76b8cbf66996051968637fab",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/Get First Elements From Arrays.vi",
+   "bytes": 8750,
+   "sha256": "e8601aac65b0d42f7479d7ce4ca41ea850b4ddb09ac2ee8e3eb6ae38b08cd79a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/Get Individual Values of Voltage or Current.vi",
+   "bytes": 18319,
+   "sha256": "af10fb74b49d630a8b72da829abe568137a056bc8d629e9fbb0bef7a69ca611a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/shared subVIs/subvi/buildTerminalName.vi",
+   "bytes": 16445,
+   "sha256": "dad3215457e3de68d388888934796900265f870f70c68a0891bdf9d5ddce5d09",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 155134,
+   "sha256": "c3037c710d383a54f5e2654c46ba70bcaa5ae6f5ab0833ee72d5a2830a835292",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging UI/Single Point_Channel Ganging_UI.lvlib",
+   "bytes": 1257,
+   "sha256": "456abe33b4a912b862caa624763b23f50768abef85169b8a0e6bc1237b056a65",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging.lvproj",
+   "bytes": 34096,
+   "sha256": "cf9d10dedd56c9b2a5dbc9fe66269cfabd60628c1064354c412cd31f69b00260",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9933,
+   "sha256": "e0b7c7902d1b12c395064363b900ee19c14d5d16307849375b7825e4e9c84cf3",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19072,
+   "sha256": "88528cbebce3b56adf4a55cf2a51a3294b4f8320f5de2306f64962a90acc32d7",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20407,
+   "sha256": "1a01451b7b17d5de2cf6e770cb98026a25682bfefef4a2fbbbc457cf435df7f8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 85185,
+   "sha256": "15875485eba1c66779d681b399c6cdd789f9037ef2f282b341ea0d3129fc37e5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 88323,
+   "sha256": "6601a535a68066d1d389f11798696155f5ee129e00a9e088061ebb69523cfaef",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/BuiltUI/Single Point_Channel Ganging_UI.lvlibp",
+   "bytes": 91136,
+   "sha256": "308ecbef0e59fdb1cf0854059e2a9b3fb6bad44f97dee303e9bd3bbdc00ee93b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Controls/Perform measurement-control.ctl",
+   "bytes": 20080,
+   "sha256": "c50828956bbac97d5ab54bae0985834cbc796ce5fdab5477caade4b618e1781f",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 18335,
+   "sha256": "8c304fba7eb02b526f29558c1abf72f12cc21eab63e36a02a9c58247f3e7b0f7",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 22200,
+   "sha256": "9de0cecd9c2f6601b4eb17b52051b1b1d4c065b7e77eb8c0c23c1bc879456daa",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Get UI Details.vi",
+   "bytes": 19398,
+   "sha256": "afbad6bea83c8b3ff2d55c7f67f201eb44d84e4125a72399ed9cb1001e582e50",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 19462,
+   "sha256": "7ada4ad9f7c34d6183b1ecd66e67d2b959cdd4897606ec7f433ef5da90708398",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Measurement Logic.vi",
+   "bytes": 38089,
+   "sha256": "1c168fbe14199b09605e448c30db7074e0fcb9776879ff5f771180da855417b1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Measurement Results.ctl",
+   "bytes": 13616,
+   "sha256": "24618074a30836bb6139275870053b3a2f86abd2111dcd52f31cf8619cde32dc",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Run Service.vi",
+   "bytes": 15391,
+   "sha256": "f568f27585d66f7c045e90fc5b703fb7dd8a4cdc77d73bdd254d3fce91a542fd",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/Single Point_Channel Ganging.lvlib",
+   "bytes": 2981,
+   "sha256": "6bbedbf7daba63a26a57dcfd6c1b476b42b9dc3f4e6ba6b4c8a27b1570a124b1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Configure Load to Single Point-Single.vi",
+   "bytes": 43077,
+   "sha256": "691fbd5a39d3315287d4983fb3b4b95eefe521c9aadde88529ce8d693f4dabba",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Configure Load to Single-Ganged.vi",
+   "bytes": 46911,
+   "sha256": "2946f13ecf23fd4ec19c8b9c8d27dedb850a62316c860b4fc89e0225d247d310",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Configure Source to Single Point-Single.vi",
+   "bytes": 46443,
+   "sha256": "4bb8d35eb09110b15ee2f1df98d4e3f7d46712ade5734d36eef985a7203560d5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Configure Source to Single-Ganged.vi",
+   "bytes": 44365,
+   "sha256": "ac45ef20db04be2614131fe8085878844394bbb8c8d70aab541452544b10988a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Fetch Measurement - Single point.vi",
+   "bytes": 47148,
+   "sha256": "db245cbd06a343396f8fea4a4466e6b472ba522ab151f89290e0f00d578ec4ba",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/single point channel ganging/Single Point_Channel Ganging/SubVI/Perform Measurement - Single Point.vi",
+   "bytes": 67086,
+   "sha256": "e1c5cad021a1c2eb9136cfb762444c3519b84132f4c6564e78e7fa6d2ce37305",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 139154,
+   "sha256": "659da1f094dc9df530495cbde1d1030b467e975e5a0757267313e13741b954a1",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging UI/Sweep_Channel Ganging_UI.lvlib",
+   "bytes": 1265,
+   "sha256": "7b8e19fba109ee50a32d15e7e9fddd2c1ba0ecb3731e2271a5a2f6bad9ed9137",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging.lvproj",
+   "bytes": 33539,
+   "sha256": "0394ca5bb0d926471efa12129483f0520fc8339b0b6028fbc9ca165dff267848",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9889,
+   "sha256": "3c4c305804a072d05dc57970bf525da34687baeaf4a60129da30410e1a2a4ede",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19024,
+   "sha256": "a1947ad3e61f0557f3dce319a6c7f78102d04da0611594893ccbc08d8d4b6322",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 19881,
+   "sha256": "9d7cffc338889ddeb55538d58658fe990fb4aa122281a576af5353f6abe77516",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 85509,
+   "sha256": "7ecb61a317c451fac7c458788090e938fbc39665d98b6ad199c4f538d5e288b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 89911,
+   "sha256": "bbdd134b697f6a78615d11b6c5853017915ef09fc66a575b2094743009eea8b9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/BuiltUI/Sweep_Channel Ganging_UI.lvlibp",
+   "bytes": 78848,
+   "sha256": "89217eca9835c9ad9852c4ee4ec2e2568e735bea958968feb33a1467ff727357",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 15067,
+   "sha256": "c2e2e2c0eaf23dc7c0a6c44c48b0c960fc7923b9a5648cd226a83bdb7d760601",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 15636,
+   "sha256": "bc549a06ff4d3f5ce5ca20dcd18c6e6aa755f08dcd3e47371d5c12d65ab95fff",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Get UI Details.vi",
+   "bytes": 13038,
+   "sha256": "62498860e7c9b327a0a304791a920a21c6cdb4225cf14a19f9cb80355693a133",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 13734,
+   "sha256": "1d1356fc24aa758b9806578a40da19660b0d9c919f46aa8882b4ce8bdfe30f60",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Measurement Logic.vi",
+   "bytes": 37573,
+   "sha256": "bdb86e74482bd7a57e2b86be8b568b52b8659c350abf1e90be63c7a38e03a41b",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Measurement Results.ctl",
+   "bytes": 9772,
+   "sha256": "161db85b0160109694087acca56e28c4efd992517ebf3ba5a5e5417b7ae8ba18",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Run Service.vi",
+   "bytes": 12203,
+   "sha256": "9050200bfa7be2ae8a7e0d8bf42d772f53790fc7f04cd4ca91a4d1235f95b4ea",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Shared/ctl/Sweep fetch measurement control.ctl",
+   "bytes": 18792,
+   "sha256": "75f0a22c174aea751b86460d59daf72fc3dd315562ad4abffedda39c945acff2",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Shared/ctl/Sweep fetch measurement result.ctl",
+   "bytes": 14067,
+   "sha256": "f0e3ab90a8901b075de6993b4b5ca03690489edf6d4c31f45ec487296f487510",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Shared/ctl/Sweep perform meaasurement.ctl",
+   "bytes": 19555,
+   "sha256": "40bd2ae1c916fd2cdc347265f6215098e6241e6236adaa501ab3fc95d1934509",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Shared/sub vi/Fetch Measurement-Sweep.vi",
+   "bytes": 58871,
+   "sha256": "ce916c6282ce21b5245037a1ff81f1d29543dc58307c1df16b42e507017e1c72",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Shared/sub vi/Perform Measurement.vi",
+   "bytes": 92823,
+   "sha256": "12fc1ed7f5efdf506bd67206038f09eb185e7ee555c730b220e07e36cef1a0c9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/sweep channel ganging/Sweep_Channel Ganging/Sweep_Channel Ganging.lvlib",
+   "bytes": 2755,
+   "sha256": "48b2d4d11e9081553b89cc3077782d346ade2054f3c527df7718bfec8f6895b9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging UI/Measurement UI.vi",
+   "bytes": 168234,
+   "sha256": "c7f02bf8f40b84f7176029087752bbd3fa0cfc8a595ed339ec223bc5b6319670",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging UI/Waveform Mode_Channel Ganging UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging.lvproj",
+   "bytes": 34469,
+   "sha256": "5b8a29014ab43c22ccd92e4a0fd2427be791fa7c04d2582fec344e7a5d90d2fc",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10445,
+   "sha256": "64fb41e96a3604c01fcfb73b5ed6dab96fee0d1cd4e27e0f5e2a58221deca517",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Advanced/Get Plugin Paths.vi",
+   "bytes": 19900,
+   "sha256": "5c2d25933055920b18d64d2d5bf45c2cbb146e6c3680fee2b19ad017701c8513",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20539,
+   "sha256": "cd5a925789c74ba746266d73fe62acf84cf152fb9e7e301ec4366c53915a1b40",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Advanced/Pack for gRPC.vi",
+   "bytes": 84653,
+   "sha256": "ac624c418e0adfc477f2b4ce439a93877831f69fab80c7bdb2b247a859b36b96",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Advanced/Unpack for gRPC.vi",
+   "bytes": 89675,
+   "sha256": "a37a403e536f2d5dd303fe292148e02d4315699f451c5e81fdbe59be8f5d13f5",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/BuiltUI/Waveform Mode_Channel Ganging UI.lvlibp",
+   "bytes": 120320,
+   "sha256": "2692ed29e807e4d7574c3476b97c29be9179edbc9682f428303bb996bcfa0b2c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Controls/Waveform Mode Measurement.ctl",
+   "bytes": 20134,
+   "sha256": "2b112bb10a5f4e87621480eebb7bb60a3121080db39b1e28e6efdcf95f78fb03",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Get Measurement Details.vi",
+   "bytes": 15067,
+   "sha256": "288760bf3cc6f147519209f85e487124877fa522b3d7102cc7151e0ee784496c",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Get Type Specializations.vi",
+   "bytes": 16252,
+   "sha256": "1640f6e74e42bec1c5082cb4007d5b008d7667238d69ccb33b28282634eb29b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Get UI Details.vi",
+   "bytes": 13074,
+   "sha256": "2017f01652312c3f45c71738a36d4461fd2d6ed3a4ac8335c42aabd536710dfb",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Measurement Configuration.ctl",
+   "bytes": 14158,
+   "sha256": "9dd2bb77a151a6a892a5979225a92ae8c0be58fe1135bc47359eac1a2a009006",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Measurement Logic.vi",
+   "bytes": 34125,
+   "sha256": "d666b9ac6258f1b8de642c60a78900dbec5082d00e9036a9a80667c04328b31a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Measurement Results.ctl",
+   "bytes": 10108,
+   "sha256": "1ed30ae29ba24bf56e3d8313e2af4bd5200781d582fe09feea47d9e47fa7296d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Run Service.vi",
+   "bytes": 12231,
+   "sha256": "104916cf41a00c13a42213b4d19835df1fb426cd28f7ed01b64e6c8e4edc8b68",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/Configure Load to Sequence - Single.vi",
+   "bytes": 48823,
+   "sha256": "31077d65e9eb88b6a20b3f331e0a09eaaae37807ca2d714a3b3f5435756f27f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/Configure Load to Sequence - ganged.vi",
+   "bytes": 52279,
+   "sha256": "bae45ee52c621db33b43e682caee33a79001ba5a12f88dbb033cace2d5b68c9a",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/Configure Source to Sequence - Single.vi",
+   "bytes": 48893,
+   "sha256": "d05b2f998da002f1405c655accaf15b751752a1eb56c786d8fcb7c3fcf18a33d",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/ConfigureSourcetoSequence-Ganged.vi",
+   "bytes": 52224,
+   "sha256": "6b3c99f65013004643b028a529b646d207470f437ebcf71596cc2b69b33a0368",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/Fetch Measurement - WaveformMode.vi",
+   "bytes": 31940,
+   "sha256": "6e82945f447dd829b5defd8b0fa3448bed643a3ef3aaa3bf79f0fc00b202f7c9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/SubVI/Perform Measurement - WaveformMode.vi",
+   "bytes": 75894,
+   "sha256": "d102e9c596c36d0c4e8596a31614b984b3166068dbed9104c7ce5a246f20cee9",
+   "via": "extension"
+  },
+  {
+   "path": "source/channel ganging/waveform mode channel ganging/Waveform Mode_Channel Ganging/Waveform Mode_Channel Ganging.lvlib",
+   "bytes": 2975,
+   "sha256": "07dcb8c416cb853335715e86abff34e65da0198c7c1c14c7b31526a40ff12089",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC UI/Arbitrary Mode_PMIC UI.lvlib",
+   "bytes": 1264,
+   "sha256": "6958460b0ba93abbe20d17a33da9959055c4c3e318c518f596764fd1f09c60b4",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC UI/Measurement UI.vi",
+   "bytes": 51162,
+   "sha256": "6efbe66efe0d28e314120bae6448f5d24ab5a0149da7aa078cb311aaa797a0c1",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC.lvproj",
+   "bytes": 37532,
+   "sha256": "ba250003e26e0883dc92b6ad852e8cad70bcdad1e434eab8682a1b64023cdc8e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10353,
+   "sha256": "00521255d38d420e0bac352600b1f2374dc6ba8080766a80b0198fccc931bd9d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 18996,
+   "sha256": "d18d44aa7e3062206e21f2b92096448408a0192a1c65a22ea854e961aeb4b25e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20202,
+   "sha256": "f73536314648f99940d7bcc82ef3760f71e518c90f0d4ef19461ae35d1451344",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 81389,
+   "sha256": "5f0eee9d145908c262107ab3bb7b61c2ee8a8557e9642adfb43ad747b0c72754",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 85935,
+   "sha256": "b3763113bb201595da4e65729d9fc882ce7dfb835ab8758aaa6d4213a11453fd",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Arbitrary Mode_PMIC.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/BuiltUI/Arbitrary Mode_PMIC UI.lvlibp",
+   "bytes": 45568,
+   "sha256": "26a89a30c19d78e6b85f4bca1cb0e2d790116e04239725d6398357a4063e4308",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Get Measurement Details.vi",
+   "bytes": 18343,
+   "sha256": "aec10cbd42a61fac01e78e32e6c11def6c33f08bd1bb422c1166dffa9e137100",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Get Type Specializations.vi",
+   "bytes": 19520,
+   "sha256": "42f7ce9a91ba10e781daa0805e3fc9e99294a77bc71ea90521c75b22451d8938",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Get UI Details.vi",
+   "bytes": 19390,
+   "sha256": "24e4f018a190f62600852f1d548de7afa81d82c1b72ba4a5723214cad8036a3a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Measurement Configuration.ctl",
+   "bytes": 17442,
+   "sha256": "f7b36bafb338f67ac6a19ee4fa5a2b6476a9ac5b3e7b24aa1c7a7888807ba9ae",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Measurement Logic.vi",
+   "bytes": 91925,
+   "sha256": "e1dd5b019a0ca517fa7a51fba9a1c6f3b6275c11f5736c14b7694c0027c58ff2",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Measurement Results.ctl",
+   "bytes": 12680,
+   "sha256": "8dcfaba60952e150fffcec6a8b6f8c27567e0b8f961a3f0e4b09f71934d04f31",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/arbitrary mode/Arbitrary Mode_PMIC/Run Service.vi",
+   "bytes": 13763,
+   "sha256": "2069a7d497cce475733c87038dfe4f188c6b43dbde198d25e81003429d0a6254",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC.lvproj",
+   "bytes": 27257,
+   "sha256": "117658845eea2d6ca075bba8f17fa45438cce1e6161d81a6036213dfdc2fa630",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9841,
+   "sha256": "7acd91f0477e17796ae1c1365d6de4e673303301dddbcee74f7bbb5da9a44844",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 18948,
+   "sha256": "aecf98094385158ff2b79f1b2dc28007d2a05df1dec3ada930dba7281ab9c8ed",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 19409,
+   "sha256": "dc3bb6b0e5dd99fe7a35c53d9570272ade97d7264d0d926e7cc7d8988ca9c8bb",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 76949,
+   "sha256": "31c161939d3a535df6ecc1532d4597b7bd996deedd0440e145404949f0d8b092",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 77703,
+   "sha256": "323df6325d587eac669a965c2ec60094fffc1da5a04e04ff45245d5b0d7c3671",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Crosstalk_PMIC.lvlib",
+   "bytes": 2140,
+   "sha256": "400d982cb67e51a8dc318f54b86381f96e89a2fb61743f02b51272fc2c5d8027",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Get Measurement Details.vi",
+   "bytes": 17739,
+   "sha256": "9c90d11117612cdab1759b74ad969af7870996497fac57215a1008d80d3ea1eb",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Get Type Specializations.vi",
+   "bytes": 18936,
+   "sha256": "5a9519bdfffd452dd5f7e28620f447c8887c37b882795df2306d83dfd4c5b472",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Get UI Details.vi",
+   "bytes": 19318,
+   "sha256": "715cd74267eb65f27a01ccbae3afe3d2603f79e768604bc2d49a563e4fec6be0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Measurement Configuration.ctl",
+   "bytes": 13946,
+   "sha256": "79b6f1b08d849a186d5dfe5d04cf3187e063d7c713eb42f9abbd98323b6f95f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Measurement Logic.vi",
+   "bytes": 114597,
+   "sha256": "67ce1004deb28756b50ddadb0849b8373f16ab0acb9b4cc096402c030a4adfab",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Measurement Results.ctl",
+   "bytes": 12832,
+   "sha256": "a668a0177402a7194cc6ef47c22ac7009511726b4a2e0cdb419f69d248d8070d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Measurement UI.vi",
+   "bytes": 107182,
+   "sha256": "4d0659ceb63211c52ed3314c689413684b109eaabdc7c70c7623734170ed9858",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/crosstalk/Crosstalk_PMIC/Run Service.vi",
+   "bytes": 13191,
+   "sha256": "2557432077d72e16105af6d1123e8c20a5f3529a0e9a4b4f18b994dcec8694c5",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC.lvproj",
+   "bytes": 31452,
+   "sha256": "4a4cf49a81bce5987996fbc3f134ccdbf6d63def224cc462c892a4556b1f04f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10049,
+   "sha256": "bd2a67d8fb942d20c489ae12b2b40e66051e33038cee70bf0f2a82051ae376f6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19096,
+   "sha256": "1886f3048cc64f5b4e428ebee2a15c3509b00215cc333cddfa647f7a0b614680",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Advanced/MeasurementPlugin.lvclass",
+   "bytes": 19679,
+   "sha256": "cf2b91d52e3b388b21fbb745e4fbc9990ef9112a79e55921948e4a3290a6dbff",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 83129,
+   "sha256": "19abd2e9ed7c9e97c67a59cd12f53db1f76da0e8f940fe71af4de99b749f7536",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 84367,
+   "sha256": "a53458a6d609e9dfd26cfd9bcb48dd5318f9644600e21c456509ce3440e63dff",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Efficiency And Load Regulation_PMIC.lvlib",
+   "bytes": 2565,
+   "sha256": "fb2dbd4ca5efbd7314b75471c1b10bd0c2fcf4ccfe2c750fe3732dd44bdb726d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Get Measurement Details.vi",
+   "bytes": 14279,
+   "sha256": "a055eabf0270b64901cabe24bc512d6c9d01d5e631214653512435d2cb0661c4",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Get Type Specializations.vi",
+   "bytes": 15664,
+   "sha256": "f788c36e327187c4093cf015158623dcfabc7df4a7785f762a12f9fad396015b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Get UI Details.vi",
+   "bytes": 12750,
+   "sha256": "e0ea31e3c82933a17a2484f535143a4ed3c33cdf3d64041f4517dde51a1196d9",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Measurement Configuration.ctl",
+   "bytes": 10202,
+   "sha256": "f948165860cb2df59be9bce572bb8a5397d293c948fc92b7f40bd6e0559e63f1",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Measurement Logic.vi",
+   "bytes": 72737,
+   "sha256": "7fc0926677acaf2446518b5c6390ad3b6849fc751f119a4294e66c1dae24b520",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Measurement Results.ctl",
+   "bytes": 10348,
+   "sha256": "5f83eb4c43404b63945b957e0291f1a68537e4dd1ca3f1ddd450480773e404b5",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Measurement UI.vi",
+   "bytes": 113506,
+   "sha256": "86d0b28b00c58a73760319b61c3e6ea18dee0c8fabef84b1e0171f4cee4a5e92",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/Run Service.vi",
+   "bytes": 12119,
+   "sha256": "0b5c7fe6cce00f1fdf346ef8e71650d16f2a7caa5b0d62bfced331b0ca84177d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/subVIs/Calculate Efficiency.vi",
+   "bytes": 13244,
+   "sha256": "10284ff6e2607fd6489b69c0e2e2d144ce266bd0abd5ba6eb1983f4d7ccd3649",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/subVIs/Calculate Input Voltage Values.vi",
+   "bytes": 14574,
+   "sha256": "7daf0541a119b4ef8bffeac37403f9898b8646c97af3f761667fc0c789d3a847",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/subVIs/Perform Measurements.vi",
+   "bytes": 46900,
+   "sha256": "38f5cd68dbfabfbfc90b4c0e5f5ce5bc535ca5c2d2feccc92fd76451d0f1148e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/efficiency and load regulation/Efficiency And Load Regulation_PMIC/subVIs/Sweep Load Currents.vi",
+   "bytes": 22811,
+   "sha256": "150a685c0659d678e83cdeec850373d517035250428711e36cec8fbf678d779c",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC.lvproj",
+   "bytes": 31151,
+   "sha256": "467bc9994e2be954f85f375202c910d88f9bcc0a89b371dad8f815ade1e0dc9c",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9945,
+   "sha256": "b900c53347ee3d8aa8a02ec52c85ce303027b2f8d795c158e973b54d43ae7be2",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 18952,
+   "sha256": "15dfd5ca42238a42d5158ad76c91791990645460f0369c74fd4aae4268e2e2db",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Advanced/MeasurementPlugin.lvclass",
+   "bytes": 19219,
+   "sha256": "e53544e490e107df8de43eb1e17f922d6b99d88d57a7633a7100bdddeef05462",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 78293,
+   "sha256": "bd7a9489cdfc90d14b06bc4956a899ffc82e8391378d045c2c8bbbb9d3dd5ce5",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 78355,
+   "sha256": "b5bbe38685638af2be52f7287c252c072464cbef4e4d624426c5231e285dd649",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Get Measurement Details.vi",
+   "bytes": 14223,
+   "sha256": "bd17c501db0300fea620c808f2579b843117bd08f183a64a548a4da386d76751",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Get Type Specializations.vi",
+   "bytes": 15636,
+   "sha256": "387d8a98e2edc4825f1cb6ab60452074ed14f3717af57931ed74b558873a9489",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Get UI Details.vi",
+   "bytes": 12726,
+   "sha256": "e257494d4cb419f87c774d34f1c296327008020ace5238f60f12bb2ac2bb3d03",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Line Regulation_PMIC.lvlib",
+   "bytes": 2274,
+   "sha256": "2730daaa68e80541c7474d213a16a64a9f6b9a51bd888be35bd8d572cbc4b2c8",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Measurement Configuration.ctl",
+   "bytes": 13238,
+   "sha256": "1c95fe27a9a2b4cae48f32d5ab1afab3d69e981a7c1628584f66330d669680c4",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Measurement Logic.vi",
+   "bytes": 67357,
+   "sha256": "2d69ec12c602328d311a7725691e09fce91d7a99867241924a38532d38317731",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Measurement Results.ctl",
+   "bytes": 9272,
+   "sha256": "b29888b50102ef963b12f33e267680daf6086127700e18997fd636e437df31e4",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Measurement UI.vi",
+   "bytes": 96178,
+   "sha256": "bae4da151f44f39e605e8ca1b3a6e656843f57e2e03cdd1209ab96522eac50f8",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/Run Service.vi",
+   "bytes": 12011,
+   "sha256": "2f083673004908632a03ee2ac83f9ffd17d9e38a55940c202e208cd32a88b5b0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line regulation/Line Regulation_PMIC/subVIs/Perform Measurements.vi",
+   "bytes": 32824,
+   "sha256": "6f39a291d45b475d500d17757b5fb62c805228fdeb35565ba52f7b4a81793d27",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC UI/Line Transient Response_PMIC_UI.lvlib",
+   "bytes": 1240,
+   "sha256": "fcc2e8afe8786a5ae1404ee867cb907d67afec276a48c60713f140a33528901b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC UI/Measurement UI.vi",
+   "bytes": 91502,
+   "sha256": "e9d1af5a54c0a1c226b33e892ef411be5427235ce1c0315909dc80d379a56563",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC.lvproj",
+   "bytes": 36114,
+   "sha256": "d91909aef08e512ef53e15b386962aab54a5d4b299d21b24dda7d14a0a0d370b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10405,
+   "sha256": "832044c20abd32cfbb686c96eb7eab5f18de17ebed8f210f9b12b91fec2832b1",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19880,
+   "sha256": "7dac8a8b0a2fe31bba281d3ffff8b5eec53dcf6aead2235dbfa18a5f4455340f",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20446,
+   "sha256": "98cdb51be4c876385dac1bbbf9e95da8f0b4819d97e8cc0973602286c3a08b3f",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 78097,
+   "sha256": "2ea63a04e59326c1411349c25d71dbeb8015d9b893024e5d7a15e6ea5035c3bd",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 79851,
+   "sha256": "22a81d3536cf5bf37616062a84c5eb24b4f05730f77c5915a2522edc388a6d6a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/BuiltUI/Line Transient Response_PMIC_UI.lvlibp",
+   "bytes": 67072,
+   "sha256": "75501c1a3333d8fad628c2b14fc45c3c69292e9ed3135406d85b151a832f9976",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Get Measurement Details.vi",
+   "bytes": 14999,
+   "sha256": "f2ad0bac46d8962a190e911035b99fd901da9551a3a63b9a026c6a46f43682a9",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Get Type Specializations.vi",
+   "bytes": 16192,
+   "sha256": "fcb4ddeb92c89401698577a1da0c834072dda695445b9b378f8f23b6b5793956",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Get UI Details.vi",
+   "bytes": 13022,
+   "sha256": "e0a63261d3faf92771a3ebcf98ad5632530c3b79b271cc2ad78efce92f45c604",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Line Transient Response_PMIC.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Measurement Configuration.ctl",
+   "bytes": 13270,
+   "sha256": "c8ff706fc75de24153d0db562de5ae5a6324baf46c1f7224ceca3311f4c62b62",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Measurement Logic.vi",
+   "bytes": 75557,
+   "sha256": "e71340fa2ef49cca9e7c6779400db8b7e82c68b42a9aeb10d6f0f79031233819",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Measurement Results.ctl",
+   "bytes": 9140,
+   "sha256": "6033047232ddb4b45402b35b3d35d93843c52fcff7e6dcb4f64aa676170211b0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/line transient response/Line Transient Response_PMIC/Run Service.vi",
+   "bytes": 12195,
+   "sha256": "25f1aa7d3fcd3bddcacbed0b0ce4a27edccb7859722358aee84744a4520c8b5d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC.lvproj",
+   "bytes": 30279,
+   "sha256": "69485354d4815eb1e086eae752401c776ddad297cda2743b09544c7f9b98e718",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10001,
+   "sha256": "ad45358f9d310c6ad80b4d9e99c06e3fce15d7d0c5a4525fefd3771a7eb94f97",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19028,
+   "sha256": "4389de52628f4354c42ea28a848ce7ce78e4df3231a9c969ad808b9918c6f042",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Advanced/MeasurementPlugin.lvclass",
+   "bytes": 19409,
+   "sha256": "89840317d0c2e5fa37132cc2ec9c859f0fd18c7010cecbd09dcc11d347f2f5d6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 82081,
+   "sha256": "e07ffb70bfd960265667b1ffd24399bf036ea5a380c1f213d7c317b191393f1a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 82747,
+   "sha256": "4371b1b4e0a5d8e34b35780b2e46715b2b8dd75b9b7768c3d710d4524cda0d77",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Get Measurement Details.vi",
+   "bytes": 14275,
+   "sha256": "f11cbbfb01bd192fdd6c0adc33073dc93e65c43c5721cb7e32f10cd8bfa2a0cd",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Get Type Specializations.vi",
+   "bytes": 15644,
+   "sha256": "cf398c9a609282c0c29c1ab646124bd1d2f4b3c77af129df434f78e0cb4582ac",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Get UI Details.vi",
+   "bytes": 12730,
+   "sha256": "e55245d96aa64033c33cbebe6da952b562fabb78e6b5827b05db5b720f15bad1",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Load Transient Response_PMIC.lvlib",
+   "bytes": 2192,
+   "sha256": "3700be4bbdb6c4b551f13b574aa6e5f03b4058e9fb6047ac3a20d8e11fbb43ce",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Measurement Configuration.ctl",
+   "bytes": 11066,
+   "sha256": "edbf064d8cf1feac7f52d215058ae38aebe6490be690db1f78b619479798bd60",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Measurement Logic.vi",
+   "bytes": 63653,
+   "sha256": "52128ad899d1ef67611686628bd1d49b1dafef2760cc0d04146492afc42a6dc1",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Measurement Results.ctl",
+   "bytes": 9092,
+   "sha256": "e39c2d4ed0d72c68cbec7ab3766fa7b24150cc143365d836e0a82dd336e02cf3",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Measurement UI.vi",
+   "bytes": 125558,
+   "sha256": "a9040c913cd3f0d5c56285a7bb1125c31e38b8b32c846b0c2602c162a1459e7a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/load transient response/Load Transient Response_PMIC/Run Service.vi",
+   "bytes": 12051,
+   "sha256": "4667a672d6b979adcbf5d5c193ce4a8cf61e4851710185e3e1e040e37da435e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC.lvproj",
+   "bytes": 33403,
+   "sha256": "15af07e211ced290b974dbfbac933ac70dd043c593be2660614017b4e33e2246",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10021,
+   "sha256": "35b02652b85ef9d85011ede115ac428fa125a931b9c651ebccc099f04d43dfe6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19220,
+   "sha256": "3cd7a39f484ce7cc0745927be33184492958ec818a74d94dd20083dab2e482a0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 19749,
+   "sha256": "523ee68f3096e89b870d25707aa1340c0b00beda172c21a8bc0d24494cbd5046",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 81025,
+   "sha256": "2d67f5209b1bd49469a67be55cb11948481dd5a058b60ea610ee23a783e99075",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 82639,
+   "sha256": "311df3d040a656a2665a12e0e741666faa4f7018b435862fca74f298551779c8",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Get Measurement Details.vi",
+   "bytes": 18363,
+   "sha256": "ac5bb225b43082c9abc8850b35610e02f6fd6882285f55eed2c673ec40485092",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Get Type Specializations.vi",
+   "bytes": 15660,
+   "sha256": "c169b2346aa0d93f1d7ce644d6c581959d6c94b2bae42401048e00514094f01e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Get UI Details.vi",
+   "bytes": 12782,
+   "sha256": "403f24d372eacbd889967078e8680baf5b64eae147d877b4c2c0e18cb7a3f8f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Measurement Configuration.ctl",
+   "bytes": 10810,
+   "sha256": "fac8ea2b6544a3cea719fd53a57eae787c3e27bc1b2dace7f6014a4d0ac53941",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Measurement Logic.vi",
+   "bytes": 56877,
+   "sha256": "e8906915fdbebb138a8548e9d73718634f54b0bd66d5d9bfe11b6e0593169127",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Measurement Results.ctl",
+   "bytes": 10164,
+   "sha256": "0531da857595beac935a98af9ae8e6169e2d6c6a005b5c303e2466ddda79035f",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Measurement UI.vi",
+   "bytes": 97986,
+   "sha256": "bfd1f11df8961d908d8bccc36667b01403942e14e1a53bbfa49575d339eb6109",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Multi-Channel Output Voltage Accuracy_PMIC.lvlib",
+   "bytes": 2140,
+   "sha256": "400d982cb67e51a8dc318f54b86381f96e89a2fb61743f02b51272fc2c5d8027",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/multi-channel output voltage accuracy/Multi-Channel Output Voltage Accuracy_PMIC/Run Service.vi",
+   "bytes": 12199,
+   "sha256": "179c3c4bc23949131f0995efd7f3d7c02eef3688f68ffca9b0dc108b795eb9f6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC UI/Measurement UI.vi",
+   "bytes": 28686,
+   "sha256": "6b6a04fc9d0798a1cec0f7b18e5fc09f5ac490632d08a05f00518febd5abff5d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC UI/PSRR_PMIC_UI.lvlib",
+   "bytes": 1265,
+   "sha256": "7b8e19fba109ee50a32d15e7e9fddd2c1ba0ecb3731e2271a5a2f6bad9ed9137",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC.lvproj",
+   "bytes": 33501,
+   "sha256": "38e051dae9e6a23ad0e697a32ab5d8ab826fdbc0039c92606b816d0e4e045503",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10289,
+   "sha256": "24344246a6d89f8cb7b3e0344332ca8a72bc2417a84a9cf22b84a42e8f111de4",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19728,
+   "sha256": "7b7520e9620bafb412af1441acc111e03f6fbe38ebf27c9d805bf85fd1916468",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 19943,
+   "sha256": "5696e4b1402d577aaf52b3636aa2bfcfac765f25890495dab0104a9437116695",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 79021,
+   "sha256": "363cc03f28ac723057d26e4b0267f170eacc2ef8f6db5eb06a6d241e4137a59d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 79719,
+   "sha256": "a3629db801b012e08ede34c967384c0eeda1d6174a7587540d5fb005961dea79",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/BuiltUI/PSRR_PMIC_UI.lvlibp",
+   "bytes": 27648,
+   "sha256": "6d678ea3fdd311b50d002cdef0eb6223c37d44389b529216f7e2c88adf542c00",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Get Measurement Details.vi",
+   "bytes": 14947,
+   "sha256": "2b5c389101c6f5770d94eb086f0ff8213a658dc8d3b41deff9eb2171fc44e661",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Get Type Specializations.vi",
+   "bytes": 16148,
+   "sha256": "892318d1bbc8c40a31c18979b5be459b184d0cbd31f8b2100b000759c25dd142",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Get UI Details.vi",
+   "bytes": 12950,
+   "sha256": "682b3efc2019307fb673b3b19a8205911425ea4baaecec3dd7e255371da46273",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Measurement Configuration.ctl",
+   "bytes": 11610,
+   "sha256": "4e6ecc57c0ae52fb43e09e2cd2c7f1f13ef51f7dec46b1711c70c84c354c86ac",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Measurement Logic.vi",
+   "bytes": 53701,
+   "sha256": "fe2494d04d26708046a507a0c4202342f5d1b689e2a69b5b0ea72ec83fc21f1f",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Measurement Results.ctl",
+   "bytes": 8596,
+   "sha256": "4a45a2e3da261df475c14191706161fe669f4b42d38df88f4b69fd01dafca8df",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/PSRR_PMIC.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/psrr/PSRR_PMIC/Run Service.vi",
+   "bytes": 12135,
+   "sha256": "9b5dc81f07926b0840eeae27c87031e7a44d71e835d1711703a8b4df8dada4dc",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC UI/Measurement UI.vi",
+   "bytes": 25486,
+   "sha256": "1979bb07b8177c52e27d225e91732d879abc821d9d80d99aae692187b1cb04f0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC UI/Quiescent Current_PMIC_UI.lvlib",
+   "bytes": 1257,
+   "sha256": "456abe33b4a912b862caa624763b23f50768abef85169b8a0e6bc1237b056a65",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC.lvproj",
+   "bytes": 28088,
+   "sha256": "9a88b4e674ebe1a77fd1bdeed5c54d9357ed3ee14532132b0957a23e18220b48",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10369,
+   "sha256": "0be113156853588a9aecd341a0540b2ceb71c1a049af920b4f5c9635b8e948ec",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19840,
+   "sha256": "a04bae3badeed7735dab09258c9c627df4bd1b6669f5e8371e263a7fd21c4358",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20281,
+   "sha256": "103efa690f1da8f1ad7229c9f97fe74e673bc52478c99c0b08bed6ed78a33b4b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 75541,
+   "sha256": "77fe0ae45d0d221f255b8dc942cee18fb8fc7ae59ed4e393354272ca0fca3c31",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 75371,
+   "sha256": "93c727131597e0beb1df0d3b9ca7e3b5ca8ce3fb73f902558f061b2053f76bbe",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/BuiltUI/Quiescent Current_PMIC_UI.lvlibp",
+   "bytes": 24576,
+   "sha256": "dbebe82aec7097e0e1e19edd8dbadb9f8c924ff3dc0ba595e57e0afc765dba4e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Get Measurement Details.vi",
+   "bytes": 18275,
+   "sha256": "6312d596b149ebd046761da70d46bec2b57aad1cabafc6f62d86db6d002f0a26",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Get Type Specializations.vi",
+   "bytes": 16224,
+   "sha256": "5d0648676734057e5a3c0fc2c5f323dc73f1db4fcb9ae59935e498d331f23eed",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Get UI Details.vi",
+   "bytes": 13002,
+   "sha256": "6fb64b4c9a169b833470a2d9223bd9c12c640e978a779f28f017f3b63d81d8b6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Measurement Configuration.ctl",
+   "bytes": 9102,
+   "sha256": "ac690f53dca128eaef8a64951453a1178cb60516b5c387bafe7a38021853dab6",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Measurement Logic.vi",
+   "bytes": 34849,
+   "sha256": "05844988a023841c0426b367fb3a766127fdf6c550db08ffc8cbb530fbe7296c",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Measurement Results.ctl",
+   "bytes": 9004,
+   "sha256": "718d3cb6c21d9352a55031ff12b3bf1fdcc025aade14c127fc63b8ec633c897b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Quiescent Current_PMIC.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/quiescent current/Quiescent Current_PMIC/Run Service.vi",
+   "bytes": 12179,
+   "sha256": "ed69722f129bd5f5ba96ca4553e39a0dd4bd02e99a1e772a4540adabb9a4a232",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC.lvproj",
+   "bytes": 37467,
+   "sha256": "c5649d9d37871e97fe92778b687957d9ed4039989c984f22a66b5a26a3330b04",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 10341,
+   "sha256": "9c22f23e21f8afe1ef919570e5e57f6fdd8089abae3c68650b4adc0c4e51328a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 19800,
+   "sha256": "8aa9b2bef3e66a5c91ad7209a4cff82ce90b29e8af7d1f125b417b54b3b104ed",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Advanced/Measurement Plugin.lvclass",
+   "bytes": 20383,
+   "sha256": "215e4c16e38c2ff54d498abe7b76b44de5436db7ad320b03e5d14d3205474704",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 78629,
+   "sha256": "a9ab866a2725914e708b54af17b6c4fa665c656a6c644a1c8d2a9dbbaf50c3ae",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 80515,
+   "sha256": "0b593971c9d8bb71d2739bbcd9aaf204a036e1ab0ed141dc75a7bbcbf049019f",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/BuiltUI/Ramp-Up Time_PMIC_UI.lvlibp",
+   "bytes": 44544,
+   "sha256": "3b269c06cfd4e419be64254a940b817929fa0640f070ed266db5ef67ce1adf4d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Get Measurement Details.vi",
+   "bytes": 18335,
+   "sha256": "79754cf4e00d46cc1fe714926d0f8e1760f9550ba6ae80a6935a6be6034d4530",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Get Type Specializations.vi",
+   "bytes": 19512,
+   "sha256": "b8722f6863bcccbc2b89ee7f3ddef9c62c37851165daea782cb762cddcd0c39b",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Get UI Details.vi",
+   "bytes": 19570,
+   "sha256": "b5513fbffa353bd2e535ef584cad3e7af2d911632d19fcfc4d9f4afef94c7525",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Measurement Configuration.ctl",
+   "bytes": 15750,
+   "sha256": "92518a3e0b4bebb3877b1bb7a80d6abd944d74e7a7a5867f944121be608b2e57",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Measurement Logic.vi",
+   "bytes": 83689,
+   "sha256": "18d0f52c7a2690e81363b721c2aefd1d67069c651418199c93dac09fc6455abb",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Measurement Results.ctl",
+   "bytes": 12800,
+   "sha256": "216e5784ac492765808ba4a8ea06b16b9a47d0875aaae18a793ae093c5f36171",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Ramp-Up Time_PMIC.lvlib",
+   "bytes": 2069,
+   "sha256": "98f6a842a7ffb06e2c3c7163b17f001f2d02eb8938eb9936f6843cecbdac2ff0",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC/Run Service.vi",
+   "bytes": 13747,
+   "sha256": "6eb94efafc5342790acc70747b94ec3bb6f76ba14ec0f459f24ef0c2ea4e4d1e",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC_UI/Measurement UI.vi",
+   "bytes": 49286,
+   "sha256": "51b7e6f3a9edd9b654d459ec9e75540f4a01b2397d70db9127bc217473eb7e71",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ramp-up time/Ramp-Up Time_PMIC_UI/Ramp-Up Time_PMIC_UI.lvlib",
+   "bytes": 1263,
+   "sha256": "6e1c339eefa713d8f8bd65db218129d7ebddad16295a722f13d843e184e7ca05",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC.lvproj",
+   "bytes": 27748,
+   "sha256": "28e6ca7492c70ac3006bdbeb103b05cf52cf63236a1691ba01b91ff7f7470383",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Advanced/Build Assets/Post-Build Action.vi",
+   "bytes": 9897,
+   "sha256": "76dfe01b704e19e3101d61805f798fc4f3ecd44953991cd9deed72853fbc3305",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Advanced/Get Plugin Paths.vi",
+   "bytes": 18868,
+   "sha256": "a6ba023d9c2006c2f9f10b5d631ba9a91218cff5ef5f58986f84f72943160348",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Advanced/MeasurementPlugin.lvclass",
+   "bytes": 19040,
+   "sha256": "3c6701debe0986e82ddba4d1efbc979df6d698c046cb97a8eca63529922c025d",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Advanced/Pack for gRPC.vi",
+   "bytes": 78921,
+   "sha256": "b5308181ab2411b28a6ade27d526f215a6256ba7e31c4948f07b07d05a583496",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Advanced/Unpack for gRPC.vi",
+   "bytes": 79479,
+   "sha256": "e587cc06fbd56065dbdb7489ec2c103160ede8c0e673e12b06196d401bbd1b56",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Get Measurement Details.vi",
+   "bytes": 14223,
+   "sha256": "3c9060857c04048116d9ca25d55aa58ca8654fda4585bab0514ee686c08d600a",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Get Type Specializations.vi",
+   "bytes": 15600,
+   "sha256": "2df184f03075ac5d3db67a29dd34b2fe821ea2c8e871a2d22791e03a8501eedd",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Get UI Details.vi",
+   "bytes": 12702,
+   "sha256": "8d4f5f006c0e96b23a6832d4327a8dc7249783e333dc0fe27a62d7ab32792cfe",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Measurement Configuration.ctl",
+   "bytes": 10086,
+   "sha256": "d9388bbfb11dbc1f69b9797d29108222cbd21a0ef6f52acff61e8823f21ba3e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Measurement Logic.vi",
+   "bytes": 72217,
+   "sha256": "d8487b38bc18c4bd42374e75e917534aae531f156564a3e2c5dd21c0c6953ed5",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Measurement Results.ctl",
+   "bytes": 9404,
+   "sha256": "26937ea7074ed42f2373aba85e5cb25c4320a6980476f5abd8b2175e1599ad71",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Measurement UI.vi",
+   "bytes": 87026,
+   "sha256": "0e755a1aff0c8dcdd12a2fcb3fe8cd43992eb6e3647a115c337241ed77b0ebda",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Ripple_PMIC.lvlib",
+   "bytes": 2138,
+   "sha256": "4e60beb1edc591f41f820fc93574985c22c7b7bdeed9ec69655b7b5c0400e204",
+   "via": "extension"
+  },
+  {
+   "path": "source/measurements/ripple/Ripple_PMIC/Run Service.vi",
+   "bytes": 11971,
+   "sha256": "e22d7b51f716fda866c326e0c70ae5ffeef08213f78d93c24f33178667b3994e",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Acquire constant samples.vi",
+   "bytes": 36610,
+   "sha256": "efc31b9b0ee5a89c4503d5b4ebf951c7b5bae624768eaad8ab8c6330ec529d68",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Build Trigger Terminal.vi",
+   "bytes": 13562,
+   "sha256": "ccc9cd918be3d8a70541c3cba522ec37b9b2963fecd193acd1fe098244011fcd",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Current Limit.vi",
+   "bytes": 10879,
+   "sha256": "676b27b943a2e9190f44b4b33d2ebc37bc0f22b760f415eea784c8989c15ac2f",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Current or Voltage Values from Slew Rate.vi",
+   "bytes": 10722,
+   "sha256": "9bc0b96dfc35283361489861d48bfcd3f8c7e8178a81a4e2de6d738488205746",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Current or Voltage Values, Source Delays and Time to Acquire.vi",
+   "bytes": 17046,
+   "sha256": "86f8a754cbae5994a0f27270dea448fc009d9b57735ad781a6ffb3e6b307a744",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Linear Sweep.vi",
+   "bytes": 13238,
+   "sha256": "38b8c2f3e2af09325fef49ea488af7690cc4e915d2dfb493807b2cc652761b21",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Sweep Values.vi",
+   "bytes": 20230,
+   "sha256": "d124d673e5990efcf03778fa13d115c9268609e67d27d06232bf4a9f539b24df",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Time to Achieve Slew Rate.vi",
+   "bytes": 8051,
+   "sha256": "441cee0cb88df1885183f59900e12546188c515fd80a7146c582b5e63b5a4599",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate Voltage Deviation.vi",
+   "bytes": 11651,
+   "sha256": "cf519a25eae670dd42b1485762319af881295175bec9cecfc15d5d30cbc9fb23",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Calculate psrr.vi",
+   "bytes": 19920,
+   "sha256": "816af6d0fe186301e571206c19cb99a1c5f3739e8ede0b36e6fbb53427a4584b",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Common/Start and Wait for Event.vi",
+   "bytes": 40116,
+   "sha256": "064caf74f0df7309eb46433d8913c0e7caf4c0ec6fb4e79a1e58c5e7a7f2858a",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Common/check Resource Array-Eload.vi",
+   "bytes": 26830,
+   "sha256": "e2ce7a3ccd54821f02519d9a55cfa32afd5456cbcdb6afc3d56a68a6df3d2799",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Common/check Resource Array-PPS.vi",
+   "bytes": 18580,
+   "sha256": "ee234a25a4952b8d0e6f68cbc22b347f085b734eacd6f1cb1a274d3b610083ee",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Common/controls/Start and Wait for Event.ctl",
+   "bytes": 17777,
+   "sha256": "296dc6cfd242553f3654c29f6b96de112af611d894c115da97a9dda31343ebbd",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Abort Sequence Source-Ganging.vi",
+   "bytes": 21617,
+   "sha256": "811082b5325f8a16bd8a64faa39a864625a5e1ce8d4f7a72745ca15cb51b47bf",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Abort Sequence-Load Ganging.vi",
+   "bytes": 21955,
+   "sha256": "feb57cfb27c0c3ec1fe03d045864ae0cd5b37ce89e2cc368d386f239a3d5625a",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Abort Single Point Load-Ganging.vi",
+   "bytes": 20795,
+   "sha256": "c982baef741e0be1643a7c47c7cce37ba394a8dfd8cc436612d2b175b45c45e8",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Abort Single Point Source-Ganging.vi",
+   "bytes": 20449,
+   "sha256": "fb03d432f382a596704ecd1d40dd93a97bbbac4e31a73d0330de317d2c39f84b",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Configure Load to Sequence-Ganging.vi",
+   "bytes": 80934,
+   "sha256": "bc3a327dd2b16cda671fff3cdcaa12ef24617518f6b865fe8bcdd34159ea1a5e",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Configure Source to Sequence-Ganging.vi",
+   "bytes": 75284,
+   "sha256": "c7584e25b8830171b1ba5cb398de29ca26ecfc366317ab293ec24f85ceb5511d",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Initialize Resource Config-Ganging.vi",
+   "bytes": 84646,
+   "sha256": "c93ed187b575b5ef89e2927f389dc29ba0f8db44dcc513110e188fd7b36080e2",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Power OFF-Ganging.vi",
+   "bytes": 35569,
+   "sha256": "c40db5ba7fe530fae1339de3a84223dd22f23fa89a2815736531b5f91aae67e3",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/Power ON-Ganging.vi",
+   "bytes": 50568,
+   "sha256": "c1ed5dd1126fdfd3f6282ee3ae70877107c887478200f29a83d2ebff98aebb68",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Abort Sequence-Ganging.ctl",
+   "bytes": 12055,
+   "sha256": "0fad93373f04c2ae3616540599fd3aa8d9e04ebc006b5fb0e0a9ceaac14e459d",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Abort Single Point-Ganging.ctl",
+   "bytes": 11879,
+   "sha256": "a6db22958a13948c79f70950ef9072fb48e138750e3ac471fd059c697e83d764",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Initialize Resource Config-Ganging.ctl",
+   "bytes": 11707,
+   "sha256": "43bfd940b6b4e3870b0762c049e761a534c82605b0a5a3d83dc88caeecf35a27",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Load to Sequence Config-Ganging.ctl",
+   "bytes": 14020,
+   "sha256": "42f81bea71261304a95380656d47afe55fd25362e6d40023debe8c0bbe49c294",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Power ON-Ganging.ctl",
+   "bytes": 10625,
+   "sha256": "c63bef74ab3f5a4c16caef1a457155951d008c19132d634310926e86566c803e",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Ganging/controls/Source to Sequence Config-Ganging.ctl",
+   "bytes": 13702,
+   "sha256": "81ce8a60b74a9818aeb44aff1082a423e59943b093bdcde11dd0b84269fe7cdb",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/SMU Utility Function.vi",
+   "bytes": 38088,
+   "sha256": "542e0b0101f75d42f6b693ce524482577bde949652d4321299b26948b6925287",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Abort Sequence Load-Single.vi",
+   "bytes": 19230,
+   "sha256": "41c1b4f55d7cec6de42b66dfecae746f3cbc15169f90834d9cdd35001c646df8",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Abort Sequence Source-Single.vi",
+   "bytes": 19232,
+   "sha256": "f2f818bc1133a645e824d0f7c1673066b6311d1fd577b8946131eb604d0285ed",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Abort Single Point Load-Single.vi",
+   "bytes": 18542,
+   "sha256": "6b382f083777db8d1016d38967cab684f5f48fd522ebe5146af1768ba3a23797",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Abort Single Point Source-Single.vi",
+   "bytes": 18200,
+   "sha256": "4a1048fec4b26609093da11d47a9fed6898da5a08b0e0dfc0c2a72cd85c9ad9f",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Configure Load to Sequence-Single.vi",
+   "bytes": 32689,
+   "sha256": "f5c3998dbb50f7ede211d4fd942f4e15b36f72e2001669b118e789bd0b9ee92d",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Configure Source to Sequence-Single.vi",
+   "bytes": 27435,
+   "sha256": "d9e73a9c8cdfed33ce5cd816466fa2c5ba3480e96f4e6f08af27c7f523d691a1",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Initialize Resource Config-Single.vi",
+   "bytes": 45009,
+   "sha256": "c66b71b4ccbc60389abc8e43e44e625b6ed48ba67546f644854574ac3610627f",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Power OFF-Single.vi",
+   "bytes": 14312,
+   "sha256": "9eb7cb4a5fe6f3b9558afb0b437c9128b108ce73ff32f90ca982a565b3f0ccac",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/Power ON-Single.vi",
+   "bytes": 33067,
+   "sha256": "0518aa340a6c94354b1d95bf601c49210647886515311fd0d060b76f8962bb28",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Abort Sequence-Single.ctl",
+   "bytes": 9074,
+   "sha256": "e11e8f9d4cd87574cfbbd4d12c7debab4fee6e11faaf178ca4f63b0ccf093a7c",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Abort Single Point-Single.ctl",
+   "bytes": 8958,
+   "sha256": "f9f189f9a46c802f83f684a8d5c141f6c6f47f2d9533d3f0e9cadd936cc2e801",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Initialize Resource Config-Single.ctl",
+   "bytes": 10714,
+   "sha256": "81af7915485ad6b60597b0c018639338e530622ce8faacc1f190ce87c6a120e6",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Load to Sequence Config-Single.ctl",
+   "bytes": 11367,
+   "sha256": "16ac7b5e830c47bbbb66fd80b6ae1ec505d71913b4dc8c951fe76d58ca1af2e0",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Power ON-Single.ctl",
+   "bytes": 9276,
+   "sha256": "8b598b896f5eb2bb5a4ebd7857a724f54c7e21c8ee9719c54a1cdea9dba74dee",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/Single/controls/Source to Sequence Config-Single.ctl",
+   "bytes": 11136,
+   "sha256": "20f56ad49c003cded9484c6b4df52ab4474659ba73e8b3a28fd89de888b11183",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/controls/Multiple SourceAdapt Parameters.ctl",
+   "bytes": 8207,
+   "sha256": "a54a17aec81f9c8511ead8840cb87a056da1bc4caaa07b503988773117db208d",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/controls/Power_on_off_ctrl.ctl",
+   "bytes": 4362,
+   "sha256": "0ff00086132eb83539ebb339b947ec31dfbbfc7d4fb40b4f9a45bf3e6a1631cd",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/controls/SourceAdapt Parameters.ctl",
+   "bytes": 6791,
+   "sha256": "ffe69525519c14f9dea72c3b6c22ef49a267a30280344c741934fa1274e63f5a",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/controls/view.ctl",
+   "bytes": 13089,
+   "sha256": "d075367a16c43d3a2ad5c1ed4efbbfb750cd52f61cf5dd94f16a3c13f3b1b368",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/dialogs/Custom Transient Response for Setpoints.vi",
+   "bytes": 34771,
+   "sha256": "9bfc1d91a5a0897f6a180b7f825f5bc9f6780b17ff069aeee5c90f3d090a158c",
+   "via": "extension"
+  },
+  {
+   "path": "source/shared/UI/dialogs/Custom Transient Response for Sweep & Single Point.vi",
+   "bytes": 22886,
+   "sha256": "481580839ced4f42875cd2ddf71e79dc727478bf085a14f540316956f592ec0e",
+   "via": "extension"
+  },
+  {
+   "path": "source/utility/Current slew rate.vi",
+   "bytes": 97325,
+   "sha256": "bb222c86c8607c8d8565056eea4fe15e2e0dcc19137c606e266b194373f4cd65",
+   "via": "extension"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "bytes": 72,
+   "sha256": "94b1f23f72346194a02c01a6de7d7aec2e85e19331703bd9e0048446df21a362",
+   "via": "tree"
+  },
+  {
+   "path": ".github/PULL_REQUEST_TEMPLATE.md",
+   "bytes": 352,
+   "sha256": "0139209365b5c76e6c9126a902a4f4280708f8bdf686d37685a3fa503f3b0907",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 191,
+   "sha256": "b4031bbe872e536604e4d21c6e9fa9ac2ed91e7dc579da70d34be356a14545f6",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 2600,
+   "sha256": "d6ee40f85a238822c87c5125d28c56b1c83cb6f10f82ba025235c04b5836acae",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1071,
+   "sha256": "b97f1b89ab386a24388eac18238af18f70b997f06a8f8652a2e70cad892c4147",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 3071,
+   "sha256": "4744cc953608cfd870252a8de9898eca435a178ec7a017b8eacfbfd32dd0e965",
+   "via": "tree"
+  },
+  {
+   "path": "SECURITY.md",
+   "bytes": 1312,
+   "sha256": "c3c34cacd2f1f76e9c299372d8b9cf3fbe6da13340cc1eb9721762a521c80a69",
+   "via": "tree"
+  },
+  {
+   "path": "docs/build-plugin.md",
+   "bytes": 2882,
+   "sha256": "6e296ae881d171a10321bb8860655149f91fae1e23bc2de6c95a27be2212d0b3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/channel-ganging-help.md",
+   "bytes": 2267,
+   "sha256": "e7e503fe03e364189387bd1ac6140f88a47768300a311b56e6d81b564b2fe8dd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/current-slew-rate.md",
+   "bytes": 2949,
+   "sha256": "3e02b3a2e2c41f8b9d9d68a49929b9aeebe6bf5f962abb19353adb950ebb7162",
+   "via": "tree"
+  },
+  {
+   "path": "docs/help.md",
+   "bytes": 4251,
+   "sha256": "30e90bd850f88ee35b41827f48a73a623f6b40121cdece2ca6e5299699c3d3fe",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/add-dependencies.png",
+   "bytes": 396047,
+   "sha256": "d8624ce3c9bfc166227f2f1e3d88410bac1f70b3a23e9594fbc44b4816f4da93",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/build-folder-with-all-meas.png",
+   "bytes": 105225,
+   "sha256": "418797c8c0d5fa8d7e6ed7fd57da108efc1b521c53fe59d3cd958b3cbd2b3f0c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/build-folder.png",
+   "bytes": 91043,
+   "sha256": "f180de839e6e2361fdbc06f997da9545bbdff18a82cb72cf0fba313a44ce2a1f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/build-measurement-exe.png",
+   "bytes": 376158,
+   "sha256": "be4c59237533b1949b1e06c3a765ef54669347a3779e727c09c7ed5e80dfedbc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/built-package.png",
+   "bytes": 105426,
+   "sha256": "666865b645a65e18648f65d4aff231a0cf2098febbe4512476d62d77c85bf5f2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/current-slew-rate-custom-transient.png",
+   "bytes": 69570,
+   "sha256": "bd471df8746b17e07fd1ce06f5179cea3fe2611daeb36d76b44ba8a734bc378b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/current-slew-rate-hw-setup.png",
+   "bytes": 53690,
+   "sha256": "cf4c65a92e49a673cbd723fbc613a83a817f75f7a9cb806b9ba660dc3a1cae7e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/current-slew-rate-scope-results.png",
+   "bytes": 827510,
+   "sha256": "60e200eddfd297b99be399f7835c409ab9599d47b26f36d5f620cf0dd7d1e71a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/custom-transient-array-size.png",
+   "bytes": 520772,
+   "sha256": "87aea0ae475b53eab9e6258a49c9c5912e598d89364f4f8a30b672f484d65b34",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/custom-transient-response-array-size.png",
+   "bytes": 877469,
+   "sha256": "e74e7e76a8c9f179505fd0e4a9c476202f6b594822e43f4b8247abf0e580b1fa",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/custom-transient-response-button.png",
+   "bytes": 30630,
+   "sha256": "5a77b3287853a6492cddeb33b01ed21c25379850c9a8cf110dc63d823749fcbb",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/custom-transient-response-dialog-close.png",
+   "bytes": 219959,
+   "sha256": "2028eaf1dc35f3d1f2316346b7fc565225394a81e6d2dbefaebb5902c673e2b2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/custom-transient-response-dialog.png",
+   "bytes": 189634,
+   "sha256": "985ae10a09379c5e8a10f59deee641ecd3d6d2201327d42f34426b0fe8490fb4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-copy-meas-config.png",
+   "bytes": 659972,
+   "sha256": "98160b0c94152878f74e13987b1afb37be7bf1e5f4d333d1bcd85886646aaf7b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-eff-and-lr-panel.png",
+   "bytes": 59633,
+   "sha256": "c63fb3f6c066feb6fbe72e788d30f67d20ea43a29ae707c83b46525e20840dda",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-manual-layout-channel-ganging.png",
+   "bytes": 553635,
+   "sha256": "5e025dd65c2a68fbe436b2dd2a879335fd035f0710bc23dec044d35b6cf75290",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-manual-layout.png",
+   "bytes": 517720,
+   "sha256": "6ebbc85188da5878bd502c3d8feccca002214ae6e7ff2fc25f12134da15c9b22",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-meas-config-copied.png",
+   "bytes": 663430,
+   "sha256": "aad0957440dc351f45a7c48af7d540d934b05bd9ef47edcf6a94a357302bd58e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-open-is.png",
+   "bytes": 410448,
+   "sha256": "e234376abed94ae31318b3c24e05382187f3e71ef3e8cad6e4e5cc9405812aeb",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/instr-studio-single-point-panel.png",
+   "bytes": 62432,
+   "sha256": "b44541bf29c6856f695772de0b64aef19f47dc865894cc6a69966b5c5d6fe10c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/meas-exe-folder.png",
+   "bytes": 162612,
+   "sha256": "3dabd0a466ba4ce5e67fa39dd3f8c9056e13ab043bdee488afa4dd3bca51d47d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/meas-lvproj.png",
+   "bytes": 338032,
+   "sha256": "e919a69b5913b8c962bb4707b4ded5c7e4fa6d4b9a894a0248f08efb90067d47",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/multiple-custom-transient-response-dialog.png",
+   "bytes": 215178,
+   "sha256": "20d448b9b49e9b459a31a3fc79241ceb23c7704e1f7c0a96b1013ea4fe9740b5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/nipb-build-solution.png",
+   "bytes": 723304,
+   "sha256": "a014aa457979c113c794955b777c7ab57c45562a9d88d6298519a909e1b82d31",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/nipb-destinations.png",
+   "bytes": 905047,
+   "sha256": "ef76f5ae1f6dc1d8690fd6a3f9fd08dcd94705cf6cbdfea60c1399bea827f086",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/nipb-inputs-tab.png",
+   "bytes": 721896,
+   "sha256": "ef09aef59fdbd3986869e18a63b95b5a74acaa2e83ee07b81068b0ab092c8693",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/nipb-package-properties.png",
+   "bytes": 896551,
+   "sha256": "6b62ef2b1af7e3396f14c4fc741f39b6ed9e323e328ced901b87893bfaf2e8f0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/nipm-package-file.png",
+   "bytes": 107604,
+   "sha256": "6eb1712d494cdb17b9f1d5cf2f7c64b8e8eb366f944153236a5b340c6798d485",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/package-folder.png",
+   "bytes": 91856,
+   "sha256": "cf4a597b849dc89e42b0240129919e87ddfb00f995c70bdd533215988704dbc7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/perform-meas-efficiency.png",
+   "bytes": 64952,
+   "sha256": "8d54e6a618da4e21e878f288c669ca3099bfcc52bc13c604dd830b66cac325b0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/power-off-config.png",
+   "bytes": 45016,
+   "sha256": "009b2258c8623105df1b23ad31c0b7b0aae86aad6ebe6ec0b1792b55cbef9662",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/power-off-status.png",
+   "bytes": 46165,
+   "sha256": "70831a4d1c5d1616c13350fd771842c692ce94850048deba9a1adf953146aed9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/power-on-config.png",
+   "bytes": 45882,
+   "sha256": "74c1041761e4141651b12fa58acd2c7f9c01538e8030722e54067eea31dff5ba",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/power-on-status.png",
+   "bytes": 49103,
+   "sha256": "f979922a03b9c5841a70b0fa7d6a3f84c73adacc4a7c58d7e356f07c0158d747",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/ramp-up-time-config.png",
+   "bytes": 555428,
+   "sha256": "2b900e38a41587038edfb57421964f371f16936c24d123bbec238ad18d415123",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/ramp-up-time-hw-setup.png",
+   "bytes": 59522,
+   "sha256": "99f97edc97dcf9388af7dae459d562b419e3a6133984b99f32a72304543ef6e9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/ramp-up-time-meas-results.png",
+   "bytes": 613276,
+   "sha256": "705a31055818885b2d973c66aa3b8a1e22ac73f277c635f9b823c6a50c8b8ed1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/sdc-panel.png",
+   "bytes": 75934,
+   "sha256": "45debdac7fd5e4c5b428755cfcaabc7f16d722b07b9715a82c3aa3aa5c25cafd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/single-custom-transient-response-dialog.png",
+   "bytes": 249594,
+   "sha256": "fa27e6b65b105215841782d152ebcee37500bfec70614e37f32172ed35adc092",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/teststand-open-seq.png",
+   "bytes": 820299,
+   "sha256": "ef3f995a9f5cd26ee610200eb1aa4f81b2f184f1d783105adc2b2901f1e2c760",
+   "via": "tree"
+  },
+  {
+   "path": "docs/images/teststand-pass-seq.png",
+   "bytes": 614287,
+   "sha256": "40ff9649831bf794c476b28b2cb5a8551a8359fe977fbb1fe6f42612a8088d20",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/LED Driver/LED-PWMDimming.md",
+   "bytes": 4004,
+   "sha256": "8562101e2ef2a10dea38095bf4205e5de7f1d097d54fc9e78f3a3cf5ca780c78",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/LED Driver/LED-ShortCircuit.md",
+   "bytes": 2374,
+   "sha256": "e8e7128cc774ba31187a3a645a3b3481a048de9c851127cf7e81b599af52f535",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/LED Driver/LED-Start-up.md",
+   "bytes": 2812,
+   "sha256": "75a5fb1f024427f63b86dc5c60e894a966eddd47056a845b7ef06a83335959fa",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/arbitrary-mode.md",
+   "bytes": 2416,
+   "sha256": "edf4ef57303826a6516660841d20b02889973c772d5862780839dfaea7b1b4a8",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/efficiency-and-load-regulation.md",
+   "bytes": 4269,
+   "sha256": "f740b7fa99a715b46e42ffc95627f97d01ae02a0bb2a4c28ca1e139e4a651b09",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/line-regulation.md",
+   "bytes": 1045,
+   "sha256": "6baf60f778c79a7d753cb952d89ab358d07962029438de63a56bc4dd14e9d610",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/line-transient.md",
+   "bytes": 1280,
+   "sha256": "0ec50dfc83a0793aa35c16850b4dad04172899fc268702f44f47c5e1685df330",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/load-transient.md",
+   "bytes": 958,
+   "sha256": "b29900d0591701d69cead75bb68c15f5608ef1de6ad2a576f462513e6617f457",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/q-current.md",
+   "bytes": 890,
+   "sha256": "5cafa21f0e3bea35add649bad38348e0df52907f450ad8c06d6d6a14321ddcb8",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/single-point.md",
+   "bytes": 1912,
+   "sha256": "0ed9ca7221e266358165f6358affe5d2d0724f906f39f31aed2a96a875c35050",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/sweep.md",
+   "bytes": 5973,
+   "sha256": "0e7dadeeaa0a77c633ea00883d2895d06a69b3cfec9bd892f75f9872e8dedaec",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/channel ganging/waveform-mode.md",
+   "bytes": 2147,
+   "sha256": "da7e51ae17ca250bdcb66484ba442bff729d32069e202db99d3e00ca90aa4947",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/common/IS-continuous-run.md",
+   "bytes": 790,
+   "sha256": "8bfb2c233d820ebdb08a58bfdb5bce4371aa7846b1e0327eb2e56db099192bef",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/common/parameters-def.md",
+   "bytes": 12202,
+   "sha256": "5c54a1aae9b5e589e4885a272b80a164de5e70666be1b4739422bae13b74589b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/efficiency-and-load-regulation.md",
+   "bytes": 787,
+   "sha256": "342e7827b29e93ada6b6135334c768e0dd0cdbb3c66a20ce2673976846f26a32",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/line-regulation.md",
+   "bytes": 648,
+   "sha256": "5b479217685559c947850ec0b1f51ce3f2574f3d15144f2b957be4e0b8b92c19",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/line-transient-response.md",
+   "bytes": 1032,
+   "sha256": "f6fb5227c21bd7dcaa21672c621ea602a8cb57d00bf98879ea1d39d0a633c72b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/load-transient-response.md",
+   "bytes": 1232,
+   "sha256": "32fecf9d770eda882cca136370de3df565f973e0f971b37d52c7fa785d12b4c1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/eff-ganged-ganged.png",
+   "bytes": 104836,
+   "sha256": "7a43e95edf6b0234764a297a284b4c97cdec2616ce5c03f55116560628664138",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/eff-ganged-single.png",
+   "bytes": 107564,
+   "sha256": "69c2ef7f1ad1d73bd2fa1a87dd5742b3b00a1842ed4654f723ed95c83b3e20ca",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/eff-single-ganged.png",
+   "bytes": 110176,
+   "sha256": "e20ef0ff80fcf0b3a2d01ce0839a26fb4f1c2a98975f6f1888acae864be82d5f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/eff-single-single.png",
+   "bytes": 104015,
+   "sha256": "69d440b3dec61beb4ccb983451059c0e679d5fbea530cdbd04bb97f975cc5812",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/ganged-ganged-dut-hw-setup.png",
+   "bytes": 25750,
+   "sha256": "0f8933a66296c29b9c50ec70745bf8187f09f9c91f92f3731d4f2f9dae0f26ad",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/ganged-ganged-power-off.png",
+   "bytes": 85278,
+   "sha256": "d2ef9dda478c72fd416cf1154dd2ea52afacd5ef63f5f2301afd9bcd3e9418fd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/ganged-single-dut-hw-setup.png",
+   "bytes": 25560,
+   "sha256": "a8e192f89db9d651ada028e214fe53aeb0355f01b7a3a4848dc3c24d77b378a5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/ganged-single-power-off.png",
+   "bytes": 84539,
+   "sha256": "a76d0ed4c0553dfec4331eace12d1103a31e4fa7d742899d96395b09ce018413",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/ganged-source-power-on.png",
+   "bytes": 89880,
+   "sha256": "ed8a8b9f6791d937c34c8e5c839cb2bbbdc70c79bce99246737053e037a368f1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/is-panel-efficiency-meas.png",
+   "bytes": 193141,
+   "sha256": "fd89338aab2eefe161cab585968e516decea45c3e66789c8d42d2311b42ff1cb",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-percent-ganged-ganged.png",
+   "bytes": 100186,
+   "sha256": "696e809612e3cd651d0761b937c1f5bd89ff147ac8ce9b4a90c3993085d30a86",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-percent-ganged-single.png",
+   "bytes": 102257,
+   "sha256": "28678be83284b72de946777330fda8c7060deb997b241107dd7d8938219fbff1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-percent-single-ganged.png",
+   "bytes": 100312,
+   "sha256": "3f3bc035d86ca125cdb2b7f59bfc145c01b6638713b2bf90973e049d3854cb90",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-percent-single-single.png",
+   "bytes": 100977,
+   "sha256": "405856a2ef8b41c533e5734b3707bafe9a807c1e21d472b0c2b84f87e5f5d140",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-va-ganged-ganged.png",
+   "bytes": 87867,
+   "sha256": "4a2aa88510ea3adb2d91e644d75eb6e3716a273f565fbc3a1db22d718f6ac7a1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-va-ganged-single.png",
+   "bytes": 87042,
+   "sha256": "d3febf466c8bf70d52666430637265cdfe3edf0cae2b4e2580a788b6ccad63cd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-va-single-ganged.png",
+   "bytes": 87664,
+   "sha256": "eb32f3a6018739d42031182b4fa039582da27ebc100ba6f0f47970c1ffd57a23",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/lr-va-single-single.png",
+   "bytes": 87022,
+   "sha256": "cbe3ac9b778763e4f719d98a0b006b88fbc9b1434363c186fa9cc03727177d64",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/single-ganged-dut-hw-setup.png",
+   "bytes": 24854,
+   "sha256": "f85530711c43eba7c09ca6af114246e564bf7e8e1d2c6d016647c0560f101ec2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/single-ganged-power-off.png",
+   "bytes": 84928,
+   "sha256": "e88fb23b3016978955b2c4d6259bd240945745f1b670d41ae20b70e2d025079c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/single-single-dut-hw-setup.png",
+   "bytes": 24065,
+   "sha256": "46550630a61b5a7261990acac61bcd4fd863cb415d038d28c7f4d86df3597c24",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/single-single-power-off.png",
+   "bytes": 84186,
+   "sha256": "a4593ae341f8a121667849ffed104b363cd22e020490df1e8d1d1a16c2c58cd3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Efficiency_Meas_Images/single-source-power-on.png",
+   "bytes": 89630,
+   "sha256": "a3fed82fd2418eb33af1de79fed402aa01da7a2137bd42030bfff4a44ca49a19",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-AWG-config.png",
+   "bytes": 61788,
+   "sha256": "43d107121743b32ee870565f548449ae164a507c6e451ae455b1a40f67c2a2c0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-HW-Setup.png",
+   "bytes": 232838,
+   "sha256": "0a6349aab5760b6bd511e66eb63571aa8fccd450656f19aa5c63d8de9eeaf9cc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-load-config-92200D1.png",
+   "bytes": 71403,
+   "sha256": "09fd13614477f7c436a11effe6e008ac4d079a733f2f261e0c08ef052b79298d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-load-config-92621.png",
+   "bytes": 68871,
+   "sha256": "d04caefd269210733d41af73ad6907e79b6a468071b31412d568a89e044df702",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-config-single.png",
+   "bytes": 64937,
+   "sha256": "ebcfebf1329223588e2bf374ad0f67cdb10e5d520cd9018deb9645d3f3684738",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-config-sweep.png",
+   "bytes": 64229,
+   "sha256": "ba5fcb3eb3c8cb487dd96328cf7eb7de7ea7983fe35a32ec02a96cb101cdfa55",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-single-92200D1.PNG",
+   "bytes": 93528,
+   "sha256": "42513be8cc2822f2ea29ff732bd5c432898b77d8c63e36cd1bb6d28539ec38fd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-single-92621.png",
+   "bytes": 95008,
+   "sha256": "5311b954f9499ef754ba5b933bcc95dea18467365b8e0c1f90fbfb01f4740b7e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-sweep-OP-VS-IP-92200D1.png",
+   "bytes": 101649,
+   "sha256": "a6a4c49b24aeef42bf43484b8e04969521e356e124f6d5ff2d19d0d839ed3ed6",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-sweep-OP-VS-IP-92621.png",
+   "bytes": 101276,
+   "sha256": "3d10e48e4205bdda35032807f33981bd2ae240477bdd7b229190ff47a31e8080",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-sweep-waveform-92200D1.png",
+   "bytes": 97935,
+   "sha256": "63abb79fe29e56c14182878ffd07a64e0426f5b9fbdbde23e9623c805e2543f4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-meas-results-sweep-waveform-92621.png",
+   "bytes": 88159,
+   "sha256": "13d64d2e1e8a9f39e009b97239c243a62a68eb5e145639ed1e4cf9cf11d16ede",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-scope-config.png",
+   "bytes": 59848,
+   "sha256": "e4b2029fc062d3c874000eca72c71250b9d6399401581c56e4ca4e35076dd7ea",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-source-config-92200D1.PNG",
+   "bytes": 758620,
+   "sha256": "5d8c9b2cee89ea1813dfa61b27fcf269be4d07ff83217d0206287546a8ec7457",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED-PWM-source-config-92621.png",
+   "bytes": 65741,
+   "sha256": "12eaefe2442c4f991845ee8319f572abc8c3598e82045c726041de82c18ae128",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Config.png",
+   "bytes": 47285,
+   "sha256": "e3b2e4febf62e06c5a88be531bd6a347a9732e66e3185e8cf5720ca08fb42b54",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_DMM_Config.png",
+   "bytes": 50086,
+   "sha256": "e6807fe5e2662a4bd5c96df52627c5c818bb31f7f379678d4de579d3e7b0dccc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_HWSetup.png",
+   "bytes": 41957,
+   "sha256": "4300f61e2fef58ef22c14a8b91102edc2d0ab487d431b4226f557cd24303e8ce",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Load_Config.png",
+   "bytes": 53293,
+   "sha256": "565d71a866e6f39803d59c52713e03e4b6eedb62447feb4adfbc63a74a818252",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Measurement_Config.png",
+   "bytes": 49384,
+   "sha256": "7c0baf503ee74c7abc6e44f3f4d661595a6b142a991bb2d61bd5ed62a770bc73",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Measurement_Result.png",
+   "bytes": 47345,
+   "sha256": "d854ebf9e6f6d4a389b0c5b4c8de6f42f88df41ac367ac8df7c0f57c070839cc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Source_Config.png",
+   "bytes": 53113,
+   "sha256": "4ea4cb236cda367ccaeb73b27e22d3be02dbb42108c515af21e34a98783ee4af",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_SCT_Switch_Config.png",
+   "bytes": 60199,
+   "sha256": "f6f6399fb7c5b5c5bb014456462bb28b0eedeff3bbad1bc46d3aa0e929c7bd20",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_HWSetup.png",
+   "bytes": 32902,
+   "sha256": "b4c7cd5c11202965f37ceae6386b7ffa98798e6ba1262d97404882569be7d05f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_Io_gt_Imin.png",
+   "bytes": 107982,
+   "sha256": "3f4cca0fe984fc2e05877082328fe7a2b81583424874bac03939847f42f0a968",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_Io_lt_Imin.png",
+   "bytes": 109126,
+   "sha256": "38832905282fb3b1f6e614c33050734cdc6000ec0432321b23d1c68abe712d9f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_LoadConfig.png",
+   "bytes": 108832,
+   "sha256": "bf574f866e6ad6e018912954cdce0ad1bcb27b1e5594de04dc295c86e61bab4f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_MeasConfig.png",
+   "bytes": 114488,
+   "sha256": "c59a248eabaf853bd52084c54944ae78cc2c4dd23e2caee30b720a67f26eea58",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/LED_Driver/LED_Startup_SourceConfig.png",
+   "bytes": 111191,
+   "sha256": "8c16d65518ab3955f6a575791dadad21a8bab824e1255a3d124e47d850203932",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/both-enable-ganged-ganged.png",
+   "bytes": 106908,
+   "sha256": "d3d306c4673d9b0067806c6bbec35ecb4bd1ac1cb1a2b1fb52444b448f3f4522",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/both-enable-ganged-single.png",
+   "bytes": 110655,
+   "sha256": "5d3dbded7a5e7491ecd9b664961693be997538fe57276a0648e6cf2ec6e177f9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/both-enable-single-ganged.png",
+   "bytes": 108181,
+   "sha256": "8d79344227fb9a9c9f1701227e2e1d2092d34badf907ca596d1cc9bdd5ff37b1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/both-enable-single-single.png",
+   "bytes": 108586,
+   "sha256": "e412a0fd3d4d6a462dc9fc046c9b834d15987252d5862cc946946d991f7a6242",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/disable-enable-ganged-load.png",
+   "bytes": 103931,
+   "sha256": "5fc02d1ffeee6218fd09e5c52597f86a30db1c1e4da4ddfb0cdec78c0326e0d2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/disable-enable-single-load.png",
+   "bytes": 104810,
+   "sha256": "6fab03c88cc7e0b3604b890beb7787d485ae112399658c1d66071c004f19e243",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/enable-disable-ganged-source.png",
+   "bytes": 99526,
+   "sha256": "03f475ef577f547b07761621bfe79b435bd7c6ed72aef6bdc79e29ed6ddb95e2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/enable-disable-single-source.png",
+   "bytes": 98838,
+   "sha256": "5dc5be7b7a791a47d76b5960ab807de6976b3e1066fad6b093598256b40bddd0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/ganged-ganged-dut-hw-setup.png",
+   "bytes": 25750,
+   "sha256": "0f8933a66296c29b9c50ec70745bf8187f09f9c91f92f3731d4f2f9dae0f26ad",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/ganged-ganged-nodut-hw-setup.png",
+   "bytes": 19251,
+   "sha256": "7e9931b85e757d8de30246b9398be5c0503aa89bfa25d888f36ae3f5be182b5b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/ganged-single-dut-hw-setup.png",
+   "bytes": 25560,
+   "sha256": "a8e192f89db9d651ada028e214fe53aeb0355f01b7a3a4848dc3c24d77b378a5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/ganged-single-nodut-hw-setup.png",
+   "bytes": 11835,
+   "sha256": "5e58581c69ab8392395243871f3485ad5f5ff3203bcef02df967a491f7469f42",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/is-panel-sweep-meas.png",
+   "bytes": 205368,
+   "sha256": "ea79ea8feed00efd9c1fb2f1d05faf915d096ac5c51416c99c8c759fd4b8a258",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-both-enable-ganged-ganged.png",
+   "bytes": 77993,
+   "sha256": "bb26e6f07138e3d1f68a9081bf5a2f532e32e9db37b9af87c2efbe34490066b3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-both-enable-ganged-single.png",
+   "bytes": 77283,
+   "sha256": "6e21572236be96e731ac5ea6667934ea6329d68e929e79c590a3c4c7c8281edb",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-both-enable-single-ganged.png",
+   "bytes": 77546,
+   "sha256": "743147ca5251153c52bca1f573a6e0e7a132c9d2f724cd58686ad3552b976e0f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-both-enable-single-single.png",
+   "bytes": 76327,
+   "sha256": "3cb76299daa0dd425620701b6ca4f7086f95c042c6ac5b25128cd8e99c56c911",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-disable-enable-gangedload.png",
+   "bytes": 342024,
+   "sha256": "3dae27a6c351b3dfbacbd48c11d58770af5b0e23719784ec2aa5c4bbcd52a035",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-disable-enable-singleload.png",
+   "bytes": 330285,
+   "sha256": "051d3d9b19c1cb769f7351175ccec11cd2912d6fcc08f932f57671bbefc1a437",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-enable-disable-gangedsource.png",
+   "bytes": 77141,
+   "sha256": "12925111f2a3cab74185c27bcfb177dce879909091b7806b3ec3f5f721c924d2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-off-enable-disable-singlesource.png",
+   "bytes": 76694,
+   "sha256": "fad3f7ff7547a0f31a17d042dcddc38990d40940516ff3013f4379202af32610",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-on-ganged-source.png",
+   "bytes": 82347,
+   "sha256": "1a7e38af02a08e2d25c9cc5091f60f77b00fa368126fb01381c305b539f461dd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/power-on-single-source.png",
+   "bytes": 81406,
+   "sha256": "671cd9c0261b4ccfe19b45eac2b76d4d200cefb9c9fe0f671d5e67723ba6b0fd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/single-ganged-dut-hw-setup.png",
+   "bytes": 24854,
+   "sha256": "f85530711c43eba7c09ca6af114246e564bf7e8e1d2c6d016647c0560f101ec2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/single-ganged-nodut-hw-setup.png",
+   "bytes": 18144,
+   "sha256": "3b2eb642e958de18dba0bbf07ebeed622c051ea884cea127620384d24b172cc5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/single-single-dut-hw-setup.png",
+   "bytes": 24065,
+   "sha256": "46550630a61b5a7261990acac61bcd4fd863cb415d038d28c7f4d86df3597c24",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/Sweep_Meas_Images/single-single-nodut-hw-setup.png",
+   "bytes": 17603,
+   "sha256": "dd0690af14da7313e7d36fa545b8cbb7653f1a8426893a8a3920ede89c8a0310",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-ramp-config.png",
+   "bytes": 575255,
+   "sha256": "4d93ddcd92c44efd47aa3230353105b2accf88c93045ca820004a0700dbf4969",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-signal-logging-meas-result.PNG",
+   "bytes": 596622,
+   "sha256": "bc106e813cde566efe4610bdabb8e690d415436ae6fbdff7bc743d9e6d6b710b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-trap-config.PNG",
+   "bytes": 598171,
+   "sha256": "ee209da3cd1d1dbc334939644aaa469ecc98415f12b9f6ba71f00853702ba640",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-trap-loop-count-config.PNG",
+   "bytes": 599659,
+   "sha256": "72936af894f153640f41f0574b25c4df4fb2bdcb190f1b6807a8b3646d8759a6",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-trap-loop-count-meas-result.png",
+   "bytes": 590033,
+   "sha256": "bd94ce47345a67729b76e4012eba3852bbc8b3b6941e641a13fb110494d2d6b5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-trap-meas-result.png",
+   "bytes": 604150,
+   "sha256": "033d9cce9c80dd8a7c3eab15dfe52d3ae926e9e61997796d5b48a3a8d1cc30c7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/arb-mode-trap-ramp-config.PNG",
+   "bytes": 577463,
+   "sha256": "5650859d8b9e2f15f2c1ead657b016dda9d567a1dd65d219709073ea393e06df",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/continuous-run-button.png",
+   "bytes": 2073,
+   "sha256": "19fd6bbcdcabca7039796815cb0204bd7ad1da0700c34cae70c7c5a8a7d0d3ac",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/decrease-wait-value.png",
+   "bytes": 4635,
+   "sha256": "cd80a88db27030cb2000dab3319ea924ba3223e5d2f8bf64f9d256ff5e278355",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-ch-efficiency.png",
+   "bytes": 327051,
+   "sha256": "71cbba9aac8669cce53963b4988c72643655e22c10537e4c1ed317ae4007a1b5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-ch-load-config.png",
+   "bytes": 651703,
+   "sha256": "f5d901bc1d295575c1fb67345ad4bf6cab347865a31f6684f305c64522348e47",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-ch-load-volt.png",
+   "bytes": 223721,
+   "sha256": "3e98ef5e310736c32574a0e5afed872d515627f9f05fea80beb1d5007385ac9f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-ch-load-voltage-dev.png",
+   "bytes": 259300,
+   "sha256": "8adb3b19b8deb9b8a40cf20cf15e2753b874d46b1a5e0e046b170df4a8c78d32",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-ch-source-config.png",
+   "bytes": 267281,
+   "sha256": "42fbe4d2ddf9218f3b76a5c75d23e73cc3d31eef5a5840db90ddf505a180aff4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-config.png",
+   "bytes": 59476,
+   "sha256": "c90c1a25e50870e426d32b05f5e14a6d46961d4128806a1e3e8ca629acfb3dc8",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-efficiency.png",
+   "bytes": 64952,
+   "sha256": "8d54e6a618da4e21e878f288c669ca3099bfcc52bc13c604dd830b66cac325b0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-load-volt-dev.png",
+   "bytes": 54623,
+   "sha256": "3afb07708db052efee2162f9c0a3d59d4a601b057582fcffbd23eb3233ac8e92",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/eff-and-lr-load-volt.png",
+   "bytes": 49534,
+   "sha256": "4f4f3b5d15c25c716e74df06b36d978531c134438abd6acc84200473fa46580b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/enable-continuous-run.png",
+   "bytes": 10061,
+   "sha256": "adaf096af5ae4423433f599fff9fdc2e9ab11f6d48cf755d52b4c09e743d05b3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ganging-hardware-setup.png",
+   "bytes": 131157,
+   "sha256": "ce0ff43932f6f5078dd79dd22fb1ec952738744b7762b5bd6d0a938fa60bb6db",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ganging-hw-setup.png",
+   "bytes": 54538,
+   "sha256": "70fc365ebf4fd35cacda2eba6da8a91b99418b9463ac5eb8000fbd001094fc20",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/hw-line-trans-4139-setup.png",
+   "bytes": 70734,
+   "sha256": "ecd7ddc90a3e2a29323911afc6c23c6365dc4dbbed4ca9049d31c7f4101d6e75",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/hw-line-trans-4151-setup.png",
+   "bytes": 71373,
+   "sha256": "7b085b47fddde3315680bc2c4a8db3763ae64fb55df42b471fb3da4d4a926302",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/hw-psrr-setup.png",
+   "bytes": 260240,
+   "sha256": "e26a2fadd3c593a005387cf1db64323143ece287e47e0c2eeffbafe56e02981e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/hw-setup.png",
+   "bytes": 61852,
+   "sha256": "ed5ced926f31b3149292746428191fc02caf8f8f83b71d3e1d39fbe5aa7dc41b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/increase-timeout.png",
+   "bytes": 33861,
+   "sha256": "5f56cfae31e5b10b0e1327a8d50d9362820793f5ed284c18872daded845f3ccd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-ch-load-config.png",
+   "bytes": 425973,
+   "sha256": "e139e075b58e9a72ed3454abbf1572a18f48070061987da6daf438d36bc7fd61",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-ch-load-volt-dev.png",
+   "bytes": 129761,
+   "sha256": "40c778c9d20bb86e96735024484283f683878247bf975de507826b00a9601d6c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-ch-load-volt.png",
+   "bytes": 239877,
+   "sha256": "63ac2edbadbe57d8eca3e0e1f050e832d651f3bfe207ec47da53fd47e248d6e5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-ch-source-config.png",
+   "bytes": 469571,
+   "sha256": "83082120a9034d88b5a6ca56897e0ebb26c698eaafcf62e9d89ebd1c73176f2d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-config.png",
+   "bytes": 40748,
+   "sha256": "6beae0dbc72107ee5b5da6049c39d9fb5548a91d4a6898caf2f2748849c76d47",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-load-volt-dev.png",
+   "bytes": 37550,
+   "sha256": "143e3b38f1c68527d2811fb791bb43e1b7dc9d807cf9442cd36096840d316bed",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-reg-load-volt.png",
+   "bytes": 35113,
+   "sha256": "888a2e230a05e6490944398e6bf681cd3045d8bb13c37fc026846de06757c092",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-tran-ch-meas-results.png",
+   "bytes": 706825,
+   "sha256": "16455f02f783cba3d3c059ca2e3d221f3610cc27890f41daa5c8b2c5096ea37f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-ch-ganging-hw-config.PNG",
+   "bytes": 79561,
+   "sha256": "87e0c003d3857243f56d91a94a34d66a306e90937486b929f5467954322a5fb7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-ch-ganging-load-config.PNG",
+   "bytes": 565256,
+   "sha256": "8fb8d9ff4f60945feff2c8ce3ed469fb1bc07d5fcedb3301297be138ed029201",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-ch-ganging-meas-config.PNG",
+   "bytes": 381872,
+   "sha256": "d196bad89433f729019596094a5c4cd6039e77466ca5c2dc5d6bc39fb5f80e21",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-ch-ganging-scope-config.PNG",
+   "bytes": 472392,
+   "sha256": "6d49f81785259dae40812ded16e668a3f5dc0fb34baf522d9ef933ec68cd9de3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-ch-ganging-source-config.png",
+   "bytes": 688452,
+   "sha256": "4293c895c285032820a489cd35262f0f00073b3f7c6434014e3aa20b67e044a9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-meas-4139-result.png",
+   "bytes": 700653,
+   "sha256": "aca3c9764ee0212a142d86fff5b9cb5358d1311cd371cabf068f81d140f1f1ad",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-meas-4151-result.png",
+   "bytes": 690318,
+   "sha256": "443577cb91b2493ddccc153b40f99ca3eab1cd0cc88df647d20574ffc66c6279",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-result.png",
+   "bytes": 190870,
+   "sha256": "aa09abcb1f4f9e2333103d9e0f7a4557b6db84ccfcf8f131a807c68161ad3073",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-scope-4139-result.png",
+   "bytes": 526772,
+   "sha256": "bbc351c71a0a7c248a0ac56eee8fac10d272f714bf1051dcc4ae4eba349fdc30",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-scope-4151-result.png",
+   "bytes": 556583,
+   "sha256": "c5824b08b2afea84a81f4fd145abfaf50d3811c52ab8d264e535505ed3917395",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-scope-config.png",
+   "bytes": 390645,
+   "sha256": "5c2afb9538f5d5488296c9d6cb87952c2b26530fb5b39ee490412842121fab90",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/line-transient-sourceandload-config.png",
+   "bytes": 586592,
+   "sha256": "2ebb4a9d3c12c61ba983ee3aa5c577e0960f47a0d8b34932c62aad7cb6502b56",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-ch-load-config.png",
+   "bytes": 549483,
+   "sha256": "2722ec018d0824630cd08afa239ebcb067bf31af97e792ae3d3393ef634cebc7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-ch-meas-results.png",
+   "bytes": 605285,
+   "sha256": "f22eb699786c6f6f90f3779cf81b3b829eb51334194be9a91ffc6d2653e59cbd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-ch-source-config.png",
+   "bytes": 481869,
+   "sha256": "75deddcbbbece283638e42966ce0276e70f8d7766646f8811a8c8b10b184ff2d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-config.png",
+   "bytes": 45838,
+   "sha256": "091f3406ae5cb8c296669791afa107a1510c7e28ae372655a8241d59b51c6f4c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-meas-results.png",
+   "bytes": 53590,
+   "sha256": "bad2cfc11f46a02a127a6294fc51cca8f31b621a8ad93475159cc3b3446fddd4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-run-button.png",
+   "bytes": 757416,
+   "sha256": "fda8b769119164244af1d28d72021cf9e5d02d37460f98035325e8b5a2d49f26",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/load-tran-sourceadapt.png",
+   "bytes": 112662,
+   "sha256": "0ee996b2d7b78d927c5d42541a94ef7a8f1ea560f28f769582966434a7708316",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/multi-channel-config.png.png",
+   "bytes": 85623,
+   "sha256": "37803b5e0f7a391f73bd04c3130d4d6669277e22bb92dcb457e26b3b6ae7b319",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/multi-channel-hw-setup.png",
+   "bytes": 55767,
+   "sha256": "430d4d97d8d487e58e505925d7c7c824aea4ac3055f6453faedaaa3df6cde227",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/multi-channel-meas-results.png.png",
+   "bytes": 90421,
+   "sha256": "2281597f0d1771f20547d260718211a40abd9da70f333d2b604c4c63b419bf29",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/psrr-fgenandscope-config..PNG",
+   "bytes": 730393,
+   "sha256": "c564d9b6d9b4a33cbcea8889eb69314e337171120ed786ac3c0a3e79d4017efd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/psrr-fgenandscope-config.png",
+   "bytes": 730393,
+   "sha256": "c564d9b6d9b4a33cbcea8889eb69314e337171120ed786ac3c0a3e79d4017efd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/psrr-meas-result.png",
+   "bytes": 536689,
+   "sha256": "be629b41f91d8e969bf899bce0e9d59236aa1266d04793f5e467877f54862efa",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/psrr-sourceandload-config.png",
+   "bytes": 651832,
+   "sha256": "a4d9bca304fc9f66c019b69a08944cf941f69abcba33fa410e0f5fc8a4c4c470",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/q-curr-hw-setup.png",
+   "bytes": 73230,
+   "sha256": "52be85bb6d132b40043182b0595e4e6ba5f7ebc421f2a1fea3b7722e866a2582",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/q-current-ch-ganging-hw-setup.png",
+   "bytes": 54185,
+   "sha256": "450af835affcf655e754b49e4f55d6e997f980251452c4664ca572a7d3b31059",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/q-current-ch-ganging-meas-config.png",
+   "bytes": 624346,
+   "sha256": "1d039771d2271086a0fe8031db543d18ffcf3ebc1f2e2cbca1d4acd3378be00b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/q-current-ch-ganging-meas-result.png",
+   "bytes": 552024,
+   "sha256": "b1ea3def5dd90cac65c8faa26c9913f6734d03d3759967b5c17da6c2ba578eea",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/q-current-config.png",
+   "bytes": 640831,
+   "sha256": "5a3135310363846ea8589f227c02bdd43730208480e49f2d1464c897f17a548f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ramp-up-time-config.png",
+   "bytes": 555428,
+   "sha256": "2b900e38a41587038edfb57421964f371f16936c24d123bbec238ad18d415123",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ramp-up-time-hw-setup.png",
+   "bytes": 59522,
+   "sha256": "99f97edc97dcf9388af7dae459d562b419e3a6133984b99f32a72304543ef6e9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ramp-up-time-meas-results.png",
+   "bytes": 613276,
+   "sha256": "705a31055818885b2d973c66aa3b8a1e22ac73f277c635f9b823c6a50c8b8ed1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ripple-config.png",
+   "bytes": 54391,
+   "sha256": "4806b28f523a95e5acd3f303673dceb9b45de8c8084120ebb85edddaa90d8c6b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ripple-hardware-setup.png",
+   "bytes": 70032,
+   "sha256": "37291d510fdd7f15f7c123ed2d541f9b3ef56bdb9b3bb292d60b5d09c90cbe39",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/ripple-meas-results.png",
+   "bytes": 92147,
+   "sha256": "b30d5d4714e8c8ed1d5ad08632baef5aa3acddf969eac3a825f47fd44ad991ab",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-load-config.png",
+   "bytes": 878668,
+   "sha256": "e3f2d2bdf8d0efe0e7a88054d7734fa554336f59f991c709b76fb9343008af62",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-load-disable.png",
+   "bytes": 338691,
+   "sha256": "d07be0ed68d9cbdeba57cf7d6941ee5317be5f8eafe0750883d9b41d7341c2c5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-load-enable.png",
+   "bytes": 315418,
+   "sha256": "617a3f53408eb094f10713a10e19139751fb5d6ab25747d19dabf27fff541755",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-meas-results-plot-visible.png",
+   "bytes": 817005,
+   "sha256": "d8f95c423a3bbd1223e6a95fff24320931eec7891801ea5f4353a2c83fba8976",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-meas-results.png",
+   "bytes": 70524,
+   "sha256": "4176d600aac6f6a161696c43c81ef5c7ddf99647029872f7bed69a05602e1cf9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-source-config.png",
+   "bytes": 62566,
+   "sha256": "db9ce7be9d2d9c5df4d8b8ddde25804ee696c68abc455b2b0e5871237a502dd0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-source-disable.png",
+   "bytes": 310818,
+   "sha256": "fd182c188dcbb64d68d002fa54b42e89377fadd44b437673a49f14b02a8ca9e6",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/single-point-source-enable.png",
+   "bytes": 310985,
+   "sha256": "a25456434e7f41bae187da3e3570827233d34487ed2538091a997cf3e33f17ca",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-load-config.png",
+   "bytes": 912779,
+   "sha256": "20b3a1f85bffe93089811157331dd2c2513d0cdfa38b05ea7e724bc25d7cf97e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-load-disable.png",
+   "bytes": 390212,
+   "sha256": "97863d5585380f5fd4a6f18d29cb0dcfc76d75b5e418209a9c85b512a6b4b030",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-load-enable.png",
+   "bytes": 357751,
+   "sha256": "56bfcb0d38d2f81e091eef451349c3d9a6e0ef967756a42284d6c4d1783ee22c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-meas-results.png",
+   "bytes": 73362,
+   "sha256": "42add03884f9af9971e7e32b8ed57d406e4b6f54be870d91e0b80556be956afd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-source-config.png",
+   "bytes": 65679,
+   "sha256": "3b73da6fc74f12537fe6168be6a360bceeaf1f4ccff235f50cbf3e8ad8455364",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-source-disable.png",
+   "bytes": 331483,
+   "sha256": "47ffc9f40f44430aa01f746f657f5a644e8cd16fa1786c2239881bae5e076511",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-source-enable.png",
+   "bytes": 325972,
+   "sha256": "395ef4e8ad29581ec96221be8d2bfd872886f3c2e307edd69733d6eb0b166508",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/sweep-source-results.png",
+   "bytes": 67844,
+   "sha256": "59f39acee4a1aca6283231bf4554adefb8a1d1c3848855d1f0dc054e66f65be5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-load-config.png",
+   "bytes": 777564,
+   "sha256": "0c1e95c8310b9ed2ecc7c063acb8aafeb45baadaec762d1afcf601437c53417d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-load-disable.png",
+   "bytes": 308774,
+   "sha256": "cc9aeb152c3f3549b4aae6e8e60bcf6180c9be482a6ad0587c839fc213fc8924",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-load-enable.png",
+   "bytes": 360352,
+   "sha256": "b5b751151bb1a03ef8bfe4fa59f25dbb4bf6f8d455dcdb61edcc98a4be65a50a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-meas-results-plot-visible.png",
+   "bytes": 56601,
+   "sha256": "c3c6e9050eeccbb225f93c0142670ee5ffec30f6027d19e99d3d8d90d1602319",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-meas-results.png",
+   "bytes": 64521,
+   "sha256": "c3b889325ef3063e14d5ceb85728fd939ca9c75703fd996927bbda842670b059",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-source-config.png",
+   "bytes": 61371,
+   "sha256": "f1bd3682d6344c8b74e78a9a543e37551f1167a9fdd29d2a87d3323a1630f15f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-source-disable.png",
+   "bytes": 330707,
+   "sha256": "dc3fc4c9f3ed39809263908edc5b19b456938f0045f45121d3c386d3e7bb4457",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-source-enable.png",
+   "bytes": 330377,
+   "sha256": "2f06a47d79db91f406afd6213e9a96f7999fa77d32034640615f853e2faa2a47",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-images/wfm-mode-source-results.png",
+   "bytes": 64247,
+   "sha256": "ae88afb2080e0163cb065265d946d1dc60bd774be84bf078da29f987ba5d2998",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/meas-index.md",
+   "bytes": 1170,
+   "sha256": "20775c8a27cbfb6c6926a879bd13d9997b02234d1dd6bcecfbb7f889880d6377",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/multi-channel-output-voltage-accuracy.md",
+   "bytes": 702,
+   "sha256": "cac748614d9a6606e7760c86b4e17e34c6f2cddb538083bd3bbc4fec4ea66b1f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/psrr.md",
+   "bytes": 451,
+   "sha256": "d36a33600934ce3b04432758485d2dfc57fed1633c703457af598862f233654f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/q-current.md",
+   "bytes": 541,
+   "sha256": "6faf3a3fc0f69b422be2a1332f855252055ecdb3200dec20bace98cb51764e72",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/ramp-up-time.md",
+   "bytes": 543,
+   "sha256": "ca924116c9a980d639e189cd86eaf8b2a2c63decee154f431c7bce4511491b03",
+   "via": "tree"
+  },
+  {
+   "path": "docs/measurements/ripple.md",
+   "bytes": 689,
+   "sha256": "75d9420b8ad93d4ec47c7850fd8bc2f757f53529108c2222531f08f0e223afe0",
+   "via": "tree"
+  },
+  {
+   "path": "docs/sw-dev.md",
+   "bytes": 1218,
+   "sha256": "8262eca5f1fb0a3edca4c9de5dc19a7c8beacabc49f2cc5e3a7294ee0cccace9",
+   "via": "tree"
+  },
+  {
+   "path": "package/PMIC-labview.pbs",
+   "bytes": 298380,
+   "sha256": "063d0547199dd510485cb60ec5165e0b70430ea83550f8b4ad57e6195a9dd957",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Abort With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Aperture Time Units.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Close.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Commit With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Commit.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Aperture Time.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Current Level Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Current Level.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Current Limit Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Current Limit.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Measure Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Measure Trigger.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Pulse Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Sequence Advance Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Source Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Source Trigger.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Digital Edge Start Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Output Enabled.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Output Function.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Output Resistance.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Bias Current Level.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Bias Voltage Limit.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Current Level Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Current Level.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Voltage Limit Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Pulse Voltage Limit.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Sense.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Software Edge Measure Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Software Edge Pulse Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Software Edge Sequence Advance Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Software Edge Source Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Software Edge Start Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Source Mode With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Trigger (Poly).vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Trigger With Channels (Poly).vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Voltage Level Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Voltage Level.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Voltage Limit Range.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Configure Voltage Limit.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Create Advanced Sequence Step With Channels (Poly).vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Create Advanced Sequence Step With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Create Advanced Sequence With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Create Advanced Sequence.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Delete Advanced Sequence With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Digital Edge - Edge.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Disable Pulse Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Disable Sequence Advance Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Disable Source Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Disable Start Trigger With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Export Signal - Signal.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Export Signal With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Fetch Multiple.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Get Channel Name (Poly).vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Get Channel Name From String.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Initialize With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Initialize With Independent Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Initiate With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Initiate.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Measure Multiple.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Measure.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Measurement Type.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Output Function.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Reset Device.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Reset With Channels.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Reset.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Sense.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Sequence Attribute Type.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Set Sequence.vi",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Source Mode.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Wait For Event - Event.ctl",
+  "<instrlib>\\niDCPower\\nidcpower.llb\\niDCPower Wait For Event With Channels.vi",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Close.vi",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Config Measurement.vi",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Configure Measurement Digits.vi",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Function.ctl",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Initialize.vi",
+  "<instrlib>\\niDMM\\nidmm.llb\\niDMM Read.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Abort Generation.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Close.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Configure Digital Edge Start Trigger.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Configure Output Mode.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Configure Standard Waveform.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Configure Trigger (poly).vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Disable Start Trigger.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Initialize With Channels.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Initiate Generation.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Output Enable.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Output Mode.ctl",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Wait Until Done.vi",
+  "<instrlib>\\niFgen\\niFgen.llb\\niFgen Waveform Type.ctl",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Abort.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Fetch (poly).vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Fetch WDT.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Fetch.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Initiate Acquisition.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Multi Fetch WDT.vi",
+  "<instrlib>\\niScope\\Configure\\Horizontal\\niScope Configure Horizontal Timing.vi",
+  "<instrlib>\\niScope\\Configure\\Trigger\\niScope Configure Trigger (poly).vi",
+  "<instrlib>\\niScope\\Configure\\Trigger\\niScope Configure Trigger Digital.vi",
+  "<instrlib>\\niScope\\Configure\\Trigger\\niScope Configure Trigger Edge.vi",
+  "<instrlib>\\niScope\\Configure\\Vertical\\niScope Configure Chan Characteristics.vi",
+  "<instrlib>\\niScope\\Configure\\Vertical\\niScope Configure Vertical.vi",
+  "<instrlib>\\niScope\\Controls\\niScope timestamp type.ctl",
+  "<instrlib>\\niScope\\Controls\\niScope trigger coupling.ctl",
+  "<instrlib>\\niScope\\Controls\\niScope trigger slope.ctl",
+  "<instrlib>\\niScope\\Controls\\niScope trigger source.ctl",
+  "<instrlib>\\niScope\\Controls\\niScope vertical coupling.ctl",
+  "<instrlib>\\niScope\\Utility\\niScope Commit.vi",
+  "<instrlib>\\niScope\\Utility\\niScope Get Channel Name (Poly).vi",
+  "<instrlib>\\niScope\\Utility\\niScope Get Channel Name From String.vi",
+  "<instrlib>\\niScope\\Utility\\niScope Get Session Reference.vi",
+  "<instrlib>\\niScope\\Utility\\niScope Reset.vi",
+  "<instrlib>\\niScope\\niScope Close.vi",
+  "<instrlib>\\niScope\\niScope Initialize With Options.vi",
+  "<instrlib>\\niScope\\niScope Initialize.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Close.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Initialize With Topology.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Relay Action.ctl",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Relay Control.vi",
+  "<instrlib>\\niSwitch\\niSwitch.llb\\niSwitch Wait For Debounce.vi",
+  "<instrlib>\\niTClk\\niTClk.llb\\niTClk Configure For Homogeneous Triggers.vi",
+  "<instrlib>\\niTClk\\niTClk.llb\\niTClk Initiate.vi",
+  "<instrlib>\\niTClk\\niTClk.llb\\niTClk Synchronize.vi",
+  "<resource>\\lvanlys.dll",
+  "<vilib>\\AdvancedString\\1D String Array to Delimited String.vi",
+  "<vilib>\\AdvancedString\\Delimited String to 1D String Array.vi",
+  "<vilib>\\Analysis\\1siggen.llb\\Ramp Pattern by Samples.vi",
+  "<vilib>\\Analysis\\1siggen.llb\\Ramp Pattern.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean (DBL).vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean.vi",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Build Assets\\Post-Build Action.vi",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\Create Basic Measurement Annotations.vi",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\Measurement Annotation.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\Measurement Details.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\Parameter Type Specialization.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\Type Specialization Key.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\Type Specialization.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Helpers\\TypeDefs\\User Interface Information.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measure Call Context\\Accessor\\Is Canceled.vi",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measure Call Context\\Measure Call Context.lvclass",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measure Call Context\\Update Results.vi",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measurement Plugin Service\\Accessors\\Get gRPC ID.vi",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measurement Plugin Service\\Measurement Plugin Service.lvclass",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Measurement Plugin Service\\Plugin Paths.ctl",
+  "<vilib>\\Plug-In SDKs\\Measurements\\NI Measurement Plug-In SDK.lvlib",
+  "<vilib>\\Plug-In SDKs\\Measurements\\Run Service.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Message Requests\\PackToAny.vim",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Message Requests\\UnpackFromAny.vim",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Server\\Get Server DLL Path.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Translate Protobuf Error.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Any.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\grpcId.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\grpc-lvsupport-release.lvlib",
+  "<vilib>\\measure\\NI_MAPro.lvlib",
+  "<vilib>\\measure\\madcrms.llb\\Basic Averaged DC-RMS for 1 Chan.vi",
+  "<vilib>\\measure\\madcrms.llb\\Basic Averaged DC-RMS for N Chan.vi",
+  "<vilib>\\measure\\madcrms.llb\\Basic Averaged DC-RMS.vi",
+  "<vilib>\\picture\\png.llb\\Write PNG File.vi",
+  "C:\\FeedbackChanges\\pmic-labview\\source\\measurements\\arbitrary mode\\Arbitrary Mode_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\LR\\pmic-labview\\source\\channel ganging\\efficiency and load regulation channel ganging\\Efficiency_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\LR\\pmic-labview\\source\\measurements\\psrr\\PSRR_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\LT\\pmic-labview\\source\\channel ganging\\load transient channel ganging\\Load Transient_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\LT\\pmic-labview\\source\\measurements\\line transient response\\Line Transient Response_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Program Files\\National Instruments\\LabVIEW 2021\\vi.lib\\Plug-In SDKs\\Measurements\\Measurement Plugin Service\\Measurement Plugin Service.lvclass",
+  "C:\\QC\\pmic-labview\\source\\measurements\\quiescent current\\Quiescent Current_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\Public\\Documents\\National Instruments",
+  "C:\\Users\\bharang\\OneDrive - Emerson\\Bharath\\Project\\LED Driver\\Short-Ckt\\Measurement Plug-in\\Short-Circuit\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Desktop\\pmic-labview\\source\\channel ganging\\waveform mode channel ganging\\Waveform Mode_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\channel ganging\\single point channel ganging\\Single Point_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\channel ganging\\sweep channel ganging\\Sweep_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\crosstalk\\Crosstalk_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\efficiency and load regulation\\Efficiency And Load Regulation_PMIC\\Advanced\\MeasurementPlugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\line regulation\\Line Regulation_PMIC\\Advanced\\MeasurementPlugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\load transient response\\Load Transient Response_PMIC\\Advanced\\MeasurementPlugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\multi-channel output voltage accuracy\\Multi-Channel Output Voltage Accuracy_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\Users\\ngoli\\Documents\\pmic-labview\\source\\measurements\\ripple\\Ripple_PMIC\\Advanced\\MeasurementPlugin.lvclass",
+  "C:\\pmic-labview\\source\\channel ganging\\line regulation channel ganging\\Line Regulation_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\pmic-labview\\source\\channel ganging\\line transient channel ganging\\Line Transient_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\pmic-labview\\source\\channel ganging\\quiescent current channel ganging\\Quiescent Current_Channel Ganging\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\pmic-labview\\source\\measurements\\arbitrary mode\\Arbitrary Mode_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\pmic-labview\\source\\measurements\\line transient response\\Line Transient Response_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "C:\\pmic-labview\\source\\measurements\\ramp-up time\\Ramp-Up Time_PMIC\\Advanced\\Measurement Plugin.lvclass",
+  "E:\\Bharath\\LED Driver\\Measurement Plug-in\\start-up\\start-up\\Advanced\\Measurement Plugin.lvclass",
+  "\\\\\\\\10.1.133.57\\measurement-services-labview\\Source\\Measurement Service Template_lv\\MeasurementLink Measurement Server\\RPC Service\\MeasurementService\\Get Plugin Paths.vi",
+  "\\\\\\\\10.1.133.57\\measurement-services-labview\\Source\\Measurement Service Template_lv\\MeasurementLink Measurement Server\\RPC Service\\MeasurementService\\Get Type Specializations.vi"
+ ]
+}
