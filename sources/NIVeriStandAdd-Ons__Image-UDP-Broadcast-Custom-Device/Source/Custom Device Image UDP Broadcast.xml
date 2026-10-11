@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>Image UDP Broadcast</eng>
+    <loc>Image UDP Broadcast</loc>
+  </AddMenu>
+  <Version>1.0</Version>
+  <Type>Asynchronous</Type>
+  <MaxOccurrence>2474</MaxOccurrence>
+  <MainPageGUID>b05a5688-3b16-44fb-bff1-faa0fcd6f436</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Image UDP Broadcast Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>PharlapWindows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Engine.llb\Image UDP Broadcast RT Driver VI.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\Image UDP Broadcast\Image UDP Broadcast Engine.llb\Image UDP Broadcast RT Driver VI.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Image UDP Broadcast</eng>
+        <loc>Image UDP Broadcast</loc>
+      </Name>
+      <GUID>b05a5688-3b16-44fb-bff1-faa0fcd6f436</GUID>
+      <Glyph>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Image UDP Broadcast\Glyphs\video.png</Path>
+		  </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Image UDP Broadcast Main Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    
+<Page>
+      <Name>
+        <eng>Broadcast Status</eng>
+        <loc>Broadcast Status</loc>
+      </Name>
+      <DeleteProtection>1</DeleteProtection>
+      <GUID>cae686a1-7c8e-428f-b7cd-999c0bc074d0</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Image UDP Broadcast\Glyphs\Broadcast Status.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Broadcast Status Page.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Broadcast Command</eng>
+        <loc>Broadcast Command</loc>
+      </Name>
+      <DeleteProtection>1</DeleteProtection>
+      <GUID>fe5ed426-67fa-4d12-8664-845fa0bcf859</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Image UDP Broadcast\Glyphs\network2.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Broadcast Command Page.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Valid Bytes per Packet</eng>
+        <loc>Valid Bytes per Packet</loc>
+      </Name>
+      <DeleteProtection>1</DeleteProtection>
+      <GUID>d3b435dc-7be6-45d2-8de9-02e428f39193</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Image UDP Broadcast\Glyphs\complete.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Valid Bytes per Packet Page.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Error Status</eng>
+        <loc>Error Status</loc>
+      </Name>
+      <GUID>1a3d95e5-e85d-492e-bfbe-a8a7a366c366</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\RM Late Channel.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Image UDP Broadcast\Image UDP Broadcast Configuration.llb\Error Status Page.vi</Path>
+      </Item2Launch>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
