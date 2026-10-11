@@ -1,0 +1,37 @@
+ define(HelloWorld dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Hello world. I can fly.')  variable1)
+  ) 
+  clump(1 
+   Println(variable1)
+   )
+ ) ) )
+
+define(Test dv(.VirtualInstrument (
+ c(
+ e(.Int32 value)
+      e(dv(.Int32 1) c1)
+      e(.Type  vType)                        // A Type variable
+      e(dv(.Type .Int32)  vIntType)            // A Type variable with a default value.
+      e(a(.Type *)   emptyArrayOfTypes)
+      e(a(.Int32 *)   emptyArrayOfInts1)
+      e(dv(a(.Type *)  (.Int16 .Int32 .Pi .VirtualInstrument .HelloWorld))  arrayOfTypes)
+      e(dv(a(.Int32 *)  (0))  emptyArrayOfInts)
+      e(dv(a(.Int32 *)  (2 3))  arrayOfInts)
+      e(dv(a(.Double *)  (1 2 3 4))   arrayOfDoubles)
+  ) 
+  clump(1 
+    ArrayLength(emptyArrayOfTypes value)
+    Println(value)
+    Println(emptyArrayOfTypes)
+    Println(vType)
+    Println(vIntType)
+    Println(arrayOfInts)
+    Println(arrayOfDoubles)
+    Println(emptyArrayOfInts1)
+    Println(emptyArrayOfInts)
+    Println(emptyArrayOfTypes)
+    Println(arrayOfTypes)
+   )
+ ) ) )
+enqueue(Test)

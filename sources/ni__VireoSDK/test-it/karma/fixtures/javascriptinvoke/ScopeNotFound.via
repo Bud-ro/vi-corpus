@@ -1,0 +1,18 @@
+// Copyright (c) 2020 National Instruments
+// SPDX-License-Identifier: MIT
+
+define(MyVI dv(VirtualInstrument (
+    Locals: c(
+        e(c(
+            e(.Boolean status)
+            e(.Int32 code)
+            e(.String source)
+        ) error)
+        e(.Occurrence occurrence)
+    )
+    clump (
+        JavaScriptInvoke(occurrence false error 'NI_ScopedNotFound.NI_SimpleFunction' *)
+    )
+) ) )
+
+enqueue(MyVI)

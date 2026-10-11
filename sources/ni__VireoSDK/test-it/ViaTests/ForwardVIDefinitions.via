@@ -1,0 +1,30 @@
+define(SubVIFromMyPast dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Yesterday I made scrambled eggs and they seemed far away') str)
+  )
+  clump(1
+    Println(str)
+   )
+ )))
+
+define(CarpeDiem dv(.VirtualInstrument (
+    c(
+        e(dv(.String 'Here comes the sun') str)
+    )
+    clump(1
+        SubVIFromMyPast()
+       Println(str)
+        SubVIFromMyFuture()
+    )
+)))
+
+define(SubVIFromMyFuture dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'The sun\'ll come out tomorrow') str)
+  )
+  clump(1
+    Println(str)
+   )
+ )))
+
+enqueue(CarpeDiem)

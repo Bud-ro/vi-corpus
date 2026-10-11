@@ -1,0 +1,209 @@
+// A very preliminary test that uses VI and Instruction reflection
+// to generate source for building a static linked version of the run time
+// instructions like InstructionType require the VIREO_INSTRUCTION_REFLECTION flag
+
+define(ConverterToStaticLinkCPP dv(VirtualInstrument (
+    Params: c(
+            i(VirtualInstrument vi)
+        )
+    Locals: c(
+        e(Type     dsType)
+        e(Int32    count)
+        e(Int32    index)
+        e(Int32    zero)
+        e(Type     eltType)
+        e(String   typeName)
+        e(String   eltName)
+        e(String   eltValue)
+        e(a(Clump *) clumps) // alias to the array of clumps
+        e(Clump clump)
+        e(Instruction inst)
+        e(Type  instructionType)
+        e(Type  parameterListType)
+        e(String internalName)
+
+        // For iterating through parameter types
+        e(Int32    count2)
+        e(Int32    index2)
+        e(Int32    clumpIndex)
+        e(Int32    clumpCount)
+        e(Int32    argPointerCategory)
+        e(Type     argType)
+
+        e(DataPointer argValuePointer)
+        e(String argSymbolName)
+    )
+    clump (
+        // Get locals for the target VI
+//        ArrayElementType(vi.Locals dsType)
+        TypeGetSubElementFromPath(vi "Locals.eltValue" dsType)
+    //    TypeSubElementCount(dsType count)
+
+        //    ArrayElementType(dsType dsType)
+
+        ArrayElementType(HelloWorld.Locals dsType)
+
+        // 1. Print the type.
+        // How many elements are in the the type?
+        TypeSubElementCount(dsType count)
+        Printf("//-------------------------\n")
+        Printf("class DST_HelloWorld {  \n" )
+        Perch(0)
+            TypeGetSubElement(dsType index eltType)
+            TypeName(eltType typeName)
+            TypeElementName(eltType eltName)
+            Printf("  %z _%z;\n" typeName eltName)
+            Add(index 1 index)
+        BranchIfLT(0 index count)
+        Printf("};\n")
+
+        // 2. Print the initializer
+        Init(index)
+        Printf("//-------------------------\n")
+        Printf("DST_HelloWorld  ds = " )
+        ToString(HelloWorld.Locals "C" eltValue)
+        Printf("%z;\n" eltValue)
+
+        // Print clump initializer
+
+        Copy(HelloWorld.Clumps clumps)
+       // CreateArrayItr(HelloWorld.Clumps clumpItr)
+
+        ArrayLength(clumps clumpCount)
+        Printf("\n")
+        Printf("//-------------------------\n")
+
+            Perch(5)
+            // For each clump
+            ArrayIndexElt(clumps clumpIndex clump)
+            Copy(clump.CodeStart inst)
+            Printf("Instructions _clump%d_instructions = {\n" clumpIndex)
+
+                //For each instruction
+                Perch(3)
+                InstructionType(inst instructionType internalName)
+                TypeName(instructionType typeName)
+                TypeGetSubElement(instructionType 0 parameterListType)
+
+                // For each argument in an instruction
+                // The instruction type is a pointer.
+                // To get access to the pointer's description get its sub element
+                TypeSubElementCount(parameterListType count2)
+                Printf("   _I%z(%z" count2 internalName)
+                Init(index2)
+
+                    // Loop through all arguments
+                    Branch(4)
+                    Perch(2)
+                        TypeGetSubElement(parameterListType index2 argType)
+
+                        // The arg type will be an argument element containing the
+                        // field name.
+                        TypeBaseType(argType argType)
+                        InstructionArg(inst index2 argValuePointer)
+                        TypeManagerPointerToSymbolPath(* argType argValuePointer argSymbolName)
+
+                        Printf(", %z" argSymbolName)
+                        Add(index2 1 index2)
+                        Perch(4)
+                    BranchIfLT(2 index2 count2)
+                    Printf(")\n")
+
+                InstructionNext(inst inst)
+                BranchIfNotNull(3 inst)
+                Printf("};\n")
+
+            Add(clumpIndex 1 clumpIndex)
+            BranchIfLT(5 clumpIndex clumpCount)
+    )
+) ) )
+
+// =================================================================
+
+define(number_two dv(Int32 2))
+define(global_int var(Int32 2))
+
+define(Int32Point
+  dv(
+    c(
+        e(Int32 x)
+        e(Int32 y)
+    )
+    (4 5)
+  )
+)
+
+define(DoublePoint
+  dv(
+    c(
+        e(Double x)
+        e(Double y)
+    )
+    (3.14 6.28)
+  )
+)
+
+define(HelloWorld dv(VirtualInstrument (
+    c(
+        e(Int32<6>      vInt32)
+        e(Boolean<true>    vBool)
+        e(dv(UInt8     1)      vUInt8)
+        e(dv(Int8      2)      vInt8)
+        e(dv(UInt16    3)      vUInt16)
+        e(dv(Int16     4)      vInt16)
+        e(dv(UInt32    5)      vUInt32)
+        e(dv(Int32     6)      vInt32)
+        e(dv(Single  3.14)     vSingle)
+        e(dv(Double  6.28)     vDouble)
+        e(dv(ComplexSingle  (3.14 -3.14))     vComplexSingle)
+        e(dv(ComplexDouble  (6.28 -6.28))     vComplexDouble)
+    )
+    clump (
+        // Try address from different types of symbols
+        Add(vInt32 vInt32 vInt32)
+        Add(Int32 Int32Point.y vInt32)
+
+        Add(Int32Point.x Int32Point.y vInt32)
+        Add(number_two number_two vInt32)
+        Mul(DoublePoint.x DoublePoint.y vDouble)
+
+        // Would be very interesting to to have a Meta instruction.
+        // It would be an execution no-op but could still be captured and disassembled
+        // might be for extra assertions etc, and can have argument
+        // immediate or symbolic. Something like:
+        // Meta("my tag" vInt8 vUInt8 .Int32)
+
+        // Try operation across different type overloads
+        Add(vUInt8 vUInt8 vUInt8)
+        Add(vInt8 vInt8 vInt8)
+
+        Add(vUInt16 vUInt16 vUInt16)
+        Add(vInt16 vInt16 vInt16)
+
+        Add(vUInt32 vUInt32 vUInt32)
+        Add(vInt32 vInt32 vInt32)
+
+        Add(vDouble vDouble vDouble)
+        Add(vSingle vSingle vSingle)
+
+        Add(vComplexDouble vComplexDouble vComplexDouble)
+        Add(vComplexSingle vComplexSingle vComplexSingle)
+
+        Add(vComplexDouble.real vComplexDouble.real vComplexDouble.real)
+        Add(vComplexSingle.imaginary vComplexSingle.imaginary vComplexSingle.imaginary)
+
+        // Try type-types
+        TypeTopAQSize(.Int32Point global_int)
+        TypeTopAQSize(.Int32 vInt32)
+        TypeTopAQSize(.Double vInt32)
+
+    )
+) ) )
+
+define(ConverterCaller dv(.VirtualInstrument (
+    clump(
+        ConverterToStaticLinkCPP(HelloWorld)
+    )
+)))
+
+enqueue(ConverterCaller)

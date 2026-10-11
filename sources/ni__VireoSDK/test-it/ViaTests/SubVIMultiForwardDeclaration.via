@@ -1,0 +1,53 @@
+define(SubVI1 dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Inside call 1')  sInside)
+  ) 
+  clump(1 
+    Println(sInside)
+   )
+ )))
+
+define(SubVI2 dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Inside call 2')  sInside)
+  ) 
+  clump(1 
+    Println(sInside)
+   )
+ )))
+
+// Put Top VI in the middle
+define(TopVI dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Before call')  sBefore)
+    e(dv(.String 'After call')  sAfter)
+  ) 
+  clump(1 
+    Println(sBefore)
+    SubVI1()
+    SubVI2()
+   // CallVI(SubVI3)
+   // CallVI(SubVI4)
+    Println(sAfter)
+   )
+ )))
+ 
+define(SubVI3 dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Inside call 3')  sInside)
+  ) 
+  clump(1 
+    Println(sInside)
+   )
+ )))
+
+define(SubVI4 dv(.VirtualInstrument (
+ c(
+    e(dv(.String 'Inside call 4')  sInside)
+  ) 
+  clump(1 
+    Println(sInside)
+   )
+ )))
+
+enqueue(TopVI)

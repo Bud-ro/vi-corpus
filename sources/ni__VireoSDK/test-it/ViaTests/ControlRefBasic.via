@@ -1,0 +1,88 @@
+
+define(PrintControlRef dv(.VirtualInstrument (
+    Params:c(
+        i(String refName)
+        i(ControlRefNum ref)
+    )
+    Locals:c(
+        e(String out)
+        e(String refString)
+        e(String refvalString)
+    )
+    clump (1 // top level
+        // Strip the refnum cookie value (which varies per run) from ref output and put it on
+        // its own line after a // comment, so test runners will ignore it
+        StringFormat(refString "%z" * ref)
+	MatchPattern(refString "(0x.*" * out refvalString * *)
+        Printf("Ref %s: %s\n// %s\n" refName out refvalString)
+    )
+)))
+
+define(subVI dv(.VirtualInstrument (
+    Params:c(
+        i(ControlRefNum refarg)  // parameter control ref, passed from caller
+    )
+    Locals: c(
+        e(ControlReference("myItem") subref) // control ref in subVI (we won't support this in WebVIs initially, but Vireo already supports it)
+
+        // Define a nested local VI with a control ref, to make sure binding works
+	e(define(subSubVI dv(.VirtualInstrument (
+             Locals:c(e(ControlReference("nestedRef") subsubref))
+             clump(1 Printf("In SubSubVI:\n") PrintControlRef("subsubref" subsubref))) ) ) foo)
+    )
+    clump (1 // top level
+        Println("In SubVI:")
+        PrintControlRef("refarg" refarg)
+        PrintControlRef("subref" subref)
+	subSubVI()
+    )
+)))
+
+define(ControlRefTestProgram dv(.VirtualInstrument (
+    // Unreferenced Event spec with static control reference.  This test doesn't test event
+    // usage of control refs, it just makes sure it parses.
+    Events:c( // Each entry in the top level cluster here represents Event config for a unique Event structure;
+      e(c( // Event Struct 1
+       e(c(  // Event spec 0
+           e(dv(UInt32 0) eventSource)  // event source enum, 0==User int
+           e(dv(UInt32 2) eventType)    // (2=ValueChange)
+           e(ControlReference("eventControl") controlRef)  // static control ref
+           e(dv(UInt32 0) dynIndex)
+       ))
+       /*e(dv(c(  // Event spec 1 (more compact equivalent representation)
+            e(UInt32 eventSource)e(UInt32 eventType)e(ControlRefNum controlUID)e(UInt32 dynIndex)) (0 1 ControlRef("blah") 0)  // TODO
+       )) */
+     )) // End Event Struct 1
+    )
+    Locals:c(
+        e(ControlReference("1") ref1)  // static control ref linked to dataItem1
+        e(dv(ControlReference("2")) ref2)  // static control ref linked to dataItem2
+        e(dv(ControlRefNum ControlReference("3")) ref3)  // more verbose with explicit type and dv definition
+	e(ControlRefNum ref4)  // variable control refnum wire
+	e(Boolean bool)
+    )
+
+    clump (1 // top level
+        PrintControlRef("ref1" ref1)
+        PrintControlRef("ref2" ref2)
+        IsEQ(ref1 ref2 bool)
+        Printf("IsEQ ref1 ref2: %z\n" bool)
+        IsNE(ref1 ref2 bool)
+        Printf("IsNE ref1 ref2: %z\n" bool)
+        PrintControlRef("ref4" ref4)
+        IsNotANumPathRefnum(ref4 bool)
+        Printf("IsNotARefNum: %z\n" bool)
+        Copy(ref1 ref4)
+        PrintControlRef("ref4" ref4)
+        IsNotANumPathRefnum(ref4 bool)
+        Printf("IsNotARefNum: %z\n" bool)
+        IsEQ(ref1 ref4 bool)
+        Printf("IsEQ ref1 ref2: %z\n" bool)
+        PrintControlRef("ref3 "ref3)
+        subVI(ref4)
+        subVI(ref2)
+    )
+
+) ) )
+
+enqueue(ControlRefTestProgram)

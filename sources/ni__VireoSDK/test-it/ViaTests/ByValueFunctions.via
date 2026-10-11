@@ -1,0 +1,83 @@
+start( VI<(
+  c(
+//    e(obj(e(.Int32))        v0)
+    e(a(.* )                v0DGeneric)
+    e(a(.* 5)               v1DFGeneric)
+    e(a(.* -5)              v1DBGeneric)
+    e(a(.* *)               v1DVGeneric)
+    e(a(.Int32 )            v0DInt32)
+    e(a(.Int32 5)           v1DFInt32)
+    e(a(.Int32 -5)          v1DBInt32)
+    e(a(.Int32 *)           v1DVInt32)
+
+    e(a(.* 10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)         v10DFGeneric)
+    e(a(.Int32 2 3)         v2DFInt32)
+    e(dv(a(.Int32) 1776)    dvZeroRankInt32)
+
+/*
+    e(dv(a(.Int32) 1776) dvZeroRankInt32)
+    e(a(.Int8  -2 -2)  vBoundedSquare)
+    e(a(.Int8  5 5)  vSquare)
+    e(a(.*     100000 100000 100000 100000 100000) vBigEmpty)      // It does not take much space to store nothing
+  //  e(a(.Int8  100000 100000 100000 100000 100000) vBig)            // but even on byte is infintly larger
+*/
+
+    e(.VirtualInstrument v2)
+    e(.Int32 c0)
+    e(.Int32 t0)
+    e(.Int32 t1)
+    e(.Int32 t2)
+    e(.Int32 t3)
+
+/*    e(dv(.VirtualInstrument
+        (c() 1 clump(1 Printf("Hello")))
+      ) v3)
+*/
+  )
+  clump (1
+    Println(v0DGeneric)
+    Println(v1DFGeneric)
+    Println(v1DBGeneric)
+    Println(v1DVGeneric)
+    Println(v0DInt32)
+    Println(v1DFInt32)
+    Println(v1DBInt32)
+    Println(v1DVInt32)
+
+
+    ArrayRank(v0DGeneric t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DFGeneric t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DBGeneric t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DVGeneric t0)
+    Printf("Rank = %d\n" t0)
+
+    ArrayRank(v0DInt32 t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DFInt32 t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DBInt32 t0)
+    Printf("Rank = %d\n" t0)
+    ArrayRank(v1DVInt32 t0)
+    Printf("Rank = %d\n" t0)
+
+    ArrayRank(v10DFGeneric t0)
+    ArrayLength(v10DFGeneric t1)
+    Printf("Rank = %d\n" t0)
+
+/*
+    ArrayRank(vZeroRankInt32 t0)
+    ArrayLength(vZeroRankInt32 t1)
+    ArrayIndexElt(vZeroRankInt32 c0 t2)
+    Printf(" ZeroRank Int32 array Rank=%s Length=%s Elt[0]=%s Value=%s\n" t0 t1 t2 vZeroRankInt32)
+    
+    Println(vBoundedSquare)
+    Println(vSquare)
+    Println(vBigEmpty)
+  //  Println(vBig)
+*/
+
+  )
+) > )

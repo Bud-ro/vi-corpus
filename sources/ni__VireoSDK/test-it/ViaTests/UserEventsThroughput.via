@@ -1,0 +1,121 @@
+
+// Measure UserEvent throughput.
+// On my dev machine, I get about 2500K events/sec on my machine native, and ~180K events/sec w/node.JS
+
+// Note: with the timeout change to 50 ms, and the tweak of ExecSlices params to (10000,4),
+// this test is also a regression test for the race condition in ObserveStateChange/CheckTimers fixed
+// in the previous commit.
+
+// Without the patch to ObserveStateChange, this test would trigger the new assert in VIClumpQueue::Enqueue,
+// which detects the corruption causes by the race condition.
+
+define (MyEventDataA c(e(Int32 val) ))
+
+// Event enum:  1=Timeout, 2=Value Change, 1000=User Event Fired
+define(UserEventTestProgram dv(.VirtualInstrument (
+    Events:c( // Each entry in the top level cluster here represents Event config for a unique Event structure;
+      e(c( // Event Struct 1
+       e(dv(c(  // Event spec 0
+            e(UInt32 eventSource)e(UInt32 eventType)e(UInt32 controlUID)e(UInt32 dynIndex)) (25 1000 0 1)
+       ))
+       e(dv(c(  // Event spec 1 
+            e(UInt32 eventSource)e(UInt32 eventType)e(UInt32 controlUID)e(UInt32 dynIndex)) (0 1 0 0)
+       ))
+       e(dv(c(  // Event spec 2
+            e(UInt32 eventSource)e(UInt32 eventType)e(UInt32 controlUID)e(UInt32 dynIndex)) (25 1000 0 2)
+       ))
+     )) // End Event Struct 1
+    )
+    Locals:c(
+        e(UserEventRefNum<MyEventDataA> userEventRefA)
+        e(EventRegRefNum<c(
+	        e(c(e(Int32 eventType)e(UserEventRefNum<MyEventDataA>)))
+	    )> eventRegRef)
+
+	e(dv(MyEventDataA (1)) myDataA1)
+        e(.ErrorCluster errorIO)
+        e(dv(Int32 0) receivedCount)
+        e(dv(Int32 0) sentCount)
+        e(dv(Int32 100000) max)
+        e(dv(UInt32 0) timeBegin)
+        e(dv(UInt32 0) timeEnd)
+        e(dv(UInt32 0) timeElapsed)
+        e(dv(Double 0) temp)
+        e(dv(Double 0) throughput)
+        e(dv(Int32 50) timeOut)
+
+	e(c(  // Storage for event data node on left border of event case 1 (user event A)
+	    e(UInt32 eventSource) e(UInt32 eventType) e(UInt32 eventTime) e(UInt32 eventIndex)
+	    e(UserEventRefNum<MyEventDataA> eventRef)
+	    e(MyEventDataA data)
+        ) localEventDataA)
+	e(c(  // Storage for event data node on left border of event case 2 (timeout event)
+	    e(UInt32 eventSource) e(UInt32 eventType) e(UInt32 eventTime) e(UInt32 eventIndex)
+        ) localEventDataTO)
+	e(Boolean bool)
+    )
+
+    clump (1 // top level
+	CreateUserEvent(userEventRefA errorIO)
+
+	RegisterForEvents(eventRegRef errorIO 1000 userEventRefA)
+
+	Trigger(1)  // start background Producer loop clump
+	WaitMilliseconds(10)
+
+	GetMillisecondTickCount(timeBegin)
+
+	// Consumer Loop
+	Perch(5)
+	BranchIfGE(100 receivedCount max)
+
+	WaitForEventsAndDispatch(timeOut eventRegRef 0
+				0 localEventDataA 10 // e.g. event spec 0 fills into localEventDataA and branches to perch 10
+				1 localEventDataTO 20
+				)
+	Branch(5)
+
+	Perch(10)  // Event case 1
+
+	Add(1 receivedCount receivedCount)
+	Branch(5)  // User Event A waits again
+
+	Perch(20) // Event case 2
+	Printf ("Event case 2, Timeout case (%dms), EventType:%u Index:%u\n" timeOut localEventDataTO.eventType localEventDataTO.eventIndex)
+	//Printf ("// time:%u\n" localEventDataTO.eventTime)
+	Branch(100) // Timeout event finishes
+
+	Perch(100) // End of Event structure
+
+	Wait(1)
+	GetMillisecondTickCount(timeEnd)
+	Sub(timeEnd timeBegin timeElapsed)
+	Convert(receivedCount throughput)
+	Div(throughput timeElapsed throughput)
+	Mul(throughput 1000.0 throughput)
+
+	UnregisterForEvents(eventRegRef errorIO)
+	DestroyUserEvent(userEventRefA errorIO)
+
+	Printf ("Final Event, User Event A Fired, EventType:%u Index:%u data:<%z>\n" localEventDataA.eventType localEventDataA.eventIndex localEventDataA.data)
+	Printf ("Sent: %d Received: %d\n" sentCount receivedCount)
+	Printf ("//Elapsed time: %u ms\n" timeElapsed)
+	Printf ("//Throughput: %.0f events/sec\n" throughput)
+
+	Printf ("Done\n")
+    )
+    clump (1 // background clump Producer Loop
+	Perch(200)
+	BranchIfGE(250 sentCount max)
+	Copy(sentCount myDataA1.val)
+	GenerateUserEvent(userEventRefA myDataA1 false errorIO)
+	Add(1 sentCount sentCount)
+
+	Branch(200)
+	Perch(250)
+    )
+
+) ) )
+
+
+enqueue(UserEventTestProgram)

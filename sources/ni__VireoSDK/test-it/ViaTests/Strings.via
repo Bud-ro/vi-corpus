@@ -1,0 +1,88 @@
+//trace
+define(ToStringTest dv(.VirtualInstrument (
+ c(
+ e(dv(.String  'Hello\nWorld\r cr \t\t tabbed test with a slash \\.\$ no dollar ') cHelloWorld)
+ e(dv(.String  @'Hello\nWorld\r cr \t\t tabbed test with a slash \\.\$ no dollar ') cHelloWorldLiteral)
+ e(dv(.String  @'bad escape\') cBadEscape1)
+ e(dv(.String  @'bad es\cape') cBadEscape2)
+
+e(dv(.String  @'Hello World
+Line2
+Line3
+Line4           tabbed field') cHelloWorldMultiline)
+ e(dv(.String  'Hello') cHello)
+ e(dv(.String  '----') cSeperator)
+ e(.String cStrValue)
+ e(dv(.Int32 0) c0)
+ e(dv(.Int32 -1) cn1)
+ e(dv(.Int32 1) c1)
+ 	e(.Int8  vInt8)
+	e(.Int16 vInt16)
+    e(.Int32 vInt32)
+    e(.Int64 vInt64)
+    e(.UInt8  vUInt8)
+    e(.UInt16 vUInt16)
+    e(.UInt32 vUInt32)
+    e(.UInt64 vUInt64)
+    e(.Double vDouble)
+    e(.Single vSingle)
+    e(.Boolean vBoolean)
+ )  // defaults to false
+ clump(1 
+  ToString(vInt8 * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(vInt16 * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(vInt32 * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(vInt64 * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+  
+  ToString(vSingle * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(vDouble * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(vBoolean * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  ToString(cHello * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+  
+  ToString(cHelloWorld * cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+  
+    Printf(" @string hello world <%s>\n" cHelloWorldLiteral)
+    ToString(cHelloWorld * cStrValue)
+    Printf(" ToString on @string hello world <%s>\n" cStrValue)
+
+Printf("@string multiline hello world <%s>\n" cHelloWorldMultiline)
+
+    Println(cBadEscape1)
+    Println(cBadEscape2)
+
+  StringToUpper(cHello cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+  StringToLower(cHello cStrValue)
+  Println(cStrValue)
+  Println(cSeperator)
+
+   )
+)))
+
+enqueue(ToStringTest)

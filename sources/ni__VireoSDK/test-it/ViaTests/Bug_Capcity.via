@@ -1,0 +1,34 @@
+
+/*
+ When switching arrays to track capacity one lingering bug
+ related to non flat elements in extra capacity section of an array.
+ for variable and fixed arrays this was not a problem since length matched
+ capacity, but for bounded arrays it did not work right.
+
+ Extra capacity is initialized during the array's initial allocation, and must be
+ deleted when the array is freed up. This is particularly important when the array
+ elements are non flat.
+*/
+
+//---------------------------------------------------
+//VI Definition: this crashes the brick.vi
+define(videf2 dv(.VirtualInstrument (
+    c(
+        e(a(.String -1000) local4)
+        e(a(.String -1000) local5)
+        e(dv(.String "hello") local6)
+    )
+    clump(
+        ArrayResize(local5 2)
+        ArrayResize(local4 4)
+        Copy(local5 local4)
+        ArrayConcatenate( local4 local4 local6)
+        Println(local5)
+        Println(local4)
+        ArrayResize(local4 0)
+        Println(local4)
+        ArrayResize(local4 4)
+        Println(local4)
+    )
+)))
+enqueue(videf2)

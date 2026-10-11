@@ -1,0 +1,40 @@
+define(Int32_5 dv(.Int32 5))
+
+define(HelloTypeValues dv(.VirtualInstrument (
+    c(
+        e(.Int32 n)
+        e(.Type  t)
+        e(dv(.Type .Int32)  tInt32)
+        e(dv(.Type .Int32_5)  tInt32_5)
+    )
+    clump (1
+        Copy(.Int32 t)   
+        Copy(Int32 n)        
+        Printf(".Int32 type %z \n" t)
+        Printf("Int32 value %z \n" n)
+       Println(t)
+       Println(n)
+
+        Printf(".Int32 type %z \n" .Int32)
+        Printf("Int32 value %z \n" Int32)
+       Println(.Int32)
+       Println(Int32)
+
+        Copy(.Int32_5 t)   
+        Copy(Int32_5 n)
+        Printf(".Int32_5 type %z \n" t)
+        Printf("Int32_5 value %z \n" n)
+       Println(t)
+       Println(n)
+        
+        Printf(".Int32_5 type %z \n" .Int32_5)
+        Printf("Int32_5 value %z \n" Int32_5)
+       Println(.Int32_5)
+       Println(Int32_5)
+             
+        Printf("Int32TypeMember %z \n" tInt32)
+        Printf("Int32_5TypeMember %z \n" tInt32_5)
+    )
+) ) )
+
+enqueue(HelloTypeValues)

@@ -1,0 +1,82 @@
+define(I8_neg1 dv(.Int8 -1) )
+
+define(U8_0 dv(.UInt8 0) )
+define(U8_255 dv(.UInt8 255) )
+
+define(U16_1 dv(.UInt16 1) )
+define(U16_2 dv(.UInt16 2) )
+define(U16_255 dv(.UInt16 255) )
+define(U16_65535 dv(.UInt16 65535) )
+
+define(I32_65538 dv(.Int32 65538) )
+define(I32_neg65535 dv(.Int32 -65535) )
+
+define(U32_65538 dv(.UInt32 65538) )
+define(U32_4294901761 dv(.UInt32 4294901761) )
+
+define(I32_array dv(a(.Int32 *) (53546 45687796 2147483647 567675465 445809845 2042398785 -2147400000 -2 ) ) )
+
+//---------------------------------------------------
+
+define(videf1 dv(.VirtualInstrument (
+    c(
+        e(dv(.Boolean f) result_hi)
+        e(dv(.Boolean f) result_lo)
+        e(dv(.Boolean f) result)
+        e(dv(.UInt8   0) U8_hi)
+        e(dv(.UInt8   0) U8_lo)
+        e(dv(.UInt8   0) U8)
+        e(dv(.UInt16  0) U16_hi)
+        e(dv(.UInt16  0) U16_lo)
+        e(dv(.UInt16  0) U16)
+        e(dv(.UInt32  0) U32_hi)
+        e(dv(.UInt32  0) U32_lo)
+        e(dv(.UInt32  0) U32)
+        e(dv(.UInt64  0) U64)
+		
+		e(dv(a(.UInt16 *) () ) U16_array1)
+        e(dv(a(.UInt16 *) () ) U16_array2)
+    )
+    clump(1
+        Split(I8_neg1 U8_hi U8_lo)
+        IsEQ(U8_hi U8_0 result_hi)
+        IsEQ(U8_lo U8_255 result_lo)
+        And(result_hi result_lo result)
+        Println(U8_hi)
+        Println(U8_lo)
+        Println(result)
+        Join(U8_hi U8_lo U16)
+        IsEQ(U16 U16_255 result)
+		 Println(U16)
+        Println(result)
+
+        Split(I32_65538 U16_hi U16_lo)
+        IsEQ(U16_hi U16_1 result_hi)
+        IsEQ(U16_lo U16_2 result_lo)
+        And(result_hi result_lo result)
+        Println(U16_hi)
+        Println(U16_lo)
+        Println(result)
+        Join(U16_hi U16_lo U32)
+        IsEQ(U32 U32_65538 result)
+		 Println(U32)
+        Println(result)
+
+        Split(I32_neg65535 U16_hi U16_lo)
+        IsEQ(U16_hi U16_65535 result_hi)
+        IsEQ(U16_lo U16_1 result_lo)
+        And(result_hi result_lo result)
+        Println(U16_hi)
+        Println(U16_lo)
+        Println(result)
+        Join(U16_hi U16_lo U32)
+        IsEQ(U32 U32_4294901761 result)
+		 Println(U32)
+        Println(result)
+		
+		Split(I32_array U16_array1 U16_array2)
+		 Println(U16_array1)
+		 Println(U16_array2)
+    )
+)))
+enqueue(videf1)
