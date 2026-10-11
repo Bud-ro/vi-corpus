@@ -1,0 +1,73 @@
+Version ECS_2015.0.3
+2/24/2015
+
+Notes:
+Fixed bug in Control - Direct Injection.vi which prevented FOR loop from running
+Changed Calpoints in Hardware Out - 9759-1 (Throttle).vi to read from Cal File calibration
+Changed DI Pulse Check.vi to only indicate a pulse overlap if relevant channels are enabled
+Changed SparkAdv_Man Calpoint in Control - Spark.vi to an array instead of scalar (individual cylinder manual advance)
+Overhaul of Host VI plot look and feel
+Added a disable button for the XNET VI to prevent unnecessary faults
+Moved several calpoints outside of conditional disables in Hardware In - ECS - EPTx Interface.vi
+Removed cvi_lvrt.dll from project directory (no longer needed for LabVIEW 2015)
+
+
+Version ECS_2015.0.2
+12/23/2015
+
+Notes:
+Significant updates throughout Real-time
+Added FPGA knock processing on PXI-based ECS
+Added support for NI NOx sensors using XNET interface (includes XNET database)
+Updated all top level host VIs
+Updated Diesel, GDI, and PFI control layers
+Added Stop button to Real-Time for interactive deployment
+Fixed bug in Engine Out - Direct Injectors.vi which prevent 0 injection duration if the min injection was above 0
+Added NI-XNET Device Drivers 15 or later to the required software list
+
+
+Version ECS_2015.0.1
+12/7/2015
+
+Notes:
+Updated compatibility with Powertrain Controls Device Drivers 2.140.0.37
+Removed depricated FPGA VIs
+
+
+Version ECS_2015.0
+12/3/2015
+
+Notes:
+2015 Update
+Updated all FPGAs to use EPTx (formerly EPT RevC)
+Moderate Real-Time SW architecture updates
+Revised HW out subVIs
+Added Tau-X VIs for PFI (not used)
+Added TDK labmda support
+
+Bugfixes:
+None
+
+
+Version 3.140.14955
+11/25/2014
+
+Notes:
+2014 Update
+Moderate SW architecture updates
+Added eDIDS hardware layer
+
+Bugfixes:
+None
+
+
+Version 3.130.14345
+8/20/2014
+
+Notes:
+Initial release 
+Diesel, GDI, and PFI Engine and Control Layers
+PXI-based ECS-100X and cRIO-based ECS-140X Hardware Layers
+
+Bugfixes:
+None
