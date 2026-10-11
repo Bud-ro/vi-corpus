@@ -1,0 +1,1548 @@
+{
+ "repo": "dataflowg/fpga-raycaster",
+ "url": "https://github.com/dataflowg/fpga-raycaster",
+ "commit": "cbcb410511e00734d970fb6afd03310bca1836cd",
+ "license": "GPL-3.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "src/Controls/Game_State.ctl",
+   "bytes": 6883,
+   "sha256": "6525368951654f62c380f0107c02459a3cb651410c37deb1096063bc9bfdb653",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Map_Object.ctl",
+   "bytes": 5655,
+   "sha256": "3df3aba440d5fef017105b61cad5c991e0825a2e96a71f0c673f7153bff5cea1",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Map_Objects.ctl",
+   "bytes": 7432,
+   "sha256": "2b926b9b34e65110b8e4a62bcbcbd4310f09290c76353c3bccd953c9224aacc4",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Map_Position.ctl",
+   "bytes": 4457,
+   "sha256": "02751901f5c06789ba97abba71ebf0b2d19492acec2bbb039fd62e81849088af",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Player_LocationInfo.ctl",
+   "bytes": 5840,
+   "sha256": "aac6dc597fce2ab465be0319cca5f93ac9680643dae337fcb94b1b3edf57182c",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Player_LocationInfoAxis.ctl",
+   "bytes": 4980,
+   "sha256": "9ff9fd8436419b338516bcf0a80acfb1667af1ddc23f691e481c344a5a56ec73",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Raycaster_DDACalcs.ctl",
+   "bytes": 6507,
+   "sha256": "eb19a2fabf98cbf842ff4d384735f0263db240200ec259b00f0e43895dec90a9",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Raycaster_DrawState.ctl",
+   "bytes": 7240,
+   "sha256": "1ea6c923d4c11dcae30979635470bc176afc9cf16143ed7150b069b8c6f4e4f4",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Raycaster_PlayLoop.ctl",
+   "bytes": 4559,
+   "sha256": "878e01df70935999ffed7486d386248a55470f9e88df94e2988c5ff665ebf050",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Raycaster_ScreenCalcs.ctl",
+   "bytes": 4962,
+   "sha256": "f31d62c589aaac32436d3bcfc52e50f1441a11428de264ce38df016f9952b552",
+   "via": "extension"
+  },
+  {
+   "path": "src/Controls/Raycaster_WallColumnAxis.ctl",
+   "bytes": 5201,
+   "sha256": "045d57a682457eb1a05f5ead09aa96274faa94825587ac24517301728f326b4f",
+   "via": "extension"
+  },
+  {
+   "path": "src/FPGA Raycaster.lvproj",
+   "bytes": 10563007,
+   "sha256": "81fd3c124e0ec36934e0edd8bb619996686e605a1459a8f9c9e09acaa887918a",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/FGV_TileVisible.vi",
+   "bytes": 13391,
+   "sha256": "9b10dca01c0586f2f971c3afab4e0615808730ddd2166e148ed46d57e6d6f602",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/FGV_TileVisibleEnum.ctl",
+   "bytes": 4144,
+   "sha256": "fcf717980cc4a7250b9a8cb98691d6c7611aee39d682fa6bd5062b316bbbd625",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/HEIGHT.vi",
+   "bytes": 7358,
+   "sha256": "c0bde96d5705f1e67b1def5901f0afa30478e35ece120e1886ff01e27745be6f",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/HEIGHT_DIV_2.vi",
+   "bytes": 7376,
+   "sha256": "c1ff7a4bbbeaa8aab099a3066de2afd021a778b22e9a6fadb1f74e5dc2f6cdd4",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/MAP_AREA.vi",
+   "bytes": 7368,
+   "sha256": "84b0c61589dd25587811a70d62e526643a28072bf75a978fc6aacdf929209ad4",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/MAP_DIM.vi",
+   "bytes": 7363,
+   "sha256": "ec7f0de60a8b34b4bbde0be5c853c9e71b1f62cccc70aea20a21410632788df6",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/MAX_SPRITES.vi",
+   "bytes": 7375,
+   "sha256": "1c1c534c49ad88d4e710a110c925a040421ae4727ba954509009f4980e9bc501",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/TEX_DIM.vi",
+   "bytes": 7355,
+   "sha256": "d90640caffff5bf189da8b531d3f1ab364c0c66b17063bbecb703b8fe9206f66",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/TEX_SIZE.vi",
+   "bytes": 7368,
+   "sha256": "06e3dd256f208e1f973b9bfcc28a603c7cb6893d9c2c6fa0a7afb0a6734343db",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/Textures.vi",
+   "bytes": 8040,
+   "sha256": "2cc30468562ede56c1ee85efb553545b990b049f01d4b41ca5fe990442946d7e",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/WIDTH.vi",
+   "bytes": 7349,
+   "sha256": "358f8a26de2ad78444244558da2422926a4adf726e5f5467066ec1c04fa04394",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/WIDTH_DIV_2.vi",
+   "bytes": 7375,
+   "sha256": "7288dca81e419e5880dda7bd331adbc1f8cd86c4611137e63b9ec93631b758c8",
+   "via": "extension"
+  },
+  {
+   "path": "src/Globals/WIDTH_DIV_4.vi",
+   "bytes": 7371,
+   "sha256": "f1f680e1a040291ebaa0c0177a7f0ee28e67676c45717a9bc2ae851c027796cc",
+   "via": "extension"
+  },
+  {
+   "path": "src/Main.vi",
+   "bytes": 9596,
+   "sha256": "9ace35891be3d723e23de7bb93dd00431421885efb571dd8b69ddbd62d328c9e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/FPGA/Control_DebounceDigital.vi",
+   "bytes": 9515,
+   "sha256": "bace6dfdcd8bbfc59cbcfbf499641df69a056f5acfcaec6768b84b3e95e44b0e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/FPGA/VESASignal_CalcFramebufferAddress.vi",
+   "bytes": 23357,
+   "sha256": "6fc945b6770aab11ed10e2a562e0621a1432f390592624d80b3b0abbd5bfdba5",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/FPGA/VESASignal_Run.vi",
+   "bytes": 748870,
+   "sha256": "c4595b72da2f885b1a277717094b69044ec4b267cdd6fe25c4cff0871af50f59",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/FPGA/VESASignal_ScanNextHPixel.vi",
+   "bytes": 5565,
+   "sha256": "2edf452c51feb9153f89ee11b4bd70edf874316edc21f96d6fb452d12d232e66",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/FPGA/VESASignal_ScanNextVPixel.vi",
+   "bytes": 5757,
+   "sha256": "e6fadbd5fc27922cf87ec73ab4da4bf5c3eeb772dd60b96c8f3a24bf21d77781",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Map_GetMaps.vi",
+   "bytes": 18071,
+   "sha256": "d35ac3e733844c579e61b8c627f543182a332e8f4e7b3c606b2d3704b92dfbf5",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Map_InitMap.vi",
+   "bytes": 28739,
+   "sha256": "e6c630d75d4d6c06ca90b6a1bc4da8a6acccacbf0d2f662cfb76495f549ff458",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Map_ReadValue.vi",
+   "bytes": 21753,
+   "sha256": "f0bc49a3cd150f886a928433c4330b1cab205945d0c274b30d0a480e0e479330",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_Add_FXP.vi",
+   "bytes": 12076,
+   "sha256": "8d7f837f6e5e27e2536dac2779a8f0fd175403bfab0973f625e787819bb70c51",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_Divide_FXP.vi",
+   "bytes": 13783,
+   "sha256": "fc80d55de814dafa9f419c5e6c8156a276116788dc7093027bd1c7e923bb9206",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_FXPtoI16.vi",
+   "bytes": 10905,
+   "sha256": "93de46fa35e09edc0c8cecfa2a37302840ac12054a380107f7db832a3ed81567",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_Multiply_FXP.vi",
+   "bytes": 10265,
+   "sha256": "394c3db24bafb4b5926b117c897a68a5c8bd4cc2aaac307e880ff1dbccd12673",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_Reciprocal.vi",
+   "bytes": 17903,
+   "sha256": "eb228485dbb2801329c5607804aceac17a0d871e3edd5f1ed922994d816ad618",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Math_Subtract_FXP.vi",
+   "bytes": 11785,
+   "sha256": "83918808bf0a70c1a208b9047560a4400fc33a3aef4db7ab7a285961beb04d93",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcCameraX.vi",
+   "bytes": 13685,
+   "sha256": "3afcf2ae793186def6ad4374fcb454730ef13889c39932432b2cbbe6b618ef38",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcInverseCameraMatrix.vi",
+   "bytes": 14581,
+   "sha256": "294372b384060678acb0b7d735d131ca8eee1168327153be3276f658cf018105",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcObjectDistance.vi",
+   "bytes": 31480,
+   "sha256": "7b5088c263e179c22ab90228b0c5d812e64f209e6312dc54c1f8079c682eb97d",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcSpriteHeight.vi",
+   "bytes": 14234,
+   "sha256": "d0224f0fd6923117d08ff23efda3053f8a5e67b1bb260ac8663bbf80645ed970",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcSpriteScreenX.vi",
+   "bytes": 14075,
+   "sha256": "4051c9b55bc65a812abb510e4cce6b6b1977f5fcaccc6f2d636451507291d978",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcSpriteSize.vi",
+   "bytes": 17688,
+   "sha256": "208efcab6b04d6bdef0249bcb249a0bbfab5940353ba0c9114331f34a9063265",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcWallDistance.vi",
+   "bytes": 18026,
+   "sha256": "35b03734c17bb3c4307618d056240b1eea956bb03e4eb00ada8c5c0a038e6931",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CalcWallHeight.vi",
+   "bytes": 15184,
+   "sha256": "9afbc7cbc4dff0c62ed14f3750fb7f69fc4335f5471a7965bc733c78984250b7",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_CollisionTest.vi",
+   "bytes": 16843,
+   "sha256": "0ca9e57d6a1730e791325353bf62f1923c0653204fad247d45fe7f7c946235d3",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_DrawBackground.vi",
+   "bytes": 49240,
+   "sha256": "35ce038c5f98f7fda406a2e828a3aba1d881ff81b9311bde3b723155c5ae773a",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_DrawColumnSimple.vi",
+   "bytes": 84798,
+   "sha256": "b5ace15ba7acf92e5bbafe7a9b0c0e89d5ecc223981ffbcb44368fe0055d41f0",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_DrawColumnTextured.vi",
+   "bytes": 91256,
+   "sha256": "02135174cec40621ccf27348e9230538006210b89f302679806d60b55c07298e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_DrawSprites.vi",
+   "bytes": 41225,
+   "sha256": "1369e60fb1badeafbe8f00c294d2b4fea9fc319658ce30e8be38ee59797a081e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_DrawSubBuffer.vi",
+   "bytes": 35503,
+   "sha256": "aaa86db74f69032760b98e2209593124ecdcebd83be0f7307814f274e098a20e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_FizzleFade.vi",
+   "bytes": 554192,
+   "sha256": "67c9ef0d72e798d27cee7a08c5fb73583f45af32eeeaf1748df8c462f7ac250d",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_GetSubBufferAddress.vi",
+   "bytes": 13321,
+   "sha256": "f260dd3a33b69a9f98d10c4f0fa73e6523b1bf83e4e6bd07f41c439a543b56c8",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_ReadWallHeight.vi",
+   "bytes": 24936,
+   "sha256": "9b8f731f0eec995aa33bf3600c6d83b340b51d2ac2283abebcec12c6ca30c662",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_Run.vi",
+   "bytes": 57221,
+   "sha256": "a9f13647a96c34add7362f7b8b981d61b65a11fab57cd598a821eb80dac83ca0",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_RunDDA.vi",
+   "bytes": 28396,
+   "sha256": "58e79ae28387d0aabf173339ec2d3aecc488ee4ff13bb991fb8558977f23087a",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_SetupDDA.vi",
+   "bytes": 16618,
+   "sha256": "518298a63bccd46c257c36cc13f86e012af6a35354c2af2a1ce811006f6b926d",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_SortObjects.vi",
+   "bytes": 18485,
+   "sha256": "903ed7cfe521768aaa60d1f6950da7ac2da7d7b7c665e696844e31d9693fa662",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_UpdatePosition.vi",
+   "bytes": 62508,
+   "sha256": "d91ab2ad70ec411ab67f19bccb8cdf4dfe3d3c5f65688954d34fc8261f502314",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Raycaster_WriteFramebuffer.vi",
+   "bytes": 76130,
+   "sha256": "6970cedafce69def55e8ba85536b031c464dff52af8a499a4157cd1c7e1e5d1e",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Sprite_DecodeRLEToMemory.vi",
+   "bytes": 65036,
+   "sha256": "43c132c85da67eb8c0731f8908d3262dd346bfdb1e6d654b3752addb3ff9a960",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Sprite_GetSprites.vi",
+   "bytes": 15433,
+   "sha256": "735030da0fc95f7bfa5a93084a45cc03a9b167211ee71506408435ffbcd14ba7",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Sprite_ReadValue.vi",
+   "bytes": 18168,
+   "sha256": "e57ccbbc065df4c669da0b7f5d89d498bf84d6329416c04c744917f9178a5aa7",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Texture_GetTextures.vi",
+   "bytes": 16391,
+   "sha256": "d11bc5fdb2ff057cbbdb00e5e6434849aa8490bddbac875b99b617a96d8bd6c4",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Texture_ReadValue.vi",
+   "bytes": 68681,
+   "sha256": "5b68981594b9d8934881656982ddea44d7190fdefa8f14f0a2578037ccf5e7f5",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Video_FlipFrameBuffer.vi",
+   "bytes": 57629,
+   "sha256": "0ec2fa3f851d1589d7d6065c5c65703d164d3bcbe9d98036e5115596ce0ee908",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Video_GetPalette.vi",
+   "bytes": 17580,
+   "sha256": "120171fd4444527d69278cd452b3332d280e76d35d275f26cb40374227b1ec95",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Video_Output.vi",
+   "bytes": 28740,
+   "sha256": "e385e6819e72e8af784e32b905e5f187bba728e8c413f13467616ec45165178a",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/Video_WriteFrameBuffer.vi",
+   "bytes": 19138,
+   "sha256": "ba2ba1e90e31db6299d8ecba58a343052fcc89af6bfd60db3b5d47c01b60b32f",
+   "via": "extension"
+  },
+  {
+   "path": "src/SubVIs/keyboardAcquire_anyThread.vi",
+   "bytes": 15057,
+   "sha256": "b3f7e8c28332a7efd6523a08034069cbce2048f4244cb9e0c9b187e1d569db5d",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_MapsPlane0.vi",
+   "bytes": 20769,
+   "sha256": "032197f073f4b720db3853b29dc501c035d9f3830d1295f448ba4939b903c1b2",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_MapsPlane1.vi",
+   "bytes": 19969,
+   "sha256": "f96719b265c9a0dd6962dfcaf6cf95a5886702aae23352705d67e2554343cb67",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_Palette_FXP.vi",
+   "bytes": 55554,
+   "sha256": "18806931038dbf1b3c732a23550e03d1b130aa5624bd429906555a7f91b1a7f5",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_SpriteIndexes_RLE_U32.vi",
+   "bytes": 24364,
+   "sha256": "489546e3adf9a078e3faf4ee972f8a9fa166dd8716fdc0e8156d9c7b29dbd7db",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_Sprites_RLE_FXP.vi",
+   "bytes": 24474,
+   "sha256": "fb4908f443ea5ef4c3c45c02617574c28be7507c10e4fc8275202efa2a27281d",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_Textures0_FXP.vi",
+   "bytes": 50124,
+   "sha256": "f9a0f6ec11c87073f1f30a39ef476f4def6cd9ddb82b8bf2c8b56fd962339412",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/FPGAMemoryInit_Textures1_FXP.vi",
+   "bytes": 48544,
+   "sha256": "a401960382882e8816ce28fde5bb267e07b2c12f5390b30f211cf93f7253115b",
+   "via": "extension"
+  },
+  {
+   "path": "src/Utilities/Sprite_RunLengthEncode.vi",
+   "bytes": 16398,
+   "sha256": "019e5e75bff91b821bc4cc9c50973c4a0f4d065c8799f81e316c8796a04d7493",
+   "via": "extension"
+  },
+  {
+   "path": "src/Resources/Palettes/wolf3d_256.pal",
+   "bytes": 2518,
+   "sha256": "e0490360377f2cf3bad5b3856217cb9f6a27ddde713f063184b7db8ddcfed403",
+   "via": "ref:src/SubVIs/Video_GetPalette.vi"
+  },
+  {
+   "path": "src/Resources/Palettes/wolf3d_64.pal",
+   "bytes": 2418,
+   "sha256": "897f902d99c5eb103d340d3ae91a9ba7518977cbfe9a63deac1aadc87b16c591",
+   "via": "ref:src/SubVIs/Video_GetPalette.vi"
+  },
+  {
+   "path": "src/Resources/Palettes/wolf3d_64_dedupe.pal",
+   "bytes": 477,
+   "sha256": "8be9255cbc93dd3055b9f3cfd31b1d94bcff22a1ba75349d8c389e1dac4101bd",
+   "via": "ref:src/SubVIs/Video_GetPalette.vi"
+  },
+  {
+   "path": ".gitattributes",
+   "bytes": 1086,
+   "sha256": "f187154919387627795a0c7d53a2253502ab29c4f23c832874ff8631bd089c41",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 836,
+   "sha256": "b3ca313f5fd3c94735b45937f4f878300e99e631de429bb0a263e54b5739646c",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 35149,
+   "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 3219,
+   "sha256": "2fcfb42f7b37857d976859e51f6ae4272842de81964007f06e4c5d391b3a341c",
+   "via": "tree"
+  },
+  {
+   "path": "images/64-color-palette-side-by-side.jpg",
+   "bytes": 60762,
+   "sha256": "bb814c5154e4dc29df19da020eae7d1174f8ae3e697c2acc879b47c3d7449581",
+   "via": "tree"
+  },
+  {
+   "path": "images/9401-to-vga-schematic.png",
+   "bytes": 5014,
+   "sha256": "69ad462de505cf47b0ef21878634201b17f6141674f5758b0dae431c186555e7",
+   "via": "tree"
+  },
+  {
+   "path": "images/fpga-raycaster-setup.jpg",
+   "bytes": 121530,
+   "sha256": "3a4c5137d57fb024d67f25b63b4f540db5ab91dbaaa90dd72878641a33ae0682",
+   "via": "tree"
+  },
+  {
+   "path": "images/video-adapter.jpg",
+   "bytes": 142632,
+   "sha256": "c5f97b26a9afd6abf82b4b845dbd7277145b551f49256dd600e47ca9620bc68d",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/64-color-palette.png",
+   "bytes": 3316,
+   "sha256": "bd1739ab3604a6ec285bd26314d7d0a8885e57dab544134d30b34b4c861bb49c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 0.map",
+   "bytes": 24610,
+   "sha256": "7ab65401048c314a8526cfa7a8d3f768ac694e15b47b39f49f59944338b276f1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 1.map",
+   "bytes": 24610,
+   "sha256": "de9d50784ab887fee9af442830ce7ab529943b6410dee7add00e2f15630cec39",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 2.map",
+   "bytes": 24610,
+   "sha256": "ac4f2c3bfb2774e980b8d42523c4876a6a48d99ea1829b2037fd1f339d9285fa",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 3.map",
+   "bytes": 24610,
+   "sha256": "ad4c1ef768607c2857d5623aa1eea6cf04f3d4c1d8449541c2b6384a295ad07c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 4.map",
+   "bytes": 24610,
+   "sha256": "b16a5290433b20b1a48d9f38fc9030278557dc7904a1431994775790c70d9714",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 5.map",
+   "bytes": 24610,
+   "sha256": "78c7fad022fe51e62db6e5e38634e9341b615b6d3b5ce1bd955758f1ad2dd343",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 6.map",
+   "bytes": 24610,
+   "sha256": "d3a33c78f5b960b11a31f44a7103451ce32877102a8c61f81a28dac0f2be907c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 7.map",
+   "bytes": 24610,
+   "sha256": "6e99e6d91153b8412a60099f8854777eba5f98e273418c40474c9907a871b654",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Maps/Map - 8.map",
+   "bytes": 24610,
+   "sha256": "e092377f86ef189bbbc209f1149c1c345d5a148a082c9d44a9654c95074912b2",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Palettes/wolf3d_256.png",
+   "bytes": 1170,
+   "sha256": "e3432ae52f3e27ddabbba461688adf9edffcc2b535d633489f143460e461acc3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Palettes/wolf3d_64.png",
+   "bytes": 1066,
+   "sha256": "9914e40eaccedca50a910be36b4be0652e286f27c9b5fd10be3d784176902819",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-108.bmp",
+   "bytes": 5174,
+   "sha256": "a1c8929cd2258dacade84e3c8a4c9cdb0c03b844cde19f04cfd3e4f6c7540d9f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-109.bmp",
+   "bytes": 5174,
+   "sha256": "a302d68d9985b15280591de2a5e6f017c38bc52e822ba2b018379ab92d70b4c3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-110.bmp",
+   "bytes": 5174,
+   "sha256": "ee867411c27ce1c6e419026fca2661d24cb37de256959d28d8fb19486c803dbe",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-111.bmp",
+   "bytes": 5174,
+   "sha256": "2388b35a58527bcf0ccd7c0ec26f9fbc5c7212ad67c35eec692f2536544be5f4",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-112.bmp",
+   "bytes": 5174,
+   "sha256": "9072c9546f9840e314c3f8459b995c1a259c3789f6c940b4fcb5ca28030e5982",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-113.bmp",
+   "bytes": 5174,
+   "sha256": "552b454dc7d29b7fb36d527552d7f89a641ae1fd833db71409fb393fab9d9ed4",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-114.bmp",
+   "bytes": 5174,
+   "sha256": "62325e3a0986a57aeb276a3933efd4fd1645f98d61412b3330d86c337d2f2ead",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-115.bmp",
+   "bytes": 5174,
+   "sha256": "115b2d030c022621d463799e33c7f3d8f6aecac38676da2fc19963140bf36318",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-116.bmp",
+   "bytes": 5174,
+   "sha256": "29f250dd7d06f9eda6e2a7698a62d38ba588d89339ff9e55878571dfb9435226",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-117.bmp",
+   "bytes": 5174,
+   "sha256": "414d3dcbc4989d952948cfc7032ececd328a10e1df66fe104b7716e4b46db9fa",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-118.bmp",
+   "bytes": 5174,
+   "sha256": "77e9c21a8e5bac53e0c56fc7b32080a5fa4f1ecd132a5e2d61417226e51cbe52",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-119.bmp",
+   "bytes": 5174,
+   "sha256": "fdc2b63b688c7f44aed41ca322e043c473062f01bcf0ffa74ba53de75b6a97b7",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-120.bmp",
+   "bytes": 5174,
+   "sha256": "c0e92ef532ecb9081ab33f3797afae5aadc7fb85244bc601cc921a46e40c968d",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-121.bmp",
+   "bytes": 5174,
+   "sha256": "e87a43f64729b9781b8c2337226efaca8cb1568bf4a028da88461197b4d75306",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-122.bmp",
+   "bytes": 5174,
+   "sha256": "37e45a9ccd2ace6e9e6f04355daf1454c76ba3ae4f51e77aa1c2e1cc9943870c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-123.bmp",
+   "bytes": 5174,
+   "sha256": "2f5bff4b7537f1dd83cb54b6c339897472018658bdcec98d00a35c6d02475062",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-124.bmp",
+   "bytes": 5174,
+   "sha256": "be2f66fa0bd64714258488555c45dc6b7a5d4ab71420e89acf0f6ce72a9e17d1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-125.bmp",
+   "bytes": 5174,
+   "sha256": "1ec0598f5f5493a2df3d9a4d8b3710d1eb5a93c7bba7993145663cadc283584e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-126.bmp",
+   "bytes": 5174,
+   "sha256": "b71db713f88712a7c3c008362c20ca11d8e3573d403bbd03a5603ade01cbbf79",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-127.bmp",
+   "bytes": 5174,
+   "sha256": "7f8574cccd44566d4405f5d86349fde50ad86818ea7d3c0b072ea3e9fcc07991",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-128.bmp",
+   "bytes": 5174,
+   "sha256": "def843b4f0a2eeb22100fb4b0f8b0e4efaeeec3b191d86d841f762a6b48d642f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-129.bmp",
+   "bytes": 5174,
+   "sha256": "aebe7301d63176236d078d24b588474fc32181f6f02d9853a85c8abd4853c5e3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-130.bmp",
+   "bytes": 5174,
+   "sha256": "1b40b8b699ddbb30e34282dde9d0ed1efce6d4f4c0d39323be07725ab67f4ac5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-131.bmp",
+   "bytes": 5174,
+   "sha256": "c736230312e86f794d8aa9981432f06e32c6bf12c4472a9d66cbc2dfc0d022f1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-132.bmp",
+   "bytes": 5174,
+   "sha256": "c1c21cfba382fb4535d3af31c871999eb234bc69ff03f28cfe7b7b28967ad47f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-133.bmp",
+   "bytes": 5174,
+   "sha256": "d6164ea13e421096a9630b1a98c13594d37767ee99309722b8dfb01ff87bd377",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-134.bmp",
+   "bytes": 5174,
+   "sha256": "33a0510734fd8b31ed71ad4150f33d02bdc2071d35d1923bf13c427b5900288c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-135.bmp",
+   "bytes": 5174,
+   "sha256": "a360b6e58d5edabed332f59015de594be881446cd8e1e9f40164d360a8eaf53b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-136.bmp",
+   "bytes": 5174,
+   "sha256": "6357edbea8b32257e894f8cb56abcf37c327bee3a167833e0305a63fe739d0ad",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-137.bmp",
+   "bytes": 5174,
+   "sha256": "cfe1850b38c7585ff62f3eff6f83f2b61a120ffb662b02abe5f49e5a75401368",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-138.bmp",
+   "bytes": 5174,
+   "sha256": "9b6ca96f45bfd30dd64137a476fe73a401750073e10acc2a813278bc139bef8f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-139.bmp",
+   "bytes": 5174,
+   "sha256": "0be621f4c1be32c2bc44d343521b6c7bdb95ef0dd014ce70cabe6e242dc6c0e3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-140.bmp",
+   "bytes": 5174,
+   "sha256": "97ec35487de10bdc12059f2876aad1af9ebaebedfdbeb4ebad779e5f9fcb9c7e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-141.bmp",
+   "bytes": 5174,
+   "sha256": "307e8dc89a629068782ff86f094c7ed8fbe997ab673074e65e8ea23f3f82c85b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-142.bmp",
+   "bytes": 5174,
+   "sha256": "fcefe425bf8422071440a131b97153933809a1af580618506925a1e1902a9d11",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-143.bmp",
+   "bytes": 5174,
+   "sha256": "e0fe3c8fb3fa2cabf8d43d50ddd86ef39cd812ded093f317114bc086b3b5a42c",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-144.bmp",
+   "bytes": 5174,
+   "sha256": "629500f17d752b862059c64031d512a12c41793975e1dcb2182aee9826cf565d",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-145.bmp",
+   "bytes": 5174,
+   "sha256": "90873f612facefd0df39643946fbf7bac3f1f59e25323397cd5f8a43ca33a1b6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-146.bmp",
+   "bytes": 5174,
+   "sha256": "fd988330c8b8ed2f694912be689e417b2b71f06ff2761c94307024b009918f4a",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-147.bmp",
+   "bytes": 5174,
+   "sha256": "c4628d07bbd99c7b573af6caabd8cfbfbc810865b311ee5c1f54e631b2e4aaea",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-148.bmp",
+   "bytes": 5174,
+   "sha256": "13f503f8c86d80541ea3024c8b335f0099f9f131b024fcbe5a4a12dbc2de0b21",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-149.bmp",
+   "bytes": 5174,
+   "sha256": "6a6598fe989cb20e7990bf9a51563ac4b889f26faf7c497717053d1ffdedaa09",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-150.bmp",
+   "bytes": 5174,
+   "sha256": "e2aa916058d45b1bbec6ba5506d38271e0c901645468925123a7dff6e73a3b7e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-151.bmp",
+   "bytes": 5174,
+   "sha256": "a01c28ed210dddb2e9c772072bfc4e2d12a75e35dd21215e3337a7a17ed2b88a",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-152.bmp",
+   "bytes": 5174,
+   "sha256": "501165560512cd0eb6395fddfc657b411b624e338d44737ce865a9e453551b63",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-153.bmp",
+   "bytes": 5174,
+   "sha256": "0eefa293aa2b11ffdf5d98b453aacbede01f37b7b812585bbcf800eeee02ce07",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-154.bmp",
+   "bytes": 5174,
+   "sha256": "6cba1a39f5b8d4f6f9c7bd650f73d7ad2c290a2b5ad62f6e1ade6b151a2247c6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Sprites/Sprite-155.bmp",
+   "bytes": 5174,
+   "sha256": "3cb34a6c5de9dd2ae11a4a14be36745fd0313912365c85a7447ad173457059a3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-004.pdn",
+   "bytes": 10654,
+   "sha256": "a534398987ef830ba872e2f15ba5c708ba09ca585f5a19cc8e09c6445c363322",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-005.pdn",
+   "bytes": 9890,
+   "sha256": "f97e3ba75471fd8b3e744762a2ba5977a9251d582375d5307464222368fd133e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-006-New-Cert.pdn",
+   "bytes": 19812,
+   "sha256": "a8e851fa170852f11c6e8609b74961ad64ef601e1052ee6c8f74b7cec5c1d190",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-006-Powered-By-LabVIEW.pdn",
+   "bytes": 9550,
+   "sha256": "d8d10bfc76c122deee863d8adf8d6c7f9eb8a3ec18f7635340ee710569bc7832",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-007.pdn",
+   "bytes": 16913,
+   "sha256": "dfdd4c86c81f3464bd05b34817165fa022a0d88d341257c8defdd6b64807ad97",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-010-Empty.pdn",
+   "bytes": 7676,
+   "sha256": "7f4af3eb6c40469f881d4019de2cb2411eacbe00c4de3804d653137e24aaf8a7",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-010-R&D-Only.pdn",
+   "bytes": 22535,
+   "sha256": "462c7bcdc549df20ec740e1fef19ee76638f3e34440c3153abca18add25fa8a0",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-011_Empty.pdn",
+   "bytes": 9122,
+   "sha256": "7247cd8b73dc0aa0217879a68abb7b53cd827cfcbd37b9e1f451eb6e8fefdbb1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-018_Power-By-LabVIEW.pdn",
+   "bytes": 14153,
+   "sha256": "84940adcc1b501bd811017ec52b9f99e821159a471aaa6ef2d141d125a2cdaa4",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-019-New-Cert.pdn",
+   "bytes": 16321,
+   "sha256": "88eee96639bc7e8f4e4243274b0b25637da89f0d8d4a6c10e4cff800b83d45a8",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-019-Smashed-Picture.pdn",
+   "bytes": 14428,
+   "sha256": "d90b30b724fc4829e59f02aaf3d559ab3952ebc13f677c21869801a0f12871ac",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-020_NI-Eagle.pdn",
+   "bytes": 15924,
+   "sha256": "b06d9f46644fa3dbd9ab90e008017c652fada59140c77b6dc3209db46be7d872",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-021-Empty-Picture.pdn",
+   "bytes": 11217,
+   "sha256": "3d73bad7ec19a399edf5201393125fc594d79b0f44f9c93842c167acbaf78416",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-021-Old-Cert.pdn",
+   "bytes": 12395,
+   "sha256": "1e0d1ecdefb347d1ebdcd81d18d493118b8766937a69fd4e33826ce2eaf14ca7",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-032_Graffitti.pdn",
+   "bytes": 30570,
+   "sha256": "8a03c430f9ddbd3bc8b655b4ff50e299adffc217fc44394124299f948d9daa17",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-032_Graffitti_flattened.pdn",
+   "bytes": 31433,
+   "sha256": "0396f669e76312cb96739359bbcbb4e921288ab93ff7b5e51bd684c9f14a993e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-033_Scrawl.pdn",
+   "bytes": 19589,
+   "sha256": "10439853a6921dec36ab0c61d7ed557b04a8bc54cc7791712d2b15340991fae3",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-034_LV-Badge.pdn",
+   "bytes": 11347,
+   "sha256": "84e0eae4290f0ab3007028d0b13820744c54b4799b0383499b6a1aff7eb53dd8",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-035_LV-Badge.pdn",
+   "bytes": 9846,
+   "sha256": "65608ec3c3e12bab4bdd656bf98be0fe4338cc15563622bdc08e0958fad33841",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Paint.NET Sources/Wall-038_NI-Eagle.pdn",
+   "bytes": 13151,
+   "sha256": "58420fc26a1573b1fc47972cf253baccbd64ab379afb455ef115138cd95ec49e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-004-LV.bmp",
+   "bytes": 5174,
+   "sha256": "cd3ef58af95021ec34e15be4535c3be11bda914b4f2b5e74e41e5981aee5cf76",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-004_NI-Flag.bmp",
+   "bytes": 5174,
+   "sha256": "495378c64d03ced12bc2a333f097f363eaf8c5fa5f8e2696dd2a33bcca3c2c5f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-005-LV.bmp",
+   "bytes": 5174,
+   "sha256": "36e3876d35a494e5e38bbeac35a7a68de04698c969c30071ab9f57dfd331c244",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-005_NI-Flag.bmp",
+   "bytes": 5174,
+   "sha256": "bd6a4e0c32f9c3c0bb95a66c072dcc7e33f983f39c59d27ba1e8e542165d7709",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-006-LV.bmp",
+   "bytes": 5174,
+   "sha256": "65039629bc10b315546827077ce9933ebdba37e231806572252f9591f2aef358",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-006_Powered-By-LabVIEW.bmp",
+   "bytes": 5174,
+   "sha256": "ac7a19b64ba8cae0440ced3800fec8599bacbc4e2724dc2b03fc71c108cd78b5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-007-LV_Old-Cert.bmp",
+   "bytes": 5174,
+   "sha256": "8f5828614e134c3e1b538648d3f801883f199170aced7fe31a5883b024b261b1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-010-LV.bmp",
+   "bytes": 5174,
+   "sha256": "efce252d62a224b0be448a1cf53507386895242b4e688b7fc03787b94c8c4352",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-010-R&D-Only.bmp",
+   "bytes": 5174,
+   "sha256": "ed8023a1c498c5b60d1780bac314c773084d82a519a58b8f6c335da190e3a2d5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-011-Bars.bmp",
+   "bytes": 5174,
+   "sha256": "5b3eaede6053d348318895b3bc0e6622046deeb8a481c8a95dafce8ed11febc5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-011-LV.bmp",
+   "bytes": 5174,
+   "sha256": "69117049b7aa7173b9f7c3016bd2a9884a6d42ad895558fb5c55613fe5fba801",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-018-LV.bmp",
+   "bytes": 5174,
+   "sha256": "592f7b55d20567be68d590ce04608d80b2d78171c2d087063c90fb34b280063e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-019-LV.bmp",
+   "bytes": 5174,
+   "sha256": "86b831cddbdb771db957fcbcf08aeeff5bced3d14a661ea872f5c7e0e0c44526",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-019-New-Cert.bmp",
+   "bytes": 5174,
+   "sha256": "1f3d51e659302e5bbdf47edcbfd3b0ec3d3d9824d2036f6f74c0e62e59e7b281",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-020-LV.bmp",
+   "bytes": 5174,
+   "sha256": "7c0de7d6ebaaa5cc14b102af42fc1f488e26f5664d91fa8addf21d67fbc79942",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-021-LV.bmp",
+   "bytes": 5174,
+   "sha256": "1331e6608aabd7975c2c4920bfe6dd5b7fb79dc1c4aef625ab7506ddf71ee643",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-021-Old-Cert.bmp",
+   "bytes": 5174,
+   "sha256": "820ab8f213d5c4e672856150fbd0d08babb60c6c4b5d7b15be2289dcab763eb6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-032-LV.bmp",
+   "bytes": 5174,
+   "sha256": "782d47f19ed885d3f5c298e69efc958df9632ab3c2fc5410001a91c58ee321df",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-033-LV-Scrawl.bmp",
+   "bytes": 5174,
+   "sha256": "3356b508825e8756596d73c5084331dd605e3e8370369fe538cb873953c5231b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-033-LV.bmp",
+   "bytes": 5174,
+   "sha256": "97a886e5fca8d836e1eea50caf3eee26828f78bb4ed3b2600796d52eec84ebb9",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-034-LV.bmp",
+   "bytes": 5174,
+   "sha256": "53d75870a4421f7ddf4012d349920a59f71b5d021389a289f30ece3800589944",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-035-LV.bmp",
+   "bytes": 5174,
+   "sha256": "398bc386decc1548a61012c02785dd02d67c499e1ca328a28441f794a9ffc4d9",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Custom/Wall-038-LV.bmp",
+   "bytes": 5174,
+   "sha256": "591919c70fcd01c181c07da5a818b8e501915913ac6fde58a103940be4bca8f5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-000.bmp",
+   "bytes": 5174,
+   "sha256": "93b7f1c5d6f3484b91c0a33d0b31530e19bcd528a3a8fbfc07cdfdd5f50c8326",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-000a.bmp",
+   "bytes": 5174,
+   "sha256": "c39e5fa07e5d2546e4d9a46085128726af0071a2719c42556da0b43e0bc870fe",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-001.bmp",
+   "bytes": 5174,
+   "sha256": "b592e1b923074134d5decf426ec59f8f68aff547eadaac653497b4e64f863752",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-001a.bmp",
+   "bytes": 5174,
+   "sha256": "82ff0dbf609bc0d256955a61a7c47a59df648ce4abbd74236189f61cd0e01345",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-002.bmp",
+   "bytes": 5174,
+   "sha256": "cd3ef58af95021ec34e15be4535c3be11bda914b4f2b5e74e41e5981aee5cf76",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-002a.bmp",
+   "bytes": 5174,
+   "sha256": "36e3876d35a494e5e38bbeac35a7a68de04698c969c30071ab9f57dfd331c244",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-003.bmp",
+   "bytes": 5174,
+   "sha256": "ac7a19b64ba8cae0440ced3800fec8599bacbc4e2724dc2b03fc71c108cd78b5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-003a.bmp",
+   "bytes": 5174,
+   "sha256": "8f5828614e134c3e1b538648d3f801883f199170aced7fe31a5883b024b261b1",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-004.bmp",
+   "bytes": 5174,
+   "sha256": "6861430ce59d816128ad79fe33177b48ea8cad625427cdf5fe5cf20382d85074",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-004a.bmp",
+   "bytes": 5174,
+   "sha256": "615222fd3beaa518649789707408bab655beaf736346f67e9d0c3febd608203f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-005.bmp",
+   "bytes": 5174,
+   "sha256": "ed8023a1c498c5b60d1780bac314c773084d82a519a58b8f6c335da190e3a2d5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-005a.bmp",
+   "bytes": 5174,
+   "sha256": "5b3eaede6053d348318895b3bc0e6622046deeb8a481c8a95dafce8ed11febc5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-006.bmp",
+   "bytes": 5174,
+   "sha256": "382c78589fd7580f805c3cbf0bdfd5b12812601f4e36bce90b3e5e18fee69300",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-006a.bmp",
+   "bytes": 5174,
+   "sha256": "0e567608db6622933537cbea6027566b02470beab1128a9486f077a4a844dc96",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-007.bmp",
+   "bytes": 5174,
+   "sha256": "87e9b656ecca389fe61c26236c24ea4da35d1c25568e4db9f97c728d9a10506b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-007a.bmp",
+   "bytes": 5174,
+   "sha256": "d43991e13dd8d6536437f391e1af3d283a04a5ff0fdc8529646ed4eabd85ecc2",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-008.bmp",
+   "bytes": 5174,
+   "sha256": "644dc8488952f790d223361ff3c5acafb4272a78a78da4615a362f1d1408a217",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-008a.bmp",
+   "bytes": 5174,
+   "sha256": "8274c98518863115fef4ab194b22316bc5ed63f5a58822c3ead9493f873e62d9",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-009.bmp",
+   "bytes": 5174,
+   "sha256": "7c0de7d6ebaaa5cc14b102af42fc1f488e26f5664d91fa8addf21d67fbc79942",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-009a.bmp",
+   "bytes": 5174,
+   "sha256": "1f3d51e659302e5bbdf47edcbfd3b0ec3d3d9824d2036f6f74c0e62e59e7b281",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-010.bmp",
+   "bytes": 5174,
+   "sha256": "592f7b55d20567be68d590ce04608d80b2d78171c2d087063c90fb34b280063e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-010a.bmp",
+   "bytes": 5174,
+   "sha256": "820ab8f213d5c4e672856150fbd0d08babb60c6c4b5d7b15be2289dcab763eb6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-011.bmp",
+   "bytes": 5174,
+   "sha256": "39e112bcc103658d6108c97b7a1a499b930a3efc401c469f78046ab4e8202e9f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-011a.bmp",
+   "bytes": 5174,
+   "sha256": "0603919561fc5bbacee6fd836e0f4d2cd8c9f41a926e9b56ea01a800d0919479",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-012.bmp",
+   "bytes": 5174,
+   "sha256": "c4390f9ba36a5e3a0341a44bd5d4a126c6780e33a48427eedd4ce40e920c9348",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-012a.bmp",
+   "bytes": 5174,
+   "sha256": "7f58e5510ab619115c6a6e77deaec773264f7f71eeedfde8fa2a961c72c13350",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-013.bmp",
+   "bytes": 5174,
+   "sha256": "cb4edbc19a96af4b106ab71a138e69ab3ddbbf6e8aec3e8105296cb4cb01c59b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-013a.bmp",
+   "bytes": 5174,
+   "sha256": "3780907d969fe30612d85c0de4dfd493e2f03eea92538ad86ee4cd7ea6056f59",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-014.bmp",
+   "bytes": 5174,
+   "sha256": "11da5f92adf67b872057c15e25463c77f426963ac867c81702e453a800c6c416",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-014a.bmp",
+   "bytes": 5174,
+   "sha256": "9a7911874664f51e18b36d9b7a519fe4857c9e57047a6a7756733f21672efae8",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-015.bmp",
+   "bytes": 5174,
+   "sha256": "4d5fb091b9eec56470de635d5f213b8adf6a584489192549928edcedb761a6c6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-015a.bmp",
+   "bytes": 5174,
+   "sha256": "c71470c6772931195d088e45a358e7eeb181ed7e1a3e8fea2231a26ecb5c8274",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-016.bmp",
+   "bytes": 5174,
+   "sha256": "a951ae074b00f18e41444841ef29518cbfeaa4f97a7de96166ebed26565decc8",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-016a.bmp",
+   "bytes": 5174,
+   "sha256": "5f9222257f5831e7480b48d22e51658bc4a63e6dfc3e6b44b5ea1d2633d7e52e",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-017.bmp",
+   "bytes": 5174,
+   "sha256": "53d75870a4421f7ddf4012d349920a59f71b5d021389a289f30ece3800589944",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-017a.bmp",
+   "bytes": 5174,
+   "sha256": "398bc386decc1548a61012c02785dd02d67c499e1ca328a28441f794a9ffc4d9",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-018.bmp",
+   "bytes": 5174,
+   "sha256": "c2aa7e10aa0ac97f5f2e003d1cb2540ddf2d6234a635f1ac11370216d62635c5",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-018a.bmp",
+   "bytes": 5174,
+   "sha256": "85d5684721dad40ccdd09dc9d5ba47a5f4fe8051de7e4719247865a985fb5cd9",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-019.bmp",
+   "bytes": 5174,
+   "sha256": "782d47f19ed885d3f5c298e69efc958df9632ab3c2fc5410001a91c58ee321df",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-019a.bmp",
+   "bytes": 5174,
+   "sha256": "3356b508825e8756596d73c5084331dd605e3e8370369fe538cb873953c5231b",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-020.bmp",
+   "bytes": 5174,
+   "sha256": "67fd2b1fa0b54972d676713d48003b7d9c9becff3dd318d3912aed3e09a67e14",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-020a.bmp",
+   "bytes": 5174,
+   "sha256": "53aa1df73dfb2d574290b9aa3905a263ccdb7b73e15b2a1b4ea1a63ecbb0a039",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-021.bmp",
+   "bytes": 5174,
+   "sha256": "bba536bfa39db88c2ddb85b493e00c24c12716d897eb768a2792f13b2560d22a",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-021a.bmp",
+   "bytes": 5174,
+   "sha256": "0df175e57e0d9619ee66cb77da6ed158648f90877b8dbaf5f4012f8e181515ac",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-049.bmp",
+   "bytes": 5174,
+   "sha256": "83d9eeb828ba856182ae09d2b42c11e5f32525b5869d822858fac1fa4dd407c0",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-049a.bmp",
+   "bytes": 5174,
+   "sha256": "9096f4f7351b610683d21c3257e48364a53ce397010342f8662d50f89df5bbfe",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-050.bmp",
+   "bytes": 5174,
+   "sha256": "42251a3a3fe6588366dc5080d13b59952a6f063f196c974f1b26d1449a5b788d",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-050a.bmp",
+   "bytes": 5174,
+   "sha256": "7994e67d541a9f79fb2656aaf0492bb2106c95c74630c62c4fc020b10a4c4204",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-051.bmp",
+   "bytes": 5174,
+   "sha256": "b8e66e40415b90e44bbd892faaf3d767d23f75165723c3624a86220878ea8f27",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-051a.bmp",
+   "bytes": 5174,
+   "sha256": "9cbe4926508e4ab46a3c91b24489142b10ad8ce1cba6ec17b80668281a8b303f",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-052.bmp",
+   "bytes": 5174,
+   "sha256": "c1471a1be51d068227fba0edbf261e8f5738069658aa5ebf2357f8b862ed5da6",
+   "via": "tree"
+  },
+  {
+   "path": "src/Resources/Textures/Wall-052a.bmp",
+   "bytes": 5174,
+   "sha256": "08deef4ca741f91d3205a4eb4226a16855a9b5bd6e05017916d240fb362b0e25",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<resource>\\lvinput.dll",
+  "<vilib>\\Array\\Remove Duplicates From 1D Array.vim",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDNodeRunTimeDep.lvlib",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDataNode.xnode",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\nitl_modes.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\timing_clust.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\wakeup.ctl",
+  "<vilib>\\Utility\\High Resolution Relative Seconds.vi",
+  "<vilib>\\Utility\\colorconv.llb\\RGB to Color.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Intialize Keyboard.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\errorList.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVRectTypeDef.ctl",
+  "<vilib>\\eio\\EIONode\\EIONode.xnode",
+  "<vilib>\\picture\\bmp.llb\\Read BMP File.vi",
+  "<vilib>\\ptbypt\\NI_PtbyPt.lvlib",
+  "<vilib>\\ptbypt\\Probability & Statistics.llb\\Mean PtByPt.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerGetUniqueNameForEmu.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\XNode\\niFpgaContainer.xnode",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Register\\Emulation\\niFpgaRegisterEmulation.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaCriticalErrorInLSC.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationIsFPGAContextNoSignature.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationReportErrorSimple.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaGetClockAttributes.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaProcessEmulError.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaSctlEmulationGetInTimedLoop.vi",
+  "<vilib>\\rvi\\FXPMathLib\\FxpAdd\\XNode\\nifxpmath_Add.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpDiv\\XNode\\nifxpmath_Div.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpDiv\\simVIs\\DllFxpDivTemp_sub.vi",
+  "<vilib>\\rvi\\FXPMathLib\\FxpDiv\\subVIs\\nifxpmath_Div_SimConfig.ctl",
+  "<vilib>\\rvi\\FXPMathLib\\FxpMul\\XNode\\nifxpmath_Multiplier.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpReciprocal\\XNode\\nifxpmath_Reciprocal.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpSinAndCos\\XNode\\nifxpmath_SinAndCos.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpSinAndCos\\simVIs\\DllFxpSinAndCosTemp_sub.vi",
+  "<vilib>\\rvi\\FXPMathLib\\FxpSinAndCos\\subVIs\\nifxpmath_SinAndCos_SimConfig.ctl",
+  "<vilib>\\rvi\\FXPMathLib\\FxpSub\\XNode\\nifxpmath_Sub.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\sim\\FxpSim.dll",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\niFpgaMemoryEmulationCacheClearOnFirstRun.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\niFpgaMemoryEmulationValidateCache.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulation.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_GetValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_InsertValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_MakeExclusive.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_ReleaseExclusive.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_SetValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryFastEmulation.vi",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuTemplateMethod_errors.vi",
+  "<vilib>\\rvi\\errors\\nirviReportUnexpectedCaseInternalError (U32).vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\resource\\lvinput.*",
+  "C:\\Users\\dflw\\Desktop\\Raycaster\\src\\SubVIs\\Raycaster_DrawColumn.vim",
+  "C:\\Users\\dflw\\Desktop\\Raycaster\\src\\SubVIs\\Raycaster_DrawFrameSubset.vim"
+ ]
+}
