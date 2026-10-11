@@ -1,0 +1,79 @@
+{
+  "schema": "priority/live-agent-model-selection-policy@v1",
+  "mode": "recommend-only",
+  "outputPath": "tests/results/_agent/runtime/live-agent-model-selection.json",
+  "previousReportPath": "tests/results/_agent/runtime/live-agent-model-selection.json",
+  "inputs": {
+    "costRollupPath": "tests/results/_agent/cost/agent-cost-rollup.json",
+    "throughputScorecardPath": "tests/results/_agent/throughput/throughput-scorecard.json",
+    "deliveryMemoryPath": "tests/results/_agent/runtime/delivery-memory.json"
+  },
+  "evidenceWindow": {
+    "minLiveTurnCount": 1,
+    "minTerminalPullRequests": 1,
+    "confidenceThreshold": "medium"
+  },
+  "stability": {
+    "cooldownReports": 1,
+    "hysteresisScoreDelta": 0.5,
+    "holdCurrentOnCostOnly": true,
+    "performancePressureOverridesCooldown": true,
+    "throughputWarnEscalates": true,
+    "meanTerminalDurationWarningMinutes": 180,
+    "minMergeSuccessRatio": 0.6,
+    "maxHostedWaitEscapeCount": 0
+  },
+  "providers": [
+    {
+      "providerId": "local-codex",
+      "agentRole": "live",
+      "defaultModel": "gpt-5.4",
+      "defaultReasoningEffort": "xhigh",
+      "candidateModels": [
+        {
+          "model": "gpt-5.4-mini",
+          "reasoningEffort": "medium",
+          "strength": 1,
+          "costTier": 1,
+          "notes": "Lower-cost option for stable queue conditions."
+        },
+        {
+          "model": "gpt-5.4",
+          "reasoningEffort": "high",
+          "strength": 2,
+          "costTier": 2,
+          "notes": "Lower-cost stronger option when the full xhigh tier is not justified."
+        },
+        {
+          "model": "gpt-5.4",
+          "reasoningEffort": "xhigh",
+          "strength": 3,
+          "costTier": 3,
+          "notes": "Default RC live-agent tier for harder math and planning turns."
+        }
+      ]
+    },
+    {
+      "providerId": "remote-copilot-lane",
+      "agentRole": "background",
+      "defaultModel": "gpt-5.4-mini",
+      "defaultReasoningEffort": "medium",
+      "candidateModels": [
+        {
+          "model": "gpt-5.4-mini",
+          "reasoningEffort": "medium",
+          "strength": 1,
+          "costTier": 1,
+          "notes": "Default background implementation lane model."
+        },
+        {
+          "model": "gpt-5.4",
+          "reasoningEffort": "high",
+          "strength": 2,
+          "costTier": 2,
+          "notes": "Escalate when queue pressure or outcome pressure is high."
+        }
+      ]
+    }
+  ]
+}

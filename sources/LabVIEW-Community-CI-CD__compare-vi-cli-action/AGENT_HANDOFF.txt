@@ -1,0 +1,80 @@
+# Agent Handoff
+
+This file is a stable handoff entrypoint for future agents. It is not a running
+status log.
+
+Live repository state belongs in the machine-generated artifacts under
+`tests/results/_agent/`, not in appended historical prose here.
+
+## First Actions
+
+1. Run `pwsh -NoLogo -NoProfile -File tools/priority/bootstrap.ps1`.
+2. Check `.agent_priority_cache.json` and `tests/results/_agent/issue/router.json`.
+3. Run `pwsh -NoLogo -NoProfile -File tools/Print-AgentHandoff.ps1
+   -ApplyToggles -AutoTrim` when you need the current watcher/handoff snapshot.
+4. When human disposition surfaces are in play, run
+   `node tools/npm/run-script.mjs priority:human-go-no-go:latest -- --fail-on-nogo`
+   before starting a fresh implementation pass. Treat exit code `2` and
+   `latestDecision.blocking = true` as a hard stop until a newer `go` exists.
+5. If a standing-priority issue exists, branch from `develop` and execute
+   against that issue. If the queue is empty, do not create new compare work.
+   When `tests/results/_agent/handoff/monitoring-mode.json` reports
+   `future-agent-may-pivot`, the next future agent may switch to canonical
+   `LabviewGitHubCiTemplate` without operator steering. Use
+   `tests/results/_agent/handoff/autonomous-governor-summary.json` for the
+   current repo owner decision and
+   `tests/results/_agent/handoff/autonomous-governor-portfolio-summary.json`
+   for the cross-repo owner decision, and
+   `tests/results/_agent/handoff/sagan-context-concentrator.json` for the compact
+   hot/warm durable memory view of subagent work and blockers.
+
+## Live State Surfaces
+
+- Standing priority: `pwsh -NoLogo -NoProfile -File tools/Get-StandingPriority.ps1 -Plain`
+- Handoff snapshot: `pwsh -NoLogo -NoProfile -File tools/Print-AgentHandoff.ps1 -ApplyToggles`
+- Project visibility:
+  `node tools/npm/run-script.mjs priority:project:portfolio:check`
+- Develop sync:
+  `node tools/npm/run-script.mjs priority:develop:sync`
+- Monitoring mode:
+  `node tools/npm/run-script.mjs priority:monitoring:mode`
+- Governor summary:
+  `node tools/npm/run-script.mjs priority:governor:summary`
+- Governor portfolio:
+  `node tools/npm/run-script.mjs priority:governor:portfolio`
+- Treasury ledger: `node tools/npm/run-script.mjs priority:cost:treasury`
+- Context concentrator:
+  `node tools/npm/run-script.mjs priority:context:concentrate`
+
+## Current-State Artifacts
+
+- `.agent_priority_cache.json`
+- `tests/results/_agent/issue/router.json`
+- `tests/results/_agent/issue/no-standing-priority.json`
+- `tests/results/_agent/verification/docker-review-loop-summary.json`
+- `tests/results/_agent/handoff/continuity-summary.json`
+- `tests/results/_agent/handoff/entrypoint-status.json`
+- `tests/results/_agent/handoff/monitoring-mode.json`
+- `tests/results/_agent/handoff/treasury-ledger.json`
+- `tests/results/_agent/handoff/autonomous-governor-summary.json`
+- `tests/results/_agent/handoff/sagan-context-concentrator.json`
+- `tests/results/_agent/handoff/autonomous-governor-portfolio-summary.json`
+- `tests/results/_agent/handoff/human-go-no-go-latest.json`
+- `tests/results/_agent/handoff/*.json`
+- `tests/results/_agent/sessions/*.json`
+
+## Working Rules
+
+- Repo docs, issue bodies, labels, and policy files remain the source of truth.
+- The project board is visibility only.
+- Treat `queue-empty` as a valid idle state; do not invent a null issue context.
+- Treat `queue-empty + safe-idle + pivot-ready` as an explicit monitoring state.
+- Prefer sanitized repo helpers (`node tools/npm/run-script.mjs ...`) over raw `npm`.
+
+## When Handoff Looks Wrong
+
+1. Re-run bootstrap.
+2. Re-run `tools/Print-AgentHandoff.ps1`.
+3. Inspect `tests/results/_agent/issue/` for missing or stale artifacts.
+4. Use `docs/SESSION_LOCK_HANDOFF.md` and `AGENTS.md` for deeper operating
+   guidance.

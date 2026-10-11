@@ -1,0 +1,164 @@
+name: Smoke test on PR label
+
+on:
+  workflow_dispatch:
+    inputs:
+      sample_id:
+        description: 'Sampling correlation id (prevents cancels)'
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.inputs.sample_id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-init:
+    runs-on: ubuntu-latest
+    outputs:
+      docs_only: ${{ steps.d.outputs.normalized }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Detect docs-only change
+        id: detect
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $docsOnly = 'false'
+          if ('${{ github.event_name }}' -eq 'pull_request') {
+            $ownerRepo = '${{ github.repository }}'
+            $pr = '${{ github.event.pull_request.number }}'
+            $uri = "https://api.github.com/repos/$ownerRepo/pulls/$pr/files"
+            $headers = @{ Authorization = "Bearer $env:GITHUB_TOKEN"; 'X-GitHub-Api-Version' = '2022-11-28'; Accept='application/vnd.github+json' }
+            try {
+              $files = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers -ErrorAction Stop
+              $names = @($files | ForEach-Object { $_.filename })
+              if ($names.Count -gt 0) {
+                $isDocs = $true
+                foreach ($n in $names) {
+                  $inDocs = ($n -like 'docs/**' -or $n -like '**/*.md')
+                  $isSchema = ($n -like 'docs/schemas/**')
+                  if (-not $inDocs -or $isSchema) { $isDocs = $false; break }
+                }
+                if ($isDocs) { $docsOnly = 'true' }
+              }
+            } catch { Write-Host '::notice::Docs-only detection skipped; treating as non-docs.' }
+          }
+          "docs_only=$docsOnly" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - name: Normalize docs-only
+        id: d
+        uses: ./.github/actions/bool-normalize
+        with:
+          value: ${{ steps.detect.outputs.docs_only || 'false' }}
+
+  smoke:
+    needs: pre-init
+    if: github.event_name == 'workflow_dispatch' && needs.pre-init.outputs.docs_only != 'true'
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress]
+    env:
+      UNBLOCK_GUARD: '1'
+      WATCH_CONSOLE: '1'
+      LV_SUPPRESS_UI: '1'
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Prepare fixture copies (base/head)
+        id: prep
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $srcBase = Join-Path $env:GITHUB_WORKSPACE 'VI1.vi'
+          $srcHead = Join-Path $env:GITHUB_WORKSPACE 'VI2.vi'
+          if (-not (Test-Path -LiteralPath $srcBase)) { Write-Host "::error::Base VI not found: $srcBase"; exit 1 }
+          if (-not (Test-Path -LiteralPath $srcHead)) { Write-Host "::error::Head VI not found: $srcHead"; exit 1 }
+          $tmp = Join-Path $env:RUNNER_TEMP ("fixtures-" + [guid]::NewGuid().ToString())
+          New-Item -ItemType Directory -Force -Path $tmp | Out-Null
+          $base = Join-Path $tmp 'base.vi'
+          $head = Join-Path $tmp 'head.vi'
+          Copy-Item -LiteralPath $srcBase -Destination $base -Force
+          Copy-Item -LiteralPath $srcHead -Destination $head -Force
+          "base=$base`nhead=$head" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Validate environment
+        shell: pwsh
+        run: |
+          $errors = @()
+          
+          # Check for LabVIEW Compare CLI
+          $cliPath = 'C:\Program Files\National Instruments\Shared\LabVIEW Compare\LVCompare.exe'
+          if (-not (Test-Path -LiteralPath $cliPath)) {
+            $errors += "LVCompare.exe not found at canonical path: $cliPath"
+            $errors += "Install LabVIEW 2025 Q3 or later with LabVIEW Compare CLI"
+          }
+          
+          if ($errors.Count -gt 0) {
+            Write-Host "Environment validation failed:"
+            $errors | ForEach-Object { Write-Host "  - $_" }
+            Write-Host ""
+            Write-Host "See docs/SELFHOSTED_CI_SETUP.md for setup instructions"
+            exit 1
+          }
+          
+          Write-Host "Environment validation passed:"
+          Write-Host "  - CLI: $cliPath"
+
+      - name: Run local action (repo variables)
+        id: compare
+        uses: ./
+        with:
+          base: ${{ steps.prep.outputs.base }}
+          head: ${{ steps.prep.outputs.head }}
+          fail-on-diff: "true"
+
+      - name: Runner Unblock Guard
+        if: always()
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/runner-unblock-snapshot.json
+          cleanup: ${{ env.UNBLOCK_GUARD == '1' }}
+          process-names: 'conhost,pwsh,LabVIEW,LVCompare'
+
+      - name: Echo outputs
+        if: always()
+        shell: pwsh
+        run: |
+          Write-Host "diff      = ${{ steps.compare.outputs.diff }}"
+          Write-Host "exitCode  = ${{ steps.compare.outputs.exitCode }}"
+          Write-Host "cliPath   = ${{ steps.compare.outputs.cliPath }}"
+          Write-Host "command   = ${{ steps.compare.outputs.command }}"
+
+      - name: Comment results on PR (using XCLI_PAT)
+        if: always() && github.event.pull_request.number
+        shell: pwsh
+        env:
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          XCLI_PAT: ${{ secrets.XCLI_PAT }}
+        run: |
+          if (-not $env:XCLI_PAT) { Write-Host 'XCLI_PAT not available; skipping comment.'; exit 0 }
+          $lines = @(
+            '### Smoke test results (label-triggered)',
+            '',
+            "- diff=${{ steps.compare.outputs.diff }}",
+            "- exitCode=${{ steps.compare.outputs.exitCode }}",
+            "- cliPath=${{ steps.compare.outputs.cliPath }}",
+            "- command=${{ steps.compare.outputs.command }}"
+          ) -join "`n"
+          $payload = @{ body = $lines } | ConvertTo-Json -Compress
+          $headers = @{ Authorization = "Bearer $env:XCLI_PAT"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'xcli-bot' }
+          $uri = "https://api.github.com/repos/$env:GH_REPO/issues/$env:PR_NUMBER/comments"
+          Invoke-RestMethod -Method POST -Uri $uri -Headers $headers -ContentType 'application/json' -Body $payload
+
+  smoke-docs-only:
+    needs: pre-init
+    if: github.event_name == 'workflow_dispatch' && needs.pre-init.outputs.docs_only == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Append summary (docs-only)
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_STEP_SUMMARY) {
+            $lines = @('### Smoke (soft-skip)','')
+            $lines += '- Reason: docs-only change detected'
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }

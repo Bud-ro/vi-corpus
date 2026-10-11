@@ -1,0 +1,410 @@
+#Requires -Version 7.0
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+Describe 'Test-WindowsNI2026q1HostPreflight.ps1' -Tag 'Unit' {
+  BeforeAll {
+    $script:RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+    $script:ToolPath = Join-Path $script:RepoRoot 'tools' 'Test-WindowsNI2026q1HostPreflight.ps1'
+    if (-not (Test-Path -LiteralPath $script:ToolPath -PathType Leaf)) {
+      throw "Test-WindowsNI2026q1HostPreflight.ps1 not found: $script:ToolPath"
+    }
+
+    $script:CreateDockerHostedStubs = {
+      param([Parameter(Mandatory)][string]$WorkRoot)
+
+      $binDir = Join-Path $WorkRoot 'bin'
+      New-Item -ItemType Directory -Path $binDir -Force | Out-Null
+      $pwshPath = (Get-Command pwsh -ErrorAction Stop).Source
+
+      $dockerStub = @'
+param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Args)
+if ($Args.Count -eq 0) { exit 0 }
+
+$requestedContext = ''
+if ($Args.Count -ge 3 -and $Args[0] -eq '--context') {
+  $requestedContext = [string]$Args[1]
+  $Args = @($Args | Select-Object -Skip 2)
+}
+
+if ($Args[0] -eq 'context' -and $Args.Count -ge 2 -and $Args[1] -eq 'show') {
+  $ctx = [Environment]::GetEnvironmentVariable('DOCKER_STUB_CONTEXT')
+  if ([string]::IsNullOrWhiteSpace($ctx)) { $ctx = 'default' }
+  Write-Output $ctx
+  exit 0
+}
+
+if ($Args[0] -eq 'context' -and $Args.Count -ge 2 -and $Args[1] -eq 'ls') {
+  $ctx = [Environment]::GetEnvironmentVariable('DOCKER_STUB_CONTEXT')
+  if ([string]::IsNullOrWhiteSpace($ctx)) { $ctx = 'default' }
+  $rows = @(
+    [ordered]@{
+      Name = 'default'
+      Current = if ($ctx -eq 'default') { 'true' } else { 'false' }
+      Description = 'Current DOCKER_HOST based configuration'
+      DockerEndpoint = 'npipe:////./pipe/docker_engine'
+      Error = ''
+    }
+  )
+  foreach ($row in $rows) {
+    ($row | ConvertTo-Json -Compress) | Write-Output
+  }
+  exit 0
+}
+
+if ($Args[0] -eq 'context' -and $Args.Count -ge 3 -and $Args[1] -eq 'use') {
+  [System.Environment]::SetEnvironmentVariable('DOCKER_STUB_CONTEXT', $Args[2], 'Process')
+  Write-Output $Args[2]
+  exit 0
+}
+
+if ($Args[0] -eq 'info') {
+  $infoExitCode = [Environment]::GetEnvironmentVariable('DOCKER_STUB_INFO_EXITCODE')
+  if (-not [string]::IsNullOrWhiteSpace($infoExitCode)) {
+    [Console]::Error.WriteLine('failed to connect to the docker API at npipe:////./pipe/docker_engine; check if the path is correct and if the daemon is running: open //./pipe/docker_engine: The system cannot find the file specified.')
+    exit ([int]$infoExitCode)
+  }
+  $infoJson = [Environment]::GetEnvironmentVariable('DOCKER_STUB_INFO_JSON')
+  if ($Args -contains '{{json .}}' -and -not [string]::IsNullOrWhiteSpace($infoJson)) {
+    Write-Output $infoJson
+    exit 0
+  }
+  $osType = [Environment]::GetEnvironmentVariable('DOCKER_STUB_OSTYPE')
+  if ([string]::IsNullOrWhiteSpace($osType)) { $osType = 'windows' }
+  Write-Output $osType
+  exit 0
+}
+
+if ($Args[0] -eq 'manifest' -and $Args.Count -ge 3 -and $Args[1] -eq 'inspect') {
+  $paddingBytes = [Environment]::GetEnvironmentVariable('DOCKER_STUB_MANIFEST_PADDING_BYTES')
+  $padding = ''
+  if (-not [string]::IsNullOrWhiteSpace($paddingBytes)) {
+    $padding = ('x' * [int]$paddingBytes)
+  }
+  $manifest = [ordered]@{
+    schemaVersion = 2
+    annotations = [ordered]@{
+      padding = $padding
+    }
+    manifests = @(
+      [ordered]@{
+        digest = 'sha256:1111111111111111111111111111111111111111111111111111111111111111'
+        platform = [ordered]@{
+          os = 'windows'
+          architecture = 'amd64'
+        }
+      }
+    )
+  }
+  ($manifest | ConvertTo-Json -Depth 10) | Write-Output
+  exit 0
+}
+
+if ($Args[0] -eq 'image' -and $Args.Count -ge 2 -and $Args[1] -eq 'inspect') {
+  $inspectSleep = [Environment]::GetEnvironmentVariable('DOCKER_STUB_INSPECT_SLEEP_SECONDS')
+  if (-not [string]::IsNullOrWhiteSpace($inspectSleep)) {
+    Start-Sleep -Seconds ([int]$inspectSleep)
+  }
+  $exists = [Environment]::GetEnvironmentVariable('DOCKER_STUB_IMAGE_EXISTS')
+  if ($exists -eq '1') {
+    Write-Output '{"Id":"sha256:synthetic","RepoDigests":["nationalinstruments/labview:2026q1-windows@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"]}'
+    exit 0
+  }
+  [Console]::Error.WriteLine('Error: No such image')
+  exit 1
+}
+
+if ($Args[0] -eq 'pull') {
+  $pullSleep = [Environment]::GetEnvironmentVariable('DOCKER_STUB_PULL_SLEEP_SECONDS')
+  if (-not [string]::IsNullOrWhiteSpace($pullSleep)) {
+    Start-Sleep -Seconds ([int]$pullSleep)
+  }
+  Write-Output 'pulled'
+  exit 0
+}
+
+if ($Args[0] -eq 'run') {
+  $runSleep = [Environment]::GetEnvironmentVariable('DOCKER_STUB_RUN_SLEEP_SECONDS')
+  if (-not [string]::IsNullOrWhiteSpace($runSleep)) {
+    Start-Sleep -Seconds ([int]$runSleep)
+  }
+  $runStderr = [Environment]::GetEnvironmentVariable('DOCKER_STUB_RUN_STDERR')
+  if (-not [string]::IsNullOrWhiteSpace($runStderr)) {
+    [Console]::Error.WriteLine($runStderr)
+  }
+  $runExitCode = [Environment]::GetEnvironmentVariable('DOCKER_STUB_RUN_EXITCODE')
+  if (-not [string]::IsNullOrWhiteSpace($runExitCode)) {
+    exit ([int]$runExitCode)
+  }
+  Write-Output 'ni-runtime-probe-ok'
+  exit 0
+}
+
+if ($Args[0] -eq 'ps') {
+  exit 0
+}
+
+exit 0
+'@
+      Set-Content -LiteralPath (Join-Path $binDir 'docker.ps1') -Value $dockerStub -Encoding utf8
+
+      $dockerCmd = @"
+@echo off
+"$pwshPath" -NoLogo -NoProfile -File "%~dp0docker.ps1" %*
+"@
+      Set-Content -LiteralPath (Join-Path $binDir 'docker.cmd') -Value $dockerCmd -Encoding ascii
+
+      $wslStub = @'
+param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Args)
+if ($Args.Count -ge 2 -and $Args[0] -eq '-l' -and $Args[1] -eq '-v') {
+  Write-Output '  NAME              STATE           VERSION'
+  Write-Output '* docker-desktop    Stopped         2'
+  exit 0
+}
+if ($Args.Count -ge 1 -and $Args[0] -eq '--shutdown') {
+  exit 0
+}
+exit 0
+'@
+      Set-Content -LiteralPath (Join-Path $binDir 'wsl.ps1') -Value $wslStub -Encoding utf8
+
+      $wslCmd = @"
+@echo off
+"$pwshPath" -NoLogo -NoProfile -File "%~dp0wsl.ps1" %*
+"@
+      Set-Content -LiteralPath (Join-Path $binDir 'wsl.cmd') -Value $wslCmd -Encoding ascii
+
+      $env:PATH = "{0};{1}" -f $binDir, $env:PATH
+      $env:DOCKER_COMMAND_OVERRIDE = (Join-Path $binDir 'docker.ps1')
+    }
+  }
+
+  BeforeEach {
+    $script:SavedPath = $env:PATH
+    $script:SavedEnv = @{
+      DOCKER_STUB_CONTEXT = $env:DOCKER_STUB_CONTEXT
+      DOCKER_STUB_OSTYPE = $env:DOCKER_STUB_OSTYPE
+      DOCKER_STUB_IMAGE_EXISTS = $env:DOCKER_STUB_IMAGE_EXISTS
+      DOCKER_STUB_INFO_JSON = $env:DOCKER_STUB_INFO_JSON
+      DOCKER_STUB_INFO_EXITCODE = $env:DOCKER_STUB_INFO_EXITCODE
+      DOCKER_STUB_RUN_STDERR = $env:DOCKER_STUB_RUN_STDERR
+      DOCKER_STUB_RUN_EXITCODE = $env:DOCKER_STUB_RUN_EXITCODE
+      DOCKER_STUB_MANIFEST_PADDING_BYTES = $env:DOCKER_STUB_MANIFEST_PADDING_BYTES
+      DOCKER_STUB_INSPECT_SLEEP_SECONDS = $env:DOCKER_STUB_INSPECT_SLEEP_SECONDS
+      DOCKER_STUB_PULL_SLEEP_SECONDS = $env:DOCKER_STUB_PULL_SLEEP_SECONDS
+      DOCKER_STUB_RUN_SLEEP_SECONDS = $env:DOCKER_STUB_RUN_SLEEP_SECONDS
+      DOCKER_COMMAND_OVERRIDE = $env:DOCKER_COMMAND_OVERRIDE
+    }
+  }
+
+  AfterEach {
+    $env:PATH = $script:SavedPath
+    foreach ($name in $script:SavedEnv.Keys) {
+      $value = $script:SavedEnv[$name]
+      if ($null -eq $value -or $value -eq '') {
+        Remove-Item ("Env:{0}" -f $name) -ErrorAction SilentlyContinue
+      } else {
+        Set-Item ("Env:{0}" -f $name) $value
+      }
+    }
+  }
+
+  It 'writes a hosted Windows preflight receipt without Docker Desktop mutation' {
+    $work = Join-Path $TestDrive 'hosted-preflight'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'default'
+    Set-Item Env:DOCKER_STUB_OSTYPE 'windows'
+    Set-Item Env:DOCKER_STUB_IMAGE_EXISTS '1'
+    Set-Item Env:DOCKER_STUB_INFO_JSON '{"OSType":"windows","OperatingSystem":"Windows Server 2022","Name":"github-hosted","Platform":{"Name":"Docker Engine - Community"}}'
+    Set-Item Env:DOCKER_HOST 'npipe:////./pipe/docker_engine'
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = & pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'github-hosted-windows' `
+      -HostPlatformOverride 'Win32NT' `
+      -OutputJsonPath $outputJsonPath `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1
+    $LASTEXITCODE | Should -Be 0 -Because ($output -join "`n")
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.schema | Should -Be 'comparevi/windows-host-preflight@v1'
+    $json.executionSurface | Should -Be 'github-hosted-windows'
+    $json.status | Should -Be 'ready'
+    $json.runtimeProvider | Should -Be 'github-hosted-windows'
+    $json.dockerHost | Should -Be 'npipe:////./pipe/docker_engine'
+    $json.contexts.final | Should -Be 'default'
+    $json.contexts.finalOsType | Should -Be 'windows'
+    $json.bootstrap.imagePresent | Should -BeTrue
+    $json.probe.status | Should -Be 'success'
+    $json.hostedContract.hostEngineMutationAllowed | Should -BeFalse
+  }
+
+  It 'classifies hosted Docker daemon absence as unavailable when explicitly allowed' {
+    $work = Join-Path $TestDrive 'hosted-unavailable'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'default'
+    Set-Item Env:DOCKER_STUB_INFO_EXITCODE '1'
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = & pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'github-hosted-windows' `
+      -AllowUnavailable `
+      -HostPlatformOverride 'Win32NT' `
+      -OutputJsonPath $outputJsonPath `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1
+    $LASTEXITCODE | Should -Be 0 -Because ($output -join "`n")
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.status | Should -Be 'unavailable'
+    $json.failureClass | Should -Be 'docker-runtime-unavailable'
+    $json.runtimeDeterminism.status | Should -Be 'unavailable'
+    $json.runtimeDeterminism.reason | Should -Be 'docker-daemon-unavailable'
+  }
+
+  It 'fails closed with image-bootstrap-timeout when hosted docker pull exceeds the allowed bound' {
+    $work = Join-Path $TestDrive 'hosted-pull-timeout'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'default'
+    Set-Item Env:DOCKER_STUB_OSTYPE 'windows'
+    Set-Item Env:DOCKER_STUB_INFO_JSON '{"OSType":"windows","OperatingSystem":"Windows Server 2022","Name":"github-hosted","Platform":{"Name":"Docker Engine - Community"}}'
+    Set-Item Env:DOCKER_STUB_PULL_SLEEP_SECONDS '6'
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = @(& pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'github-hosted-windows' `
+      -HostPlatformOverride 'Win32NT' `
+      -OutputJsonPath $outputJsonPath `
+      -BootstrapPullTimeoutSeconds 5 `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1)
+    $LASTEXITCODE | Should -Not -Be 0
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.status | Should -Be 'failure'
+    $json.failureClass | Should -Be 'image-bootstrap-timeout'
+    $json.bootstrap.pullError | Should -Match 'docker pull timed out'
+    ($output -join "`n") | Should -Match 'docker pull timed out'
+  }
+
+  It 'fails closed with runtime-probe-timeout when hosted runtime probe exceeds the allowed bound' {
+    $work = Join-Path $TestDrive 'hosted-runtime-timeout'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'default'
+    Set-Item Env:DOCKER_STUB_OSTYPE 'windows'
+    Set-Item Env:DOCKER_STUB_IMAGE_EXISTS '1'
+    Set-Item Env:DOCKER_STUB_INFO_JSON '{"OSType":"windows","OperatingSystem":"Windows Server 2022","Name":"github-hosted","Platform":{"Name":"Docker Engine - Community"}}'
+    Set-Item Env:DOCKER_STUB_RUN_SLEEP_SECONDS '6'
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = @(& pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'github-hosted-windows' `
+      -HostPlatformOverride 'Win32NT' `
+      -OutputJsonPath $outputJsonPath `
+      -RuntimeProbeTimeoutSeconds 5 `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1)
+    $LASTEXITCODE | Should -Not -Be 0
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.status | Should -Be 'failure'
+    $json.failureClass | Should -Be 'runtime-probe-timeout'
+    $json.probe.status | Should -Be 'timeout'
+    ($output -join "`n") | Should -Match 'Hosted Windows runtime probe failed'
+  }
+
+  It 'fails desktop-local fast and quietly when Docker Desktop is still on the Linux engine' {
+    $work = Join-Path $TestDrive 'desktop-local-linux-engine'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'desktop-linux'
+    Set-Item Env:DOCKER_STUB_OSTYPE 'linux'
+    Set-Item Env:DOCKER_STUB_RUN_STDERR 'Error response from daemon: No such container: synthetic-container'
+    Set-Item Env:DOCKER_STUB_RUN_EXITCODE '1'
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = @(& pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'desktop-local' `
+      -OutputJsonPath $outputJsonPath `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1)
+    $LASTEXITCODE | Should -Not -Be 0
+    ($output -join "`n") | Should -Not -Match 'No such container'
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.executionSurface | Should -Be 'desktop-local'
+    $json.status | Should -Be 'failure'
+    $json.failureClass | Should -Be 'docker-engine-mismatch'
+    $json.failureMessage | Should -Match 'Switch Docker Desktop to Windows containers'
+    $json.contexts.start | Should -Be 'desktop-linux'
+    $json.contexts.startOsType | Should -Be 'linux'
+    $json.contexts.final | Should -Be 'desktop-linux'
+    $json.contexts.finalOsType | Should -Be 'linux'
+    $json.runtimeDeterminism.status | Should -Be 'mismatch'
+    $json.runtimeDeterminism.reason | Should -Be 'desktop-local-windows-preflight-requires-windows-engine'
+    $json.runtimeDeterminism.failureClass | Should -Be 'docker-engine-mismatch'
+    $json.bootstrap.attempted | Should -BeFalse
+    $json.probe.attempted | Should -BeFalse
+  }
+
+  It 'keeps desktop-local preflight ready when manifest output is large' {
+    $work = Join-Path $TestDrive 'desktop-local-large-manifest'
+    New-Item -ItemType Directory -Path $work -Force | Out-Null
+    & $script:CreateDockerHostedStubs -WorkRoot $work
+
+    Set-Item Env:DOCKER_STUB_CONTEXT 'desktop-windows'
+    Set-Item Env:DOCKER_STUB_OSTYPE 'windows'
+    Set-Item Env:DOCKER_STUB_IMAGE_EXISTS '1'
+    Set-Item Env:DOCKER_STUB_MANIFEST_PADDING_BYTES '20000'
+    Set-Item Env:RUNNER_TEMP (Join-Path $work 'runner-temp')
+
+    $resultsRoot = Join-Path $work 'results'
+    $outputJsonPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+
+    $output = @(& pwsh -NoLogo -NoProfile -File $script:ToolPath `
+      -Image 'nationalinstruments/labview:2026q1-windows' `
+      -ResultsDir $resultsRoot `
+      -ExecutionSurface 'desktop-local' `
+      -CommandTimeoutSeconds 5 `
+      -OutputJsonPath $outputJsonPath `
+      -GitHubOutputPath '' `
+      -StepSummaryPath '' 2>&1)
+    $LASTEXITCODE | Should -Be 0 -Because ($output -join "`n")
+
+    $json = Get-Content -LiteralPath $outputJsonPath -Raw | ConvertFrom-Json -Depth 20
+    $json.status | Should -Be 'ready'
+    $json.bootstrap.imagePresent | Should -BeTrue
+    $json.probe.status | Should -Be 'success'
+  }
+}

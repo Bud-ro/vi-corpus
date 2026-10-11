@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://comparevi.dev/schemas/release-scorecard-v1.schema.json",
+  "title": "Release Scorecard v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generatedAt",
+    "repository",
+    "release",
+    "inputs",
+    "gates",
+    "summary"
+  ],
+  "properties": {
+    "schema": {
+      "const": "release/scorecard@v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stream",
+        "channel",
+        "version",
+        "tagRef"
+      ],
+      "properties": {
+        "stream": { "type": "string" },
+        "channel": { "type": "string" },
+        "version": { "type": ["string", "null"] },
+        "tagRef": { "type": ["string", "null"] }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ledger",
+        "slo",
+        "rollback",
+        "trust",
+        "downstreamProvingSelection",
+        "downstreamPromotion"
+      ],
+      "properties": {
+        "ledger": { "$ref": "#/$defs/inputRef" },
+        "slo": { "$ref": "#/$defs/inputRef" },
+        "rollback": { "$ref": "#/$defs/inputRef" },
+        "trust": {
+          "anyOf": [
+            { "$ref": "#/$defs/inputRef" },
+            { "type": "null" }
+          ]
+        },
+        "downstreamProvingSelection": {
+          "anyOf": [
+            { "$ref": "#/$defs/inputRef" },
+            { "type": "null" }
+          ]
+        },
+        "downstreamPromotion": {
+          "anyOf": [
+            { "$ref": "#/$defs/inputRef" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promotion",
+        "slo",
+        "rollback",
+        "trust",
+        "downstreamProvingSelection",
+        "downstreamPromotion",
+        "signedTag"
+      ],
+      "properties": {
+        "promotion": { "$ref": "#/$defs/promotionGate" },
+        "slo": { "$ref": "#/$defs/sloGate" },
+        "rollback": { "$ref": "#/$defs/rollbackGate" },
+        "trust": { "$ref": "#/$defs/trustGate" },
+        "downstreamProvingSelection": { "$ref": "#/$defs/downstreamProvingSelectionGate" },
+        "downstreamPromotion": { "$ref": "#/$defs/downstreamPromotionGate" },
+        "signedTag": { "$ref": "#/$defs/signedTagGate" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "blockerCount",
+        "blockers"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["pass", "fail"]
+        },
+        "blockerCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "inputRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "exists", "error"],
+      "properties": {
+        "path": { "type": "string" },
+        "exists": { "type": "boolean" },
+        "error": { "type": ["string", "null"] }
+      }
+    },
+    "promotionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": { "type": "string" },
+        "reason": { "type": ["string", "null"] }
+      }
+    },
+    "sloGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "breachCount"],
+      "properties": {
+        "status": { "type": "string" },
+        "breachCount": { "type": ["integer", "null"] },
+        "blockerCount": { "type": ["integer", "null"] },
+        "source": { "type": "string" },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "type": "string" },
+              "workflow": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "rollbackGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "pausePromotion"],
+      "properties": {
+        "status": { "type": "string" },
+        "pausePromotion": { "type": ["boolean", "null"] }
+      }
+    },
+    "trustGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "failureCount", "tagVerified", "tagReason"],
+      "properties": {
+        "status": { "type": "string" },
+        "failureCount": { "type": ["integer", "null"] },
+        "tagVerified": { "type": ["boolean", "null"] },
+        "tagReason": { "type": ["string", "null"] }
+      }
+    },
+    "downstreamProvingSelectionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "status", "schema", "selectionStatus", "repository", "workflow", "branch", "expectedSourceSha", "selectedRunId", "selectedArtifactName", "selectedScorecardPath", "selectedScorecardStatus", "selectedScorecardMatchesInput", "matchedExpectedSourceSha", "selectedSourceCommitSha", "reason"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["pass", "fail", "missing", "not-applicable"] },
+        "schema": { "type": ["string", "null"] },
+        "selectionStatus": { "type": ["string", "null"] },
+        "repository": { "type": ["string", "null"] },
+        "workflow": { "type": ["string", "null"] },
+        "branch": { "type": ["string", "null"] },
+        "expectedSourceSha": { "type": ["string", "null"] },
+        "selectedRunId": { "type": ["integer", "null"], "minimum": 1 },
+        "selectedArtifactName": { "type": ["string", "null"] },
+        "selectedScorecardPath": { "type": ["string", "null"] },
+        "selectedScorecardStatus": { "type": ["string", "null"] },
+        "selectedScorecardMatchesInput": { "type": ["boolean", "null"] },
+        "matchedExpectedSourceSha": { "type": ["boolean", "null"] },
+        "selectedSourceCommitSha": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] }
+      }
+    },
+    "downstreamPromotionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "status", "schema", "summaryStatus", "blockerCount", "downstreamRepository", "sourceCommitSha"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["pass", "fail", "missing", "not-applicable"] },
+        "schema": { "type": ["string", "null"] },
+        "summaryStatus": { "type": ["string", "null"] },
+        "blockerCount": { "type": ["integer", "null"], "minimum": 0 },
+        "downstreamRepository": { "type": ["string", "null"] },
+        "sourceCommitSha": { "type": ["string", "null"] }
+      }
+    },
+    "signedTagGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "ref", "verified", "status", "reason"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "ref": { "type": ["string", "null"] },
+        "verified": { "type": ["boolean", "null"] },
+        "status": { "type": "string" },
+        "reason": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,367 @@
+name: Downstream Onboarding Feedback
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+    inputs:
+      downstream_repo:
+        description: 'Downstream repository slug (owner/repo)'
+        required: false
+        default: ''
+        type: string
+      downstream_branch:
+        description: 'Optional downstream branch override'
+        required: false
+        default: ''
+        type: string
+      consumer_issue_repo:
+        description: 'Consumer repository slug (owner/repo) for hardening issues'
+        required: false
+        default: ''
+        type: string
+      started_at:
+        description: 'Optional onboarding start timestamp (ISO-8601 UTC)'
+        required: false
+        default: ''
+        type: string
+      create_hardening_issues:
+        description: 'Create hardening issues from report findings'
+        required: false
+        default: false
+        type: boolean
+      fail_on_gap:
+        description: 'Fail run when required onboarding checks are missing'
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: '0 19 * * 1'
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+jobs:
+  onboarding-feedback:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ github.token }}
+      DOWNSTREAM_REPO: ${{ inputs.downstream_repo }}
+      DOWNSTREAM_BRANCH: ${{ inputs.downstream_branch }}
+      DOWNSTREAM_CONSUMER_ISSUE_REPO: ${{ inputs.consumer_issue_repo || vars.DOWNSTREAM_CONSUMER_ISSUE_REPO }}
+      DOWNSTREAM_STARTED_AT: ${{ inputs.started_at }}
+      DOWNSTREAM_CREATE_ISSUES: ${{ inputs.create_hardening_issues || 'false' }}
+      DOWNSTREAM_FAIL_ON_GAP: ${{ inputs.fail_on_gap || 'false' }}
+      DOWNSTREAM_PILOT_REPO: ${{ vars.DOWNSTREAM_PILOT_REPO }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve pinned template dependency policy
+        id: template-policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const fs = require('fs');
+          const policy = JSON.parse(fs.readFileSync('tools/policy/template-dependency.json', 'utf8'));
+          console.log(`repository=${policy.templateRepositorySlug}`);
+          console.log(`ref=${policy.templateReleaseRef}`);
+          console.log(`cookiecutter_version=${policy.cookiecutterVersion}`);
+          console.log(`execution_plane=${policy.container.executionPlane}`);
+          NODE
+
+      - name: Resolve immutable upstream source
+        id: source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin '+refs/heads/develop:refs/remotes/upstream/develop'
+          resolved="$(git rev-parse upstream/develop)"
+          if [ "$resolved" != "$GITHUB_SHA" ]; then
+            echo "Workflow head does not match upstream/develop."
+            echo "resolved=$resolved"
+            echo "head=$GITHUB_SHA"
+            exit 1
+          fi
+          echo "source_sha=$resolved" >> "$GITHUB_OUTPUT"
+
+      - name: Run downstream onboarding feedback harness
+        id: feedback
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          readarray -t policy_values < <(node <<'NODE'
+          const fs = require('fs');
+          const policy = JSON.parse(fs.readFileSync('tools/priority/delivery-agent.policy.json', 'utf8'));
+          const lane = policy.templateAgentVerificationLane ?? {};
+          console.log(lane.targetRepository ?? '');
+          console.log(lane.consumerRailBranch ?? '');
+          NODE
+          )
+          policy_repo="${policy_values[0]}"
+          policy_consumer_rail_branch="${policy_values[1]}"
+          repo="${DOWNSTREAM_REPO}"
+          if [ -z "$repo" ]; then
+            repo="${policy_repo:-${DOWNSTREAM_PILOT_REPO:-$GITHUB_REPOSITORY}}"
+          fi
+          branch="${DOWNSTREAM_BRANCH}"
+          branch_source="explicit-override"
+          if [ -z "$branch" ]; then
+            branch_source="live-repository-default-branch"
+          fi
+          {
+            printf 'policy_template_repo=%s\n' "$policy_repo"
+            printf 'policy_consumer_rail_branch=%s\n' "$policy_consumer_rail_branch"
+            printf 'resolved_repo=%s\n' "$repo"
+            printf 'resolved_branch_override=%s\n' "$branch"
+            printf 'resolved_branch_source=%s\n' "$branch_source"
+          } >> "$GITHUB_OUTPUT"
+          args=(
+            --repo "$repo"
+            --parent-issue 715
+            --report tests/results/_agent/onboarding/downstream-onboarding.json
+            --success-output tests/results/_agent/onboarding/downstream-onboarding-success.json
+            --feedback-output tests/results/_agent/onboarding/downstream-onboarding-feedback.json
+          )
+          if [ -n "$branch" ]; then
+            args+=(--branch "$branch")
+          fi
+          if [ -n "${DOWNSTREAM_STARTED_AT}" ]; then
+            args+=(--started-at "${DOWNSTREAM_STARTED_AT}")
+          fi
+          if [ "${DOWNSTREAM_CREATE_ISSUES}" = "true" ]; then
+            issue_repo="${DOWNSTREAM_CONSUMER_ISSUE_REPO}"
+            if [ -z "$issue_repo" ]; then
+              echo "Consumer hardening issue target is not configured. Set workflow input consumer_issue_repo or repo variable DOWNSTREAM_CONSUMER_ISSUE_REPO." >&2
+              exit 1
+            fi
+            args+=(--issue-repo "$issue_repo")
+            args+=(--create-hardening-issues)
+          fi
+          if [ "${DOWNSTREAM_FAIL_ON_GAP}" = "true" ]; then
+            args+=(--fail-on-gap)
+          fi
+          SECONDS=0
+          set +e
+          node tools/priority/downstream-onboarding-feedback.mjs "${args[@]}"
+          status=$?
+          set -e
+          printf 'duration_seconds=%s\n' "$SECONDS" >> "$GITHUB_OUTPUT"
+          exit "$status"
+
+      - name: Refresh template-agent verification report
+        if: ${{ always() && steps.feedback.outputs.resolved_repo == steps.feedback.outputs.policy_template_repo }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          status="fail"
+          if [ "${{ steps.feedback.outcome }}" = "success" ]; then
+            status="pass"
+          fi
+          iteration_label="post-merge ${GITHUB_REF_NAME:-develop}"
+          iteration_ref="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          args=(
+            priority:template:agent:verify
+            --
+            --iteration-label "$iteration_label"
+            --iteration-ref "$iteration_ref"
+            --iteration-head-sha "$GITHUB_SHA"
+            --verification-status "$status"
+            --provider hosted-github-workflow
+            --run-url "$run_url"
+            --no-fail-on-blockers
+          )
+          if [ -n "${{ steps.feedback.outputs.duration_seconds }}" ]; then
+            args+=(--duration-seconds "${{ steps.feedback.outputs.duration_seconds }}")
+          fi
+          node tools/npm/run-script.mjs "${args[@]}"
+
+      - name: Generate downstream promotion manifest
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/priority/downstream-promotion-manifest.mjs \
+            --source-sha '${{ steps.source.outputs.source_sha }}' \
+            --comparevi-tools-release 'develop@${{ steps.source.outputs.source_sha }}' \
+            --comparevi-history-release 'not-evaluated:onboarding-feedback' \
+            --scenario-pack-id 'downstream-onboarding-feedback@v1' \
+            --cookiecutter-template-id '${{ steps.template-policy.outputs.repository }}@${{ steps.template-policy.outputs.ref }}' \
+            --proving-scorecard-ref tests/results/_agent/promotion/downstream-develop-promotion-scorecard.json \
+            --actor '${{ github.actor }}' \
+            --output tests/results/_agent/promotion/downstream-develop-promotion-manifest.json
+
+      - name: Validate downstream promotion manifest schema
+        if: ${{ always() && hashFiles('tests/results/_agent/promotion/downstream-develop-promotion-manifest.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/downstream-promotion-manifest-v1.schema.json \
+            --data tests/results/_agent/promotion/downstream-develop-promotion-manifest.json
+
+      - name: Validate onboarding report schema
+        if: ${{ always() && hashFiles('tests/results/_agent/onboarding/downstream-onboarding.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/downstream-onboarding-report-v1.schema.json \
+            --data tests/results/_agent/onboarding/downstream-onboarding.json
+
+      - name: Validate success report schema
+        if: ${{ always() && hashFiles('tests/results/_agent/onboarding/downstream-onboarding-success.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/downstream-onboarding-success-v1.schema.json \
+            --data tests/results/_agent/onboarding/downstream-onboarding-success.json
+
+      - name: Validate feedback report schema
+        if: ${{ always() && hashFiles('tests/results/_agent/onboarding/downstream-onboarding-feedback.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/downstream-onboarding-feedback-v1.schema.json \
+            --data tests/results/_agent/onboarding/downstream-onboarding-feedback.json
+
+      - name: Adjudicate downstream wake against live branch truth
+        if: ${{ always() && hashFiles('tests/results/_agent/onboarding/downstream-onboarding.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/priority/wake-adjudication.mjs \
+            --reported tests/results/_agent/onboarding/downstream-onboarding.json \
+            --revalidated-output tests/results/_agent/onboarding/downstream-onboarding-revalidated.json \
+            --output tests/results/_agent/issue/wake-adjudication.json
+
+      - name: Validate wake adjudication report schema
+        if: ${{ always() && hashFiles('tests/results/_agent/issue/wake-adjudication.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/wake-adjudication-report-v1.schema.json \
+            --data tests/results/_agent/issue/wake-adjudication.json
+
+      - name: Validate template-agent verification report schema
+        if: ${{ always() && hashFiles('tests/results/_agent/promotion/template-agent-verification-report.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/template-agent-verification-report-v1.schema.json \
+            --data tests/results/_agent/promotion/template-agent-verification-report.json
+
+      - name: Build downstream promotion scorecard
+        if: ${{ always() && hashFiles('tests/results/_agent/onboarding/downstream-onboarding-success.json') != '' && hashFiles('tests/results/_agent/onboarding/downstream-onboarding-feedback.json') != '' && hashFiles('tests/results/_agent/promotion/downstream-develop-promotion-manifest.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/priority/downstream-promotion-scorecard.mjs \
+            --success-report tests/results/_agent/onboarding/downstream-onboarding-success.json \
+            --feedback-report tests/results/_agent/onboarding/downstream-onboarding-feedback.json \
+            --template-agent-verification-report tests/results/_agent/promotion/template-agent-verification-report.json \
+            --manifest-report tests/results/_agent/promotion/downstream-develop-promotion-manifest.json \
+            --output tests/results/_agent/promotion/downstream-develop-promotion-scorecard.json
+
+      - name: Validate downstream promotion scorecard schema
+        if: ${{ always() && hashFiles('tests/results/_agent/promotion/downstream-develop-promotion-scorecard.json') != '' }}
+        run: |
+          set -euo pipefail
+          node tools/npm/run-script.mjs schema:validate -- \
+            --schema docs/schemas/downstream-promotion-scorecard-v1.schema.json \
+            --data tests/results/_agent/promotion/downstream-develop-promotion-scorecard.json
+
+      - name: Append onboarding feedback summary
+        if: ${{ always() && (hashFiles('tests/results/_agent/onboarding/downstream-onboarding-feedback.json') != '' || hashFiles('tests/results/_agent/promotion/template-agent-verification-report.json') != '') }}
+        shell: bash
+        env:
+          RESOLVED_REPO: ${{ steps.feedback.outputs.resolved_repo }}
+          POLICY_CONSUMER_RAIL_BRANCH: ${{ steps.feedback.outputs.policy_consumer_rail_branch }}
+          RESOLVED_BRANCH_OVERRIDE: ${{ steps.feedback.outputs.resolved_branch_override }}
+          RESOLVED_BRANCH_SOURCE: ${{ steps.feedback.outputs.resolved_branch_source }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const reportPath = 'tests/results/_agent/onboarding/downstream-onboarding-feedback.json';
+          const onboardingReportPath = 'tests/results/_agent/onboarding/downstream-onboarding.json';
+          const templateVerificationReportPath = 'tests/results/_agent/promotion/template-agent-verification-report.json';
+          const hasFeedbackReport = fs.existsSync(reportPath);
+          const hasOnboardingReport = fs.existsSync(onboardingReportPath);
+          const hasTemplateVerificationReport = fs.existsSync(templateVerificationReportPath);
+          if (!hasFeedbackReport && !hasOnboardingReport && !hasTemplateVerificationReport) {
+            console.log('downstream onboarding and template-agent verification reports missing');
+            process.exit(0);
+          }
+          const feedbackReport = hasFeedbackReport ? JSON.parse(fs.readFileSync(reportPath, 'utf8')) : null;
+          const onboardingReport = hasOnboardingReport ? JSON.parse(fs.readFileSync(onboardingReportPath, 'utf8')) : null;
+          const lines = [
+            '## Downstream Onboarding Feedback',
+            `- downstream repository: \`${process.env.RESOLVED_REPO || feedbackReport?.inputs?.downstreamRepository || 'unknown'}\``,
+            `- requested branch override: \`${process.env.RESOLVED_BRANCH_OVERRIDE || feedbackReport?.inputs?.targetBranchOverride || 'default'}\``,
+            `- branch resolution source: \`${onboardingReport?.branchResolution?.source || process.env.RESOLVED_BRANCH_SOURCE || 'unknown'}\``,
+            `- evaluated branch: \`${onboardingReport?.branchResolution?.evaluatedBranch || onboardingReport?.targetBranch || 'unknown'}\``,
+            `- repository default branch: \`${onboardingReport?.branchResolution?.repositoryDefaultBranch || onboardingReport?.repository?.defaultBranch || 'unknown'}\``,
+            `- policy consumer rail branch: \`${process.env.POLICY_CONSUMER_RAIL_BRANCH || 'unknown'}\``,
+            `- feedback report present: \`${hasFeedbackReport}\``,
+            `- onboarding report present: \`${hasOnboardingReport}\``,
+            `- template-agent verification report present: \`${hasTemplateVerificationReport}\``
+          ];
+          if (hasFeedbackReport) {
+            lines.push(`- execution status: \`${feedbackReport.execution?.status ?? 'unknown'}\``);
+            lines.push(`- onboarding report present: \`${feedbackReport.outputs?.onboardingReportExists ?? false}\``);
+            lines.push(`- success report present: \`${feedbackReport.outputs?.successReportExists ?? false}\``);
+            lines.push(`- evaluate exit code: \`${feedbackReport.execution?.evaluateExitCode ?? 'unknown'}\``);
+            lines.push(`- success exit code: \`${feedbackReport.execution?.successExitCode ?? 'unknown'}\``);
+          } else {
+            lines.push('- execution status: `feedback-report-missing`');
+          }
+          const wakeAdjudicationPath = 'tests/results/_agent/issue/wake-adjudication.json';
+          if (fs.existsSync(wakeAdjudicationPath)) {
+            const wakeAdjudication = JSON.parse(fs.readFileSync(wakeAdjudicationPath, 'utf8'));
+            lines.push(`- wake adjudication: \`${wakeAdjudication.summary?.classification ?? 'unknown'}\``);
+            lines.push(`- wake action: \`${wakeAdjudication.summary?.nextAction ?? 'unknown'}\``);
+          }
+          if (fs.existsSync(templateVerificationReportPath)) {
+            const templateVerification = JSON.parse(fs.readFileSync(templateVerificationReportPath, 'utf8'));
+            lines.push(
+              `- template-agent verification status: \`${templateVerification.verification?.status ?? templateVerification.summary?.status ?? 'unknown'}\``
+            );
+          }
+          if (process.env.GITHUB_STEP_SUMMARY) {
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\\n')}\\n`);
+          }
+          console.log(lines.join('\\n'));
+          NODE
+
+      - name: Upload onboarding artifacts
+        if: ${{ always() && (hashFiles('tests/results/_agent/onboarding/*.json') != '' || hashFiles('tests/results/_agent/promotion/template-agent-verification-report.json') != '') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: downstream-onboarding-feedback
+          path: |
+            tests/results/_agent/onboarding/*.json
+            tests/results/_agent/issue/wake-adjudication.json
+            tests/results/_agent/promotion/downstream-develop-promotion-manifest.json
+            tests/results/_agent/promotion/downstream-develop-promotion-scorecard.json
+            tests/results/_agent/promotion/template-agent-verification-report.json
+          if-no-files-found: error
+
+      - name: Enforce onboarding gap failure
+        if: ${{ steps.feedback.outcome == 'failure' }}
+        run: |
+          echo "Downstream onboarding feedback reported a failure."
+          exit 1

@@ -1,0 +1,81 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+const runbookPath = path.join(repoRoot, 'docs', 'SINGLE_HOST_LABVIEW_2026_PLANES.md');
+const developerGuidePath = path.join(repoRoot, 'docs', 'DEVELOPER_GUIDE.md');
+const manifestPath = path.join(repoRoot, 'docs', 'documentation-manifest.json');
+
+function readFile(filePath) {
+  return fs.readFileSync(filePath, 'utf8');
+}
+
+test('single-host runbook records the four explicit LabVIEW 2026 planes and the Docker exclusivity rule', () => {
+  const runbook = readFile(runbookPath);
+
+  assert.match(runbook, /docker-desktop\/windows-container-2026/);
+  assert.match(runbook, /docker-desktop\/linux-container-2026/);
+  assert.match(runbook, /native-labview-2026-64/);
+  assert.match(runbook, /native-labview-2026-32/);
+  assert.match(runbook, /The two Docker Desktop planes are mutually exclusive/i);
+});
+
+test('single-host runbook points to the authoritative commands and artifacts', () => {
+  const runbook = readFile(runbookPath);
+
+  assert.match(runbook, /node tools\/npm\/run-script\.mjs env:labview:2026:host-planes/);
+  assert.match(runbook, /node tools\/npm\/run-script\.mjs priority:lane:docker:handshake/);
+  assert.match(runbook, /pwsh -NoLogo -NoProfile -File tools\/Test-DockerDesktopFastLoop\.ps1 -LaneScope linux -StepTimeoutSeconds 600/);
+  assert.match(runbook, /pwsh -NoLogo -NoProfile -File tools\/Test-DockerDesktopFastLoop\.ps1 -LaneScope windows -StepTimeoutSeconds 600/);
+  assert.match(runbook, /pwsh -NoLogo -NoProfile -File tools\/Test-DockerDesktopFastLoop\.ps1 -LaneScope both -StepTimeoutSeconds 600/);
+  assert.match(runbook, /tools\/TestStand-CompareHarness\.ps1/);
+  assert.match(runbook, /node tools\/npm\/run-script\.mjs history:diagnostics:show -- --ResultsRoot tests\/results\/local-parity\/windows/);
+  assert.match(runbook, /labview-2026-host-plane-report\.json/);
+  assert.match(runbook, /labview-2026-host-plane-summary\.md/);
+  assert.match(runbook, /docker-lane-handshake\.json/);
+  assert.match(runbook, /Only `sagan` may lease `docker-lane` and `native-labview-2026-32` simultaneously/);
+  assert.match(runbook, /operatorAuthorizationRef/);
+  assert.match(runbook, /host\.osFingerprint/);
+  assert.match(runbook, /fingerprintSha256/);
+  assert.match(runbook, /docker-runtime-fastloop-readiness\.json/);
+  assert.match(runbook, /docker-fast-loop-summary-path/);
+  assert.match(runbook, /docker-fast-loop-status-path/);
+  assert.match(runbook, /docker-fast-loop-host-plane-summary-path/);
+  assert.match(runbook, /docker-fast-loop-host-plane-summary-status/);
+  assert.match(runbook, /docker-fast-loop-host-plane-summary-sha256/);
+  assert.match(runbook, /docker-fast-loop-host-plane-summary-reason/);
+  assert.match(runbook, /### Docker Fast Loop Summary/);
+  assert.match(runbook, /Host Plane Summary Reason/);
+  assert.match(runbook, /docker-fast-loop-proof-host-plane-summary-path/);
+  assert.match(runbook, /dockerRuntimeCutover/);
+  assert.match(runbook, /pinned-wsl2-linux-daemon|desktop-linux-engine/);
+  assert.match(runbook, /wsl-shutdown|desktop-engine-switch-to-windows/);
+  assert.match(runbook, /\[host-plane-split\]\[summary\].*status=<status>.*sha256=<sha256>/);
+});
+
+test('developer guide and documentation manifest point back to the single-host runbook', () => {
+  const developerGuide = readFile(developerGuidePath);
+  const manifest = JSON.parse(readFile(manifestPath));
+  const entries = Array.isArray(manifest) ? manifest : manifest.entries;
+
+  assert.match(developerGuide, /docs\/SINGLE_HOST_LABVIEW_2026_PLANES\.md/);
+  assert.match(developerGuide, /labview-2026-host-plane-summary-path/);
+  assert.match(developerGuide, /docker-fast-loop-summary-path/);
+  assert.match(developerGuide, /docker-fast-loop-host-plane-summary-status/);
+  assert.match(developerGuide, /Docker Fast Loop Summary/);
+  assert.match(developerGuide, /docker-fast-loop-proof-host-plane-summary-path/);
+
+  assert.ok(Array.isArray(entries), 'documentation manifest should expose an entries array');
+  const entry = entries.find((item) => item.name === 'Host Plane Diagnostics Contracts');
+  assert.ok(entry, 'documentation manifest should include the host-plane diagnostics entry');
+  assert.ok(entry.files.includes('docs/SINGLE_HOST_LABVIEW_2026_PLANES.md'));
+  assert.ok(entry.files.includes('docs/DEVELOPER_GUIDE.md'));
+  assert.ok(entry.files.includes('tools/priority/docker-lane-handshake.mjs'));
+  assert.ok(entry.files.includes('tools/TestStand-CompareHarness.ps1'));
+  assert.ok(entry.files.includes('tools/Write-DockerFastLoopReadiness.ps1'));
+  assert.ok(entry.files.includes('tools/Write-DockerFastLoopProof.ps1'));
+  assert.ok(entry.files.includes('tools/Show-DockerFastLoopDiagnostics.ps1'));
+});

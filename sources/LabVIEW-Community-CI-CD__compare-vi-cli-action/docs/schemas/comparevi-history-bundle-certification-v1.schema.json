@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://labview-community-ci-cd.github.io/compare-vi-cli-action/schemas/comparevi-history-bundle-certification-v1.schema.json",
+  "title": "CompareVI History Bundle Certification v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "generatedAt",
+    "targetPath",
+    "startRef",
+    "sourceBranchRef",
+    "maxPairs",
+    "requestedMode",
+    "resultsDir",
+    "execution",
+    "outputs",
+    "aggregate",
+    "bundleContract",
+    "warningText",
+    "modes",
+    "certification"
+  ],
+  "properties": {
+    "schema": {
+      "const": "comparevi-history-bundle-certification@v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "targetPath": {
+      "type": "string"
+    },
+    "startRef": {
+      "type": "string"
+    },
+    "sourceBranchRef": {
+      "type": "string"
+    },
+    "maxPairs": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "requestedMode": {
+      "type": "string"
+    },
+    "resultsDir": {
+      "type": "string"
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "mode",
+        "repoRoot",
+        "bundleRoot",
+        "historyScriptPath",
+        "historyScriptSupportsSourceBranchRef",
+        "invokeScriptPath"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "repo-source",
+            "bundle"
+          ]
+        },
+        "repoRoot": {
+          "type": "string"
+        },
+        "bundleRoot": {
+          "type": "string"
+        },
+        "bundleArchivePath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "historyScriptPath": {
+          "type": "string"
+        },
+        "historyScriptSupportsSourceBranchRef": {
+          "type": "boolean"
+        },
+        "invokeScriptPath": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "aggregateManifestPath",
+        "historySummaryJson",
+        "historyReportMd",
+        "historyReportHtml",
+        "historyGitHubOutputPath",
+        "stdoutPath",
+        "stderrPath",
+        "stepSummaryPath"
+      ],
+      "properties": {
+        "aggregateManifestPath": {
+          "type": "string"
+        },
+        "historySummaryJson": {
+          "type": "string"
+        },
+        "historyReportMd": {
+          "type": "string"
+        },
+        "historyReportHtml": {
+          "type": "string"
+        },
+        "historyGitHubOutputPath": {
+          "type": "string"
+        },
+        "stdoutPath": {
+          "type": "string"
+        },
+        "stderrPath": {
+          "type": "string"
+        },
+        "stepSummaryPath": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "aggregate": {
+      "$ref": "#/$defs/aggregateStats"
+    },
+    "bundleContract": {
+      "type": "object",
+      "required": [
+        "status",
+        "metadataPath",
+        "schema",
+        "authoritativeConsumerPin",
+        "authoritativeConsumerPinKind",
+        "capabilityId",
+        "distributionRole",
+        "distributionModel",
+        "bundleImportPath",
+        "bundleImportPathExists",
+        "releaseAssetPattern",
+        "contractPathResolutions",
+        "hostedRunnerEntryScriptPath",
+        "hostedRunnerEntryScriptExists",
+        "hostedRunnerSupportScriptPaths",
+        "hostedRunnerSupportScriptsExist",
+        "hostedRunnerMissingSupportScripts"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "producer-native-ready",
+            "producer-native-incomplete",
+            "metadata-missing",
+            "repo-source"
+          ]
+        },
+        "metadataPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authoritativeConsumerPin": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authoritativeConsumerPinKind": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "capabilityId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "distributionRole": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "distributionModel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bundleImportPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bundleImportPathExists": {
+          "type": "boolean"
+        },
+        "releaseAssetPattern": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contractPathResolutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "path",
+              "resolved"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "resolved": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "hostedRunnerEntryScriptPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hostedRunnerEntryScriptExists": {
+          "type": "boolean"
+        },
+        "hostedRunnerSupportScriptPaths": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "hostedRunnerSupportScriptsExist": {
+          "type": "boolean"
+        },
+        "hostedRunnerMissingSupportScripts": {
+          "$ref": "#/$defs/stringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "historyFacade": {
+      "$ref": "#/$defs/historyFacade"
+    },
+    "warningText": {
+      "type": "string"
+    },
+    "modes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/modeSummary"
+      }
+    },
+    "certification": {
+      "type": "object",
+      "required": [
+        "expectedModes",
+        "actualModes",
+        "missingModes",
+        "unexpectedModes",
+        "noUnspecified",
+        "warningHasUnspecified",
+        "warningHasExplicitCategories",
+        "historyFacadeSchemaMatches",
+        "historyFacadeRequestedModesMatch",
+        "historyFacadeExecutedModesMatch",
+        "historyFacadeModeListMatch",
+        "historyFacadeCoverageAligned",
+        "historyScriptSupportsSourceBranchRef",
+        "historyFacadeSourceBranchRefMatches",
+        "bundleMetadataPresent",
+        "bundleMetadataSchemaMatches",
+        "viHistoryCapabilityPresent",
+        "viHistoryCapabilityProducerNative",
+        "bundleContractPinResolved",
+        "bundleImportPathExists",
+        "bundleContractPathsResolved",
+        "hostedRunnerEntryScriptExists",
+        "hostedRunnerSupportScriptsExist",
+        "passed"
+      ],
+      "properties": {
+        "expectedModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "actualModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "missingModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "unexpectedModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "noUnspecified": {
+          "type": "boolean"
+        },
+        "warningHasUnspecified": {
+          "type": "boolean"
+        },
+        "warningHasExplicitCategories": {
+          "type": "boolean"
+        },
+        "historyFacadeSchemaMatches": {
+          "type": "boolean"
+        },
+        "historyFacadeRequestedModesMatch": {
+          "type": "boolean"
+        },
+        "historyFacadeExecutedModesMatch": {
+          "type": "boolean"
+        },
+        "historyFacadeModeListMatch": {
+          "type": "boolean"
+        },
+        "historyFacadeCoverageAligned": {
+          "type": "boolean"
+        },
+        "historyScriptSupportsSourceBranchRef": {
+          "type": "boolean"
+        },
+        "historyFacadeSourceBranchRefMatches": {
+          "type": "boolean"
+        },
+        "bundleMetadataPresent": {
+          "type": "boolean"
+        },
+        "bundleMetadataSchemaMatches": {
+          "type": "boolean"
+        },
+        "viHistoryCapabilityPresent": {
+          "type": "boolean"
+        },
+        "viHistoryCapabilityProducerNative": {
+          "type": "boolean"
+        },
+        "bundleContractPinResolved": {
+          "type": "boolean"
+        },
+        "bundleImportPathExists": {
+          "type": "boolean"
+        },
+        "bundleContractPathsResolved": {
+          "type": "boolean"
+        },
+        "hostedRunnerEntryScriptExists": {
+          "type": "boolean"
+        },
+        "hostedRunnerSupportScriptsExist": {
+          "type": "boolean"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "countMap": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "aggregateStats": {
+      "type": "object",
+      "required": [
+        "processed",
+        "diffs",
+        "signalDiffs",
+        "noiseCollapsed",
+        "categoryCounts",
+        "bucketCounts"
+      ],
+      "properties": {
+        "processed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diffs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "signalDiffs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "noiseCollapsed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "categoryCounts": {
+          "$ref": "#/$defs/countMap"
+        },
+        "bucketCounts": {
+          "$ref": "#/$defs/countMap"
+        }
+      },
+      "additionalProperties": false
+    },
+    "historyFacade": {
+      "type": "object",
+      "required": [
+        "schema",
+        "requestedModes",
+        "executedModes",
+        "sourceBranchRef",
+        "coverageClass",
+        "outcomeLabels"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "requestedModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "executedModes": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "sourceBranchRef": {
+          "type": "string"
+        },
+        "coverageClass": {
+          "type": "string"
+        },
+        "outcomeLabels": {
+          "$ref": "#/$defs/stringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "collapsedNoise": {
+      "type": "object",
+      "required": [
+        "count",
+        "categoryCounts",
+        "bucketCounts"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "categoryCounts": {
+          "$ref": "#/$defs/countMap"
+        },
+        "bucketCounts": {
+          "$ref": "#/$defs/countMap"
+        }
+      },
+      "additionalProperties": false
+    },
+    "modeSummary": {
+      "type": "object",
+      "required": [
+        "name",
+        "slug",
+        "manifestPath",
+        "status",
+        "flags",
+        "processed",
+        "diffs",
+        "signalDiffs",
+        "noiseCollapsed",
+        "stopReason",
+        "categoryCounts",
+        "bucketCounts",
+        "collapsedNoise"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "manifestPath": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "flags": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "processed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diffs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "signalDiffs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "noiseCollapsed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stopReason": {
+          "type": "string"
+        },
+        "categoryCounts": {
+          "$ref": "#/$defs/countMap"
+        },
+        "bucketCounts": {
+          "$ref": "#/$defs/countMap"
+        },
+        "collapsedNoise": {
+          "$ref": "#/$defs/collapsedNoise"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

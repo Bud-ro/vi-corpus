@@ -1,0 +1,1320 @@
+#!/usr/bin/env node
+
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { execFile as execFileCb } from 'node:child_process';
+import { cp, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+const execFile = promisify(execFileCb);
+
+async function readText(relativePath) {
+  return readFile(path.join(repoRoot, relativePath), 'utf8');
+}
+
+async function writeJson(filePath, payload) {
+  await mkdir(path.dirname(filePath), { recursive: true });
+  await writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+}
+
+async function readTextIfExists(filePath) {
+  try {
+    return await readFile(filePath, 'utf8');
+  } catch {
+    return null;
+  }
+}
+
+async function restoreTextFile(filePath, text) {
+  if (text == null) {
+    await rm(filePath, { force: true });
+    return;
+  }
+  await mkdir(path.dirname(filePath), { recursive: true });
+  await writeFile(filePath, text, 'utf8');
+}
+
+async function copyRepoFile(relativePath, tempRoot) {
+  const destinationPath = path.join(tempRoot, relativePath);
+  await mkdir(path.dirname(destinationPath), { recursive: true });
+  await copyFile(path.join(repoRoot, relativePath), destinationPath);
+  return destinationPath;
+}
+
+async function makeLinkedWorktree(prefix) {
+  const sandboxRoot = await mkdtemp(path.join(os.tmpdir(), prefix));
+  const repoDir = path.join(sandboxRoot, 'repo');
+  const worktreeDir = path.join(sandboxRoot, 'worktree');
+  await execFile('git', ['init', '--initial-branch=develop', repoDir]);
+  await execFile('git', ['config', 'user.email', 'codex@example.test'], { cwd: repoDir });
+  await execFile('git', ['config', 'user.name', 'Codex Test'], { cwd: repoDir });
+  await writeFile(path.join(repoDir, 'tracked.txt'), 'baseline\n', 'utf8');
+  await execFile('git', ['add', 'tracked.txt'], { cwd: repoDir });
+  await execFile('git', ['commit', '-m', 'init'], { cwd: repoDir });
+  await execFile('git', ['worktree', 'add', '-b', 'issue/origin-linked', worktreeDir, 'develop'], { cwd: repoDir });
+  return { sandboxRoot, repoDir, worktreeDir };
+}
+
+async function writeFakeDeliveryAgentBuildScript(tempRoot) {
+  const scriptPath = path.join(tempRoot, 'tools', 'npm', 'run-script.mjs');
+  await mkdir(path.dirname(scriptPath), { recursive: true });
+  await writeFile(
+    scriptPath,
+    `#!/usr/bin/env node
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+process.stdout.write('added 66 packages in 2s\\n');
+process.stdout.write('> compare-vi-cli-action@0.6.3 build\\n');
+const distDir = path.join(repoRoot, 'dist', 'tools', 'priority');
+mkdirSync(distDir, { recursive: true });
+writeFileSync(
+  path.join(distDir, 'delivery-agent.js'),
+  "#!/usr/bin/env node\\n" +
+    "const command = process.argv[2] || '';\\n" +
+    "const reportPathIndex = process.argv.indexOf('--report-path');\\n" +
+    "const reportPath = reportPathIndex >= 0 ? process.argv[reportPathIndex + 1] : null;\\n" +
+    "process.stdout.write(JSON.stringify({ schema: 'test/delivery-agent@v1', command, reportPath }, null, 2) + '\\\\n');\\n",
+  'utf8',
+);
+`,
+    'utf8',
+  );
+}
+
+async function invokeManagerStatus(relativeRuntimeDir) {
+  const { stdout } = await execFile(
+    'pwsh',
+    [
+      '-NoLogo',
+      '-NoProfile',
+      '-File',
+      path.join(repoRoot, 'tools', 'priority', 'Manage-UnattendedDeliveryAgent.ps1'),
+      '-Status',
+      '-RuntimeDir',
+      relativeRuntimeDir
+    ],
+    {
+      cwd: repoRoot,
+      windowsHide: true
+    }
+  );
+  return JSON.parse(stdout);
+}
+
+test('package scripts expose delivery-agent commands and keep unattended aliases intact', async () => {
+  const packageJson = JSON.parse(await readText('package.json'));
+  assert.equal(
+    packageJson.scripts['priority:delivery:memory'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-memory.ts --fallback-dist dist/tools/priority/delivery-memory.js'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:host:signal'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-host-signal.ts --fallback-dist dist/tools/priority/delivery-host-signal.js'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:host:collect'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-host-signal.ts --fallback-dist dist/tools/priority/delivery-host-signal.js -- --mode collect'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:host:isolate'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-host-signal.ts --fallback-dist dist/tools/priority/delivery-host-signal.js -- --mode isolate'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:host:restore'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-host-signal.ts --fallback-dist dist/tools/priority/delivery-host-signal.js -- --mode restore'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:agent:ensure'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-agent.ts --fallback-dist dist/tools/priority/delivery-agent.js -- ensure --sleep-mode'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:agent:status'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-agent.ts --fallback-dist dist/tools/priority/delivery-agent.js -- status'
+  );
+  assert.equal(
+    packageJson.scripts['priority:delivery:agent:stop'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-agent.ts --fallback-dist dist/tools/priority/delivery-agent.js -- stop'
+  );
+  assert.equal(
+    packageJson.scripts['priority:unattended:sleep:ensure'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-agent.ts --fallback-dist dist/tools/priority/delivery-agent.js -- ensure --sleep-mode'
+  );
+  assert.equal(
+    packageJson.scripts['priority:unattended:project-board:ensure'],
+    'node tools/npm/run-local-typescript.mjs --project tsconfig.json --entry tools/priority/delivery-agent.ts --fallback-dist dist/tools/priority/delivery-agent.js -- ensure --sleep-mode'
+  );
+});
+
+test('delivery-agent policy wires coding turns to the Codex runner', async () => {
+  const policy = JSON.parse(await readText('tools/priority/delivery-agent.policy.json'));
+  assert.deepEqual(policy.codingTurnCommand, [
+    'node',
+    'tools/npm/run-local-typescript.mjs',
+    '--project',
+    'tsconfig.json',
+    '--entry',
+    'tools/priority/run-delivery-turn-with-codex.ts',
+    '--fallback-dist',
+    'dist/tools/priority/run-delivery-turn-with-codex.js'
+  ]);
+  assert.equal(policy.maxActiveCodingLanes, 20);
+  assert.equal(policy.capitalFabric.capacityMode, 'host-ram-adaptive');
+  assert.equal(policy.capitalFabric.maxLogicalLaneCount, 20);
+  assert.equal(policy.capitalFabric.logicalLaneCatalog.length, 20);
+  assert.deepEqual(policy.capitalFabric.logicalLaneCatalog[0], {
+    id: 'logical-lane-01',
+    label: 'Lane 01',
+    seededOrdinal: 1
+  });
+  assert.deepEqual(policy.capitalFabric.logicalLaneCatalog[19], {
+    id: 'logical-lane-20',
+    label: 'Lane 20',
+    seededOrdinal: 20
+  });
+  assert.equal(policy.capitalFabric.specialtyLanes[0].id, 'jarvis');
+  assert.equal(policy.capitalFabric.specialtyLanes[0].primaryRecordedResponsibility, 'Sagan');
+  assert.equal(policy.capitalFabric.specialtyLanes[0].maxInstanceCount, 2);
+  assert.equal(policy.workerPool.targetSlotCount, 20);
+  assert.deepEqual(
+    policy.workerPool.providers.map((provider) => provider.id),
+    ['local-codex', 'hosted-github-workflow', 'remote-copilot-lane', 'local-shadow-native']
+  );
+  assert.deepEqual(policy.workerPool.providers[0].capabilities, {
+    executionPlane: 'local',
+    assignmentMode: 'interactive-coding',
+    dispatchSurface: 'runtime-harness',
+    completionMode: 'sync',
+    requiresLocalCheckout: true
+  });
+});
+
+test('delivery-agent wrappers delegate to the compiled node CLI', async () => {
+  const manager = await readText('tools/priority/Manage-UnattendedDeliveryAgent.ps1');
+  const runner = await readText('tools/priority/Run-UnattendedDeliveryAgent.ps1');
+  const ensurePrereqs = await readText('tools/priority/Ensure-WSLDeliveryPrereqs.ps1');
+  const cli = await readText('tools/priority/delivery-agent.ts');
+
+  assert.match(manager, /delivery-agent\.js/);
+  assert.match(manager, /'ensure'|\"ensure\"/);
+  assert.match(manager, /'status'|\"status\"/);
+  assert.match(manager, /'stop'|\"stop\"/);
+  assert.match(manager, /DeliveryAgentWrapper\.Build\.psm1/);
+  assert.match(manager, /Initialize-DeliveryAgentDistScript/);
+  assert.match(runner, /delivery-agent\.js/);
+  assert.match(runner, /'run'|\"run\"/);
+  assert.match(runner, /DeliveryAgentWrapper\.Build\.psm1/);
+  assert.match(runner, /Initialize-DeliveryAgentDistScript/);
+  assert.match(ensurePrereqs, /delivery-agent\.js/);
+  assert.match(ensurePrereqs, /prereqs/);
+  assert.match(ensurePrereqs, /DeliveryAgentWrapper\.Build\.psm1/);
+  assert.match(ensurePrereqs, /Initialize-DeliveryAgentDistScript/);
+  assert.doesNotMatch(manager, /run-script\.mjs'\) build/);
+  assert.doesNotMatch(runner, /run-script\.mjs'\) build/);
+  assert.doesNotMatch(ensurePrereqs, /run-script\.mjs'\) build/);
+  assert.doesNotMatch(manager, /Start-Process -FilePath 'pwsh'/);
+  assert.doesNotMatch(runner, /Start-Process -FilePath 'pwsh'/);
+  assert.match(cli, /ensureManagerCommand/);
+  assert.match(cli, /stopManagerCommand/);
+  assert.match(cli, /runManagerLoop/);
+  assert.match(cli, /runPrereqsCommand/);
+});
+
+test('delivery-agent manager status synthesizes the active lane from the freshest heartbeat when delivery state is stale', async () => {
+  const common = await readText('tools/priority/lib/delivery-agent-common.ts');
+  const manager = await readText('tools/priority/lib/delivery-agent-manager.ts');
+
+  assert.match(common, /export function resolveDeliveryStateForStatus/);
+  assert.match(common, /derivedFromHeartbeat/);
+  assert.match(common, /derivedFromRuntimeState/);
+  assert.match(manager, /readJsonFile\(paths\.observerHeartbeatPath\)/);
+  assert.match(manager, /readJsonFile\(paths\.deliveryStatePath\)/);
+  assert.match(manager, /readJsonFile\(paths\.runtimeStatePath\)/);
+  assert.match(manager, /readJsonFile\(paths\.taskPacketPath\)/);
+});
+
+test('delivery-agent manager injects monitoring work before sleeping on host-runtime-conflict', async () => {
+  const manager = await readText('tools/priority/lib/delivery-agent-manager.ts');
+
+  assert.match(manager, /runMonitoringWorkInjection/);
+  assert.match(manager, /eventType:\s*'monitoring-work-injection'/);
+  assert.match(manager, /eventType:\s*'monitoring-work-injection-failed'/);
+  assert.match(manager, /if \(blockedByHostConflict\)\s*\{\s*monitoringWorkInjection = await invokeMonitoringWorkInjection/s);
+});
+
+test('delivery-agent manager launches the detached loop through run-local-typescript instead of a stale dist path', async () => {
+  const manager = await readText('tools/priority/lib/delivery-agent-manager.ts');
+
+  assert.match(manager, /buildManagerChildCommand/);
+  assert.match(manager, /tools', 'npm', 'run-local-typescript\.mjs/);
+  assert.match(manager, /'--entry',\s*'tools\/priority\/delivery-agent\.ts'/);
+  assert.match(manager, /'--fallback-dist',\s*'dist\/tools\/priority\/delivery-agent\.js'/);
+  assert.doesNotMatch(manager, /const distScriptPath = path\.join\(repoRoot, 'dist', 'tools', 'priority', 'delivery-agent\.js'\);/);
+});
+
+test('runtime daemon WSL launcher prefers run-local-typescript instead of a dist-only node entry', async () => {
+  const manager = await readText('tools/priority/lib/delivery-agent-manager.ts');
+  const launcher = await readText('tools/priority/bash/start-runtime-daemon.sh');
+
+  assert.match(launcher, /tools\/npm\/run-local-typescript\.mjs/);
+  assert.match(launcher, /--entry tools\/priority\/runtime-daemon\.ts/);
+  assert.match(launcher, /--fallback-dist dist\/tools\/priority\/runtime-daemon\.js/);
+  assert.doesNotMatch(launcher, /args=\(\s*node\s+dist\/tools\/priority\/runtime-daemon\.js/s);
+  assert.match(manager, /'tools\/npm\/run-local-typescript\.mjs'/);
+  assert.match(manager, /'--entry',\s*'tools\/priority\/runtime-daemon\.ts'/);
+  assert.match(manager, /'--fallback-dist',\s*'dist\/tools\/priority\/runtime-daemon\.js'/);
+});
+
+test('delivery-agent manager status ignores stale heartbeat state from before the current manager start', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-stale-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const deliveryGeneratedAt = new Date(now - 120_000).toISOString();
+  const heartbeatGeneratedAt = new Date(now - 60_000).toISOString();
+  const managerStartedAt = new Date(now - 10_000).toISOString();
+  const daemonStartedAt = new Date(now - 9_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-state.json'), {
+    schema: 'priority/delivery-agent-runtime-state@v1',
+    generatedAt: deliveryGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: runtimeDirPath,
+    status: 'blocked',
+    laneLifecycle: 'blocked',
+    activeCodingLanes: 0,
+    activeLane: {
+      schema: 'priority/delivery-agent-lane-state@v1',
+      generatedAt: deliveryGeneratedAt,
+      laneId: 'origin-1010',
+      issue: 1010,
+      branch: 'issue/origin-1010-example',
+      forkRemote: 'origin',
+      blockerClass: 'validation-failure',
+      laneLifecycle: 'blocked'
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'observer-heartbeat.json'), {
+    schema: 'priority/runtime-observer-heartbeat@v1',
+    generatedAt: heartbeatGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    outcome: 'lease-blocked',
+    activeLane: {
+      laneId: 'origin-959',
+      issue: 959,
+      branch: 'issue/origin-959-example',
+      forkRemote: 'origin',
+      blockerClass: 'none'
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-wsl-daemon-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-wsl-daemon-pid@v1',
+    startedAt: daemonStartedAt,
+    pid: 0
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+  const traceText = await readFile(path.join(runtimeDirPath, 'delivery-agent-manager-trace.ndjson'), 'utf8');
+
+  assert.equal(status.delivery.activeLane.issue, 1010);
+  assert.equal(status.heartbeatDiagnostics.usedHeartbeat, false);
+  assert.equal(status.heartbeatDiagnostics.reason, 'stale-before-current-manager');
+  assert.deepEqual(status.logTail.daemon, []);
+  assert.match(traceText, /"eventType":"status"/);
+});
+
+test('delivery-agent manager status ignores stale host-signal artifacts from before the current manager start', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-host-signal-stale-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const hostSignalGeneratedAt = new Date(now - 60_000).toISOString();
+  const managerStartedAt = new Date(now - 10_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'daemon-host-signal.json'), {
+    schema: 'priority/delivery-agent-host-signal@v1',
+    generatedAt: hostSignalGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    status: 'native-wsl',
+    provider: 'native-wsl',
+    daemonFingerprint: 'stale-host-signal-fingerprint',
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.hostSignal, null);
+  assert.equal(status.hostSignalDiagnostics.usedHostSignal, false);
+  assert.equal(status.hostSignalDiagnostics.reason, 'stale-before-current-manager');
+  assert.equal(status.hostSignalDiagnostics.hostSignalGeneratedAt, hostSignalGeneratedAt);
+  assert.equal(status.hostSignalDiagnostics.managerStartedAt, managerStartedAt);
+});
+
+test('delivery-agent manager status projects queue-empty monitoring when the current manager is alive and historical lane receipts are stale', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-queue-empty-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  const issueDirPath = path.join(repoRoot, 'tests', 'results', '_agent', 'issue');
+  const handoffDirPath = path.join(repoRoot, 'tests', 'results', '_agent', 'handoff');
+  const queueEmptyReportPath = path.join(issueDirPath, 'no-standing-priority.json');
+  const routerPath = path.join(issueDirPath, 'router.json');
+  const monitoringModePath = path.join(handoffDirPath, 'monitoring-mode.json');
+  const originalQueueEmptyReport = await readTextIfExists(queueEmptyReportPath);
+  const originalRouter = await readTextIfExists(routerPath);
+  const originalMonitoringMode = await readTextIfExists(monitoringModePath);
+
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+    await restoreTextFile(queueEmptyReportPath, originalQueueEmptyReport);
+    await restoreTextFile(routerPath, originalRouter);
+    await restoreTextFile(monitoringModePath, originalMonitoringMode);
+  });
+
+  const now = Date.now();
+  const deliveryGeneratedAt = new Date(now - 120_000).toISOString();
+  const heartbeatGeneratedAt = new Date(now - 60_000).toISOString();
+  const managerStartedAt = new Date(now - 10_000).toISOString();
+  const daemonStartedAt = new Date(now - 9_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-state.json'), {
+    schema: 'priority/delivery-agent-runtime-state@v1',
+    generatedAt: deliveryGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: runtimeDirPath,
+    status: 'blocked',
+    laneLifecycle: 'blocked',
+    activeCodingLanes: 0,
+    activeLane: {
+      schema: 'priority/delivery-agent-lane-state@v1',
+      generatedAt: deliveryGeneratedAt,
+      laneId: 'origin-1010',
+      issue: 1010,
+      branch: 'issue/origin-1010-example',
+      forkRemote: 'origin',
+      blockerClass: 'validation-failure',
+      laneLifecycle: 'blocked'
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'observer-heartbeat.json'), {
+    schema: 'priority/runtime-observer-heartbeat@v1',
+    generatedAt: heartbeatGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    outcome: 'lease-blocked',
+    activeLane: {
+      laneId: 'origin-959',
+      issue: 959,
+      branch: 'issue/origin-959-example',
+      forkRemote: 'origin',
+      blockerClass: 'none'
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: process.pid
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-wsl-daemon-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-wsl-daemon-pid@v1',
+    startedAt: daemonStartedAt,
+    pid: 0
+  });
+  await writeJson(queueEmptyReportPath, {
+    schema: 'standing-priority/no-standing@v1',
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    reason: 'queue-empty',
+    generatedAt: new Date(now - 5_000).toISOString(),
+    openIssueCount: 0,
+    message: 'Queue empty for unattended monitoring.'
+  });
+  await writeJson(routerPath, {
+    schema: 'agent/priority-router@v1',
+    issue: null,
+    updatedAt: new Date(now - 5_000).toISOString(),
+    actions: []
+  });
+  await writeJson(monitoringModePath, {
+    status: 'active',
+    futureAgentAction: 'future-agent-may-pivot'
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.derivedFromQueueEmptyState, true);
+  assert.equal(status.delivery.status, 'idle');
+  assert.equal(status.delivery.laneLifecycle, 'idle');
+  assert.equal(status.delivery.activeCodingLanes, 0);
+  assert.equal(status.delivery.activeLane.issue, null);
+  assert.equal(status.delivery.activeLane.laneId, 'queue-empty-monitoring');
+  assert.equal(status.delivery.activeLane.syntheticIdle, true);
+  assert.equal(status.delivery.activeLane.nextWakeCondition, 'future-agent-may-pivot');
+  assert.equal(status.heartbeatDiagnostics.reason, 'queue-empty-current-manager');
+  assert.equal(status.heartbeatDiagnostics.usedHeartbeat, false);
+  assert.equal(status.heartbeatDiagnostics.usedRuntimeState, false);
+  assert.equal(status.heartbeatDiagnostics.usedQueueEmptyState, true);
+  assert.equal(status.heartbeatDiagnostics.queueState, 'queue-empty');
+  assert.equal(status.heartbeatDiagnostics.monitoringAction, 'future-agent-may-pivot');
+});
+
+test('delivery-agent manager status preserves a persisted fail-closed outcome after the manager stops', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-fail-closed-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-state.json'), {
+    schema: 'priority/unattended-delivery-agent-report@v1',
+    generatedAt: new Date('2026-03-26T20:00:00.000Z').toISOString(),
+    repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: relativeRuntimeDir,
+    status: 'fail-closed',
+    outcome: 'manager-stopped-fail-closed',
+    managerFailureCircuitBreaker: {
+      status: 'fail-closed',
+      threshold: 3,
+      consecutiveCycleFailures: 3,
+      failureSignature: 'worker-blocked|origin-2010|2010|worker-slot-1|validation-failure',
+      observerOutcome: 'worker-blocked',
+      observerOutcomeSource: 'report',
+      reason: 'repeated-daemon-cycle-failures',
+    },
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.status, 'fail-closed');
+  assert.equal(status.outcome, 'manager-stopped-fail-closed');
+  assert.equal(status.managerFailureCircuitBreaker.status, 'fail-closed');
+  assert.equal(status.managerFailureCircuitBreaker.consecutiveCycleFailures, 3);
+  assert.equal(status.managerFailureCircuitBreaker.reason, 'repeated-daemon-cycle-failures');
+});
+
+test('delivery-agent manager status exposes the current runtime epoch and startup quarantine summary', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-runtime-epoch-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: '2026-03-26T20:10:00.000Z',
+    pid: process.pid,
+    runtimeEpochId: '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action',
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-runtime-epoch.json'), {
+    schema: 'priority/unattended-delivery-agent-runtime-epoch@v1',
+    generatedAt: '2026-03-26T20:10:00.500Z',
+    repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: relativeRuntimeDir,
+    runtimeEpochId: '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action',
+    managerStartedAt: '2026-03-26T20:10:00.000Z',
+    startupQuarantine: {
+      schema: 'priority/unattended-delivery-agent-startup-quarantine@v1',
+      generatedAt: '2026-03-26T20:10:00.500Z',
+      repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+      runtimeDir: relativeRuntimeDir,
+      runtimeEpochId: '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action',
+      managerStartedAt: '2026-03-26T20:10:00.000Z',
+      quarantineDirPath: path.join(runtimeDirPath, 'quarantine', '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action'),
+      entryCount: 2,
+      entries: [],
+    },
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.runtimeEpoch.runtimeEpochId, '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action');
+  assert.equal(status.runtimeEpoch.startupQuarantine.entryCount, 2);
+  assert.equal(status.paths.runtimeEpochPath, path.join(runtimeDirPath, 'delivery-agent-runtime-epoch.json'));
+});
+
+test('delivery-agent manager status prefers an aligned runtime receipt over a fresher but wrong-epoch canonical delivery receipt', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-epoch-alignment-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const currentRuntimeEpochId = '2026-03-26T20-10-00-000Z-labview-community-ci-cd-compare-vi-cli-action';
+  const staleRuntimeEpochId = '2026-03-11T16-22-59-000Z-labview-community-ci-cd-compare-vi-cli-action';
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-runtime-epoch.json'), {
+    schema: 'priority/unattended-delivery-agent-runtime-epoch@v1',
+    generatedAt: '2026-03-26T20:10:00.500Z',
+    repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: relativeRuntimeDir,
+    runtimeEpochId: currentRuntimeEpochId,
+    managerStartedAt: '2026-03-26T20:10:00.000Z',
+    startupQuarantine: {
+      schema: 'priority/unattended-delivery-agent-startup-quarantine@v1',
+      generatedAt: '2026-03-26T20:10:00.500Z',
+      repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+      runtimeDir: relativeRuntimeDir,
+      runtimeEpochId: currentRuntimeEpochId,
+      managerStartedAt: '2026-03-26T20:10:00.000Z',
+      quarantineDirPath: path.join(runtimeDirPath, 'quarantine', currentRuntimeEpochId),
+      entryCount: 0,
+      entries: [],
+    },
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-state.json'), {
+    schema: 'priority/delivery-agent-runtime-state@v1',
+    generatedAt: '2026-03-26T20:10:30.000Z',
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: runtimeDirPath,
+    runtimeEpochId: staleRuntimeEpochId,
+    status: 'blocked',
+    laneLifecycle: 'blocked',
+    activeCodingLanes: 0,
+    activeLane: {
+      schema: 'priority/delivery-agent-lane-state@v1',
+      generatedAt: '2026-03-26T20:10:30.000Z',
+      runtimeEpochId: staleRuntimeEpochId,
+      laneId: 'origin-1010',
+      issue: 1010,
+      branch: 'issue/origin-1010-example',
+      forkRemote: 'origin',
+      blockerClass: 'ci',
+      laneLifecycle: 'blocked',
+    },
+  });
+  await writeJson(path.join(runtimeDirPath, 'runtime-state.json'), {
+    schema: 'priority/runtime-supervisor-state@v1',
+    generatedAt: '2026-03-26T20:10:40.000Z',
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeEpochId: currentRuntimeEpochId,
+    lifecycle: {
+      status: 'coding',
+      cycle: 1,
+      startedAt: '2026-03-26T20:10:00.000Z',
+      updatedAt: '2026-03-26T20:10:40.000Z',
+      lastAction: 'step',
+      stopRequested: false,
+    },
+    activeLane: {
+      laneId: 'origin-2014',
+      issue: 2014,
+      branch: 'issue/origin-2014-runtime-epoch-alignment',
+      forkRemote: 'origin',
+      runtimeEpochId: currentRuntimeEpochId,
+    },
+  });
+  await writeJson(path.join(runtimeDirPath, 'task-packet.json'), {
+    schema: 'priority/runtime-worker-task-packet@v1',
+    generatedAt: '2026-03-26T20:10:45.000Z',
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeEpochId: currentRuntimeEpochId,
+    laneId: 'origin-2014',
+    status: 'coding',
+    branch: {
+      name: 'issue/origin-2014-runtime-epoch-alignment',
+      forkRemote: 'origin',
+    },
+    pullRequest: {
+      url: null,
+    },
+    checks: {
+      blockerClass: 'none',
+    },
+    evidence: {
+      delivery: {
+        selectedActionType: 'advance-standing-issue',
+        laneLifecycle: 'coding',
+      },
+    },
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.runtimeEpochId, currentRuntimeEpochId);
+  assert.equal(status.delivery.activeLane.runtimeEpochId, currentRuntimeEpochId);
+  assert.equal(status.delivery.activeLane.issue, 2014);
+  assert.equal(status.heartbeatDiagnostics.usedRuntimeState, true);
+  assert.equal(status.heartbeatDiagnostics.reason, 'runtime-state-current');
+  assert.equal(status.heartbeatDiagnostics.deliveryRuntimeEpochAlignment, 'mismatch');
+  assert.equal(status.heartbeatDiagnostics.runtimeStateRuntimeEpochAlignment, 'aligned');
+});
+
+test('Manage-UnattendedDeliveryAgent suppresses fallback build chatter before JSON status output', async (t) => {
+  const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'delivery-agent-wrapper-status-'));
+  t.after(async () => {
+    await rm(tempRoot, { recursive: true, force: true });
+  });
+
+  await copyRepoFile('tools/priority/Manage-UnattendedDeliveryAgent.ps1', tempRoot);
+  await copyRepoFile('tools/priority/DeliveryAgentWrapper.Build.psm1', tempRoot);
+  await writeFakeDeliveryAgentBuildScript(tempRoot);
+
+  const { stdout, stderr } = await execFile(
+    'pwsh',
+    [
+      '-NoLogo',
+      '-NoProfile',
+      '-File',
+      path.join(tempRoot, 'tools', 'priority', 'Manage-UnattendedDeliveryAgent.ps1'),
+      '-Status',
+      '-RuntimeDir',
+      'tests/results/_agent/runtime'
+    ],
+    {
+      cwd: tempRoot,
+      windowsHide: true
+    }
+  );
+
+  assert.equal(stderr, '');
+  assert.doesNotMatch(stdout, /added 66 packages|compare-vi-cli-action@0\.6\.3 build/i);
+  assert.deepEqual(JSON.parse(stdout), {
+    schema: 'test/delivery-agent@v1',
+    command: 'status',
+    reportPath: null
+  });
+});
+
+test('Ensure-WSLDeliveryPrereqs suppresses fallback build chatter before JSON prereq output', async (t) => {
+  const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'delivery-agent-wrapper-prereqs-'));
+  t.after(async () => {
+    await rm(tempRoot, { recursive: true, force: true });
+  });
+
+  await copyRepoFile('tools/priority/Ensure-WSLDeliveryPrereqs.ps1', tempRoot);
+  await copyRepoFile('tools/priority/DeliveryAgentWrapper.Build.psm1', tempRoot);
+  await writeFakeDeliveryAgentBuildScript(tempRoot);
+
+  const { stdout, stderr } = await execFile(
+    'pwsh',
+    [
+      '-NoLogo',
+      '-NoProfile',
+      '-File',
+      path.join(tempRoot, 'tools', 'priority', 'Ensure-WSLDeliveryPrereqs.ps1'),
+      '-Distro',
+      'Ubuntu',
+      '-NodeVersion',
+      'v24.13.1',
+      '-ReportPath',
+      'tests/results/_agent/runtime/wsl-delivery-prereqs.json'
+    ],
+    {
+      cwd: tempRoot,
+      windowsHide: true
+    }
+  );
+
+  assert.equal(stderr, '');
+  assert.doesNotMatch(stdout, /added 66 packages|compare-vi-cli-action@0\.6\.3 build/i);
+  assert.deepEqual(JSON.parse(stdout), {
+    schema: 'test/delivery-agent@v1',
+    command: 'prereqs',
+    reportPath: 'tests/results/_agent/runtime/wsl-delivery-prereqs.json'
+  });
+});
+
+test('delivery-agent manager status derives from a fresh heartbeat when no delivery state exists', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-fresh-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const managerStartedAt = new Date(now - 120_000).toISOString();
+  const heartbeatGeneratedAt = new Date(now - 15_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'observer-heartbeat.json'), {
+    schema: 'priority/runtime-observer-heartbeat@v1',
+    generatedAt: heartbeatGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    outcome: 'lane-tracked',
+    activeLane: {
+      laneId: 'origin-959',
+      issue: 959,
+      branch: 'issue/origin-959-example',
+      forkRemote: 'origin',
+      blockerClass: 'none',
+      worker: {
+        laneId: 'origin-959',
+        checkoutPath: '/tmp/worker-checkout',
+        checkoutRoot: '/tmp/runtime-root',
+        status: 'reused',
+        ref: 'upstream/develop',
+        requestedBranch: 'issue/origin-959-example'
+      },
+      workerReady: {
+        laneId: 'origin-959',
+        checkoutPath: '/tmp/worker-checkout',
+        status: 'ready'
+      },
+      workerBranch: {
+        laneId: 'origin-959',
+        checkoutPath: '/tmp/worker-checkout',
+        branch: 'issue/origin-959-example',
+        status: 'reused',
+        trackingRef: 'origin/issue/origin-959-example'
+      },
+      taskPacket: {
+        status: 'coding',
+        branch: {
+          name: 'issue/origin-959-example',
+          forkRemote: 'origin',
+          checkoutPath: '/tmp/worker-checkout'
+        },
+        evidence: {
+          lane: {
+            workerSlotId: 'worker-slot-2',
+            workerCheckoutRoot: '/tmp/runtime-root',
+            workerCheckoutRootPolicy: 'external-root',
+            workerCheckoutPath: '/tmp/worker-checkout'
+          },
+          delivery: {
+            concurrentLaneApply: {
+              receiptPath: 'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json',
+              status: 'succeeded',
+              selectedBundleId: 'hosted-plus-manual-linux-docker',
+              validateDispatch: {
+                status: 'dispatched',
+                repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+                remote: 'origin',
+                ref: 'issue/origin-959-example',
+                sampleIdStrategy: 'auto',
+                sampleId: 'ts-20260321-000000-abcd',
+                historyScenarioSet: 'smoke',
+                reportPath: 'tests/results/_agent/issue/priority-validate-dispatch-origin-959.json',
+                runDatabaseId: 234567890,
+                error: null
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.activeLane.issue, 959);
+  assert.equal(status.delivery.derivedFromHeartbeat, true);
+  assert.equal(status.heartbeatDiagnostics.usedHeartbeat, true);
+  assert.equal(status.heartbeatDiagnostics.reason, 'fresh-heartbeat');
+  assert.equal(
+    status.delivery.concurrentLaneApply.receiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.equal(status.delivery.activeLane.concurrentLaneApply.validateDispatch.runDatabaseId, 234567890);
+  assert.equal(status.delivery.activeLane.workerSlotId, 'worker-slot-2');
+  assert.equal(status.delivery.activeLane.workerCheckoutRoot, '/tmp/runtime-root');
+  assert.equal(status.delivery.activeLane.workerCheckoutPath, '/tmp/worker-checkout');
+  assert.equal(
+    status.delivery.artifacts.concurrentLaneApplyReceiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.ok(Array.isArray(status.logTail.daemon));
+});
+
+test('delivery-agent manager status exposes observer telemetry as non-blocking state', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-observer-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  await writeJson(path.join(runtimeDirPath, 'codex-state-hygiene.json'), {
+    schema: 'priority/codex-state-hygiene-report@v1',
+    generatedAt: new Date('2026-03-11T20:00:00.000Z').toISOString(),
+    observer: {
+      plane: 'observer',
+      source: 'codex-state-hygiene',
+      status: 'degraded',
+      deliveryCritical: false,
+      hotPathEligible: false,
+      deliveryImpact: 'none',
+      reasons: ['thread-stream-state-changed'],
+      counts: {
+        gitOriginAndRoots: 0,
+        localEnvironmentsUnsupported: 0,
+        openInTargetUnsupported: 0,
+        unhandledBroadcastNoHandler: 1,
+        threadStreamStateChanged: 1,
+        threadQueuedFollowupsChanged: 0,
+        databaseLocked: 0,
+        slowStatement: 0
+      }
+    }
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.observer.plane, 'observer');
+  assert.equal(status.observer.status, 'degraded');
+  assert.equal(status.observer.deliveryCritical, false);
+  assert.equal(status.observer.hotPathEligible, false);
+  assert.equal(status.observer.deliveryImpact, 'none');
+});
+
+test('delivery-agent manager status prefers a fresher canonical delivery state over stale heartbeat artifacts', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-runtime-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const deliveryGeneratedAt = new Date(now - 300_000).toISOString();
+  const heartbeatGeneratedAt = new Date(now - 240_000).toISOString();
+  const runtimeGeneratedAt = new Date(now - 30_000).toISOString();
+  const taskPacketGeneratedAt = new Date(now - 15_000).toISOString();
+  const managerStartedAt = new Date(now - 180_000).toISOString();
+  const daemonStartedAt = new Date(now - 180_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-state.json'), {
+    schema: 'priority/delivery-agent-runtime-state@v1',
+    generatedAt: deliveryGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: runtimeDirPath,
+    status: 'blocked',
+    laneLifecycle: 'blocked',
+    activeCodingLanes: 0,
+    activeLane: {
+      schema: 'priority/delivery-agent-lane-state@v1',
+      generatedAt: deliveryGeneratedAt,
+      laneId: 'origin-959',
+      issue: 959,
+      branch: 'issue/origin-959-example',
+      forkRemote: 'origin',
+      blockerClass: 'validation-failure',
+      laneLifecycle: 'blocked'
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'observer-heartbeat.json'), {
+    schema: 'priority/runtime-observer-heartbeat@v1',
+    generatedAt: heartbeatGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    outcome: 'lane-tracked',
+    activeLane: {
+      laneId: 'origin-959',
+      issue: 959,
+      branch: 'issue/origin-959-example',
+      forkRemote: 'origin',
+      blockerClass: 'none',
+      taskPacket: {
+        status: 'coding'
+      }
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-state.json'), {
+    schema: 'priority/delivery-agent-runtime-state@v1',
+    generatedAt: runtimeGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeDir: runtimeDirPath,
+    status: 'coding',
+    laneLifecycle: 'coding',
+    activeCodingLanes: 1,
+    activeLane: {
+      schema: 'priority/delivery-agent-lane-state@v1',
+      generatedAt: runtimeGeneratedAt,
+      laneId: 'origin-962',
+      issue: 962,
+      branch: 'issue/origin-962-example',
+      forkRemote: 'origin',
+      blockerClass: 'none',
+      laneLifecycle: 'coding',
+      actionType: 'advance-standing-issue',
+      outcome: 'coding',
+      reason: 'coding',
+      retryable: false,
+      nextWakeCondition: null
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'task-packet.json'), {
+    schema: 'priority/runtime-worker-task-packet@v1',
+    generatedAt: taskPacketGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    laneId: 'origin-962',
+    status: 'coding',
+    branch: {
+      name: 'issue/origin-962-example',
+      forkRemote: 'origin'
+    },
+    pullRequest: {
+      url: null
+    },
+    checks: {
+      blockerClass: 'none'
+    },
+    evidence: {
+      delivery: {
+        selectedActionType: 'advance-standing-issue',
+        laneLifecycle: 'coding'
+      }
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-wsl-daemon-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-wsl-daemon-pid@v1',
+    startedAt: daemonStartedAt,
+    pid: 0
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.activeLane.issue, 962);
+  assert.equal(status.delivery.activeLane.branch, 'issue/origin-962-example');
+  assert.equal(status.delivery.laneLifecycle, 'coding');
+  assert.equal(status.delivery.activeCodingLanes, 1);
+  assert.equal(status.delivery.derivedFromRuntimeState, undefined);
+  assert.equal(status.heartbeatDiagnostics.usedHeartbeat, false);
+  assert.equal(status.heartbeatDiagnostics.usedRuntimeState, false);
+  assert.equal(status.heartbeatDiagnostics.reason, 'stale-before-current-manager');
+  assert.equal(path.basename(status.paths.deliveryStatePath), 'delivery-agent-state.json');
+});
+
+test('delivery-agent status resolves the active worktree root when run from a linked worktree checkout', async (t) => {
+  const buildResult = await execFile(process.execPath, ['tools/npm/run-script.mjs', 'build'], { cwd: repoRoot });
+  assert.equal(buildResult.stderr, '');
+  const { sandboxRoot, worktreeDir } = await makeLinkedWorktree('delivery-agent-status-worktree-root-');
+  t.after(async () => {
+    await rm(sandboxRoot, { recursive: true, force: true });
+  });
+
+  await cp(path.join(repoRoot, 'package.json'), path.join(worktreeDir, 'package.json'));
+  await mkdir(path.join(worktreeDir, 'dist', 'tools'), { recursive: true });
+  await cp(path.join(repoRoot, 'dist', 'tools', 'priority'), path.join(worktreeDir, 'dist', 'tools', 'priority'), { recursive: true });
+
+  const { stdout } = await execFile(
+    process.execPath,
+    [path.join(worktreeDir, 'dist', 'tools', 'priority', 'delivery-agent.js'), 'status', '--runtime-dir', 'tests/results/_agent/runtime'],
+    {
+      cwd: worktreeDir,
+      encoding: 'utf8',
+    },
+  );
+
+  const report = JSON.parse(stdout);
+  assert.equal(
+    report.paths.managerStatePath,
+    path.join(worktreeDir, 'tests', 'results', '_agent', 'runtime', 'delivery-agent-manager-state.json'),
+  );
+  assert.equal(
+    report.paths.daemonLogPath,
+    path.join(worktreeDir, 'tests', 'results', '_agent', 'runtime', 'runtime-daemon-wsl.log'),
+  );
+  assert.equal(path.dirname(report.paths.managerStatePath), path.join(worktreeDir, 'tests', 'results', '_agent', 'runtime'));
+  assert.ok(report.paths.managerTracePath.startsWith(worktreeDir));
+});
+
+test('delivery-agent manager status falls back to legacy runtime-state.json when the canonical delivery state is missing', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-compat-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const runtimeGeneratedAt = new Date(now - 30_000).toISOString();
+  const taskPacketGeneratedAt = new Date(now - 15_000).toISOString();
+  const managerStartedAt = new Date(now - 180_000).toISOString();
+  const daemonStartedAt = new Date(now - 180_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'runtime-state.json'), {
+    schema: 'priority/runtime-supervisor-state@v1',
+    generatedAt: runtimeGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    lifecycle: {
+      status: 'blocked',
+      lastAction: 'step'
+    },
+    activeLane: {
+      laneId: 'origin-962',
+      issue: 962,
+      branch: 'issue/origin-962-example',
+      forkRemote: 'origin',
+      blockerClass: 'none',
+      taskPacket: {
+        generatedAt: runtimeGeneratedAt,
+        status: 'coding',
+        branch: {
+          name: 'issue/origin-962-example',
+          forkRemote: 'origin'
+        },
+        pullRequest: {
+          url: null
+        },
+        evidence: {
+          delivery: {
+            selectedActionType: 'advance-standing-issue',
+            laneLifecycle: 'coding'
+          }
+        }
+      }
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'task-packet.json'), {
+    schema: 'priority/runtime-worker-task-packet@v1',
+    generatedAt: taskPacketGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    laneId: 'origin-962',
+    status: 'coding',
+    branch: {
+      name: 'issue/origin-962-example',
+      forkRemote: 'origin',
+      checkoutPath: '/tmp/runtime-worker'
+    },
+    pullRequest: {
+      url: null
+    },
+    checks: {
+      blockerClass: 'none'
+    },
+    evidence: {
+      lane: {
+        workerSlotId: 'worker-slot-2',
+        workerCheckoutRoot: '/tmp/runtime-root',
+        workerCheckoutRootPolicy: 'external-root',
+        workerCheckoutPath: '/tmp/runtime-worker'
+      },
+      delivery: {
+        selectedActionType: 'advance-standing-issue',
+        laneLifecycle: 'coding',
+        concurrentLaneApply: {
+          receiptPath: 'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json',
+          status: 'succeeded',
+          selectedBundleId: 'hosted-plus-manual-linux-docker',
+          validateDispatch: {
+            status: 'dispatched',
+            repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+            remote: 'origin',
+            ref: 'issue/origin-962-example',
+            sampleIdStrategy: 'auto',
+            sampleId: 'ts-20260321-000000-abcd',
+            historyScenarioSet: 'smoke',
+            reportPath: 'tests/results/_agent/issue/priority-validate-dispatch-origin-962.json',
+            runDatabaseId: 234567891,
+            error: null
+          }
+        }
+      }
+    }
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-wsl-daemon-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-wsl-daemon-pid@v1',
+    startedAt: daemonStartedAt,
+    pid: 0
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.activeLane.issue, 962);
+  assert.equal(status.delivery.derivedFromRuntimeState, true);
+  assert.equal(status.heartbeatDiagnostics.usedRuntimeState, true);
+  assert.equal(status.heartbeatDiagnostics.reason, 'runtime-state-current');
+  assert.equal(
+    status.delivery.concurrentLaneApply.receiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.equal(status.delivery.activeLane.workerSlotId, 'worker-slot-2');
+  assert.equal(status.delivery.activeLane.workerCheckoutPath, '/tmp/runtime-worker');
+  assert.equal(
+    status.delivery.artifacts.concurrentLaneApplyReceiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.equal(path.basename(status.delivery.artifacts.statePath), 'delivery-agent-state.json');
+});
+
+test('delivery-agent manager status preserves concurrent lane apply provenance and worker checkout identity from runtime fallback artifacts', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-concurrent-apply-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  const now = Date.now();
+  const runtimeGeneratedAt = new Date(now - 30_000).toISOString();
+  const taskPacketGeneratedAt = new Date(now - 15_000).toISOString();
+  const managerStartedAt = new Date(now - 180_000).toISOString();
+  const daemonStartedAt = new Date(now - 180_000).toISOString();
+
+  await writeJson(path.join(runtimeDirPath, 'runtime-state.json'), {
+    schema: 'priority/runtime-supervisor-state@v1',
+    generatedAt: runtimeGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    lifecycle: {
+      status: 'waiting-ci',
+      lastAction: 'step',
+    },
+    activeLane: {
+      laneId: 'origin-1604',
+      issue: 1604,
+      branch: 'issue/origin-1604-concurrent-lane-delivery-turn',
+      forkRemote: 'origin',
+      blockerClass: 'none',
+    },
+  });
+  await writeJson(path.join(runtimeDirPath, 'task-packet.json'), {
+    schema: 'priority/runtime-worker-task-packet@v1',
+    generatedAt: taskPacketGeneratedAt,
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    laneId: 'origin-1604',
+    status: 'waiting-ci',
+    branch: {
+      name: 'issue/origin-1604-concurrent-lane-delivery-turn',
+      forkRemote: 'origin',
+    },
+    pullRequest: {
+      url: null,
+    },
+    checks: {
+      blockerClass: 'none',
+    },
+    evidence: {
+      lane: {
+        workerSlotId: 'worker-slot-2',
+        workerCheckoutRoot: path.join('E:', 'comparevi-lanes', 'LabVIEW-Community-CI-CD--compare-vi-cli-action'),
+        workerCheckoutRootPolicy: {
+          strategy: 'policy-preferred-root',
+          source: 'delivery-agent.policy.json#storageRoots.worktrees.preferredRoots[0]',
+          baseRoot: path.join('E:', 'comparevi-lanes'),
+          relativeRoot: 'LabVIEW-Community-CI-CD--compare-vi-cli-action',
+          usesExternalRoot: true,
+        },
+        workerCheckoutPath: path.join(
+          'E:',
+          'comparevi-lanes',
+          'LabVIEW-Community-CI-CD--compare-vi-cli-action',
+          'worker-slot-2'
+        ),
+      },
+      delivery: {
+        selectedActionType: 'advance-child-issue',
+        laneLifecycle: 'waiting-ci',
+        concurrentLaneApply: {
+          receiptPath: 'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json',
+          status: 'succeeded',
+          selectedBundleId: 'hosted-plus-manual-linux-docker',
+          validateDispatch: {
+            status: 'dispatched',
+            repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+            remote: 'origin',
+            ref: 'issue/origin-1604-concurrent-lane-delivery-turn',
+            sampleIdStrategy: 'auto',
+            sampleId: 'ts-20260321-000000-abcd',
+            historyScenarioSet: 'smoke',
+            allowFork: true,
+            pushMissing: true,
+            forcePushOk: false,
+            allowNonCanonicalViHistory: false,
+            allowNonCanonicalHistoryCore: false,
+            reportPath: 'tests/results/_agent/issue/priority-validate-dispatch-origin-1604.json',
+            runDatabaseId: 234567890,
+          },
+        },
+      },
+    },
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-manager-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-manager-pid@v1',
+    startedAt: managerStartedAt,
+    pid: 0,
+  });
+  await writeJson(path.join(runtimeDirPath, 'delivery-agent-wsl-daemon-pid.json'), {
+    schema: 'priority/unattended-delivery-agent-wsl-daemon-pid@v1',
+    startedAt: daemonStartedAt,
+    pid: 0,
+  });
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+
+  assert.equal(status.delivery.derivedFromRuntimeState, true);
+  assert.equal(status.delivery.concurrentLaneApply.receiptPath, 'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json');
+  assert.equal(status.delivery.concurrentLaneApply.validateDispatch.runDatabaseId, 234567890);
+  assert.equal(
+    status.delivery.artifacts.concurrentLaneApplyReceiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.equal(
+    status.delivery.activeLane.concurrentLaneApply.receiptPath,
+    'tests/results/_agent/runtime/concurrent-lane-apply-receipt.json'
+  );
+  assert.equal(status.delivery.activeLane.workerSlotId, 'worker-slot-2');
+  assert.equal(
+    status.delivery.activeLane.workerCheckoutRoot,
+    path.join('E:', 'comparevi-lanes', 'LabVIEW-Community-CI-CD--compare-vi-cli-action')
+  );
+  assert.equal(
+    status.delivery.activeLane.workerCheckoutPath,
+    path.join('E:', 'comparevi-lanes', 'LabVIEW-Community-CI-CD--compare-vi-cli-action', 'worker-slot-2')
+  );
+  assert.deepEqual(status.delivery.activeLane.workerCheckoutRootPolicy, {
+    strategy: 'policy-preferred-root',
+    source: 'delivery-agent.policy.json#storageRoots.worktrees.preferredRoots[0]',
+    baseRoot: path.join('E:', 'comparevi-lanes'),
+    relativeRoot: 'LabVIEW-Community-CI-CD--compare-vi-cli-action',
+    usesExternalRoot: true,
+  });
+});
+
+test('delivery-agent manager status emits bounded log-tail trace events for daemon and manager logs', async (t) => {
+  const runtimeDirPath = await mkdtemp(path.join(repoRoot, 'tests', 'results', '_agent', 'tmp-manager-status-log-tail-'));
+  const relativeRuntimeDir = path.relative(repoRoot, runtimeDirPath);
+  t.after(async () => {
+    await rm(runtimeDirPath, { recursive: true, force: true });
+  });
+
+  await writeFile(path.join(runtimeDirPath, 'runtime-daemon-wsl.log'), 'daemon line 1\ndaemon line 2\n', 'utf8');
+  await writeFile(path.join(runtimeDirPath, 'delivery-agent-manager.log'), 'manager out 1\n', 'utf8');
+  await writeFile(path.join(runtimeDirPath, 'delivery-agent-manager.stderr.log'), 'manager err 1\n', 'utf8');
+
+  const status = await invokeManagerStatus(relativeRuntimeDir);
+  const traceText = await readFile(path.join(runtimeDirPath, 'delivery-agent-manager-trace.ndjson'), 'utf8');
+
+  assert.deepEqual(status.logTail.daemon, ['daemon line 1', 'daemon line 2']);
+  assert.deepEqual(status.logTail.managerStdout, ['manager out 1']);
+  assert.deepEqual(status.logTail.managerStderr, ['manager err 1']);
+  assert.match(traceText, /"eventType":"log-tail"/);
+  assert.match(traceText, /"source":"daemon"/);
+  assert.match(traceText, /"source":"manager-stdout"/);
+  assert.match(traceText, /"source":"manager-stderr"/);
+  assert.match(traceText, /"reason":"status:status"/);
+});
+
+test('Manage-UnattendedDeliveryAgent.ps1 remains a thin wrapper around the JS delivery-agent implementation', async () => {
+  const manager = await readText('tools/priority/Manage-UnattendedDeliveryAgent.ps1');
+
+  assert.doesNotMatch(manager, /function Resolve-DeliveryStateForStatus/);
+  assert.doesNotMatch(manager, /function Get-SanitizedSegment/);
+  assert.match(manager, /delivery-agent\.js/i);
+});

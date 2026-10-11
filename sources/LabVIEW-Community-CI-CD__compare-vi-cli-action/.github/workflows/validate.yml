@@ -1,0 +1,2095 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+  merge_group:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      summary-verbose:
+        description: 'Emit verbose fixture summary (sets SUMMARY_VERBOSE=true)'
+        required: false
+        default: 'false'
+      sample_id:
+        description: 'Sampling correlation id (prevents cancels)'
+        required: false
+        type: string
+      history_scenario_set:
+        description: 'VI history scenario set for Validate VI history lanes (none|smoke|history-core)'
+        required: false
+        default: 'smoke'
+      allow_noncanonical_vi_history:
+        description: 'Allow vi-history-scenarios to run on non-canonical repos (manual override)'
+        required: false
+        type: boolean
+        default: false
+      allow_noncanonical_history_core:
+        description: 'Allow history-core scenario set on non-canonical repos (requires allow_noncanonical_vi_history=true)'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || github.event.inputs.sample_id || github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Controlled opt-in for the June 2026 JavaScript action runtime migration.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  smoke-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.determine.outputs.skip }}
+    steps:
+    - name: Determine skip for smoke branches
+      id: determine
+      shell: pwsh
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        HEAD_REF: ${{ github.head_ref }}
+      run: |
+        $isSmoke = $false
+        if ($env:EVENT_NAME -eq 'pull_request' -and $env:HEAD_REF -and $env:HEAD_REF.StartsWith('smoke/')) {
+          $isSmoke = $true
+        }
+        $value = if ($isSmoke) { 'true' } else { 'false' }
+        "skip=$value" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+  lint:
+    needs: smoke-gate
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Install actionlint (retry)
+      shell: bash
+      run: |
+        set -euo pipefail
+        mkdir -p ./bin
+        ver="${ACTIONLINT_VERSION:-1.7.8}"
+        for i in 1 2 3; do
+          if curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s -- "$ver" ./bin; then
+            break
+          else
+            echo "retry $i"; sleep 2
+          fi
+        done
+    - name: Run actionlint
+      run: |
+        ./bin/actionlint -color
+    - name: Check PR mergeability
+      if: ${{ github.event_name == 'pull_request' }}
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        ./tools/Check-PRMergeable.ps1 -Number ${{ github.event.pull_request.number }} -FailOnConflict
+    - name: Setup Python for workflow enclave
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - name: Workflow drift check
+      shell: pwsh
+      run: |
+        pwsh -NoLogo -NoProfile -File tools/Check-WorkflowDrift.ps1 -FailOnDrift
+    - name: Setup Node with cache
+      uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: CLI lints
+      uses: ./.github/actions/cli-lints
+      with:
+        enforce: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
+        linkcheck: 'true'
+        actionlint-version: '1.7.8'
+        relaxed-path: 'docs/releases/**/*.md'
+
+    - name: Guard tracked build artifacts (enforced)
+      shell: pwsh
+      run: |
+        # Optional allowlist via env ALLOWLIST_TRACKED_ARTIFACTS (semicolon-separated globs)
+        # and/or file-based allowlist at .ci/build-artifacts-allow.txt
+        pwsh -File tools/Check-TrackedBuildArtifacts.ps1 -AllowListPath '.ci/build-artifacts-allow.txt'
+
+    - name: Surface build artifacts allowlist (if any)
+      shell: pwsh
+      run: |
+        $path = '.ci/build-artifacts-allow.txt'
+        if (Test-Path -LiteralPath $path -PathType Leaf) {
+          $lines = Get-Content -LiteralPath $path | Where-Object { $_ -and -not ($_.Trim().StartsWith('#')) } | ForEach-Object { $_.Trim() }
+          if ($lines.Count -gt 0 -and $env:GITHUB_STEP_SUMMARY) {
+            $out = @('### Build Artifacts Allowlist','')
+            foreach($l in $lines){ $out += ('- ' + $l) }
+            $out -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+        }
+
+    - name: Build artifacts guard — ad-hoc allowlist usage
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $msg = @(
+            '### Build Artifacts Guard — Ad-hoc Allowlist',
+            '',
+            '- To permit specific tracked paths temporarily, set ALLOWLIST_TRACKED_ARTIFACTS to a semicolon-separated list of globs.',
+            "- Example: ``ALLOWLIST_TRACKED_ARTIFACTS='src/Legacy/**/bin/**;src/Legacy/**/obj/**'``",
+            '- Prefer using .ci/build-artifacts-allow.txt for committed, reviewable exceptions.'
+          ) -join "`n"
+          $msg | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        }
+
+    - name: Derive environment snapshot
+      shell: bash
+      run: |
+        set -euo pipefail
+        node tools/npm/run-script.mjs --silent derive:env > derived-env.json
+        mkdir -p tests/results/_agent
+        cp derived-env.json tests/results/_agent/derived-env.json
+        if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+          {
+            echo '### Derived Environment';
+            echo '```json';
+            cat derived-env.json;
+            echo '```';
+          } >> "$GITHUB_STEP_SUMMARY"
+        fi
+
+    - name: PrePush local gates (includes watcher schema validation)
+      shell: pwsh
+      env:
+        PREPUSH_SKIP_LEGACY_FIXTURE_CHECKS: '1'
+      run: |
+        pwsh -File tools/PrePush-Checks.ps1
+
+    - name: Release conductor contract tests
+      shell: bash
+      run: |
+        node tools/npm/run-script.mjs priority:release:conductor:test
+
+    - name: Policy guard (branch protection)
+      if: ${{ github.event.repository.fork == false }}
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        pwsh -NoLogo -NoProfile -File tools/priority/Sync-BranchProtectionPolicy.ps1 -ResultsDir tests/results/_agent/policy
+
+    - name: Upload policy drift artifact
+      if: ${{ always() && github.event.repository.fork == false }}
+      uses: actions/upload-artifact@v7
+      with:
+        name: policy-drift-validate-${{ github.run_id }}-${{ github.run_attempt }}
+        path: tests/results/_agent/policy/policy-drift-report.json
+        if-no-files-found: error
+
+    - name: Lint unanchored dot-sourcing (non-blocking)
+      shell: pwsh
+      continue-on-error: true
+      run: |
+        pwsh -File tools/Lint-DotSourcing.ps1 -WarnOnly
+
+    - name: Lint inline-if in format (-f)
+      shell: pwsh
+      run: pwsh -File tools/Lint-InlineIfInFormat.ps1
+
+    - name: Emit tool versions
+      if: always()
+      shell: bash
+      run: |
+        {
+          echo '### Tool Versions'
+          echo "- actionlint: $(./bin/actionlint -version || echo 'n/a')"
+          echo "- node: $(node -v || echo 'n/a')"
+          echo "- npm: $(npm -v || echo 'n/a')"
+          echo "- markdownlint: $(markdownlint --version || echo 'n/a')"
+        } >> "$GITHUB_STEP_SUMMARY"
+
+
+    - name: Lint loop determinism (notice only on non-main)
+      if: github.ref_name != 'main'
+      shell: pwsh
+      run: |
+        $paths = Get-ChildItem -Path .github/workflows -Filter *.yml | ForEach-Object { $_.FullName }
+        if ($paths) { pwsh -File tools/Lint-LoopDeterminism.Shim.ps1 -PathsList ($paths -join ';') } else { Write-Host '::notice::No workflow files to lint.' }
+
+    - name: Lint loop determinism (enforced on main)
+      if: github.ref_name == 'main'
+      shell: pwsh
+      run: |
+        $paths = Get-ChildItem -Path .github/workflows -Filter *.yml | ForEach-Object { $_.FullName }
+        if ($paths) { pwsh -File tools/Lint-LoopDeterminism.Shim.ps1 -PathsList ($paths -join ';') -FailOnViolation } else { Write-Host '::notice::No workflow files to lint.' }
+
+    - name: Local markdown link check (intra-repo)
+      shell: pwsh
+      run: |
+        # Simple intra-repo link checker: scans markdown for (./...) links and verifies files exist.
+        $ErrorActionPreference = 'Stop'
+        $mdFiles = Get-ChildItem -Path . -Recurse -Include *.md -File |
+          Where-Object {
+            $path = $_.FullName -replace '\\','/'
+            return $path -notmatch '/node_modules/' `
+              -and $path -notmatch '/vendor/' `
+              -and $path -notmatch '/tmp/'
+          }
+        $errors = @()
+        foreach ($file in $mdFiles) {
+          $text = Get-Content -LiteralPath $file.FullName -Raw
+          $matches = [regex]::Matches($text, '\]\((\.\/?[^)#\s]+)\)')
+          foreach ($m in $matches) {
+            $rel = $m.Groups[1].Value
+            if ($rel -like 'http*' -or $rel -like '#*') { continue }
+            # Strip anchors like file.md#section
+            $pathOnly = $rel.Split('#')[0]
+            $target = Join-Path $file.DirectoryName $pathOnly
+            if (-not (Test-Path -LiteralPath $target)) {
+              $errors += "[$($file.FullName)] broken link -> $rel (resolved: $target)"
+            }
+          }
+        }
+        if ($errors.Count -gt 0) {
+          Write-Host 'Broken intra-repo links detected:'
+          $errors | ForEach-Object { Write-Host " - $_" }
+          exit 2
+        } else {
+          Write-Host 'Intra-repo markdown links OK.'
+        }
+
+    - name: Append docs pointers
+      if: always()
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @('### Docs Pointers','')
+          $lines += '- Fixture Drift: ./docs/FIXTURE_DRIFT.md'
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        }
+
+    - name: Labels sync summary (develop only)
+      if: github.ref_name == 'develop'
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $ErrorActionPreference = 'Continue'
+        $labelsFile = '.github/labels.yml'
+        if (-not (Test-Path -LiteralPath $labelsFile)) { Write-Host '::notice::.github/labels.yml not found'; exit 0 }
+        try {
+          $yaml = Get-Content -LiteralPath $labelsFile -Raw
+          # crude parse: entries like '- name: xyz' on their own line
+          $names = @([regex]::Matches($yaml,'(?m)^\s*-\s*name:\s*(.+?)\s*$') | ForEach-Object { $_.Groups[1].Value.Trim() })
+        } catch { $names = @() }
+        $api = "https://api.github.com/repos/${{ github.repository }}/labels?per_page=100"
+        $hdr = @{ Authorization = "token $env:GITHUB_TOKEN"; Accept='application/vnd.github+json'; 'X-GitHub-Api-Version'='2022-11-28' }
+        $existing = @()
+        try { $resp = Invoke-RestMethod -Method Get -Uri $api -Headers $hdr; $existing = @($resp | ForEach-Object { $_.name }) } catch {}
+        $missing = @($names | Where-Object { $_ -and ($existing -notcontains $_) })
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @('### Labels Sync (notice)','')
+          $lines += ('- Defined in labels.yml: {0}' -f ($names.Count))
+          $lines += ('- Repo labels: {0}' -f ($existing.Count))
+          if ($missing.Count -gt 0) {
+            $lines += '- Missing:'
+            foreach ($m in $missing) { $lines += ('  - ' + $m) }
+          } else {
+            $lines += '- Missing: none'
+          }
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        }
+
+    - name: Labels sync enforcement (main)
+      if: github.ref_name == 'main'
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $labelsFile = '.github/labels.yml'
+        if (-not (Test-Path -LiteralPath $labelsFile)) { Write-Error '.github/labels.yml not found'; exit 2 }
+        $yaml = Get-Content -LiteralPath $labelsFile -Raw
+        $names = @([regex]::Matches($yaml,'(?m)^\s*-\s*name:\s*(.+?)\s*$') | ForEach-Object { $_.Groups[1].Value.Trim() })
+        $api = "https://api.github.com/repos/${{ github.repository }}/labels?per_page=100"
+        $hdr = @{ Authorization = "token $env:GITHUB_TOKEN"; Accept='application/vnd.github+json'; 'X-GitHub-Api-Version'='2022-11-28' }
+        $resp = Invoke-RestMethod -Method Get -Uri $api -Headers $hdr
+        $existing = @($resp | ForEach-Object { $_.name })
+        $missing = @($names | Where-Object { $_ -and ($existing -notcontains $_) })
+        if ($missing.Count -gt 0) {
+          Write-Host 'Missing labels:'
+          $missing | ForEach-Object { Write-Host (' - ' + $_) }
+          Write-Error ('Labels sync check failed on main: {0} missing' -f $missing.Count)
+          exit 2
+        } else {
+          Write-Host 'Labels OK on main.'
+        }
+
+    - name: Markdown lint determinism regression (Pester)
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        if (-not (Get-Module -ListAvailable -Name Pester)) {
+          Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
+        }
+        Invoke-Pester -Path 'tests/Lint-Markdown.Tests.ps1' -CI
+
+    - name: Markdown lint determinism regression (Node)
+      shell: bash
+      run: node --test tools/__tests__/lint-markdown.test.mjs
+
+    - name: Line ending drift guard
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        pwsh -NoLogo -NoProfile -File tools/Assert-LineEndingDeterminism.ps1 `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Append markdown determinism summary
+      if: always()
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### Markdown Lint Determinism Regression',
+            '',
+            '- `Invoke-Pester -Path tests/Lint-Markdown.Tests.ps1 -CI`',
+            '- `node --test tools/__tests__/lint-markdown.test.mjs`',
+            '- `tools/Assert-LineEndingDeterminism.ps1`'
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        }
+    - name: Run markdownlint
+      run: |
+        node tools/npm/run-script.mjs lint:md:changed
+    env:
+      ACTIONLINT_VERSION: '${{ vars.ACTIONLINT_VERSION || ''1.7.8'' }}'
+  validate-scope-plan:
+    needs: smoke-gate
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      scope_mode: ${{ steps.plan.outputs.scope_mode }}
+      scope_category: ${{ steps.plan.outputs.scope_category }}
+      run_fixtures: ${{ steps.plan.outputs.run_fixtures }}
+      fixtures_reason: ${{ steps.plan.outputs.fixtures_reason }}
+      run_bundle_certification: ${{ steps.plan.outputs.run_bundle_certification }}
+      bundle_certification_reason: ${{ steps.plan.outputs.bundle_certification_reason }}
+      run_vi_history: ${{ steps.plan.outputs.run_vi_history }}
+      vi_history_reason: ${{ steps.plan.outputs.vi_history_reason }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        fetch-depth: 0
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Resolve Validate scope plan
+      id: plan
+      shell: pwsh
+      env:
+        VALIDATE_EVENT_NAME: ${{ github.event_name }}
+        VALIDATE_REPOSITORY: ${{ github.repository }}
+        VALIDATE_PR_NUMBER: ${{ github.event.pull_request.number || '' }}
+        VALIDATE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha || github.event.before || '' }}
+        VALIDATE_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.merge_group.head_sha || github.sha }}
+        VALIDATE_BASE_REF: ${{ github.base_ref || github.event.merge_group.base_ref || '' }}
+        VALIDATE_HEAD_REF: ${{ github.head_ref || '' }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $resultsRoot = 'tests/results/_agent/validate-scope-plan'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $planPath = Join-Path $resultsRoot 'validate-scope-plan.json'
+        pwsh -NoLogo -NoProfile -File tools/Resolve-ValidateScopePlan.ps1 `
+          -EventName $env:VALIDATE_EVENT_NAME `
+          -Repository $env:VALIDATE_REPOSITORY `
+          -PullRequestNumber $env:VALIDATE_PR_NUMBER `
+          -BaseSha $env:VALIDATE_BASE_SHA `
+          -HeadSha $env:VALIDATE_HEAD_SHA `
+          -BaseRef $env:VALIDATE_BASE_REF `
+          -HeadRef $env:VALIDATE_HEAD_REF `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY `
+          -JsonPath $planPath
+
+    - name: Upload Validate scope plan artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-scope-plan
+        path: tests/results/_agent/validate-scope-plan/validate-scope-plan.json
+        if-no-files-found: error
+  fixtures:
+    needs: [smoke-gate, lint, validate-scope-plan]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      FAIL_ON_NEW_STRUCTURAL: 'true'
+      SUMMARY_VERBOSE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.summary-verbose || 'false' }}
+      VALIDATE_SCOPE_RUN_FIXTURES: ${{ needs.validate-scope-plan.outputs.run_fixtures }}
+      VALIDATE_SCOPE_FIXTURES_REASON: ${{ needs.validate-scope-plan.outputs.fixtures_reason }}
+      VALIDATE_SCOPE_CATEGORY: ${{ needs.validate-scope-plan.outputs.scope_category }}
+    steps:
+    - name: Append fixture lane plan
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### Fixtures',
+            '',
+            ('- scope_category: `{0}`' -f $env:VALIDATE_SCOPE_CATEGORY),
+            ('- run_fixtures: `{0}`' -f $env:VALIDATE_SCOPE_RUN_FIXTURES),
+            ('- fixtures_reason: `{0}`' -f $env:VALIDATE_SCOPE_FIXTURES_REASON)
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        }
+    - if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Run fixture validator (JSON)
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        pwsh -File tools/Validate-Fixtures.ps1 -Json -MinBytes 32 > fixture-validation.json
+        $exit = $LASTEXITCODE
+        if ($exit -ne 0) {
+          Write-Error "Fixture validator failed with exit code: $exit"
+          exit $exit
+        }
+        $data = Get-Content fixture-validation.json -Raw | ConvertFrom-Json
+        if (-not $data.ok) {
+          Write-Error 'Fixture validation reported non-ok status.'
+          exit 1
+        }
+    - name: Restore previous fixture validation snapshot (cache)
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      id: restore_prev_fixture_validation
+      uses: actions/cache/restore@v5
+      with:
+        path: fixture-validation-prev.json
+        key: fixture-validation-${{ github.sha }}
+        restore-keys: |
+          fixture-validation-
+    - name: Compute delta vs previous snapshot
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true' && steps.restore_prev_fixture_validation.outputs.cache-hit == 'true'
+      shell: pwsh
+      run: |
+        Write-Host 'Previous snapshot restored. Computing delta.'
+        pwsh -File tools/Diff-FixtureValidationJson.ps1 -Baseline fixture-validation-prev.json -Current fixture-validation.json -FailOnNewStructuralIssue > fixture-validation-delta.json
+        if ($LASTEXITCODE -eq 3) {
+          Write-Host 'New structural fixture issues detected (delta willFail=true).'
+          if ($env:FAIL_ON_NEW_STRUCTURAL -eq 'true') {
+            Write-Error 'Failing job due to FAIL_ON_NEW_STRUCTURAL=true'
+            exit 3
+          } else {
+            Write-Host 'FAIL_ON_NEW_STRUCTURAL=false -> continuing without failing.'
+          }
+        }
+    - name: Validate delta JSON schema (basic)
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true' && steps.restore_prev_fixture_validation.outputs.cache-hit == 'true' && hashFiles('fixture-validation-delta.json') != ''
+      shell: pwsh
+      run: |
+        pwsh -File tools/Test-FixtureValidationDeltaSchema.ps1 -DeltaJsonPath fixture-validation-delta.json
+    - name: Lite schema validate (delta)
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true' && steps.restore_prev_fixture_validation.outputs.cache-hit == 'true' && hashFiles('fixture-validation-delta.json') != ''
+      shell: pwsh
+      run: |
+        pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath fixture-validation-delta.json -SchemaPath docs/schemas/fixture-validation-delta-v1.schema.json
+    - name: Upload fixture validation delta JSON
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true' && steps.restore_prev_fixture_validation.outputs.cache-hit == 'true' && hashFiles('fixture-validation-delta.json') != ''
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-fixture-validation-delta-json
+        path: fixture-validation-delta.json
+    - name: Upload fixture validation JSON
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-fixture-validation-json
+        path: fixture-validation.json
+    - name: Lite schema validate (snapshot)
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      shell: pwsh
+      run: |
+        if (-not (Test-Path fixture-validation.json)) {
+          Write-Error 'fixture-validation.json was not produced.'
+          exit 1
+        }
+        pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath fixture-validation.json -SchemaPath docs/schemas/fixture-manifest-v1.schema.json
+    - name: Append fixture summary
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      shell: pwsh
+      run: pwsh -File tools/Write-FixtureValidationSummary.ps1 -ValidationJson fixture-validation.json -DeltaJson fixture-validation-delta.json
+    - name: Write fixture summary file
+      if: always() && env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      shell: pwsh
+      run: pwsh -File tools/Write-FixtureValidationSummary.ps1 -ValidationJson fixture-validation.json -DeltaJson fixture-validation-delta.json -SummaryPath fixture-summary.md
+    - name: Upload fixture summary artifact
+      if: always() && env.VALIDATE_SCOPE_RUN_FIXTURES == 'true' && hashFiles('fixture-summary.md') != ''
+      uses: actions/upload-artifact@v7
+      with:
+        name: fixture-validation-summary
+        path: fixture-summary.md
+    - name: Save current snapshot to cache
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: fixture-validation.json
+        key: fixture-validation-${{ github.sha }}
+    - name: Copy snapshot for next run reference
+      if: env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      shell: pwsh
+      run: Copy-Item -LiteralPath fixture-validation.json -Destination fixture-validation-prev.json -Force
+
+    - name: Agent wait summary (notice-only)
+      if: always() && env.VALIDATE_SCOPE_RUN_FIXTURES == 'true'
+      uses: ./.github/actions/agent-wait-post
+      with:
+        results-dir: tests/results
+        fail-on-outside: 'false'
+        upload-artifact: 'false'
+
+  hook-parity:
+    needs: lint
+    runs-on: ubuntu-latest
+    env:
+      PREPUSH_SKIP_LEGACY_FIXTURE_CHECKS: '1'
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+
+    - name: Install dependencies (no scripts)
+      run: npm ci --ignore-scripts
+
+    - name: Clean hook results directory
+      shell: bash
+      run: |
+        rm -rf tests/results/_hooks
+        mkdir -p tests/results/_hooks
+
+    - name: Prepare staged fixture
+      shell: bash
+      run: |
+        rm -rf tmp/hooks
+        mkdir -p tmp/hooks
+        cat <<'PS' > tmp/hooks/sample.ps1
+        function Invoke-HookSample {
+          param()
+          Write-Output 'hook parity sample'
+        }
+        Invoke-HookSample
+        PS
+        git add -f tmp/hooks/sample.ps1
+
+    - name: Prime actionlint binary
+      shell: pwsh
+      run: ./tools/PrePush-Checks.ps1 -SkipLegacyFixtureChecks
+
+    - name: Hooks plane info
+      run: node tools/npm/run-script.mjs hooks:plane
+
+    - name: Hooks preflight
+      run: node tools/npm/run-script.mjs hooks:preflight
+
+    - name: Run multi-plane hook diff
+      run: node tools/npm/run-script.mjs hooks:multi
+
+    - name: Validate hook summary schema
+      run: node tools/npm/run-script.mjs hooks:schema
+
+    - name: Upload hook parity summaries
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: hook-parity-ubuntu-latest
+        path: tests/results/_hooks/*.json
+
+    - name: Reset staged files
+      if: always()
+      shell: bash
+      run: |
+        git reset --hard
+        rm -rf tmp/hooks
+
+  semver:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+    - name: Install dependencies (no scripts)
+      run: npm ci --ignore-scripts
+    - name: SemVer check
+      run: node tools/npm/run-script.mjs semver:check
+
+  release-branch:
+    if: startsWith(github.head_ref, 'release/')
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        fetch-depth: 0
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+    - name: Install dependencies (no scripts)
+      run: npm ci --ignore-scripts
+    - name: Verify release branch
+      env:
+        GITHUB_HEAD_REF: ${{ github.head_ref }}
+        RELEASE_VALIDATE_BASE: origin/develop
+      run: node tools/priority/verify-release-branch.mjs
+
+  feature-handoff:
+    if: startsWith(github.head_ref, 'feature/')
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        fetch-depth: 0
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+    - name: Install dependencies (no scripts)
+      run: npm ci --ignore-scripts
+    - name: Run priority handoff tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PRIORITY_HANDOFF_SKIP_POLICY: '1'
+      run: node tools/npm/run-script.mjs priority:handoff-tests
+
+  issue-snapshot:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+    - name: Sync standing-priority snapshot
+      env:
+        AGENT_PRIORITY_UPSTREAM_REPOSITORY: LabVIEW-Community-CI-CD/compare-vi-cli-action
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        if [ -z "${GH_TOKEN:-${GITHUB_TOKEN:-}}" ]; then
+          echo "::error::GH_TOKEN/GITHUB_TOKEN is required for priority:sync:lane"
+          exit 1
+        fi
+        node tools/npm/run-script.mjs priority:sync:lane
+    - name: Validate snapshot schema (best-effort)
+      continue-on-error: true
+      run: |
+        node tools/npm/run-script.mjs priority:schema
+    - name: Upload issue snapshot artifacts
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: standing-priority-snapshot
+        path: |
+          tests/results/_agent/issue/*.json
+          tests/results/_agent/issue/*.digest
+
+  session-index:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Resolve Pester version
+      id: resolve_pester
+      shell: pwsh
+      run: |
+        $version = if ($env:PESTER_VERSION -and $env:PESTER_VERSION.Trim()) { $env:PESTER_VERSION } else { (./tools/Get-PesterVersion.ps1) }
+        "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+    - name: Install Pester ${{ steps.resolve_pester.outputs.version }}
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $pesterVersion = '${{ steps.resolve_pester.outputs.version }}'
+        $installed = $false
+        $galleryUri = 'https://www.powershellgallery.com/api/v2/'
+        $installLegacy = {
+          Install-Module -Name Pester -RequiredVersion $pesterVersion -Force -Scope CurrentUser
+        }
+        try {
+          &$installLegacy
+          $installed = $true
+        } catch {
+          Write-Host ("::notice::Install-Module first attempt failed: {0}" -f $_.Exception.Message)
+          try {
+            Register-PSRepository -Default -ErrorAction Stop
+          } catch {
+            Write-Host ("::warning::Register-PSRepository -Default failed: {0}" -f $_.Exception.Message)
+          }
+          try {
+            &$installLegacy
+            $installed = $true
+          } catch {
+            Write-Host ("::notice::Install-Module retry failed: {0}" -f $_.Exception.Message)
+            Write-Host "::notice::Falling back to PSResourceGet for Pester installation."
+            try {
+              Register-PSResourceRepository -Name PSGallery -Uri $galleryUri -Trusted -ErrorAction SilentlyContinue
+            } catch {
+              Write-Host ("::warning::Register-PSResourceRepository fallback failed: {0}" -f $_.Exception.Message)
+            }
+            $attempts = 0
+            $maxAttempts = 5
+            while (-not $installed -and $attempts -lt $maxAttempts) {
+              try {
+                Install-PSResource -Name Pester -Version $pesterVersion -Scope CurrentUser -TrustRepository -Repository PSGallery
+                $installed = $true
+              } catch {
+                $attempts++
+                if ($attempts -ge $maxAttempts) {
+                  Write-Host ("::warning::Install-PSResource exhausted attempts ({0}): {1}" -f $attempts, $_.Exception.Message)
+                  break
+                }
+                Write-Host ("::notice::Install-PSResource attempt {0} failed: {1}" -f $attempts, $_.Exception.Message)
+                $delay = [math]::Min(30, [math]::Pow(2, $attempts))
+                Start-Sleep -Seconds $delay
+              }
+            }
+            if (-not $installed) {
+              Write-Host "::notice::Attempting manual PSGallery download fallback for Pester."
+              $downloadRoot = Join-Path $env:RUNNER_TEMP 'pester-download'
+              New-Item -ItemType Directory -Path $downloadRoot -Force | Out-Null
+              $packagePath = Join-Path $downloadRoot ("Pester.{0}.nupkg" -f $pesterVersion)
+              $downloadEndpoints = @(
+                @{ Uri = ('{0}/package/Pester/{1}' -f $galleryUri.TrimEnd('/'), $pesterVersion); SkipCert = $false },
+                @{ Uri = ('https://psg-prod-eastus.azureedge.net/packages/pester.{0}.nupkg' -f $pesterVersion.ToLowerInvariant()); SkipCert = $true }
+              )
+              $downloaded = $false
+              foreach ($endpoint in $downloadEndpoints) {
+                if ($downloaded) { break }
+                for ($i = 1; $i -le 3 -and -not $downloaded; $i++) {
+                  try {
+                    $commonArgs = @{
+                      Uri              = $endpoint.Uri
+                      OutFile          = $packagePath
+                      UseBasicParsing  = $true
+                      ErrorAction      = 'Stop'
+                    }
+                    if ($endpoint.SkipCert) {
+                      Invoke-WebRequest @commonArgs -SkipCertificateCheck
+                    } else {
+                      Invoke-WebRequest @commonArgs
+                    }
+                    $downloaded = $true
+                  } catch {
+                    if ($i -ge 3) {
+                      Write-Host ("::warning::Manual download attempt {0} ({1}) failed: {2}" -f $i, $endpoint.Uri, $_.Exception.Message)
+                    } else {
+                      Write-Host ("::notice::Manual download attempt {0} ({1}) failed: {2}" -f $i, $endpoint.Uri, $_.Exception.Message)
+                      Start-Sleep -Seconds ([math]::Min(30, [math]::Pow(2, $i)))
+                    }
+                  }
+                }
+              }
+              if ($downloaded -and (Test-Path -LiteralPath $packagePath)) {
+                $modulePaths = $env:PSModulePath -split [System.IO.Path]::PathSeparator
+                $destRoot = $modulePaths | Where-Object { $_ -and $_.Trim() } | Where-Object { $_ -like '*Modules*' } | Select-Object -First 1
+                if (-not $destRoot) {
+                  $destRoot = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.local/share/powershell/Modules'
+                }
+                $destPath = Join-Path $destRoot ('Pester/{0}' -f $pesterVersion)
+                New-Item -ItemType Directory -Force -Path $destPath | Out-Null
+                Expand-Archive -Path $packagePath -DestinationPath $destPath -Force
+                $installed = $true
+              } else {
+                Write-Host "::warning::Manual PSGallery download fallback failed."
+              }
+            }
+          }
+        }
+        if (-not $installed) {
+          throw 'Failed to install Pester from PSGallery.'
+        }
+        $repo = Get-PSRepository -Name PSGallery -ErrorAction SilentlyContinue
+        if ($repo -and $repo.InstallationPolicy -ne 'Trusted') {
+          try {
+            Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          } catch {
+            Write-Host ("::notice::Unable to set PSGallery installation policy to Trusted: {0}" -f $_.Exception.Message)
+          }
+        }
+
+    - name: Run dispatcher smoke to produce session index
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        $res = Join-Path $env:RUNNER_TEMP 'sessionindex'
+        New-Item -ItemType Directory -Force -Path $res | Out-Null
+        ./tools/Quick-DispatcherSmoke.ps1 -ResultsPath $res -PreferWorkspace
+        $contexts = @(
+          'Validate / lint'
+          'Validate / fixtures'
+          'Validate / session-index'
+        )
+        $bpScript = Join-Path (Get-Location) 'tools/Update-SessionIndexBranchProtection.ps1'
+        $bpApiScript = Join-Path (Get-Location) 'tools/Get-BranchProtectionRequiredChecks.ps1'
+        $branchName = '${{ github.base_ref || github.ref_name }}'
+        $repoParts = '${{ github.repository }}'.Split('/')
+        $bpResult = & $bpApiScript -Owner $repoParts[0] -Repository $repoParts[1] -Branch $branchName -Token $env:GITHUB_TOKEN
+        $updateArgs = @{
+          ResultsDir        = $res
+          PolicyPath        = 'tools/policy/branch-required-checks.json'
+          Branch            = $branchName
+          ProducedContexts  = $contexts
+        }
+        if ($bpResult.status) { $updateArgs['ActualStatus'] = $bpResult.status }
+        if ($bpResult.contexts) { $updateArgs['ActualContexts'] = @($bpResult.contexts) }
+        if ($bpResult.notes) { $updateArgs['AdditionalNotes'] = @($bpResult.notes) }
+        & $bpScript @updateArgs
+
+    - name: Attach origin/upstream parity telemetry
+      shell: pwsh
+      run: |
+        $res = Join-Path $env:RUNNER_TEMP 'sessionindex'
+        $parityPath = Join-Path $res 'origin-upstream-parity.json'
+        $repoSlug = '${{ github.repository }}'
+        try {
+          git remote add upstream ("https://github.com/{0}.git" -f $repoSlug) 2>$null | Out-Null
+        } catch { }
+        try { git fetch --no-tags --prune --depth=1 origin develop | Out-Null } catch { Write-Host ("::notice::origin/develop fetch skipped: {0}" -f $_.Exception.Message) }
+        try { git fetch --no-tags --prune --depth=1 upstream develop | Out-Null } catch { Write-Host ("::notice::upstream/develop fetch skipped: {0}" -f $_.Exception.Message) }
+        node tools/priority/report-origin-upstream-parity.mjs --base-ref 'upstream/develop' --head-ref 'origin/develop' --sample-limit 20 --output-path "$parityPath"
+        pwsh -File tools/Update-SessionIndexParity.ps1 -ResultsDir $res -ParityReportPath $parityPath -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Validate session index schemas (v1 + optional v2)
+      shell: pwsh
+      run: |
+        $jsonV1 = Join-Path $env:RUNNER_TEMP 'sessionindex' 'session-index.json'
+        $jsonV2 = Join-Path $env:RUNNER_TEMP 'sessionindex' 'session-index-v2.json'
+        if (-not (Test-Path $jsonV1)) { Write-Error "session-index.json not found at $jsonV1"; exit 2 }
+        pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $jsonV1 -SchemaPath docs/schemas/session-index-v1.schema.json
+        if (Test-Path $jsonV2) {
+          pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $jsonV2 -SchemaPath docs/schema/generated/session-index-v2.schema.json
+          if ($LASTEXITCODE -ne 0) { Write-Host "::warning::V2 schema validation returned $LASTEXITCODE for session-index-v2.json" }
+        } else {
+          Write-Host '::notice::session-index-v2.json not found; running in v1 fallback mode.'
+        }
+
+    - name: Upload session index artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-session-index
+        path: |
+          ${{ runner.temp }}/sessionindex/session-index.json
+          ${{ runner.temp }}/sessionindex/session-index-v2.json
+        if-no-files-found: warn
+
+  session-index-v2-contract:
+    needs: [smoke-gate, session-index]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    env:
+      SESSION_INDEX_V2_CONTRACT_ENFORCE: ${{ vars.SESSION_INDEX_V2_CONTRACT_ENFORCE || 'false' }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Download session index artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: validate-session-index
+        path: ${{ runner.temp }}/sessionindex-v2-contract
+
+    - name: Evaluate session index v2 contract (burn-in aware)
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $res = Join-Path $env:RUNNER_TEMP 'sessionindex-v2-contract'
+        $enforceRaw = "$env:SESSION_INDEX_V2_CONTRACT_ENFORCE"
+        $enforce = $false
+        if (-not [string]::IsNullOrWhiteSpace($enforceRaw)) {
+          $enforce = $enforceRaw.Trim().ToLowerInvariant() -eq 'true'
+        }
+
+        if ($enforce) {
+          Write-Host '::notice::session-index-v2 contract is running in enforce mode.'
+          pwsh -File tools/Test-SessionIndexV2Contract.ps1 -ResultsDir $res -Branch 'develop' -BurnInThreshold 10 -Enforce
+        } else {
+          Write-Host '::notice::session-index-v2 contract is running in burn-in mode (non-blocking).'
+          pwsh -File tools/Test-SessionIndexV2Contract.ps1 -ResultsDir $res -Branch 'develop' -BurnInThreshold 10
+        }
+
+    - name: Upload v2 contract report
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-session-index-v2-contract
+        path: |
+          ${{ runner.temp }}/sessionindex-v2-contract/session-index-v2-contract.json
+          ${{ runner.temp }}/sessionindex-v2-contract/session-index-v2-disposition.json
+          ${{ runner.temp }}/sessionindex-v2-contract/session-index-v2-cutover-readiness.json
+        if-no-files-found: warn
+
+  comparevi-history-bundle-certification:
+    needs: [smoke-gate, lint, validate-scope-plan, session-index, session-index-v2-contract]
+    if: >
+      needs.smoke-gate.outputs.skip != 'true' &&
+      needs.validate-scope-plan.outputs.run_bundle_certification == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        fetch-depth: 0
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Setup Node 20
+      uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+
+    - name: Install Node dependencies
+      run: node tools/npm/cli.mjs ci
+
+    - name: Publish CompareVI.Tools bundle for certification
+      id: bundle
+      run: |
+        $resultsRoot = 'tests/results/_agent/comparevi-history-bundle-certification'
+        $bundleOutputRoot = Join-Path $resultsRoot 'bundle-artifacts'
+        $metadataPath = Join-Path $resultsRoot 'comparevi-tools-artifact.json'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        pwsh -NoLogo -NoProfile -File tools/Publish-CompareVIToolsArtifact.ps1 `
+          -OutputRoot $bundleOutputRoot `
+          -MetadataReportPath $metadataPath
+        $bundleMetadata = Get-Content -LiteralPath $metadataPath -Raw | ConvertFrom-Json -Depth 12
+        $bundleArchivePath = Join-Path (Resolve-Path -LiteralPath $bundleOutputRoot).Path $bundleMetadata.bundle.archiveName
+        "bundle_archive_path=$bundleArchivePath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "bundle_metadata_path=$metadataPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+    - name: Validate CompareVI.Tools metadata schema
+      run: |
+        node tools/npm/run-script.mjs schema:validate -- `
+          --schema docs/schemas/comparevi-tools-release-manifest-v1.schema.json `
+          --data '${{ steps.bundle.outputs.bundle_metadata_path }}'
+
+    - name: Run CompareVI history bundle certification
+      id: certification
+      run: |
+        $resultsRoot = 'tests/results/_agent/comparevi-history-bundle-certification'
+        $summaryPath = Join-Path $resultsRoot 'comparevi-history-bundle-certification.json'
+        pwsh -NoLogo -NoProfile -File tools/Test-CompareVIHistoryBundleCertification.ps1 `
+          -ResultsDir $resultsRoot `
+          -SummaryJsonPath $summaryPath `
+          -BundleArchivePath '${{ steps.bundle.outputs.bundle_archive_path }}' `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Validate bundle certification schema
+      run: |
+        node tools/npm/run-script.mjs schema:validate -- `
+          --schema docs/schemas/comparevi-history-bundle-certification-v1.schema.json `
+          --data '${{ steps.certification.outputs.summary-json-path }}'
+
+    - name: Render bundle certification markdown
+      run: |
+        $resultsRoot = 'tests/results/_agent/comparevi-history-bundle-certification'
+        $markdownPath = Join-Path $resultsRoot 'comparevi-history-bundle-certification.md'
+        node tools/npm/run-script.mjs history:bundle:verify -- `
+          --summary '${{ steps.certification.outputs.summary-json-path }}' `
+          --markdown $markdownPath `
+          --step-summary $env:GITHUB_STEP_SUMMARY
+
+    - name: Upload bundle certification artifacts
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-comparevi-history-bundle-certification
+        path: |
+          tests/results/_agent/comparevi-history-bundle-certification/**
+        if-no-files-found: error
+
+  vi-history-scenarios-plan:
+    needs: [smoke-gate, lint, validate-scope-plan, session-index, session-index-v2-contract]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      execute_lanes: ${{ steps.plan.outputs.execute_lanes }}
+      skip_reason: ${{ steps.plan.outputs.skip_reason }}
+      history_scenario_set: ${{ steps.plan.outputs.history_scenario_set }}
+      requested_history_scenario_set: ${{ steps.plan.outputs.requested_history_scenario_set }}
+      downgraded_history_core: ${{ steps.plan.outputs.downgraded_history_core }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Resolve VI history dispatch plan
+      id: plan
+      shell: pwsh
+      env:
+        VALIDATE_EVENT_NAME: ${{ github.event_name }}
+        VALIDATE_REPOSITORY: ${{ github.repository }}
+        VALIDATE_IS_FORK: ${{ github.event.repository.fork }}
+        VALIDATE_HISTORY_SCENARIO_SET: ${{ github.event.inputs.history_scenario_set }}
+        VALIDATE_ALLOW_NONCANONICAL: ${{ github.event.inputs.allow_noncanonical_vi_history }}
+        VALIDATE_ALLOW_NONCANONICAL_HISTORY_CORE: ${{ github.event.inputs.allow_noncanonical_history_core }}
+        VALIDATE_SCOPE_RUN_VI_HISTORY: ${{ needs.validate-scope-plan.outputs.run_vi_history }}
+        VALIDATE_SCOPE_VI_HISTORY_REASON: ${{ needs.validate-scope-plan.outputs.vi_history_reason }}
+      run: |
+        $resultsRoot = 'tests/results/_agent/vi-history-dispatch'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $planPath = Join-Path $resultsRoot 'validate-vi-history-dispatch-plan.json'
+        $isForkRepository = "$env:VALIDATE_IS_FORK" -eq 'true'
+        $allowNonCanonical = "$env:VALIDATE_ALLOW_NONCANONICAL" -eq 'true'
+        $allowNonCanonicalHistoryCore = "$env:VALIDATE_ALLOW_NONCANONICAL_HISTORY_CORE" -eq 'true'
+        $enableScopedExecution = "$env:VALIDATE_SCOPE_RUN_VI_HISTORY" -eq 'true'
+        pwsh -NoLogo -NoProfile -File tools/Resolve-ValidateVIHistoryDispatchPlan.ps1 `
+          -EventName $env:VALIDATE_EVENT_NAME `
+          -Repository $env:VALIDATE_REPOSITORY `
+          -IsForkRepository:$isForkRepository `
+          -HistoryScenarioSet $env:VALIDATE_HISTORY_SCENARIO_SET `
+          -AllowNonCanonical:$allowNonCanonical `
+          -AllowNonCanonicalHistoryCore:$allowNonCanonicalHistoryCore `
+          -EnableScopedExecution:$enableScopedExecution `
+          -ScopedSkipReason $env:VALIDATE_SCOPE_VI_HISTORY_REASON `
+          -ScopedHistoryScenarioSet 'smoke' `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY `
+          -JsonPath $planPath
+
+    - name: Upload VI history dispatch plan artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-dispatch-plan
+        path: tests/results/_agent/vi-history-dispatch/validate-vi-history-dispatch-plan.json
+        if-no-files-found: error
+
+  vi-history-scenarios-linux:
+    needs: [smoke-gate, lint, session-index, session-index-v2-contract, vi-history-scenarios-plan]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      NI_LINUX_IMAGE: nationalinstruments/labview:2026q1-linux
+      NI_LINUX_LABVIEW_PATH: /usr/local/natinst/LabVIEW-2026-64/labview
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+    - name: Append VI history Linux lane plan
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### VI History Scenarios (Linux lane)',
+            '',
+            ('- execute_lanes: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.execute_lanes }}'),
+            ('- skip_reason: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.skip_reason }}'),
+            ('- requested_history_scenario_set: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.requested_history_scenario_set }}'),
+            ('- history_scenario_set: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.history_scenario_set }}'),
+            ('- downgraded_history_core: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.downgraded_history_core }}')
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+        }
+
+    - if: needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Pull NI Linux image (2026q1-linux)
+      if: needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: docker pull $env:NI_LINUX_IMAGE
+
+    - name: Manage Docker runtime (Linux preflight)
+      if: needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $snapshotPath = Join-Path $resultsRoot 'runtime-manager-preflight-linux.json'
+        pwsh -NoLogo -NoProfile -File tools/Assert-DockerRuntimeDeterminism.ps1 `
+          -ExpectedOsType linux `
+          -ExpectedContext desktop-linux `
+          -AutoRepair:$true `
+          -ManageDockerEngine:$false `
+          -EngineReadyTimeoutSeconds 300 `
+          -EngineReadyPollSeconds 3 `
+          -SnapshotPath $snapshotPath `
+          -GitHubOutputPath ''
+
+    - name: Print VI history Linux runtime alignment
+      if: needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        pwsh -NoLogo -NoProfile -File tools/Write-VIHistoryLaneEvidence.ps1 `
+          -LaneName 'vi-history-scenarios-linux-preflight' `
+          -RuntimeSnapshotPath (Join-Path $resultsRoot 'runtime-manager-preflight-linux.json') `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Run NI Linux create comparison report (fail-fast)
+      id: linux-compare
+      if: needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $reportPath = Join-Path $resultsRoot 'linux-compare-report.html'
+        "linux_compare_report=$reportPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        $runtimeSnapshot = Join-Path $resultsRoot 'runtime-manager-compare-linux.json'
+        pwsh -NoLogo -NoProfile -File tools/Run-NILinuxContainerCompare.ps1 `
+          -BaseVi 'fixtures/vi-stage/control-rename/Base.vi' `
+          -HeadVi 'fixtures/vi-stage/control-rename/Head.vi' `
+          -Image $env:NI_LINUX_IMAGE `
+          -LabVIEWPath $env:NI_LINUX_LABVIEW_PATH `
+          -ReportPath $reportPath `
+          -TimeoutSeconds 300 `
+          -AutoRepairRuntime:$true `
+          -RuntimeEngineReadyTimeoutSeconds 120 `
+          -RuntimeEngineReadyPollSeconds 3 `
+          -RuntimeSnapshotPath $runtimeSnapshot
+        $compareExit = $LASTEXITCODE
+
+        $capturePath = Join-Path $resultsRoot 'ni-linux-container-capture.json'
+        if (Test-Path -LiteralPath $capturePath -PathType Leaf) {
+          "linux_compare_capture=$capturePath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          $capture = Get-Content -LiteralPath $capturePath -Raw | ConvertFrom-Json -Depth 12
+          $gateOutcome = if ($capture.PSObject.Properties['gateOutcome']) { [string]$capture.gateOutcome } else { '' }
+          $resultClass = if ($capture.PSObject.Properties['resultClass']) { [string]$capture.resultClass } else { '' }
+          $observedDockerHost = if ($capture.PSObject.Properties['observedDockerHost']) { [string]$capture.observedDockerHost } else { '' }
+          $dockerContext = if ($capture.PSObject.Properties['dockerContext']) { [string]$capture.dockerContext } else { '' }
+          $dockerServerOs = if ($capture.PSObject.Properties['dockerServerOs']) { [string]$capture.dockerServerOs } else { '' }
+          Write-Host ("[linux-compare] exit={0} gateOutcome={1} resultClass={2}" -f $compareExit, $gateOutcome, $resultClass)
+          Write-Host ("[linux-compare] observedDockerHost={0} dockerContext={1} dockerServerOs={2} capture={3}" -f ($observedDockerHost ?? '<null>'), ($dockerContext ?? '<null>'), ($dockerServerOs ?? '<null>'), $capturePath)
+          if ($compareExit -ne 0 -and $gateOutcome -ne 'pass') {
+            exit $compareExit
+          }
+          } elseif ($compareExit -ne 0) {
+            throw ("Linux compare failed (exit={0}) and capture file was not found at {1}" -f $compareExit, $capturePath)
+          }
+
+    - name: Project VI history Linux Docker-side evidence
+      if: always() && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        pwsh -NoLogo -NoProfile -File tools/Write-VIHistoryLaneEvidence.ps1 `
+          -LaneName 'vi-history-scenarios-linux' `
+          -RuntimeSnapshotPath (Join-Path $resultsRoot 'runtime-manager-compare-linux.json') `
+          -CapturePath (Join-Path $resultsRoot 'ni-linux-container-capture.json') `
+          -StdOutPath (Join-Path $resultsRoot 'ni-linux-container-stdout.txt') `
+          -StdErrPath (Join-Path $resultsRoot 'ni-linux-container-stderr.txt') `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Show Linux live Docker evidence
+      if: always() && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        $capturePath = Join-Path $resultsRoot 'ni-linux-container-capture.json'
+        if (Test-Path -LiteralPath $capturePath -PathType Leaf) {
+          pwsh -NoLogo -NoProfile -File tools/Show-NIContainerCaptureEvidence.ps1 `
+            -CapturePath $capturePath `
+            -BasePath $resultsRoot `
+            -TailLineCount 20
+        } else {
+          Write-Host ("::warning::Linux compare capture not found at {0}" -f $capturePath)
+        }
+
+    - name: Validate Linux comparison report artifact contract
+      if: always() && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      run: |
+        $resultsRoot = 'tests/results/local-parity/linux'
+        $reportPath = '${{ steps.linux-compare.outputs.linux_compare_report }}'
+        if ([string]::IsNullOrWhiteSpace($reportPath)) {
+          $reportPath = Join-Path $resultsRoot 'linux-compare-report.html'
+        }
+        $capturePath = Join-Path $resultsRoot 'ni-linux-container-capture.json'
+        $summaryPath = Join-Path $resultsRoot 'linux-compare-artifact-summary.json'
+
+        $captureExists = Test-Path -LiteralPath $capturePath -PathType Leaf
+        $recoveredFromCapture = $false
+        $recoveredReportPath = ''
+        $captureResultClass = ''
+        $captureGateOutcome = ''
+        if (-not (Test-Path -LiteralPath $reportPath -PathType Leaf) -and $captureExists) {
+          try {
+            $capture = Get-Content -LiteralPath $capturePath -Raw | ConvertFrom-Json -Depth 12
+            $captureResultClass = if ($capture.PSObject.Properties['resultClass']) { [string]$capture.resultClass } else { '' }
+            $captureGateOutcome = if ($capture.PSObject.Properties['gateOutcome']) { [string]$capture.gateOutcome } else { '' }
+            if ($capture.PSObject.Properties['reportAnalysis'] -and $capture.reportAnalysis) {
+              $candidate = if ($capture.reportAnalysis.PSObject.Properties['reportPathExtracted']) { [string]$capture.reportAnalysis.reportPathExtracted } else { '' }
+              if (-not [string]::IsNullOrWhiteSpace($candidate) -and (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+                Copy-Item -LiteralPath $candidate -Destination $reportPath -Force
+                $recoveredFromCapture = $true
+                $recoveredReportPath = $candidate
+              }
+            }
+          } catch {
+            Write-Host ("::warning::Unable to parse Linux compare capture for report recovery: {0}" -f $_.Exception.Message)
+          }
+        } elseif ($captureExists) {
+          try {
+            $capture = Get-Content -LiteralPath $capturePath -Raw | ConvertFrom-Json -Depth 12
+            $captureResultClass = if ($capture.PSObject.Properties['resultClass']) { [string]$capture.resultClass } else { '' }
+            $captureGateOutcome = if ($capture.PSObject.Properties['gateOutcome']) { [string]$capture.gateOutcome } else { '' }
+          } catch {}
+        }
+
+        $reportExists = Test-Path -LiteralPath $reportPath -PathType Leaf
+        $compareSucceeded = '${{ steps.linux-compare.conclusion }}' -eq 'success'
+
+        $payload = [ordered]@{
+          schema = 'vi-history/linux-compare-artifact-summary@v1'
+          generatedAt = (Get-Date).ToUniversalTime().ToString('o')
+          compareStepConclusion = '${{ steps.linux-compare.conclusion }}'
+          reportPath = $reportPath
+          reportExists = [bool]$reportExists
+          reportRecoveredFromCapture = [bool]$recoveredFromCapture
+          recoveredReportPath = $recoveredReportPath
+          capturePath = $capturePath
+          captureExists = [bool]$captureExists
+          captureResultClass = $captureResultClass
+          captureGateOutcome = $captureGateOutcome
+        }
+        $payload | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $summaryPath -Encoding utf8
+
+        $requireReport = $compareSucceeded -and [string]::Equals($captureResultClass, 'success-diff', [System.StringComparison]::OrdinalIgnoreCase)
+        if ($requireReport -and -not $reportExists) {
+          throw ("Linux compare classified success-diff but report file was not found: {0}" -f $reportPath)
+        }
+        if ($compareSucceeded -and -not $reportExists -and -not $requireReport) {
+          Write-Host ("::warning::Linux compare succeeded without diff classification ({0}); no report file was generated at {1}." -f $captureResultClass, $reportPath)
+        }
+        if (-not $reportExists) {
+          Write-Host ("::warning::Linux comparison report not found at {0}" -f $reportPath)
+        }
+
+    - name: Upload VI history scenario artifacts (Linux lane)
+      if: always() && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true'
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-scenarios-linux
+        path: |
+          tests/results/local-parity/linux/linux-compare-report.html
+          tests/results/local-parity/linux/linux-compare-artifact-summary.json
+          tests/results/local-parity/linux/ni-linux-container-capture.json
+          tests/results/local-parity/linux/ni-linux-container-stdout.txt
+          tests/results/local-parity/linux/ni-linux-container-stderr.txt
+          tests/results/local-parity/linux/container-export/**
+          tests/results/local-parity/linux/runtime-manager-preflight-linux.json
+          tests/results/local-parity/linux/runtime-manager-compare-linux.json
+        if-no-files-found: warn
+
+  vi-history-scenarios-windows-plan:
+    needs: [smoke-gate, lint, session-index, session-index-v2-contract, vi-history-scenarios-plan]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      available: ${{ steps.plan.outputs.available }}
+      status: ${{ steps.plan.outputs.status }}
+      skip_reason: ${{ steps.plan.outputs.skip_reason }}
+      summary_path: ${{ steps.plan.outputs.summary_path }}
+      execution_model: ${{ steps.plan.outputs.execution_model }}
+      runner_image: ${{ steps.plan.outputs.runner_image }}
+      expected_context: ${{ steps.plan.outputs.expected_context }}
+      expected_os: ${{ steps.plan.outputs.expected_os }}
+      required_labels: ${{ steps.plan.outputs.required_labels }}
+      matching_runner_count: ${{ steps.plan.outputs.matching_runner_count }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Resolve self-hosted Windows Docker lane
+      id: plan
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $resultsRoot = 'tests/results/_agent/vi-history-dispatch'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $planPath = Join-Path $resultsRoot 'validate-vi-history-windows-docker-plan.json'
+        $requiredLabels = @(
+          'self-hosted',
+          'Windows',
+          'X64',
+          'comparevi',
+          'capability-ingress',
+          'docker-lane'
+        )
+        $requiredHealthReceipts = @()
+        $plannerArgs = @{
+          Repository = '${{ github.repository }}'
+          RequiredLabels = $requiredLabels
+          ExecutionModel = 'self-hosted-windows-docker-lane'
+          RunnerImage = 'self-hosted-windows-docker-lane'
+          ExpectedContext = 'desktop-windows'
+          ExpectedOs = 'windows'
+          Notes = @(
+            'Availability means an online, idle repository runner advertises the ingress plus docker-lane labels.',
+            'The lane may mutate Docker Desktop into the Windows engine and then restores the starting context after proof capture.'
+          )
+          Token = $env:GITHUB_TOKEN
+          OutputJsonPath = $planPath
+          GitHubOutputPath = $env:GITHUB_OUTPUT
+          StepSummaryPath = $env:GITHUB_STEP_SUMMARY
+        }
+        if ($requiredHealthReceipts.Count -gt 0) {
+          $plannerArgs.RequiredHealthReceipts = $requiredHealthReceipts
+        }
+        & tools/Resolve-SelfHostedWindowsLanePlan.ps1 @plannerArgs
+
+    - name: Append VI history Windows runner plan
+      shell: pwsh
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### VI History Scenarios (Windows self-hosted Docker plan)',
+            '',
+            ('- execute_lanes: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.execute_lanes }}'),
+            ('- lane_available: `{0}`' -f '${{ steps.plan.outputs.available }}'),
+            ('- lane_status: `{0}`' -f '${{ steps.plan.outputs.status }}'),
+            ('- skip_reason: `{0}`' -f '${{ steps.plan.outputs.skip_reason }}'),
+            ('- execution_model: `{0}`' -f '${{ steps.plan.outputs.execution_model }}'),
+            ('- runner_image: `{0}`' -f '${{ steps.plan.outputs.runner_image }}'),
+            ('- required_labels: `{0}`' -f '${{ steps.plan.outputs.required_labels }}'),
+            '- self-hosted docker model: validate 64-bit LabVIEW in the Windows container while the LV32 lane runs in parallel as the native host-plane reference.'
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+        }
+
+    - name: Upload VI history Windows runner plan artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-windows-docker-plan
+        path: tests/results/_agent/vi-history-dispatch/validate-vi-history-windows-docker-plan.json
+        if-no-files-found: error
+
+  vi-history-scenarios-windows:
+    needs: [smoke-gate, lint, session-index, session-index-v2-contract, vi-history-scenarios-plan, vi-history-scenarios-windows-plan]
+    if: needs.smoke-gate.outputs.skip != 'true' && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true' && needs.vi-history-scenarios-windows-plan.outputs.available == 'true'
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress, docker-lane]
+    continue-on-error: true
+    timeout-minutes: 50
+    permissions:
+      actions: read
+      contents: read
+    env:
+      NI_WINDOWS_IMAGE: nationalinstruments/labview:2026q1-windows
+      NI_WINDOWS_LABVIEW_PATH: C:\Program Files\National Instruments\LabVIEW 2026\LabVIEW.exe
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+    - name: Append VI history Windows lane plan
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### VI History Scenarios (Windows self-hosted Docker lane)',
+            '',
+            ('- execute_lanes: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.execute_lanes }}'),
+            ('- plan_status: `{0}`' -f '${{ needs.vi-history-scenarios-windows-plan.outputs.status }}'),
+            ('- runner_image: `{0}`' -f '${{ needs.vi-history-scenarios-windows-plan.outputs.runner_image }}'),
+            ('- expected_context: `{0}`' -f '${{ needs.vi-history-scenarios-windows-plan.outputs.expected_context }}'),
+            ('- required_labels: `{0}`' -f '${{ needs.vi-history-scenarios-windows-plan.outputs.required_labels }}'),
+            '- self-hosted 64-bit proof runs on the ingress host and pairs with the parallel LV32 lane so 32-bit host-plane drift has an immediate native reference.'
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+        }
+
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Validate self-hosted runner label contract
+      shell: pwsh
+      run: |
+        $resultsRoot = Join-Path $env:GITHUB_WORKSPACE 'tests/results/local-parity/windows'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $requiredLabels = @(
+          'self-hosted',
+          'Windows',
+          'X64',
+          'comparevi',
+          'capability-ingress',
+          'docker-lane'
+        )
+        foreach ($label in $requiredLabels) {
+          $contractPath = Join-Path $resultsRoot ("runner-label-contract-{0}.json" -f $label)
+          pwsh -NoLogo -NoProfile -File tools/Assert-RunnerLabelContract.ps1 `
+            -Repository '${{ github.repository }}' `
+            -RunnerName $env:RUNNER_NAME `
+            -RequiredLabel $label `
+            -Token $env:GITHUB_TOKEN `
+            -OutputJsonPath $contractPath `
+            -GitHubOutputPath $env:GITHUB_OUTPUT `
+            -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+        }
+    - name: Collect self-hosted Windows runner health
+      shell: pwsh
+      run: |
+        pwsh -NoLogo -NoProfile -File tools/Collect-RunnerHealth.ps1 `
+          -ResultsDir 'tests/results/local-parity/windows' `
+          -AppendSummary `
+          -EmitJson
+    - name: Prepare NI Windows image and runtime
+      id: windows-preflight
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $summaryPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+        pwsh -NoLogo -NoProfile -File tools/Test-WindowsNI2026q1HostPreflight.ps1 `
+          -Image $env:NI_WINDOWS_IMAGE `
+          -ResultsDir $resultsRoot `
+          -ExecutionSurface 'desktop-local' `
+          -ManageDockerEngine:$true `
+          -AllowHostEngineMutation:$true `
+          -OutputJsonPath $summaryPath `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Print VI history Windows runtime alignment
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        pwsh -NoLogo -NoProfile -File tools/Write-VIHistoryLaneEvidence.ps1 `
+          -LaneName 'vi-history-scenarios-windows-preflight' `
+          -PreflightPath (Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json') `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Run NI Windows create comparison report (fail-fast)
+      id: windows-compare
+      if: steps.windows-preflight.outputs.windows_host_preflight_status == 'ready'
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $reportPath = Join-Path $resultsRoot 'windows-compare-report.html'
+        "windows_compare_report=$reportPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        $runtimeSnapshot = Join-Path $resultsRoot 'runtime-manager-compare-windows.json'
+        pwsh -NoLogo -NoProfile -File tools/Run-NIWindowsContainerCompare.ps1 `
+          -BaseVi 'fixtures/vi-stage/control-rename/Base.vi' `
+          -HeadVi 'fixtures/vi-stage/control-rename/Head.vi' `
+          -Image $env:NI_WINDOWS_IMAGE `
+          -LabVIEWPath $env:NI_WINDOWS_LABVIEW_PATH `
+          -ReportPath $reportPath `
+          -TimeoutSeconds 600 `
+          -ManageDockerEngine:$false `
+          -AllowHostEngineMutation:$false `
+          -RuntimeEngineReadyTimeoutSeconds 180 `
+          -RuntimeEngineReadyPollSeconds 5 `
+          -RuntimeSnapshotPath $runtimeSnapshot
+        $compareExit = $LASTEXITCODE
+
+        $capturePath = Join-Path $resultsRoot 'ni-windows-container-capture.json'
+        if (Test-Path -LiteralPath $capturePath -PathType Leaf) {
+          "windows_compare_capture=$capturePath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          $capture = Get-Content -LiteralPath $capturePath -Raw | ConvertFrom-Json -Depth 12
+          $gateOutcome = if ($capture.PSObject.Properties['gateOutcome']) { [string]$capture.gateOutcome } else { '' }
+          $resultClass = if ($capture.PSObject.Properties['resultClass']) { [string]$capture.resultClass } else { '' }
+          $observedDockerHost = if ($capture.PSObject.Properties['observedDockerHost']) { [string]$capture.observedDockerHost } else { '' }
+          $dockerContext = if ($capture.PSObject.Properties['dockerContext']) { [string]$capture.dockerContext } else { '' }
+          $dockerServerOs = if ($capture.PSObject.Properties['dockerServerOs']) { [string]$capture.dockerServerOs } else { '' }
+          Write-Host ("[windows-compare] exit={0} gateOutcome={1} resultClass={2}" -f $compareExit, $gateOutcome, $resultClass)
+          Write-Host ("[windows-compare] observedDockerHost={0} dockerContext={1} dockerServerOs={2} capture={3}" -f ($observedDockerHost ?? '<null>'), ($dockerContext ?? '<null>'), ($dockerServerOs ?? '<null>'), $capturePath)
+          if ($compareExit -ne 0 -and $gateOutcome -ne 'pass') {
+            exit $compareExit
+          }
+        } elseif ($compareExit -ne 0) {
+          throw ("Windows compare failed (exit={0}) and capture file was not found at {1}" -f $compareExit, $capturePath)
+        }
+
+    - name: Project VI history Windows Docker-side evidence
+      if: always()
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        pwsh -NoLogo -NoProfile -File tools/Write-VIHistoryLaneEvidence.ps1 `
+          -LaneName 'vi-history-scenarios-windows' `
+          -RuntimeSnapshotPath (Join-Path $resultsRoot 'runtime-manager-compare-windows.json') `
+          -PreflightPath (Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json') `
+          -CapturePath (Join-Path $resultsRoot 'ni-windows-container-capture.json') `
+          -StdOutPath (Join-Path $resultsRoot 'ni-windows-container-stdout.txt') `
+          -StdErrPath (Join-Path $resultsRoot 'ni-windows-container-stderr.txt') `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+    - name: Validate Windows comparison report artifact contract
+      if: always()
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        $reportPath = '${{ steps.windows-compare.outputs.windows_compare_report }}'
+        if ([string]::IsNullOrWhiteSpace($reportPath)) {
+          $reportPath = Join-Path $resultsRoot 'windows-compare-report.html'
+        }
+        $capturePath = Join-Path $resultsRoot 'ni-windows-container-capture.json'
+        $summaryPath = Join-Path $resultsRoot 'windows-compare-artifact-summary.json'
+
+        $captureExists = Test-Path -LiteralPath $capturePath -PathType Leaf
+        $captureResultClass = ''
+        $captureGateOutcome = ''
+        if ($captureExists) {
+          try {
+            $capture = Get-Content -LiteralPath $capturePath -Raw | ConvertFrom-Json -Depth 12
+            $captureResultClass = if ($capture.PSObject.Properties['resultClass']) { [string]$capture.resultClass } else { '' }
+            $captureGateOutcome = if ($capture.PSObject.Properties['gateOutcome']) { [string]$capture.gateOutcome } else { '' }
+          } catch {
+            Write-Host ("::warning::Unable to parse Windows compare capture for artifact validation: {0}" -f $_.Exception.Message)
+          }
+        }
+
+        $reportExists = Test-Path -LiteralPath $reportPath -PathType Leaf
+        $compareSucceeded = '${{ steps.windows-compare.conclusion }}' -eq 'success'
+
+        $payload = [ordered]@{
+          schema = 'vi-history/windows-compare-artifact-summary@v1'
+          generatedAt = (Get-Date).ToUniversalTime().ToString('o')
+          compareStepConclusion = '${{ steps.windows-compare.conclusion }}'
+          reportPath = $reportPath
+          reportExists = [bool]$reportExists
+          capturePath = $capturePath
+          captureExists = [bool]$captureExists
+          captureResultClass = $captureResultClass
+          captureGateOutcome = $captureGateOutcome
+        }
+        $payload | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $summaryPath -Encoding utf8
+
+        $requireReport = $compareSucceeded -and [string]::Equals($captureResultClass, 'success-diff', [System.StringComparison]::OrdinalIgnoreCase)
+        if ($requireReport -and -not $reportExists) {
+          throw ("Windows compare classified success-diff but report file was not found: {0}" -f $reportPath)
+        }
+        if ($compareSucceeded -and -not $reportExists -and -not $requireReport) {
+          Write-Host ("::warning::Windows compare succeeded without diff classification ({0}); no report file was generated at {1}." -f $captureResultClass, $reportPath)
+        }
+        if (-not $reportExists) {
+          Write-Host ("::warning::Windows comparison report not found at {0}" -f $reportPath)
+        }
+
+    - name: Summarize skipped hosted Windows compare
+      if: always() && steps.windows-preflight.outputs.windows_host_preflight_status != 'ready'
+      shell: pwsh
+      run: |
+        Write-Host ("::notice::Skipping self-hosted Windows Docker compare because preflight status was {0} ({1})." -f '${{ steps.windows-preflight.outputs.windows_host_preflight_status }}', '${{ steps.windows-preflight.outputs.windows_host_preflight_failure_class }}')
+
+    - name: Restore Docker Desktop context after Windows proof
+      if: always()
+      shell: pwsh
+      run: |
+        $resultsRoot = 'tests/results/local-parity/windows'
+        $preflightPath = Join-Path $resultsRoot 'windows-ni-2026q1-host-preflight.json'
+        if (-not (Test-Path -LiteralPath $preflightPath -PathType Leaf)) {
+          Write-Host ("::notice::Skipping Docker Desktop restore because preflight artifact was not found at {0}" -f $preflightPath)
+          exit 0
+        }
+        $preflight = Get-Content -LiteralPath $preflightPath -Raw | ConvertFrom-Json -Depth 20
+        $restoreContext = if ($preflight.contexts.PSObject.Properties['start'] -and -not [string]::IsNullOrWhiteSpace([string]$preflight.contexts.start)) {
+          [string]$preflight.contexts.start
+        } else {
+          'desktop-windows'
+        }
+        $restorePath = Join-Path $resultsRoot 'runtime-manager-restore-windows.json'
+        pwsh -NoLogo -NoProfile -File tools/Invoke-DockerRuntimeManager.ps1 `
+          -ProbeScope 'windows' `
+          -BootstrapWindowsImage:$false `
+          -BootstrapLinuxImage:$false `
+          -RestoreContext $restoreContext `
+          -OutputJsonPath $restorePath `
+          -GitHubOutputPath '' `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY | Out-Null
+
+    - name: Upload VI history scenario artifacts (Windows lane)
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-scenarios-windows
+        path: |
+          tests/results/local-parity/windows/windows-compare-report.html
+          tests/results/local-parity/windows/windows-compare-artifact-summary.json
+          tests/results/local-parity/windows/ni-windows-container-capture.json
+          tests/results/local-parity/windows/ni-windows-container-stdout.txt
+          tests/results/local-parity/windows/ni-windows-container-stderr.txt
+          tests/results/local-parity/windows/container-export/**
+          tests/results/local-parity/windows/windows-ni-2026q1-host-preflight.json
+          tests/results/local-parity/windows/runtime-manager-compare-windows.json
+          tests/results/local-parity/windows/runtime-manager-restore-windows.json
+          tests/results/local-parity/windows/runner-label-contract-*.json
+          tests/results/local-parity/windows/_agent/runner-health.json
+        if-no-files-found: warn
+
+  vi-history-scenarios-windows-lv32-plan:
+    needs: [smoke-gate, lint, session-index, session-index-v2-contract, vi-history-scenarios-plan]
+    if: needs.smoke-gate.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      available: ${{ steps.plan.outputs.available }}
+      status: ${{ steps.plan.outputs.status }}
+      skip_reason: ${{ steps.plan.outputs.skip_reason }}
+      summary_path: ${{ steps.plan.outputs.summary_path }}
+      execution_model: ${{ steps.plan.outputs.execution_model }}
+      runner_image: ${{ steps.plan.outputs.runner_image }}
+      expected_context: ${{ steps.plan.outputs.expected_context }}
+      expected_os: ${{ steps.plan.outputs.expected_os }}
+      required_labels: ${{ steps.plan.outputs.required_labels }}
+      matching_runner_count: ${{ steps.plan.outputs.matching_runner_count }}
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Resolve self-hosted Windows LV32 lane
+      id: plan
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $resultsRoot = 'tests/results/_agent/vi-history-dispatch'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $planPath = Join-Path $resultsRoot 'validate-vi-history-windows-lv32-plan.json'
+        pwsh -NoLogo -NoProfile -File tools/Resolve-SelfHostedWindowsLanePlan.ps1 `
+          -Repository '${{ github.repository }}' `
+          -OutputJsonPath $planPath `
+          -GitHubOutputPath $env:GITHUB_OUTPUT `
+          -StepSummaryPath $env:GITHUB_STEP_SUMMARY `
+          -Token $env:GITHUB_TOKEN
+    - name: Upload self-hosted Windows LV32 lane plan artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-windows-lv32-plan
+        path: tests/results/_agent/vi-history-dispatch/validate-vi-history-windows-lv32-plan.json
+        if-no-files-found: error
+
+  vi-history-scenarios-windows-lv32:
+    needs: [smoke-gate, lint, session-index, session-index-v2-contract, vi-history-scenarios-plan, vi-history-scenarios-windows-lv32-plan]
+    if: needs.smoke-gate.outputs.skip != 'true' && needs.vi-history-scenarios-plan.outputs.execute_lanes == 'true' && needs.vi-history-scenarios-windows-lv32-plan.outputs.available == 'true'
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress, labview-2026, lv32]
+    continue-on-error: true
+    timeout-minutes: 60
+    permissions:
+      actions: read
+      contents: read
+    env:
+      LVCI_COMPARE_MODE: labview-cli
+      LVCI_COMPARE_POLICY: cli-only
+      LV_SUPPRESS_UI: '1'
+      LV_NO_ACTIVATE: '1'
+      LV_CURSOR_RESTORE: '1'
+      UNBLOCK_GUARD: '1'
+      VI_HISTORY_LV32_RESULTS_ROOT: tests/results/local-parity/windows/lv32-shadow-proof
+      VI_HISTORY_LV32_RECEIPT_PATH: tests/results/_agent/promotion/vi-history-lv32-shadow-proof-receipt.json
+      VI_HISTORY_LV32_PLAN_PATH: tests/results/_agent/vi-history-dispatch/validate-vi-history-windows-lv32-plan.json
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+    - name: Append VI history self-hosted LV32 lane plan
+      run: |
+        if ($env:GITHUB_STEP_SUMMARY) {
+          $lines = @(
+            '### VI History Scenarios (Windows self-hosted LV32 shadow proof)',
+            '',
+            ('- execute_lanes: `{0}`' -f '${{ needs.vi-history-scenarios-plan.outputs.execute_lanes }}'),
+            ('- plan_status: `{0}`' -f '${{ needs.vi-history-scenarios-windows-lv32-plan.outputs.status }}'),
+            ('- runner_image: `{0}`' -f '${{ needs.vi-history-scenarios-windows-lv32-plan.outputs.runner_image }}'),
+            ('- expected_context: `{0}`' -f '${{ needs.vi-history-scenarios-windows-lv32-plan.outputs.expected_context }}'),
+            ('- required_labels: `{0}`' -f '${{ needs.vi-history-scenarios-windows-lv32-plan.outputs.required_labels }}'),
+            '- shadow proof is non-required and records promotion-ready evidence only when the self-hosted LV32 runner and host-plane are both ready.'
+          )
+          $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+        }
+    - uses: actions/checkout@v5
+      with:
+        repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+    - name: Wire Probe (J1)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J1
+        results-dir: tests/results
+    - name: Wire Probe (J2)
+      if: '${{ vars.WIRE_PROBES != ''0'' }}'
+      uses: ./.github/actions/wire-probe
+      with:
+        phase: J2
+        results-dir: tests/results
+    - name: Validate self-hosted runner label contract
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        $resultsRoot = Join-Path $env:GITHUB_WORKSPACE 'tests/results/local-parity/windows/lv32-shadow-proof'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $requiredLabels = @(
+          'self-hosted',
+          'Windows',
+          'X64',
+          'comparevi',
+          'capability-ingress',
+          'labview-2026',
+          'lv32'
+        )
+        foreach ($label in $requiredLabels) {
+          $contractPath = Join-Path $resultsRoot ("runner-label-contract-{0}.json" -f $label)
+          pwsh -NoLogo -NoProfile -File tools/Assert-RunnerLabelContract.ps1 `
+            -Repository '${{ github.repository }}' `
+            -RunnerName $env:RUNNER_NAME `
+            -RequiredLabel $label `
+            -Token $env:GITHUB_TOKEN `
+            -OutputJsonPath $contractPath `
+            -GitHubOutputPath $env:GITHUB_OUTPUT `
+            -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+        }
+    - name: Capture LabVIEW 2026 host-plane diagnostics
+      id: host-plane
+      shell: pwsh
+      run: |
+        $resultsRoot = Join-Path $env:GITHUB_WORKSPACE 'tests/results/local-parity/windows/lv32-shadow-proof'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $reportPath = Join-Path $env:GITHUB_WORKSPACE 'tests/results/_agent/host-planes/labview-2026-host-plane-report.json'
+        pwsh -NoLogo -NoProfile -File tools/Write-LabVIEW2026HostPlaneDiagnostics.ps1 -OutputPath $reportPath | Out-Null
+        if (-not (Test-Path -LiteralPath $reportPath -PathType Leaf)) {
+          throw ("LabVIEW 2026 host-plane diagnostics report was not written to {0}" -f $reportPath)
+        }
+        $report = Get-Content -LiteralPath $reportPath -Raw | ConvertFrom-Json -Depth 12
+        if ($report.native.planes.x32.status -ne 'ready') {
+          throw ("Native LabVIEW 32-bit host plane is not ready. Observed status: {0}" -f $report.native.planes.x32.status)
+        }
+        $labviewPath = [string]$report.native.planes.x32.labviewPath
+        if ([string]::IsNullOrWhiteSpace($labviewPath)) {
+          throw 'Native LabVIEW 32-bit host-plane report did not include LabVIEW path.'
+        }
+        if (-not (Test-Path -LiteralPath $labviewPath -PathType Leaf)) {
+          throw ("Native LabVIEW 32-bit LabVIEW.exe was not found at {0}" -f $labviewPath)
+        }
+        "host_plane_report_path=$reportPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "labview_path=$labviewPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "labview_cli_path=$([string]$report.native.planes.x32.cliPath)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "compare_path=$([string]$report.native.planes.x32.comparePath)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "labview_32_status=$([string]$report.native.planes.x32.status)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        $env:LABVIEW_PATH = $labviewPath
+        $env:LABVIEW_CLI_PATH = [string]$report.native.planes.x32.cliPath
+        $env:LABVIEWCLI_PATH = [string]$report.native.planes.x32.cliPath
+        $reportPath | Out-File -FilePath (Join-Path $resultsRoot 'host-plane-report-path.txt') -Encoding utf8
+    - name: Run VI history shadow proof on the self-hosted LV32 runner
+      id: history-shadow
+      shell: pwsh
+      env:
+        LABVIEW_PATH: ${{ steps.host-plane.outputs.labview_path }}
+        LABVIEW_CLI_PATH: ${{ steps.host-plane.outputs.labview_cli_path }}
+        LABVIEWCLI_PATH: ${{ steps.host-plane.outputs.labview_cli_path }}
+      run: |
+        $resultsRoot = Join-Path $env:GITHUB_WORKSPACE 'tests/results/local-parity/windows/lv32-shadow-proof'
+        New-Item -ItemType Directory -Path $resultsRoot -Force | Out-Null
+        $historyResultsRoot = Join-Path $resultsRoot 'history'
+        New-Item -ItemType Directory -Path $historyResultsRoot -Force | Out-Null
+        $invokeScriptPath = Join-Path $env:GITHUB_WORKSPACE 'tools/Invoke-LVCompare.ps1'
+        pwsh -NoLogo -NoProfile -File tools/Compare-VIHistory.ps1 `
+          -TargetPath 'VI1.vi' `
+          -StartRef HEAD `
+          -MaxPairs 1 `
+          -Mode default `
+          -RenderReport `
+          -FailOnDiff:$false `
+          -ResultsDir $historyResultsRoot `
+          -InvokeScriptPath $invokeScriptPath
+        $summaryPath = Join-Path $historyResultsRoot 'history-summary.json'
+        $reportPath = Join-Path $historyResultsRoot 'history-report.html'
+        if (-not (Test-Path -LiteralPath $summaryPath -PathType Leaf)) {
+          throw ("VI history compare did not emit a summary at {0}" -f $summaryPath)
+        }
+        "history_summary_path=$summaryPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "history_report_path=$reportPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+    - name: Write VI history LV32 shadow proof receipt
+      shell: pwsh
+      run: |
+        $resultsRoot = Join-Path $env:GITHUB_WORKSPACE 'tests/results/local-parity/windows/lv32-shadow-proof'
+        $runnerContractPaths = @(
+          'runner-label-contract-self-hosted.json',
+          'runner-label-contract-Windows.json',
+          'runner-label-contract-X64.json',
+          'runner-label-contract-comparevi.json',
+          'runner-label-contract-capability-ingress.json',
+          'runner-label-contract-labview-2026.json',
+          'runner-label-contract-lv32.json'
+        ) | ForEach-Object { Join-Path $resultsRoot $_ }
+        $receiptScriptPath = Join-Path $env:GITHUB_WORKSPACE 'tools/Write-VIHistoryLV32ShadowProofReceipt.ps1'
+        $receiptArgs = @{
+          LaneName = 'vi-history-scenarios-windows-lv32'
+          RunnerLabelContractPaths = $runnerContractPaths
+          HostPlaneReportPath = '${{ steps.host-plane.outputs.host_plane_report_path }}'
+          CompareSummaryPath = '${{ steps.history-shadow.outputs.history_summary_path }}'
+          CompareReportPath = '${{ steps.history-shadow.outputs.history_report_path }}'
+          OutputJsonPath = $env:VI_HISTORY_LV32_RECEIPT_PATH
+          GitHubOutputPath = $env:GITHUB_OUTPUT
+          StepSummaryPath = $env:GITHUB_STEP_SUMMARY
+        }
+        & $receiptScriptPath @receiptArgs
+    - name: Runner Unblock Guard
+      if: always()
+      uses: ./.github/actions/runner-unblock-guard
+      with:
+        snapshot-path: tests/results/local-parity/windows/lv32-shadow-proof/runner-unblock-snapshot.json
+        cleanup: ${{ env.UNBLOCK_GUARD == '1' }}
+        process-names: 'conhost,pwsh,LabVIEW,LVCompare,LabVIEWCLI'
+    - name: Upload VI history LV32 shadow proof artifacts
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: validate-vi-history-scenarios-windows-lv32
+        path: |
+          tests/results/local-parity/windows/lv32-shadow-proof/**
+          tests/results/_agent/promotion/vi-history-lv32-shadow-proof-receipt.json
+          tests/results/_agent/host-planes/labview-2026-host-plane-report.json
+        if-no-files-found: warn

@@ -1,0 +1,34 @@
+name: PR Agent Review Routing
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled, converted_to_draft]
+
+permissions:
+  contents: read
+
+jobs:
+  request-reviewer:
+    if: github.event.pull_request.draft == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Acknowledge local-only review routing for agent-authored PRs
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            const labels = (pr.labels || []).map((l) => l.name);
+
+            const hasAgentMetadata = /Agent[-\s]?ID\s*:/i.test(body);
+            const hasCodexLabel = labels.includes('codex');
+            const isAgentPR = hasAgentMetadata || hasCodexLabel;
+
+            if (!isAgentPR) {
+              core.info('PR is not marked as agent-authored; skipping reviewer routing.');
+              return;
+            }
+            core.info(
+              'GitHub-side Copilot reviewer routing is disabled for this repository; ' +
+              'draft-review acquisition remains local-only through the repo-owned CLI/orchestrator surfaces.'
+            );

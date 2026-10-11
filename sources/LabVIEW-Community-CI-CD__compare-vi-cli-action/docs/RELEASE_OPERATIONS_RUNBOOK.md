@@ -1,0 +1,294 @@
+# Release Operations Runbook
+
+## Objective
+
+Define a deterministic operating model for release and promotion events so execution does not depend on a single
+operator.
+
+Current continuity note: ownership is still routed through a single checked-in
+codeowner entry in [`.github/CODEOWNERS`](../.github/CODEOWNERS). The release
+runbook and workflow automation reduce memory risk and improve recoverability,
+but they do not create multi-maintainer approval depth on their own. See
+[`MAINTAINER_CONTINUITY_PROFILE.md`](./MAINTAINER_CONTINUITY_PROFILE.md).
+
+Related migration playbook: `docs/COMPAREVI_SHARED_PACKAGE_MIGRATION.md`.
+Downstream onboarding runbook: `docs/DOWNSTREAM_RELEASE_TRAIN_ONBOARDING.md`.
+
+## Scope
+
+- Promotion events (`rc -> stable -> lts`) and monthly stability cuts.
+- Deployment approval gates (`production`, `monthly-stability-release`).
+- Incident triage, escalation, and rollback communication.
+
+Workflow tiering reference: [`WORKFLOW_CRITICALITY_MAP.md`](./WORKFLOW_CRITICALITY_MAP.md).
+Treat Tier 1 as the default release-critical workflow inventory. If a release
+decision depends on a Tier 2 proof for a specific cut, call that dependency out
+explicitly in the governing issue or PR.
+
+## Roles and ownership
+
+| Role | Responsibility | Evidence owner |
+| --- | --- | --- |
+| Release operator | Runs release helpers/workflows, verifies required checks and policy gates. | Release artifacts under `tests/results/_agent/release/` |
+| Deployment gate approver | Approves environment-protected deployments from GitHub web/mobile. | Environment deployment record + workflow summary |
+| Incident commander | Declares incident severity, coordinates containment, drives rollback decision. | Incident timeline issue/comment thread |
+| Audit recorder | Confirms promotion/rollback evidence is complete and linked in issue/PR context. | Promotion contract artifacts + issue closure notes |
+
+Current operating reality: this repository still has one human maintainer, so a
+single account may fill more than one role above during a release or rollback.
+Keep the role names distinct in runbooks, deployment records, and issue/PR
+notes even when one person performs multiple roles so approvals, decisions, and
+evidence remain explicit.
+
+## Environment protection mapping
+
+Configure these roles as required reviewers in GitHub repository environment
+settings. In the current single-maintainer state, those reviewer roles may
+collapse to the same owner account; the control objective is explicit protected
+deployment acknowledgement plus a durable evidence trail, not implied
+separation of duties that the repository does not yet have.
+
+| Environment | Workflow entrypoints | Required reviewer role |
+| --- | --- | --- |
+| `production` | Tag release flow (`Release on tag / release`) | Deployment gate approver |
+| `monthly-stability-release` | Scheduled/manual monthly stability cut | Deployment gate approver + incident commander (on exceptions) |
+
+Configuration path: `Settings -> Environments -> <environment> -> Required reviewers`.
+
+## Standard release procedure
+
+1. Verify standing-priority and branch parity:
+   - `pwsh -NoLogo -NoProfile -File tools/priority/bootstrap.ps1`
+   - `node tools/npm/run-script.mjs priority:develop:sync`
+2. Create release branch:
+   - `node tools/npm/run-script.mjs release:branch -- <version>`
+   - this updates the backend release surfaces together (`package.json`,
+     `Directory.Build.props`, and `tools/CompareVI.Tools/CompareVI.Tools.psd1`)
+3. Validate required checks and policy gate:
+   - `pwsh -NoLogo -NoProfile -File tools/PrePush-Checks.ps1`
+   - `node tools/npm/run-script.mjs priority:policy:sync`
+4. Record backend/facade coordination:
+   - decide whether the backend release changes the public contract consumed by
+     `comparevi-history`
+   - if yes, link the comparevi-history pin-bump/release work before treating the
+     backend stable release as fully complete
+5. Finalize release (draft tag + metadata):
+   - `node tools/npm/run-script.mjs release:finalize -- <version>`
+6. Verify workflow signing readiness before authoritative tag publication:
+   - `node tools/npm/run-script.mjs priority:release:signing:readiness`
+   - confirm `tests/results/_agent/release/release-signing-readiness.json` reports:
+     - `codePathState = ready`
+     - `signingCapabilityState = configured`
+     - `signingAuthorityState = ready`
+     - `releaseConductorApplyState = enabled`
+   - if `externalBlocker` reports any signing secret, signing authority, or apply-gating blocker,
+     treat that as an explicit external blocker and stop before rerunning release publication flows
+7. Verify rollback drill health:
+   - `node tools/npm/run-script.mjs priority:rollback:drill:health -- --repo <owner/repo>`
+   - confirm `tests/results/_agent/release/rollback-drill-health.json` reports `status=pass`
+8. Obtain environment approvals for protected deployments from GitHub UI/mobile
+   and record which release role(s) were exercised, even when the same account
+   approved more than one step.
+9. Record evidence links in the governing issue/PR before closure.
+
+## One-command rollback
+
+When an incident requires rollback, run:
+
+- Dry-run:
+  - `node tools/npm/run-script.mjs release:rollback -- --stream stable`
+- Apply:
+  - `node tools/npm/run-script.mjs release:rollback:apply -- --stream stable`
+
+Apply mode resolves the previous-good immutable release tag pointer for the stream, force-updates `main` and
+`develop` using `--force-with-lease`, then validates branch alignment and policy sync evidence.
+
+## Downstream onboarding loop
+
+Use the downstream onboarding commands when validating platform adoption in consumer repositories:
+
+- Bootstrap/evaluate one repository:
+  - `node tools/npm/run-script.mjs priority:onboard:downstream -- --repo <owner/repo> --parent-issue 715`
+- Aggregate success report:
+  - `node tools/npm/run-script.mjs priority:onboard:success -- --report`
+    `tests/results/_agent/onboarding/downstream-onboarding.json --parent-issue 715`
+
+For unattended cadence, use `.github/workflows/downstream-onboarding-feedback.yml` and set
+`vars.DOWNSTREAM_PILOT_REPO` to the current pilot repository. The downstream
+promotion/proving rail now fails closed when that variable is unset and no
+explicit `downstream_repo` input is provided.
+
+## Package cadence signal
+
+- `.github/workflows/release-cadence-check.yml` is the package-stream freshness monitor for `comparevi-tools` and
+  `CompareVi.Shared`.
+- The cadence workflow derives freshness from successful publish workflow evidence (`Publish Tools Image` and
+  `Publish CompareVi.Shared Package`) instead of direct package-registry enumeration. This avoids false stale alerts
+  when package discovery returns `Not Found` under repository-scoped tokens.
+- Each cadence run writes `tests/results/_agent/release/release-cadence-check-report.json` and uploads it as an
+  artifact. The report is the deterministic source for the generated issue body and Step Summary.
+
+## Escalation matrix
+
+| Condition | Initial response window | Escalation path |
+| --- | --- | --- |
+| Required check stalled > 30 minutes | 15 minutes | Release operator -> incident commander |
+| `Policy Guard (Upstream)` fails | Immediate | Incident commander + audit recorder |
+| Deployment approval blocked/misrouted | 15 minutes | Deployment gate approver -> repository admin |
+| Rollback-triggering regression | Immediate | Incident commander triggers rollback flow and pauses promotion |
+
+## SLO thresholds and routing
+
+- SLO metrics are emitted by `node tools/priority/slo-metrics.mjs` in release/promotion workflows under
+  `tests/results/_agent/slo/`.
+- Default breach thresholds:
+  - failure rate > `0.30`
+  - MTTR > `24` hours
+  - stale budget > `1080` hours (45 days)
+  - gate regressions > `3`
+- Breach routing:
+  - release/monthly workflows upsert an issue labeled `slo`, `ci`, `governance`
+  - issue title prefix: `[SLO] ... breach`
+  - escalation follows the matrix above
+
+## Incident and rollback communication protocol
+
+1. Open or update an incident issue with timestamped status.
+2. Post a concise status comment in the affected PR/release issue:
+   - impact
+   - current gate status
+   - containment action
+   - next update ETA
+3. If rollback is required:
+   - run rollback path:
+     - `node tools/npm/run-script.mjs release:rollback -- --stream stable`
+     - `node tools/npm/run-script.mjs release:rollback:apply -- --stream stable`
+   - publish rollback evidence artifacts
+   - confirm branch/policy parity after rollback
+4. Close incident only after:
+   - gate health is green
+   - evidence artifacts are linked
+   - follow-up remediation issues are created when needed
+
+## Supply-chain trust remediation classes
+
+Before relying on a local workstation tag, prefer the release conductor
+automation path:
+
+- run `.github/workflows/release-conductor.yml` in apply mode
+- if the authoritative release tag already exists but the trust gate reports
+  `tag-not-annotated` or `tag-signature-unverified`, rerun
+  `.github/workflows/release-conductor.yml` with:
+  - the target `version`
+  - `apply = true`
+  - `repair_existing_tag = true`
+- if the target tag already backs an immutable published GitHub Release, do not
+  attempt in-place tag mutation against the same published tag
+  - rerun `.github/workflows/release-conductor.yml` with
+    `repair_existing_tag = true`
+  - require the resulting report to show:
+    - `release.repair.status = equivalent-replay-dispatched`
+    - `release.publicationReplay.status = dispatched`
+    - `release.publicationReplay.modeInputValue = verify-existing-release`
+- provision `RELEASE_TAG_SIGNING_PRIVATE_KEY` and optional
+  `RELEASE_TAG_SIGNING_PUBLIC_KEY` for workflow-owned signing
+- optionally set `RELEASE_TAG_SIGNING_IDENTITY_NAME` and
+  `RELEASE_TAG_SIGNING_IDENTITY_EMAIL` when the signing authority should use an
+  explicit Git identity override; otherwise the workflow derives the signer
+  identity from the resolved policy token account
+- inspect `tests/results/_agent/release/release-conductor-report.json`
+  first
+- inspect `release.immutableRelease`
+  - if `repairBlocked = true`, repair-in-place is unavailable for that
+    published tag
+- require both:
+  - either:
+    - `release.tagCreated = true`
+    - `release.tagPushed = true`
+  - or:
+    - `release.repair.status = equivalent-replay-dispatched`
+    - `release.publicationReplay.status = dispatched`
+    - `release.publicationReplay.modeInputValue = verify-existing-release`
+  - when repair mode recreates a mutable authoritative tag:
+    - `release.repair.status = repaired`
+    - `release.repair.remoteTargetCommitOid` matches the authoritative commit
+    - `release.publicationReplay.status = dispatched`
+    - `release.publicationReplay.ref = develop`
+    - `release.publicationReplay.tagInputValue` matches the authoritative tag
+    - the replayed `Release on tag` run succeeds for the repaired tag
+  - when the published release is immutable:
+    - the replayed `Release on tag` run succeeds for the same authoritative tag
+    - `release.yml` runs with
+      `workflow_dispatch.inputs.publication_mode=verify-existing-release`
+
+When the release trust gate fails, inspect `tests/results/_agent/supply-chain/release-trust-gate.json` and follow the
+matching remediation path:
+
+- `missing-artifacts-root`, `missing-required-file`, `no-distribution-artifacts`
+  - Re-run publish steps and confirm artifacts exist under `artifacts/cli`.
+- `tag-ref-missing`, `tag-ref-lookup-failed`, `tag-object-lookup-failed`, `tag-signature-parse-failed`
+  - Confirm release workflow was triggered from a tag push and rerun with GitHub CLI/API access intact.
+- `tag-signature-cli-unavailable`
+  - Restore GitHub CLI availability on runner and retry release.
+- `tag-not-annotated`, `tag-signature-unverified`
+  - Use `node tools/npm/run-script.mjs priority:release:signing:readiness`
+    first.
+  - If the target tag already backs an immutable published release, stop and
+    rerun release conductor with `repair_existing_tag = true` so it dispatches
+    protected-tag-safe replay instead of mutating the published tag.
+  - If signing readiness is `ready`, run the release conductor in repair mode
+    for the target version so the authoritative tag is recreated as a signed
+    annotated tag without changing the intended release commit.
+  - Rerun release only after the repair report shows either:
+    - `release.repair.status = repaired` and
+      `release.publicationReplay.status = dispatched`
+    - or `release.repair.status = equivalent-replay-dispatched` and
+      `release.publicationReplay.modeInputValue = verify-existing-release`
+  - Replay dispatch now uses `release.yml` from `develop` with
+    `workflow_dispatch.inputs.release_tag=<target tag>`.
+    For immutable published tags it also sets
+    `workflow_dispatch.inputs.publication_mode=verify-existing-release`; do not
+    rely on the published tag itself carrying the newer workflow definition.
+- `workflow-signing-secret-missing`, `workflow-signing-secret-unverifiable`
+- `workflow-signing-admin-scope-missing`, `workflow-signing-key-missing`, `workflow-signing-authority-unverifiable`
+- `release-conductor-apply-disabled`, `release-conductor-apply-unverifiable`, `release-repair-immutable-blocked`
+  - Use `node tools/npm/run-script.mjs priority:release:signing:readiness` to confirm the blocker, provision or repair
+    the workflow signing secrets, signing authority, or release-conductor enablement. When the blocker is
+    `release-repair-immutable-blocked`, rerun `repair_existing_tag` only through the protected-tag-safe replay path;
+    do not attempt in-place tag mutation on the same published release tag.
+- `checksum-invalid-line`, `checksum-empty`, `checksum-entry-missing-file`, `checksum-missing-artifact`, `checksum-mismatch`
+  - Regenerate `SHA256SUMS.txt` from fresh artifacts and ensure no post-pack mutation occurred.
+- `sbom-parse-failed`, `sbom-invalid`
+  - Re-run `tools/Generate-ReleaseSbom.ps1` and validate content/coverage for all distribution archives.
+- `provenance-parse-failed`, `provenance-invalid`
+  - Re-run `tools/Generate-ReleaseProvenance.ps1`; verify repository/run/sha identity fields.
+- `attestation-cli-unavailable`
+  - Restore GitHub CLI availability on runner and retry release.
+- `attestation-output-parse-failed`, `attestation-empty-result`, `attestation-unverified`
+  - Re-run attestation and verify with:
+    - `gh attestation verify <artifact> --repo <owner/repo> --signer-workflow <owner/repo/.github/workflows/release.yml>`
+
+## Rehearsal contract (testable, repeatable)
+
+- Weekly operator rehearsal (non-destructive):
+  - `node tools/npm/run-script.mjs release:branch:dry -- <version>`
+  - `node tools/npm/run-script.mjs release:finalize:dry -- <version>`
+  - scheduled workflow `release-rollback-drill.yml` for rollback pointer drill evidence
+- Monthly governance rehearsal:
+  - manual dispatch of `monthly-stability-release` with environment approvals
+  - evidence ledger review in promotion-contract artifacts
+- Incident rehearsal:
+  - run `node tools/npm/run-script.mjs priority:health-snapshot`
+  - simulate escalation notes in issue comments using the protocol above
+
+## Required evidence artifacts
+
+- `tests/results/_agent/release/release-<tag>-branch.json`
+- `tests/results/_agent/release/release-<tag>-finalize.json`
+- `tests/results/_agent/release/release-signing-readiness.json`
+- `tests/results/_agent/policy/policy-drift-report.json`
+- `tests/results/_agent/health-snapshot/health-snapshot.json`
+- `tests/results/_agent/supply-chain/release-trust-gate.json`
+- `tests/results/_agent/release/rollback-drill-health.json`
+- `tests/results/_agent/release/rollback-drill-report.json`
+- `tests/results/_agent/release/shared-source-resolution.json`

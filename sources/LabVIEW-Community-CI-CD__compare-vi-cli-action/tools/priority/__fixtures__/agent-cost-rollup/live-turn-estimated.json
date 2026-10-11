@@ -1,0 +1,80 @@
+{
+  "schema": "priority/agent-cost-turn@v1",
+  "generatedAt": "2026-03-21T18:30:00.000Z",
+  "provider": {
+    "id": "codex-cli",
+    "kind": "local-codex",
+    "runtime": "codex-cli",
+    "executionPlane": "wsl2"
+  },
+  "model": {
+    "requested": "gpt-5-codex",
+    "effective": "gpt-5-codex",
+    "requestedReasoningEffort": "xhigh",
+    "effectiveReasoningEffort": "xhigh"
+  },
+  "usage": {
+    "inputTokens": 2400,
+    "cachedInputTokens": 600,
+    "outputTokens": 500,
+    "totalTokens": 3500,
+    "usageUnitKind": "turn",
+    "usageUnitCount": 1
+  },
+  "billing": {
+    "exactness": "estimated",
+    "currency": "USD",
+    "amountUsd": null,
+    "rateCard": {
+      "id": "openai-public-2026-03-01",
+      "source": "https://openai.com/api/pricing",
+      "retrievedAt": "2026-03-21T18:20:00.000Z",
+      "pricingBasis": "per-1k-tokens",
+      "inputUsdPer1kTokens": 0.005,
+      "cachedInputUsdPer1kTokens": 0.001,
+      "outputUsdPer1kTokens": 0.015,
+      "usageUnitUsd": null
+    }
+  },
+  "context": {
+    "repository": "LabVIEW-Community-CI-CD/compare-vi-cli-action",
+    "issueNumber": 1639,
+    "laneId": "issue/origin-1639-agent-cost-telemetry",
+    "laneBranch": "issue/origin-1639-agent-cost-telemetry",
+    "sessionId": "session-live-001",
+    "turnId": "turn-live-001",
+    "workerSlotId": "worker-slot-1",
+    "agentRole": "live"
+  },
+  "provenance": {
+    "sourceSchema": "priority/codex-cli-review@v1",
+    "sourceReceiptPath": "tests/results/docker-tools-parity/codex-cli-review/receipt.json",
+    "sourceReportPath": "tests/results/_agent/runtime/worker-slot-1.json",
+    "usageObservedAt": "2026-03-21T18:29:00.000Z"
+  },
+  "runtime": {
+    "startedAt": "2026-03-21T18:28:00.000Z",
+    "endedAt": "2026-03-21T18:29:30.000Z",
+    "elapsedSeconds": 90,
+    "elapsedSource": "explicit"
+  },
+  "labor": {
+    "operatorProfilePath": "tools/policy/operator-cost-profile.json",
+    "operatorId": "sergio",
+    "operatorName": "Sergio Velderrain Ruiz",
+    "laborRateUsdPerHour": 250,
+    "currency": "USD",
+    "pricingBasis": "agent-runtime-hour",
+    "amountUsd": 6.25,
+    "blendedTotalUsd": null,
+    "status": "computed"
+  },
+  "steering": {
+    "operatorIntervened": true,
+    "kind": "operator-prompt",
+    "source": "operator-observed",
+    "observedAt": "2026-03-21T18:28:45.000Z",
+    "note": "Live lane included extra operator steering during the turn.",
+    "invoiceTurnId": "invoice-turn-2026-03-HQ1VJLMV-0027"
+  }
+}

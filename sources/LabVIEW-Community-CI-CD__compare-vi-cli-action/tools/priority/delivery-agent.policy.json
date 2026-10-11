@@ -1,0 +1,259 @@
+{
+  "schema": "priority/delivery-agent-policy@v1",
+  "backlogAuthority": "issues",
+  "implementationRemote": "origin",
+  "copilotReviewStrategy": "draft-only-explicit",
+  "autoSlice": true,
+  "autoMerge": true,
+  "maxActiveCodingLanes": 20,
+  "allowPolicyMutations": false,
+  "allowReleaseAdmin": false,
+  "stopWhenNoOpenEpics": true,
+  "capitalFabric": {
+    "schema": "priority/capital-deployment-fabric@v1",
+    "capacityMode": "host-ram-adaptive",
+    "maxLogicalLaneCount": 20,
+    "logicalLaneAllocationFloorRatio": 0.5,
+    "reservedLaneCount": 1,
+    "hostRamBudgetPath": "tests/results/_agent/runtime/host-ram-budget.json",
+    "logicalLaneCatalog": [
+      {"id": "logical-lane-01", "label": "Lane 01", "seededOrdinal": 1},
+      {"id": "logical-lane-02", "label": "Lane 02", "seededOrdinal": 2},
+      {"id": "logical-lane-03", "label": "Lane 03", "seededOrdinal": 3},
+      {"id": "logical-lane-04", "label": "Lane 04", "seededOrdinal": 4},
+      {"id": "logical-lane-05", "label": "Lane 05", "seededOrdinal": 5},
+      {"id": "logical-lane-06", "label": "Lane 06", "seededOrdinal": 6},
+      {"id": "logical-lane-07", "label": "Lane 07", "seededOrdinal": 7},
+      {"id": "logical-lane-08", "label": "Lane 08", "seededOrdinal": 8},
+      {"id": "logical-lane-09", "label": "Lane 09", "seededOrdinal": 9},
+      {"id": "logical-lane-10", "label": "Lane 10", "seededOrdinal": 10},
+      {"id": "logical-lane-11", "label": "Lane 11", "seededOrdinal": 11},
+      {"id": "logical-lane-12", "label": "Lane 12", "seededOrdinal": 12},
+      {"id": "logical-lane-13", "label": "Lane 13", "seededOrdinal": 13},
+      {"id": "logical-lane-14", "label": "Lane 14", "seededOrdinal": 14},
+      {"id": "logical-lane-15", "label": "Lane 15", "seededOrdinal": 15},
+      {"id": "logical-lane-16", "label": "Lane 16", "seededOrdinal": 16},
+      {"id": "logical-lane-17", "label": "Lane 17", "seededOrdinal": 17},
+      {"id": "logical-lane-18", "label": "Lane 18", "seededOrdinal": 18},
+      {"id": "logical-lane-19", "label": "Lane 19", "seededOrdinal": 19},
+      {"id": "logical-lane-20", "label": "Lane 20", "seededOrdinal": 20}
+    ],
+    "specialtyLanes": [
+      {
+        "id": "jarvis",
+        "enabled": true,
+        "primaryRecordedResponsibility": "Sagan",
+        "maxInstanceCount": 2,
+        "purpose": "windows-docker-iterative-development",
+        "preferredExecutionPlane": "local-docker-windows",
+        "preferredContainerImage": "nationalinstruments/labview:2026q1-windows",
+        "allocationMode": "opportunistic"
+      }
+    ]
+  },
+  "storageRoots": {
+    "worktrees": {
+      "envVar": "COMPAREVI_BURST_WORKTREE_ROOT",
+      "preferredRoots": ["E:\\comparevi-lanes"]
+    },
+    "artifacts": {
+      "envVar": "COMPAREVI_BURST_ARTIFACT_ROOT",
+      "preferredRoots": ["E:\\comparevi-artifacts"]
+    }
+  },
+  "workerPool": {
+    "targetSlotCount": 20,
+    "prewarmSlotCount": 1,
+    "releaseWaitingStates": [
+      "waiting-ci",
+      "waiting-review",
+      "ready-merge"
+    ],
+    "providers": [
+      {
+        "id": "local-codex",
+        "kind": "local-codex",
+        "capabilities": {
+          "executionPlane": "local",
+          "assignmentMode": "interactive-coding",
+          "dispatchSurface": "runtime-harness",
+          "completionMode": "sync",
+          "requiresLocalCheckout": true
+        },
+        "executionPlane": "local",
+        "assignmentMode": "interactive-coding",
+        "dispatchSurface": "runtime-harness",
+        "completionMode": "sync",
+        "requiresLocalCheckout": true,
+        "enabled": true,
+        "slotCount": 2
+      },
+      {
+        "id": "hosted-github-workflow",
+        "kind": "hosted-github-workflow",
+        "capabilities": {
+          "executionPlane": "hosted",
+          "assignmentMode": "async-validation",
+          "dispatchSurface": "github-actions",
+          "completionMode": "async",
+          "requiresLocalCheckout": false
+        },
+        "executionPlane": "hosted",
+        "assignmentMode": "async-validation",
+        "dispatchSurface": "github-actions",
+        "completionMode": "async",
+        "requiresLocalCheckout": false,
+        "enabled": true,
+        "slotCount": 2
+      },
+      {
+        "id": "remote-copilot-lane",
+        "kind": "remote-copilot-lane",
+        "capabilities": {
+          "executionPlane": "remote",
+          "assignmentMode": "remote-implementation",
+          "dispatchSurface": "remote-copilot",
+          "completionMode": "async",
+          "requiresLocalCheckout": false
+        },
+        "executionPlane": "remote",
+        "assignmentMode": "remote-implementation",
+        "dispatchSurface": "remote-copilot",
+        "completionMode": "async",
+        "requiresLocalCheckout": false,
+        "enabled": true,
+        "slotCount": 2
+      },
+      {
+        "id": "local-shadow-native",
+        "kind": "local-shadow-native",
+        "capabilities": {
+          "executionPlane": "local-shadow",
+          "assignmentMode": "shadow-validation",
+          "dispatchSurface": "native-shadow",
+          "completionMode": "sync",
+          "requiresLocalCheckout": false
+        },
+        "executionPlane": "local-shadow",
+        "assignmentMode": "shadow-validation",
+        "dispatchSurface": "native-shadow",
+        "completionMode": "sync",
+        "requiresLocalCheckout": false,
+        "enabled": true,
+        "slotCount": 2
+      }
+    ]
+  },
+  "templateAgentVerificationLane": {
+    "enabled": true,
+    "reservedSlotCount": 1,
+    "minimumImplementationSlots": 3,
+    "executionMode": "hosted-first",
+    "targetRepository": "LabVIEW-Community-CI-CD/LabviewGitHubCiTemplate",
+    "consumerRailBranch": "downstream/develop",
+    "reportPath": "tests/results/_agent/promotion/template-agent-verification-report.json",
+    "authoritativeReportPath": "template-verification/template-agent-verification-report.json",
+    "metrics": {
+      "maxVerificationLagIterations": 1,
+      "maxHostedDurationMinutes": 30,
+      "requireMachineReadableRecommendation": true
+    }
+  },
+  "hostIsolation": {
+    "mode": "hard-cutover",
+    "wslDistro": "Ubuntu",
+    "runnerServicePolicy": "stop-all-actions-runner-services",
+    "restoreRunnerServicesOnExit": true,
+    "pauseOnFingerprintDrift": true
+  },
+  "dockerRuntime": {
+    "provider": "native-wsl",
+    "dockerHost": "unix:///var/run/docker.sock",
+    "expectedOsType": "linux",
+    "expectedContext": "",
+    "manageDockerEngine": false,
+    "allowHostEngineMutation": false
+  },
+  "concurrentLaneDispatch": {
+    "historyScenarioSet": "smoke",
+    "sampleIdStrategy": "auto",
+    "sampleId": "",
+    "allowForkMode": "auto",
+    "pushMissing": true,
+    "forcePushOk": false,
+    "allowNonCanonicalViHistory": false,
+    "allowNonCanonicalHistoryCore": false
+  },
+  "localReviewLoop": {
+    "enabled": true,
+    "reviewProviders": [
+      "copilot-cli"
+    ],
+    "copilotCliReview": true,
+    "copilotCliReviewConfig": {
+      "enabled": true,
+      "model": "gpt-5.4",
+      "promptOnly": true,
+      "disableBuiltinMcps": true,
+      "allowAllTools": false,
+      "availableTools": "",
+      "sessionPolicy": {
+        "reuse": "fresh-per-head",
+        "scope": "current-head",
+        "recordPromptArtifacts": true
+      }
+    },
+    "bodyMarkers": [
+      "Daemon-first local iteration extension"
+    ],
+    "receiptPath": "tests/results/docker-tools-parity/review-loop-receipt.json",
+    "command": [
+      "node",
+      "tools/local-collab/orchestrator/run-phase.mjs",
+      "--phase",
+      "daemon"
+    ],
+    "actionlint": true,
+    "markdownlint": true,
+    "docs": true,
+    "workflow": true,
+    "dotnetCliBuild": true,
+    "codexCliReview": false,
+    "codexCliReviewConfig": {
+      "enabled": false,
+      "distro": "Ubuntu",
+      "executionPlane": "wsl2",
+      "sandbox": "read-only",
+      "model": "",
+      "ephemeral": true
+    },
+    "requirementsVerification": true,
+    "niLinuxReviewSuite": true,
+    "singleViHistory": {
+      "enabled": false,
+      "targetPath": "",
+      "branchRef": "develop",
+      "baselineRef": "",
+      "maxCommitCount": 256
+    }
+  },
+  "turnBudget": {
+    "maxMinutes": 20,
+    "maxToolCalls": 12
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "blockerBackoffMinutes": 10,
+    "rateLimitCooldownMinutes": 30
+  },
+  "codingTurnCommand": [
+    "node",
+    "tools/npm/run-local-typescript.mjs",
+    "--project",
+    "tsconfig.json",
+    "--entry",
+    "tools/priority/run-delivery-turn-with-codex.ts",
+    "--fallback-dist",
+    "dist/tools/priority/run-delivery-turn-with-codex.js"
+  ]
+}

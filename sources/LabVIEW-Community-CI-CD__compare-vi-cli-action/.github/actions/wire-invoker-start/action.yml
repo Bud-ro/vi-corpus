@@ -1,0 +1,22 @@
+name: Wire Invoker (start)
+description: Wire marker for invoker start phase
+inputs:
+  results-dir:
+    description: Results directory
+    required: false
+    default: results/fixture-drift
+runs:
+  using: composite
+  steps:
+  - name: Wire I1
+    shell: pwsh
+    run: |
+      $ErrorActionPreference = 'Stop'
+      $phase = 'I1'
+      $rd = '${{ inputs.results-dir }}'
+      if ([string]::IsNullOrWhiteSpace($rd)) { $rd = 'results/fixture-drift' }
+      $wireDir = Join-Path $rd '_wire'
+      New-Item -ItemType Directory -Force -Path $wireDir | Out-Null
+      $payload = [ordered]@{ phase=$phase; timestamp=(Get-Date).ToUniversalTime().ToString('o'); kind='invoker-start' }
+      $outPath = Join-Path $wireDir ("{0}.json" -f $phase)
+      ($payload | ConvertTo-Json -Depth 4) | Out-File -FilePath $outPath -Encoding utf8

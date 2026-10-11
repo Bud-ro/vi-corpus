@@ -1,0 +1,611 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "commit-integrity/report@v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schemaVersion",
+    "generatedAt",
+    "repository",
+    "scope",
+    "policy",
+    "enforcement",
+    "checks",
+    "summary",
+    "commits",
+    "violations",
+    "issues",
+    "bypass",
+    "result",
+    "errors",
+    "exitCode"
+  ],
+  "properties": {
+    "schema": {
+      "const": "commit-integrity/report@v1"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "pullRequest",
+        "baseSha",
+        "headSha"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "pullRequest": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "baseSha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "headSha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "path",
+        "failOnUnverified",
+        "checks",
+        "sourceResolution",
+        "botIdentityPolicy",
+        "trailerContract",
+        "exceptionGovernance"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "failOnUnverified": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requireBotAllowlist",
+            "requireAuthorAttribution",
+            "requireCommitterAttribution",
+            "requireKnownReasonForUnverified",
+            "requireSignatureVerificationAvailable",
+            "requireUniqueShas",
+            "requireNonEmptyHeadline",
+            "maxHeadlineLength",
+            "requireSignatureMaterialForVerified",
+            "requireRequiredTrailer"
+          ],
+          "properties": {
+            "requireBotAllowlist": {
+              "type": "boolean"
+            },
+            "requireAuthorAttribution": {
+              "type": "boolean"
+            },
+            "requireCommitterAttribution": {
+              "type": "boolean"
+            },
+            "requireKnownReasonForUnverified": {
+              "type": "boolean"
+            },
+            "requireSignatureVerificationAvailable": {
+              "type": "boolean"
+            },
+            "requireUniqueShas": {
+              "type": "boolean"
+            },
+            "requireNonEmptyHeadline": {
+              "type": "boolean"
+            },
+            "maxHeadlineLength": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "requireSignatureMaterialForVerified": {
+              "type": "boolean"
+            },
+            "requireRequiredTrailer": {
+              "type": "boolean"
+            }
+          }
+        },
+        "sourceResolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "botLoginPatternCount",
+            "botEmailPatternCount"
+          ],
+          "properties": {
+            "botLoginPatternCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "botEmailPatternCount": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "botIdentityPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "allowedBotLogins",
+            "allowedBotEmailPatterns"
+          ],
+          "properties": {
+            "allowedBotLogins": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowedBotEmailPatterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "trailerContract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requiredAny"
+          ],
+          "properties": {
+            "requiredAny": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "key",
+                  "valuePattern"
+                ],
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "valuePattern": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "exceptionGovernance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "allowBypass",
+            "requireReasonOwnerExpiry",
+            "remediationLabels",
+            "remediationTitlePrefix",
+            "remediationIssueMarker"
+          ],
+          "properties": {
+            "allowBypass": {
+              "type": "boolean"
+            },
+            "requireReasonOwnerExpiry": {
+              "type": "boolean"
+            },
+            "remediationLabels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "remediationTitlePrefix": {
+              "type": "string"
+            },
+            "remediationIssueMarker": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observeOnly",
+        "blocking",
+        "bypassRequested",
+        "bypassApplied",
+        "governanceFailure"
+      ],
+      "properties": {
+        "observeOnly": {
+          "type": "boolean"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "bypassRequested": {
+          "type": "boolean"
+        },
+        "bypassApplied": {
+          "type": "boolean"
+        },
+        "governanceFailure": {
+          "type": "boolean"
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "enabled",
+          "passed",
+          "failureCount"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "failureCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commitCount",
+        "verifiedCount",
+        "unverifiedCount",
+        "violationCount",
+        "deterministicOrder"
+      ],
+      "properties": {
+        "commitCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "verifiedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unverifiedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "violationCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deterministicOrder": {
+          "const": "sha-asc"
+        }
+      }
+    },
+    "commits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sha",
+          "url",
+          "messageHeadline",
+          "verified",
+          "verificationReason",
+          "verificationSignaturePresent",
+          "verificationPayloadPresent",
+          "authorLogin",
+          "committerLogin",
+          "authorEmail",
+          "committerEmail",
+          "sourceKind"
+          ,
+          "trailers"
+        ],
+        "properties": {
+          "sha": {
+            "type": "string"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "messageHeadline": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "verificationReason": {
+            "type": "string"
+          },
+          "verificationSignaturePresent": {
+            "type": "boolean"
+          },
+          "verificationPayloadPresent": {
+            "type": "boolean"
+          },
+          "authorLogin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "committerLogin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "authorEmail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "committerEmail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sourceKind": {
+            "enum": [
+              "human",
+              "bot"
+            ]
+          },
+          "trailers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "category",
+          "sha",
+          "reason",
+          "messageHeadline",
+          "sourceKind",
+          "authorLogin",
+          "committerLogin"
+        ],
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "messageHeadline": {
+            "type": "string"
+          },
+          "sourceKind": {
+            "enum": [
+              "human",
+              "bot"
+            ]
+          },
+          "authorLogin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "committerLogin": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bypass": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested",
+        "status",
+        "active",
+        "reason",
+        "owner",
+        "expiresAt",
+        "ticket",
+        "labels",
+        "metadataErrors",
+        "remediation"
+      ],
+      "properties": {
+        "requested": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "none",
+            "active",
+            "expired",
+            "invalid"
+          ]
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expiresAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ticket": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadataErrors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remediation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action"
+          ],
+          "properties": {
+            "action": {
+              "enum": [
+                "none",
+                "create",
+                "comment",
+                "error"
+              ]
+            },
+            "issueNumber": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "issueUrl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exitCode": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

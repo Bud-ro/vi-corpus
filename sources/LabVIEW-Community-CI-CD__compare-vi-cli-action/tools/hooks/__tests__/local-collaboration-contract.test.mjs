@@ -1,0 +1,67 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+
+function readRepoFile(relativePath) {
+  return readFileSync(path.join(repoRoot, relativePath), 'utf8');
+}
+
+test('hook core entrypoints route through the local collaboration orchestrator', () => {
+  const preCommit = readRepoFile(path.join('tools', 'hooks', 'core', 'pre-commit.mjs'));
+  const postCommit = readRepoFile(path.join('tools', 'hooks', 'core', 'post-commit.mjs'));
+  const prePush = readRepoFile(path.join('tools', 'hooks', 'core', 'pre-push.mjs'));
+
+  assert.match(preCommit, /local-collab\/orchestrator\/run-phase\.mjs/);
+  assert.match(preCommit, /phase:\s*'pre-commit'/);
+
+  assert.match(postCommit, /local-collab\/orchestrator\/run-phase\.mjs/);
+  assert.match(postCommit, /phase:\s*'post-commit'/);
+
+  assert.match(prePush, /local-collab\/orchestrator\/run-phase\.mjs/);
+  assert.match(prePush, /phase:\s*'pre-push'/);
+});
+
+test('delivery agent policy routes daemon local review through the orchestrator front door', () => {
+  const policy = JSON.parse(readRepoFile(path.join('tools', 'priority', 'delivery-agent.policy.json')));
+  assert.deepEqual(policy.localReviewLoop.command, [
+    'node',
+    'tools/local-collab/orchestrator/run-phase.mjs',
+    '--phase',
+    'daemon'
+  ]);
+  assert.deepEqual(policy.localReviewLoop.reviewProviders, ['copilot-cli']);
+});
+
+test('PrePush-Checks emits orchestration context when invoked through the local collaboration front door', () => {
+  const source = readRepoFile(path.join('tools', 'PrePush-Checks.ps1'));
+  assert.match(source, /LOCAL_COLLAB_ORCHESTRATED/);
+  assert.match(source, /LOCAL_COLLAB_PHASE/);
+  assert.match(source, /local collaboration orchestrator active/);
+});
+
+test('run-phase wires hook phases through agent-review-policy before commit and push finalization', () => {
+  const source = readRepoFile(path.join('tools', 'local-collab', 'orchestrator', 'run-phase.mjs'));
+  assert.match(source, /agent-review-policy/);
+  assert.match(source, /Blocking local collaboration hook failure in/);
+  assert.match(source, /Skipped core pre-push checks because local agent review failed/);
+  assert.match(source, /github-actions-default/);
+  assert.match(source, /simulation/);
+});
+
+test('hooks multi keeps wrapper parity fast by skipping heavy pre-push scenario matrices', () => {
+  const source = readRepoFile(path.join('tools', 'hooks', 'core', 'run-multi.mjs'));
+  assert.match(source, /PREPUSH_SKIP_LEGACY_FIXTURE_CHECKS/);
+  assert.match(source, /PREPUSH_SKIP_NI_IMAGE_FLAG_SCENARIOS/);
+});
+
+test('pre-commit PowerShell validation fails closed when PSScriptAnalyzer is unavailable', () => {
+  const source = readRepoFile(path.join('tools', 'hooks', 'scripts', 'pre-commit.ps1'));
+  assert.match(source, /function Invoke-PSScriptAnalyzerGate/);
+  assert.match(source, /PRECOMMIT_SKIP_PSSCRIPTANALYZER/);
+  assert.match(source, /PSScriptAnalyzer not installed; install the module or rerun with -SkipPSScriptAnalyzer/);
+  assert.doesNotMatch(source, /PSScriptAnalyzer not installed; skipping analyzer step/);
+});

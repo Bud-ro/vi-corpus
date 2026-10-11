@@ -1,0 +1,920 @@
+#Requires -Version 7.0
+<#
+.SYNOPSIS
+  Writes a canonical readiness envelope for Docker Desktop fast-loop runs.
+
+.DESCRIPTION
+  Produces machine-readable and markdown readiness artifacts from the latest
+  fast-loop summary/status files. Includes lane status, step timing, historical
+  medians/p90 baselines, and a deterministic push recommendation.
+#>
+[CmdletBinding()]
+param(
+  [string]$ResultsRoot = 'tests/results/local-parity',
+  [string]$SummaryPath = '',
+  [string]$StatusPath = '',
+  [string]$OutputJsonPath = '',
+  [string]$OutputMarkdownPath = '',
+  [int]$HistoryRuns = 25,
+  [bool]$PrintDifferentiatedDiagnostics = $true,
+  [string]$GitHubOutputPath = $env:GITHUB_OUTPUT,
+  [string]$StepSummaryPath = $env:GITHUB_STEP_SUMMARY
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+Import-Module (Join-Path $PSScriptRoot 'DockerFastLoopDiagnostics.psm1') -Force
+Import-Module (Join-Path $PSScriptRoot 'LabVIEW2026HostPlaneDiagnostics.psm1') -Force
+
+function Resolve-AbsolutePath {
+  param([Parameter(Mandatory)][string]$Path)
+  if ([System.IO.Path]::IsPathRooted($Path)) {
+    return [System.IO.Path]::GetFullPath($Path)
+  }
+  return [System.IO.Path]::GetFullPath((Join-Path (Get-Location).Path $Path))
+}
+
+function Ensure-ParentDirectory {
+  param([Parameter(Mandatory)][string]$Path)
+  $dir = Split-Path -Parent $Path
+  if ($dir -and -not (Test-Path -LiteralPath $dir -PathType Container)) {
+    New-Item -ItemType Directory -Path $dir -Force | Out-Null
+  }
+}
+
+function Convert-ToSecondsString {
+  param([double]$Milliseconds)
+  return ([math]::Round(($Milliseconds / 1000.0), 3)).ToString('0.###')
+}
+
+function Convert-PairSetToText {
+  param(
+    [AllowNull()]$PairSet,
+    [string]$Separator = '+'
+  )
+
+  if ($null -eq $PairSet -or -not $PairSet.PSObject.Properties['pairs']) {
+    return ''
+  }
+
+  return (@($PairSet.pairs | ForEach-Object { '{0}{1}{2}' -f [string]$_.left, $Separator, [string]$_.right }) -join ', ')
+}
+
+function Test-ReadableTextFile {
+  param([AllowNull()][AllowEmptyString()][string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) { return $false }
+  if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $false }
+  try {
+    [void](Get-Content -LiteralPath $Path -Raw -ErrorAction Stop)
+    return $true
+  } catch {
+    return $false
+  }
+}
+
+function Get-HostPlaneSummaryAssessment {
+  param(
+    [AllowNull()]$Summary,
+    [AllowNull()]$HostPlane,
+    [AllowEmptyString()][string]$HostPlaneReportPath
+  )
+
+  $declaredPath = ''
+  if ($Summary -and $Summary.PSObject.Properties['hostPlaneSummaryPath']) {
+    $declaredPath = [string]$Summary.hostPlaneSummaryPath
+  }
+  if ([string]::IsNullOrWhiteSpace($declaredPath) -and $HostPlane -and $HostPlane.PSObject.Properties['summaryPath']) {
+    $declaredPath = [string]$HostPlane.summaryPath
+  }
+  if (-not [string]::IsNullOrWhiteSpace($declaredPath)) {
+    $declaredPath = Resolve-AbsolutePath -Path $declaredPath
+  }
+
+  $derivedPath = ''
+  if (-not [string]::IsNullOrWhiteSpace($HostPlaneReportPath)) {
+    $candidatePath = Join-Path (Split-Path -Parent $HostPlaneReportPath) 'labview-2026-host-plane-summary.md'
+    if (Test-Path -LiteralPath $candidatePath -PathType Leaf) {
+      $derivedPath = Resolve-AbsolutePath -Path $candidatePath
+    }
+  }
+
+  $effectivePath = if (-not [string]::IsNullOrWhiteSpace($declaredPath)) { $declaredPath } else { $derivedPath }
+  $declared = -not [string]::IsNullOrWhiteSpace($declaredPath)
+  $status = 'not-present'
+  $reason = ''
+  $sha256 = ''
+  $readable = $false
+
+  if (-not [string]::IsNullOrWhiteSpace($effectivePath)) {
+    $readable = Test-ReadableTextFile -Path $effectivePath
+    if ($readable) {
+      $status = 'ok'
+      $sha256 = [string](Get-FileHash -LiteralPath $effectivePath -Algorithm SHA256).Hash.ToLowerInvariant()
+    } elseif ($declared) {
+      $status = 'missing'
+      $reason = 'declared-summary-unreadable'
+    } else {
+      $status = 'missing'
+      $reason = 'derived-summary-missing'
+    }
+  }
+
+  return [ordered]@{
+    status = $status
+    reason = $reason
+    path = $effectivePath
+    declared = $declared
+    readable = $readable
+    sha256 = $sha256
+  }
+}
+
+function Get-StepLane {
+  param([Parameter(Mandatory)][string]$StepName)
+  if ($StepName -like 'windows-*') { return 'windows' }
+  if ($StepName -like 'linux-*') { return 'linux' }
+  return ''
+}
+
+function Get-Percentile {
+  param(
+    [Parameter(Mandatory)][double[]]$Values,
+    [ValidateRange(0.0, 1.0)][double]$Percentile
+  )
+  if (-not $Values -or $Values.Count -eq 0) { return 0.0 }
+  $sorted = @($Values | Sort-Object)
+  if ($sorted.Count -eq 1) { return [double]$sorted[0] }
+  $position = ($sorted.Count - 1) * $Percentile
+  $lower = [math]::Floor($position)
+  $upper = [math]::Ceiling($position)
+  if ($lower -eq $upper) { return [double]$sorted[$lower] }
+  $weight = $position - $lower
+  return ([double]$sorted[$lower] * (1.0 - $weight)) + ([double]$sorted[$upper] * $weight)
+}
+
+function Get-Median {
+  param([Parameter(Mandatory)][double[]]$Values)
+  return Get-Percentile -Values $Values -Percentile 0.5
+}
+
+function Get-LatestSummaryPath {
+  param([Parameter(Mandatory)][string]$Root)
+  $files = Get-ChildItem -LiteralPath $Root -Filter 'docker-runtime-fastloop-*.json' -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -match '^docker-runtime-fastloop-\d{14}\.json$' } |
+    Sort-Object LastWriteTimeUtc -Descending
+  $latest = $files | Select-Object -First 1
+  if (-not $latest) { return $null }
+  return $latest.FullName
+}
+
+function Read-JsonOrNull {
+  param([AllowNull()][AllowEmptyString()][string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) { return $null }
+  if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
+  try {
+    return (Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json -Depth 16)
+  } catch {
+    return $null
+  }
+}
+
+function Get-HistoricalStats {
+  param(
+    [Parameter(Mandatory)][string]$Root,
+    [int]$MaxRuns = 25
+  )
+
+  $stepDurations = @{}
+  $laneDurations = @{
+    windows = New-Object System.Collections.Generic.List[double]
+    linux = New-Object System.Collections.Generic.List[double]
+  }
+
+  $files = Get-ChildItem -LiteralPath $Root -Filter 'docker-runtime-fastloop-*.json' -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -match '^docker-runtime-fastloop-\d{14}\.json$' } |
+    Sort-Object LastWriteTimeUtc -Descending |
+    Select-Object -First $MaxRuns
+
+  foreach ($file in @($files)) {
+    $summary = Read-JsonOrNull -Path $file.FullName
+    if (-not $summary -or -not $summary.steps) { continue }
+    $laneSum = @{ windows = 0.0; linux = 0.0 }
+    foreach ($step in @($summary.steps)) {
+      if (-not $step -or -not $step.PSObject -or -not $step.PSObject.Properties['name']) { continue }
+      $stepName = [string]$step.PSObject.Properties['name'].Value
+      $durationMs = 0.0
+      if ($step.PSObject.Properties['durationMs']) {
+        $durationMs = [double]$step.PSObject.Properties['durationMs'].Value
+      }
+      if ($durationMs -le 0) { continue }
+
+      if (-not $stepDurations.ContainsKey($stepName)) {
+        $stepDurations[$stepName] = New-Object System.Collections.Generic.List[double]
+      }
+      $stepDurations[$stepName].Add($durationMs) | Out-Null
+
+      $lane = Get-StepLane -StepName $stepName
+      if (-not $laneSum.ContainsKey($lane)) { continue }
+      $laneSum[$lane] = [double]$laneSum[$lane] + $durationMs
+    }
+
+    foreach ($laneName in @('windows', 'linux')) {
+      if ($laneSum[$laneName] -gt 0) {
+        $laneDurations[$laneName].Add([double]$laneSum[$laneName]) | Out-Null
+      }
+    }
+  }
+
+  $stepStats = @{}
+  foreach ($key in @($stepDurations.Keys)) {
+    $values = @($stepDurations[$key].ToArray())
+    if ($values.Count -eq 0) { continue }
+    $stepStats[$key] = [ordered]@{
+      runs = $values.Count
+      medianMs = [math]::Round((Get-Median -Values $values), 0)
+      p90Ms = [math]::Round((Get-Percentile -Values $values -Percentile 0.9), 0)
+    }
+  }
+
+  $laneStats = [ordered]@{}
+  foreach ($laneName in @('windows', 'linux')) {
+    $values = @($laneDurations[$laneName].ToArray())
+    if ($values.Count -eq 0) {
+      $laneStats[$laneName] = [ordered]@{ runs = 0; medianMs = 0; p90Ms = 0 }
+      continue
+    }
+    $laneStats[$laneName] = [ordered]@{
+      runs = $values.Count
+      medianMs = [math]::Round((Get-Median -Values $values), 0)
+      p90Ms = [math]::Round((Get-Percentile -Values $values -Percentile 0.9), 0)
+    }
+  }
+
+  return [ordered]@{
+    sampleRuns = @($files).Count
+    maxRuns = $MaxRuns
+    lanes = $laneStats
+    steps = $stepStats
+  }
+}
+
+function Get-LaneFromSteps {
+  param([Parameter(Mandatory)][AllowEmptyCollection()][object[]]$Steps)
+
+  $laneState = @{
+    windows = [ordered]@{ total = 0; completed = 0; failed = 0; durationMs = 0; diffDetected = $false; failureClass = 'none' }
+    linux   = [ordered]@{ total = 0; completed = 0; failed = 0; durationMs = 0; diffDetected = $false; failureClass = 'none' }
+  }
+
+  $failurePriority = @{
+    'none' = 0
+    'preflight' = 1
+    'cli/tool' = 2
+    'startup-connectivity' = 3
+    'timeout' = 4
+    'runtime-determinism' = 5
+  }
+
+  foreach ($step in @($Steps)) {
+    if (-not $step -or -not $step.PSObject -or -not $step.PSObject.Properties['name']) { continue }
+    $stepName = [string]$step.PSObject.Properties['name'].Value
+    $laneName = Get-StepLane -StepName $stepName
+    if (-not $laneState.ContainsKey($laneName)) { continue }
+    $laneState[$laneName].total = [int]$laneState[$laneName].total + 1
+    $status = if ($step.PSObject.Properties['status']) { [string]$step.status } else { '' }
+    if ($status -eq 'success') {
+      $laneState[$laneName].completed = [int]$laneState[$laneName].completed + 1
+    } else {
+      $laneState[$laneName].failed = [int]$laneState[$laneName].failed + 1
+    }
+    if ($step.PSObject.Properties['durationMs']) {
+      $laneState[$laneName].durationMs = [int]$laneState[$laneName].durationMs + [int]$step.durationMs
+    }
+
+    if ($step.PSObject.Properties['isDiff'] -and [bool]$step.isDiff) {
+      $laneState[$laneName].diffDetected = $true
+    }
+
+    $candidateFailureClass = if ($step.PSObject.Properties['failureClass']) { [string]$step.failureClass } else { 'none' }
+    if ([string]::IsNullOrWhiteSpace($candidateFailureClass)) {
+      $candidateFailureClass = 'none'
+    }
+    if (-not $failurePriority.ContainsKey($candidateFailureClass)) {
+      $candidateFailureClass = 'cli/tool'
+    }
+    $currentFailureClass = [string]$laneState[$laneName].failureClass
+    if (-not $failurePriority.ContainsKey($currentFailureClass)) {
+      $currentFailureClass = 'none'
+    }
+    if ($failurePriority[$candidateFailureClass] -gt $failurePriority[$currentFailureClass]) {
+      $laneState[$laneName].failureClass = $candidateFailureClass
+    }
+  }
+
+  foreach ($laneName in @('windows', 'linux')) {
+    $lane = $laneState[$laneName]
+    if ($lane.total -eq 0) {
+      $lane.status = 'skipped'
+    } elseif ($lane.failed -gt 0) {
+      $lane.status = 'failure'
+    } else {
+      $lane.status = 'success'
+    }
+    if ($lane.status -eq 'success' -and [string]$lane.failureClass -ne 'none') {
+      $lane.failureClass = 'none'
+    }
+  }
+
+  return $laneState
+}
+
+function Resolve-LaneLifecycle {
+  param(
+    [AllowNull()]$Summary,
+    [Parameter(Mandatory)][hashtable]$LaneState,
+    [Parameter(Mandatory)][AllowEmptyCollection()][object[]]$Steps,
+    [bool]$HardStopTriggered = $false,
+    [AllowEmptyString()][string]$HardStopReason = ''
+  )
+
+  $resolved = [ordered]@{}
+  foreach ($laneName in @('windows', 'linux')) {
+    $laneData = $LaneState[$laneName]
+    $firstStep = @($Steps | Where-Object {
+        $_ -and $_.PSObject -and $_.PSObject.Properties['name'] -and ((Get-StepLane -StepName ([string]$_.name)) -eq $laneName)
+      } | Select-Object -First 1)
+    $lastStep = @($Steps | Where-Object {
+        $_ -and $_.PSObject -and $_.PSObject.Properties['name'] -and ((Get-StepLane -StepName ([string]$_.name)) -eq $laneName)
+      } | Select-Object -Last 1)
+
+    $defaultStopClass = switch ([string]$laneData.status) {
+      'success' { 'completed' }
+      'failure' { if ($HardStopTriggered) { 'hard-stop' } else { 'failure' } }
+      'skipped' { 'none' }
+      default { if ($HardStopTriggered) { 'blocked' } else { 'none' } }
+    }
+    $defaultStopReason = switch ([string]$laneData.status) {
+      'success' { 'lane-complete' }
+      'failure' { if (-not [string]::IsNullOrWhiteSpace($HardStopReason)) { $HardStopReason } else { 'lane-failed' } }
+      'skipped' { '' }
+      default { if (-not [string]::IsNullOrWhiteSpace($HardStopReason)) { $HardStopReason } else { '' } }
+    }
+    $derived = [ordered]@{
+      totalPlannedSteps = [int]$laneData.total
+      executedSteps = [int]$laneData.total
+      started = ([int]$laneData.total -gt 0)
+      completed = ([string]$laneData.status -eq 'success')
+      status = [string]$laneData.status
+      startStep = if ($firstStep.Count -gt 0 -and $firstStep[0].PSObject.Properties['name']) { [string]$firstStep[0].name } else { '' }
+      endStep = if ($lastStep.Count -gt 0 -and $lastStep[0].PSObject.Properties['name']) { [string]$lastStep[0].name } else { '' }
+      startedAt = if ($firstStep.Count -gt 0 -and $firstStep[0].PSObject.Properties['startedAt']) { [string]$firstStep[0].startedAt } else { '' }
+      endedAt = if ($lastStep.Count -gt 0 -and $lastStep[0].PSObject.Properties['finishedAt']) { [string]$lastStep[0].finishedAt } else { '' }
+      hardStopTriggered = ($HardStopTriggered -and [string]$laneData.status -eq 'failure')
+      stopClass = $defaultStopClass
+      stopReason = $defaultStopReason
+    }
+
+    $summaryEntry = $null
+    if ($Summary -and $Summary.PSObject.Properties['laneLifecycle'] -and $Summary.laneLifecycle -and $Summary.laneLifecycle.PSObject.Properties[$laneName]) {
+      $summaryEntry = $Summary.laneLifecycle.$laneName
+    }
+
+    if ($summaryEntry) {
+      $resolved[$laneName] = [ordered]@{
+        totalPlannedSteps = if ($summaryEntry.PSObject.Properties['totalPlannedSteps']) { [int]$summaryEntry.totalPlannedSteps } else { [int]$derived.totalPlannedSteps }
+        executedSteps = if ($summaryEntry.PSObject.Properties['executedSteps']) { [int]$summaryEntry.executedSteps } else { [int]$derived.executedSteps }
+        started = if ($summaryEntry.PSObject.Properties['started']) { [bool]$summaryEntry.started } else { [bool]$derived.started }
+        completed = if ($summaryEntry.PSObject.Properties['completed']) { [bool]$summaryEntry.completed } else { [bool]$derived.completed }
+        status = if ($summaryEntry.PSObject.Properties['status']) { [string]$summaryEntry.status } else { [string]$derived.status }
+        startStep = if ($summaryEntry.PSObject.Properties['startStep']) { [string]$summaryEntry.startStep } else { [string]$derived.startStep }
+        endStep = if ($summaryEntry.PSObject.Properties['endStep']) { [string]$summaryEntry.endStep } else { [string]$derived.endStep }
+        startedAt = if ($summaryEntry.PSObject.Properties['startedAt']) { [string]$summaryEntry.startedAt } else { [string]$derived.startedAt }
+        endedAt = if ($summaryEntry.PSObject.Properties['endedAt']) { [string]$summaryEntry.endedAt } else { [string]$derived.endedAt }
+        hardStopTriggered = if ($summaryEntry.PSObject.Properties['hardStopTriggered']) { [bool]$summaryEntry.hardStopTriggered } else { [bool]$derived.hardStopTriggered }
+        stopClass = if ($summaryEntry.PSObject.Properties['stopClass']) { [string]$summaryEntry.stopClass } else { [string]$derived.stopClass }
+        stopReason = if ($summaryEntry.PSObject.Properties['stopReason']) { [string]$summaryEntry.stopReason } else { [string]$derived.stopReason }
+      }
+    } else {
+      $resolved[$laneName] = $derived
+    }
+  }
+
+  return $resolved
+}
+
+function Get-ClassificationAggregate {
+  param([Parameter(Mandatory)][AllowEmptyCollection()][object[]]$Steps)
+
+  $diffStepCount = 0
+  $diffEvidenceSteps = 0
+  $extractedReportCount = 0
+  $containerExportFailureCount = 0
+  $runtimeFailureCount = 0
+  $toolFailureCount = 0
+  $timeoutFailureCount = 0
+  $preflightFailureCount = 0
+
+  foreach ($step in @($Steps)) {
+    if (-not $step) { continue }
+    if ($step.PSObject.Properties['isDiff'] -and [bool]$step.isDiff) {
+      $diffStepCount++
+    }
+    $diffEvidenceSource = if ($step.PSObject.Properties['diffEvidenceSource']) { [string]$step.diffEvidenceSource } else { '' }
+    if ([string]::Equals($diffEvidenceSource, 'html', [System.StringComparison]::OrdinalIgnoreCase)) {
+      $diffEvidenceSteps++
+    }
+    $extractedReportPath = if ($step.PSObject.Properties['extractedReportPath']) { [string]$step.extractedReportPath } else { '' }
+    if (-not [string]::IsNullOrWhiteSpace($extractedReportPath)) {
+      $extractedReportCount++
+    }
+    $containerExportStatus = if ($step.PSObject.Properties['containerExportStatus']) { [string]$step.containerExportStatus } else { '' }
+    if ($containerExportStatus -in @('failed', 'partial')) {
+      $containerExportFailureCount++
+    }
+    $failureClass = if ($step.PSObject.Properties['failureClass']) { [string]$step.failureClass } else { 'none' }
+    switch ($failureClass) {
+      'runtime-determinism' { $runtimeFailureCount++ }
+      'startup-connectivity' { $toolFailureCount++ }
+      'cli/tool' { $toolFailureCount++ }
+      'timeout' { $timeoutFailureCount++ }
+      'preflight' { $preflightFailureCount++ }
+    }
+  }
+
+  [ordered]@{
+    diffStepCount = [int]$diffStepCount
+    diffEvidenceSteps = [int]$diffEvidenceSteps
+    extractedReportCount = [int]$extractedReportCount
+    containerExportFailureCount = [int]$containerExportFailureCount
+    runtimeFailureCount = [int]$runtimeFailureCount
+    toolFailureCount = [int]$toolFailureCount
+    timeoutFailureCount = [int]$timeoutFailureCount
+    preflightFailureCount = [int]$preflightFailureCount
+  }
+}
+
+function Write-GitHubOutput {
+  param(
+    [Parameter(Mandatory)][string]$Key,
+    [AllowNull()][AllowEmptyString()][string]$Value,
+    [string]$Path
+  )
+  if ([string]::IsNullOrWhiteSpace($Path)) { return }
+  Ensure-ParentDirectory -Path $Path
+  if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+    New-Item -ItemType File -Path $Path -Force | Out-Null
+  }
+  Add-Content -LiteralPath $Path -Value ("{0}={1}" -f $Key, ($Value ?? '')) -Encoding utf8
+}
+
+$resultsRootResolved = Resolve-AbsolutePath -Path $ResultsRoot
+if (-not (Test-Path -LiteralPath $resultsRootResolved -PathType Container)) {
+  New-Item -ItemType Directory -Path $resultsRootResolved -Force | Out-Null
+}
+
+$summaryResolved = if ([string]::IsNullOrWhiteSpace($SummaryPath)) {
+  Get-LatestSummaryPath -Root $resultsRootResolved
+} else {
+  Resolve-AbsolutePath -Path $SummaryPath
+}
+
+$summary = $null
+if ([string]::IsNullOrWhiteSpace($summaryResolved) -or -not (Test-Path -LiteralPath $summaryResolved -PathType Leaf)) {
+  $summaryResolved = ''
+  $summaryMissingReason = "Unable to locate docker fast-loop summary json under: $resultsRootResolved"
+  Write-Warning $summaryMissingReason
+  $summary = [pscustomobject][ordered]@{
+    schema = 'docker-desktop-fast-loop@v1'
+    generatedAt = (Get-Date).ToUniversalTime().ToString('o')
+    status = 'missing-summary'
+    historyScenarioSet = 'none'
+    historyScenarioCount = 0
+    hardStopTriggered = $true
+    hardStopReason = $summaryMissingReason
+    steps = @()
+  }
+}
+
+$statusResolved = if ([string]::IsNullOrWhiteSpace($StatusPath)) {
+  Join-Path $resultsRootResolved 'docker-runtime-fastloop-status.json'
+} else {
+  Resolve-AbsolutePath -Path $StatusPath
+}
+
+$jsonOutResolved = if ([string]::IsNullOrWhiteSpace($OutputJsonPath)) {
+  Join-Path $resultsRootResolved 'docker-runtime-fastloop-readiness.json'
+} else {
+  Resolve-AbsolutePath -Path $OutputJsonPath
+}
+$mdOutResolved = if ([string]::IsNullOrWhiteSpace($OutputMarkdownPath)) {
+  Join-Path $resultsRootResolved 'docker-runtime-fastloop-readiness.md'
+} else {
+  Resolve-AbsolutePath -Path $OutputMarkdownPath
+}
+
+$parsedSummary = $null
+if ($summaryResolved) {
+  $parsedSummary = Read-JsonOrNull -Path $summaryResolved
+}
+if ($parsedSummary) {
+  $summary = $parsedSummary
+} elseif (-not $summary) {
+  $summaryMissingReason = "Unable to parse summary json: $summaryResolved"
+  Write-Warning $summaryMissingReason
+  $summary = [pscustomobject][ordered]@{
+    schema = 'docker-desktop-fast-loop@v1'
+    generatedAt = (Get-Date).ToUniversalTime().ToString('o')
+    status = 'invalid-summary'
+    historyScenarioSet = 'none'
+    historyScenarioCount = 0
+    hardStopTriggered = $true
+    hardStopReason = $summaryMissingReason
+    steps = @()
+  }
+}
+$status = Read-JsonOrNull -Path $statusResolved
+$steps = @()
+if ($summary.steps) {
+  $steps = @($summary.steps)
+}
+
+$lane = Get-LaneFromSteps -Steps $steps
+$historical = Get-HistoricalStats -Root $resultsRootResolved -MaxRuns $HistoryRuns
+$classification = Get-ClassificationAggregate -Steps $steps
+
+$overallStatus = if ($summary.PSObject.Properties['status']) { [string]$summary.status } else { 'unknown' }
+$historyScenarioSet = if ($summary.PSObject.Properties['historyScenarioSet']) { [string]$summary.historyScenarioSet } else { 'none' }
+$historyScenarioCount = 0
+if ($summary.PSObject.Properties['historyScenarioCount']) {
+  $historyScenarioCount = [int]$summary.historyScenarioCount
+}
+$hardStopTriggered = $false
+if ($summary.PSObject.Properties['hardStopTriggered']) {
+  $hardStopTriggered = [bool]$summary.hardStopTriggered
+}
+$hardStopReason = if ($summary.PSObject.Properties['hardStopReason']) { [string]$summary.hardStopReason } else { '' }
+$runtimeManager = $null
+if ($summary.PSObject.Properties['runtimeManager']) {
+  $runtimeManager = $summary.runtimeManager
+}
+$runtimeManagerTransitionCount = 0
+$runtimeManagerDaemonUnavailableCount = 0
+$runtimeManagerParseDefectCount = 0
+if ($runtimeManager) {
+  if ($runtimeManager.PSObject.Properties['transitionCount']) {
+    $runtimeManagerTransitionCount = [int]$runtimeManager.transitionCount
+  }
+  if ($runtimeManager.PSObject.Properties['daemonUnavailableCount']) {
+    $runtimeManagerDaemonUnavailableCount = [int]$runtimeManager.daemonUnavailableCount
+  }
+  if ($runtimeManager.PSObject.Properties['parseDefectCount']) {
+    $runtimeManagerParseDefectCount = [int]$runtimeManager.parseDefectCount
+  }
+}
+$laneLifecycle = Resolve-LaneLifecycle `
+  -Summary $summary `
+  -LaneState $lane `
+  -Steps $steps `
+  -HardStopTriggered:$hardStopTriggered `
+  -HardStopReason $hardStopReason
+$statusRecommendation = ''
+$etaSeconds = 0.0
+if ($status -and $status.PSObject.Properties['telemetry'] -and $status.telemetry) {
+  if ($status.telemetry.PSObject.Properties['pushRecommendation']) {
+    $statusRecommendation = [string]$status.telemetry.pushRecommendation
+  }
+  if ($status.telemetry.PSObject.Properties['etaSeconds']) {
+    $etaSeconds = [double]$status.telemetry.etaSeconds
+  }
+}
+$blockingFailureCount = [int]$classification.runtimeFailureCount + [int]$classification.toolFailureCount + [int]$classification.timeoutFailureCount + [int]$classification.preflightFailureCount
+$allBlockingLanesSuccess = ($lane.windows.status -in @('success', 'skipped')) -and ($lane.linux.status -in @('success', 'skipped'))
+$verdict = if ($blockingFailureCount -eq 0 -and -not $hardStopTriggered -and $allBlockingLanesSuccess) { 'ready-to-push' } else { 'not-ready' }
+$statusRecommendation = if ($verdict -eq 'ready-to-push') { 'push' } else { 'do-not-push' }
+
+$totalDurationMs = 0
+foreach ($step in @($steps)) {
+  if ($step.PSObject.Properties['durationMs']) {
+    $totalDurationMs += [int]$step.durationMs
+  }
+}
+$diffLaneCount = 0
+if ([bool]$lane.windows.diffDetected) { $diffLaneCount++ }
+if ([bool]$lane.linux.diffDetected) { $diffLaneCount++ }
+
+$hostPlane = if ($summary.PSObject.Properties['hostPlane']) { $summary.hostPlane } else { $null }
+$hostPlaneReportPath = if ($summary.PSObject.Properties['hostPlaneReportPath']) { [string]$summary.hostPlaneReportPath } else { '' }
+if ($null -eq $hostPlane -and -not [string]::IsNullOrWhiteSpace($hostPlaneReportPath)) {
+  $hostPlane = Read-JsonOrNull -Path $hostPlaneReportPath
+}
+$hostPlaneSummary = Get-HostPlaneSummaryAssessment -Summary $summary -HostPlane $hostPlane -HostPlaneReportPath $hostPlaneReportPath
+$hostPlanes = if ($summary.PSObject.Properties['hostPlanes']) {
+  $summary.hostPlanes
+} elseif ($hostPlane -and $hostPlane.PSObject.Properties['native'] -and $hostPlane.native -and $hostPlane.native.PSObject.Properties['planes']) {
+  $hostPlane.native.planes
+} else {
+  $null
+}
+$hostExecutionPolicy = if ($summary.PSObject.Properties['hostExecutionPolicy']) {
+  $summary.hostExecutionPolicy
+} elseif ($hostPlane -and $hostPlane.PSObject.Properties['executionPolicy']) {
+  $hostPlane.executionPolicy
+} else {
+  $null
+}
+$dockerDesktopPlanes = Get-DockerFastLoopDockerDesktopPlaneProjection -ContextObject $summary -HostExecutionPolicy $hostExecutionPolicy
+$hostRamBudget = if ($summary.PSObject.Properties['hostRamBudget']) { $summary.hostRamBudget } else { $null }
+if ($hostPlaneSummary.declared -and [string]$hostPlaneSummary.status -ne 'ok') {
+  $verdict = 'not-ready'
+  $statusRecommendation = 'do-not-push'
+}
+
+$readiness = [ordered]@{
+  schema = 'vi-history/docker-fast-loop-readiness@v1'
+  loopLabel = Get-DockerFastLoopLabel -ContextObject $summary
+  generatedAt = (Get-Date).ToUniversalTime().ToString('o')
+  diffStepCount = [int]$classification.diffStepCount
+  diffEvidenceSteps = [int]$classification.diffEvidenceSteps
+  diffLaneCount = [int]$diffLaneCount
+  extractedReportCount = [int]$classification.extractedReportCount
+  containerExportFailureCount = [int]$classification.containerExportFailureCount
+  runtimeFailureCount = [int]$classification.runtimeFailureCount
+  toolFailureCount = [int]$classification.toolFailureCount
+  hardStopTriggered = [bool]$hardStopTriggered
+  hardStopReason = $hardStopReason
+  runtimeManagerTransitionCount = [int]$runtimeManagerTransitionCount
+  runtimeManagerDaemonUnavailableCount = [int]$runtimeManagerDaemonUnavailableCount
+  runtimeManagerParseDefectCount = [int]$runtimeManagerParseDefectCount
+  runtimeManager = $runtimeManager
+  source = [ordered]@{
+    summaryPath = $summaryResolved
+    statusPath = if (Test-Path -LiteralPath $statusResolved -PathType Leaf) { $statusResolved } else { '' }
+    resultsRoot = $resultsRootResolved
+    hostPlaneReportPath = $hostPlaneReportPath
+    hostPlaneSummaryPath = [string]$hostPlaneSummary.path
+  }
+  verdict = $verdict
+  recommendation = $statusRecommendation
+  run = [ordered]@{
+    status = $overallStatus
+    historyScenarioSet = $historyScenarioSet
+    historyScenarioCount = [int]$historyScenarioCount
+    hardStopTriggered = [bool]$hardStopTriggered
+    hardStopReason = $hardStopReason
+    runtimeManagerTransitionCount = [int]$runtimeManagerTransitionCount
+    runtimeManagerDaemonUnavailableCount = [int]$runtimeManagerDaemonUnavailableCount
+    runtimeManagerParseDefectCount = [int]$runtimeManagerParseDefectCount
+    diffStepCount = [int]$classification.diffStepCount
+    diffEvidenceSteps = [int]$classification.diffEvidenceSteps
+    extractedReportCount = [int]$classification.extractedReportCount
+    containerExportFailureCount = [int]$classification.containerExportFailureCount
+    runtimeFailureCount = [int]$classification.runtimeFailureCount
+    toolFailureCount = [int]$classification.toolFailureCount
+    timeoutFailureCount = [int]$classification.timeoutFailureCount
+    preflightFailureCount = [int]$classification.preflightFailureCount
+    completedSteps = @($steps).Count
+    totalDurationMs = [int]$totalDurationMs
+    totalDurationSeconds = [math]::Round(($totalDurationMs / 1000.0), 3)
+    etaSeconds = [math]::Round($etaSeconds, 1)
+  }
+  laneLifecycle = $laneLifecycle
+  lanes = [ordered]@{
+    windows = [ordered]@{
+      status = [string]$lane.windows.status
+      diffDetected = [bool]$lane.windows.diffDetected
+      failureClass = [string]$lane.windows.failureClass
+      completed = [int]$lane.windows.completed
+      total = [int]$lane.windows.total
+      durationMs = [int]$lane.windows.durationMs
+      durationSeconds = [math]::Round(($lane.windows.durationMs / 1000.0), 3)
+    }
+    linux = [ordered]@{
+      status = [string]$lane.linux.status
+      diffDetected = [bool]$lane.linux.diffDetected
+      failureClass = [string]$lane.linux.failureClass
+      completed = [int]$lane.linux.completed
+      total = [int]$lane.linux.total
+      durationMs = [int]$lane.linux.durationMs
+      durationSeconds = [math]::Round(($lane.linux.durationMs / 1000.0), 3)
+    }
+  }
+  history = $historical
+  hostPlane = $hostPlane
+  hostPlaneSummary = $hostPlaneSummary
+  hostRamBudget = $hostRamBudget
+  hostPlanes = $hostPlanes
+  hostExecutionPolicy = $hostExecutionPolicy
+  dockerDesktopPlanes = $dockerDesktopPlanes
+  steps = @($steps)
+}
+
+Ensure-ParentDirectory -Path $jsonOutResolved
+$readiness | ConvertTo-Json -Depth 16 | Set-Content -LiteralPath $jsonOutResolved -Encoding utf8
+
+$mdLines = New-Object System.Collections.Generic.List[string]
+$mdLines.Add('### Docker Fast-Loop Readiness') | Out-Null
+$mdLines.Add('') | Out-Null
+$mdLines.Add('| Metric | Value |') | Out-Null
+$mdLines.Add('| --- | --- |') | Out-Null
+$mdLines.Add(('| Verdict | `{0}` |' -f $verdict)) | Out-Null
+$mdLines.Add(('| Recommendation | `{0}` |' -f $statusRecommendation)) | Out-Null
+$mdLines.Add(('| Run Status | `{0}` |' -f $overallStatus)) | Out-Null
+$mdLines.Add(('| History Scenario Set | `{0}` |' -f $historyScenarioSet)) | Out-Null
+$mdLines.Add(('| History Scenario Count | `{0}` |' -f $historyScenarioCount)) | Out-Null
+$mdLines.Add(('| Hard Stop | `{0}` |' -f $hardStopTriggered)) | Out-Null
+if (-not [string]::IsNullOrWhiteSpace($hardStopReason)) {
+  $mdLines.Add(('| Hard Stop Reason | `{0}` |' -f $hardStopReason)) | Out-Null
+}
+$mdLines.Add(('| Diff Step Count | `{0}` |' -f $readiness.diffStepCount)) | Out-Null
+$mdLines.Add(('| Diff Evidence Steps | `{0}` |' -f $readiness.diffEvidenceSteps)) | Out-Null
+$mdLines.Add(('| Diff Lane Count | `{0}` |' -f $readiness.diffLaneCount)) | Out-Null
+$mdLines.Add(('| Extracted Report Count | `{0}` |' -f $readiness.extractedReportCount)) | Out-Null
+$mdLines.Add(('| Container Export Failure Count | `{0}` |' -f $readiness.containerExportFailureCount)) | Out-Null
+$mdLines.Add(('| Runtime Failure Count | `{0}` |' -f $readiness.runtimeFailureCount)) | Out-Null
+$mdLines.Add(('| Tool Failure Count | `{0}` |' -f $readiness.toolFailureCount)) | Out-Null
+$mdLines.Add(('| Runtime Manager Transitions | `{0}` |' -f $readiness.runtimeManagerTransitionCount)) | Out-Null
+$mdLines.Add(('| Runtime Manager Daemon-Unavailable Count | `{0}` |' -f $readiness.runtimeManagerDaemonUnavailableCount)) | Out-Null
+$mdLines.Add(('| Runtime Manager Parse-Defect Count | `{0}` |' -f $readiness.runtimeManagerParseDefectCount)) | Out-Null
+if (-not [string]::IsNullOrWhiteSpace($hostPlaneReportPath)) {
+  $mdLines.Add(('| Host Plane Report | `{0}` |' -f $hostPlaneReportPath)) | Out-Null
+}
+if (-not [string]::IsNullOrWhiteSpace([string]$hostPlaneSummary.path)) {
+  $mdLines.Add(('| Host Plane Summary | `{0}` |' -f [string]$hostPlaneSummary.path)) | Out-Null
+}
+if ([string]$hostPlaneSummary.status -ne 'not-present') {
+  $mdLines.Add(('| Host Plane Summary Status | `{0}` |' -f [string]$hostPlaneSummary.status)) | Out-Null
+}
+if (-not [string]::IsNullOrWhiteSpace([string]$hostPlaneSummary.sha256)) {
+  $mdLines.Add(('| Host Plane Summary SHA-256 | `{0}` |' -f [string]$hostPlaneSummary.sha256)) | Out-Null
+}
+if (-not [string]::IsNullOrWhiteSpace([string]$hostPlaneSummary.reason)) {
+  $mdLines.Add(('| Host Plane Summary Reason | `{0}` |' -f [string]$hostPlaneSummary.reason)) | Out-Null
+}
+if ($hostRamBudget) {
+  if ($hostRamBudget.PSObject.Properties['path'] -and -not [string]::IsNullOrWhiteSpace([string]$hostRamBudget.path)) {
+    $mdLines.Add(('| Host RAM Budget Path | `{0}` |' -f [string]$hostRamBudget.path)) | Out-Null
+  }
+  $mdLines.Add(('| Host RAM Budget Target Profile | `{0}` |' -f [string]$hostRamBudget.targetProfile)) | Out-Null
+  $mdLines.Add(('| Host RAM Budget Requested Parallelism | `{0}` |' -f [int]$hostRamBudget.requestedParallelism)) | Out-Null
+  $mdLines.Add(('| Host RAM Budget Recommended Parallelism | `{0}` |' -f [int]$hostRamBudget.recommendedParallelism)) | Out-Null
+  $mdLines.Add(('| Host RAM Budget Actual Parallelism | `{0}` |' -f [int]$hostRamBudget.actualParallelism)) | Out-Null
+  $mdLines.Add(('| Host RAM Budget Reason | `{0}` |' -f [string]$hostRamBudget.reason)) | Out-Null
+}
+if ($hostPlane -and $hostPlane.PSObject.Properties['host'] -and $hostPlane.host -and $hostPlane.host.PSObject.Properties['os']) {
+  $mdLines.Add(('| Host OS | `{0}` |' -f [string]$hostPlane.host.os)) | Out-Null
+}
+if ($hostPlane -and $hostPlane.PSObject.Properties['runner'] -and $hostPlane.runner) {
+  $mdLines.Add(('| Host Is Runner | `{0}` |' -f [bool]$hostPlane.runner.hostIsRunner)) | Out-Null
+  $mdLines.Add(('| Runner Name | `{0}` |' -f [string]$hostPlane.runner.runnerName)) | Out-Null
+  $mdLines.Add(('| GitHub Actions Runner | `{0}` |' -f [bool]$hostPlane.runner.githubActions)) | Out-Null
+}
+if ($hostPlane -and $hostPlane.PSObject.Properties['docker'] -and $hostPlane.docker -and $hostPlane.docker.PSObject.Properties['operatorLabels']) {
+  $dockerLabels = @($hostPlane.docker.operatorLabels | ForEach-Object { [string]$_ }) -join ', '
+  if (-not [string]::IsNullOrWhiteSpace($dockerLabels)) {
+    $mdLines.Add(('| Docker Operator Labels | `{0}` |' -f $dockerLabels)) | Out-Null
+  }
+}
+if ($hostPlanes -and $hostPlanes.PSObject.Properties['x64']) {
+  $mdLines.Add(('| Native 64 Plane | `{0}` |' -f [string]$hostPlanes.x64.status)) | Out-Null
+}
+if ($hostPlanes -and $hostPlanes.PSObject.Properties['x32']) {
+  $mdLines.Add(('| Native 32 Plane | `{0}` |' -f [string]$hostPlanes.x32.status)) | Out-Null
+}
+if ($hostExecutionPolicy -and $hostExecutionPolicy.PSObject.Properties['mutuallyExclusivePairs']) {
+  $exclusivePairs = Convert-PairSetToText -PairSet $hostExecutionPolicy.mutuallyExclusivePairs -Separator '<->'
+  if (-not [string]::IsNullOrWhiteSpace($exclusivePairs)) {
+    $mdLines.Add(('| Mutually Exclusive Pairs | `{0}` |' -f $exclusivePairs)) | Out-Null
+  }
+}
+if ($hostExecutionPolicy -and $hostExecutionPolicy.PSObject.Properties['provenParallelPairs']) {
+  $provenPairs = Convert-PairSetToText -PairSet $hostExecutionPolicy.provenParallelPairs
+  if (-not [string]::IsNullOrWhiteSpace($provenPairs)) {
+    $mdLines.Add(('| Proven Parallel Pairs | `{0}` |' -f $provenPairs)) | Out-Null
+  }
+}
+if ($hostExecutionPolicy -and $hostExecutionPolicy.PSObject.Properties['candidateParallelPairs'] -and $hostExecutionPolicy.candidateParallelPairs) {
+  $candidatePairs = Convert-PairSetToText -PairSet $hostExecutionPolicy.candidateParallelPairs
+  if (-not [string]::IsNullOrWhiteSpace($candidatePairs)) {
+    $mdLines.Add(('| Candidate Parallel Pairs | `{0}` |' -f $candidatePairs)) | Out-Null
+  }
+}
+if ($dockerDesktopPlanes) {
+  $requestedDockerPlanes = @($dockerDesktopPlanes.requestedPlanes | ForEach-Object { [string]$_ }) -join ', '
+  if (-not [string]::IsNullOrWhiteSpace($requestedDockerPlanes)) {
+    $mdLines.Add(('| Requested Docker Planes | `{0}` |' -f $requestedDockerPlanes)) | Out-Null
+  }
+  $mdLines.Add(('| Docker Exclusivity Required | `{0}` |' -f [bool]$dockerDesktopPlanes.exclusiveRequired)) | Out-Null
+  $mdLines.Add(('| Docker Exclusivity Satisfied | `{0}` |' -f [bool]$dockerDesktopPlanes.exclusiveSatisfied)) | Out-Null
+  foreach ($laneName in @('windows', 'linux')) {
+    $planeRecord = $dockerDesktopPlanes.planes.$laneName
+    if ($null -eq $planeRecord) {
+      continue
+    }
+    $mdLines.Add(('| Docker Plane ({0}) | `{1}` / `{2}` / `{3}` / `{4}` |' -f `
+        $laneName, `
+        [string]$planeRecord.status, `
+        $(if ([string]::IsNullOrWhiteSpace([string]$planeRecord.context)) { '-' } else { [string]$planeRecord.context }), `
+        [string]$planeRecord.expectedOsType, `
+        $(if ([string]::IsNullOrWhiteSpace([string]$planeRecord.observedOsType)) { '-' } else { [string]$planeRecord.observedOsType }))) | Out-Null
+  }
+}
+$mdLines.Add(('| Timeout Failure Count | `{0}` |' -f $readiness.run.timeoutFailureCount)) | Out-Null
+$mdLines.Add(('| Preflight Failure Count | `{0}` |' -f $readiness.run.preflightFailureCount)) | Out-Null
+$mdLines.Add(('| Completed Steps | `{0}` |' -f @($steps).Count)) | Out-Null
+$mdLines.Add(('| Total Duration (s) | `{0}` |' -f (Convert-ToSecondsString -Milliseconds $totalDurationMs))) | Out-Null
+$mdLines.Add(('| ETA (s) | `{0}` |' -f ([math]::Round($etaSeconds, 1)))) | Out-Null
+$mdLines.Add(('| Readiness JSON | `{0}` |' -f $jsonOutResolved)) | Out-Null
+$mdLines.Add('') | Out-Null
+
+$mdLines.Add('| Lane | Status | Diff Detected | Failure Class | Stop Class | Start Step | End Step | Completed | Total | Duration (s) | Hist Median (s) | Hist P90 (s) |') | Out-Null
+$mdLines.Add('| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |') | Out-Null
+foreach ($laneName in @('windows', 'linux')) {
+  $laneData = $readiness.lanes.$laneName
+  $laneTelemetry = $readiness.laneLifecycle.$laneName
+  $histLane = $historical.lanes.$laneName
+  $startStepValue = if ($laneTelemetry -and $laneTelemetry.PSObject.Properties['startStep'] -and -not [string]::IsNullOrWhiteSpace([string]$laneTelemetry.startStep)) { [string]$laneTelemetry.startStep } else { '-' }
+  $endStepValue = if ($laneTelemetry -and $laneTelemetry.PSObject.Properties['endStep'] -and -not [string]::IsNullOrWhiteSpace([string]$laneTelemetry.endStep)) { [string]$laneTelemetry.endStep } else { '-' }
+  $stopClassValue = if ($laneTelemetry -and $laneTelemetry.PSObject.Properties['stopClass'] -and -not [string]::IsNullOrWhiteSpace([string]$laneTelemetry.stopClass)) { [string]$laneTelemetry.stopClass } else { 'none' }
+  $mdLines.Add(('| {0} | `{1}` | `{2}` | `{3}` | `{4}` | `{5}` | `{6}` | {7} | {8} | {9} | {10} | {11} |' -f `
+      $laneName, `
+      $laneData.status, `
+      $laneData.diffDetected, `
+      $laneData.failureClass, `
+      $stopClassValue, `
+      $startStepValue, `
+      $endStepValue, `
+      $laneData.completed, `
+      $laneData.total, `
+      (Convert-ToSecondsString -Milliseconds ([double]$laneData.durationMs)), `
+      (Convert-ToSecondsString -Milliseconds ([double]$histLane.medianMs)), `
+      (Convert-ToSecondsString -Milliseconds ([double]$histLane.p90Ms)))) | Out-Null
+  if ($laneTelemetry -and $laneTelemetry.PSObject.Properties['stopReason'] -and -not [string]::IsNullOrWhiteSpace([string]$laneTelemetry.stopReason)) {
+    $mdLines.Add(("| | | | | stop reason | `{0}` | | | | | | |" -f [string]$laneTelemetry.stopReason)) | Out-Null
+  }
+}
+$mdLines.Add('') | Out-Null
+
+$mdLines.Add('| Step | Lane | Status | Exit | Result Class | Gate | Diff | Diff Source | Diff Images | Export | Failure Class | Duration (s) | Hist Median (s) | Hist P90 (s) |') | Out-Null
+$mdLines.Add('| --- | --- | --- | ---: | --- | --- | --- | --- | ---: | --- | --- | ---: | ---: | ---: |') | Out-Null
+foreach ($step in @($steps)) {
+  $stepName = if ($step.PSObject.Properties['name']) { [string]$step.name } else { '<unknown>' }
+  $laneName = Get-StepLane -StepName $stepName
+  if ([string]::IsNullOrWhiteSpace($laneName)) { $laneName = '-' }
+  $statusValue = if ($step.PSObject.Properties['status']) { [string]$step.status } else { 'unknown' }
+  $exitCodeValue = if ($step.PSObject.Properties['exitCode']) { [string]$step.exitCode } else { '' }
+  $resultClassValue = if ($step.PSObject.Properties['resultClass']) { [string]$step.resultClass } else { '' }
+  $gateValue = if ($step.PSObject.Properties['gateOutcome']) { [string]$step.gateOutcome } else { '' }
+  $isDiffValue = if ($step.PSObject.Properties['isDiff']) { [bool]$step.isDiff } else { $false }
+  $diffEvidenceSourceValue = if ($step.PSObject.Properties['diffEvidenceSource']) { [string]$step.diffEvidenceSource } else { '' }
+  if ([string]::IsNullOrWhiteSpace($diffEvidenceSourceValue)) { $diffEvidenceSourceValue = '-' }
+  $diffImageCountValue = if ($step.PSObject.Properties['diffImageCount']) { [int]$step.diffImageCount } else { 0 }
+  $containerExportStatusValue = if ($step.PSObject.Properties['containerExportStatus']) { [string]$step.containerExportStatus } else { '' }
+  if ([string]::IsNullOrWhiteSpace($containerExportStatusValue)) { $containerExportStatusValue = '-' }
+  $failureClassValue = if ($step.PSObject.Properties['failureClass']) { [string]$step.failureClass } else { '' }
+  $durationMs = if ($step.PSObject.Properties['durationMs']) { [double]$step.durationMs } else { 0.0 }
+  $histStep = if ($historical.steps.ContainsKey($stepName)) { $historical.steps[$stepName] } else { [ordered]@{ medianMs = 0; p90Ms = 0 } }
+  $mdLines.Add(('| `{0}` | {1} | `{2}` | `{3}` | `{4}` | `{5}` | `{6}` | `{7}` | `{8}` | `{9}` | `{10}` | {11} | {12} | {13} |' -f `
+      $stepName, `
+      $laneName, `
+      $statusValue, `
+      $exitCodeValue, `
+      $resultClassValue, `
+      $gateValue, `
+      $isDiffValue, `
+      $diffEvidenceSourceValue, `
+      $diffImageCountValue, `
+      $containerExportStatusValue, `
+      $failureClassValue, `
+      (Convert-ToSecondsString -Milliseconds $durationMs), `
+      (Convert-ToSecondsString -Milliseconds ([double]$histStep.medianMs)), `
+      (Convert-ToSecondsString -Milliseconds ([double]$histStep.p90Ms)))) | Out-Null
+}
+
+Ensure-ParentDirectory -Path $mdOutResolved
+$mdLines | Set-Content -LiteralPath $mdOutResolved -Encoding utf8
+
+if (-not [string]::IsNullOrWhiteSpace($StepSummaryPath)) {
+  Ensure-ParentDirectory -Path $StepSummaryPath
+  $mdLines | Add-Content -LiteralPath $StepSummaryPath -Encoding utf8
+}
+
+Write-GitHubOutput -Key 'readiness-json-path' -Value $jsonOutResolved -Path $GitHubOutputPath
+Write-GitHubOutput -Key 'readiness-markdown-path' -Value $mdOutResolved -Path $GitHubOutputPath
+Write-GitHubOutput -Key 'readiness-verdict' -Value $verdict -Path $GitHubOutputPath
+Write-GitHubOutput -Key 'readiness-recommendation' -Value $statusRecommendation -Path $GitHubOutputPath
+
+$loopPrefix = Get-DockerFastLoopLogPrefix -ContextObject $readiness
+Write-Host ("{0}[readiness] verdict={1} recommendation={2}" -f $loopPrefix, $verdict, $statusRecommendation)
+Write-Host ("{0}[readiness] json={1}" -f $loopPrefix, $jsonOutResolved)
+Write-Host ("{0}[readiness] markdown={1}" -f $loopPrefix, $mdOutResolved)
+if ($PrintDifferentiatedDiagnostics) {
+  if ($hostPlane) {
+    Write-LabVIEW2026HostPlaneConsole -Report $hostPlane
+  }
+  if ($dockerDesktopPlanes) {
+    Write-DockerFastLoopDockerDesktopPlaneDiagnostics -ContextObject $readiness | Out-Null
+  }
+  Write-DockerFastLoopDifferentiatedDiagnostics -Readiness $readiness -ResultsRoot $resultsRootResolved | Out-Null
+}
+Write-Output $jsonOutResolved

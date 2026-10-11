@@ -1,0 +1,336 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://labview-community-ci-cd.github.io/compare-vi-cli-action/schemas/delivery-agent-policy-v1.schema.json",
+  "title": "Delivery Agent Policy v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "backlogAuthority",
+    "implementationRemote",
+    "copilotReviewStrategy",
+    "autoSlice",
+    "autoMerge",
+    "maxActiveCodingLanes",
+    "allowPolicyMutations",
+    "allowReleaseAdmin",
+    "stopWhenNoOpenEpics"
+  ],
+  "properties": {
+    "schema": { "const": "priority/delivery-agent-policy@v1" },
+    "backlogAuthority": { "const": "issues" },
+    "implementationRemote": { "enum": ["origin", "personal", "upstream"] },
+    "copilotReviewStrategy": { "enum": ["draft-only-explicit"] },
+    "autoSlice": { "type": "boolean" },
+    "autoMerge": { "type": "boolean" },
+    "maxActiveCodingLanes": { "type": "integer", "minimum": 1 },
+    "allowPolicyMutations": { "type": "boolean" },
+    "allowReleaseAdmin": { "type": "boolean" },
+    "stopWhenNoOpenEpics": { "type": "boolean" },
+    "capitalFabric": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "schema": { "const": "priority/capital-deployment-fabric@v1" },
+        "capacityMode": { "enum": ["fixed-target", "host-ram-adaptive"] },
+        "maxLogicalLaneCount": { "type": "integer", "minimum": 1 },
+        "logicalLaneAllocationFloorRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reservedLaneCount": { "type": "integer", "minimum": 0 },
+        "hostRamBudgetPath": { "type": "string" },
+        "logicalLaneCatalog": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 },
+              "seededOrdinal": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "specialtyLanes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "enabled", "purpose", "preferredExecutionPlane", "allocationMode"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "enabled": { "type": "boolean" },
+              "primaryRecordedResponsibility": { "type": "string", "minLength": 1 },
+              "maxInstanceCount": { "type": "integer", "minimum": 1 },
+              "purpose": { "type": "string", "minLength": 1 },
+              "preferredExecutionPlane": { "type": "string", "minLength": 1 },
+              "preferredContainerImage": { "type": "string", "minLength": 1 },
+              "allocationMode": { "enum": ["opportunistic", "reserved", "manual-only"] }
+            }
+          }
+        }
+      }
+    },
+    "storageRoots": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "worktrees": {
+          "$ref": "#/$defs/storageRootEntry"
+        },
+        "artifacts": {
+          "$ref": "#/$defs/storageRootEntry"
+        }
+      }
+    },
+    "workerPool": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "targetSlotCount": { "type": "integer", "minimum": 1 },
+        "prewarmSlotCount": { "type": "integer", "minimum": 0 },
+        "releaseWaitingStates": {
+          "type": "array",
+          "items": {
+            "enum": ["waiting-ci", "waiting-review", "ready-merge"]
+          }
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "kind", "capabilities", "executionPlane", "assignmentMode", "enabled", "slotCount"],
+            "properties": {
+              "id": { "type": "string" },
+              "kind": {
+                "enum": [
+                  "local-codex",
+                  "hosted-github-workflow",
+                  "remote-copilot-lane",
+                  "local-shadow-native"
+                ]
+              },
+              "capabilities": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": [
+                  "executionPlane",
+                  "assignmentMode",
+                  "dispatchSurface",
+                  "completionMode",
+                  "requiresLocalCheckout"
+                ],
+                "properties": {
+                  "executionPlane": { "enum": ["local", "hosted", "remote", "local-shadow"] },
+                  "assignmentMode": {
+                    "enum": [
+                      "interactive-coding",
+                      "async-validation",
+                      "remote-implementation",
+                      "shadow-validation"
+                    ]
+                  },
+                  "dispatchSurface": {
+                    "enum": ["runtime-harness", "github-actions", "remote-copilot", "native-shadow"]
+                  },
+                  "completionMode": {
+                    "enum": ["sync", "async"]
+                  },
+                  "requiresLocalCheckout": { "type": "boolean" }
+                }
+              },
+              "executionPlane": { "enum": ["local", "hosted", "remote", "local-shadow"] },
+              "assignmentMode": {
+                "enum": [
+                  "interactive-coding",
+                  "async-validation",
+                  "remote-implementation",
+                  "shadow-validation"
+                ]
+              },
+              "dispatchSurface": {
+                "enum": ["runtime-harness", "github-actions", "remote-copilot", "native-shadow"]
+              },
+              "completionMode": {
+                "enum": ["sync", "async"]
+              },
+              "requiresLocalCheckout": { "type": "boolean" },
+              "enabled": { "type": "boolean" },
+              "slotCount": { "type": "integer", "minimum": 1 }
+            }
+          }
+        }
+      }
+    },
+    "templateAgentVerificationLane": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "reservedSlotCount": { "type": "integer", "minimum": 0 },
+        "minimumImplementationSlots": { "type": "integer", "minimum": 0 },
+        "executionMode": { "enum": ["hosted-first", "hosted-only", "manual-hosted"] },
+        "targetRepository": { "type": "string" },
+        "consumerRailBranch": { "type": "string" },
+        "reportPath": { "type": "string" },
+        "authoritativeReportPath": { "type": "string" },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "maxVerificationLagIterations": { "type": "integer", "minimum": 0 },
+            "maxHostedDurationMinutes": { "type": "integer", "minimum": 0 },
+            "requireMachineReadableRecommendation": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "hostIsolation": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "mode": { "enum": ["hard-cutover", "phased-fallback", "guard-only"] },
+        "wslDistro": { "type": "string" },
+        "runnerServicePolicy": { "enum": ["stop-all-actions-runner-services", "detect-only", "best-effort"] },
+        "restoreRunnerServicesOnExit": { "type": "boolean" },
+        "pauseOnFingerprintDrift": { "type": "boolean" }
+      }
+    },
+    "dockerRuntime": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "provider": { "enum": ["native-wsl", "desktop"] },
+        "dockerHost": { "type": "string" },
+        "expectedOsType": { "enum": ["linux", "windows"] },
+        "expectedContext": { "type": "string" },
+        "manageDockerEngine": { "type": "boolean" },
+        "allowHostEngineMutation": { "type": "boolean" }
+      }
+    },
+    "concurrentLaneDispatch": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "historyScenarioSet": { "enum": ["none", "smoke", "history-core"] },
+        "sampleIdStrategy": { "enum": ["auto", "explicit"] },
+        "sampleId": { "type": "string" },
+        "allowForkMode": { "enum": ["auto", "always", "never"] },
+        "pushMissing": { "type": "boolean" },
+        "forcePushOk": { "type": "boolean" },
+        "allowNonCanonicalViHistory": { "type": "boolean" },
+        "allowNonCanonicalHistoryCore": { "type": "boolean" }
+      }
+    },
+    "localReviewLoop": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "reviewProviders": {
+          "type": "array",
+          "items": {
+            "enum": ["copilot-cli", "codex-cli", "simulation", "ollama"]
+          }
+        },
+        "copilotCliReview": { "type": "boolean" },
+        "copilotCliReviewConfig": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "model": { "type": "string" },
+            "promptOnly": { "type": "boolean" },
+            "disableBuiltinMcps": { "type": "boolean" },
+            "allowAllTools": { "type": "boolean" },
+            "availableTools": { "type": "string" },
+            "sessionPolicy": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "reuse": { "enum": ["fresh-per-head", "fresh-per-invocation"] },
+                "scope": { "enum": ["current-head", "current-diff"] },
+                "recordPromptArtifacts": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "bodyMarkers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "receiptPath": { "type": "string" },
+        "command": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "actionlint": { "type": "boolean" },
+        "markdownlint": { "type": "boolean" },
+        "docs": { "type": "boolean" },
+        "workflow": { "type": "boolean" },
+        "dotnetCliBuild": { "type": "boolean" },
+        "codexCliReview": { "type": "boolean" },
+        "codexCliReviewConfig": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "distro": { "type": "string" },
+            "executionPlane": { "enum": ["wsl2"] },
+            "sandbox": { "type": "string" },
+            "model": { "type": "string" },
+            "ephemeral": { "type": "boolean" }
+          }
+        },
+        "requirementsVerification": { "type": "boolean" },
+        "niLinuxReviewSuite": { "type": "boolean" },
+        "singleViHistory": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "targetPath": { "type": "string" },
+            "branchRef": { "type": "string" },
+            "baselineRef": { "type": "string" },
+            "maxCommitCount": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "turnBudget": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "maxMinutes": { "type": "integer", "minimum": 1 },
+        "maxToolCalls": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "retry": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "maxAttempts": { "type": "integer", "minimum": 1 },
+        "blockerBackoffMinutes": { "type": "integer", "minimum": 0 },
+        "rateLimitCooldownMinutes": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "codingTurnCommand": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "storageRootEntry": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "envVar": { "type": "string", "minLength": 1 },
+        "preferredRoots": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

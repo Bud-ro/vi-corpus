@@ -1,0 +1,533 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://labview-community-ci-cd.github.io/compare-vi-cli-action/schemas/delivery-agent-runtime-state-v1.schema.json",
+  "title": "Delivery Agent Runtime State v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "generatedAt",
+    "repository",
+    "runtimeDir",
+    "status",
+    "laneLifecycle",
+    "activeCodingLanes",
+    "activeLane"
+  ],
+  "properties": {
+    "schema": { "const": "priority/delivery-agent-runtime-state@v1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "repository": { "type": "string" },
+    "runtimeDir": { "type": "string" },
+    "runtimeEpochId": { "type": ["string", "null"] },
+    "status": { "enum": ["running", "blocked", "idle"] },
+    "laneLifecycle": {
+      "enum": [
+        "planning",
+        "reshaping-backlog",
+        "coding",
+        "waiting-ci",
+        "waiting-review",
+        "ready-merge",
+        "blocked",
+        "complete",
+        "idle"
+      ]
+    },
+    "activeCodingLanes": { "type": "integer", "minimum": 0 },
+    "policy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["schema", "implementationRemote", "maxActiveCodingLanes"],
+      "properties": {
+        "schema": { "const": "priority/delivery-agent-policy@v1" },
+        "implementationRemote": { "type": "string" },
+        "copilotReviewStrategy": { "enum": ["draft-only-explicit"] },
+        "maxActiveCodingLanes": { "type": "integer", "minimum": 1 },
+        "workerPool": { "$ref": "#/$defs/workerPoolPolicy" }
+      }
+    },
+    "workerPool": { "$ref": "#/$defs/workerPool" },
+    "logicalLaneActivation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "capacityMode",
+        "capacitySource",
+        "effectiveLogicalLaneCount",
+        "seededLaneCount",
+        "activeLaneCount",
+        "inactiveLaneCount",
+        "catalog"
+      ],
+      "properties": {
+        "capacityMode": { "enum": ["fixed-target", "host-ram-adaptive"] },
+        "capacitySource": { "enum": ["policy-ceiling", "host-ram-budget"] },
+        "effectiveLogicalLaneCount": { "type": "integer", "minimum": 0 },
+        "seededLaneCount": { "type": "integer", "minimum": 0 },
+        "activeLaneCount": { "type": "integer", "minimum": 0 },
+        "inactiveLaneCount": { "type": "integer", "minimum": 0 },
+        "catalog": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "label", "seededOrdinal", "activationState"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 },
+              "seededOrdinal": { "type": "integer", "minimum": 1 },
+              "activationState": { "enum": ["seeded", "active"] }
+            }
+          }
+        }
+      }
+    },
+    "marketplace": {
+      "type": ["object", "null"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "type": ["string", "null"] },
+        "snapshotPath": { "type": ["string", "null"] },
+        "error": { "type": ["string", "null"] },
+        "summary": { "type": ["object", "null"], "additionalProperties": true },
+        "recommendedLane": { "type": ["object", "null"], "additionalProperties": true }
+      }
+    },
+    "localReviewLoop": {
+      "type": ["object", "null"],
+      "additionalProperties": true,
+      "properties": {
+        "requested": { "type": "boolean" },
+        "status": { "type": ["string", "null"] },
+        "source": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] },
+        "receiptPath": { "type": ["string", "null"] },
+        "receiptStatus": { "type": ["string", "null"] },
+        "failedCheck": { "type": ["string", "null"] },
+        "currentHeadSha": { "type": ["string", "null"] },
+        "receiptHeadSha": { "type": ["string", "null"] },
+        "receiptFreshForHead": { "type": ["boolean", "null"] },
+        "requestedCoverageSatisfied": { "type": ["boolean", "null"] },
+        "requestedCoverageReason": { "type": ["string", "null"] },
+        "requestedCoverageMissingChecks": {
+          "type": ["array", "null"],
+          "items": { "type": "string" }
+        },
+        "git": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "headSha": { "type": ["string", "null"] },
+            "branch": { "type": ["string", "null"] },
+            "upstreamDevelopMergeBase": { "type": ["string", "null"] },
+            "dirtyTracked": { "type": "boolean" }
+          }
+        },
+        "requirementsVerificationRequested": { "type": "boolean" },
+        "markdownlintRequested": { "type": "boolean" },
+        "niLinuxReviewSuiteRequested": { "type": "boolean" },
+        "recommendedReviewOrder": {
+          "type": ["array", "null"],
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "queueAuthorityRefresh": {
+      "anyOf": [
+        { "$ref": "#/$defs/queueAuthorityRefresh" },
+        { "type": "null" }
+      ]
+    },
+    "liveAgentModelSelection": {
+      "type": ["object", "null"],
+      "additionalProperties": true,
+      "properties": {
+        "mode": { "type": ["string", "null"] },
+        "policyPath": { "type": ["string", "null"] },
+        "reportPath": { "type": ["string", "null"] },
+        "previousReportPath": { "type": ["string", "null"] },
+        "recommendationStatus": { "type": ["string", "null"] },
+        "generatedAt": { "type": ["string", "null"] },
+        "blockerCount": { "type": ["integer", "null"], "minimum": 0 },
+        "selectedProviderId": { "type": ["string", "null"] },
+        "currentProvider": {
+          "type": ["object", "null"],
+          "additionalProperties": true
+        },
+        "providers": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "activeLane": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["schema", "laneId", "laneLifecycle", "blockerClass"],
+      "properties": {
+        "schema": { "const": "priority/delivery-agent-lane-state@v1" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "runtimeEpochId": { "type": ["string", "null"] },
+        "laneId": { "type": "string" },
+        "issue": { "type": ["integer", "null"], "minimum": 1 },
+        "epic": { "type": ["integer", "null"], "minimum": 1 },
+        "branch": { "type": ["string", "null"] },
+        "forkRemote": { "type": ["string", "null"] },
+        "prUrl": { "type": ["string", "null"], "format": "uri-reference" },
+        "blockerClass": { "type": "string" },
+        "laneLifecycle": {
+          "enum": [
+            "planning",
+            "reshaping-backlog",
+            "coding",
+            "waiting-ci",
+            "waiting-review",
+            "ready-merge",
+            "blocked",
+            "complete",
+            "idle"
+          ]
+        },
+        "actionType": { "type": ["string", "null"] },
+        "outcome": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] },
+        "retryable": { "type": "boolean" },
+        "nextWakeCondition": { "type": ["string", "null"] },
+        "reviewPhase": { "type": ["string", "null"] },
+        "planeTransition": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "from": { "type": ["string", "null"] },
+            "to": { "type": ["string", "null"] },
+            "action": { "type": ["string", "null"] },
+            "via": { "type": ["string", "null"] },
+            "branchClass": { "type": ["string", "null"] },
+            "sourceRepository": { "type": ["string", "null"] },
+            "targetRepository": { "type": ["string", "null"] }
+          }
+        },
+        "readyValidationClearance": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "status": { "type": ["string", "null"] },
+            "receiptPath": { "type": ["string", "null"] },
+            "readyHeadSha": { "type": ["string", "null"] },
+            "currentHeadSha": { "type": ["string", "null"] },
+            "staleForCurrentHead": { "type": ["boolean", "null"] },
+            "reason": { "type": ["string", "null"] }
+          }
+        },
+        "localReviewLoop": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "requested": { "type": "boolean" },
+            "status": { "type": ["string", "null"] },
+            "source": { "type": ["string", "null"] },
+            "reason": { "type": ["string", "null"] },
+            "receiptPath": { "type": ["string", "null"] },
+            "receiptStatus": { "type": ["string", "null"] },
+            "failedCheck": { "type": ["string", "null"] },
+            "currentHeadSha": { "type": ["string", "null"] },
+            "receiptHeadSha": { "type": ["string", "null"] },
+            "receiptFreshForHead": { "type": ["boolean", "null"] },
+            "requestedCoverageSatisfied": { "type": ["boolean", "null"] },
+            "requestedCoverageReason": { "type": ["string", "null"] },
+            "requestedCoverageMissingChecks": {
+              "type": ["array", "null"],
+              "items": { "type": "string" }
+            },
+            "git": {
+              "type": ["object", "null"],
+              "additionalProperties": true,
+              "properties": {
+                "headSha": { "type": ["string", "null"] },
+                "branch": { "type": ["string", "null"] },
+                "upstreamDevelopMergeBase": { "type": ["string", "null"] },
+                "dirtyTracked": { "type": "boolean" }
+              }
+            },
+            "requirementsVerificationRequested": { "type": "boolean" },
+            "markdownlintRequested": { "type": "boolean" },
+            "niLinuxReviewSuiteRequested": { "type": "boolean" },
+            "recommendedReviewOrder": {
+              "type": ["array", "null"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "queueAuthorityRefresh": {
+          "anyOf": [
+            { "$ref": "#/$defs/queueAuthorityRefresh" },
+            { "type": "null" }
+          ]
+        },
+        "liveAgentModelSelection": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "mode": { "type": ["string", "null"] },
+            "policyPath": { "type": ["string", "null"] },
+            "reportPath": { "type": ["string", "null"] },
+            "previousReportPath": { "type": ["string", "null"] },
+            "recommendationStatus": { "type": ["string", "null"] },
+            "generatedAt": { "type": ["string", "null"] },
+            "blockerCount": { "type": ["integer", "null"], "minimum": 0 },
+            "selectedProviderId": { "type": ["string", "null"] },
+            "currentProvider": {
+              "type": ["object", "null"],
+              "additionalProperties": true
+            },
+            "providers": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "workerProviderSelection": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "source": { "type": ["string", "null"] },
+            "laneLifecycle": { "type": ["string", "null"] },
+            "selectedActionType": { "type": ["string", "null"] },
+            "requiredAssignmentMode": { "type": ["string", "null"] },
+            "preferredProviderIds": {
+              "type": ["array", "null"],
+              "items": { "type": "string" }
+            },
+            "preferredExecutionPlanes": {
+              "type": ["array", "null"],
+              "items": { "type": "string" }
+            },
+            "eligibleProviderIds": {
+              "type": ["array", "null"],
+              "items": { "type": "string" }
+            },
+            "selectedProviderId": { "type": ["string", "null"] },
+            "selectedProviderKind": { "type": ["string", "null"] },
+            "selectedExecutionPlane": { "type": ["string", "null"] },
+            "selectedAssignmentMode": { "type": ["string", "null"] },
+            "dispatchSurface": { "type": ["string", "null"] },
+            "completionMode": { "type": ["string", "null"] },
+            "selectedSlotId": { "type": ["string", "null"] },
+            "requiresLocalCheckout": { "type": ["boolean", "null"] }
+          }
+        },
+        "executionTopology": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "status": { "type": ["string", "null"] },
+            "executionPlane": { "type": ["string", "null"] },
+            "providerId": { "type": ["string", "null"] },
+            "workerSlotId": { "type": ["string", "null"] },
+            "cellId": { "type": ["string", "null"] },
+            "laneId": { "type": ["string", "null"] },
+            "cellClass": { "type": ["string", "null"] },
+            "suiteClass": { "type": ["string", "null"] },
+            "planeBinding": { "type": ["string", "null"] },
+            "harnessKind": { "type": ["string", "null"] },
+            "harnessInstanceId": { "type": ["string", "null"] },
+            "executionCellLeaseId": { "type": ["string", "null"] },
+            "dockerLaneLeaseId": { "type": ["string", "null"] },
+            "premiumSaganMode": { "type": "boolean" },
+            "reciprocalLinkReady": { "type": "boolean" },
+            "operatorAuthorizationRef": { "type": ["string", "null"] },
+            "activeLogicalLaneCount": { "type": ["integer", "null"], "minimum": 0 },
+            "seededLogicalLaneCount": { "type": ["integer", "null"], "minimum": 0 },
+            "runtimeSurface": { "type": ["string", "null"] },
+            "processModelClass": { "type": ["string", "null"] },
+            "windowsOnly": { "type": "boolean" },
+            "requestedSimultaneous": { "type": "boolean" }
+          }
+        },
+        "providerDispatch": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "providerId": { "type": ["string", "null"] },
+            "providerKind": { "type": ["string", "null"] },
+            "executionPlane": { "type": ["string", "null"] },
+            "assignmentMode": { "type": ["string", "null"] },
+            "dispatchSurface": { "type": ["string", "null"] },
+            "completionMode": { "type": ["string", "null"] },
+            "workerSlotId": { "type": ["string", "null"] },
+            "dispatchStatus": { "type": ["string", "null"] },
+            "completionStatus": { "type": ["string", "null"] },
+            "failureClass": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "artifacts": { "type": "object", "additionalProperties": true }
+  },
+  "$defs": {
+    "workerProvider": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "kind",
+        "executionPlane",
+        "assignmentMode",
+        "dispatchSurface",
+        "completionMode",
+        "requiresLocalCheckout",
+        "enabled",
+        "slotCount"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": "string" },
+        "executionPlane": { "type": "string" },
+        "assignmentMode": { "type": "string" },
+        "dispatchSurface": { "type": "string" },
+        "completionMode": { "type": "string" },
+        "requiresLocalCheckout": { "type": "boolean" },
+        "enabled": { "type": "boolean" },
+        "slotCount": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "workerSlot": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["slotId", "status"],
+      "properties": {
+        "slotId": { "type": "string" },
+        "providerId": { "type": ["string", "null"] },
+        "providerKind": { "type": ["string", "null"] },
+        "executionPlane": { "type": ["string", "null"] },
+        "assignmentMode": { "type": ["string", "null"] },
+        "dispatchSurface": { "type": ["string", "null"] },
+        "completionMode": { "type": ["string", "null"] },
+        "requiresLocalCheckout": { "type": ["boolean", "null"] },
+        "status": { "enum": ["available", "occupied"] },
+        "laneId": { "type": ["string", "null"] },
+        "issue": { "type": ["integer", "null"], "minimum": 1 },
+        "laneLifecycle": { "type": ["string", "null"] }
+      }
+    },
+    "releasedLane": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["laneId", "laneLifecycle", "releaseReason"],
+      "properties": {
+        "slotId": { "type": ["string", "null"] },
+        "laneId": { "type": "string" },
+        "issue": { "type": ["integer", "null"], "minimum": 1 },
+        "laneLifecycle": { "type": "string" },
+        "releaseReason": { "type": "string" }
+      }
+    },
+    "queueAuthorityRefresh": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "status",
+        "reason",
+        "helperCall",
+        "summaryPath",
+        "mergeSummaryPath",
+        "receiptGeneratedAt",
+        "receiptStatus",
+        "receiptReason",
+        "evidenceFreshness",
+        "nextWakeCondition",
+        "mergeStateStatus",
+        "isInMergeQueue",
+        "autoMergeEnabled",
+        "mergedAt"
+      ],
+      "properties": {
+        "attempted": { "type": "boolean" },
+        "status": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] },
+        "helperCall": { "type": ["string", "null"] },
+        "summaryPath": { "type": ["string", "null"] },
+        "mergeSummaryPath": { "type": ["string", "null"] },
+        "receiptGeneratedAt": { "type": ["string", "null"], "format": "date-time" },
+        "receiptStatus": { "type": ["string", "null"] },
+        "receiptReason": { "type": ["string", "null"] },
+        "evidenceFreshness": {
+          "type": ["string", "null"],
+          "enum": ["current", "missing", null]
+        },
+        "nextWakeCondition": { "type": ["string", "null"] },
+        "mergeStateStatus": { "type": ["string", "null"] },
+        "isInMergeQueue": { "type": ["boolean", "null"] },
+        "autoMergeEnabled": { "type": ["boolean", "null"] },
+        "mergedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "workerPool": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "targetSlotCount",
+        "prewarmSlotCount",
+        "releaseWaitingStates",
+        "providers",
+        "slots",
+        "occupiedSlotCount",
+        "availableSlotCount",
+        "releasedLaneCount",
+        "releasedLanes",
+        "utilizationRatio"
+      ],
+      "properties": {
+        "targetSlotCount": { "type": "integer", "minimum": 1 },
+        "prewarmSlotCount": { "type": "integer", "minimum": 0 },
+        "releaseWaitingStates": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "providers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/workerProvider" }
+        },
+        "slots": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/workerSlot" }
+        },
+        "occupiedSlotCount": { "type": "integer", "minimum": 0 },
+        "availableSlotCount": { "type": "integer", "minimum": 0 },
+        "releasedLaneCount": { "type": "integer", "minimum": 0 },
+        "liveOrchestratorLane": { "type": "string" },
+        "releasedLanes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/releasedLane" }
+        },
+        "utilizationRatio": { "type": "number", "minimum": 0 }
+      }
+    },
+    "workerPoolPolicy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["targetSlotCount", "prewarmSlotCount", "releaseWaitingStates", "providers"],
+      "properties": {
+        "targetSlotCount": { "type": "integer", "minimum": 1 },
+        "prewarmSlotCount": { "type": "integer", "minimum": 0 },
+        "releaseWaitingStates": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "providers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/workerProvider" }
+        }
+      }
+    }
+  }
+}

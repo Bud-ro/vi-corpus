@@ -1,0 +1,114 @@
+name: Tools Parity (Linux)
+
+on:
+  workflow_dispatch:
+    inputs:
+      skipDocs:
+        description: 'Skip documentation link check'
+        default: 'true'
+        required: false
+      skipWorkflow:
+        description: 'Skip workflow checkout contract checks'
+        default: 'true'
+        required: false
+      skipMarkdown:
+        description: 'Skip markdown lint'
+        default: 'true'
+        required: false
+      runNiLinuxReviewSuite:
+        description: 'Run the NI Linux smoke + VI history review suite'
+        default: 'false'
+        required: false
+      runRequirementsVerification:
+        description: 'Run requirements verification / traceability generation'
+        default: 'false'
+        required: false
+      historyTargetPath:
+        description: 'Optional single-VI history target path for NI Linux review suite'
+        default: ''
+        required: false
+      historyBranchRef:
+        description: 'Optional branch ref / commit SHA for single-VI history review'
+        default: ''
+        required: false
+      historyBaselineRef:
+        description: 'Optional baseline ref for single-VI history review'
+        default: ''
+        required: false
+      historyMaxCommitCount:
+        description: 'Optional max commit scan depth for single-VI history review'
+        default: ''
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  docker-parity-linux:
+    name: Docker parity (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Capture Docker version
+        shell: bash
+        run: docker version > docker-version.txt
+
+      - name: Run tools parity helper
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $args = @('-UseToolsImage')
+          if ('${{ inputs.skipDocs }}' -eq 'true') { $args += '-SkipDocs' }
+          if ('${{ inputs.skipWorkflow }}' -eq 'true') { $args += '-SkipWorkflow' }
+          if ('${{ inputs.skipMarkdown }}' -eq 'true') { $args += '-SkipMarkdown' }
+          if ('${{ inputs.runNiLinuxReviewSuite }}' -eq 'true') { $args += '-NILinuxReviewSuite' }
+          if ('${{ inputs.runRequirementsVerification }}' -eq 'true') { $args += '-RequirementsVerification' }
+          if (-not [string]::IsNullOrWhiteSpace('${{ inputs.historyTargetPath }}')) { $args += @('-NILinuxReviewSuiteHistoryTargetPath', '${{ inputs.historyTargetPath }}') }
+          if (-not [string]::IsNullOrWhiteSpace('${{ inputs.historyBranchRef }}')) { $args += @('-NILinuxReviewSuiteHistoryBranchRef', '${{ inputs.historyBranchRef }}') }
+          if (-not [string]::IsNullOrWhiteSpace('${{ inputs.historyBaselineRef }}')) { $args += @('-NILinuxReviewSuiteHistoryBaselineRef', '${{ inputs.historyBaselineRef }}') }
+          if (-not [string]::IsNullOrWhiteSpace('${{ inputs.historyMaxCommitCount }}')) { $args += @('-NILinuxReviewSuiteHistoryMaxCommitCount', '${{ inputs.historyMaxCommitCount }}') }
+          ./tools/Run-NonLVChecksInDocker.ps1 @args 2>&1 | Tee-Object -FilePath parity-log.txt
+
+      - name: Clean generated CLI artifacts
+        shell: pwsh
+        run: Remove-Item -LiteralPath dist/comparevi-cli -Recurse -Force -ErrorAction SilentlyContinue
+
+      - name: Upload parity evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: docker-parity-linux
+          path: |
+            docker-version.txt
+            parity-log.txt
+            tests/results/docker-tools-parity/review-loop-receipt.json
+
+      - name: Upload Docker parity review receipt
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: docker-parity-linux-review-loop
+          path: |
+            tests/results/docker-tools-parity/review-loop-receipt.json
+
+      - name: Upload NI Linux review-suite evidence
+        if: ${{ inputs.runNiLinuxReviewSuite == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: docker-parity-linux-ni-review-suite
+          path: |
+            tests/results/docker-tools-parity/ni-linux-review-suite
+
+      - name: Upload requirements verification evidence
+        if: ${{ inputs.runRequirementsVerification == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: docker-parity-linux-requirements-verification
+          path: |
+            tests/results/docker-tools-parity/requirements-verification
+

@@ -1,0 +1,1285 @@
+#!/usr/bin/env node
+
+import { access, mkdir, readFile, readdir, rm, unlink, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { loadBranchClassContract } from './lib/branch-classification.mjs';
+import { assertLaneBranchMatchesPlane } from './lib/runtime-lane-branch-contract.mjs';
+import { extractGitResultMessage, formatGitInvocation, refreshUpstreamTrackingRef } from './lib/upstream-ref-refresh.mjs';
+import {
+  buildWorkerProviderSelectionRequest,
+  loadDeliveryAgentPolicy,
+  selectWorkerProviderAssignment
+} from './delivery-agent.mjs';
+import { resolveStorageBaseRoot } from './lib/storage-root-policy.mjs';
+
+const execFileAsync = promisify(execFile);
+const DEFAULT_WORKER_REF = 'upstream/develop';
+const DEFAULT_BASE_REF_NAME = 'develop';
+const BOOTSTRAP_RELATIVE_PATH = path.join('tools', 'priority', 'bootstrap.ps1');
+const ATTACHABLE_REMOTES = ['upstream', 'origin', 'personal'];
+const GITHUB_PUSH_REMOTES = ['origin', 'personal'];
+
+function normalizeText(value) {
+  if (value == null) return '';
+  return String(value).trim();
+}
+
+function parseIssueNumberFromBranch(branch) {
+  const normalized = normalizeText(branch);
+  if (!normalized.toLowerCase().startsWith('issue/')) {
+    return null;
+  }
+  const suffix = normalized.slice('issue/'.length);
+  const tokens = suffix.split('-').map((entry) => entry.trim()).filter(Boolean);
+  for (const token of tokens) {
+    if (!/^\d+$/.test(token)) {
+      continue;
+    }
+    const issueNumber = Number.parseInt(token, 10);
+    if (issueNumber > 0) {
+      return issueNumber;
+    }
+  }
+  return null;
+}
+
+function sanitizeSegment(value) {
+  const segment =
+    String(value ?? '')
+      .trim()
+      .replace(/[^A-Za-z0-9._-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  if (!segment || segment === '.' || segment === '..') {
+    return 'runtime';
+  }
+  return segment;
+}
+
+async function pathExists(filePath) {
+  try {
+    await access(filePath);
+    return true;
+  } catch (error) {
+    if (error?.code === 'ENOENT') return false;
+    throw error;
+  }
+}
+
+async function readJsonIfPresent(filePath) {
+  try {
+    return JSON.parse(await readFile(filePath, 'utf8'));
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return null;
+    }
+    return null;
+  }
+}
+
+function formatGitPointerPath(targetPath) {
+  return path.resolve(targetPath).replace(/\\/g, '/');
+}
+
+function formatRelativeGitPointer(fromDir, toPath) {
+  const relativePath = path.relative(fromDir, toPath).replace(/\\/g, '/');
+  return relativePath || '.';
+}
+
+function isPathWithin(parentPath, childPath) {
+  const relativePath = path.relative(parentPath, childPath);
+  return relativePath === '' || (!relativePath.startsWith('..') && !path.isAbsolute(relativePath));
+}
+
+function isWindowsAbsolutePath(value) {
+  return /^[A-Za-z]:[\\/]/.test(value) || /^\\\\/.test(value);
+}
+
+function isUnixAbsolutePath(value) {
+  return value.startsWith('/');
+}
+
+function tryTranslateMountedWindowsPath(value) {
+  const match = normalizeText(value).match(/^\/mnt\/([a-zA-Z])\/(.*)$/);
+  if (!match) {
+    return '';
+  }
+  return `${match[1].toUpperCase()}:\\${match[2].replace(/\//g, '\\')}`;
+}
+
+function extractRuntimeWorktreeHint(pointerPath) {
+  const match = normalizeText(pointerPath).replace(/\\/g, '/').match(/\/\.runtime-worktrees\/([^/]+)\/([^/]+)\/\.git$/);
+  if (!match) {
+    return null;
+  }
+  return {
+    repoKey: sanitizeSegment(match[1]),
+    laneSegment: sanitizeSegment(match[2])
+  };
+}
+
+async function tryResolveCheckoutGitFromAdminPointer({ repoRoot, worktreeAdminDir, laneSegment }) {
+  const adminGitdirFile = path.join(worktreeAdminDir, 'gitdir');
+  if (!(await pathExists(adminGitdirFile))) {
+    return '';
+  }
+
+  const rawPointer = normalizeText(await readFile(adminGitdirFile, 'utf8'));
+  const candidates = [];
+  if (rawPointer) {
+    if (isWindowsAbsolutePath(rawPointer)) {
+      candidates.push(rawPointer);
+    } else if (isUnixAbsolutePath(rawPointer)) {
+      const translatedMountedPath = tryTranslateMountedWindowsPath(rawPointer);
+      if (translatedMountedPath) {
+        candidates.push(translatedMountedPath);
+      }
+      candidates.push(rawPointer);
+    } else {
+      candidates.push(path.resolve(worktreeAdminDir, rawPointer));
+    }
+
+    const runtimeHint = extractRuntimeWorktreeHint(rawPointer);
+    if (runtimeHint?.laneSegment === laneSegment) {
+      candidates.push(path.join(repoRoot, '.runtime-worktrees', runtimeHint.repoKey, laneSegment, '.git'));
+    }
+  }
+
+  const runtimeRoot = path.join(repoRoot, '.runtime-worktrees');
+  if (await pathExists(runtimeRoot)) {
+    const repoRoots = await readdir(runtimeRoot, { withFileTypes: true });
+    for (const entry of repoRoots) {
+      if (!entry.isDirectory()) {
+        continue;
+      }
+      candidates.push(path.join(runtimeRoot, entry.name, laneSegment, '.git'));
+    }
+  }
+
+  candidates.push(path.join(path.dirname(repoRoot), laneSegment, '.git'));
+
+  const seen = new Set();
+  for (const candidate of candidates) {
+    const normalizedCandidate = normalizeText(candidate);
+    if (!normalizedCandidate) {
+      continue;
+    }
+    const key = normalizedCandidate.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    if (await pathExists(normalizedCandidate)) {
+      return normalizedCandidate;
+    }
+  }
+
+  return '';
+}
+
+async function clearStaleInitializingLock(worktreeAdminDir) {
+  const lockPath = path.join(worktreeAdminDir, 'locked');
+  if (!(await pathExists(lockPath))) {
+    return false;
+  }
+
+  const lockReason = normalizeText(await readFile(lockPath, 'utf8'));
+  if (lockReason !== 'initializing') {
+    return false;
+  }
+
+  await unlink(lockPath);
+  return true;
+}
+
+async function repairExistingWorktreeGitPointers({ repoRoot, checkoutPath, laneSegment, gitCommonDir }) {
+  const resolvedLaneSegment = sanitizeSegment(laneSegment || path.basename(checkoutPath));
+  const resolvedGitCommonDir = normalizeText(gitCommonDir) || path.join(repoRoot, '.git');
+  const worktreeAdminDir = path.join(resolvedGitCommonDir, 'worktrees', resolvedLaneSegment);
+  const checkoutGitFile = path.join(checkoutPath, '.git');
+  const adminGitdirFile = path.join(worktreeAdminDir, 'gitdir');
+  const checkoutGitExists = await pathExists(checkoutGitFile);
+  const worktreeAdminDirExists = await pathExists(worktreeAdminDir);
+  const adminGitdirFileExists = await pathExists(adminGitdirFile);
+
+  if (!checkoutGitExists || !worktreeAdminDirExists || !adminGitdirFileExists) {
+    return {
+      repaired: false,
+      structurallyValid: false,
+      worktreeAdminDir,
+      checkoutGitFile,
+      adminGitdirFile,
+      missingCheckoutGitFile: !checkoutGitExists,
+      missingWorktreeAdminDir: !worktreeAdminDirExists,
+      missingAdminGitdirFile: !adminGitdirFileExists
+    };
+  }
+
+  const expectedCheckoutPointer = `gitdir: ${formatRelativeGitPointer(checkoutPath, worktreeAdminDir)}\n`;
+  const expectedAdminPointer = `${formatRelativeGitPointer(worktreeAdminDir, checkoutGitFile)}\n`;
+  let repaired = false;
+
+  const currentCheckoutPointer = await readFile(checkoutGitFile, 'utf8');
+  if (currentCheckoutPointer !== expectedCheckoutPointer) {
+    await writeFile(checkoutGitFile, expectedCheckoutPointer, 'utf8');
+    repaired = true;
+  }
+
+  const currentAdminPointer = await readFile(adminGitdirFile, 'utf8');
+  if (currentAdminPointer !== expectedAdminPointer) {
+    await writeFile(adminGitdirFile, expectedAdminPointer, 'utf8');
+    repaired = true;
+  }
+
+  return {
+    repaired,
+    structurallyValid: true,
+    laneSegment: resolvedLaneSegment,
+    worktreeAdminDir,
+    checkoutGitFile,
+    adminGitdirFile
+  };
+}
+
+async function collectRuntimeCheckoutCandidates(runtimeRoot, laneSegment) {
+  if (!(await pathExists(runtimeRoot))) {
+    return [];
+  }
+
+  const candidates = [];
+  const repoRoots = await readdir(runtimeRoot, { withFileTypes: true });
+  for (const entry of repoRoots) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const checkoutPath = path.join(runtimeRoot, entry.name, laneSegment);
+    if (await pathExists(checkoutPath)) {
+      candidates.push(checkoutPath);
+    }
+  }
+
+  return candidates;
+}
+
+async function quarantineRuntimeWorktree({
+  execFileFn,
+  repoRoot,
+  checkoutPath,
+  laneId,
+  gitCommonDir,
+  dirtyEntries = [],
+  quarantineReason
+}) {
+  const laneSegment = sanitizeSegment(laneId);
+  const worktreeAdminDir = path.join(gitCommonDir, 'worktrees', laneSegment);
+  const report = {
+    repaired: false,
+    quarantined: true,
+    dirtyEntries,
+    quarantineReason,
+    removalMethod: null,
+    removeError: null,
+    pruneInvoked: false,
+    pruneError: null,
+    worktreeAdminDir,
+    checkoutPath
+  };
+
+  try {
+    await execFileFn('git', ['worktree', 'remove', '--force', checkoutPath], { cwd: repoRoot });
+    report.removalMethod = 'git-worktree-remove';
+  } catch (error) {
+    report.removalMethod = 'filesystem-remove';
+    report.removeError = formatExecError(error);
+  }
+
+  await rm(checkoutPath, { recursive: true, force: true });
+  await rm(worktreeAdminDir, { recursive: true, force: true });
+
+  try {
+    await execFileFn('git', ['worktree', 'prune', '--verbose', '--expire', 'now'], { cwd: repoRoot });
+    report.pruneInvoked = true;
+  } catch (error) {
+    report.pruneError = formatExecError(error);
+  }
+
+  return report;
+}
+
+export async function repairRegisteredWorktreeGitPointers({ repoRoot, deps = {} }) {
+  const execFileFn = deps.execFileFn ?? execFileAsync;
+  const gitCommonDir = await resolveGitCommonDir(execFileFn, repoRoot);
+  const worktreesRoot = path.join(gitCommonDir, 'worktrees');
+  const runtimeRoot = path.join(repoRoot, '.runtime-worktrees');
+  const report = {
+    repaired: [],
+    skipped: [],
+    unlocked: [],
+    quarantined: [],
+    unresolved: [],
+    prune: {
+      attempted: false,
+      exitCode: 0,
+      output: ''
+    }
+  };
+
+  if (!(await pathExists(worktreesRoot))) {
+    return report;
+  }
+
+  const entries = await readdir(worktreesRoot, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+
+    const laneSegment = sanitizeSegment(entry.name);
+    const worktreeAdminDir = path.join(worktreesRoot, entry.name);
+    const checkoutGitFile = await tryResolveCheckoutGitFromAdminPointer({
+      repoRoot,
+      worktreeAdminDir,
+      laneSegment
+    });
+
+    if (!checkoutGitFile) {
+      const checkoutCandidates = await collectRuntimeCheckoutCandidates(runtimeRoot, laneSegment);
+      await rm(worktreeAdminDir, { recursive: true, force: true });
+      for (const candidate of checkoutCandidates) {
+        await rm(candidate, { recursive: true, force: true });
+      }
+      report.quarantined.push({
+        laneSegment,
+        worktreeAdminDir,
+        checkoutPaths: checkoutCandidates,
+        quarantineReason: 'checkout-git-not-found'
+      });
+      continue;
+    }
+
+    const checkoutPath = path.dirname(checkoutGitFile);
+    if (!(await pathExists(runtimeRoot)) || !isPathWithin(runtimeRoot, checkoutPath)) {
+      report.skipped.push({
+        laneSegment,
+        checkoutPath,
+        reason: 'non-runtime-worktree'
+      });
+      continue;
+    }
+
+    try {
+      const repair = await repairExistingWorktreeGitPointers({
+        repoRoot,
+        checkoutPath,
+        laneSegment,
+        gitCommonDir
+      });
+      report.repaired.push({
+        laneSegment,
+        checkoutPath,
+        repaired: repair.repaired
+      });
+
+      if (await clearStaleInitializingLock(worktreeAdminDir)) {
+        report.unlocked.push({
+          laneSegment,
+          worktreeAdminDir,
+          reason: 'removed-stale-initializing-lock'
+        });
+      }
+    } catch (error) {
+      report.unresolved.push({
+        laneSegment,
+        worktreeAdminDir,
+        reason: formatExecError(error)
+      });
+    }
+  }
+
+  report.prune.attempted = true;
+  try {
+    const result = await execFileFn('git', ['worktree', 'prune', '--verbose', '--expire', 'now'], { cwd: repoRoot });
+    report.prune.output = `${normalizeText(result?.stdout)}\n${normalizeText(result?.stderr)}`.trim();
+  } catch (error) {
+    report.prune.exitCode = Number.isInteger(error?.code) ? error.code : 1;
+    report.prune.output = formatExecError(error);
+  }
+
+  return report;
+}
+
+function formatBootstrapFailure(error) {
+  const message = normalizeText(error?.message || error);
+  const stderr = normalizeText(error?.stderr);
+  if (!stderr) {
+    return message;
+  }
+  return `${message}\n\nstderr:\n${stderr}`;
+}
+
+function formatExecError(error) {
+  return normalizeText(error?.stderr) || normalizeText(error?.message) || String(error);
+}
+
+function coerceExecResult(result = {}) {
+  return {
+    status: 0,
+    stdout: normalizeText(result?.stdout),
+    stderr: normalizeText(result?.stderr)
+  };
+}
+
+function coerceExecErrorResult(error) {
+  return {
+    status: Number.isInteger(error?.code) ? error.code : 1,
+    stdout: normalizeText(error?.stdout),
+    stderr: normalizeText(error?.stderr) || normalizeText(error?.message)
+  };
+}
+
+function buildGitFetchError(result, attemptedCommand) {
+  const message =
+    extractGitResultMessage(result) ||
+    `${normalizeText(attemptedCommand) || 'git fetch'} failed (${Number.isInteger(result?.status) ? result.status : 1})`;
+  const error = new Error(message);
+  error.code = Number.isInteger(result?.status) ? result.status : 1;
+  error.stdout = normalizeText(result?.stdout);
+  error.stderr = normalizeText(result?.stderr);
+  return error;
+}
+
+async function fetchAttachableRemote(execFileFn, cwd, remote) {
+  const fetchArgs = ['fetch', remote, '--prune'];
+  if (remote !== 'upstream') {
+    await execFileFn('git', fetchArgs, { cwd });
+    return {
+      attempts: [formatGitInvocation(fetchArgs)],
+      repairedRace: false
+    };
+  }
+
+  const refreshResult = await refreshUpstreamTrackingRef({
+    baseRefName: DEFAULT_BASE_REF_NAME,
+    initialArgs: fetchArgs,
+    runGitFn: async (args) => {
+      try {
+        return coerceExecResult(await execFileFn('git', args, { cwd }));
+      } catch (error) {
+        return coerceExecErrorResult(error);
+      }
+    }
+  });
+
+  if (refreshResult.result?.status === 0) {
+    return {
+      attempts: refreshResult.attempts,
+      repairedRace: refreshResult.repairedRace
+    };
+  }
+
+  throw buildGitFetchError(
+    refreshResult.result,
+    refreshResult.attempts.at(-1) || formatGitInvocation(fetchArgs)
+  );
+}
+
+async function inspectReusedWorktreeState(execFileFn, checkoutPath) {
+  const statusResult = await execFileFn(
+    'git',
+    ['status', '--porcelain', '--untracked-files=all'],
+    { cwd: checkoutPath }
+  );
+  const dirtyEntries = normalizeText(statusResult?.stdout)
+    .split(/\r?\n/)
+    .map((entry) => normalizeText(entry))
+    .filter(Boolean);
+  if (dirtyEntries.length === 0) {
+    return {
+      repaired: false,
+      dirtyEntries: []
+    };
+  }
+
+  return {
+    repaired: false,
+    dirtyEntries
+  };
+}
+
+function resolveGitHubSshPushUrl(remoteUrl) {
+  const normalized = normalizeText(remoteUrl);
+  if (!normalized) {
+    return '';
+  }
+  if (/^git@github\.com:/i.test(normalized)) {
+    return normalized.endsWith('.git') ? normalized : `${normalized}.git`;
+  }
+  const httpsMatch = normalized.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/i);
+  if (httpsMatch) {
+    return `git@github.com:${httpsMatch[1]}/${httpsMatch[2]}.git`;
+  }
+  const sshMatch = normalized.match(/^ssh:\/\/git@github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/i);
+  if (sshMatch) {
+    return `git@github.com:${sshMatch[1]}/${sshMatch[2]}.git`;
+  }
+  return '';
+}
+
+async function readGitStdout(execFileFn, args, options = {}) {
+  const result = await execFileFn('git', args, options);
+  return normalizeText(result?.stdout);
+}
+
+async function resolveGitCommonDir(execFileFn, repoRoot) {
+  try {
+    const gitCommonDir = await readGitStdout(execFileFn, ['rev-parse', '--git-common-dir'], { cwd: repoRoot });
+    if (gitCommonDir) {
+      return path.isAbsolute(gitCommonDir) ? path.normalize(gitCommonDir) : path.resolve(repoRoot, gitCommonDir);
+    }
+  } catch {
+    // Fall back to the conventional location when git metadata probing fails.
+  }
+
+  return path.join(repoRoot, '.git');
+}
+
+async function resolveWriterLeaseRoot(execFileFn, checkoutPath) {
+  try {
+    const gitDir = await readGitStdout(execFileFn, ['rev-parse', '--git-dir'], { cwd: checkoutPath });
+    if (!gitDir) {
+      return '';
+    }
+    const resolvedGitDir = path.isAbsolute(gitDir) ? gitDir : path.resolve(checkoutPath, gitDir);
+    return path.join(resolvedGitDir, 'agent-writer-leases');
+  } catch {
+    return '';
+  }
+}
+
+async function resolveExistingLeaseOwner(leaseRoot) {
+  if (!leaseRoot) {
+    return '';
+  }
+  const leasePath = path.join(leaseRoot, 'workspace.json');
+  try {
+    const payload = JSON.parse(await readFile(leasePath, 'utf8'));
+    return normalizeText(payload?.owner);
+  } catch {
+    return '';
+  }
+}
+
+async function tryReadGitStdout(execFileFn, args, options = {}) {
+  try {
+    return await readGitStdout(execFileFn, args, options);
+  } catch {
+    return '';
+  }
+}
+
+async function gitRefExists(execFileFn, cwd, ref) {
+  try {
+    await execFileFn('git', ['show-ref', '--verify', '--quiet', ref], { cwd });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function gitTargetExists(execFileFn, cwd, target) {
+  try {
+    await execFileFn('git', ['rev-parse', '--verify', '--quiet', `${target}^{commit}`], { cwd });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function resolveCompareviWorkerBaseRef(execFileFn, cwd, { availableRemotes = null } = {}) {
+  const remotes = Array.isArray(availableRemotes)
+    ? availableRemotes
+    : (await tryReadGitStdout(execFileFn, ['remote'], { cwd }))
+      .split(/\r?\n/)
+      .map((entry) => normalizeText(entry))
+      .filter(Boolean);
+  const candidates = [];
+  const seen = new Set();
+
+  for (const remote of ATTACHABLE_REMOTES) {
+    if (!remotes.includes(remote)) {
+      continue;
+    }
+    const candidate = `${remote}/${DEFAULT_BASE_REF_NAME}`;
+    if (seen.has(candidate)) {
+      continue;
+    }
+    seen.add(candidate);
+    candidates.push(candidate);
+  }
+
+  for (const candidate of [DEFAULT_BASE_REF_NAME, 'HEAD']) {
+    if (seen.has(candidate)) {
+      continue;
+    }
+    seen.add(candidate);
+    candidates.push(candidate);
+  }
+
+  for (const candidate of candidates) {
+    if (await gitTargetExists(execFileFn, cwd, candidate)) {
+      return candidate;
+    }
+  }
+
+  return DEFAULT_WORKER_REF;
+}
+
+async function resolveAuthoritativeStandingBaseRef(execFileFn, repoRoot, schedulerDecision, { availableRemotes = null } = {}) {
+  const currentBranch = normalizeText(await tryReadGitStdout(execFileFn, ['branch', '--show-current'], { cwd: repoRoot }));
+  const activeIssue =
+    Number.isInteger(schedulerDecision?.activeLane?.issue) && schedulerDecision.activeLane.issue > 0
+      ? schedulerDecision.activeLane.issue
+      : Number.isInteger(schedulerDecision?.stepOptions?.issue) && schedulerDecision.stepOptions.issue > 0
+        ? schedulerDecision.stepOptions.issue
+        : null;
+  if (currentBranch && activeIssue && parseIssueNumberFromBranch(currentBranch) === activeIssue) {
+    if (await gitTargetExists(execFileFn, repoRoot, currentBranch)) {
+      return currentBranch;
+    }
+  }
+  return resolveCompareviWorkerBaseRef(execFileFn, repoRoot, { availableRemotes });
+}
+
+async function normalizeGitHubRemotePushUrls(execFileFn, checkoutPath, { platform = process.platform } = {}) {
+  if (normalizeText(platform).toLowerCase() !== 'linux') {
+    return [];
+  }
+
+  const availableRemotes = (await tryReadGitStdout(execFileFn, ['remote'], { cwd: checkoutPath }))
+    .split(/\r?\n/)
+    .map((entry) => normalizeText(entry))
+    .filter(Boolean);
+  const updatedRemotes = [];
+
+  for (const remote of GITHUB_PUSH_REMOTES) {
+    if (!availableRemotes.includes(remote)) {
+      continue;
+    }
+    const fetchUrl = await tryReadGitStdout(execFileFn, ['remote', 'get-url', remote], { cwd: checkoutPath });
+    const desiredPushUrl = resolveGitHubSshPushUrl(fetchUrl);
+    if (!desiredPushUrl) {
+      continue;
+    }
+    const currentPushUrl = await tryReadGitStdout(execFileFn, ['remote', 'get-url', '--push', remote], {
+      cwd: checkoutPath
+    });
+    if (currentPushUrl === desiredPushUrl) {
+      continue;
+    }
+    await execFileFn('git', ['remote', 'set-url', '--push', remote, desiredPushUrl], { cwd: checkoutPath });
+    updatedRemotes.push(remote);
+  }
+
+  return updatedRemotes;
+}
+
+export function resolveCompareviWorkerCheckoutRoot({ repoRoot, repository }) {
+  const rawRepoKey = normalizeText(repository)?.replace(/\//g, '--') || path.basename(repoRoot);
+  const repoKey = sanitizeSegment(rawRepoKey);
+  return path.join(repoRoot, '.runtime-worktrees', repoKey);
+}
+
+function buildCheckoutRootPolicy({ repoRoot, repoKey, selectedRoot = null }) {
+  if (selectedRoot) {
+    return {
+      ...selectedRoot,
+      relativeRoot: repoKey
+    };
+  }
+  return {
+    strategy: 'repo-default',
+    source: 'repo-default-runtime-worktree-root',
+    baseRoot: path.join(repoRoot, '.runtime-worktrees'),
+    relativeRoot: repoKey,
+    usesExternalRoot: false
+  };
+}
+
+export function resolveCompareviWorkerCheckoutLocation({
+  repoRoot,
+  repository,
+  laneId,
+  slotId,
+  storageRootsPolicy,
+  env = process.env
+}) {
+  const rawRepoKey = normalizeText(repository)?.replace(/\//g, '--') || path.basename(repoRoot);
+  const repoKey = sanitizeSegment(rawRepoKey);
+  const checkoutSegment = sanitizeSegment(slotId || laneId);
+  const selectedRoot = resolveStorageBaseRoot({
+    repoRoot,
+    kind: 'worktrees',
+    policy: storageRootsPolicy,
+    env
+  });
+  const checkoutRootPolicy = buildCheckoutRootPolicy({
+    repoRoot,
+    repoKey,
+    selectedRoot
+  });
+  const checkoutRoot = path.join(checkoutRootPolicy.baseRoot, repoKey);
+  return {
+    checkoutRoot,
+    checkoutPath: path.join(checkoutRoot, checkoutSegment),
+    checkoutRootPolicy
+  };
+}
+
+export function resolveCompareviWorkerCheckoutPath({
+  repoRoot,
+  repository,
+  laneId,
+  slotId,
+  storageRootsPolicy,
+  env = process.env
+}) {
+  const { checkoutRoot, checkoutPath } = resolveCompareviWorkerCheckoutLocation({
+    repoRoot,
+    repository,
+    laneId,
+    slotId,
+    storageRootsPolicy,
+    env
+  });
+  return { checkoutRoot, checkoutPath };
+}
+
+function resolveRuntimeDir({ repoRoot, options = {} }) {
+  const runtimeDir = normalizeText(options.runtimeDir);
+  if (!runtimeDir) {
+    return '';
+  }
+  return path.isAbsolute(runtimeDir) ? runtimeDir : path.join(repoRoot, runtimeDir);
+}
+
+function slotMatchesProvider(slot, selectedProviderId) {
+  if (!selectedProviderId) {
+    return true;
+  }
+  return normalizeText(slot?.providerId).toLowerCase() === selectedProviderId.toLowerCase();
+}
+
+function selectWorkerSlotId({ deliveryState, laneId, selectedProviderId }) {
+  const normalizedLaneId = normalizeText(laneId);
+  const slots = Array.isArray(deliveryState?.workerPool?.slots) ? deliveryState.workerPool.slots : [];
+  const releasedLanes = Array.isArray(deliveryState?.workerPool?.releasedLanes) ? deliveryState.workerPool.releasedLanes : [];
+  const existingSlot = slots.find(
+    (slot) => normalizeText(slot?.laneId) === normalizedLaneId && slotMatchesProvider(slot, selectedProviderId)
+  );
+  if (normalizeText(existingSlot?.slotId)) {
+    return normalizeText(existingSlot.slotId);
+  }
+  const releasedSlot = releasedLanes.find(
+    (entry) => normalizeText(entry?.laneId) === normalizedLaneId && normalizeText(entry?.slotId)
+  );
+  if (normalizeText(releasedSlot?.slotId)) {
+    const releasedProviderSlot = slots.find(
+      (slot) => normalizeText(slot?.slotId) === normalizeText(releasedSlot.slotId) && slotMatchesProvider(slot, selectedProviderId)
+    );
+    if (normalizeText(releasedProviderSlot?.slotId)) {
+      return normalizeText(releasedProviderSlot.slotId);
+    }
+  }
+  const availableSlot = slots.find(
+    (slot) => normalizeText(slot?.status).toLowerCase() === 'available' && slotMatchesProvider(slot, selectedProviderId)
+  );
+  if (normalizeText(availableSlot?.slotId)) {
+    return normalizeText(availableSlot.slotId);
+  }
+  return 'worker-slot-1';
+}
+
+export async function prepareCompareviWorkerCheckout({
+  repoRoot,
+  repository,
+  schedulerDecision,
+  options = {},
+  platform,
+  deps = {}
+}) {
+  const activeLane = schedulerDecision?.activeLane ?? null;
+  if (!activeLane?.laneId) {
+    return null;
+  }
+
+  const runtimeDir = resolveRuntimeDir({ repoRoot, options });
+  const deliveryStatePath = runtimeDir ? path.join(runtimeDir, 'delivery-agent-state.json') : '';
+  const deliveryState = deliveryStatePath ? await readJsonIfPresent(deliveryStatePath) : null;
+  const deliveryPolicy = await loadDeliveryAgentPolicy(repoRoot, deps);
+  const providerSelection = selectWorkerProviderAssignment({
+    policy: deliveryPolicy,
+    selection: buildWorkerProviderSelectionRequest({
+      schedulerDecision,
+      laneLifecycle: schedulerDecision?.artifacts?.laneLifecycle,
+      selectedActionType: schedulerDecision?.artifacts?.selectedActionType
+    }),
+    availableSlots: Array.isArray(deliveryState?.workerPool?.slots) ? deliveryState.workerPool.slots : []
+  });
+  if (providerSelection.selectedProviderId && providerSelection.requiresLocalCheckout === false) {
+    return null;
+  }
+  const slotId = selectWorkerSlotId({
+    deliveryState,
+    laneId: activeLane.laneId,
+    selectedProviderId: providerSelection.selectedProviderId
+  });
+  const { checkoutRoot, checkoutPath, checkoutRootPolicy } = resolveCompareviWorkerCheckoutLocation({
+    repoRoot,
+    repository,
+    laneId: activeLane.laneId,
+    slotId,
+    storageRootsPolicy: deliveryPolicy?.storageRoots,
+    env: deps.env ?? process.env
+  });
+  const legacyCheckout = resolveCompareviWorkerCheckoutLocation({
+    repoRoot,
+    repository,
+    laneId: activeLane.laneId,
+    storageRootsPolicy: deliveryPolicy?.storageRoots,
+    env: deps.env ?? process.env
+  });
+  const useLegacyCheckout = !(await pathExists(checkoutPath)) && slotId !== activeLane.laneId && (await pathExists(legacyCheckout.checkoutPath));
+  const resolvedCheckoutPath = useLegacyCheckout ? legacyCheckout.checkoutPath : checkoutPath;
+  const checkoutSegment = sanitizeSegment(useLegacyCheckout ? activeLane.laneId : slotId);
+  const execFileFn = deps.execFileFn ?? execFileAsync;
+  const gitCommonDir = await resolveGitCommonDir(execFileFn, repoRoot);
+  const gitMarkerPath = path.join(resolvedCheckoutPath, '.git');
+  let worktreeStateRepair = {
+    repaired: false,
+    dirtyEntries: []
+  };
+  if (await pathExists(gitMarkerPath)) {
+    const fetchedRemotes = [];
+    try {
+      const pointerRepair = await repairExistingWorktreeGitPointers({
+        repoRoot,
+        checkoutPath: resolvedCheckoutPath,
+        laneSegment: checkoutSegment,
+        gitCommonDir
+      });
+      if (pointerRepair.structurallyValid === false) {
+        worktreeStateRepair = await quarantineRuntimeWorktree({
+          execFileFn,
+          repoRoot,
+          checkoutPath: resolvedCheckoutPath,
+          laneId: checkoutSegment,
+          gitCommonDir,
+          quarantineReason: 'invalid-existing-worktree-registration'
+        });
+      } else {
+        worktreeStateRepair = await inspectReusedWorktreeState(execFileFn, resolvedCheckoutPath);
+        if (worktreeStateRepair.dirtyEntries.length > 0) {
+          worktreeStateRepair = await quarantineRuntimeWorktree({
+            execFileFn,
+            repoRoot,
+            checkoutPath: resolvedCheckoutPath,
+            laneId: checkoutSegment,
+            gitCommonDir,
+            dirtyEntries: worktreeStateRepair.dirtyEntries,
+            quarantineReason: 'dirty-existing-checkout'
+          });
+        } else {
+          const availableRemotes = (await tryReadGitStdout(execFileFn, ['remote'], { cwd: resolvedCheckoutPath }))
+            .split(/\r?\n/)
+            .map((entry) => normalizeText(entry))
+            .filter(Boolean);
+          if (availableRemotes.includes('upstream')) {
+            await fetchAttachableRemote(execFileFn, resolvedCheckoutPath, 'upstream');
+            fetchedRemotes.push('upstream');
+          } else if (availableRemotes.includes('origin')) {
+            await fetchAttachableRemote(execFileFn, resolvedCheckoutPath, 'origin');
+            fetchedRemotes.push('origin');
+          }
+          const resolvedRef = await resolveAuthoritativeStandingBaseRef(execFileFn, repoRoot, schedulerDecision, {
+            availableRemotes
+          });
+          await execFileFn('git', ['checkout', '--force', '--detach', resolvedRef], { cwd: resolvedCheckoutPath });
+          const pushRemotesNormalized = await normalizeGitHubRemotePushUrls(execFileFn, resolvedCheckoutPath, {
+            platform: deps.platform ?? platform ?? process.platform
+          });
+          return {
+            laneId: activeLane.laneId,
+            slotId,
+            providerId: providerSelection.selectedProviderId,
+            providerKind: providerSelection.selectedProviderKind,
+            executionPlane: providerSelection.selectedExecutionPlane,
+            assignmentMode: providerSelection.selectedAssignmentMode,
+            checkoutRoot,
+            checkoutPath: resolvedCheckoutPath,
+            checkoutRootPolicy,
+            status: 'reused',
+            ref: resolvedRef,
+            requestedBranch: normalizeText(schedulerDecision?.stepOptions?.branch) || null,
+            source: 'comparevi-worktree',
+            fetchedRemotes,
+            pushRemotesNormalized,
+            worktreeStateRepair
+          };
+        }
+      }
+    } catch (error) {
+      const errorMessage = formatExecError(error);
+      const structuralGitError = /not a git repository|enoent|cannot change to|branch-classes\.json/i.test(errorMessage);
+      if (structuralGitError) {
+        worktreeStateRepair = await quarantineRuntimeWorktree({
+          execFileFn,
+          repoRoot,
+          checkoutPath: resolvedCheckoutPath,
+          laneId: checkoutSegment,
+          gitCommonDir,
+          quarantineReason: 'structural-existing-checkout-error'
+        });
+      } else {
+        return {
+          laneId: activeLane.laneId,
+          slotId,
+          providerId: providerSelection.selectedProviderId,
+          providerKind: providerSelection.selectedProviderKind,
+          executionPlane: providerSelection.selectedExecutionPlane,
+          assignmentMode: providerSelection.selectedAssignmentMode,
+          checkoutRoot,
+          checkoutPath: resolvedCheckoutPath,
+          checkoutRootPolicy,
+          status: 'blocked',
+          ref: DEFAULT_WORKER_REF,
+          requestedBranch: normalizeText(schedulerDecision?.stepOptions?.branch) || null,
+          reason: `failed to refresh existing worker checkout: ${errorMessage}`,
+          source: 'comparevi-worktree',
+          fetchedRemotes
+        };
+      }
+    }
+
+  }
+
+  if (await pathExists(resolvedCheckoutPath)) {
+    worktreeStateRepair = await quarantineRuntimeWorktree({
+      execFileFn,
+      repoRoot,
+      checkoutPath: resolvedCheckoutPath,
+      laneId: checkoutSegment,
+      gitCommonDir,
+      quarantineReason: 'worker checkout path exists but is not a git worktree'
+    });
+  }
+
+  const availableRemotes = (await tryReadGitStdout(execFileFn, ['remote'], { cwd: repoRoot }))
+    .split(/\r?\n/)
+    .map((entry) => normalizeText(entry))
+    .filter(Boolean);
+  const fetchedRemotes = [];
+  for (const remote of ATTACHABLE_REMOTES) {
+    if (!availableRemotes.includes(remote)) {
+      continue;
+    }
+    await fetchAttachableRemote(execFileFn, repoRoot, remote);
+    fetchedRemotes.push(remote);
+  }
+  const resolvedBaseRef = await resolveAuthoritativeStandingBaseRef(execFileFn, repoRoot, schedulerDecision, {
+    availableRemotes
+  });
+  await mkdir(checkoutRoot, { recursive: true });
+  await execFileFn('git', ['worktree', 'add', '--detach', resolvedCheckoutPath, resolvedBaseRef], {
+    cwd: repoRoot
+  });
+  await repairExistingWorktreeGitPointers({
+    repoRoot,
+    checkoutPath: resolvedCheckoutPath,
+    laneSegment: checkoutSegment,
+    gitCommonDir
+  });
+  const pushRemotesNormalized = await normalizeGitHubRemotePushUrls(execFileFn, resolvedCheckoutPath, {
+    platform: deps.platform ?? platform ?? process.platform
+  });
+  return {
+    laneId: activeLane.laneId,
+    slotId,
+    providerId: providerSelection.selectedProviderId,
+    providerKind: providerSelection.selectedProviderKind,
+    executionPlane: providerSelection.selectedExecutionPlane,
+    assignmentMode: providerSelection.selectedAssignmentMode,
+    checkoutRoot,
+    checkoutPath: resolvedCheckoutPath,
+    checkoutRootPolicy,
+    status: 'created',
+    ref: resolvedBaseRef,
+    requestedBranch: normalizeText(schedulerDecision?.stepOptions?.branch) || null,
+    source: 'comparevi-worktree',
+    fetchedRemotes,
+    pushRemotesNormalized,
+    worktreeStateRepair
+  };
+}
+
+export async function bootstrapCompareviWorkerCheckout({
+  schedulerDecision,
+  preparedWorker,
+  deps = {}
+}) {
+  if (!preparedWorker?.checkoutPath || !schedulerDecision?.activeLane?.laneId) {
+    return null;
+  }
+
+  const execFileFn = deps.execFileFn ?? execFileAsync;
+  const leaseRoot = await resolveWriterLeaseRoot(execFileFn, preparedWorker.checkoutPath);
+  const bootstrapEnv = { ...process.env };
+  if (leaseRoot) {
+    bootstrapEnv.AGENT_WRITER_LEASE_ROOT = leaseRoot;
+    if (!normalizeText(bootstrapEnv.AGENT_WRITER_LEASE_OWNER)) {
+      const existingOwner = await resolveExistingLeaseOwner(leaseRoot);
+      if (existingOwner) {
+        bootstrapEnv.AGENT_WRITER_LEASE_OWNER = existingOwner;
+      }
+    }
+    if (!normalizeText(bootstrapEnv.AGENT_WRITER_LEASE_FORCE_TAKEOVER)) {
+      bootstrapEnv.AGENT_WRITER_LEASE_FORCE_TAKEOVER = '1';
+    }
+    if (!normalizeText(bootstrapEnv.AGENT_WRITER_LEASE_STALE_SECONDS)) {
+      // Worker checkout leases are lane-scoped and ephemeral; allow immediate
+      // takeover so container restarts do not block bootstrap on stale owner ids.
+      bootstrapEnv.AGENT_WRITER_LEASE_STALE_SECONDS = '0';
+    }
+  }
+  const branch = normalizeText(schedulerDecision?.stepOptions?.branch) || normalizeText(schedulerDecision?.activeLane?.branch);
+  if (branch) {
+    const forkRemote = normalizeText(schedulerDecision?.activeLane?.forkRemote) || 'upstream';
+    try {
+      assertLaneBranchMatchesPlane({
+        branch,
+        plane: forkRemote,
+        repoRoot: preparedWorker.checkoutPath,
+        loadBranchClassContractFn: deps.loadBranchClassContractFn ?? loadBranchClassContract
+      });
+    } catch (error) {
+      return {
+        laneId: schedulerDecision.activeLane.laneId,
+        slotId: normalizeText(preparedWorker?.slotId) || null,
+        checkoutPath: preparedWorker.checkoutPath,
+        status: 'blocked',
+        source: 'comparevi-bootstrap',
+        reason: normalizeText(error?.message) || String(error),
+        bootstrapCommand: [],
+        bootstrapExitCode: 1,
+        preparedAt: preparedWorker.generatedAt ?? null
+      };
+    }
+    try {
+      const availableRemotes = (await tryReadGitStdout(execFileFn, ['remote'], { cwd: preparedWorker.checkoutPath }))
+        .split(/\r?\n/)
+        .map((entry) => normalizeText(entry))
+        .filter(Boolean);
+      for (const remote of ATTACHABLE_REMOTES) {
+        if (!availableRemotes.includes(remote)) {
+          continue;
+        }
+        await fetchAttachableRemote(execFileFn, preparedWorker.checkoutPath, remote);
+      }
+
+      const currentBranch = await tryReadGitStdout(execFileFn, ['branch', '--show-current'], {
+        cwd: preparedWorker.checkoutPath
+      });
+      const baseRef = normalizeText(preparedWorker?.ref) || await resolveCompareviWorkerBaseRef(execFileFn, preparedWorker.checkoutPath, {
+        availableRemotes
+      });
+      if (currentBranch !== branch) {
+        const trackingRef = `${forkRemote}/${branch}`;
+        const trackingExists = await gitRefExists(execFileFn, preparedWorker.checkoutPath, `refs/remotes/${trackingRef}`);
+        const checkoutTarget = trackingExists ? trackingRef : baseRef;
+        await execFileFn('git', ['checkout', '--force', '-B', branch, checkoutTarget], {
+          cwd: preparedWorker.checkoutPath
+        });
+        if (trackingExists) {
+          await execFileFn('git', ['branch', '--set-upstream-to', trackingRef, branch], {
+            cwd: preparedWorker.checkoutPath
+          });
+        }
+      }
+    } catch (error) {
+      return {
+        laneId: schedulerDecision.activeLane.laneId,
+        slotId: normalizeText(preparedWorker?.slotId) || null,
+        checkoutPath: preparedWorker.checkoutPath,
+        status: 'blocked',
+        source: 'comparevi-bootstrap',
+        reason: `failed to activate branch before bootstrap: ${formatExecError(error)}`,
+        bootstrapCommand: [],
+        bootstrapExitCode: Number.isInteger(error?.code) ? error.code : 1,
+        preparedAt: preparedWorker.generatedAt ?? null
+      };
+    }
+  }
+
+  const bootstrapPath = path.join(preparedWorker.checkoutPath, BOOTSTRAP_RELATIVE_PATH);
+  const bootstrapCommand = ['pwsh', '-NoLogo', '-NoProfile', '-File', bootstrapPath];
+
+  try {
+    await execFileFn(bootstrapCommand[0], bootstrapCommand.slice(1), {
+      cwd: preparedWorker.checkoutPath,
+      env: bootstrapEnv
+    });
+  } catch (error) {
+    return {
+      laneId: schedulerDecision.activeLane.laneId,
+      slotId: normalizeText(preparedWorker?.slotId) || null,
+      checkoutPath: preparedWorker.checkoutPath,
+      status: 'blocked',
+      source: 'comparevi-bootstrap',
+      reason: formatBootstrapFailure(error),
+      bootstrapCommand,
+      bootstrapExitCode: Number.isInteger(error?.code) ? error.code : 1,
+      preparedAt: preparedWorker.generatedAt ?? null
+    };
+  }
+
+  return {
+    laneId: schedulerDecision.activeLane.laneId,
+    slotId: normalizeText(preparedWorker?.slotId) || null,
+    checkoutPath: preparedWorker.checkoutPath,
+    status: 'ready',
+    source: 'comparevi-bootstrap',
+    bootstrapCommand,
+    bootstrapExitCode: 0,
+    preparedAt: preparedWorker.generatedAt ?? null
+  };
+}
+
+export async function activateCompareviWorkerLane({
+  schedulerDecision,
+  preparedWorker,
+  workerReady,
+  deps = {}
+}) {
+  const activeLane = schedulerDecision?.activeLane ?? null;
+  const laneId = normalizeText(activeLane?.laneId);
+  const checkoutPath = normalizeText(workerReady?.checkoutPath) || normalizeText(preparedWorker?.checkoutPath);
+  const branch = normalizeText(schedulerDecision?.stepOptions?.branch) || normalizeText(activeLane?.branch);
+  if (!laneId || !checkoutPath) {
+    return null;
+  }
+
+  if (!branch) {
+    return {
+      laneId,
+      slotId: normalizeText(workerReady?.slotId) || normalizeText(preparedWorker?.slotId) || null,
+      checkoutPath,
+      branch: null,
+      forkRemote: normalizeText(activeLane?.forkRemote) || null,
+      status: 'blocked',
+      source: 'comparevi-branch',
+      reason: 'selected lane does not resolve a deterministic branch name',
+      baseRef: DEFAULT_WORKER_REF,
+      trackingRef: null,
+      fetchedRemotes: []
+    };
+  }
+
+  const execFileFn = deps.execFileFn ?? execFileAsync;
+  const forkRemote = normalizeText(activeLane?.forkRemote) || 'upstream';
+  try {
+    assertLaneBranchMatchesPlane({
+      branch,
+      plane: forkRemote,
+      repoRoot: checkoutPath,
+      loadBranchClassContractFn: deps.loadBranchClassContractFn ?? loadBranchClassContract
+    });
+  } catch (error) {
+    return {
+      laneId,
+      slotId: normalizeText(workerReady?.slotId) || normalizeText(preparedWorker?.slotId) || null,
+      checkoutPath,
+      branch,
+      forkRemote,
+      status: 'blocked',
+      source: 'comparevi-branch',
+      reason: normalizeText(error?.message) || String(error),
+      baseRef: DEFAULT_WORKER_REF,
+      trackingRef: `${forkRemote}/${branch}`,
+      fetchedRemotes: []
+    };
+  }
+  const availableRemotes = (await tryReadGitStdout(execFileFn, ['remote'], { cwd: checkoutPath }))
+    .split(/\r?\n/)
+    .map((entry) => normalizeText(entry))
+    .filter(Boolean);
+  const baseRef = normalizeText(preparedWorker?.ref) || await resolveCompareviWorkerBaseRef(execFileFn, checkoutPath, {
+    availableRemotes
+  });
+  const fetchedRemotes = [];
+  try {
+    for (const remote of ATTACHABLE_REMOTES) {
+      if (!availableRemotes.includes(remote)) {
+        continue;
+      }
+      await fetchAttachableRemote(execFileFn, checkoutPath, remote);
+      fetchedRemotes.push(remote);
+    }
+    const currentBranch = await tryReadGitStdout(execFileFn, ['branch', '--show-current'], { cwd: checkoutPath });
+    const trackingRef = `${forkRemote}/${branch}`;
+    const trackingExists = await gitRefExists(execFileFn, checkoutPath, `refs/remotes/${trackingRef}`);
+    if (currentBranch !== branch) {
+      const checkoutTarget = trackingExists ? trackingRef : baseRef;
+      // Runtime worktrees are ephemeral execution sandboxes; force checkout so
+      // local bootstrap edits in detached refs cannot block lane activation.
+      await execFileFn('git', ['checkout', '--force', '-B', branch, checkoutTarget], { cwd: checkoutPath });
+      if (trackingExists) {
+        await execFileFn('git', ['branch', '--set-upstream-to', trackingRef, branch], { cwd: checkoutPath });
+      }
+    }
+
+    return {
+      laneId,
+      slotId: normalizeText(workerReady?.slotId) || normalizeText(preparedWorker?.slotId) || null,
+      checkoutPath,
+      branch,
+      forkRemote,
+      status: currentBranch === branch ? 'reused' : trackingExists ? 'attached' : 'created',
+      source: 'comparevi-branch',
+      reason: null,
+      baseRef,
+      trackingRef: trackingExists ? trackingRef : null,
+      fetchedRemotes,
+      readyAt: workerReady?.readyAt ?? null
+    };
+  } catch (error) {
+    return {
+      laneId,
+      slotId: normalizeText(workerReady?.slotId) || normalizeText(preparedWorker?.slotId) || null,
+      checkoutPath,
+      branch,
+      forkRemote,
+      status: 'blocked',
+      source: 'comparevi-branch',
+      reason: formatExecError(error),
+      baseRef,
+      trackingRef: `${forkRemote}/${branch}`,
+      fetchedRemotes
+    };
+  }
+}
+
+export const __test = {
+  ATTACHABLE_REMOTES,
+  BOOTSTRAP_RELATIVE_PATH,
+  DEFAULT_WORKER_REF,
+  formatGitPointerPath,
+  isPathWithin,
+  formatRelativeGitPointer,
+  GITHUB_PUSH_REMOTES,
+  normalizeGitHubRemotePushUrls,
+  repairRegisteredWorktreeGitPointers,
+  repairExistingWorktreeGitPointers,
+  resolveCompareviWorkerBaseRef,
+  tryResolveCheckoutGitFromAdminPointer,
+  resolveGitHubSshPushUrl
+};

@@ -1,0 +1,40 @@
+name: VI Binary Handling Gate
+on:
+  pull_request:
+    paths:
+      - '.gitattributes'
+      - 'scripts/**'
+      - 'tools/**'
+      - 'fixtures/vi-stage/control-rename/**'
+      - '.github/workflows/vi-binary-gate.yml'
+      - '.github/workflows/windows-ni-proof-reusable.yml'
+      - 'tests/ViBinaryHandling.Tests.ps1'
+  push:
+    branches: [ main ]
+    paths:
+      - '.gitattributes'
+      - 'scripts/**'
+      - 'tools/**'
+      - 'fixtures/vi-stage/control-rename/**'
+      - '.github/workflows/vi-binary-gate.yml'
+      - '.github/workflows/windows-ni-proof-reusable.yml'
+      - 'tests/ViBinaryHandling.Tests.ps1'
+  merge_group:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      sample_id:
+        description: 'Optional run sample identifier for provenance'
+        required: false
+        default: ''
+
+jobs:
+  vi-binary-check:
+    uses: ./.github/workflows/windows-ni-proof-reusable.yml
+    with:
+      sample_id: ${{ github.event.inputs.sample_id || '' }}
+      base_vi: fixtures/vi-stage/control-rename/Base.vi
+      head_vi: fixtures/vi-stage/control-rename/Head.vi
+      results_root: tests/results/vi-binary-gate
+      artifact_name: vi-binary-gate
+      run_binary_invariants: true

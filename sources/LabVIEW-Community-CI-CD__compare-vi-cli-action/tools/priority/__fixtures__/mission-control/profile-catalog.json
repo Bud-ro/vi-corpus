@@ -1,0 +1,65 @@
+{
+  "schema": "priority/mission-control-profile-catalog@v1",
+  "profiles": [
+    {
+      "id": "autonomous-default",
+      "trigger": "MC",
+      "aliases": ["MC-AUTO", "MC-DEFAULT"],
+      "operatorPreset": {
+        "intent": "continue-driving-autonomously",
+        "focus": "standing-priority",
+        "overrides": []
+      },
+      "summary": "Canonical unattended mission-control preset.",
+      "description": "Use when the operator wants the repo-owned control plane to keep the standing lane moving, rotate to the next child issue automatically, and proactively fill safe worker-slot capacity."
+    },
+    {
+      "id": "finish-live-lane",
+      "trigger": "MC-LIVE",
+      "aliases": ["MC-FINISH"],
+      "operatorPreset": {
+        "intent": "finish-live-standing-lane",
+        "focus": "standing-priority",
+        "overrides": []
+      },
+      "summary": "Bias toward the current live standing lane.",
+      "description": "Use when the current standing PR should be merged before additional support-lane expansion continues."
+    },
+    {
+      "id": "stabilize-current-head-failure",
+      "trigger": "MC-RED",
+      "aliases": ["MC-STABILIZE", "MC-HEAD"],
+      "operatorPreset": {
+        "intent": "stabilize-current-head-failure",
+        "focus": "current-head-failure",
+        "overrides": []
+      },
+      "summary": "Treat the current-head regression as the immediate objective.",
+      "description": "Use when a required check is red on the live lane and widening scope would just add churn."
+    },
+    {
+      "id": "restore-intake",
+      "trigger": "MC-INTAKE",
+      "aliases": ["MC-QUEUE"],
+      "operatorPreset": {
+        "intent": "restore-intake",
+        "focus": "queue-health",
+        "overrides": []
+      },
+      "summary": "Rebuild the tracked queue before new implementation work.",
+      "description": "Use when standing-priority is missing, only epics remain open, or child-issue intake has drifted."
+    },
+    {
+      "id": "prepare-parked-lane",
+      "trigger": "MC-PARK",
+      "aliases": ["MC-NEXT", "MC-PARKED"],
+      "operatorPreset": {
+        "intent": "prepare-parked-lane",
+        "focus": "queue-health",
+        "overrides": []
+      },
+      "summary": "Use available worker-slot capacity to prepare one disjoint support slice.",
+      "description": "Use when queue health needs another disjoint support lane prepared or refreshed while worker-slot capacity remains."
+    }
+  ]
+}

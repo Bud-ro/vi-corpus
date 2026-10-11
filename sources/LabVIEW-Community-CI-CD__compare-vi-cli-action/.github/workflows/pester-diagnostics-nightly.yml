@@ -1,0 +1,59 @@
+name: Pester diagnostics nightly
+
+on:
+  schedule:
+    - cron: '0 7 * * *' # 07:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      sample_id:
+        description: 'Sampling correlation id (prevents cancels)'
+        required: false
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.inputs.sample_id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  diagnostics:
+    uses: ./.github/workflows/pester-reusable.yml
+    with:
+      include_integration: ${{ 'false' }}
+      install_pester: ${{ 'false' }}
+      diagnostic_fail: ${{ 'true' }}
+      continue_on_error: ${{ 'true' }}
+      sample_id: ${{ github.event.inputs.sample_id || '' }}
+
+  verify:
+    needs: diagnostics
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Pester artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: pester-results
+          path: artifacts
+        continue-on-error: true
+
+      - name: Verify failure JSON emitted (notice-only)
+        shell: pwsh
+        run: |
+          $failPath = Join-Path 'artifacts' 'tests/results/pester-failures.json'
+          if (-not (Test-Path $failPath)) { Write-Host '::notice::Failure JSON not generated'; exit 0 }
+          try { $fail = Get-Content $failPath -Raw | ConvertFrom-Json -ErrorAction Stop } catch { $fail = $null }
+          if (-not $fail -or $fail.Count -lt 1) {
+            Write-Host '::notice::Failure JSON empty'
+          } else {
+            Write-Host ("Detected {0} synthetic failing test(s)." -f $fail.Count)
+          }
+          $summary = Join-Path 'artifacts' 'tests/results/pester-summary.json'
+          if (Test-Path $summary) {
+            $data = Get-Content $summary -Raw | ConvertFrom-Json
+            $lines = @('### Nightly Diagnostics (Synthetic Failure)',
+              "- Total: $($data.total)",
+              "- Passed: $($data.passed)",
+              "- Failed: $($data.failed)",
+              "- Duration (s): $($data.duration_s)")
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }

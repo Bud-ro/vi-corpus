@@ -1,0 +1,34 @@
+name: Release Cadence Check
+
+on:
+  schedule:
+    - cron: '0 18 * * 1'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  cadence-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Evaluate package freshness and reconcile stale issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node tools/priority/release-cadence-check.mjs \
+            --repo "${{ github.repository }}" \
+            --out tests/results/_agent/release/release-cadence-check-report.json
+
+      - name: Upload cadence report
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-cadence-check-report-${{ github.run_id }}
+          path: tests/results/_agent/release/release-cadence-check-report.json
+          if-no-files-found: error
+

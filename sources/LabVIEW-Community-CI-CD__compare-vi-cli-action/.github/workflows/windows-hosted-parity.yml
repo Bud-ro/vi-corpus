@@ -1,0 +1,19 @@
+name: Windows Hosted NI Proof (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      sample_id:
+        description: 'Sampling correlation id (prevents cancels)'
+        required: false
+        type: string
+
+jobs:
+  hosted-ni-proof:
+    uses: ./.github/workflows/windows-ni-proof-reusable.yml
+    with:
+      sample_id: ${{ github.event.inputs.sample_id || '' }}
+      base_vi: fixtures/vi-stage/control-rename/Base.vi
+      head_vi: fixtures/vi-stage/control-rename/Head.vi
+      results_root: tests/results/windows-hosted-parity
+      artifact_name: windows-hosted-ni-proof

@@ -1,0 +1,36 @@
+{
+  "schema": "priority/agent-cost-invoice-turn@v1",
+  "generatedAt": "2026-04-15T17:00:00.000Z",
+  "invoiceTurnId": "invoice-turn-2026-04-HQ1VJLMV-0028",
+  "invoiceId": "HQ1VJLMV-0028",
+  "billingPeriod": {
+    "openedAt": "2026-04-15T09:00:00.000-07:00",
+    "closedAt": null
+  },
+  "credits": {
+    "purchased": 8000,
+    "unitPriceUsd": 0.04
+  },
+  "billing": {
+    "currency": "USD",
+    "prepaidUsd": 320,
+    "pricingBasis": "prepaid-credit"
+  },
+  "policy": {
+    "activationState": "active",
+    "fundingPurpose": "operational"
+  },
+  "reconciliation": {
+    "status": "baseline-only",
+    "actualUsdConsumed": null,
+    "actualCreditsConsumed": null,
+    "reconciledAt": null,
+    "sourceKind": null,
+    "note": null
+  },
+  "provenance": {
+    "sourceKind": "operator-invoice",
+    "sourcePath": null,
+    "operatorNote": "Follow-on invoice turn used to test overlap selection."
+  }
+}

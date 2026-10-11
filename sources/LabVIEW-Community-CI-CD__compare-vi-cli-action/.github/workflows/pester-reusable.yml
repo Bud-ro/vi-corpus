@@ -1,0 +1,765 @@
+name: Pester Reusable
+
+on:
+  workflow_call:
+    inputs:
+      include_integration:
+        required: false
+        type: string
+        default: 'false'
+      install_pester:
+        required: false
+        type: string
+        default: 'false'
+      include_patterns:
+        required: false
+        type: string
+        default: ''
+      diagnostic_fail:
+        required: false
+        type: string
+        default: 'false'
+      continue_on_error:
+        required: false
+        type: string
+        default: 'false'
+      skip_run:
+        required: false
+        type: string
+        default: 'false'
+      sample_id:
+        required: false
+        type: string
+    outputs:
+      total:
+        description: Total tests discovered
+        value: ${{ jobs.pester.outputs.total }}
+      passed:
+        description: Passed tests count
+        value: ${{ jobs.pester.outputs.passed }}
+      failed:
+        description: Failed tests count
+        value: ${{ jobs.pester.outputs.failed }}
+      errors:
+        description: Errors count
+        value: ${{ jobs.pester.outputs.errors }}
+      duration_s:
+        description: Duration in seconds
+        value: ${{ jobs.pester.outputs.duration_s }}
+
+concurrency:
+  group: ${{ github.workflow }}-pester-reusable-${{ github.repository }}-${{ inputs.sample_id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    outputs:
+      include_integration: ${{ steps.b.outputs.normalized }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Apply determinism profile
+        uses: ./.github/actions/determinism-profile
+        with:
+          strict: 'true'
+      - name: Normalize include_integration
+        id: b
+        uses: ./.github/actions/bool-normalize
+        with:
+          value: ${{ inputs.include_integration || 'false' }}
+
+  preflight:
+    name: Preflight (self-hosted)
+    if: ${{ inputs.skip_run != 'true' }}
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress]
+    timeout-minutes: 3
+    env:
+      CLEAN_LV_BEFORE: ${{ vars.CLEAN_LV_BEFORE || 'true' }}
+      CLEAN_LV_AFTER: ${{ vars.CLEAN_LV_AFTER || 'true' }}
+      CLEAN_LV_INCLUDE_COMPARE: ${{ vars.CLEAN_LV_INCLUDE_COMPARE || vars.CLEAN_LVCOMPARE || 'true' }}
+      LVCOMPARE_PATH: ${{ vars.LVCOMPARE_PATH || '' }}
+      LV_SUPPRESS_UI: ${{ vars.LV_SUPPRESS_UI || '1' }}
+      LV_NO_ACTIVATE: ${{ vars.LV_NO_ACTIVATE || '1' }}
+      LV_CURSOR_RESTORE: ${{ vars.LV_CURSOR_RESTORE || '1' }}
+      LV_IDLE_WAIT_SECONDS: ${{ vars.LV_IDLE_WAIT_SECONDS || '2' }}
+      LV_IDLE_MAX_WAIT_SECONDS: ${{ vars.LV_IDLE_MAX_WAIT_SECONDS || '5' }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Rogue LV scan (notice-only)
+        shell: pwsh
+        run: pwsh -File tools/Detect-RogueLV.ps1 -ResultsDir tests/results -LookBackSeconds 900
+      - name: Runner Unblock Guard (preflight)
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/runner-unblock-snapshot.json
+          cleanup: ${{ env.CLEAN_LV_BEFORE == 'true' }}
+          process-names: 'LabVIEW,LVCompare'
+      - name: Verify LVCompare and idle LabVIEW state
+        shell: pwsh
+        run: |
+          $defaultCli = 'C:\Program Files\National Instruments\Shared\LabVIEW Compare\LVCompare.exe'
+          $candidates = @()
+          if ($env:LVCOMPARE_PATH) { $candidates += $env:LVCOMPARE_PATH }
+          $candidates += $defaultCli
+          $cli = $null
+          foreach ($p in $candidates) {
+            if ($p -and (Test-Path -LiteralPath $p)) { $cli = $p; break }
+          }
+          if (-not $cli) {
+            $tried = ($candidates | Where-Object { $_ }) -join '; '
+            Write-Host ("::error::LVCompare.exe not found on the generic ingress surface. Tried: {0}" -f $tried)
+            Write-Host '::error::pester-reusable does not silently fall back to Program Files (x86); use LVCOMPARE_PATH or an explicit specialized LV32 workflow when that surface is required.'
+            exit 1
+          } else {
+            Write-Host ("Resolved LVCompare path: {0}" -f $cli)
+          }
+          $lv = Get-Process -Name 'LabVIEW' -ErrorAction SilentlyContinue
+          if ($lv) {
+            $pids = $lv | ForEach-Object { '{0}(session={1})' -f $_.Id,$_.SessionId }
+            Write-Host ("::error::LabVIEW.exe is running (details: {0})" -f ($pids -join ', '))
+            if ($env:GITHUB_STEP_SUMMARY) {
+              $lines = @('### Preflight Checks','','- LVCompare: missing LabVIEW idle requirement','- Detected LabVIEW processes: {0}' -f ($pids -join ', '))
+              $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            }
+            exit 1
+          }
+          Write-Host 'Preflight OK: LVCompare present; LabVIEW not running.'
+          if ($env:GITHUB_STEP_SUMMARY) {
+            $lines = @('### Preflight Checks','','- LVCompare: ok (path resolved)','- LabVIEW idle gate: ok')
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+
+  pester:
+    name: Pester (self-hosted)
+    if: ${{ inputs.skip_run != 'true' }}
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress]
+    # No job-level timeout; rely on probes/guards for determinism
+    needs: [normalize, preflight]
+    env:
+      LV_SUPPRESS_UI: ${{ vars.LV_SUPPRESS_UI || '1' }}
+      LV_NO_ACTIVATE: ${{ vars.LV_NO_ACTIVATE || '1' }}
+      LV_CURSOR_RESTORE: ${{ vars.LV_CURSOR_RESTORE || '1' }}
+      LV_IDLE_WAIT_SECONDS: ${{ vars.LV_IDLE_WAIT_SECONDS || '2' }}
+      LV_IDLE_MAX_WAIT_SECONDS: ${{ vars.LV_IDLE_MAX_WAIT_SECONDS || '5' }}
+      STUCK_GUARD: ${{ vars.STUCK_GUARD || '1' }}
+      CLEAN_LV_BEFORE: ${{ vars.CLEAN_LV_BEFORE || 'true' }}
+      CLEAN_LV_AFTER: ${{ vars.CLEAN_LV_AFTER || 'true' }}
+      CLEAN_LV_INCLUDE_COMPARE: ${{ vars.CLEAN_LV_INCLUDE_COMPARE || vars.CLEAN_LVCOMPARE || 'true' }}
+      LVCOMPARE_PATH: ${{ vars.LVCOMPARE_PATH || '' }}
+    outputs:
+      total: ${{ steps.export.outputs.total }}
+      passed: ${{ steps.export.outputs.passed }}
+      failed: ${{ steps.export.outputs.failed }}
+      errors: ${{ steps.export.outputs.errors }}
+      duration_s: ${{ steps.export.outputs.duration_s }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Node dependencies
+        shell: pwsh
+        run: node tools/npm/cli.mjs ci
+      - name: Export workflow token for priority sync
+        shell: pwsh
+        env:
+          WORKFLOW_TOKEN: ${{ github.token }}
+        run: |
+          if (-not $env:WORKFLOW_TOKEN) { throw 'github.token is empty' }
+          "GH_TOKEN=$env:WORKFLOW_TOKEN" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "GITHUB_TOKEN=$env:WORKFLOW_TOKEN" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Acquire session lock
+        id: session_lock
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/Session-Lock.ps1 -Action Acquire -Group 'pester-selfhosted' -QueueWaitSeconds 15 -QueueMaxAttempts 40 -StaleSeconds 300 -HeartbeatSeconds 15
+
+      - name: LV Guard (pre)
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/lv-guard-pre.json
+          cleanup: ${{ env.CLEAN_LV_BEFORE == 'true' }}
+          process-names: 'LVCompare,LabVIEW'
+
+      # When running integration tests, prepare temp base/head VIs and export env vars
+      - name: Prepare fixture copies (base/head)
+        if: ${{ needs.normalize.outputs.include_integration == 'true' }}
+        id: fixtures
+        uses: ./.github/actions/prepare-fixtures
+
+      - name: Export fixture env for tests
+        if: ${{ needs.normalize.outputs.include_integration == 'true' }}
+        shell: pwsh
+        run: |
+          if ('${{ steps.fixtures.outputs.base }}' -and '${{ steps.fixtures.outputs.head }}') {
+            "LV_BASE_VI=${{ steps.fixtures.outputs.base }}" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+            "LV_HEAD_VI=${{ steps.fixtures.outputs.head }}" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          } else {
+            Write-Host '::warning::prepare-fixtures did not emit expected outputs; proceeding without LV_* env.'
+          }
+
+      - name: Apply dispatcher profile
+        id: dprofile
+        uses: ./.github/actions/dispatcher-profile
+        with:
+          timeout-seconds: '0'
+          emit-failures-json-always: 'true'
+          detect-leaks: 'true'
+          fail-on-leaks: 'false'
+          kill-leaks: 'false'
+          leak-grace-seconds: '3'
+          clean-labview-before: 'false'
+          clean-after: 'false'
+          track-artifacts: 'true'
+
+      - name: Wire Probe (T1)
+        if: ${{ vars.WIRE_PROBES != '0' }}
+        uses: ./.github/actions/wire-probe
+        with:
+          phase: T1
+          results-dir: tests/results
+
+      - name: Resolve Pester version
+        id: resolve_pester
+        if: ${{ inputs.skip_run != 'true' }}
+        shell: pwsh
+        run: |
+          $version = if ($env:PESTER_VERSION -and $env:PESTER_VERSION.Trim()) { $env:PESTER_VERSION } else { (./tools/Get-PesterVersion.ps1) }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Install Pester ${{ steps.resolve_pester.outputs.version }} (optional)
+        if: ${{ inputs.install_pester == 'true' && inputs.skip_run != 'true' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $pesterVersion = '${{ steps.resolve_pester.outputs.version }}'
+          Write-Host "Installing Pester $pesterVersion"
+          $installed = $false
+          $galleryUri = 'https://www.powershellgallery.com/api/v2/'
+          $installLegacy = {
+            Install-Module -Name Pester -RequiredVersion $pesterVersion -Force -SkipPublisherCheck -Scope CurrentUser
+          }
+          try {
+            &$installLegacy
+            $installed = $true
+          } catch {
+            Write-Host ("::notice::Install-Module first attempt failed: {0}" -f $_.Exception.Message)
+            try {
+              Register-PSRepository -Default -ErrorAction Stop
+            } catch {
+              Write-Host ("::warning::Register-PSRepository -Default failed: {0}" -f $_.Exception.Message)
+            }
+            try {
+              &$installLegacy
+              $installed = $true
+            } catch {
+              Write-Host ("::notice::Install-Module retry failed: {0}" -f $_.Exception.Message)
+              Write-Host "::notice::Falling back to PSResourceGet for Pester installation."
+              try {
+                Register-PSResourceRepository -Name PSGallery -Uri $galleryUri -Trusted -ErrorAction SilentlyContinue
+              } catch {
+                Write-Host ("::warning::Register-PSResourceRepository fallback failed: {0}" -f $_.Exception.Message)
+              }
+              $attempts = 0
+              $maxAttempts = 5
+              while (-not $installed -and $attempts -lt $maxAttempts) {
+                try {
+                  Install-PSResource -Name Pester -Version $pesterVersion -Scope CurrentUser -TrustRepository -Repository PSGallery
+                  $installed = $true
+                } catch {
+                  $attempts++
+                  if ($attempts -ge $maxAttempts) {
+                    Write-Host ("::warning::Install-PSResource exhausted attempts ({0}): {1}" -f $attempts, $_.Exception.Message)
+                    break
+                  }
+                  Write-Host ("::notice::Install-PSResource attempt {0} failed: {1}" -f $attempts, $_.Exception.Message)
+                  $delay = [math]::Min(30, [math]::Pow(2, $attempts))
+                  Start-Sleep -Seconds $delay
+                }
+              }
+              if (-not $installed) {
+                Write-Host "::notice::Attempting manual PSGallery download fallback for Pester."
+                $downloadRoot = Join-Path $env:RUNNER_TEMP 'pester-download'
+                New-Item -ItemType Directory -Path $downloadRoot -Force | Out-Null
+                $packagePath = Join-Path $downloadRoot ("Pester.{0}.nupkg" -f $pesterVersion)
+                $downloadEndpoints = @(
+                  @{ Uri = ('{0}/package/Pester/{1}' -f $galleryUri.TrimEnd('/'), $pesterVersion); SkipCert = $false },
+                  @{ Uri = ('https://psg-prod-eastus.azureedge.net/packages/pester.{0}.nupkg' -f $pesterVersion.ToLowerInvariant()); SkipCert = $true }
+                )
+                $downloaded = $false
+                foreach ($endpoint in $downloadEndpoints) {
+                  if ($downloaded) { break }
+                  for ($i = 1; $i -le 3 -and -not $downloaded; $i++) {
+                    try {
+                      $commonArgs = @{
+                        Uri             = $endpoint.Uri
+                        OutFile         = $packagePath
+                        UseBasicParsing = $true
+                        ErrorAction     = 'Stop'
+                      }
+                      if ($endpoint.SkipCert) {
+                        Invoke-WebRequest @commonArgs -SkipCertificateCheck
+                      } else {
+                        Invoke-WebRequest @commonArgs
+                      }
+                      $downloaded = $true
+                    } catch {
+                      if ($i -ge 3) {
+                        Write-Host ("::warning::Manual download attempt {0} ({1}) failed: {2}" -f $i, $endpoint.Uri, $_.Exception.Message)
+                      } else {
+                        Write-Host ("::notice::Manual download attempt {0} ({1}) failed: {2}" -f $i, $endpoint.Uri, $_.Exception.Message)
+                        Start-Sleep -Seconds ([math]::Min(30, [math]::Pow(2, $i)))
+                      }
+                    }
+                  }
+                }
+                if ($downloaded -and (Test-Path -LiteralPath $packagePath)) {
+                  $modulePaths = $env:PSModulePath -split [System.IO.Path]::PathSeparator
+                  $destRoot = $modulePaths | Where-Object { $_ -and $_.Trim() } | Where-Object { $_ -like '*Modules*' } | Select-Object -First 1
+                  if (-not $destRoot) {
+                    $destRoot = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.local/share/powershell/Modules'
+                  }
+                  $destPath = Join-Path $destRoot ('Pester/{0}' -f $pesterVersion)
+                  New-Item -ItemType Directory -Force -Path $destPath | Out-Null
+                  Expand-Archive -Path $packagePath -DestinationPath $destPath -Force
+                  $installed = $true
+                } else {
+                  Write-Host "::warning::Manual PSGallery download fallback failed."
+                }
+              }
+            }
+          }
+          if (-not $installed) {
+            throw 'Failed to install Pester from PSGallery.'
+          }
+          $repo = Get-PSRepository -Name PSGallery -ErrorAction SilentlyContinue
+          if ($repo -and $repo.InstallationPolicy -ne 'Trusted') {
+            try {
+              Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+            } catch {
+              Write-Host ("::notice::Unable to set PSGallery installation policy to Trusted: {0}" -f $_.Exception.Message)
+            }
+          }
+
+      - name: Enable diagnostics (synthetic failure)
+        if: ${{ inputs.diagnostic_fail == 'true' }}
+        shell: pwsh
+        run: |
+          "ENABLE_DIAGNOSTIC_FAIL=1" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Run Pester tests via local dispatcher
+        id: dispatcher
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $logPath = 'tests/results/pester-dispatcher.log'
+          $logDir = Split-Path -Parent $logPath
+          if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Force -Path $logDir | Out-Null }
+          if (Test-Path -LiteralPath $logPath) { Remove-Item -LiteralPath $logPath -Force }
+          $dispatcherPath = Join-Path (Get-Location) 'Invoke-PesterTests.ps1'
+          if (-not (Test-Path -LiteralPath $dispatcherPath -PathType Leaf)) {
+            throw "Dispatcher script not found at $dispatcherPath"
+          }
+          $cmd = $dispatcherPath
+          $lockScript = Join-Path (Get-Location) 'tools/Session-Lock.ps1'
+          $bound = [ordered]@{}
+          $bound.TestsPath = 'tests'
+          $includeIntegration = '${{ needs.normalize.outputs.include_integration }}'
+          if ($includeIntegration) {
+            try {
+              $normalized = $includeIntegration.ToString().ToLowerInvariant()
+            } catch {
+              $normalized = $null
+            }
+            switch ($normalized) {
+              { $_ -in @('true','1','yes','y','on','include') } {
+                $bound.IntegrationMode = 'include'
+              }
+              { $_ -in @('false','0','no','n','off','exclude') } {
+                $bound.IntegrationMode = 'exclude'
+              }
+              'auto' {
+                $bound.IntegrationMode = 'auto'
+              }
+            }
+          }
+          $bound.ResultsPath = 'tests/results'
+          if ($env:DISPATCHER_LIVE_OUTPUT -ne '0') {
+            $bound.LiveOutput = $true
+          }
+          if ('${{ steps.dprofile.outputs.emit_failures_json_always }}' -eq 'true') { $bound.EmitFailuresJsonAlways = $true }
+          if ('${{ inputs.include_patterns }}' -ne '') {
+            $patternInput = '${{ inputs.include_patterns }}'
+            $pattern = (Split-Path -Leaf $patternInput)
+            $bound.IncludePatterns = $pattern
+          }
+          $timeoutSeconds = '${{ steps.dprofile.outputs.timeout_seconds }}'
+          if ($timeoutSeconds -and $timeoutSeconds -match '^-?\d+(\.\d+)?$') {
+            try {
+              $bound.TimeoutSeconds = [double]$timeoutSeconds
+            } catch {
+              Write-Host "::warning::Unable to parse timeout_seconds ('$timeoutSeconds') as double."
+            }
+          }
+          $boundString = ($bound.Keys | ForEach-Object { "$_=$($bound[$_])" }) -join ', '
+          Write-Host "::debug::Dispatcher parameters: $boundString"
+          $heartbeatSeconds = 15
+          if ($env:SESSION_HEARTBEAT_SECONDS -and [int]::TryParse($env:SESSION_HEARTBEAT_SECONDS, [ref]([int]0))) {
+            $heartbeatSeconds = [int]$env:SESSION_HEARTBEAT_SECONDS
+          }
+          $heartbeatJob = $null
+          if ($heartbeatSeconds -gt 0) {
+            $heartbeatJob = Start-ThreadJob -ScriptBlock {
+              param($scriptPath,$seconds)
+              while ($true) {
+                pwsh -NoLogo -NoProfile -File $scriptPath -Action Heartbeat | Out-Null
+                Start-Sleep -Seconds $seconds
+              }
+            } -ArgumentList $lockScript, $heartbeatSeconds
+          }
+          $exitCode = 0
+          try {
+            & $cmd @bound 2>&1 | Tee-Object -FilePath $logPath
+            $exitCode = $LASTEXITCODE
+          } finally {
+            if ($heartbeatJob) {
+              Stop-Job -Id $heartbeatJob.Id | Out-Null
+              Remove-Job -Id $heartbeatJob.Id -Force | Out-Null
+            }
+            pwsh -NoLogo -NoProfile -File $lockScript -Action Heartbeat | Out-Null
+          }
+          if (-not $env:GITHUB_OUTPUT) {
+            $fallbackOutput = Join-Path (Get-Location) 'tests/results/dispatcher-github-output.txt'
+            $fallbackDir = Split-Path -Parent $fallbackOutput
+            if (-not (Test-Path -LiteralPath $fallbackDir)) {
+              New-Item -ItemType Directory -Path $fallbackDir -Force | Out-Null
+            }
+            $env:GITHUB_OUTPUT = [System.IO.Path]::GetFullPath($fallbackOutput)
+          }
+          "exit_code=$exitCode" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          if ($exitCode -ne 0) {
+            Write-Host "::error::Pester dispatcher exited with code $exitCode"
+          }
+          $global:LASTEXITCODE = 0
+
+      - name: Summarize dispatcher log (failure)
+        if: ${{ steps.dispatcher.outputs.exit_code != '0' }}
+        shell: pwsh
+        run: |
+          $logPath = 'tests/results/pester-dispatcher.log'
+          if (-not (Test-Path $logPath)) {
+            Write-Host "::warning::Dispatcher log not found at $logPath"
+            return
+          }
+          $analysis = & ./tools/Analyze-JobLog.ps1 -LogPath $logPath -Pattern "Cannot process argument transformation on parameter 'TimeoutMinutes'"
+          if ($analysis.Matches -and $analysis.Matches.Count -gt 0) {
+            $first = $analysis.Matches[0].Value
+            Write-Host "::error::$first"
+          } else {
+            Write-Host "::notice::TimeoutMinutes conversion issue not detected; see dispatcher log for details."
+          }
+          if ($env:GITHUB_STEP_SUMMARY) {
+            $lines = @('### Dispatcher Failure Insight','')
+            if ($analysis.Matches -and $analysis.Matches.Count -gt 0) {
+              $lines += '- Encountered `Cannot process argument transformation on parameter ''TimeoutMinutes''`.'
+              $preview = $analysis.Content -split "`r?`n" | Where-Object { $_ -match 'Cannot process argument transformation on parameter' } | Select-Object -First 1
+              if ($preview) { $lines += ('- Excerpt: `{0}`' -f $preview.Trim()) }
+            } else {
+              $lines += '- TimeoutMinutes binding issue not detected; inspect dispatcher log manually.'
+            }
+            $lines += '- Log: tests/results/pester-dispatcher.log'
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+
+      - name: Release session lock
+        if: always()
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/Session-Lock.ps1 -Action Release
+
+      - name: Publish Pester summary
+        if: always()
+        shell: pwsh
+        run: pwsh -File scripts/Write-PesterSummaryToStepSummary.ps1 -ResultsDir 'tests/results'
+
+      - name: Validate Pester summary schema-lite (non-blocking)
+        if: always()
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $json = Join-Path 'tests/results' 'pester-summary.json'
+          if (Test-Path $json) {
+            $schemas = @(
+              'docs/schemas/pester-summary-v1_7_1.schema.json',
+              'docs/schemas/pester-summary-v1_7.schema.json',
+              'docs/schemas/pester-summary-v1_6.schema.json',
+              'docs/schemas/pester-summary-v1_5.schema.json',
+              'docs/schemas/pester-summary-v1_4.schema.json',
+              'docs/schemas/pester-summary-v1_3.schema.json',
+              'docs/schemas/pester-summary-v1_2.schema.json',
+              'docs/schemas/pester-summary-v1_1.schema.json'
+            )
+            $ok = $false
+            foreach($s in $schemas){
+              if (Test-Path $s) {
+                pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $json -SchemaPath $s
+                if ($LASTEXITCODE -eq 0) { $ok=$true; break }
+              }
+            }
+            $status = if ($ok) { 'ok' } else { 'fail' }
+            if ($env:GITHUB_STEP_SUMMARY) {
+              $lines = @('### Pester Summary Schema','',"- Status: $status","- File: $json")
+              $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            }
+          } else {
+            if ($env:GITHUB_STEP_SUMMARY) { "### Pester Summary Schema`n- File: (missing) $json" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8 }
+          }
+
+      - name: Ensure session index (fallback)
+        if: always()
+        shell: pwsh
+        run: pwsh -File tools/Ensure-SessionIndex.ps1 -ResultsDir 'tests/results' -SummaryJson 'pester-summary.json'
+
+      - name: Wire Probe (S1)
+        if: always()
+        uses: ./.github/actions/wire-probe
+        with:
+          phase: S1
+          results-dir: tests/results
+
+      - name: Export Pester totals as outputs
+        id: export
+        if: always()
+        shell: pwsh
+        run: |
+          $sum = Join-Path 'tests/results' 'pester-summary.json'
+          if (Test-Path $sum) {
+            $js = Get-Content $sum -Raw | ConvertFrom-Json
+            "total=$($js.total)"        | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            "passed=$($js.passed)"      | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            "failed=$($js.failed)"      | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            "errors=$($js.errors)"      | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            "duration_s=$($js.duration_s)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            Write-Host '::notice::pester-summary.json not found; outputs omitted.'
+          }
+
+      - name: Session index post
+        if: always()
+        uses: ./.github/actions/session-index-post
+        with:
+          results-dir: tests/results
+          validate-schema: true
+          upload: true
+          artifact-name: session-index
+
+      - name: Append session summary
+        if: always()
+        shell: pwsh
+        run: pwsh -File tools/Write-SessionIndexSummary.ps1 -ResultsDir 'tests/results'
+
+      - name: Append top Pester failures (summary)
+        if: always()
+        shell: pwsh
+        run: pwsh -File tools/Write-PesterTopFailures.ps1 -ResultsDir 'tests/results' -Top 10
+
+      - name: Upload Pester artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pester-results
+          path: |
+            tests/results/pester-results.xml
+            tests/results/pester-summary.txt
+            tests/results/pester-summary.json
+            tests/results/pester-failures.json
+            tests/results/pester-artifacts.json
+            tests/results/pester-artifacts-trail.json
+            tests/results/pester-leak-report.json
+            tests/results/pester-heartbeat.ndjson
+            tests/results/session-index.json
+            tests/results/pester-dispatcher.log
+          if-no-files-found: warn
+
+      - name: Write compact totals JSON (always)
+        if: always()
+        shell: pwsh
+        run: |
+          $outDir = 'tests/results'
+          if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Force -Path $outDir | Out-Null }
+          $sum = Join-Path $outDir 'pester-summary.json'
+          $obj = [ordered]@{}
+          $obj.schema = 'pester-totals/v1'
+          $obj.includeIntegration = '${{ needs.normalize.outputs.include_integration }}'
+          if (Test-Path $sum) {
+            try {
+              $js = Get-Content $sum -Raw | ConvertFrom-Json -ErrorAction Stop
+              $obj.total = $js.total
+              $obj.passed = $js.passed
+              $obj.failed = $js.failed
+              $obj.errors = $js.errors
+              $obj.duration_s = $js.duration_s
+              $obj.status = if (($js.failed + $js.errors) -gt 0) { 'fail' } else { 'ok' }
+            } catch {
+              $obj.status = 'unknown'
+            }
+          } else {
+            $obj.status = 'missing-summary'
+          }
+          $totalsPath = Join-Path $outDir 'pester-totals.json'
+          $obj | ConvertTo-Json -Depth 5 | Out-File -FilePath $totalsPath -Encoding utf8
+
+      - name: Classify dispatcher outcome (atomic)
+        if: always()
+        shell: pwsh
+        run: |
+          $rd = 'tests/results'
+          $log = Join-Path $rd 'pester-dispatcher.log'
+          $classification = 'unknown'
+          $hints = @()
+          if (Test-Path -LiteralPath $log) {
+            $text = Get-Content -LiteralPath $log -Raw
+            if ($text -match 'Pester execution exceeded timeout') { $classification = 'timeout_guard'; $hints += 'Dispatcher timeout guard fired' }
+            elseif ($text -match '(?i)Failed Tests \(detailed\)') { $classification = 'test_failures' }
+            elseif ($text -match '(?i)Selected test file list written to') { $hints += 'Discovery succeeded' }
+          }
+          $obj = [ordered]@{ schema='pester-dispatcher-outcome/v1'; classification=$classification; hints=$hints }
+          $out = Join-Path $rd 'pester-dispatcher-outcome.json'
+          $obj | ConvertTo-Json -Depth 4 | Out-File -FilePath $out -Encoding utf8
+          if ($env:GITHUB_STEP_SUMMARY) {
+            $lines = @('### Dispatcher Outcome','',"- classification: $classification")
+            foreach ($h in $hints) { $lines += ("- hint: $h") }
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+
+      - name: Watch mode smoke (single run)
+        if: always()
+        shell: pwsh
+        env:
+          WATCH_RESULTS_DIR: tests/results/_watch
+        run: |
+          if (-not (Test-Path $env:WATCH_RESULTS_DIR)) { New-Item -ItemType Directory -Force -Path $env:WATCH_RESULTS_DIR | Out-Null }
+          pwsh -File tools/Watch-Pester.ps1 -SingleRun -RunAllOnStart -TestPath tests/WatchSmoke.Tests.ps1 -Tag WatchSmoke -Quiet
+
+      - name: Validate watch/queue schemas (notice-only)
+        if: always()
+        shell: pwsh
+        run: |
+          function Invoke-Validate($json,$schema){
+            if (Test-Path -LiteralPath $json) {
+              try {
+                pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $json -SchemaPath $schema
+                if ($LASTEXITCODE -ne 0) { Write-Host "::notice::Schema validation FAIL for $json (schema=$schema)" } else { Write-Host "::notice::Schema validation OK for $json" }
+              } catch { Write-Host ("::notice::Schema validation EXC for {0}: {1}" -f $json, $_.Exception.Message) }
+            } else { Write-Host "::notice::Schema validation skipped (missing): $json" }
+          }
+          Invoke-Validate 'tests/results/_watch/watch-last.json' 'docs/schemas/watch-last-v1.schema.json'
+          Invoke-Validate 'tests/results/_agent/wait-last.json' 'docs/schemas/agent-wait-last-v1.schema.json'
+          $log = 'tests/results/_agent/wait-log.ndjson'
+          if (Test-Path -LiteralPath $log) {
+            $buf = ''
+            Get-Content -LiteralPath $log | ForEach-Object {
+              if ([string]::IsNullOrWhiteSpace($_)) {
+                if ($buf) {
+                  $tmp = New-TemporaryFile
+                  $buf | Set-Content -LiteralPath $tmp -Encoding UTF8
+                  pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $tmp -SchemaPath 'docs/schemas/agent-wait-log-item-v1.schema.json'
+                  Remove-Item $tmp -Force
+                  $buf = ''
+                }
+              } else {
+                $buf += ("$_`n")
+              }
+            }
+            if ($buf) {
+              $tmp = New-TemporaryFile
+              $buf | Set-Content -LiteralPath $tmp -Encoding UTF8
+              pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $tmp -SchemaPath 'docs/schemas/agent-wait-log-item-v1.schema.json'
+              Remove-Item $tmp -Force
+            }
+          } else {
+            Write-Host "::notice::Schema validation skipped (missing): $log"
+          }
+
+      - name: Generate dev dashboard report
+        if: always()
+        shell: pwsh
+        run: pwsh -File tools/Invoke-DevDashboard.ps1 -Group 'pester-selfhosted' -ResultsRoot 'tests/results'
+
+      - name: Upload dev dashboard artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dev-dashboard
+          path: |
+            tests/results/dev-dashboard/dashboard.html
+            tests/results/dev-dashboard/dashboard.json
+          if-no-files-found: warn
+
+      - name: Append dashboard summary link
+        if: always()
+        shell: pwsh
+        run: |
+          $html = Join-Path 'tests/results/dev-dashboard' 'dashboard.html'
+          $json = Join-Path 'tests/results/dev-dashboard' 'dashboard.json'
+          if ($env:GITHUB_STEP_SUMMARY -and (Test-Path $html)) {
+            $lines = @(
+              '### Dev Dashboard',
+              '',
+              "- HTML: $(Resolve-Path $html)",
+              "- JSON: $(Resolve-Path $json)"
+            )
+            $lines -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+
+      - name: Upload compact totals artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pester-totals
+          path: tests/results/pester-totals.json
+          if-no-files-found: warn
+
+      - name: Propagate dispatcher failure
+        if: ${{ (steps.dispatcher.outcome == 'failure' || steps.dispatcher.outputs.exit_code != '0') && inputs.continue_on_error != 'true' }}
+        run: exit 1
+
+      - name: Runner Unblock Guard
+        if: always()
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/runner-unblock-snapshot.json
+          cleanup: ${{ env.UNBLOCK_GUARD == '1' }}
+          process-names: 'conhost,pwsh,LabVIEW,LVCompare'
+
+      - name: Agent wait summary
+        if: always()
+        uses: ./.github/actions/agent-wait-post
+        with:
+          results-dir: tests/results
+          fail-on-outside: 'false'
+          upload-artifact: 'false'
+
+      - name: LV Guard (post)
+        if: always()
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/lv-guard-post.json
+          cleanup: ${{ env.CLEAN_LV_AFTER == 'true' }}
+          process-names: 'LVCompare,LabVIEW'
+
+      - name: Append re-run hint
+        if: always()
+        shell: pwsh
+        run: |
+          $params = @{
+            WorkflowName   = '${{ github.workflow }}'
+            WorkflowFile   = 'pester-reusable.yml'
+            RefName        = '${{ github.ref_name }}'
+            SampleId       = '${{ inputs.sample_id }}'
+            WorkflowRef    = '${{ github.workflow_ref }}'
+            Repository     = '${{ github.repository }}'
+            EmitSampleNote = $true
+          }
+          & (Join-Path $PWD 'tools/Write-RerunSummary.ps1') @params
+
+      - name: Print agent hand-off summary (auto-trim)
+        if: always()
+        shell: pwsh
+        run: pwsh -File tools/Print-AgentHandoff.ps1 -AutoTrim
