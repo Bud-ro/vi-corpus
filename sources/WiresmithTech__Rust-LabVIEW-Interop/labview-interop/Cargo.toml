@@ -1,0 +1,31 @@
+[package]
+name = "labview-interop"
+version = "0.4.4"
+edition = { workspace = true }
+license = "MIT"
+homepage = { workspace = true }
+repository = { workspace = true }
+description = "Types and wrappers for interperating with LabVIEW when called as a library"
+keywords = ["labview", "ni"]
+readme = { workspace = true}
+rust-version = "1.80.0"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+thiserror = "2"
+chrono = { version = "0.4", optional = true }
+dlopen2 = { version = "0.8", optional = true }
+dlopen2_derive = { version = "0.4", optional = true }
+ndarray = { version = "0.17", optional = true }
+encoding_rs = "0.8"
+codepage = "0.1"
+num_enum = "0.7.2"
+
+[features]
+default = ["sync"]
+chrono = ["dep:chrono"]
+sync = ["link"]
+link = ["dep:dlopen2", "dep:dlopen2_derive"]
+ndarray = ["dep:ndarray"]
