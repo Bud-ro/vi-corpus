@@ -1,0 +1,196 @@
+{
+ "repo": "ni/labview-gdrive",
+ "url": "https://github.com/ni/labview-gdrive",
+ "commit": "4802560c3eba8e86f931d5f92e18f5d266c94db8",
+ "license": "MIT",
+ "licenseFile": "License",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Examples/downloadExample.vi",
+   "bytes": 29215,
+   "sha256": "4b211458062b59ba39ecda0e52ff644786fa9b680b45ae60fc0beebd7d568188",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/uploadExample.vi",
+   "bytes": 27769,
+   "sha256": "85b9d24ce3f4f452c10d74e853b74a3570ba356d7c6965f405921836e557439b",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/GDrive.lvlib",
+   "bytes": 26610,
+   "sha256": "3be39a286ad2583d5311c417a06d499bd7d3517b4287172ef19155bebdfd677f",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/Initialize.vi",
+   "bytes": 31958,
+   "sha256": "a4a0dd65c6859c480c9f8e8d88969ca35000d59b521f9eaaff7fceaae6a58f77",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/ListFiles.vi",
+   "bytes": 35837,
+   "sha256": "36f56d9250e28e18c8c3dad80e2196b4423d50b70c5f16d5c26c24e2af44deb1",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/NamedFilesOnDrive.vi",
+   "bytes": 33077,
+   "sha256": "c52a72e74deefa8ea5fae0d1cec404bfbaf996b2a0c9bbd2c83f3e49c53d2a28",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/downloadFile.vi",
+   "bytes": 39572,
+   "sha256": "6c44260d8b4cba681422ef9a19a5a3b7d8ea3efa8bf8d48b09282d9e45b84feb",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/findFile.vi",
+   "bytes": 37776,
+   "sha256": "5729103b5889754dce4af5d3219dbd17835a6b12afab8864aff1d1ee0053e743",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/gdrive.lvproj",
+   "bytes": 2525,
+   "sha256": "5cfc7348769d01079b19fe39be879f7567f05b9066929c7e4169076d2660d7c9",
+   "via": "extension"
+  },
+  {
+   "path": "VIs/uploadfile.vi",
+   "bytes": 45698,
+   "sha256": "145d236dfbbd996a4bf287ebe24b3dad0d859ac623eced14e7ed2a5ca2b9a828",
+   "via": "extension"
+  },
+  {
+   "path": "Dependencies/testAuth.dll",
+   "bytes": 6144,
+   "sha256": "423d04789c5c1d2ca0b0e981d8ac741947628bd1c98eeee3f37b755e0a50889b",
+   "via": "ref:VIs/Initialize.vi"
+  },
+  {
+   "path": "Dependencies/Google.Apis.Drive.v3.dll",
+   "bytes": 78336,
+   "sha256": "e308211777f8de119e304c8777ba323b98d4559a5bea7eeb3fb4d31f0880f10b",
+   "via": "ref:VIs/Initialize.vi"
+  },
+  {
+   "path": "VIs/MIMEtoExtension.txt",
+   "bytes": 3013,
+   "sha256": "33ddcac656ae979ff6d628992dfffe1ca3907229746c09b6d69deb16cf35104d",
+   "via": "ref:VIs/downloadFile.vi"
+  },
+  {
+   "path": "VIs/typetomime.txt",
+   "bytes": 2584,
+   "sha256": "2122c01368baf4ed1e79dccb3d45789561a2b0f0cb93fcf8b45c96e0e5e44329",
+   "via": "ref:VIs/uploadfile.vi"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 3720,
+   "sha256": "3f0f85dd62e29fef1c35a2dac15b8e39e71339456109e122fd91806b4a374191",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Google.Apis.Auth.PlatformServices.dll",
+   "bytes": 30208,
+   "sha256": "3e04052da2e6d0b25dcc97dd5e4b0df9a3d68ade5bac5853f24912da5f6aa6ea",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Google.Apis.Auth.dll",
+   "bytes": 55808,
+   "sha256": "f36311ab1a94e90face29907b3f272702a920703b3fddc8b718984e8e1fdfd2c",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Google.Apis.Core.dll",
+   "bytes": 48128,
+   "sha256": "3850d738bcdb2ed40d254cdadc9e45bef18788125097fe4bd8d0479ff45b42b3",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Google.Apis.PlatformServices.dll",
+   "bytes": 7680,
+   "sha256": "e324fa34ae3db1aa7235ea9dc5062a4be37be136bb8627fd637bc0fddf190a32",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Google.Apis.dll",
+   "bytes": 66048,
+   "sha256": "560397662d4aaf2577a7427327c7a7b27c5aa3cca16a7f7ce2bbeb907270ad50",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Newtonsoft.Json.dll",
+   "bytes": 520192,
+   "sha256": "9eca2c5ed187b5e1319c359aabf8382992131efe1854b899c23a93fe227496e3",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/Zlib.Portable.dll",
+   "bytes": 81920,
+   "sha256": "121751c1d8d8cbc5270c0a606dbca5d714d42e18ab3e6b577fbb8d2a4a5569c5",
+   "via": "tree"
+  },
+  {
+   "path": "Dependencies/log4net.dll",
+   "bytes": 301056,
+   "sha256": "ce6ee4fdc783a5bf905f240178ac96eaeb7ede22ffe06a06ba179cd1a0442bd3",
+   "via": "tree"
+  },
+  {
+   "path": "GDrive for LabVIEW.vipb",
+   "bytes": 27770,
+   "sha256": "4fe4212fcbef3128866c2dfefb73b3e25e31ca4b67a209e91db76abd61bab003",
+   "via": "tree"
+  },
+  {
+   "path": "License",
+   "bytes": 1077,
+   "sha256": "4281e4798397ac8ca1071fe374ca5efffbb30694d9dc1cd4deda16b72a08f18f",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 3849,
+   "sha256": "6f585bbbf70e57f5ef65381ff1a3d270a5eae19786cc03e7f6fb2c5e30f06fdf",
+   "via": "tree"
+  },
+  {
+   "path": "VS code/Program.cs",
+   "bytes": 2515,
+   "sha256": "97f838baee4126618389ca745a822c4c51307671a6520e5536b3dbe141dad768",
+   "via": "tree"
+  },
+  {
+   "path": "errors/GDriveforLabVIEW-errors.txt",
+   "bytes": 1868,
+   "sha256": "629b45a6b26e78d1ac414dad3e563d3ead38d6d34f729ff83d6c3f909d529b62",
+   "via": "tree"
+  },
+  {
+   "path": "help/GDrive_for_LabVIEW_help.txt",
+   "bytes": 23,
+   "sha256": "b3f4db4ceb09d446fb79efd82dcaf2d2cefac5edb8af9d0a2267b58898fb29f0",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "C:\\Users\\motoole\\Desktop\\VC OToolekit\\Dependencies\\Google.Apis.Drive.v3.dll",
+  "C:\\Users\\motoole\\Desktop\\VC OToolekit\\Dependencies\\testAuth.dll"
+ ]
+}
