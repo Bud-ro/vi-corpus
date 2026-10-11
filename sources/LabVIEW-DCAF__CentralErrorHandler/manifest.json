@@ -1,0 +1,488 @@
+{
+ "repo": "LabVIEW-DCAF/CentralErrorHandler",
+ "url": "https://github.com/LabVIEW-DCAF/CentralErrorHandler",
+ "commit": "e8c2850c2f7f023c044b5cf2b928bbaa3625a259",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "dev/CentralErrorHandlerDev.lvproj",
+   "bytes": 17587,
+   "sha256": "2fed5f1fba3d2a5a7bf931bdc6e1e1eade37765c068eacd6d880399d1b94c809",
+   "via": "extension"
+  },
+  {
+   "path": "dev/CentralErrorHandlerTest.lvproj",
+   "bytes": 13922,
+   "sha256": "ce4ce22c98cbac1048d065f1427cdab156943bf89383242db2e7cb5ce1ddaa7a",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Host Main.vi",
+   "bytes": 68533,
+   "sha256": "b671c8fe01c40d97f63ff4f23fd20ebb410c302b59be0c1fdeef0a43f453b6cd",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Host Module Includes.vi",
+   "bytes": 11688,
+   "sha256": "d46a1d67e3bfd64bd610053716db1a6f390b456c037a9662ac0a2298c78b636e",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/CentralErrorHandlerDev tests.lvlib",
+   "bytes": 26536,
+   "sha256": "e1b4a1c31a1aad41c62c9415ce48f0aa33c131de3f7feb43e23c64e9bc6c13c7",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/Create Test Configuration.vi",
+   "bytes": 44029,
+   "sha256": "93380d7e18b7e9b686df9c60467f93a4c52a4de27c2d3f15e415b6d9bd05ed71",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/Modify Channel Test.vi",
+   "bytes": 38151,
+   "sha256": "882d7cbbb8f86c9f4f0c531dfb28f8565e84a48f7b662be28e46d1933b54726c",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/Runtime Initialization Test.vi",
+   "bytes": 59979,
+   "sha256": "f48f55ed2be0decb5acbb73fb0ca6b34cf33fe52cedab829b4483de3bbe94ed0",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/Runtime Test.vi",
+   "bytes": 76748,
+   "sha256": "65e88d3aeeeb88827f131cc2a50b1c47b07db158156242a1f7cee6553f9a0e65",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/Serialization Test.vi",
+   "bytes": 34650,
+   "sha256": "675aa2ff9204c510ea771526d405b8a132e8a7979a6463d2c15f35af138abb75",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/config crosslink test.vi",
+   "bytes": 17633,
+   "sha256": "774d141ceb6ef63b4f30927149d0ce261f4f5b889f05c4c5fe8c097091de45a5",
+   "via": "extension"
+  },
+  {
+   "path": "dev/Test/runtime to editor crosslink test.vi",
+   "bytes": 16744,
+   "sha256": "10e1bfc7643818669f64e7330a0d49d9009c533d03318a7ea1d3a8d681230d69",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/CentralErrorHandler editor node.lvclass",
+   "bytes": 44878,
+   "sha256": "115fbcb27e8454c15dd607cdd668eb6b9f82fdfe34d139189d2bfe4c8a17c1a0",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/Get Category.vi",
+   "bytes": 17816,
+   "sha256": "c208c0ecead0b296e864bbce7362746e54480e2a563e450bfd9f237e599ceb02",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/GetText.vi",
+   "bytes": 22659,
+   "sha256": "dcc45a835b3e1bd902d8a1b4bce90f0f57d2aea2b50ed46956ebdbbfea012463",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/Initialize.vi",
+   "bytes": 40394,
+   "sha256": "c7c2349e82b66c84e0c7f54ce9cb15ac866dfc1dded282e9deb2061cdd52bc84",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/Read configuration.vi",
+   "bytes": 19498,
+   "sha256": "48e15ad9f3ab892d9ebbc92a63e8f7e471724c53f3ca1fe1fac621809bbedd18",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/Write configuration.vi",
+   "bytes": 21143,
+   "sha256": "7feaa18ff283768bd889f16fee4d8744eb756e212b866d0328f3381eca261bd0",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Add Line.vi",
+   "bytes": 27864,
+   "sha256": "8d311e9f6e05d4c75672a94603b28b48fcc4074eac3317f03f61f42b5dd19277",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/CentralErrorHandler configuration.lvclass",
+   "bytes": 77908,
+   "sha256": "e0bde2a7f6fb26eda8f152831ccd8929c8be94873e0d90bd291f253f32a6e905",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Check If Line Exists.vi",
+   "bytes": 26264,
+   "sha256": "ad2a3236eeb940c57c2cda3bd19f56dbe5883cd8a733afd606327b0c04235284",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Delete Line.vi",
+   "bytes": 34291,
+   "sha256": "51ea5a49bf820c10a16eb9f9d77927912306c611ccf8f6e80278832159a286e8",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Get Channels from Line.vi",
+   "bytes": 18470,
+   "sha256": "fa4e7e81c9cd7201f59e1d8a337cb3039d4bbc3a09eb543c3d93acc20fe39228",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Get Line Name.vi",
+   "bytes": 21905,
+   "sha256": "b72f204be48e6e2f556496705ee072979245d2b8dfe7d0f4cc6c96b658c7bf31",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Get Supported Targets.vi",
+   "bytes": 20693,
+   "sha256": "dd2710ef599e5b5d0eae8f8b8dd0cab1f40fa1f83dc28b709794adaac3a438dd",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Line.ctl",
+   "bytes": 11205,
+   "sha256": "353779b2903016ff2ee7cbb96d62a4ba5954d3eb8e01638e2ab1fec062a518f5",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Read Lines.vi",
+   "bytes": 20002,
+   "sha256": "c7f9ae1a5098b696930f7eac246b56d6c17af3d6da86b9e64f300b298abfd34a",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/Replace Line.vi",
+   "bytes": 34872,
+   "sha256": "2dc0833b89f6f0097d78a104c8009b0c55f811e58e9645367dd27e9fe31c0a41",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/execution class name.vi",
+   "bytes": 25508,
+   "sha256": "f6c2a17d1bdb17df263cb396cb305e0212b7be3c12f9701376f26a662547271c",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/get default error list.vi",
+   "bytes": 24730,
+   "sha256": "fc8feed566744d5a37600af956acaf4d9d88efa16f5a674ca132674b33d743a8",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/get desired keys.vi",
+   "bytes": 25952,
+   "sha256": "b143a0044b53c8e75b48d0380e02d38d7d0d482257ed58ae70ab21137c81c9c7",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/get index definition.vi",
+   "bytes": 26192,
+   "sha256": "9008002887575767db4363210541e205fded8d130d493c5e6bcdca4feb5566a2",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/input data indices.ctl",
+   "bytes": 4919,
+   "sha256": "b48789eb59555e85f0f57e64832c2deb52650aa2c63905a1fee9d7462ba0f9bf",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/instance count allowed.vi",
+   "bytes": 18678,
+   "sha256": "fd979d1bec982389a0274a655e6df024801546410fa5fb967c7d01b67293d7e0",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/output data indices.ctl",
+   "bytes": 4928,
+   "sha256": "4d5872704bfb01926e772562d15b0227060f320412d294197b5a67fc6c300547",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/parameter data indices.ctl",
+   "bytes": 4927,
+   "sha256": "d86b278404bc857f5656646cdeb818d980d89e6b89404032320d3471d0597fa2",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/result data indices.ctl",
+   "bytes": 4924,
+   "sha256": "3f6e446ef73f97d6b04445d7f21c280f46e7f3e33ac4d25a8554bc25407387a8",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/configuration/validate key value pair.vi",
+   "bytes": 31991,
+   "sha256": "bd0056f31d30ed610dd43374fb4ad1cf8e66481ae638b5c1d9fde758a6db7875",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/CentralErrorHandler runtime.lvclass",
+   "bytes": 98813,
+   "sha256": "3c7dba09b5d850fc7e433d3d92636879faae41a9353d023a6f2869b31f2b0992",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/Read Inputs from system.vi",
+   "bytes": 16655,
+   "sha256": "0af1873e4276534310028ef5326d8e9a66c37d6f2e0c94c8f054a53a6e062a1a",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/Read Outputs to system.vi",
+   "bytes": 16650,
+   "sha256": "1cf8476053b5f727baa657251fe9afe472b3a65ed08182d8695347b5ea8c688a",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/Read Parameters to process.vi",
+   "bytes": 16682,
+   "sha256": "6a6bb42c016422c3b4bfa448795e377a30649c447cf21dac767971f0b2f3eb2c",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/Read Results from processing.vi",
+   "bytes": 16672,
+   "sha256": "371b476c7122b7f8127e37a2d8d63205e7621a01857ae1530ecea1b53d4a240d",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/cache tag indices.vi",
+   "bytes": 36885,
+   "sha256": "cc370f864207c243d16dfffeb701190d4285c7c7d9aad58496faad5c1c9178cf",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/classify error.vi",
+   "bytes": 32014,
+   "sha256": "76b23ca6169521b27804ca9dd3efbe7ba7d4c68c81eedef793a74348297c06c6",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/get data definition.vi",
+   "bytes": 29883,
+   "sha256": "609e709a839720a58c8ed40a7cad6cbbcdf0f432a84a923d65a4026a35c12f65",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/input to tag bus.vi",
+   "bytes": 35200,
+   "sha256": "6f15a2b493b5152fb8530357e30494d214925773bf11bb9588e1a4812f43b514",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/input user data.ctl",
+   "bytes": 5312,
+   "sha256": "43815e4c9dd00e36314acb014e1f3398d805dcdeb444fc32d8e5b453c0d8c52a",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/input.vi",
+   "bytes": 39773,
+   "sha256": "3dd298d807ca8b1c917ce9dfa2594af9806ed0502710e60c1f0d287a2116fa83",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/output user data.ctl",
+   "bytes": 5313,
+   "sha256": "fd316253e1cd38610fedf2363373fe7f329bece105e8163a070f831b3a57be8b",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/output.vi",
+   "bytes": 39834,
+   "sha256": "f58feb016e53e1502ffb4d66444fe68b9e7477235e4f60c1e8d032517d0c8220",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/parameter user data.ctl",
+   "bytes": 5320,
+   "sha256": "719a683461303c50a10375aca537a7bf379127bde575f9015d1348f35db7fd67",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/process safe state.vi",
+   "bytes": 56138,
+   "sha256": "fa1ec4e1969fdc18e4f611f8f87eb548d58278a1b2d634fe1b7061ea45d55fb2",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/process.vi",
+   "bytes": 52575,
+   "sha256": "fb3b1ef48eecc88d82e9b7478e7eecd256b712d0eb2919ca9e20e41ae309fab0",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/result user data.ctl",
+   "bytes": 5329,
+   "sha256": "4bf609a736380f4ed1ccfdbb083e988be571111aad8d7e2b45d409608767000f",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/results to tag bus.vi",
+   "bytes": 35242,
+   "sha256": "5defe56adedac691f78c04f115974e288c0012ebbec112ce3f61a30049c53067",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/specify execution settings.vi",
+   "bytes": 26910,
+   "sha256": "1ee580890e137b7659034492257d75ce4522efc7a764c6a6ba1ac0ea46ec89e3",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/tag bus to outputs.vi",
+   "bytes": 36094,
+   "sha256": "a8390238f6e80abb0d3889ec86ce00fe38a6b1a287aa864a075f970a6ff803e3",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/tag bus to parameters.vi",
+   "bytes": 36149,
+   "sha256": "705032c8b9727426b8a18278566af3c2b838327c56b9f58cc55aec52b71e45c2",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/user initialization.vi",
+   "bytes": 30107,
+   "sha256": "d7e85ad773e51d09470006c13d825ae2df5e0f93c491cba02c0cfd71f749029e",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/user input.vi",
+   "bytes": 19226,
+   "sha256": "9a8bf5dfedc226eb16201295cbc3ad0b6b7225bc6353d7d90ec5df6ea16551fd",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/user output.vi",
+   "bytes": 19163,
+   "sha256": "3485084676c4cb266766c29346547f364bfb9c85fcfe74df48080968045394d4",
+   "via": "extension"
+  },
+  {
+   "path": "dev/module/execution/user process.vi",
+   "bytes": 22820,
+   "sha256": "984b6b3b0eafe7aa0ab40bed5e7e07d040592bc795593b13fda2c3da53e96782",
+   "via": "extension"
+  },
+  {
+   "path": "dev/editor node/centralerrorhandler.png",
+   "bytes": 1346,
+   "sha256": "74f40fa632e828b0b6bff0f04d13e94fb649075f31f0f697a19b650cf60b7911",
+   "via": "ref:dev/editor node/GetText.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 142,
+   "sha256": "4cbc1aac331e192d82f117c08c12d573bcb5f0b92e7e2f6dc41491e0a544c153",
+   "via": "tree"
+  },
+  {
+   "path": "Jenkinsfile",
+   "bytes": 491,
+   "sha256": "abdb65028bd755104730bdb17b247c3706706c12032f79eb7722bd9d4f4dbe2e",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 11357,
+   "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+   "via": "tree"
+  },
+  {
+   "path": "dev/myTest.pcfg",
+   "bytes": 8736,
+   "sha256": "6fad26a23169d182ae848df776becb20eff208170ec47553df17be2195ffd0b0",
+   "via": "tree"
+  },
+  {
+   "path": "export/DCAF Central Error Handler.vipb",
+   "bytes": 19337,
+   "sha256": "a505a3036b6c925d799bd166b2e822fc5ba0003b8c9a5f4659a3c5fd7e33606f",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<userlib>\\_SEH\\De-Classify Error.vi",
+  "<userlib>\\_SEH\\SEH Get Next Error.vi",
+  "<userlib>\\_SEH\\SEH Init.vi",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NISE_CEF_Node.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NodeRef.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\Summary.ctl",
+  "<vilib>\\NI\\Configuration Framework\\error generator\\NISE_error generator.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\create GUID.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\initialize.vi",
+  "<vilib>\\NI\\DCAF\\Engines\\Standard Engine\\Execution Engine\\Runtime\\Standard Engine Runtime.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Framework Configuration Classes\\target runtime\\PL_Target Runtime.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Framework Configuration Classes\\target runtime\\close target with engines.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Framework Configuration Classes\\target runtime\\load and intialize target with engines.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\configuration\\control module configuration.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\configuration\\error classification setting.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\editor node\\control module editor.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\runtime\\control module runtime.lvclass",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Runtime\\Engine Runtime Interface.lvclass",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Runtime\\Execution States.ctl",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Runtime\\Fault.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\Read channel classification.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass\\TBM channel.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\Write channel classification.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\channel classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\create new channel.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\TBM configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\Target Types.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\list all targets.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\TBM module execution interface.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\error classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\execution settings.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\data dictionary.lvclass",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\data dictionary.lvclass\\data dictionary.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\locate tag.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\look up tag by type.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\lookup polymorphs\\locate double.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search\\find data index.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search\\search string list.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\tag not found.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\read one\\read Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\read one\\read I32.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\write one\\write Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\write one\\write I32.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.ctl",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.lvlib",
+  "<vilib>\\NI\\Tag Bus\\table\\read data element.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\write data element.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\Data Type.ctl",
+  "<vilib>\\NI\\Tag Bus\\tag\\read data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read tag name.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass\\tag descriptor.ctl",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Recursive File List.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2017\\vi.lib\\NI\\Configuration Framework\\Node\\NISE_CEF_Node.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2017\\vi.lib\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2017\\vi.lib\\NI\\Tag Bus\\tag\\tag descriptor.lvclass"
+ ]
+}
