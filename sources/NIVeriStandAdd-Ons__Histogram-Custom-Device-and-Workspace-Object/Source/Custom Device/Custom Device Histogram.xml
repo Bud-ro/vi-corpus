@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>Histogram</eng>
+    <loc>Histogram</loc>
+  </AddMenu>
+  <Version>1.0</Version>
+  <Type>Inline Model Interface</Type>
+  <MaxOccurrence>2474</MaxOccurrence>
+  <MainPageGUID>01c4c187-fa58-4953-904c-70165a523d39</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Histogram\Histogram Configuration.llb\Histogram Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>PharlapWindows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\Histogram\Histogram Engine.llb\Histogram RT Driver VI.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\Histogram\Histogram Engine.llb\Histogram RT Driver VI.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Histogram</eng>
+        <loc>Histogram</loc>
+      </Name>
+      <GUID>01c4c187-fa58-4953-904c-70165a523d39</GUID>
+      <Glyph>
+		  	<Type>To Application Data Dir</Type>
+		  	<Path>System Explorer\Glyphs\ChnGroup.png</Path>
+		  </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+	    	<Path>Custom Devices\Histogram\Histogram Configuration.llb\Histogram Main Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>17ed6618-03bc-422e-8c87-1da117c1069a</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Modify Existing Bins</eng>
+            <loc>Modify Existing  Bins</loc>            
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Histogram\Histogram Configuration.llb\ModifyExistingBins.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>9c13bb93-393f-4e0a-974c-b999d13b1468</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Remove Bins</eng>
+            <loc>Remove Bins</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Histogram\Histogram Configuration.llb\BinRemoval.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>2f1492b3-c8cc-4de6-bbc5-985e92829794</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Bins</eng>
+            <loc>Add Bins</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Histogram\Histogram Configuration.llb\AddNewBins.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>Modify Existing Bins</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\EditOpen.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>17ed6618-03bc-422e-8c87-1da117c1069a</ReferencedGUID>
+          <ButtonText>
+            <eng>Modify Existing Bins</eng>
+            <loc>Modify Existing Bins</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Modify Existing Bins</eng>
+            <loc>Modify Existing Bins</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Modify Existing Bins</eng>
+            <loc>Modify Existing Bins</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Change existing bins</eng>
+            <loc>Change existing bins</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Remove Bins</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\Clear Aliases.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>9c13bb93-393f-4e0a-974c-b999d13b1468</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Bins</eng>
+            <loc>Remove Bins</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Bins</eng>
+            <loc>Remove Bins</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Bins</eng>
+            <loc>Remove Bins</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Launch the removal functionality</eng>
+            <loc>Launch the removal functionality</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Add New Bins</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\Add Multiple Alias.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>2f1492b3-c8cc-4de6-bbc5-985e92829794</ReferencedGUID>
+          <ButtonText>
+            <eng>Add New Bins</eng>
+            <loc>Add New Bins</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add New Bins</eng>
+            <loc>Add New Bins</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add New Bins</eng>
+            <loc>Add New Bins</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Launch the add bin functionality</eng>
+            <loc>Launch the add bin functionality</loc>
+          </Documentation>
+        </Button>
+      </ButtonList> 
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
