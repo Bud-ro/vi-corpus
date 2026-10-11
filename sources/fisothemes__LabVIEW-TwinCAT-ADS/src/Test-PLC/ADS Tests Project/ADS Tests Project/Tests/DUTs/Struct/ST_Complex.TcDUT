@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Complex" Id="{68321886-0b96-4052-9841-5a582aafe8a4}">
+    <Declaration><![CDATA[TYPE ST_Complex :
+STRUCT
+	bMember 		: BOOL;
+	eMember 		: E_Enum;
+	stSimpleMember 	: ST_Simple;
+    stPackedMember 	: ST_Packed;
+	fbMember 		: FB_Simple(TRUE, 99, 'Complex Test.');
+	arrfMember 		: ARRAY[0..2] OF LREAL;
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>
