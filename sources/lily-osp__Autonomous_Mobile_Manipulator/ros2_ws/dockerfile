@@ -1,0 +1,45 @@
+# Use ARM64-compatible ROS 2 Jazzy base image (desktop-full not available for ARM64)
+FROM arm64v8/ros:jazzy
+
+# Set the shell to bash
+SHELL ["/bin/bash", "-c"]
+
+# --- System Dependencies ---
+# Install essential tools and libraries
+RUN apt-get update && apt-get install -y \
+    terminator \
+    xterm \
+    git \
+    python3-pip \
+    python3-colcon-common-extensions \
+    ros-jazzy-desktop \
+    ros-jazzy-navigation2 \
+    ros-jazzy-nav2-bringup \
+    ros-jazzy-moveit \
+    ros-jazzy-ros2-control \
+    ros-jazzy-ros2-controllers \
+    ros-jazzy-joint-state-publisher \
+    ros-jazzy-xacro \
+    ros-jazzy-robot-localization \
+    ros-jazzy-slam-toolbox \
+    ros-jazzy-imu-filter-madgwick \
+    ros-jazzy-foxglove-bridge \
+    ros-jazzy-teleop-twist-joy \
+    ros-jazzy-teleop-twist-keyboard \
+    ros-jazzy-rplidar-ros \
+    # Add any other specific libraries your robot needs here
+    && rm -rf /var/lib/apt/lists/*
+
+# --- Python Dependencies ---
+# Install Python libraries for your custom nodes
+RUN pip3 install --break-system-packages flask flask-cors websockets
+
+# --- ROS 2 Workspace Setup ---
+# Create and build the workspace
+WORKDIR /root/ros2_ws
+COPY . .
+RUN . /opt/ros/jazzy/setup.bash && colcon build
+
+# --- Entrypoint ---
+# Source the ROS 2 environment every time the container starts
+CMD ["/bin/bash"]

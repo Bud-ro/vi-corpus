@@ -1,0 +1,552 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Arguments -->
+  <xacro:arg name="use_ros2_control" default="true"/>
+  <xacro:arg name="use_sim_time" default="true"/>
+
+  <!-- Macros defined below -->
+
+  <!-- Robot base properties - Hexagonal robot -->
+  <xacro:property name="base_radius" value="0.3"/>
+  <xacro:property name="base_height" value="0.15"/>
+  <xacro:property name="wheel_radius" value="0.075"/>
+  <xacro:property name="wheel_width" value="0.04"/>
+  <!-- Hexagonal shape properties -->
+  <xacro:property name="hexagon_side" value="0.25"/>
+
+  <!-- Wheel positions for 3-wheeled omnidirectional robot (lf, rf, b) -->
+  <!-- Front Left wheel -->
+  <xacro:property name="wheel_lf_x" value="${hexagon_side * 0.866}"/> <!-- cos(30°) -->
+  <xacro:property name="wheel_lf_y" value="${hexagon_side * 0.5}"/>   <!-- sin(30°) -->
+  <!-- Front Right wheel -->
+  <xacro:property name="wheel_rf_x" value="${-hexagon_side * 0.866}"/> <!-- -cos(30°) -->
+  <xacro:property name="wheel_rf_y" value="${hexagon_side * 0.5}"/>   <!-- sin(30°) -->
+  <!-- Back wheel -->
+  <xacro:property name="wheel_b_x" value="0"/>
+  <xacro:property name="wheel_b_y" value="${-hexagon_side}"/>
+
+  <!-- Base link - Hexagonal robot -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- Hexagonal prism approximation using cylinder -->
+        <cylinder length="${base_height}" radius="${hexagon_side * 1.1547}"/> <!-- sqrt(4/3) * side for circumradius -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.3 0.8 1.0"/>
+      </material>
+      <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- Hexagonal prism approximation using cylinder -->
+        <cylinder length="${base_height}" radius="${hexagon_side * 1.1547}"/>
+      </geometry>
+      <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="10.0"/>
+      <!-- Hexagonal inertia calculation -->
+      <inertia ixx="0.15" ixy="0.0" ixz="0.0"
+               iyy="0.15" iyz="0.0"
+               izz="0.25"/>
+      <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- Omni wheels -->
+  <xacro:macro name="omni_wheel" params="name x y">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <inertia ixx="0.005" ixy="0.0" ixz="0.0"
+                 iyy="0.005" iyz="0.0"
+                 izz="0.01"/>
+      </inertial>
+    </link>
+
+    <!-- Joint connecting wheel to base -->
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+    <!-- Omni wheel rollers (simplified as passive joints) -->
+    <link name="${name}_roller_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.01" radius="0.02"/>
+        </geometry>
+        <material name="gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.01" radius="0.02"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0"
+                 izz="0.002"/>
+      </inertial>
+    </link>
+
+    <!-- Passive joint for rollers -->
+    <joint name="${name}_roller_joint" type="continuous">
+      <parent link="${name}_link"/>
+      <child link="${name}_roller_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+    </joint>
+
+    <xacro:if value="$(arg use_ros2_control)">
+      <!-- ROS 2 Control interface placeholder -->
+    </xacro:if>
+  </xacro:macro>
+
+  <!-- Create three omni wheels (lf, rf, b) -->
+  <xacro:omni_wheel name="wheel_lf" x="${wheel_lf_x}" y="${wheel_lf_y}"/>
+  <xacro:omni_wheel name="wheel_rf" x="${wheel_rf_x}" y="${wheel_rf_y}"/>
+  <xacro:omni_wheel name="wheel_b" x="${wheel_b_x}" y="${wheel_b_y}"/>
+
+  <!-- TF-Luna Single-Point LIDAR -->
+  <link name="tf_luna_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.035" radius="0.012"/>
+      </geometry>
+      <material name="dark_red">
+        <color rgba="0.6 0.1 0.1 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.035" radius="0.012"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.015"/>
+      <inertia ixx="0.000005" ixy="0.0" ixz="0.0"
+               iyy="0.000005" iyz="0.0"
+               izz="0.00001"/>
+    </inertial>
+  </link>
+
+  <joint name="tf_luna_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="tf_luna_link"/>
+    <origin xyz="0.15 0 ${base_height + 0.02}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Laser Distance Sensors (6x - 2 per side for wall alignment) -->
+  <xacro:macro name="laser_distance_sensor" params="name x y z">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.012"/>
+        </geometry>
+        <material name="red">
+          <color rgba="0.8 0.1 0.1 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.03" radius="0.012"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.04"/>
+        <inertia ixx="0.00005" ixy="0.0" ixz="0.0"
+                 iyy="0.00005" iyz="0.0"
+                 izz="0.0001"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- HC-SR04 Ultrasonic Sensors (2x front) -->
+  <xacro:macro name="hcsr04_sensor" params="name x y z">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.025" radius="0.008"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1.0 1.0 0.0 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.025" radius="0.008"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.03"/>
+        <inertia ixx="0.00003" ixy="0.0" ixz="0.0"
+                 iyy="0.00003" iyz="0.0"
+                 izz="0.00006"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Line Sensors (3x individual, assembled side by side) -->
+  <xacro:macro name="line_sensor" params="name x y z">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <box size="0.015 0.08 0.005"/>
+        </geometry>
+        <material name="purple">
+          <color rgba="0.8 0.0 0.8 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.015 0.08 0.005"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.02"/>
+        <inertia ixx="0.00001" ixy="0.0" ixz="0.0"
+                 iyy="0.00001" iyz="0.0"
+                 izz="0.00002"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Create laser distance sensors (6x - 2 per side for wall alignment) -->
+  <!-- Left side sensors -->
+  <xacro:laser_distance_sensor name="laser_left_front" x="${hexagon_side * 0.433}" y="${hexagon_side * 0.75}" z="${base_height/2}"/>
+  <xacro:laser_distance_sensor name="laser_left_back" x="${-hexagon_side * 0.433}" y="${hexagon_side * 0.75}" z="${base_height/2}"/>
+
+  <!-- Right side sensors -->
+  <xacro:laser_distance_sensor name="laser_right_front" x="${hexagon_side * 0.433}" y="${-hexagon_side * 0.75}" z="${base_height/2}"/>
+  <xacro:laser_distance_sensor name="laser_right_back" x="${-hexagon_side * 0.433}" y="${-hexagon_side * 0.75}" z="${base_height/2}"/>
+
+  <!-- Back side sensors -->
+  <xacro:laser_distance_sensor name="laser_back_left" x="${-hexagon_side}" y="${hexagon_side * 0.25}" z="${base_height/2}"/>
+  <xacro:laser_distance_sensor name="laser_back_right" x="${-hexagon_side}" y="${-hexagon_side * 0.25}" z="${base_height/2}"/>
+
+  <!-- Create HC-SR04 ultrasonic sensors (2x front) -->
+  <xacro:hcsr04_sensor name="hcsr04_front_left" x="${hexagon_side * 0.866}" y="${hexagon_side * 0.3}" z="${base_height/2}"/>
+  <xacro:hcsr04_sensor name="hcsr04_front_right" x="${hexagon_side * 0.866}" y="${-hexagon_side * 0.3}" z="${base_height/2}"/>
+
+  <!-- Create line sensors (3x individual, assembled side by side at front) -->
+  <xacro:line_sensor name="line_sensor_left" x="${hexagon_side * 0.95}" y="0.025" z="-${base_height/2 - 0.01}"/>
+  <xacro:line_sensor name="line_sensor_center" x="${hexagon_side * 0.95}" y="0" z="-${base_height/2 - 0.01}"/>
+  <xacro:line_sensor name="line_sensor_right" x="${hexagon_side * 0.95}" y="-0.025" z="-${base_height/2 - 0.01}"/>
+
+  <!-- MPU6050 IMU -->
+  <link name="mpu6050_link">
+    <visual>
+      <geometry>
+        <box size="0.025 0.015 0.01"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.2 0.8 0.2 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.025 0.015 0.01"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.005"/>
+      <inertia ixx="0.000001" ixy="0.0" ixz="0.0"
+               iyy="0.000001" iyz="0.0"
+               izz="0.000002"/>
+    </inertial>
+  </link>
+
+  <joint name="mpu6050_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="mpu6050_link"/>
+    <origin xyz="0.05 0 ${base_height - 0.005}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera frame -->
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.04 0.03"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.04 0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0005" ixy="0.0" ixz="0.0"
+               iyy="0.0005" iyz="0.0"
+               izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="${base_radius - 0.02} 0 ${base_height + 0.03}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gripper Assembly Base (DC Motor for up/down movement) -->
+  <link name="gripper_base_link">
+    <visual>
+      <geometry>
+        <box size="0.12 0.08 0.15"/>
+      </geometry>
+      <material name="silver">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.12 0.08 0.15"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="1.5"/>
+      <inertia ixx="0.05" ixy="0.0" ixz="0.0"
+               iyy="0.05" iyz="0.0"
+               izz="0.03"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_base_joint" type="prismatic">
+    <parent link="base_link"/>
+    <child link="gripper_base_link"/>
+    <origin xyz="0.15 0 ${base_height/2}" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="50.0" lower="0.0" upper="0.2" velocity="0.15"/>
+  </joint>
+
+  <!-- Gripper Components -->
+
+  <!-- Gripper Tilt Servo -->
+  <link name="gripper_tilt_link">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.06"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.3 0.8 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.06"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.08"/>
+      <inertia ixx="0.00005" ixy="0.0" ixz="0.0"
+               iyy="0.00005" iyz="0.0"
+               izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_tilt_joint" type="revolute">
+    <parent link="gripper_base_link"/>
+    <child link="gripper_tilt_link"/>
+    <origin xyz="0 0 0.08" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="8.0" lower="-1.57" upper="1.57" velocity="1.5"/>
+  </joint>
+
+  <!-- Gripper Open/Close Servo -->
+  <link name="gripper_claw_link">
+    <visual>
+      <geometry>
+        <box size="0.08 0.06 0.04"/>
+      </geometry>
+      <material name="dark_blue">
+        <color rgba="0.0 0.2 0.6 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.08 0.06 0.04"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.12"/>
+      <inertia ixx="0.00008" ixy="0.0" ixz="0.0"
+               iyy="0.00008" iyz="0.0"
+               izz="0.00015"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_claw_joint" type="revolute">
+    <parent link="gripper_tilt_link"/>
+    <child link="gripper_claw_link"/>
+    <origin xyz="0.04 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="6.0" lower="0.0" upper="1.57" velocity="2.0"/>
+  </joint>
+
+  <!-- 360-degree Servo for Forward/Backward Movement (Optional) -->
+  <link name="gripper_extension_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.08" radius="0.015"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.4 0.4 0.4 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.08" radius="0.015"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.06"/>
+      <inertia ixx="0.00002" ixy="0.0" ixz="0.0"
+               iyy="0.00002" iyz="0.0"
+               izz="0.00004"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_extension_joint" type="continuous">
+    <parent link="gripper_claw_link"/>
+    <child link="gripper_extension_link"/>
+    <origin xyz="0.04 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- USB Camera mounted on gripper -->
+  <link name="gripper_camera_link">
+    <visual>
+      <geometry>
+        <box size="0.03 0.04 0.02"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.03 0.04 0.02"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.04"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0"
+               iyy="0.00001" iyz="0.0"
+               izz="0.00002"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_camera_joint" type="fixed">
+    <parent link="gripper_tilt_link"/>
+    <child link="gripper_camera_link"/>
+    <origin xyz="0.02 0.02 0.03" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Container Load System (4 containers) -->
+  <xacro:macro name="container" params="name x y z">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <box size="0.06 0.06 0.08"/>
+        </geometry>
+        <material name="orange">
+          <color rgba="0.9 0.5 0.1 1.0"/>
+        </material>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.06 0.06 0.08"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="0.3"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0"
+                 izz="0.002"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Create 4 containers -->
+  <xacro:container name="container_left_front" x="-0.12" y="0.12" z="${base_height + 0.04}"/>
+  <xacro:container name="container_left_back" x="-0.18" y="0.12" z="${base_height + 0.04}"/>
+  <xacro:container name="container_right_front" x="-0.12" y="-0.12" z="${base_height + 0.04}"/>
+  <xacro:container name="container_right_back" x="-0.18" y="-0.12" z="${base_height + 0.04}"/>
+
+
+
+</robot>

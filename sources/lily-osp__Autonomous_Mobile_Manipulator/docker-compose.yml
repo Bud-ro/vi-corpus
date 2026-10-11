@@ -1,0 +1,56 @@
+services:
+  # PostgreSQL Database (required for waypoints/automations)
+  postgres:
+    image: postgres:16-alpine
+    container_name: robot_postgres
+    environment:
+      POSTGRES_DB: robot_automation
+      POSTGRES_USER: robot
+      POSTGRES_PASSWORD: robot_secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U robot -d robot_automation"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis — sensor cache, rate limiting, pub/sub (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: robot_redis
+    profiles:
+      - full
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Python REST API + simulation backend
+  backend:
+    build:
+      context: ./ros2_ws
+      dockerfile: Dockerfile.sim
+    container_name: robot_backend
+    environment:
+      - FLASK_PORT=8001
+      - DATABASE_URL=postgresql://robot:robot_secret@postgres:5432/robot_automation
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "8001:8001"
+
+  # TypeScript frontend (built and served by nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: robot_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+  redis_data:
