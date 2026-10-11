@@ -1,0 +1,103 @@
+name: verify-release
+
+# Check that what is PUBLISHED is what the release workflow produced.
+#
+# WHY THIS IS A SEPARATE WORKFLOW. release.yml can only vouch for releases it cut. The failure it
+# cannot see is a release cut BY HAND, and that is the one that actually happened: measured
+# 2026-09-11 over this repository's own release history, five releases - V1.1.5, V1.2.0, V1.2.2,
+# V1.2.5, V1.2.8 - carry a `labview-mcp.zip` uploaded by a person rather than by
+# github-actions[bot], at 19-21 MB against CI's 62 MB. Opening V1.2.8's asset settles what it is:
+# a zip of src\LabVIEWMCP\bin\Debug\net8.0 - exe and 46 loose DLLs at the archive root, no
+# .claude-plugin/plugin.json, no .mcp.json, no agents/, and a pylabview bundle built from a
+# developer's own Python 3.14 (the version release.yml pins away from, because it emits three
+# SyntaxWarnings from LVheap.py on every import).
+#
+# Those tags are upper-case, which the `v*` filter on release.yml ignores case-sensitively, so no
+# CI asset ever existed to publish. scripts\Assert-ReleaseTag.ps1 now removes that trigger. This
+# removes the consequence: for four days /releases/latest/download/labview-mcp.zip - the URL the
+# marketplace resolves for every plugin install - pointed at a hand-cut archive, which is what the
+# README's "there is currently a problem with the installer" banner was describing.
+#
+# The daily schedule is the part that matters. An asset can be replaced on an existing release at
+# any time, long after any workflow ran, so the only reliable guard is to keep looking.
+#
+# THERE IS DELIBERATELY NO `release:` TRIGGER, and it was tried first. Measured 2026-09-11 over
+# v1.5.0 and v1.5.1: every automatically triggered run failed - 5 of 5 - and the one green run in
+# that history was a manual re-run. Two independent reasons, each fatal:
+#
+#   - A release in this repository is created in the GitHub UI, which creates the tag, which
+#     triggers release.yml by push. So the release EXISTS WITH ZERO ASSETS about two seconds
+#     before the publishing workflow even starts, and release.yml then takes 3-5 minutes to
+#     attach them. No retry window inside a release event can close that gap honestly, and the
+#     failure text - "the release has no asset named labview-mcp.zip" - is alarming and wrong.
+#   - It was also redundant. `release.yml`'s own final step re-downloads what it just published
+#     and runs THIS SAME script against it, after the attach step, which is the correct moment.
+#     Verified green on both v1.5.0 and v1.5.1.
+#
+# A third, smaller reason not to bring it back: one publish fires `created`, `published` AND
+# `released`, so five event types produced three concurrent racing runs per release.
+#
+# What the schedule still covers is exactly what release.yml structurally cannot: a release CI
+# never published. All five hand-cut releases had no release.yml run at all, so there was no
+# final step to catch them - which is the whole reason this file exists.
+
+on:
+  schedule:
+    # Daily. Not on the hour, so it is not queued behind everyone else's cron.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to check (blank = whatever /releases/latest returns)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    # windows-latest for parity with release.yml and with every other script in this repository;
+    # the check itself is plain .NET and would run anywhere pwsh does.
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The tag to check:
+      #   workflow_dispatch -> the input, when one is given
+      #   schedule          -> blank, so the script checks /releases/latest, which is what the
+      #                        marketplace resolves and therefore what every install receives
+      - name: Decide which release to check
+        id: which
+        shell: pwsh
+        run: |
+          $tag = '${{ inputs.tag }}'
+          if ($tag) { Write-Host "checking tag $tag" } else { Write-Host 'checking /releases/latest' }
+          "tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      # Retried only to absorb a transient - an API hiccup, or a dispatch aimed at a release whose
+      # upload is genuinely in flight. It is NOT here to wait out a publishing run: that race is
+      # why the release trigger was removed, because 60 s three times cannot cover the 3-5 minutes
+      # release.yml takes to attach its assets.
+      - name: Verify the published release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tagArg = @()
+          if ('${{ steps.which.outputs.tag }}') { $tagArg = @('-Tag', '${{ steps.which.outputs.tag }}') }
+
+          for ($attempt = 1; $attempt -le 3; $attempt++) {
+            Write-Host "--- attempt $attempt of 3"
+            powershell -NoProfile -ExecutionPolicy Bypass `
+              -File scripts/Assert-PublishedRelease.ps1 `
+              -Repo '${{ github.repository }}' -Token $env:GH_TOKEN @tagArg
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+            if ($attempt -lt 3) {
+              Write-Host 'not yet - the assets may still be uploading; waiting 60s'
+              Start-Sleep -Seconds 60
+            }
+          }
+          throw 'the published release did not verify - see the FAIL lines above'

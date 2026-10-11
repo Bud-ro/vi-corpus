@@ -1,0 +1,3517 @@
+# AIXML — LabVIEW's textual block-diagram format
+
+Working reference for reading and **generating** LabVIEW code through the `lvai.LVAI`
+gRPC interface. Everything here was derived empirically from a corpus of 13 exports of
+shipping LabVIEW example VIs (LabVIEW 2026), plus round-trip validation of each. NI
+publishes no schema — there is no XSD anywhere in the addon — so treat this as observed
+behaviour, not documented contract, and re-derive it after a LabVIEW upgrade.
+
+Names of concrete projects, libraries and products are deliberately excluded; all examples
+below use neutral placeholders.
+
+## 1. What the format can and cannot express
+
+| | |
+|---|---|
+| Topology (nodes, wires, nesting) | yes — this is the whole point |
+| Terminal-level wiring | yes, by `uid.terminal` reference |
+| Control/indicator types, defaults, connector pane | yes |
+| Comments | yes, `FreeLabel` |
+| **Positions, sizes, layout** | **no — no coordinate attribute exists at all** |
+| Colours, fonts, decorations | no |
+| Terminal display mode (*View As Icon*) | no — see the measurement below |
+
+### Terminal display mode is not in the format — and it is not a comment-style guess
+
+Generated VIs show front-panel terminals as **large icons**. That is a LabVIEW option
+(*Tools → Options → Block Diagram → "Place front panel terminals as icons"*), on by default,
+applied when the generator creates the terminals — not something AIXML carries.
+
+Measured, both directions:
+
+1. A generated VI's terminals were switched to the small representation **by hand** in LabVIEW.
+   The diagram visibly changed — large framed icons became `DBL` / `abc` / `[DBL]` stubs.
+2. Re-exporting that VI produced an AIXML file **attribute-identical** to the authored input.
+   No new attribute, no `style` addition, nothing.
+
+So the property is real in the VI and absent from the format. Two consequences: you cannot
+request the small representation in AIXML, and **a manual fix is lost the moment the VI is
+regenerated**. Turn the LabVIEW option off if you want it to stick.
+
+This is the same shape as the empty-export trap in §11 — the export not changing does not mean
+the VI did not change. Render the diagram (`--diagram`) when the question is what a VI *looks*
+like.
+
+### Practical consequence for comments
+
+Since there are no coordinates, LabVIEW places `FreeLabel`s itself. It does **not** stack
+them — it spreads them out — but it also does not avoid collisions: long labels end up
+lying across wires and hiding constants. The only levers you have are **how many** and
+**how long**.
+
+Measured on one generated VI: six labels of 40–70 characters produced a diagram where a
+string constant was fully covered and the stop terminal was obscured. Rewriting the same
+VI with three labels of 12–20 characters, and moving the prose into the `VI description`
+(where it becomes Context Help), halved the diagram area and left every object visible.
+
+So: keep diagram comments to a few words, and put explanations in `description`.
+Verify by exporting the rendered diagram — see `--diagram` in the README.
+
+**An XML comment is not a place to put anything — it breaks validation.** `<!-- … -->` anywhere
+inside the document makes `ValidateAIXML` answer
+
+```
+Error 42 occurred at LV AI Core.lvlibp:VI generator.vi
+LabVIEW: (Hex 0x2A) Generic error.
+```
+
+and that is the whole message: no line, no column, no element, nothing pointing at a comment.
+Measured 2026-08-13 by removing the comment and nothing else — the same file then validated at
+`errorCode 0`. This is the harshest failure in the format so far, because the well-formedness
+errors it *does* diagnose are precise to the column (`Line 5, Column 308, missing required
+attribute 'outputs'`), so a bare generic error reads as a deep structural fault and sends you
+rewriting the diagram. It cost one such detour in the run that found it.
+
+The three places a note can legitimately go: a `FreeLabel` on the diagram, the `comment`
+attribute, or the `description` of the `VI` or a terminal. Nowhere else. §11 carries the same
+finding under the error message, since that is where somebody holding an `Error 42` will look.
+
+The attribute vocabulary, measured over every shipping example rather than over the original
+13 (`LabVIEWMCP --corpus`, then `attributes.tsv` from the report):
+
+```
+_id  _name  adapt  aggregate  async  comment  concat  cond  conIdx  connection  convertEol
+count  description  dimensions  element  elements  fields  ignoreAttributes  includeHigh
+includeLow  inputs  instance  inversions  items  label  link  maxin  maxout  mode
+operation  outputs  readLines  selectin  selectout  selector  strict  style  target
+text  type  uid  uid_parent  utf8  value  values
+```
+
+### `async` and `utf8` arrived with the v26.3 add-on update — the only format change measured
+
+The two newest entries above were **not** in this list before 2026-08-22, and they are the whole
+of what an add-on upgrade changed about the format. Measured that day, after NI's AI add-on was
+reinstalled (the `26.3` tree's binaries redated to 2026-08-13, which moved the fingerprint
+`LvaiVersion` keys the export cache to and dropped 2 382 cached exports):
+
+| | |
+|---|---|
+| `async="true"` | on `<Node>`, on `VISA Write` / `VISA Read`. VISA's synchronous-vs-asynchronous I/O setting, previously not carried at all |
+| `utf8="true"` | on `<VI>` and on `<Node>` (Invoke and Property nodes). Marks UTF-8 string content |
+
+Why this is an addition rather than a wider net: the inventory above is generated by sweeping
+**every** shipping example — 1 677 VIs — and `aixml_corpus_report.py` tallies attributes from every
+successful *export*, not only from VIs that survive a round trip. So `GPIB with VISA functions.vi`
+and `Multilingual Temperature Monitor.vi` were both in the pre-update sweep and neither attribute
+was found. Re-exporting those same VIs after the update produces both. Nothing else moved: the
+element vocabulary is unchanged, and five `vi.lib` VIs exported before and after the update came
+back **byte-identical**.
+
+The lesson for the next upgrade is that `LvaiVersion`'s cache drop is necessary but not
+sufficient — it protects stale exports, it does not tell you the vocabulary grew. Re-run
+`LabVIEWMCP --corpus` and diff `attributes.tsv` against this list, because two attributes appearing
+in NI's own exports are two attributes a generated VI is silently not carrying.
+
+**Eighteen of those were missing** from the list this document carried before the sweep, among
+them `elements` (how `Array To Cluster` fixes its output size), `dimensions`, `operation`,
+`aggregate`, `link`, `strict` and `text`. Several — `adapt`, `instance`, `concat`, `convertEol`,
+`readLines`, `items`, `values` — are described elsewhere in this file yet were absent here, so the
+list was never a reliable place to check whether an attribute exists. It is now generated rather
+than remembered; regenerate it after a LabVIEW upgrade. Conversely `scope` appears in the old list
+and in no export, so treat it as unconfirmed.
+
+No `x`, `y`, `left`, `top`, `bounds`. A comment can be *added* but never *placed*, and a
+diagram cannot be tidied through this format. Beware a false positive when grepping for
+layout: `conIdx=` contains the characters `x=`.
+
+## 2. Document skeleton
+
+```xml
+<VI _name="Example.vi" description="One line, then details.">
+  <FreeLabel comment="Free-standing comment" uid="9001" uid_parent="root"/>
+  <Control _name="a" conIdx="0" connection="required"
+           outputs="value:43.value" type="double" uid="43" uid_parent="root" value="0"/>
+  <Node _name="Add" inputs="x:43.value,y:57.value"
+        outputs="x+y:71.x+y" uid="71" uid_parent="root"/>
+  <Indicator _name="sum" conIdx="4" connection="recommended"
+             inputs="value:71.x+y" type="double" uid="88" uid_parent="root" value="0"/>
+</VI>
+```
+
+- Root element is `VI`. No XML declaration, no namespace.
+- **`description` on `VI` is mandatory**, even when it is the only attribute besides `_name`.
+  Omitting it fails validation, not generation: `lvai_validate_aixml` answers `errorCode 1` with
+  `Error -2628 … missing required attribute 'description'`. It may be any non-empty string. So
+  the smallest legal document — and the way to generate an **empty** VI — is a single
+  self-closing element with no children:
+  ```xml
+  <VI _name="Empty.vi" description="Empty VI."/>
+  ```
+  That was validated and generated a real, openable 4.9 kB VI. Note the asymmetry with export:
+  a *read* that returns only a bare `<VI …/>` means the diagram could not be parsed (§11), but a
+  bare `<VI …/>` as *input* legitimately means "no diagram".
+- LabVIEW writes CRLF line endings and two-space indentation. Neither appears to be
+  required, but matching them keeps diffs against fresh exports readable.
+- **Document order carries no meaning and is not preserved.** On export LabVIEW groups by
+  kind — `FreeLabel`s first (in reverse of the authored order), then controls, constants
+  and indicators, then nodes. Since there are no coordinates either, position on the
+  diagram is decided entirely by LabVIEW.
+- **But NESTING does carry meaning, and it beats `uid_parent`.** Measured 2026-09-25 as a clean
+  A/B: a seed constant written INSIDE a While Loop's `<Structure>` with `uid_parent="root"`
+  landed inside the loop - ValidateAIXML answered `While Loop: Is a member of a cycle` - while the
+  same constant written at top level converted clean. It cost the fourth ATM cold build an eBad
+  main VI. Keep the two in agreement; `lvai_check_aixml` answers `uidParentContradictsNesting` and
+  `scripts/aixml_lint.py` `parent-mismatch`, and both block before LabVIEW sees the file. (The
+  other direction - top level, `uid_parent` naming a structure - reached the structure for a
+  Node, Control, Indicator or Constant and NOT for a FreeLabel; `docs/diagram-comments.md`.)
+- `connection` without a `conIdx` is dropped on export: a terminal only counts as
+  connector-pane-assigned when it has an index.
+- **`conIdx` IS a position, and the map is knowable — see "The connector pane" below.** An
+  earlier revision of this line claimed there was "no fixed map to memorise" and told the reader
+  to copy a set of numbers from some other VI. That was wrong, and it produced badly styled VIs:
+  numbering depends on the *pattern*, but within a pattern each index is a fixed rectangle, and
+  the geometry is readable through VI Server.
+- `_name` on `VI` should match the target file name. LabVIEW overwrites it with the real
+  file name on export, so a mismatch is at best ignored.
+- **`value` is required on every `Control` and `Indicator`**, including an error cluster, where
+  the literal is **`[false,0,]`** — the trailing empty string is written as nothing at all, not
+  as `""`. Counted: 5 occurrences in the corpus and 2 in a freshly generated VI's re-export, and
+  no instance of `[false,0,""]` anywhere. (An earlier revision of this line claimed the `""`
+  form; it was written from memory rather than from an export, and `""` would give a `source`
+  containing two literal quote characters — §6 takes a string element in a `value` literally.)
+  Omitting `value` fails validation, which is cheap; the expensive part is the *case* of what you
+  put in it. A boolean literal must be exactly lowercase `true`/`false`: `TRUE` generates without
+  complaint and runs as **false** (§11).
+- **`inputs` is required on an `Indicator` too**, even an unwired one, where it reads
+  `inputs="value:"` — the empty-net form used for any unwired terminal (§8).
+
+### The connector pane: which `conIdx` is where, and where things belong
+
+A generated VI can be functionally perfect and still be wrong, because `conIdx` decides *where on
+the connector pane* a terminal sits — and a reviewer sees that before anything else. This section
+exists because several generated VIs put their inputs on the right-hand edge and their error
+terminals at the top, which is exactly what
+[NI's style guide](https://www.ni.com/docs/en-US/bundle/labview/page/building-the-connector-pane.html)
+tells you not to do.
+
+**The rules, from NI:** inputs on the **left**, outputs on the **right**, `error in` at the
+**bottom left** and `error out` at the **bottom right**, and terminals arranged so that wires do
+not have to cross to reach them.
+
+**The pattern is a STATION SETTING. It is not yours to choose per VI, and it is not the generator's
+choice either — LabVIEW gives every new VI the default pane from `LabVIEW.ini`:**
+
+```
+[LabVIEW]
+DefaultConPane="4833"
+```
+
+That key, read from the `LabVIEW.ini` next to `LabVIEW.exe`, **overrides everything** — never assume
+a pattern when that file can be read, and it is why everything generated on this station comes out
+16-terminal. **If the key is absent, LabVIEW's factory default applies: 4815, the 12-terminal
+`4x2x2x4`.** So the pattern of a *new* VI **is** knowable before you generate — just not from
+anything inside AIXML or the VI Server API. `lvai_connector_pane` with no argument reads it for you.
+The file is read-only to us: read it, quote it, never write a key to it.
+
+**One exception, measured 2026-09-25: a `conIdx` the default pattern does not HAVE makes the
+generator pick a larger pattern by itself.** `Find Account.vi` needed five outputs plus `error out`,
+and 4833's right edge has four output slots plus the error corner, so its AIXML named conIdx up to
+19 - and the VI came out on **4834** (20 terminals, 6x2x2x2x2x6) with no pylabview step, no
+`panePattern` and no project close, first on a probe and then on the real VI. The numbers then mean
+4834's slots, so ask `lvai_connector_pane pattern=4834` for them before authoring, and measure the
+result with `viPath`. What the generator picks for other overshoots is not measured.
+
+**Take the whole style-guide block that call prints — not four numbers.** This paragraph said "prints
+the four `conIdx` values to write", and that phrasing is itself the cause of a bug that shipped three
+times: the tool prints **six** entries — `first input`, **`more inputs`**, `error in`, `first output`,
+**`more outputs`**, `error out` — and the two `more` rows are the ones a reader drops. A VI with two
+data inputs then gets its first on `conIdx 0`, correctly, and its second on **`conIdx 1`, because 1
+follows 0**. On 4833 the left edge is `0, 5, 7, 9`; `1` is the top of the second column, a middle
+slot. `lvai_connector_pane` with `viPath` catches it and forces a regeneration, so the cost is about
+30 s per occurrence rather than a defect — but **never derive the next index by adding one.** On 4815
+the left edge counts *down*: `11, 10, 9`.
+
+**Three revisions of this section were wrong before that was known, and the shape of the error is
+worth keeping.** The first said a generated VI "essentially always gets 4815" and called that map "a
+constant"; the second said the pattern was "chosen by the highest `conIdx` you use"; the third said
+it could not be predicted at all and had to be measured every time. All three were attempts to find
+a rule inside LabVIEW for something that was sitting in a text file:
+
+| VI | highest `conIdx` | terminals assigned | pattern |
+|---|---|---|---|
+| three early probes | 3 / 7 / 11 | up to 12 | 4815 — the factory default, before the key was set |
+| a fourth probe | 15 | 12 | 4833 |
+| `DaqReadAndTDMS.vi`, 2026-08-13 | 11 | **5** | **4833** |
+| the same VI, re-indexed | 15 | 5 | **4833** |
+
+The index set never mattered. What it cost: `DaqReadAndTDMS.vi` was generated with the set the first
+revision prescribed — first input `11`, `error in` `8`, first output `3`, `error out` `0` — and landed
+on 4833, where those four indices mean *right edge*, *right edge*, *middle column* and *top-left
+corner*. Two of its inputs sat on the output edge and `error out` sat top left. Validation was clean,
+the VI ran, and the person who asked for it rejected it on sight.
+
+**Read the setting for a new VI; measure the pane for an existing one.** The two questions are not
+the same. A VI you are about to create gets the station default. A VI that already exists carries
+whatever pane it was given — on another machine, under another setting, possibly rotated or flipped —
+so there `viPath` is the only honest answer.
+
+Measured through `{LV.VI}` → `read+Connector Pane\3AReference` → `{LV.ConnectorPane}` →
+`read+Terminal Bounds[]`, one rectangle per index on a 32×32 pane:
+
+| pattern 4815 — 12 terminals, `4x2x2x4` | `conIdx`, top → bottom |
+|---|---|
+| **left edge** | **11, 10, 9, 8** |
+| second column | 7 (upper), 6 (lower) |
+| third column | 5 (upper), 4 (lower) |
+| **right edge** | **3, 2, 1, 0** |
+
+| pattern 4833 — 16 terminals, `5x2x2x2x5` | `conIdx`, top → bottom |
+|---|---|
+| **left edge** | **0, 5, 7, 9, 11** |
+| middle columns | 1, 2, 3 (upper row), 12, 13, 14 (lower row) |
+| **right edge** | **4, 6, 8, 10, 15** |
+
+So the same number means opposite things in the two patterns: `0` is bottom-**right** in 4815 and
+top-**left** in 4833; `8` is bottom-left in 4815 and third down the **right** edge in 4833. 4815
+numbers right-to-left and bottom-to-top, which is the rule the LabVIEW Wiki gives for the default
+pane. 4833 does not follow it: it takes the four corners first — `0` top left, `4` top right, `11`
+bottom left, `15` bottom right — and then zig-zags down the edges, left, right, left, right.
+
+**There are two families, and they are interleaved across the id range** — which is the measurement
+that kills the idea of deriving a third pattern from a rule. Of the 31 measured, 19 number
+right-to-left/bottom-to-top like 4815 (its first input is the *highest* index), 10 take the corners
+first like 4833 (first input `0`), and 2 have no edges at all. The families do not split by id or by
+size: 4820–4824 are corner-first while 4825–4829 are not, and 4809 with six terminals is
+corner-first while 4812 with eight is not. Neither the id nor the terminal count predicts which
+scheme a pattern uses.
+
+Per pattern, then, NI's style guide comes out as:
+
+| | 4815 | 4833 |
+|---|---|---|
+| first input | `11` | `0` |
+| second input | `10` | `5` |
+| `error in` (bottom left) | `8` | `11` |
+| first output | `3` | `4` |
+| `error out` (bottom right) | `0` | `15` |
+
+**So do not carry these numbers in your head, and do not read them out of this document either —
+ask `lvai_connector_pane`.** That is what it exists for, and it is the reason the two tables above
+are examples rather than instructions:
+
+- with **no argument** it reads this station's `DefaultConPane` and prints the four `conIdx` values a
+  newly generated VI needs. This is the call to make *before* authoring any `conIdx`.
+- with `viPath` it measures that VI's pane, joins it with the VI's own export,
+  and answers with the slot map, every breach of the style guide, and **the `conIdx` each terminal
+  should have** — ready to paste. Read-only, about 1 s.
+- with `pattern` it serves one pattern's measured map without touching LabVIEW.
+- with neither it lists all 36 patterns and which of them have been measured.
+
+The procedure for a new VI is therefore: **call the tool with no argument, write the `conIdx` values
+it gives you, generate — then call it with `viPath` to confirm.** The confirmation is not ceremony:
+the station setting tells you the pattern, not that you transcribed it correctly, and it says nothing
+about a VI that already existed.
+
+**Where the tool's table comes from, and why it has holes.** 32 of the 36 patterns have measured
+geometry, harvested by sweeping 1 449 VIs of this installation with `scripts/lvpane_sweep.xml` and
+building the table with `LabVIEWMCP --panes`. It cannot be completed by brute force, because
+`{LV.ConnectorPane}` → `Pattern` is **read-only** — there is no setter anywhere in the 3 078-entry
+VI Server catalogue — so a pattern is only observable on a VI that already uses one. 4816, 4818, 4819
+and 4830 had no such VI in the sweep; the tool says so rather than guessing, and sweeping more VIs is
+what closes the gap — 1 683 VIs across vi.lib, LVAddons, examples, user.lib, instr.lib, project,
+resource and this machine's own code did not, so those four are simply unused here.
+
+**Do not reach for `DefaultConPane` to close the gap.** Changing it would make new VIs use a chosen
+pattern, so it looks like the missing measurement — and `LabVIEW.ini` is **read-only** for this
+server and everything built on it, by the station owner's rule. Read the key, quote it, never write
+it. A pattern nothing in 1 683 VIs uses does not need a map badly enough to touch a machine's
+configuration.
+
+**A pattern id does not pin the orientation, and that is measured too.** A pane can be rotated or
+flipped (`Rot90`, `FlipHoriz`, `FlipVert` on `{LV.ConnectorPane}`), and then the same id numbers its
+slots along other edges. Over 1 449 VIs, **8 of the 32 measured patterns turned up in two
+orientations** — 4815 appears 1 022 times upright and 4 times on its side, in VIs such as
+`XML Script - CompoundArithmetic.vi`. The table therefore stores the *majority* orientation and
+carries the variant count, and the tool says "CAUTION: n distinct ORIENTATIONS" on those rows.
+
+This is also why the harvest counts instead of keeping the first VI it sees, which is what it used to
+do: harvesting the same six sweeps in a different file order flipped 4829 to its minority orientation
+and quietly changed four published `conIdx` values. A measurement of the VI in hand — `viPath` —
+never has this problem, because it reads that VI's own bounds, rotation and all.
+
+Two smaller measurements worth keeping, both from that sweep. **A slot can span two columns** —
+4817 and 4820 each have one — and it still belongs to the edge it touches, which is why the
+classification tests `Left == 0` and `Right == width` rather than counting columns. And the
+LabVIEW Wiki's shape strings are **not** column profiles: measured, 4817 is `2x3x2` where the wiki
+writes `3x2x2`, and 4820 is `3x2x3x2` against `3x2x2x3`. Same sums, different order, so its
+notation counts something else; 4833's row does not even sum to its own terminal count. The tool
+reports the measured profile and keeps the wiki's string beside it as a name only.
+
+One further caveat, and it is the same trap from the other side: **hand-written NI VIs use other
+patterns still** (4800–4835 exist), so a set of indices copied from one of them means
+something else in yours: `Close File+.vi` is pattern **4812** (8 terminals, left edge `4, 0`, right
+edge `7, 3`), where its `error in` = 0 and `error out` = 3 are the same bottom-left/bottom-right
+convention, not a different one. That is why NI's numbers look inconsistent across VIs and are not.
+
+**`Terminal Bounds[]` is indexed by exactly the AIXML `conIdx`** — proven rather than assumed. A
+probe VI with indicators on `conIdx` 0–5 and controls on 6–11 was read back through
+`{LV.ConnectorPane}` → `read+Controls[]` and `{LV.Control}` → `read+Indicator`, one per index, and
+returned `TTTTTTFFFFFF`. Reading an unassigned slot gives `Error 1055` (invalid reference), so a
+reader has to tolerate holes.
+
+To check a finished VI, print it: `Print.VI To HTML` (see `scripts/lvdoc_print.xml`) renders the
+pane with each terminal labelled `name [conIdx]`. **Beware the one thing that render does not
+show:** it always draws inputs on the left and outputs on the right regardless of where they
+actually sit, so a badly placed terminal looks fine there — the wire routing into the icon is the
+only visible tell. The bounds are the reliable check.
+
+**LabVIEW's own Context Help window has the same blind spot**, which is worth knowing because it is
+where a user looks first. On `DaqReadAndTDMS.vi` it drew `TDMS File Path [10]` and `error in [8]`
+down the left with `error out [0]` on the right — the roles, not the slots, all five of which were
+somewhere else entirely. What it *does* print is the pattern id, in parentheses after the VI path
+(`C:\Temp\DaqReadAndTDMS.vi (4833)`), and that number is the fastest way to spot that a generated
+pane is not the 12-terminal one you assumed.
+
+## 3. The core model: uid and wiring
+
+Every element carries a **`uid`** (unique within the document) and a **`uid_parent`**
+naming its container — `root` for the top-level diagram, otherwise the `uid` of the
+enclosing `Structure` or `CaseFrame`.
+
+Wires are not separate elements. Instead:
+
+```
+inputs  = "myTerminal:netName, myOtherTerminal:netName, ..."
+outputs = "myTerminal:netName, ..."
+```
+
+**A `uid.terminal` string is the name of a *net* (a wire), not a pointer to an element.**
+Each element lists, for every one of its terminals, which net that terminal hangs on —
+input terminals in `inputs`, output terminals in `outputs`. Two terminals are wired
+together precisely when they name the same net.
+
+This is the single most important rule, and the obvious guess ("`inputs` points at the
+source element") is wrong. Worked example — a shift register feeding two consumers:
+
+```xml
+<Left  inputs="value:"        outputs="value:154.x"                uid="100" uid_parent="104"/>
+<Node _name="Increment"   inputs="x:154.x"        outputs="x+1:154.x+1"  uid="154" uid_parent="85"/>
+<Node _name="Index Array" inputs="array:91.value,index:154.x" outputs="element:142.element" uid="142" uid_parent="85"/>
+```
+
+Net `154.x` has three terminals on it: the shift register's left output, `Increment.x`,
+and `Index Array.index`. Note that `Increment` names net `154.x` in its **own** `inputs`
+even though 154 is its own uid — the net simply happens to be named after that terminal.
+**Fan-out is expressed by repeating the net string**, never by duplicating elements.
+
+Consequences for authoring:
+
+1. Net names are only labels. LabVIEW picks a representative endpoint when exporting, and
+   it is not always the driver — so do not try to derive the name from the source. What
+   must hold is **consistency**: every terminal on a net spells it identically.
+2. **An empty right-hand side means unwired** — `outputs="floor(x/y):"` says the terminal
+   exists but carries no wire. Omitting the terminal entirely is not the same thing.
+3. Exactly one output terminal should drive a net; several inputs may read it.
+
+Terminal names are the literal LabVIEW terminal labels, symbols included. Real examples
+from the corpus: `x+y`, `x-y*floor(x/y)`, `size(s)`, `error out`, `dup Message Queue`.
+Get one wrong and validation reports `Object terminal not found for input: ...`.
+
+uids you author are **symbolic** — treat them as local labels. In one generation they were
+renumbered (10, 11, 12, 13 came back as 43, 57, 71, 88); in another, widely spaced values
+(10, 20, 100, 110, …) survived unchanged. Do not depend on either behaviour; only internal
+consistency matters. Widely spaced values leave room to insert elements later.
+
+## 4. Elements
+
+| Element | Purpose | Attributes |
+|---|---|---|
+| `VI` | root | `_name`, `description` |
+| `Control` | front-panel input | `_name`, `type`, `value`, `conIdx`, `connection`, `style`, `description`, `items`, `values`, `outputs` |
+| `Indicator` | front-panel output | same, but `inputs` instead of `outputs` |
+| `Constant` | diagram constant | `_name`, `type`, `value`, `outputs` |
+| `FixedConst` | fixed terminal (e.g. loop iteration) | `_name`, `outputs` |
+| `Node` | primitive / palette function | `_name`, `inputs`, `outputs`, `fields`, `element`, `type` |
+| `Call` | subVI call | `target`, `instance`, `adapt`, `inputs`, `outputs` |
+| `Structure` | loop / case / event container | `_name`, `count`, `label`, `selectin`, `maxin`, `maxout` |
+| `CaseFrame` | one frame of a case or event structure | `selector`, `selectout`, `label` |
+| `Diagram` | one frame of a disable structure | `selector`, `label` |
+| `Tunnel` | wire crossing a structure border | `_id`, `inputs`, `outputs`, `mode`, `cond` |
+| `Condition` | loop stop/continue terminal | `inputs`, `value` |
+| `ShiftReg` | shift register, wraps `Left` + `Right` | — |
+| `Left` / `Right` | shift-register terminals | `inputs`, `outputs` |
+| `FreeLabel` | comment | `comment` |
+
+Enumerated values observed:
+
+- `connection`: `required` · `recommended` · `optional` · `dynamic` — the fourth one is dynamic dispatch
+  and appears only on a class terminal; see below
+- `Tunnel._id`: `In1`…`InN`, `Out1`…`OutN` — numbering is per structure and matters only
+  for pairing input to output side
+- `Tunnel.mode`: `index` (auto-indexing on a loop border); absent means plain tunnel
+- `Tunnel.cond`: `true` seen on an event-structure border tunnel
+- `Control.style`: `latched` (mechanical action of a boolean)
+- `Structure._name`: `While Loop` · `For Loop` · `Case Structure` · `Event Structure` ·
+  `Flat Sequence Frame` (each frame is its own `Structure`, there is no parent element)
+
+### Disable structures are `Node`s, not `Structure`s
+
+An easy trap when walking the tree: the two disable structures do **not** use
+`Structure`/`CaseFrame`. They appear as a `Node` whose children are `Diagram` elements.
+
+```xml
+<Node _name="Diagram Disable Structure" uid="19338" uid_parent="root">
+  <Diagram selector=" Disabled " uid="19361" uid_parent="19338"> ... </Diagram>
+  <Diagram selector=" Enabled "  uid="19372" uid_parent="19338"> ... </Diagram>
+</Node>
+<Node _name="Conditional Disable Structure" uid="1184" uid_parent="root">
+  <Diagram label="functionality not available in exe"
+           selector=" RUN_TIME_ENGINE==False " uid="2425" uid_parent="1184"> ... </Diagram>
+  <Diagram label="" selector=" Default " uid="12071" uid_parent="1184"> ... </Diagram>
+</Node>
+```
+
+`Diagram` carries `selector` (with the same leading/trailing spaces as a `CaseFrame`
+selector), an optional `label`, `uid` and `uid_parent`. Code that only recognises
+`CaseFrame` will silently skip everything inside a disable structure.
+
+## 5. Type grammar
+
+Types are a compact expression language in the `type` attribute:
+
+```
+bool | string | double | int32 | uint32 | uint8 | variant
+array{ELEM}
+cluster{TYPE.FieldName,TYPE.FieldName,...}
+uint8{Label A,Label B,Label C}                 enum: base type + labels
+ref{Queue}{ELEM}                               refnum, kind + payload
+ref{Notifier}{ELEM}
+ref{UserEvent}{ELEM}
+ref{LV.Boolean} | ref{LV.Control} | ref{LV.String}      control refnums
+ref{LV.VI}                                     VI refnum
+ref{UDClassInst}                               reference to a user-defined class instance
+tag{14}                                        IO name control (a DAQmx physical channel)
+{LV.VI} | {LV.Control} | {LV.String}           VI/control class references
+```
+
+`ref{UDClassInst}` carries no payload in the type string — the class identity is not encoded,
+so two unrelated class references are indistinguishable by type alone. Frameworks that thread
+an object through a VI hierarchy (DQMH's module admin, for instance) show up as this.
+
+Composition nests freely. The standard error cluster is:
+
+```
+cluster{bool.status,int32.code,string.source}
+```
+
+**A multi-dimensional array is `array.N{ELEM}`, not a nested `array{array{ELEM}}`.** The
+dimension count is an infix on `array`, and the value literal nests with brackets:
+
+```xml
+<Indicator _name="Case 2 - Replace One Element in 2D Array"
+           type="array.2{double.Numeric}" value="[[0,1,2,3],[4,5,6,7]]" .../>
+```
+
+Attested throughout NI's own exports — `array.2{double.Numeric}`, `array.2{int32.Numeric}`,
+`array.2{string}` — while `array{array{` appears **nowhere** in 57 corpus files. Write the nested
+form and it is refused in both `Constant` and `Indicator` position with
+
+```
+Error 53 ... Unrecognized or unsupported attribute set in Constant with UID 62
+```
+
+— a message that names the element but not the attribute, so it reads like a typo in `value`
+rather than a wrong type spelling.
+
+**An earlier revision of this section, written the same day, drew the wrong conclusion from that
+error.** It reported the rejection correctly and then declared that a 2D array "cannot be
+declared at all", advising two parallel 1D arrays as the workaround. That advice was unnecessary:
+only the *nested spelling* is refused. `scripts\lvai_run_and_read.xml` still takes its input names
+and values as two 1D lists — built under the wrong belief, harmless, and left alone because it
+works.
+
+A trailing `.Name` after a closing brace names the *instance*, not the type — a cluster
+field holding a queue reference reads
+`ref{Queue}{cluster{string.Message,variant.Payload}.Inner Name}.Field Name`.
+
+### There is no typedef in this grammar, and that is a silent loss on every round trip
+
+**Measured 2026-08-28.** Nothing above can say that a control is an instance of a `.ctl`. NI's
+unsupported list says as much for *authoring* — "custom controls or typedefs (`.ctl`)" — but the
+consequence on the way **out** is the expensive one: an export renders a typedef as the type it
+wraps and drops the identity entirely.
+
+`vi.lib\Utility\AggHandler\Bounds.vi` carries two typedefs on its connector pane. Its export
+carries neither:
+
+| what the VI really has | what the AIXML says |
+|---|---|
+| `Bounds` — `XNodeBounds.ctl`, owned by `NI_XNodeSupport.lvlib` | `cluster{int32.Width,int32.Height}` |
+| that cluster's `Width` and `Height` — each an `XNodeInt.ctl` | `int32.Width`, `int32.Height` |
+| `State In` — the `SavedState` typedef of `Cls_AggHandler.xnode` | the whole nested cluster, written out |
+
+Not one `.ctl` name and not one library name survives, at any depth. So **regenerating a VI from
+its own export replaces every typedef with a de-linked copy of its type** — and since editing an
+existing VI through this route *is* a full regeneration, that is true of every AIXML edit, not of
+some exotic corner.
+
+**Nothing reports it.** The structure is identical, so the VI compiles, the connector pane is
+unchanged, and every caller's wires still bind. The damage surfaces much later, when someone edits
+the `.ctl` and the change does not reach a VI that used to follow it.
+
+**`pylv_route` does not catch it either — measured on the same VI:**
+
+```
+route: aixml
+routeReason: AIXML round-tripped its own export of this VI cleanly and the diagram
+             contains no silently-unsupported node family.
+silentlyUnsupported: []      validateErrorCode: 0
+```
+
+Both of its checks are blind to this by construction. Check A validates the export — and the export
+is valid, *precisely because* the typedef is already gone from it. Check B scans for unsupported
+**node families**, and a typedef is a property of a type, not a node. So the router gives its
+cleanest possible answer to one of the cases it exists to prevent. **Until that is fixed, ask
+separately whether the VI uses a typedef before accepting `route: aixml` for an edit.**
+
+`pylv_extract` answers that without LabVIEW. A bound typedef is recorded in two places at once:
+
+- in `VCTP`, a `<TypeDesc Type="TypeDef" Flag1="0x…">` whose `<Label>` children name the owning
+  library and the `.ctl` — `<Label Text="NI_XNodeSupport.lvlib"/>`, `<Label Text="XNodeInt.ctl"/>`.
+  A loose typedef with no owning library carries the second label only.
+- in the front-panel heap, an object whose **class is `typeDef`** — `<ddo class="typeDef" …>` — with
+  its own `partsList`, `bounds`, a `<stamp>` matching that `Flag1`, and the real control nested
+  inside it.
+
+**Can pylabview put a binding back? Only where one already exists.** The `VCTP` half is a text edit:
+wrap the `TypeDesc` in place, the way §1 of `docs/lvclass-creation.md` wraps the private data
+cluster, so the wrapper takes over the `FlatTypeID` and no type id moves. The heap half is not,
+because the object has to *be* of class `typeDef` — and synthesising one is composing a heap object
+of a class pylabview never writes from scratch, the same wall that document records for
+`udClassDDO`.
+
+| the control is | re-pointing it at a different `.ctl` |
+|---|---|
+| already a `typeDef` object naming the wrong file | NOT a plain `<Label>` substitution: measured 2026-08-28, the typedef file name sits 12 times in `VCTP` **and 3 times in `VITS`**, a block pylabview cannot parse and copies through unchanged. Untested, and no longer cheap. |
+| a plain control with no binding at all | composition — out of reach |
+
+So a stripped binding is repaired in the IDE, or by not stripping it in the first place.
+
+## 6. Escaping
+
+Two layers stack, and both are needed:
+
+1. **XML entities** — `&quot;` `&amp;` `&lt;` `&gt;` as usual. A primitive whose name
+   contains `&` appears as e.g. `Quotient &amp; Remainder`.
+2. **AIXML backslash-hex escapes** — `\` plus two hex digits, because `:` and `,` are
+   structural separators inside `inputs`/`outputs`:
+
+| Escape | Character | Where it shows up |
+|---|---|---|
+| `\3A` | `:` | qualified subVI names, property paths, event selectors, terminal names |
+| `\2C` | `,` | any comment or description containing a comma |
+| `\5C` | `\` | **mandatory in any `value`** — see below |
+| `\0A` | LF | multi-line `description` |
+| `\0D` | CR | multi-line `description` |
+
+**A BACKSLASH IN A `value` IS NOT OPTIONAL AND NOT COSMETIC — a raw one is refused outright.**
+Measured 2026-09-07 on two one-constant probes:
+
+| `value=` | verdict |
+|---|---|
+| `"Bicycle\5CTest Bicycle.vi"` | `errorCode 0`, 72 ms |
+| `"Bicycle\Test Bicycle.vi"` | **`Error 42`** — *"The following string or path control, indicator, or constant values in the input are not escaped correctly"*, naming the string |
+
+The message is the useful part: it names the offending value and nothing else, so it is unambiguous
+once seen — and it is a **whole-file** refusal, so one unescaped separator loses every VI in that
+AIXML. This shipped as a defect in `lvai_generate_caraya_test_runner`, which wrote a test VI's
+relative path raw; a flat output folder never reveals it, because the relative path is then a bare
+file name with no separator in it.
+
+Note the validator's own wording says "escaped with another backslash". Both spellings may work;
+`\5C` is the one measured here and the one the rest of this document uses, so prefer it.
+
+**The colon is different: a raw `:` in a `value` has never been measured failing.** `\3A` there is
+accepted and decodes back to `:`, so escaping it is harmless, but it is not required the way the
+backslash is. An absolute Windows path is conventionally written `C\3A\5Ctemp\5Cout.txt`.
+
+Both `:` and `,` are separators inside `inputs`/`outputs`, which is why they are escaped
+everywhere — including in free text. You may write a literal comma in a `comment` and
+LabVIEW will accept it, but it comes back as `\2C` on the next export, so emit `\2C`
+yourself if you want authored and exported files to match.
+
+**What is accepted is wider than what is emitted.** `\3B` for a semicolon was accepted on
+input and came back as a plain `;`. So the decoder handles the general `\XX` form, while the
+encoder escapes only the characters it must. Do not infer the escape set from an export
+alone — but for round-trip stability, emit only what an export emits.
+
+### `value` is the exception: there, a comma is usually structure
+
+The rule above is about commas that are **content**. Inside a `value` attribute a comma is
+normally **structure** — the separator inside an array or cluster literal — and structure is
+never escaped. Counted across the 57-file corpus:
+
+| attribute | raw `,` | `\2C` |
+|---|---|---|
+| `description=` | **0** | 17 |
+| `value=` | **51** | 1 |
+
+Every one of the 51 is a literal separator — `value="[false,0,]"`,
+`value="[[0,1,2,3],[4,5,6,7]]"`. The single escaped case is the tell: it sits inside a `picture`
+constant's binary payload, where the byte `0x2C` is *data*. So the rule is one rule after all:
+
+> **Escape a comma that is content. Leave a comma that is structure.**
+
+For a plain string constant both spellings happen to work — a scalar has no structure to
+confuse, and `value=","` and `value="\2C"` were each measured producing a working comma
+delimiter. Prefer `\2C` there anyway: it is what an export emits for content, and it stays
+correct if the constant later becomes part of something with structure. Getting this wrong on a
+delimiter is **silent** — the file parses into one column of zeros with no error.
+
+So a library-qualified call target is written `MyLib.lvlib\3AHelper.vi`, and a nested
+property is `Front Panel Window\3ACloseable`.
+
+### Write AIXML with a file tool, never through a shell
+
+A backslash escape is exactly what every shell and most string literals also want to consume.
+Passing AIXML through a heredoc into a script ate both escapes of a Windows path:
+`value="C\3A\5Ctemp\5Cout.txt"` arrived as `value="CACtempCout.txt"` — the backslash and the
+first hex digit gone, the second digit left behind as a letter.
+
+The failure then arrives disguised. `ValidateAIXML` answered
+
+```
+Error -2628 ... Load XML String.vi ... An error occurred while parsing the document.
+```
+
+which reads like malformed XML and is really a quoting bug two layers up. **Author AIXML by
+writing the file directly.** If a script must generate it, build the escapes with an explicit
+character map and re-read the file to confirm the escapes survived — never assume the string
+that left your source is the string that reached disk.
+
+**Python's octal escapes are a live instance of that, and the damage is invisible in a diff.**
+Building an AIXML string in Python, `'\3A'` is not backslash-three-A: it is `chr(3)` followed by
+`A`. Measured 2026-08-29 — a description written that way put literal `ETX` and `STX` bytes into
+the file, which rendered as `TRAP^CA` under `cat -v` and as an ordinary-looking `TRAPA` everywhere
+else. Use raw strings, or write the file with an editor tool rather than through a language whose
+escapes overlap AIXML's.
+
+**AIXML rejects XML comments.** `<!-- … -->` between elements gives `Error 42, Generic error`, with
+nothing naming the comment. Notes belong in the `description` attribute.
+
+## 7. Structures
+
+### While Loop
+
+```xml
+<Structure _name="While Loop" count="" uid="85" uid_parent="root">
+  <Tunnel _id="In1" inputs="value:52.value" outputs="value:91.value" uid="91" uid_parent="85"/>
+  <Condition inputs="value:136.value" uid="131" uid_parent="85" value="stop"/>
+  <ShiftReg uid="104" uid_parent="85">
+    <Left  inputs="value:"                outputs="value:154.x" uid="100" uid_parent="104"/>
+    <Right inputs="value:162.x-y*floor(x/y)" outputs="value:"   uid="106" uid_parent="104"/>
+  </ShiftReg>
+  <Tunnel _id="Out1" inputs="value:142.element" outputs="value:95.value" uid="95" uid_parent="85"/>
+</Structure>
+```
+
+**`count` on a While Loop is the ITERATION terminal `i`, not a count input** — and the example
+above showing `count=""` is only correct for a loop that never reads `i`. To use the iteration
+number, name the wire on the loop itself and consume it from there:
+
+```xml
+<Structure _name="While Loop" count="100.value" uid="100" uid_parent="root">
+  <Node _name="Greater Or Equal?" inputs="x:100.value,y:200.value"
+        outputs="x &gt;= y?:210.x &gt;= y?" uid="210" uid_parent="100"/>
+```
+
+The same holds for a `Timed Loop`, where NI's own export reads `count="216.value"` with a
+`Current Iteration` indicator consuming `value:216.value`.
+
+**The failure mode is what makes this worth writing down: the error names the wrong element.**
+With `count=""` and a node consuming `100.value`, validation reports
+
+```
+Greater Or Equal?: Contains unwired or bad terminal
+```
+
+— an accusation against the *consumer*, whose `inputs` are in fact written correctly. Nothing
+points at the loop, and re-checking the consumer's terminal names finds nothing wrong because
+nothing is. Measured 2026-08-22: adding `count="100.value"` and changing nothing else took the
+same document from `errorCode 1` to `errorCode 0`, and the generated VI then ran and returned
+`["hello world", "", "hello world", ""]`.
+
+- `Condition value="stop"` is the loop-condition terminal (stop-if-true).
+- **`Left` carries `outputs`, `Right` carries `inputs`** — the left terminal *feeds* the
+  diagram with the previous iteration's value, the right terminal *consumes* the next one.
+  This looks inverted and is the most common authoring mistake.
+- A `Tunnel` appears once with both `inputs` (outside) and `outputs` (inside).
+
+### For Loop
+
+Same shape, with `maxin` / `maxout` alongside `count`.
+
+**`maxin` wires `N`. `count` does not — it names the loop's own `i` output net.** This section said
+for two revisions that *nothing* wires `N` and that auto-indexing was the only way; that was wrong,
+and it pushed at least two generations into building a literal array or a While-Loop counter to get
+a fixed iteration count. The measurements below are all still true — they simply tested the wrong
+attribute. `maxin` was in the attribute vocabulary in §2 the whole time, listed and never tried.
+
+NI's own export of `Flush Written TDMS Data.vi` settles it:
+
+```xml
+<Structure _name="For Loop" count="427.value" maxin="1426.value" maxout="" uid="427" uid_parent="root">
+<Constant outputs="value:1426.value" type="int32" uid="1426" uid_parent="root" value="100"/>
+```
+
+`maxin` takes the net of an int32 constant — that is the `N` terminal — while `count` holds
+`427.value`, the structure's *own* uid, which is the `i` terminal's net. Confirmed in the other
+direction by generating `maxin="210.value"` from an int32 constant `5`: it validated, generated, and
+the round-trip export preserved it, with no indexing tunnel anywhere on the loop.
+
+What `count` is not, measured before `maxin` was tried:
+
+| what was written | answer |
+|---|---|
+| `count="5"`, nothing indexed | `For Loop: N is not wired, and there are no indexing inputs.` |
+| `count="137.value"`, a net from an int32 constant | same, plus two misleading follow-ons: `Wire: Wire connected to an undirected tunnel` twice, and `You have connected two terminals of different types … source 1D array of long, sink long` |
+| `<Tunnel _id="N" …>`, reaching for the terminal itself | **schema violation**: `value 'N' does not match regular expression facet '(In\|Out)[1-9][0-9]*'` |
+| `count=""` plus one `mode="index"` input tunnel | `errorCode 0` |
+
+The two extra errors in the second row are worth recognising: they name wires and types, they appear
+*because* `count` holds a net feeding the wrong terminal, and they vanish when it does not. Anyone
+chasing them is looking in the wrong place.
+
+**For a fixed iteration count with no array to index, use `maxin`.** The two workarounds this
+document used to prescribe — indexing over a literal `<Constant type="array{int32}"
+value="[0,0,0,0,0]"/>`, or a `While Loop` with an int32 shift register, `Increment` and `Greater?`
+against `n-1` — both work and both still validate, but neither is necessary and each costs three to
+five extra elements on the diagram.
+
+**Auto-indexing is `mode="index"` on the tunnel** — the attribute the rest of this section was
+missing. A tunnel *without* `mode` passes its whole value through unchanged; with it, the loop
+indexes one element per iteration and supplies `N`.
+
+**It works on an `Out` tunnel too, which this section only ever showed on `In` tunnels** — that is
+how a loop *builds* an array, one element per iteration, without `Build Array` and a shift register.
+`<Tunnel _id="Out1" inputs="value:530.waveform out" mode="index" outputs="value:540.value"/>`
+validated, generated and round-tripped, and NI's own example exports carry the same shape. The pair
+of them is the whole accumulate-per-channel idiom: index two `In` tunnels, index the `Out` tunnel
+back out.
+
+**There is a THIRD tunnel mode this section did not name: `mode="concat"`.** It appends each
+iteration's value to the one before instead of collecting them into a new dimension — the difference
+between an `Out` tunnel that turns N strings into an array of N strings (`index`) and one that turns
+them into a single joined string (`concat`). For arrays it joins rather than nesting.
+
+Measured 2026-09-03 against the export cache rather than authored: **11 occurrences across 8 of NI's
+own exports**, against 706 for `mode="index"` — so it is rare but genuine, and those two are the only
+tunnel `mode` values in 1 326 cached exports. Verbatim:
+
+```xml
+<Tunnel _id="Out1" inputs="value:170.appended array" mode="concat" outputs="value:2937.value"
+        uid="2937" uid_parent="235"/>
+```
+
+The VIs to read for it are `Loop Tunnel Modes.vi` — NI's own demonstration of exactly this question —
+plus `TDMS Advanced Prefetched Asynchronous Read.vi` and `Sum of 3 Gaussians with offset fit.vi`.
+
+This document already carried `concat` in its generated attribute list and described it **only** as
+`Build Array`'s concatenating-mode flag (`concat="true"`), so grepping for the word found the wrong
+construct and the tunnel mode read as absent. The gap surfaced when a user brought an outside summary
+of the format and it named a mode we did not: the summary was worth checking rather than dismissing,
+and checking it took one grep of the cache.
+
+Measured from OpenG's
+`Filter 1D Array (String)__ogtk.vi`, which is also a compact model of the accumulate-in-a-loop
+idiom:
+
+```xml
+<Structure _name="For Loop" count="" maxin="" maxout="" uid="124" uid_parent="root">
+  <Tunnel _id="In1" inputs="value:341.Output Array" mode="index" outputs="value:131.value" uid="131" uid_parent="124"/>
+  <Tunnel _id="In2" inputs="value:4.value" outputs="value:205.value" uid="205" uid_parent="124"/>
+  <Node _name="Build Array" concat="true" inputs="array:195.array,array:256.Indices"
+        outputs="appended array:195.appended array" uid="195" uid_parent="124"/>
+  <ShiftReg uid="144" uid_parent="124">
+    <Left  inputs="value:160.value"          outputs="value:195.array" uid="148" uid_parent="144"/>
+    <Right inputs="value:195.appended array" outputs="value:146.value" uid="146" uid_parent="144"/>
+  </ShiftReg>
+</Structure>
+```
+
+**The `Right` terminal's output net leaves the loop on its own — do not add an `Out` tunnel for
+it.** The snippet above is silent on how `146.value` reaches a consumer outside, and the obvious
+completion is wrong. Measured on an accumulate-and-join loop: naming the `Right` output net
+`460.value` and reading it directly from a root-level `Write to Text File` validates; inserting
+`<Tunnel _id="Out1" inputs="value:460.value" outputs="value:470.value"/>` between them fails with
+
+```
+For Loop: Is a member of a cycle
+Wire: Is a member of a cycle
+```
+
+So the shift register's border crossing is implicit in AIXML, and an explicit tunnel on top of it
+makes the loop appear to feed itself. The same holds on the way in: `Left inputs="value:140.value"`
+takes its initialiser straight from a root-level constant with no `In` tunnel. Explicit `Tunnel`
+elements are for wires that cross the border on their own, not for shift-register terminals.
+
+**Do NOT accumulate across NESTED loops with shift registers — measured 2026-08-29, the outer one
+keeps only the LAST iteration.** An inner loop accumulating a string per subVI and an outer loop
+concatenating those blocks validated, generated, ran with `errorCode 0` and returned exactly one
+subVI's worth of records out of two. Nothing reports it: the answer is well-formed, plausible, and
+silently missing everything but the final outer iteration. It was only visible because switching the
+outer source from `SubVIs[]` to `All Objects[]` changed *which* single block came back — with the
+last object being a constant, the report went empty instead of wrong.
+
+The shape that works is **two SEQUENTIAL loops with indexed output tunnels**, never a nested pair:
+one loop to find and enumerate, a second over what it found. `scripts/lvbd_coercion_dots.xml` is a
+worked example — a `Select` plus shift register to carry the match out of the first loop, then
+`mode="index"` `Out` tunnels on the second.
+
+To filter rather than transform, put a `Case Structure` inside the loop, selected by the test, and
+let one frame append while the other passes the accumulator through. **Every frame must declare
+every tunnel** — a frame that does not use one still lists it with an empty net,
+`<Tunnel _id="In2" outputs="value:" …/>`. A conditional output tunnel was not needed for this and
+its AIXML shape is still unverified.
+
+### Shift registers - `<ShiftReg>`, and the error chain that needs one
+
+A shift register is a child of the loop, with exactly two children of its own. Measured 2026-09-12:
+this was AUTHORED in AIXML, validated, generated, and the VI ran (`Current Count = 50`, `error out`
+clean, 10.03 s) - so it is not merely how an export happens to spell it.
+
+```xml
+<Structure _name="While Loop" count="4300.value" uid="4300" uid_parent="root">
+  ...
+  <ShiftReg uid="4361" uid_parent="4300">
+    <Left  inputs="value:4203.error out"  outputs="value:4362.value" uid="4362" uid_parent="4361"/>
+    <Right inputs="value:4326.value"      outputs="value:"           uid="4363" uid_parent="4361"/>
+  </ShiftReg>
+</Structure>
+```
+
+| | |
+|---|---|
+| `<ShiftReg>` | `uid_parent` is the LOOP's uid. It carries no `inputs`/`outputs` of its own, and **no net ever names its uid** - the wires attach to the two children |
+| `<Left>` | the READ side, inside the loop. `inputs` is the SEED from outside; `outputs` is the net feeding the first consumer in the body |
+| `<Right>` | the WRITE side. `inputs` is the net from the last producer in the body; `outputs` is **empty** - nothing reads it |
+
+Both children take `uid_parent` = the `<ShiftReg>`'s uid, not the loop's.
+
+**Why this is worth knowing before you need it: the error-cluster rule makes it mandatory.**
+`CLAUDE.md` requires every error path to reach one `error out`, and inside a loop that means carrying
+the chain across iterations. **A plain output tunnel on a `For Loop` INDEXES by default**, so an
+`error out` taken out that way arrives at `Merge Errors` as an ARRAY of clusters rather than a
+cluster - a type error, not a subtlety. The shift register is the construct that avoids it.
+
+**A `While Loop`'s output tunnel does NOT index** - it carries the last value, so it is a legitimate
+way out for a chain that only has to leave the loop. What the shift register adds is carrying a
+value ACROSS iterations, which an error chain accumulating over a run needs in either loop kind.
+This section was precise about the For Loop and silent about the While for a day - and a
+producer/consumer has two While loops and no For Loop at all, so the reader most likely to need the
+answer was the one it did not give, and had to settle it from outside knowledge. One
+generated VI shipped on 2026-09-12 with a For Loop's `error out` deliberately left unwired because
+its author could not find this spelling; the rule had been written down without the means to obey it.
+
+**Do not expect your net names back.** The same file exported after generation read
+`<Left … outputs="value:4365.error in">` where it was authored as `value:4362.value` - LabVIEW
+renumbered the token to the consumer's `<uid>.<terminal>`. That is the "a wire name is an arbitrary
+token" rule seen from the other side, and it means a diff of authored against exported AIXML shows
+spurious differences on every shift register.
+
+### Case Structure
+
+```xml
+<Structure _name="Case Structure" selectin="439.value" uid="350" uid_parent="root">
+  <CaseFrame selector="No Error" selectout="410.value" uid="410" uid_parent="350">
+    ...
+  </CaseFrame>
+  <CaseFrame selector="Error" selectout="364.value" uid="364" uid_parent="350">
+    <Structure _name="Case Structure" selectin="1745.code" uid="3080" uid_parent="364">
+      <CaseFrame selector="0"       selectout="" uid="3104" uid_parent="3080"/>
+      <CaseFrame selector="Default" selectout="" uid="3144" uid_parent="3080"/>
+    </Structure>
+  </CaseFrame>
+</Structure>
+```
+
+- `selectin` on the `Structure` is the wire feeding the selector.
+- `selector` on each `CaseFrame` is the case label as typed in LabVIEW: `"No Error"`,
+  `"Error"`, `"0"`, `"Default"`, an enum label, a string.
+- `selectout` optionally exposes the selector value inside the frame; `""` when unused. The net is
+  named after the frame's **own** `uid` — `selectout="400.value"` on `uid="400"`, and a node inside
+  reads `400.value`. That is how the offending value reaches an error message in a `Default` frame.
+- Nesting works by pointing the inner `uid_parent` at the frame's `uid`.
+
+**A case tunnel is split across two levels, and it is not shaped like a loop tunnel.** The While
+Loop snippet above writes one `Tunnel` element carrying **both** `inputs` and `outputs`; copying
+that shape into a case structure is the obvious move and it is wrong. A case tunnel appears once at
+structure level for the wire outside, and again inside **every** frame for the wire inside — same
+`_id`, different `uid`, and each half carries only one direction:
+
+```xml
+<Structure _name="Case Structure" selectin="60.lowercase file extension" uid="100" uid_parent="root">
+  <Tunnel _id="In1"  inputs="value:60.dup file"       uid="110" uid_parent="100"/>   <!-- outside -->
+  <CaseFrame selector="&quot;png&quot;" selectout="" uid="200" uid_parent="100">
+    <Tunnel _id="In1"  outputs="value:210.value"      uid="210" uid_parent="200"/>   <!-- inside  -->
+    <Tunnel _id="Out1" inputs="value:220.image data"  uid="230" uid_parent="200"/>   <!-- inside  -->
+  </CaseFrame>
+  <CaseFrame selector="Default" selectout="400.value" uid="400" uid_parent="100">
+    <Tunnel _id="In1"  outputs="value:"               uid="410" uid_parent="400"/>   <!-- unused  -->
+    <Tunnel _id="Out1" inputs="value:460.value"       uid="470" uid_parent="400"/>
+  </CaseFrame>
+  <Tunnel _id="Out1" outputs="value:120.value"        uid="120" uid_parent="100"/>   <!-- outside -->
+</Structure>
+```
+
+So: `In` carries `inputs` at structure level and `outputs` in each frame; `Out` is the mirror image.
+Consumers outside the structure read an output tunnel's net as `<that tunnel's uid>.value`. A frame
+that does not use a tunnel still declares it with an empty net — the same per-frame rule the For
+Loop section states, and it applies to `Out` as well as `In`.
+
+Measured 2026-08-07 while building a PNG/BMP loader from `Get File Extension.vi`, `Read PNG
+File.vi`, `Read BMP File.vi` and `Draw Flattened Pixmap.vi`: a three-frame case in this shape
+validated on the first attempt and re-exported byte-identically to what was authored — frames,
+selectors and tunnels all intact. The shape came from exporting `Read BMP File.vi`, which is a
+compact model of the idiom and the reliable way to check it again.
+
+Two smaller confirmations from the same build. A **cluster `Constant`** works, nested cluster and
+all — `type="cluster{int32.image type,…,cluster{int16.left,int16.top,int16.right,int16.bottom}.Rectangle}"`
+with `value="[0,0,[],[],[],[0,0,0,0]]"` generated an empty Image Data constant for the `Default`
+frame. And a terminal whose **name embeds its default value** must be spelled out in full inside
+`inputs`: `Error Cluster From Error Code.vi` takes `error code (0)` and
+`error message (&quot;&quot;)`, quotes included.
+
+### Event Structure
+
+> **Reading only — and it fails *silently*.** NI lists `Event Structure` (and `Timed Loop`)
+> among the node families the generator does not support (§9). Exports are complete and the
+> syntax below is accurate, but authoring one does not produce an error. Measured:
+>
+> - `ValidateAIXML` on an event structure with one `CaseFrame` → `errorCode 0`
+> - `ConvertAIXMLToVI` → `errorCode 0`, a real 8 KB VI
+> - re-export of that VI → the `Structure _name="Event Structure"` is there, but **every
+>   `CaseFrame` is gone**, and the `Event Data Node` came back as `fields="Source,Type,Time"`
+>   instead of the requested `NewVal`
+> - the rendered diagram shows a single frame labelled **`[0] Timeout`**
+>
+> So the shell is created and the event registration is dropped. You get a plausible-looking
+> event structure that handles nothing. See the silent-degradation entry in §11.
+
+```xml
+<Structure _name="Event Structure" uid="615" uid_parent="1390">
+  <Tunnel _id="In1" cond="true" inputs="value:1480.value" uid="269" uid_parent="615"/>
+  <CaseFrame selector=" &quot;Start&quot;\3A Value Change " uid="3202" uid_parent="615">
+    <FreeLabel comment="Start button was pressed." uid="2988" uid_parent="3202"/>
+    <Control _name="Start" outputs="value:" style="latched" type="bool"
+             uid="2645" uid_parent="3202" value="false"/>
+    <Node _name="Event Data Node" fields="NewVal" outputs="NewVal:"
+          uid="3228" uid_parent="3202"/>
+  </CaseFrame>
+</Structure>
+```
+
+Event frames are `CaseFrame`s whose `selector` encodes the event, always with **leading and
+trailing spaces as part of the string**. Three distinct forms occur:
+
+| Selector form | Event kind |
+|---|---|
+| `&quot;<Control>&quot;\3A Value Change` | static front-panel control event |
+| `&lt;<RegRef>.<Field>&gt;\3A User Event` | **dynamic** user event from a registration refnum |
+| `Panel Close?` | filter event — no control, no payload reference |
+
+The dynamic form is the one that is easy to miss: the angle brackets are XML-escaped, the
+name inside is `<registration terminal>.<cluster field>`, and the trailing text is literally
+`User Event`. Such frames only exist where a `Register For Events` node feeds the structure.
+
+`Event Data Node` exposes event fields (`NewVal`, `Source`, `code`, …) via `fields`; expect
+one per frame. Filter events additionally use an `Event Filter Node`.
+
+## 8. Multi-terminal nodes
+
+`fields` is a comma-separated terminal list whose meaning depends on the node:
+
+| Node | `fields` example | Meaning |
+|---|---|---|
+| `Unbundle By Name` | `Field A,Field B,Field C` | which cluster fields to expose |
+| `Bundle By Name` | `Field A,Field B` | which fields to replace |
+| `Event Data Node` | `NewVal` | event data items |
+| `Property Node` | `write+Disabled` | property, `write+` prefix = write access |
+| `Property Node` | `write+Front Panel Window\3ACloseable` | nested property class |
+
+A `Property Node` without the `write+` prefix reads. `Index Array` with two `index:`
+entries in `inputs` returns two `element` outputs — repeated terminal names are how
+expandable nodes are described.
+
+**BUT NOT EVERY EXPANDABLE NODE EXPANDS FROM AIXML, and `Format Into String` is the one that
+matters.** Read as a general rule this sentence cost a session about 330 s of wall clock, so the
+exception belongs beside it:
+
+| node | grows from repeated terminal names? |
+|---|---|
+| `Index Array` | **yes** — two `index:` entries give two `element` outputs |
+| `Concatenate Strings` | **yes** — measured 2026-09-07, nine repeated `string:` inputs validated first try |
+| `Format Into String` | **NO** — arity is fixed at one `input 1` |
+
+`Format Into String` was tried as `input 2`/`input 3`/`input 4` and as repeated `input 1:`, and both
+give the same three complaints at once: `Too many format specifiers`, `Contains unwired or bad
+terminal`, and a double-into-string coercion. So a multi-value format string is not authorable here —
+**build the string with `Concatenate Strings` and one converter per value** (`Number To Decimal
+String`, `Number To Fractional String`, a `Select` between two string constants for a boolean).
+
+The trap is that the failure names the format string rather than the arity, which reads as "my
+format specifiers are wrong" and sends you off editing them.
+
+### Invoke Nodes
+
+An `Invoke Node` is a `Node` with **`target`** (the method) and **`type`** (the refnum
+class) instead of `fields`. Verified by exporting a VI that calls `FP.Open`:
+
+```xml
+<Node _name="Invoke Node" target="FP.Open" type="{LV.VI}"
+      inputs="reference:97.value,error in (no error):170.value,Activate:88.value,State:"
+      outputs="reference out:,error out:43.error out" uid="43" uid_parent="root"/>
+```
+
+`inputs` starts with `reference` and `error in (no error)`, then carries the method's
+own parameters by their literal LabVIEW names; `outputs` gives `reference out` and
+`error out`. So VI Server scripting **is** expressible in AIXML — an earlier reading of
+this document concluded the opposite from the fact that only `Property Node` was
+documented here.
+
+**But `target` cannot be looked up from outside LabVIEW.** Method names are *not* stored
+as literals in a `.vi` (they are binary IDs — grepping VI files for `FP.Open` finds
+nothing), they are not in `LabVIEW.exe`'s string table beyond a few like `FP.Open`
+itself, and `SearchInfoCache` covers palette items, not VI Server methods. The only
+reliable way to obtain the `target` for a method you have not seen before is to place
+that node in a scratch VI in the IDE and export it with `ConvertVIToAIXML`. Budget for
+that step rather than guessing — a wrong `target` is exactly the kind of thing that
+fails late.
+
+### Terminal names must be looked up, never guessed
+
+They are the literal LabVIEW terminal labels, spaces, punctuation and all — and several
+are surprising. Verified from exports:
+
+| Node | inputs | outputs |
+|---|---|---|
+| `Increment` | `x` | `x+1` |
+| `Decrement` | `x` | `x-1` |
+| `Greater?` | `x`, `y` | `x > y?` |
+| `Less?` | `x`, `y` | `x < y?` |
+| `Equal?` | `x`, `y` | `x = y?` |
+| `Or` | `x`, `y` | `x .or. y?` |
+| `Select` | `t`, `s`, `f` | `s? t\3Af` |
+| `Add` | `x`, `y` | `x+y` |
+| `Subtract` | `x`, `y` | `x-y` |
+| `Multiply` | `x`, `y` | `x*y` |
+| `Divide` | `x`, `y` | `x/y` |
+| `Reciprocal` | `x` | `1/x` |
+| `Concatenate Strings` | `string`, repeatable | `concatenated string` |
+| `Quotient & Remainder` | `x`, `y` | `x-y*floor(x/y)`, `floor(x/y)` |
+| `Array Size` | `array` | `size(s)` |
+| `Index Array` | `array`, `index` | `element` |
+| `Wait (ms)` | `milliseconds to wait` | `millisecond timer value` |
+| `Get Waveform Components` | `waveform` | per `fields`, e.g. `Y` |
+| `Build Waveform` | `waveform`, then one per `fields`, e.g. `dt`, `Y` | `output waveform` |
+| `Sort 1D Array` | `array` | `sorted array` |
+| `Array To Spreadsheet String` | `format string`, `array`, **`delimiter (Tab)`** | `spreadsheet string` |
+| `Build Array` | `array` / `element`, repeatable | `appended array` |
+| `Unbundle By Name` | `input cluster` | one per `fields`, e.g. `status`, `code`, `source` |
+| `Bundle By Name` | one per `fields`, **then** `input cluster` — the order matters | `output cluster` |
+| `Bundle` | `element`, repeatable, **then** `cluster` | `output cluster` |
+| `Unbundle` | `cluster` | `element`, repeatable |
+| `Unbundle / Bundle Elements` | `input cluster` | `output cluster` — the In Place Element border node |
+| `String To Path` | `string` | `path` |
+| `Path To String` | `path` | `string` |
+| `Number To Decimal String` | `number` | **`decimal integer string`** — not `string` |
+| `Variant To Data` | `variant`, `type`, **`error in`** — not `error in (no error)` | `data`, `error out` |
+| `Read from Text File` | `file (use dialog)`, `count`, `error in`, `prompt (Open existing file)` | `refnum out`, `text`, `cancelled`, `error out` |
+| `Write to Text File` | `file (use dialog)`, `text`, `error in`, `prompt (Choose or enter file path)` | `refnum out`, `cancelled`, `error out` |
+| `Close File` | `refnum`, `error in` | `path`, `error out` |
+| `Open VI Reference` | `application reference (local)`, `vi path`, `options`, `error in (no error)`, `type specifier VI Refnum (for type only)`, `password ("")` | `vi reference`, `error out` |
+| `Close Reference` | `reference`, `error in (no error)` | `error out` |
+
+`Build Array` takes `concat="true"` for concatenating mode, and then names each input by what is
+wired to it — `array` for an array, `element` for a scalar — which is why the same node can carry
+`inputs="array:…,element:…"`. `Read from Text File` and `Write to Text File` need no refnum at all
+when handed a path: they open and close the file themselves.
+
+**`Array To Spreadsheet String` appends a platform line ending after the *last* element.**
+Measured on a five-element string array with `delimiter (Tab)` wired to `\0A`: the result ended
+`…\nbanana\r\n`, so the delimiter separates the elements and a `\r\n` is added on top. If you want
+the elements separated and nothing trailing, strip it — which is exactly what OpenG's
+`1D Array to String__ogtk.vi` does internally, with `Match Pattern` anchored on the platform line
+ending followed by `$`.
+
+Everything above was measured, most of it by exporting a VI that already used the node — a shipped
+example under `examples\File IO\`, and OpenG's own `Filter 1D Array (String)__ogtk.vi` for the
+accumulating loop. That remains the reliable way to add a row here.
+
+**A terminal's default value is part of its name, in parentheses.** Four rows above show it —
+`prompt (Open existing file)`, `password ("")`, `type of dialog (OK msg\3A1)`,
+`delimiter (Tab)` — and it is the first thing to try when a name that looks obviously right is
+rejected. Measured: `delimiter` on `Array To Spreadsheet String` gives
+`Object terminal not found for input: delimiter:130.value`, while `delimiter (Tab)` validates.
+The same node's `format string` and `array` carry no suffix, so the rule is per terminal, not per
+node: only terminals that actually *have* a documented default get one.
+
+Note `Greater?` uses spaces around the operator while `Add` does not, and `Select`'s
+output contains a colon that must be escaped (`s? t\3Af`) — the escaping rules of
+section 6 apply inside terminal names too. In XML the `<` in `x < y?` additionally needs
+`&lt;`, and `&` in `Quotient & Remainder` needs `&amp;`.
+
+The reliable way to get a name right: export a VI that already uses the node and copy the
+string verbatim.
+
+**Ask for every node at once, not one per call.** `lvai_aixml_reference` takes `node=` as a
+comma-separated list — `node='Select,Index Array,Build Waveform,Greater?'` — and that is the
+intended way to use it, because a term is matched by *substring* and single lookups therefore
+hand back the same text repeatedly. Three concrete overlaps, all from one VI generation: the
+2D-indexing code block below answers `Index Array`, `disabled index` **and** `Array Subset`; the
+Build Waveform subsection answers `Build Waveform`, `waveform` **and** `Time Stamp`; and the
+`| Node | inputs | outputs |` header trio is re-emitted with every single term.
+
+Measured on exactly the 18 terms that generation looked up one at a time:
+
+| | characters | round trips |
+|---|---|---|
+| one term per call | 21 973 | 18 |
+| one batched call | 13 427 | 1 |
+
+**38.9 % less text, and 17 round trips gone**, with every terminal name still present — there is
+a test pinning that (`ALargeBatchStillCarriesEveryTerminalNameItWasAskedFor`). A batch prints each
+passage once and says so when a term's hits all appeared under an earlier term, which is the
+difference that matters: silence would read as "not documented", and that is what sends a reader
+off to re-derive a fact the document already carried.
+
+A batch also divides the passage budget across its terms — three each at the default `limit` —
+because "the terminals of these eighteen nodes" is a different question from "everything about
+this one term". Ask a term on its own when you want the depth.
+
+Note what this is *not*: a cache. Caching keyed on the argument would have saved nothing here,
+because no two of those 18 calls had the same argument. The duplication was in the output.
+
+The documents *are* cached as well — each one and its line index is built once per process rather
+than once per call — but that is a separate and much smaller win, and the numbers say so plainly:
+
+| | before | after |
+|---|---|---|
+| one lookup | 0.841 ms | 0.039 ms |
+| the 18-term workload, server side | 23.3 ms | 0.8 ms |
+
+23 ms was never what made a generation session slow. **A round trip is a model turn**, and that is
+the term that dominates: measured over three `lvai_*` calls, 30.4 s of wall clock against 74 ms of
+LabVIEW time for the run and under a second for validate plus convert — roughly 7 s per turn, all
+latency. The 17 turns a batch removes are therefore worth about two minutes, against milliseconds
+for the cache. Optimise the number of calls, not the cost of one.
+
+For scale on the LabVIEW side: `LabVIEWMCP --selftest` over a VI and its project costs 3.30 s cold
+and 0.76 s warm, whole process included.
+
+### Every other node NI uses — generated, not written
+
+The table above is curated: each row was measured by hand and several carry a warning that only a
+person can give. It is also small. The corpus sweep found **377 distinct node kinds** across the
+shipping examples, so the table below is all of them — every node seen in **more than one**
+example VI, with the ordered terminal lists LabVIEW itself writes.
+
+The two overlap on purpose. The curated table is where the caveats live; this one is where
+completeness lives, and it deliberately does not skip a node just because the prose mentions it.
+An earlier version did, which meant writing a sentence about a node deleted its terminals from
+this reference.
+
+It is **generated**. Do not edit it; regenerate it, and put anything worth saying about a node in
+the prose above where a regeneration cannot overwrite it:
+
+```bash
+python scripts/aixml_corpus_report.py --update-docs
+```
+
+Three things to read correctly:
+
+- **The order is the measurement.** Terminal order inside `inputs` is load-bearing on at least
+  `Bundle` and `Bundle By Name` (below), so a row is the whole string to copy, not a set of names.
+- **`varies per instance`** means the node has no fixed terminal names at all — a `Local Variable`'s
+  terminal is the variable it points at, a `Property Node`'s is the property. Printing one VI's
+  spelling as *the* signature would be a fabrication, so the count of distinct shapes is given
+  instead. For those, export the VI you are working from.
+- **`(n/m)`** after a row means that shape was the commonest but not the only one: `n` sightings of
+  `m`. Expandable nodes and nodes whose terminal names follow the wired data do this.
+
+A node absent from both tables is not necessarily absent from LabVIEW — it may simply appear in
+only one example. The complete list, single sightings included, is
+[`docs/aixml-node-gaps.tsv`](aixml-node-gaps.tsv), which lives in the repository and is **not**
+embedded in the assembly: on a binary-only install the two tables above are all there is, which is
+the other reason this one is spliced into the document rather than left beside it.
+
+<!-- BEGIN generated: node terminals -->
+| Node | inputs (in order) | outputs (in order) |
+|---|---|---|
+| `Property Node` | varies per instance (165 shapes) | varies per instance (101 shapes) |
+| `Event Data Node` | — | varies per instance (80 shapes) |
+| `Multiply` | `x`, `y` | `x*y` |
+| `Bundle` | varies per instance (217 shapes) | `output cluster` |
+| `Build Array` | varies per instance (22 shapes) | `appended array` |
+| `Unbundle By Name` | `input cluster` | varies per instance (281 shapes) |
+| `Merge Errors` | `error in`, `error in` (252/324) | `error out` |
+
+**Two inputs share the name `error in`, and the way to write that is to REPEAT THE KEY, in order:**
+`inputs="error in:4329.value,error in:4413.value"`. The `(252/324)` in that row is the pair of
+terminal ids, not part of any name. THREE separate builds grepped the export cache to settle this
+before it was written here, and the error-cluster rule of 2026-09-12 makes `Merge Errors` mandatory
+on every forked diagram - so it is a common path now, not a corner. A duplicate key in an `inputs`
+string is the kind of thing an author assumes is illegal and works around.
+| `Wait (ms)` | `milliseconds to wait` | `millisecond timer value` |
+| `Index Array` | varies per instance (18 shapes) | varies per instance (11 shapes) |
+| `Add` | `x`, `y` | `x+y` |
+| `Bundle By Name` | varies per instance (189 shapes) | `output cluster` |
+| `Subtract` | `x`, `y` | `x-y` |
+| `Local Variable` | varies per instance (116 shapes) | varies per instance (65 shapes) |
+| `Divide` | `x`, `y` | `x/y` |
+| `Invoke Node` | varies per instance (73 shapes) | `reference out`, `error out` (126/233) |
+| `Or` | `x`, `y` | `x .or. y?` |
+| `Select` | `t`, `s`, `f` | `s? t\3Af` |
+| `Close Reference` | `reference`, `error in (no error)` | `error out` |
+| `Build Path` | `base path`, `name or relative path` | `appended path` |
+| `Random Number (0-1)` | — | `number\3A 0 to 1` |
+| `Format Into String` | `initial string`, `error in`, **exactly one** `input 1`, `format string` (93/150) — the arity does NOT expand from AIXML; use `Concatenate Strings` plus one converter per value | `resulting string`, `error out` |
+| `Increment` | `x` | `x+1` |
+| `Unbundle / Bundle Elements` | `input cluster` (72/144) | `output cluster` (72/144) |
+| `Unbundle` | `cluster` | varies per instance (58 shapes) |
+| `Array Size` | `array` | `size(s)` |
+| `Equal?` | `x`, `y` | `x = y?` |
+| `VI Server Reference` | — | varies per instance (68 shapes) |
+| `Concatenate Strings` | `string`, `string` (74/108) | `concatenated string` |
+| `Compound Arithmetic` | `value`, `value`, `value` (78/107) | `result` |
+| `Generate User Event` | `user event`, `event data cluster`, `error in`, `priority (normal)` | `user event out`, `error out` |
+| `Feedback Node` | `initializer`, `next value` | `previous value` |
+| `Decrement` | `x` | `x-1` |
+| `Create User Event` | `user event datatype`, `error in` | `user event`, `error out` |
+| `To More Specific Class` | `reference`, `error in`, `target class` | `specific class reference`, `error out` |
+| `Square` | `x` | `x^2` |
+| `Quotient & Remainder` | `x`, `y` | `x-y*floor(x/y)`, `floor(x/y)` |
+| `Static VI Reference` | — | `value` |
+| `Event Filter Node` | `Discard?` (61/70) | — |
+| `Destroy User Event` | `user event`, `error in` | `error out` |
+| `Variant To Data` | `Variant`, `error in`, `type` | `data`, `error out` |
+| `Initialize Array` | `element`, `dimension size` (62/68) | `initialized array` |
+| `Negate` | `x` | `-x` |
+| `Greater?` | `x`, `y` | `x > y?` |
+| `Call Library Function Node` | `error in (no error)`, `input`, `output` (46/59) | `error out`, `input`, `output` (46/59) |
+| `Not` | `x` | `.not. x?` |
+| `Sine` | `x` | `sin(x)` |
+| `Current VI's Path` | — | `path` |
+| `Transpose 2D Array` | `2D array` | `transposed array` |
+| `Expression Node` | `input` | `output` |
+| `In Range and Coerce` | `upper limit`, `x`, `lower limit` | `coerced(x)`, `In Range?` |
+| `Reciprocal` | `x` | `1/x` |
+| `Absolute Value` | `x` | `abs(x)` |
+| `Unregister For Events` | `event registration refnum`, `error in` | `error out` |
+| `And` | `x`, `y` | `x .and. y?` |
+| `Replace Array Subset` | `array`, `index`, `new element/subarray` (26/39) | `output array` |
+| `Call Parent Class Method` | varies per instance (15 shapes) | `Actor out`, `error out` (26/37) |
+| `Array Index / Replace Elements` | varies per instance (7 shapes) | varies per instance (7 shapes) |
+| `Not A Number/Path/Refnum?` | `number/path/refnum` | `NaN/Path/Refnum?` |
+| `Equal To 0?` | `x` | `x = 0?` |
+| `Tick Count (ms)` | — | `millisecond timer value` |
+| `Open VI Reference` | `application reference (local)`, `vi path`, `options`, `error in (no error)`, `type specifier VI Refnum (for type only)`, `password ("")` | `vi reference`, `error out` |
+| `One Button Dialog` | `message`, `button name ("OK")` | `true` |
+| `Build Waveform` | varies per instance (9 shapes) | `output waveform` |
+| `Not Equal?` | `x`, `y` | `x != y?` |
+| `Register For Events` | `event registration refnum`, `error in (no error)`, `event source` (25/33) | `event registration refnum`, `error out` |
+| `TDMS Read` | `tdms file`, `group name in`, `channel name(s) in`, `error in (no error)`, `offset (0)`, `count (-1\3A all)`, `data type`, `return channels in file order? (F)` | `end of file?`, `tdms file out`, `group name out`, `channel name(s) out`, `data`, `error out` |
+| `Less?` | `x`, `y` | `x < y?` |
+| `Array Subset` | `array`, `index`, `length` (23/31) | `subarray` |
+| `String Length` | `string` | `length` |
+| `Number To Fractional String` | `number`, `width (-)`, `precision (6)`, `use system decimal point (T)` | `F-format string` |
+| `Conditional Disable Structure` | — | — |
+| `Wait Until Next ms Multiple` | `millisecond multiple` | `millisecond timer value` |
+| `Square Root` | `x` | `sqrt(x)` |
+| `Enqueue Element` | `queue`, `element`, `timeout in ms (-1)`, `error in (no error)` | `queue out`, `timed out?`, `error out` |
+| `Max & Min` | `x`, `y` | `max(x\2Cy)`, `min(x\2Cy)` |
+| `Obtain Queue` | `name (unnamed)`, `element data type`, `create if not found? (T)`, `error in (no error)`, `max queue size (-1\2C unlimited)` | `queue out`, `created new?`, `error out` |
+| `To Double Precision Float` | `number` | `double precision float` |
+| `Type Cast` | `x`, `type` | `*(type *) &x` |
+| `Delete From Array` | `array`, `length`, `index` (21/24) | `array w/ subset deleted`, `deleted portion` |
+| `Dequeue Element` | `queue`, `timeout in ms (-1)`, `error in (no error)` | `queue out`, `element`, `timed out?`, `error out` |
+| `Release Queue` | `queue`, `force destroy? (F)`, `error in (no error)` | `queue name`, `remaining elements`, `error out` |
+| `Reshape Array` | `array`, `dimension size` (17/24) | `output array` |
+| `Less Than 0?` | `x` | `x < 0?` |
+| `Greater Or Equal?` | `x`, `y` | `x >= y?` |
+| `Match Pattern` | `string`, `regular expression`, `offset (0)` | `before substring`, `match substring`, `after substring`, `offset past match` |
+| `Add Array Elements` | `numeric array` | `sum` |
+| `To Variant` | `anything` | `Variant` |
+| `Array Max & Min` | `array` | `max value`, `max index (indices)`, `min value`, `min index (indices)` |
+| `Exponential` | `x` | `exp(x)` |
+| `And Array Elements` | `Boolean array` | `logical AND` |
+| `Number To Decimal String` | `number`, `width (-)` | `decimal integer string` |
+| `Get Date/Time In Seconds` | — | `seconds since 1Jan1904` |
+| `First Call?` | — | `First Call?\3A T/F` |
+| `To Unsigned Long Integer` | `number` | `unsigned 32bit integer` |
+| `Insert Into Array` | `array`, `index`, `new element/subarray` (18/19) | `output array` |
+| `New VI Object` | `owner refnum`, `style`, `position/next to`, `error in (no error)`, `vi object class`, `auto wire? (F)`, `path`, `bounds` | `object refnum`, `error out` |
+| `Diagram Disable Structure` | — | — |
+| `Empty Array?` | `array` | `empty?` |
+| `Sine & Cosine` | `x` | `sin(x)`, `cos(x)` |
+| `Greater Than 0?` | `x` | `x > 0?` |
+| `Global Variable` | varies per instance (4 shapes) | varies per instance (10 shapes) |
+| `Formula Node` | varies per instance (11 shapes) | varies per instance (12 shapes) |
+| `TDMS Set Channel Information` | `tdms file`, `group name (Untitled)`, `channel name(s)`, `error in (no error)`, `data layout (0\3Anon-interleaved)`, `data type`, `samples per channel` | `tdms file out`, `error out` |
+| `TCP Close Connection` | `connection ID`, `abort (F)`, `error in (no error)` | `connection ID out`, `error out` |
+| `Delete` | `path (use dialog)`, `entire hierarchy (F)`, `confirm (F)`, `error in`, `prompt (Delete)` | `deleted path`, `cancelled`, `error out` |
+| `TDMS Open` | `file path`, `operation (0\3Aopen)`, `byte order (2\3Alittle-endian)`, `error in (no error)`, `file format version (2.0)`, `create index file? (T)`, `disable buffering (T)` | `tdms file out`, `error out` |
+| `TDMS Close` | `tdms file`, `error in (no error)` | `file path out`, `error out` |
+| `Wait For Front Panel Activity` | `do not wait! (False)`, `front panel (this VI's panel)`, `timeout ms (-1 never timeout)` | `millisecond timer value` |
+| `VISA Close` | `VISA resource name`, `error in (no error)` | `error out` |
+| `Strip Path` | `path` | `stripped path`, `name` |
+| `Get Waveform Components` | `waveform` | varies per instance (6 shapes) |
+| `Rotate 1D Array` | `n`, `array` | `array (last n elements first)` |
+| `Index & Bundle Cluster Array` | `component array`, `component array` (14/16) | `array of clusters` |
+| `Search 1D Array` | `1D array`, `element`, `start index (0)` | `index of element` |
+| `Fract/Exp String To Number` | `string`, `offset`, `default (0 dbl)`, `use system decimal point (T)` | `offset past number`, `number` |
+| `Sort 1D Array` | `array` | `sorted array` |
+| `TDMS Advanced Open` | `file path`, `operation (0\3Aopen)`, `error in (no error)`, `disable buffering? (T)`, `enable asynchronous? (T)` | `tdms file out`, `sector size`, `error out` |
+| `TDMS Write` | `tdms file`, `group name in (Untitled)`, `channel name(s) in (Untitled)`, `data`, `error in (no error)`, `data layout (0\3Adecimated)` | `tdms file out`, `group name out`, `channel name(s) out`, `error out` |
+| `TDMS Advanced Close` | `tdms file`, `truncate file? (F)`, `error in (no error)`, `timeout (10 s)` | `file path out`, `error out` |
+| `Start Asynchronous Call` | varies per instance (7 shapes) | `reference out`, `error out` |
+| `TCP Read` | `connection ID`, `bytes to read`, `timeout ms (25000)`, `error in (no error)`, `mode (standard)` | `connection ID out`, `data out`, `error out` |
+| `Byte Array To String` | `unsigned byte array` | `string` |
+| `Not Equal To 0?` | `x` | `x != 0?` |
+| `Close File` | `refnum`, `error in` | `path`, `error out` |
+| `Enqueue Element At Opposite End` | `queue`, `element`, `timeout in ms (-1)`, `error in (no error)` | `queue out`, `timed out?`, `error out` |
+| `Cosine` | `x` | `cos(x)` |
+| `TDMS Get Properties` | `tdms file`, `group name`, `channel name`, `error in (no error)`, `property name`, `data type` | `found`, `property value`, `tdms file out`, `group name out`, `channel name out`, `error out` (13/14) |
+| `TDMS Advanced Synchronous Write` | `tdms file`, `data`, `error in (no error)` | `tdms file out`, `error out` |
+| `TDMS Advanced Synchronous Read` | `tdms file`, `error in (no error)`, `count (-1)`, `data type` | `read process finished?`, `tdms file out`, `data`, `error out` |
+| `Open/Create/Replace File` | `file path (use dialog)`, `operation (0\3Aopen)`, `access (0\3Aread/write)`, `error in`, `prompt`, `disable buffering (F)` | `refnum out`, `cancelled`, `error out` |
+| `To Lower Case` | `string` | `all lower case string` |
+| `Two Button Dialog` | `message`, `T button name ("OK")`, `F button name ("Cancel")` | `T button?` |
+| `Empty String/Path?` | `string/path` | `empty?` |
+| `Round Toward -Infinity` | `x` | `floor(x)\3A largest int <= x` |
+| `Join Numbers` | `hi`, `lo` | `(hi.lo)` |
+| `Read from Text File` | `file (use dialog)`, `count`, `error in`, `prompt (Open existing file)` | `refnum out`, `text`, `cancelled`, `error out` |
+| `Reverse 1D Array` | `array` | `reversed array` |
+| `Greater Or Equal To 0?` | `x` | `x >= 0?` |
+| `Less Or Equal?` | `x`, `y` | `x <= y?` |
+| `Release Notifier` | `notifier`, `force destroy? (F)`, `error in (no error)` | `notifier name`, `last notification`, `error out` |
+| `Open VI Object Reference` | `owner refnum`, `name/order`, `error in (no error)`, `vi object class` | `object refnum`, `error out` |
+| `Python Node` | `session in`, `module path`, `function name`, `error in (no error)`, `return type`, `input parameter`, `input parameter` (9/11) | `session out`, `error out`, `return value`, `value`, `value` (9/11) |
+| `Close Python Session` | `session in`, `error in` | `error out` |
+| `String Subset` | `string`, `offset (0)`, `length (rest)` | `substring` |
+| `Obtain Notifier` | `name (unnamed)`, `notification data type`, `create if not found? (T)`, `error in (no error)` | `notifier out`, `created new?`, `error out` |
+| `Send Notification` | `notifier`, `notification`, `error in (no error)` | `notifier out`, `error out` |
+| `Wait on Notification` | `notifier`, `ignore previous (F)`, `timeout in ms (-1)`, `error in (no error)` | `notifier out`, `notification`, `timed out?`, `error out` |
+| `Merge Signals` | `input signal`, `input signal` (10/11) | `combined signal` |
+| `Add with Error Terminals` | `x`, `y`, `error in (no error)` | `x+y`, `error out` |
+| `TCP Write` | `connection ID`, `data in`, `timeout ms (25000)`, `error in (no error)` | `connection ID out`, `bytes written`, `error out` |
+| `To Long Integer` | `number` | `32bit integer` |
+| `Seconds To Date/Time` | `time stamp (now)`, `to UTC (F)` | `date time rec` |
+| `Write to Text File` | `file (use dialog)`, `text`, `error in`, `prompt (Choose or enter file path)` | `refnum out`, `cancelled`, `error out` |
+| `Boolean To (0\2C1)` | `Boolean` | `0\2C 1` |
+| `Get Queue Status` | `queue`, `return elements? (F)`, `error in (no error)` | `max queue size`, `queue name`, `elements`, `# elements in queue`, `queue out`, `# pending remove`, `# pending insert`, `error out` |
+| `VISA Write` | `VISA resource name`, `write buffer`, `error in (no error)` | `VISA resource name out`, `return count`, `error out` |
+| `To Time Stamp` | `number` | `Time Stamp` |
+| `Call By Reference` | varies per instance (7 shapes) | varies per instance (7 shapes) |
+| `To Unsigned Byte Integer` | `number` | `unsigned 8bit integer` |
+| `String To Byte Array` | `string` | `unsigned byte array` |
+| `Unflatten From JSON` | `JSON string`, `type and defaults`, `error in (no error)`, `path`, `enable LabVIEW extensions? (T)`, `default null elements? (F)`, `strict validation? (F)` | `value`, `error out` |
+| `Insert Menu Items` | `menu reference`, `item names`, `item tags`, `error in (no error)`, `menu tag`, `after item` | `menu reference out`, `item tags out`, `error out` |
+| `To Word Integer` | `number` | `16bit integer` |
+| `Complex To Re/Im` | `x + iy` | `x`, `y` |
+| `VISA Open` | `VISA resource name`, `duplicate session (F)`, `access mode`, `error in (no error)`, `timeout (0)` | `VISA resource name`, `error out` |
+| `VISA Read` | `VISA resource name`, `byte count`, `error in (no error)` | `VISA resource name out`, `read buffer`, `return count`, `error out` |
+| `Interpolate 1D Array` | `array of numbers or points`, `fractional index or x` | `y value` |
+| `Build Matrix` | varies per instance (4 shapes) | `appended array` |
+| `String To IP` | `name` | `net address` |
+| `Path To String` | `path` | `string` |
+| `Shared Variable` | `error in (no error)` (5/8) | varies per instance (6 shapes) |
+| `TDMS List Contents` | `tdms file`, `group name`, `error in (no error)` | `tdms file out`, `group names`, `group/channel names`, `error out` (6/8) |
+| `Re/Im To Complex` | `x`, `y` | `x + iy` |
+| `Preserve Run-Time Class` | `object in`, `error in`, `target object` | `object out`, `error out` |
+| `New VI` | `application refnum`, `template`, `vi type (standard vi)`, `error in (no error)`, `not connected`, `type specifier VI Refnum (for type only)`, `password` | `vi refnum`, `error out` |
+| `TCP Open Connection` | `address`, `remote port or service name`, `timeout ms (60000)`, `error in (no error)`, `local port` | `connection ID`, `error out` |
+| `Matrix Size` | `number of rows` | `number of columns`, `matrix` |
+| `Split Number` | `x` | `hi(x)`, `lo(x)` |
+| `Open Python Session` | `python version`, `python path`, `error in (no error)` | `session out`, `error out` |
+| `Decimal String To Number` | `string`, `offset`, `default (0L)` | `offset past number`, `number` |
+| `String To Path` | `string` | `path` |
+| `Quit LabVIEW` | `quit? (T)` | — |
+| `Constructor Node` | `error in (no error)` (4/6) | `new reference`, `error out` (4/6) |
+| `Get Variant Attribute` | `Variant`, `name`, `default value (empty Variant)`, `error in` | `duplicate Variant`, `names`, `values`, `error out` (3/6) |
+| `Flatten To XML` | `anything` | `xml string` |
+| `Get Date/Time String` | `date format (0)`, `seconds (now)`, `want seconds? (F)` | `date string`, `time string` |
+| `UDP Close` | `connection ID`, `error in (no error)` | `connection ID out`, `error out` |
+| `Array Split / Replace Subarrays` | varies per instance (4 shapes) | varies per instance (4 shapes) |
+| `Natural Logarithm` | `x` | `ln(x)` |
+| `Complex To Polar` | `r * e^(i*theta)` | `r`, `theta` |
+| `Call MATLAB Function` | varies per instance (4 shapes) | varies per instance (4 shapes) |
+| `Array To Cluster` | `array` | `cluster` |
+| `Swap Values` | `y`, `?(T)`, `x` | `y'`, `x'` |
+| `Cluster To Array` | `cluster` | `array` |
+| `Split 1D Array` | `array`, `index` | `first subarray`, `second subarray` |
+| `Scan From String` | `input string`, `initial scan location`, `error in`, `default value 1`, `format string` (4/5) | `remaining string`, `offset past scan`, `error out`, `output 1` (4/5) |
+| `Flatten To JSON` | `anything`, `error in (no error)`, `enable LabVIEW extensions? (T)` | `JSON string`, `error out` |
+| `DataSocket Open` | `URL`, `mode`, `ms timeout (10000)`, `error in (no error)` | `connection id`, `error out` |
+| `DataSocket Read` | `connection in`, `type (Variant)`, `ms timeout (10000)`, `error in (no error)`, `wait for updated value (T)` | `status`, `quality`, `timestamp`, `connection out`, `data`, `timed out`, `error out` |
+| `DataSocket Close` | `connection id`, `ms timeout (0)`, `error in (no error)` | `timed out`, `error out` |
+| `Delete Menu Items` | `menu reference`, `menu tag`, `items`, `error in (no error)` | `menu reference out`, `error out` |
+| `Get File Size` | `file`, `error in` | `refnum out`, `size (in bytes)`, `error out` |
+| `Read from Binary File` | `file (use dialog)`, `count`, `byte order (0\3Abig-endian\2C network order)`, `error in`, `prompt (Open existing file)`, `data type` | `refnum out`, `data`, `cancelled`, `error out` |
+| `TDMS Configure Asynchronous Writes` | `tdms file`, `max asynchronous writes (4)`, `error in (no error)`, `pre-allocate? (F)`, `max write size`, `data type`, `timeout (5 s)` | `tdms file out`, `error out` |
+| `TDMS Advanced Asynchronous Write` | `tdms file`, `data`, `error in (no error)` | `tdms file out`, `error out` |
+| `Unflatten From XML` | `xml string`, `type`, `error in (no error)` | `value`, `error out` |
+| `Power Of X` | `y`, `x` | `x^y` |
+| `Power Of 2` | `x` | `2^x` |
+| `IP To String` | `net address`, `dot notation? (F)` | `name` |
+| `Array To Spreadsheet String` | `format string`, `array`, `delimiter (Tab)` | `spreadsheet string` |
+| `Scan String For Tokens` | `input string`, `offset`, `operators (none)`, `delimiters (\\s\2C\\t\2C\\r\2C\\n)`, `allow empty tokens? (F)`, `use cached delim/oper data? (F)` | `string out`, `offset past token`, `token string`, `token index` |
+| `Flush Queue` | `queue`, `error in (no error)` | `queue out`, `remaining elements`, `error out` |
+| `Set Variant Attribute` | `Variant`, `name`, `value`, `error in` | `Variant out`, `replaced`, `error out` |
+| `TCP Wait On Listener` | `listener ID in`, `resolve remote address (T)`, `timeout ms (wait forever\3A -1)`, `error in (no error)` | `connection ID`, `listener ID out`, `remote address`, `remote port`, `error out` |
+| `TCP Create Listener` | `service name`, `port`, `timeout ms (25000)`, `error in (no error)`, `net address` | `listener ID`, `port`, `error out` |
+| `Less Or Equal To 0?` | `x` | `x <= 0?` |
+| `Write Single Element to Stream` | `endpoint in`, `data in`, `timeout ms (-1)`, `error in (no error)` | `endpoint out`, `timed out?`, `error out` |
+| `Destroy Stream Endpoint` | `endpoint in`, `error in (no error)` | `error out` |
+| `Flush Stream` | `endpoint in`, `wait condition`, `timeout in ms (-1)`, `error in (no error)` | `endpoint out`, `timed out?`, `error out` |
+| `UDP Open` | `port`, `service name`, `timeout ms (25000)`, `error in (no error)`, `net address` | `connection ID`, `port`, `error out` |
+| `UDP Read` | `connection ID`, `max size (548)`, `timeout ms (25000)`, `error in (no error)` | `address`, `port`, `connection ID out`, `data out`, `error out` |
+| `UDP Write` | `connection ID`, `data in`, `timeout ms (25000)`, `error in (no error)`, `address`, `port or service name` | `connection ID out`, `error out` |
+| `Round Toward +Infinity` | `x` | `ceil(x)\3A smallest int >= x` |
+| `TDMS Reserve File Size` | `tdms file`, `reserve size`, `error in (no error)`, `append? (T)`, `data type` | `tdms file out`, `error out` |
+| `TDMS Configure Asynchronous Reads` | `tdms file`, `number of buffers (4)`, `buffer size`, `error in (no error)`, `data type`, `timeout (5 s)` | `tdms file out`, `error out` |
+| `TDMS Start Asynchronous Reads` | `tdms file`, `total count (-1)`, `error in (no error)`, `data type` | `tdms file out`, `error out` |
+| `TDMS Advanced Asynchronous Read` | `tdms file`, `error in (no error)`, `data type` | `read process finished?`, `tdms file out`, `data`, `error out` |
+| `TDMS In Memory Open` | `byte array or file path`, `error in (no error)` | `tdms file out`, `error out` |
+| `TDMS In Memory Close` | `tdms file`, `error in (no error)`, `file path`, `overwrite (F)` | `error out` |
+| `Polar To Complex` | `r`, `theta` | `r * e^(i*theta)` |
+| `Open MATLAB Session` | `release name`, `error in (no error)` | `session out`, `error out` |
+| `Set Waveform Attribute` | `waveform`, `name`, `value`, `error in` | `waveform out`, `replaced`, `error out` |
+| `Variant Attribute Get / Replace` | `variant`, `attribute name` (2/4) | `attribute`, `found?` (2/4) |
+| `Variant To / From Element` | `Variant`, `type` (2/4) | `data`, `error out` (2/4) |
+| `Waveform Unbundle / Bundle Elements` | `waveform` (2/4) | `output waveform` (2/4) |
+| `VI Library` | — | `path` |
+| `Wait On Asynchronous Call` | `reference`, `error in (no error)` | `reference out`, `error out`, `X + Y` (2/3) |
+| `Temporary Directory` | — | `path` |
+| `Create Folder` | `path (use dialog)`, `error in`, `prompt (Create Folder)` | `created path`, `cancelled`, `error out` |
+| `Look In Map` | `map`, `key`, `default value` | `key not found?`, `value` |
+| `Insert Into Set` | `set in`, `element` | `set out`, `already included?` |
+| `Register Event Callback` | `event callback refnum`, `error in (no error)`, `event source`, `VI Ref`, `Meter` (2/3) | `event callback refnum`, `error out` |
+| `Automation Open` | `Automation Refnum`, `machine name`, `open new instance`, `error in (no error)` | `Automation Refnum`, `error out` |
+| `Spreadsheet String To Array` | `format string`, `spreadsheet string`, `array type (2D Dbl)`, `delimiter (Tab)` | `array` |
+| `Search/Split String` | `string`, `search string/char (-)`, `offset (0)` | `substring before match`, `match + rest of string`, `offset of match` |
+| `Inverse Tangent (2 Input)` | `y`, `x` | `atan2(y\2Cx)` |
+| `Bluetooth Read` | `connection ID`, `bytes to read`, `timeout ms (25000)`, `error in (no error)`, `mode (standard)` | `connection ID out`, `data out`, `error out` |
+| `Bluetooth Write` | `connection ID`, `data in`, `timeout ms (25000)`, `error in (no error)` | `connection ID out`, `bytes written`, `error out` |
+| `Write to Binary File` | `file (use dialog)`, `data`, `byte order (0\3Abig-endian\2C network order)`, `error in`, `prompt (Choose or enter file path)`, `prepend array or string size? (T)` | `refnum out`, `cancelled`, `error out` |
+| `IrDA Read` | `connection ID`, `bytes to read`, `timeout ms (25000)`, `error in (no error)`, `mode (standard)` | `connection ID out`, `data out`, `error out` |
+| `IrDA Write` | `connection ID`, `data in`, `timeout ms (25000)`, `error in (no error)` | `connection ID out`, `bytes written`, `error out` |
+| `New TLS Configuration` | `load OS trusted CAs?`, `error in (no error)` | `TLS configuration out`, `error out` |
+| `Make TLS Configuration Immutable` | `TLS configuration`, `error in (no error)` | `immutable TLS configuration`, `error out` |
+| `Close TLS Configuration` | `TLS configuration`, `error in (no error)` | `error out` |
+| `Sign` | `number` | `-1\2C 0\2C 1` |
+| `TDMS Set Properties` | `tdms file`, `group name`, `channel name`, `error in (no error)`, `property names`, `property values` | `tdms file out`, `group name out`, `channel name out`, `error out` |
+| `TDMS Set Next Read Position` | `tdms file`, `offset (0)`, `from (0\3A start)`, `error in (no error)`, `group name in`, `channel name in` | `tdms file out`, `error out` |
+| `Build Cluster Array` | `component element`, `component element` (2/3) | `array of clusters` |
+| `VISA Enable Event` | `VISA resource name`, `event type`, `mechanism (1\3A  VI_QUEUE)`, `error in (no error)` | `VISA resource name out`, `error out` |
+| `Threshold 1D Array` | `array of numbers or points`, `threshold y`, `start index (0)` | `fractional index or x` |
+| `Interleave 1D Arrays` | `array`, `array` | `interleaved array` |
+| `Get Drag Drop Data` | `data name`, `type`, `error in (no error)` | `data`, `error out` |
+| `To More Generic Class` | `reference`, `target class` | `generic class reference` |
+| `Logarithm Base 10` | `x` | `log(x)` |
+| `Insert Into Map` | `map in`, `key`, `value` | `map out`, `key already included?`, `value unchanged?` |
+| `Remove From Map` | `map in`, `key` | `map out`, `key not found?`, `value` |
+| `To Unsigned Word Integer` | `number` | `unsigned 16bit integer` |
+| `Or Array Elements` | `Boolean array` | `logical OR` |
+| `Not And` | `x`, `y` | `.not. (x .and. y)?` |
+| `Create Network Stream Reader Endpoint` | `reader name`, `writer url`, `data type`, `error in (no error)`, `reader buffer size`, `timeout in ms (-1)`, `element allocation mode` | `reader endpoint`, `error out` |
+| `Create Network Stream Writer Endpoint` | `writer name`, `reader url`, `data type`, `error in (no error)`, `writer buffer size`, `timeout in ms (-1)`, `element allocation mode` | `writer endpoint`, `error out` |
+| `Read Single Element from Stream` | `endpoint in`, `timeout ms (-1)`, `error in (no error)` | `endpoint out`, `data out`, `timed out?`, `error out` |
+| `Bluetooth Close Connection` | `connection ID`, `abort (F)`, `error in (no error)` | `connection ID out`, `error out` |
+| `IrDA Close Connection` | `connection ID`, `abort (F)`, `error in (no error)` | `connection ID out`, `error out` |
+| `Start TLS` | `TCP connection`, `immutable TLS configuration`, `server hostname`, `error in (no error)`, `timeout ms`, `server certificate validation` | `TLS connection`, `server certificate chain`, `error out` |
+| `Search and Replace String` | `input string`, `search string`, `replace string`, `offset`, `error in`, `replace all?`, `case sensitive?` | `result string`, `number of replacements`, `offset past replacement`, `error out` |
+| `Round To Nearest` | `number` | `nearest integer value` |
+| `Current VI's Menubar` | — | `menu reference` |
+| `Open/Create/Replace Datalog` | `datalog path (use dialog)`, `operation (0\3Aopen)`, `access (0\3Aread/write)`, `error in`, `prompt`, `record type` | `refnum out`, `cancelled`, `error out` |
+| `TDMS Get Asynchronous Read Status` | `tdms file`, `error in (no error)` | `tdms file out`, `number of buffers available`, `all buffers full?`, `error out` |
+| `TDMS Set Next Write Position` | `tdms file`, `offset (0)`, `from (0\3Astart)`, `error in (no error)`, `group name in`, `channel name in` | `tdms file out`, `error out` |
+| `TDMS In Memory Read Bytes` | `tdms file`, `error in (no error)`, `offset (0)`, `byte count (-1\3A all)` | `tdms file out`, `data`, `error out` |
+| `Sinc` | `x` | `sin(x)/x` |
+| `VISA Disable Event` | `VISA resource name`, `event type (all enabled)`, `mechanism (1\3A  VI_QUEUE)`, `error in (no error)` | `VISA resource name out`, `error out` |
+| `VISA Wait on Event` | `VISA resource name`, `event type (all enabled)`, `event  resource name (for class)`, `error in (no error)`, `timeout (0)` | `VISA resource name out`, `event type`, `event  resource name`, `error out` |
+| `File Dialog` | `start path`, `default name`, `error in`, `prompt`, `button label`, `pattern (all files)`, `pattern label` | `selected path`, `exists`, `cancelled`, `error out` |
+| `Decimate 1D Array` | `array` | `decimated array`, `decimated array` (1/2) |
+| `Multiply Array Elements` | `numeric array` | `product` |
+| `Script Node` | `error in` (1/2) | `2-D Array of Real`, `error out` (1/2) |
+<!-- END generated: node terminals -->
+
+### Terminal ORDER inside `inputs` is significant — `Bundle By Name` proves it
+
+**Corrected 2026-08-09. This section previously claimed "`Bundle By Name` does not work" and
+concluded that "a generated diagram cannot build a cluster". Both are wrong.** The node works.
+What fails is one particular spelling of it, and the difference is the *order* the terminals are
+listed in.
+
+`input cluster` must come **after** the field terminals:
+
+```xml
+<!-- validates, generates, and re-exports unchanged -->
+<Node _name="Bundle By Name" fields="code" inputs="code:11.value,input cluster:10.value"
+      outputs="output cluster:20.output cluster" uid="20" uid_parent="root"/>
+
+<!-- same nets, same names, cluster listed first: rejected -->
+<Node _name="Bundle By Name" fields="code" inputs="input cluster:10.value,code:11.value"
+      outputs="output cluster:20.output cluster" uid="20" uid_parent="root"/>
+```
+
+The rejection is the misleading part, because it complains about a **type** and never mentions
+order:
+
+```
+Bundle By Name: Cluster is invalid or empty
+Bundle By Name: Contains unwired or bad terminal
+Cluster , a cluster of 0 elements, conflicts with cluster error out, a cluster of 3 elements.
+The type of the sink is cluster of 0 elements.
+```
+
+Read literally that says the cluster arrived untyped, which is why the earlier reading concluded
+the node was unusable. It is not a type problem: the *same* document with the two `inputs`
+entries swapped answers `errorCode 0`.
+
+Measured 2026-08-09 on LabVIEW 2026, four documents differing only in that order:
+
+| Cluster source | `inputs` order | Result |
+|---|---|---|
+| `Control`, `cluster{bool.status,int32.code,string.source}` | `code`, then `input cluster` | **validates** |
+| `Control`, same type | `input cluster`, then `code` | `Cluster is invalid or empty` |
+| `Constant`, `cluster{int32.Module ID,bool.Power State,bool.Self Test Result}` | fields, then `input cluster` | **validates** |
+| `Constant`, same type | `input cluster`, then fields | `Cluster is invalid or empty` |
+
+So the cluster `Constant` is fine too — the old text blamed it for the same reason it blamed the
+node. The working document was then generated with `ConvertAIXMLToVI` and re-exported: LabVIEW
+writes back `inputs="code:99.value,input cluster:43.value"`, fields first, byte-identical in shape
+to what was authored.
+
+**It does NOT apply to a `Call`.** Measured on the same day: a `Call` to
+`Read Delimited Spreadsheet.vi` with all eight inputs and all six outputs deliberately scrambled
+— `delimiter` first, `file path` last, outputs reversed — validates with `errorCode 0`. A Call's
+terminals are resolved by name, so only the spelling matters. That is worth knowing because the
+export's own order is neither the connector-pane order nor anything derivable: for that VI the
+Call lists conIdx 0, 5, 7, 9, 11, 1, 12, 13. Do not try to reconstruct it — and do not fear
+getting it wrong. `lvai_vi_terminals` prints a ready-to-paste Call for any VI.
+
+The order rule below is for **positional** nodes, `Bundle By Name` above all.
+
+**The canonical order is whatever LabVIEW's own export writes**, and NI's shipping code shows it
+directly. From `Device Under Test_Cloneable_DQMH.lvlib:DUT Status Updated.vi`, three fields and
+the cluster last:
+
+```xml
+<Node _name="Bundle By Name" fields="Module ID,Power State,Self Test Result"
+      inputs="Module ID:308.value,Power State:384.value,Self Test Result:356.value,input cluster:250.value"
+      outputs="output cluster:494.output cluster" uid="494" uid_parent="root"/>
+```
+
+**Do not generalise §3's "document order carries no meaning" to this.** That rule is about the
+order of *elements* in the file, which LabVIEW regroups on export. The order of terminals *inside*
+an `inputs` attribute is a different thing and it is load-bearing for at least this node. Since
+the failure disguises itself as a type error, the cheap habit is the same one §8 already
+recommends for names: take the whole `inputs` string from an export of a VI that uses the node,
+order included, rather than assembling it from a terminal list.
+
+**The rule is not special to `Bundle By Name` — plain `Bundle` obeys it too**, and the corpus says
+so without a single counter-example. Across 507 example exports, every `Bundle` lists its element
+terminals first and `cluster` last, and every `Bundle By Name` lists its fields first and
+`input cluster` last:
+
+```
+Bundle          inputs   element, element, cluster              28x   (the commonest shape)
+Bundle          inputs   Plant Output, SP\3A, cluster            5x
+Bundle By Name  inputs   Message, Message Data, input cluster    3x
+Unbundle        inputs   cluster                                29x  (nothing to order)
+Unbundle        outputs  element, element                       15x
+```
+
+Two details the table above also settles. `Bundle`'s cluster terminal is called **`cluster`**, not
+`input cluster` — that is `Bundle By Name`'s spelling — and its output is `output cluster` in both.
+And a plain `Bundle`'s element terminal is named `element` only when what is wired to it has no
+label; where the wire carries a labelled signal the terminal takes that label (`Plant Output`,
+`SP\3A`). So the shape is per instance, and it is one more reason to copy the whole `inputs`
+string from an export rather than assemble it.
+
+`Unbundle By Name` was never affected — it has one input, so there is no order to get wrong.
+Neither is `Unbundle`, for the same reason; its *outputs* repeat `element` once per field.
+
+**Consequence for design: a generated diagram CAN build a cluster.** The old advice to route
+around clusters — prefer scalar-terminal siblings, e.g. `NI_AALBase.lvlib:Sine Wave.vi` over
+`NI_MABase.lvlib:Sine Waveform.vi` with its `sampling info` cluster — is still a reasonable
+simplification when a scalar sibling exists, but it is no longer a *necessity*, and a palette VI
+must not be rejected merely for taking a cluster.
+
+### Constants
+
+`_name` is optional on `Constant` — anonymous constants are normal. Array literals are
+written JSON-style in `value`, e.g. `type="array{double}" value="[1.5,2.5,3.5]"`.
+
+**`_name` becomes the constant's block diagram LABEL, and that is the only handle anything has on
+it afterwards** — measured 2026-08-29. Nothing else distinguishes two boolean constants on one
+diagram: `{LV.Diagram} All Objects[]` order is not stable across VIs, so an index does not survive a
+regeneration. So when a constant feeds a **subVI call**, name it after the terminal it feeds:
+
+```xml
+<Constant _name="Borkenkaefer" type="bool" value="false" outputs="value:60.value" uid="60" uid_parent="root"/>
+```
+
+That is what lets `lvai_bind_typedef_constants` find it later and re-point it at the typedef the
+terminal expects — the repair for the coercion dots a placeholder-plus-retarget always leaves behind
+on a typedef-carrying pane. `docs/typedef-constants.md`.
+
+**"JSON-style" does not extend to quoting string elements — and getting this wrong frames an
+innocent node.** A string array literal is split on commas and each element taken **literally**,
+quote characters included:
+
+| `type="array{string}" value=` | Elements produced |
+|---|---|
+| `[&quot;Zebra&quot;,&quot;apple&quot;]` | `"Zebra"`, `"apple"` — **five characters plus two quotes each** |
+| `[Zebra,apple]` | `Zebra`, `apple` |
+
+Measured, and it cost a redesign. A VI joining a sorted string array into lines produced
+`"Apple"\n"Mango"\n…`, which was read as `Array To Spreadsheet String` quoting its fields
+CSV-style — an entirely plausible story, since that node really does exist to build spreadsheet
+text. The node was replaced with a `For Loop` + `Concatenate Strings` accumulator, and the output
+came back **still quoted**. Only then was the test data itself the suspect. `Array To Spreadsheet
+String` had been innocent throughout.
+
+The lesson is about attribution, not about arrays: when a node's output is wrong, verify the
+*input constant* before rewriting the node. There is no delimiter and no separator character
+inside `value`'s element text — so an element containing a comma cannot be written this way at
+all, and needs a `Build Array` of scalar constants instead.
+
+**`\0A` in a `value` gives a real LF.** The escape table of §6 is documented against
+`comment`/`description`/`inputs`, but it decodes in `value` too:
+`<Constant type="string" value="\0A"/>` produced a genuine line feed — verified by running the VI
+and reading the written file as bytes (31 bytes for five elements plus five LFs, no CR anywhere).
+That is the portable way to get a line-ending constant onto a generated diagram.
+
+### Calling a plain palette VI: the terminals are its front-panel labels
+
+For a primitive `Node` you look the terminal names up in the table above. For a `Call` there is no
+table and there never can be one — the terminals are the **target VI's own control and indicator
+names**, so every palette VI has its own set. Export the target and read them off:
+
+```
+ConvertVIToAIXML  "…\user.lib\_OpenG.lib\string\string.llb\1D Array to String__ogtk.vi"
+```
+
+comes back as `<VI _name="openg_string.lvlib:1D Array to String__ogtk.vi" …>` with
+`Control _name="Array of Strings"`, `Control _name="delimiter (Tab)"` and
+`Indicator _name="delimited string"`. Those three strings are the whole wiring contract, and the
+root element's `_name` is the `target` — colon escaped:
+
+```xml
+<Call target="openg_string.lvlib\3A1D Array to String__ogtk.vi"
+      inputs="Array of Strings:210.sorted array,delimiter (Tab):130.value"
+      outputs="delimited string:220.delimited string" uid="220" uid_parent="root"/>
+```
+
+Validated, generated and ran on LabVIEW 2026. No `instance` — this VI is not polymorphic — and no
+`adapt`, since its types are fixed.
+
+Two things the export gives you for free. The `_name` is already the library-qualified form, so
+there is nothing to assemble by hand. And the VI's `description` plus each terminal's
+`description` come with it, which is the Context Help — for a palette *VI* that is the
+documentation (§10), where a primitive gives you nothing but the terminal name.
+
+Finding the file at all is the fiddly part: OpenG installs under `user.lib\_OpenG.lib\`, not
+`vi.lib`, and the `.llb` in its path is a real directory here rather than a container. Search for
+the VI by name across both roots rather than assuming either.
+
+### Which inputs get a constant: the `required` ones, and only those
+
+**Create a constant for an input the callee marks `required`. Leave `recommended` and `optional`
+inputs unwired unless you have a real value for them** — an unwired input keeps the callee's own
+default. `lvai_vi_terminals` prints the flag beside every terminal and names the required set
+outright.
+
+**The reason this needs saying is that validation cannot teach it.** AIXML enforces `required` and
+says nothing at all about the rest, so *wire whatever the validator demands* behaves like a rule
+and is not one: it is right only while every input you care about happens to be required. Measured
+2026-08-29 — a second call to the same subVI was authored by mirroring the first call's wiring
+without re-reading the flags; it was correct purely because the terminal was still `required`.
+Changing that terminal to `recommended` produced no error and no warning anywhere, and the
+mirrored constant became surplus.
+
+A surplus constant is not harmless. On a typedef-carrying pane it also has to be typedef-bound
+(§ `docs/typedef-constants.md`) and kept in step with the `.ctl` — so it is maintenance bought for
+nothing.
+
+**Re-read the flags rather than trusting a cached view of them.** They live on the callee's pane
+and change when someone edits it. Note in particular that `lvai_placeholder_subvi` caches its stub
+by a signature that includes `connection`, so a flag change does invalidate it — but a stub cached
+by an older build of this server does not carry that in its key, and the symptom of a stale one is
+an error blaming YOUR document: `required input 'X' is not wired`. `refresh` settles it.
+
+### An omitted `connection` means REQUIRED — and on an OUTPUT that breaks every caller
+
+**A `Control` or `Indicator` that has a `conIdx` and no `connection` attribute comes out
+`required`.** Not "unspecified", not "whatever LabVIEW likes" — required, for an input and an
+output alike. Measured 2026-09-04 on one three-terminal probe:
+
+```xml
+<Control   _name="with attr"   conIdx="0" connection="recommended" type="double" .../>
+<Control   _name="no attr"     conIdx="1"                          type="double" .../>
+<Indicator _name="out no attr" conIdx="2"                          type="double" .../>
+```
+
+`lvai_vi_terminals` on the generated VI reads them back as `recommended`, `required`, `required`.
+
+**A required OUTPUT is never what anyone means, and the damage lands somewhere else.** LabVIEW
+enforces the flag at the **call site**: a caller that leaves the terminal unwired is not executable,
+`Error 1003`. The VI itself is perfect — it opens, it compiles, it runs, and its own export reads
+correctly. Nothing between authoring and the caller sees it: `lvai_validate_aixml` answered
+`errorCode 0`, `ConvertAIXMLToVI` wrote the file, `lvai_swap_subvis` verified `socketsLeft: 0` with
+the right call targets, and `lvai_connector_pane` called the pane style-compliant.
+
+It shipped that way in a generated class method whose `data` output was required, and the first
+thing that noticed was a Caraya suite refusing to run at all — `7101, At least one test is not in a
+executable state` — which reads as a broken test rather than a broken subject.
+
+Since 2026-09-04 the toolchain covers it:
+
+| where | what it does |
+|---|---|
+| `lvai_check_aixml` | `outputTerminalDefaultsToRequired`, a **warning** on an output; `inputTerminalDefaultsToRequired`, **info** on an input |
+| `lvai_check_aixml fix:true`, and `lvai_generate_vi`'s repair step | writes `connection="recommended"` onto the output and reports the repair |
+| an existing `.vi` | `{LV.ConnectorPane}` `SetWireRule(TermIdx, Rule)` — `TermIdx` is the `conIdx`, rule `2` is recommended, `4` is dynamic dispatch. See `docs/vi-server-reference.md` |
+
+The input side is reported and **not** repaired: a required input is a legitimate choice and only
+the author knows whether it was meant. Say which you mean rather than leaving the attribute off.
+
+### `connection="dynamic"` is the fourth value, and it marks DYNAMIC DISPATCH
+
+A class member's dispatch terminal carries `connection="dynamic"` where an ordinary terminal
+carries one of the three wire rules. Counted 2026-09-04 by parsing the cached exports: **21
+occurrences across 16 distinct VIs**, and the shape never varies —
+
+| element | `type` | `conIdx` | count |
+|---|---|---|---|
+| `Control` | `ref{UDClassInst}` | 11 | 16 |
+| `Indicator` | `ref{UDClassInst}` | 3 | 5 |
+
+so it appears **only** on a class-typed terminal, never on an ordinary one. `{LV.ConnectorPane}`
+`SetWireRule` writes the same thing as rule **4** (`docs/vi-server-reference.md`), which is what
+`lvai_add_class_method` sets after retyping a pane.
+
+**This is the reliable way to tell a dynamic member from a static one, and the obvious way is not.**
+The intuitive route is `NI.ClassItem.IsStaticMethod` in the `.lvclass` — but that attribute is
+**absent from every member NI's accessor wizard creates**, which is every accessor
+`lvai_create_accessors` makes (`docs/lvclass-creation.md`, "dynamicDispatch reads null for all of
+them"). A reader that trusts it concludes "not dynamic" for a class where everything is. The AIXML
+export answers it for certain, one terminal at a time.
+
+Two consequences for authoring:
+
+- **Do not write `connection="dynamic"` by hand.** AIXML refuses a class-typed terminal outright
+  (`Control with type=UDClassInst is not supported`), so the attribute can only be *read* back after
+  the terminal has been retyped through `{LV.Control}` `Replace`. It is an export fact, not an
+  authoring one.
+- `lvai_check_aixml` leaves it alone. Its terminal check only fires where `connection` is **absent**,
+  so a `dynamic` terminal is neither warned about nor repaired.
+
+### An enum `value` must be an INDEX — a label is discarded, an overshoot is clamped
+
+Both faults pass `ValidateAIXML` with `errorCode 0`, and neither is visible in the generated VI.
+Measured 2026-09-04 by generating one probe with three constants on the same five-item enum and
+exporting the VI straight back:
+
+| authored | exported | what LabVIEW did |
+|---|---|---|
+| `value="1"` | `1` | correct — an index is an index |
+| `value="open or create"` | **`0`** | the label was **discarded**; item 0 is what the diagram gets |
+| `value="9"` (items 0..4) | **`4`** | **clamped** to the last item |
+
+**What it costs in the field is a symptom pointing at the wrong thing.** A `TDMS Open` authored as
+`value="open or create"` ran as `open`, so writing to a file that did not exist yet failed with
+`Error 7, file not found` — which reads as a path problem. Nine nodes on the diagram, 2.5 minutes
+to find.
+
+`lvai_check_aixml` reports both (`enumValueIsALabel`, `enumValueOutOfRange`) and **repairs the
+label case** to its index, so `lvai_generate_vi` fixes it in passing. The out-of-range case is
+reported and left alone: an index the author typed is a number they meant, and clamping it here
+would only hide what LabVIEW already does silently.
+
+Two limits worth knowing. **A number is always read as an index**, even where a label happens to
+look like one — `uint16{0,1,2}` is legal, and treating `value="1"` as the label `"1"` would break
+the ordinary case to rescue an exotic one. And **the label list splits on commas**, so a label
+containing one cannot be matched; that degrades safely to the un-repairable warning rather than to
+a wrong repair.
+
+A `Ring` is a different shape — labels in `items`/`values` beside a plain `type` — and is covered
+by `ringValueNotInValues` instead. Neither check fires on the other's element.
+
+### Polymorphic subVI calls
+
+A `Call` to a **polymorphic** VI names the concrete instance in a separate attribute:
+
+```xml
+<Call adapt="true"
+      instance="DAQmx Create Channel (AI-Voltage-Basic).vi"
+      target="DAQmx Create Virtual Channel.vi"
+      inputs="task in:,physical channels:100.value,minimum value:110.value,…"
+      outputs="task out:200.task out,error out:200.error out"
+      uid="200" uid_parent="root"/>
+```
+
+- `target` is the polymorphic VI, `instance` the selected member. Without `instance` the
+  generator has no way to know which terminal set you mean.
+- `adapt="true"` appears on calls whose type adapts to the wired data.
+- The terminals in `inputs`/`outputs` are the **instance's**, not the polymorphic wrapper's.
+
+Instance names follow LabVIEW's own convention and are worth copying from an export rather
+than inventing — `DAQmx Read (Analog 1D DBL NChan 1Samp).vi`,
+`DAQmx Read (Analog 1D Wfm NChan NSamp).vi`. A wrong instance name is reported by
+`ValidateAIXML`, so it is cheap to check.
+
+### Mode attributes change a node's output TYPE, and a mode alone is not enough
+
+Some nodes carry boolean attributes for their right-click modes — `Read from Text File` has
+`convertEol` and `readLines`. Setting one is not the whole story: **`readLines="true"` with
+`count` unwired still returns a scalar `string`**, one line. The output only becomes
+`array{string.String}` once `count` is wired, e.g. a `-1` constant for "the whole file":
+
+```xml
+<Constant _name="count" outputs="value:15.value" type="int32" uid="15" uid_parent="root" value="-1"/>
+<Node _name="Read from Text File" convertEol="true" readLines="true"
+      inputs="file (use dialog):10.value,count:15.value,error in:,prompt (Open existing file):"
+      outputs="refnum out:,text:20.text,cancelled:,error out:20.error out" uid="20" uid_parent="root"/>
+```
+
+Wire the scalar form to an array indicator and `ValidateAIXML` says
+`You have connected a scalar type to an array of that type ... The type of the source is string.`
+— a precise message, but only if you are looking for a type problem rather than a mode problem.
+
+The lesson generalises: when a node has modes, copy a **variant that is in the state you want**
+from an export. A single specimen of the node does not reveal the type consequences of its modes.
+`Read from Text File` in read-lines mode also needs no refnum handling at all — hand it a path
+and it opens and closes the file itself.
+
+### Indexing a 2D array: the terminal you DISABLE is what selects a row or a column
+
+`Index Array` and `Replace Array Subset` take `dimensions="2"`, and their terminal names change
+with which dimension you leave unwired: the unwired one is prefixed **`disabled `**. This is the
+whole mechanism — disabling a dimension is not a formality, it is what turns "one element" into
+"one whole row" or "one whole column".
+
+NI's `Replace Array Elements.vi` puts all three side by side and labels each with an indicator,
+which makes it the specimen to copy:
+
+```xml
+<!-- one element: both indices wired -->
+<Node _name="Replace Array Subset" dimensions="2"
+      inputs="array:705.value,index (row):1367.value,index (col):1413.value,new element/subarray:1259.value" .../>
+<!-- one ROW: the column is disabled -->
+<Node _name="Replace Array Subset" dimensions="2"
+      inputs="array:705.value,index (row):1367.value,disabled index (col):,new element/subarray:543.value" .../>
+<!-- one COLUMN: the row is disabled -->
+<Node _name="Replace Array Subset" dimensions="2"
+      inputs="array:705.value,disabled index (row):,index (col):1413.value,new element/subarray:543.value" .../>
+```
+
+`Index Array` follows the same shape and returns `subarray` rather than `element` once a
+dimension is disabled. **Terminal order still matters** (§8): row before column, always.
+
+The reason this is worth a section rather than a table row: §8 lists `Index Array` as "varies per
+instance (18 shapes)" and `aixml-node-gaps.tsv` has no row for it at all, so the names are not
+discoverable from either. Nothing warns you — a wrong name is the ordinary
+`Object terminal not found` error, but *guessing* `index (col)` when you meant to disable it
+silently indexes an element instead of a column.
+
+### Build Waveform: the field names, measured rather than assumed
+
+§8's node table lists `Build Waveform` as "varies per instance (9 shapes)", which is honest and
+useless — and a VI generator was measured guessing `t0` from LabVIEW convention because nothing
+here said it. It happens to be right, so here it is as a measurement instead. Generated, then
+re-exported by LabVIEW unchanged:
+
+```xml
+<Node _name="Build Waveform" fields="t0,dt,Y"
+      inputs="waveform:,t0:54.Time Stamp,dt:53.s? t\3Af,Y:47.subarray"
+      outputs="output waveform:55.output waveform" uid="55" uid_parent="root"/>
+```
+
+Three things the shape does not show:
+
+- `fields` selects which terminals exist, and `inputs` then lists `waveform` **first** followed
+  by one entry per field in the same order. Leave `waveform:` empty to build a new one.
+- **`t0` is a Time Stamp, not a DBL, and there is no coercion.** Wire a double and validation
+  says `the source is double, sink is Time Stamp`. Convert with `To Time Stamp` (`number` →
+  `Time Stamp`).
+- Reading the result back, a Time Stamp's four I32 words are ordered fraction-low, fraction-high,
+  seconds-low, seconds-high — see `vi-server-reference.md`, or every `t0` looks like zero.
+
+### Accumulating an array of waveforms across a loop: two traps
+
+Continuous acquisition hands you one block of N channels per iteration, and the block has to be
+accumulated or all but the last is lost. The obvious shape does not work, and the failure is silent
+rather than an error.
+
+**`Append Waveforms.vi` has no array instance.** `lvai_palette_index` returns exactly one candidate
+(`Categories\Programming\_WaveForm\AnalogWDT.mnu`), and `lvai_vi_terminals` on
+`vi.lib\Waveform\WDTOps.llb\Append Waveforms.vi` shows it is polymorphic with **7 instances, every
+one of them scalar**: `waveform A`, `waveform B`, `error in (no error)` → `waveform out`,
+`error out`. So an accumulator of type `array{doublewaveform}` cannot be appended in one `Call`.
+The correct shape is an **inner For loop that auto-indexes the accumulator and the new block
+together**, one channel per iteration, calling `instance="WDT Append Waveforms DBL.vi"`, with
+`waveform out` auto-indexed back into an array. Rebuilding Y-array concatenation from primitives is
+not needed and is the wrong instinct.
+
+**The empty accumulator makes that loop run zero times.** Initialise the shift register with
+`<Constant type="array{doublewaveform.Waveform}" value="[]"/>` — that type is accepted in `Constant`
+position, measured — and iteration 0 indexes an empty array against an N-element block, so the inner
+For loop runs `min(0, N) = 0` times and the accumulator stays empty **forever**. Nothing reports
+this: it validates, it runs, and the output is an empty array that looks exactly like a device error.
+Guard it with a seed case (`Empty Array?` → `Select`, or a Case on the accumulator's size) that takes
+the first block as-is.
+
+Worth a third frame while you are there. If a *late* read fails and hands the append an empty
+block, the same zero-iteration arithmetic wipes everything already accumulated. A three-way
+selector — seed / append / keep — returns the partial data instead, which is what a caller reading
+`error out` alongside the waveforms will expect.
+
+The symptom that led here: a generated DAQ-to-TDMS VI wired `DAQmx Read`'s `data` straight to the
+output terminal, so four of five blocks were discarded. The user spotted it in the block diagram —
+neither validation nor a run can see it, and on a station without a device the empty output is
+indistinguishable from the expected `-200220`.
+
+### Reading a CSV: three things about `Read Delimited Spreadsheet` worth not re-deriving
+
+The polymorphic file reader is the standard answer to "load a CSV", and three of its behaviours
+are the kind that get tested by hand every time because nobody wrote them down. All measured on
+LabVIEW 2026 through the DBL instance:
+
+- **The default `format` does not truncate on scan.** `format (%.3f)` left unwired reads six
+  decimals back intact — `1.234567`, `-2.718281`, `3.141592` and `-0.000123` all survived
+  exactly. The `%.3f` governs *writing*, not the precision of a read, so leave it unwired.
+- **A trailing newline does not produce a ghost row.** An eight-data-line file yields
+  `Dimsize 8`, a four-line file `Dimsize 4`. No trailing empty element to trim.
+- **There is no header-skip option.** The header line scans to `0.0` like any unparseable text,
+  so drop it by index — one `Array Subset` from index 1 per column.
+- **Prefer DISABLING the row index over transposing.** This paragraph used to advise
+  `transpose? = TRUE`, after which "row 0 is the whole first column and row 1 the whole second".
+  That works, but only if the boolean constant feeding it is spelled `value="true"` —
+  **lowercase** — and getting it wrong is silent. See §11, "The VI runs, reports no error, and
+  computes the WRONG ANSWER": `value="TRUE"` reads as `false`, the file is then read untransposed,
+  and "row 0" is the two-element header row rather than a column.
+
+  Indexing the column directly avoids the boolean entirely, and is therefore the shape to copy:
+
+  ```xml
+  <Node _name="Index Array" dimensions="2"
+        inputs="array:40.all rows,disabled index (row):,index (col):23.value"
+        outputs="element:41.element" uid="41" uid_parent="root"/>
+  ```
+
+  Verified end to end on a nine-row two-column CSV with `transpose? (F)` left unwired: column 0
+  gave the time series, column 1 the amplitudes, and after `Array Subset` from index 1 the
+  waveform carried all eight samples with `dt = 0.1`.
+
+  **This trap has now been sprung twice**, which is why the advice is inverted rather than merely
+  annotated. The second run, 2026-08-13, saw `Y` with one element and `dt = 0`, concluded
+  "transpose has no effect", and switched approach without recognising the boolean-literal cause
+  that §11 already had in writing — a documented fact re-derived at the cost of a debugging round.
+  The cross-reference above is the fix for that: the symptom is named here, where a CSV reader
+  gets built, instead of only under the failure mode.
+
+The dangerous one is not here but in §11: its `file path (dialog if empty)` input opens a modal
+dialog on an empty path and stops the whole gRPC session.
+
+### `lvai_check_aixml`: the pre-flight check, and where it is wired in
+
+Built 2026-09-04 out of the negative-test matrix above. It covers ONLY the three faults
+`ValidateAIXML` was measured to accept, needs no LabVIEW, and is pure text analysis:
+
+| finding | severity | why |
+|---|---|---|
+| `danglingParent` — a `uid_parent` naming no element | **error** | LabVIEW silently reparents the element to the TOP-LEVEL diagram. A node meant to sit inside a For Loop ends up outside it, changing what the diagram does, with nothing reported at validate, convert or run |
+| `duplicateUid` | warning | LabVIEW renumbers one of them silently, so the export stops matching the file. `uid="0"` is exempt - it asks for no number and was measured reusable |
+| `ringValueNotInValues` | warning | accepted with `errorCode 0` |
+| `enumValueIsALabel` — `value="open or create"` where the type lists that label | warning, **repaired** to the index | LabVIEW DISCARDS the label and writes `0`, `errorCode 0`. Repairable because a label names exactly one item |
+| `enumValueOutOfRange` — an index past the last item | warning, not repaired | LabVIEW CLAMPS it — measured, 9 became 4 on a five-item enum. Which item was meant is not knowable |
+| `outputTerminalDefaultsToRequired` | warning, **repaired** to `recommended` | an omitted `connection` means required, and a required output makes every caller `Error 1003` |
+| `inputTerminalDefaultsToRequired` | **info only** | same cause, but a required input is a legitimate choice |
+| `uidInReservedRange` | **info only** | the rule is measured AND incomplete: a three-object probe with `uid` 10 logs twelve entries, two shipped helpers with controls at 10 and 11 log none. A prompt to measure, never a defect claim |
+| `notWellFormedXml`, `rootIsNotVI` | error | LabVIEW's parse failure arrives as `Error -2628 ... error parsing the document`, which reads as an AIXML fault rather than an unclosed tag - and is what a shell heredoc produces when it eats an escape |
+
+**What it deliberately does NOT check:** terminal names, types, wiring, cycles, case completeness.
+LabVIEW checks all of those and checks them well; a second implementation would become a source of
+truth that drifts. The tool says so in its own clean answer, so "nothing found" cannot be read as
+"this file is valid".
+
+### Where it runs, and where it deliberately does not
+
+| path | behaviour |
+|---|---|
+| `lvai_check_aixml` | the tool itself |
+| `lvai_generate_vi` / `lvai_generate_vis` | **blocks** on an error, as `step: check`, before LabVIEW is asked. Consistent with that tool's existing contract of stopping at the first failure and naming it |
+| `lvai_validate_aixml` | reports as `preCheck`, never blocks - `errorCode 0` there reads as "the file is fine", and for a dangling parent it is not |
+| `lvai_convert_aixml_to_vi` | reports as `preCheck`. **The most valuable of the three**, because this is the documented convert-WITHOUT-validating route for a class method, so nothing else looks at the file at all |
+| `lvai_placeholder_subvi`, `lvai_add_class_method`, `lvai_lunit_add_test_method` | inherit it - they go through the two methods above rather than the RPC |
+| the seven `GenerateHelperAsync` callers (`RunTools`, `IconTools`, `PaneTools`, `ClassTools`, `CloseTools`, `DqmhTools`, `TypedefTools`) | **not wired, on purpose.** They generate this repository's OWN helpers from `scripts/*.xml` - files shipped with the build, never authored at run time, and measured silent. Checking them on every helper call is cost with no finding |
+
+The answer is omitted entirely when a file is clean, so a passing call is not made noisier by a check
+that found nothing.
+
+### The repair, and the line it will not cross
+
+`lvai_check_aixml` takes `fix:true`, and `lvai_generate_vi` repairs BEFORE asking LabVIEW and fails
+only on what cannot be repaired. The line between the two is *do we know what the author meant*:
+
+| fault | repaired? | why |
+|---|---|---|
+| a `uid` in the reserved range | **yes** - raised, and every `uid_parent` naming it carried along | the number is ours to choose and no wire refers to it |
+| a duplicate `uid` **nothing is nested inside** | **yes** - one gets a free number | with no `uid_parent` pointing at it there is nothing to disambiguate |
+| a duplicate `uid` something IS nested inside | no | two candidates carry the same number, so which one the child belongs to is unknowable; renumbering either would silently move it |
+| a **dangling `uid_parent`** | **never** | we do not know which structure was meant, and putting the element on `root` is EXACTLY what LabVIEW already does silently. Repairing it that way would convert a reported fault into a hidden one |
+| a Ring default outside its `values` | never | which value was intended is the author's intent; clamping to the first is a guess dressed as a fix |
+| malformed XML, wrong root | never | nothing to repair against |
+
+**A repair never touches a wire name.** Measured: a wire name is an arbitrary token, so `10.value`
+keeps working after uid 10 becomes 4200. Rewriting nets as well would be extra risk for no gain.
+
+**And it never edits your file.** `lvai_generate_vi` repairs into a copy under
+`%TEMP%\LabVIEWMCP
+epaired\` and generates from that, reporting each change as `step: repair` -
+the same discipline `SymbolicUids` uses, because a surprise edit between an author and code
+generation is worse than a reported fault. `lvai_check_aixml fix:true` is the explicit way to apply
+them to the source, and it writes NOTHING when nothing was repairable, so a clean file is never
+reformatted by a repair that turned out unnecessary.
+
+### A FOURTH check, added 2026-09-04: the terminal wire rule
+
+Not a uid problem and not one of the nine below — it came from a defect in the field rather than
+from a probe sweep. A pane terminal with no `connection` attribute is `required`; on an output that
+makes every caller non-executable. Full measurement above, under "An omitted `connection` means
+REQUIRED". The output case is **repaired** (there is no intent to guess at: NI's style guide has no
+required output), the input case is reported and left alone.
+
+### The nine negative tests, run: SIX are caught, TWO pass silently, ONE lies about the cause
+
+An outside reference proposed nine checks "a validator" should make, and separately a 21-step ordered
+checklist. Both were answered by running one small VI per row against `ValidateAIXML`, 2026-09-03,
+rather than by reasoning about them.
+
+| the claim | what actually happens |
+|---|---|
+| duplicate `uid` -> error | **PASSES.** Never mentioned at any layer; the generator renumbers one silently |
+| `uid_parent` resolves to nothing -> error | **PASSES.** `errorCode 0`, and see below |
+| two outputs on one wire -> error | caught: `This wire connects more than one data source` |
+| an input wire with no source -> error | caught: `Contains unwired or bad terminal` |
+| wrong terminal name -> error | caught: `Object terminal not found for input: a:1.value on Add`, naming node and terminal |
+| a Case `Out1` unsupplied in one frame -> error | caught: `Tunnel: Missing assignment to tunnel`, with the Use Default If Unwired hint |
+| feedback without a shift register -> error | caught: `Is a member of a cycle` |
+| a Ring `value` outside its `values` -> error | **PASSES.** `value="7"` against `values="[0,1]"`, `errorCode 0` |
+| `value` incompatible with `type` -> error | caught, but as `Error 53: Unrecognized or unsupported ATTRIBUTE set in Control with UID 9010` for `type="double" value="hello"` — the cause is the literal, and the message says attribute |
+
+**THE `uid_parent` ONE IS A SILENT MISPLACEMENT, not merely an unchecked field.** A node authored
+with `uid_parent="7777"`, a uid present nowhere in the file, validated, generated, and **came back
+from LabVIEW's own export as `uid_parent="root"`**. It landed on the top-level diagram. In the probe
+that is harmless because the VI has no structure; for a node meant to sit INSIDE a For Loop it moves
+the computation out of the loop, changes what the diagram does, and reports nothing at any stage. A
+mistyped parent uid is therefore in the same family as this repository's other silent losses - it
+survives validate, convert, a run, and only a re-export shows it.
+
+**The two that pass are both IDENTITY checks**, which is the unlucky pattern: uid uniqueness and
+parent resolvability are exactly what an author assumes a validator enforces, because they are
+cheap and mechanical. They are the two it does not do.
+
+**So the practical rule for authoring AIXML by hand or by tool:** validate catches wiring, terminal
+names, structure completeness and cycles. It does NOT check that your uids are unique or that your
+`uid_parent` exists. Check those yourself before generating - both are a few lines over the file and
+need no LabVIEW - and re-export afterwards when a node was meant to be inside a structure.
+
+### What `ValidateAIXML` ACTUALLY catches — a negative example, run rather than reasoned
+
+An outside reference offered a deliberately broken VI with nine numbered defects and a table of what
+"a validator" should reject. Running it against the real one, 2026-09-03, peeling one layer at a
+time, is worth more than the table: it shows the ORDER of the gates and, more usefully, the ONE
+defect that passes.
+
+**The gates fire in this order**, each hiding the next:
+
+| gate | what it said |
+|---|---|
+| 1. XML schema | `missing required attribute 'description'` — see §above; the outside model lists `description` as OPTIONAL on `<VI>` and it is REQUIRED |
+| 2. terminal names | `Object terminal not found for input: a:1.value on Add` — three at once, naming node and terminal |
+| 3. diagram semantics | six errors together: `This wire connects more than one data source`, `Contains unwired or bad terminal` (x2), `Wire connected to an undirected tunnel`, `N is not wired, and there are no indexing inputs`, `connected an input of For Loop to an Indicator` |
+
+**THE ONE THAT IS NEVER MENTIONED IS THE DUPLICATE `uid`.** The file carries `uid="1"` on two
+different controls and no gate says so, at any layer — consistent with the direct measurement in
+`docs/labview-crash-signatures.md`: the generator silently renumbers one of them. So "duplicate uid"
+is the outside table's first expected error and it is not an error at all. An author who trusts the
+validator to enforce uniqueness gets a VI whose exported uids differ from the ones written, with
+nothing reported.
+
+**And the claim that a root wire may not enter a loop without a tunnel is too general.** §7 of this
+document measured the opposite for the case that matters: a shift register's border crossing is
+IMPLICIT, its initialiser comes straight from a root-level constant with no `In` tunnel, and adding
+the explicit tunnel produces `Structure: Is a member of a cycle`. Both worked examples in that
+outside reference put the initialising constant INSIDE the loop and both fail with exactly that
+cycle error.
+
+**The reusable lesson is about how to read a reference at all.** Two complete, confident examples
+were offered; the positive one failed with nine errors (`Array Size` authored as a `Call` when it is
+a primitive, a shift register initialised from an inner wire, a Case with no `Default`, four type
+mismatches), and the negative one failed first on a rule its own schema had marked optional. Neither
+was wrong out of carelessness — they are prose about a format rather than artefacts run through it.
+**Check an outside reference by executing it. It costs one validate call per claim, and validate is
+the cheap failure path this repository already relies on.**
+
+### A WIRE NAME IS AN ARBITRARY TOKEN — `uid.terminal` is convention, not requirement
+
+Measured 2026-09-03. A VI whose wire names are `banana.value` and `kaffee.x+1`, matching no `uid` in
+the file, **validated and generated with `errorCode 0`** and added no DWarn:
+
+```xml
+<Control   _name="value"     outputs="value:banana.value" uid="9010" .../>
+<Node      _name="Increment" inputs="x:banana.value" outputs="x+1:kaffee.x+1" uid="9020" .../>
+<Indicator _name="result"    inputs="value:kaffee.x+1" uid="0" .../>
+```
+
+The only requirement is **referential consistency**: the token a producer writes is the token its
+consumers read, and each token has exactly one producer. NI's own exports and every helper in
+`scripts/` use `<uid>.<terminal>` — **2 598 of 2 598 wire references, 100 %** — which makes the two
+look coupled when nothing couples them. The same thing shows in an outside reference's own worked
+example, where an `Add` node with `uid="41"` produces the wire `39.x+y` and nothing objects.
+
+**Why this matters for the uid renumbering:** it does not have to touch wire names at all. Changing
+`uid="10"` to `uid="9010"` while the nets still say `10.value` is legal, because `10.value` is just a
+string. The renumbering is therefore a change to ONE attribute per element, not a coordinated rewrite
+of every net that mentions it — which is what made it look like a risky sweep across 39 files.
+Keeping the two in step is still worth doing for readability; it is no longer a correctness
+requirement, so it cannot silently break a helper.
+
+### `FixedConst` is a BUILT-IN CONSTANT, not a fixed terminal — correcting this file
+
+The element table above described `FixedConst` as a *"fixed terminal (e.g. loop iteration)"*. That is
+wrong, and it was the file's only mention. Measured 2026-09-03 over 663 cached exports — every
+`_name` that actually occurs:
+
+| `_name` | count | what it is |
+|---|---:|---|
+| `0STR` | 55 | the empty string |
+| `2PI` | 12 | 2 pi |
+| `0PTH` | 8 | the empty path |
+| `NREF` | 4 | not-a-refnum |
+| `CRTN` | 4 | carriage return |
+| `PI`, `EOL` | 3 each | pi; the platform end-of-line |
+| `TAB`, `+INF` | 2 each | tab; positive infinity |
+| `MEPS` | 1 | machine epsilon |
+
+So it is the palette's **built-in constant** — the things on `Numeric > Math Constants` and
+`String > String Constants` — carrying no `type` and no `value`, only a `_name` and one `value`
+output:
+
+```xml
+<FixedConst _name="0STR" outputs="value:1133.value" uid="1133" uid_parent="137"/>
+```
+
+The practical consequence for authoring: an empty string or an empty path does NOT need a
+`<Constant type="string" value=""/>`; `0STR` and `0PTH` exist and are what NI's own diagrams use. The
+loop iteration terminal, which the old text confused this with, is the `count` attribute on the
+`Structure` instead.
+
+### Conditional tunnels: `cond=`, on 450 tunnels, and this file showed one without explaining it
+
+`cond` appears on **450 tunnels across the corpus** — 291 on `Out`, 159 on `In` — against a single
+unexplained example in this document. Two forms occur:
+
+| form | count | |
+|---|---:|---|
+| `cond="true"` | 443 | the overwhelming majority |
+| a wire or inline expression — `cond="973.value"`, `cond="529..not. x?"`, `cond="51.x > 0?"` | 7 | a condition computed on the diagram |
+
+```xml
+<Tunnel _id="Out1" cond="421..not. x?" inputs="value:365.value" mode="index"
+        outputs="value:383.value" uid="383" uid_parent="358"/>
+```
+
+A conditional output tunnel adds an element only on the iterations where the condition holds, which
+is how a loop filters while it collects — the idiom otherwise written with a Case structure inside
+the loop.
+
+**What `cond="true"` means is NOT established here.** It is consistent with a flag that marks the
+tunnel conditional while the condition arrives on a wire named elsewhere, and it is also consistent
+with a literal always-true. 443 against 7 is too lopsided to guess from, and nothing was authored to
+test it. Do not write either reading down as fact.
+
+**How both of these were found.** A user brought an outside summary of the format and it named
+constructs this file did not. Checking it cost one grep of the export cache per claim, and it found
+one description that was wrong and one attribute used 450 times with no explanation. It also
+disagreed with measurement on two points — it calls `uid` uniqueness a hard rule when the generator
+silently repairs a duplicate, and it says `uid` is not used for wiring when the wire NAME embeds it.
+An outside reference is worth checking against the corpus, in both directions.
+
+### Ring and enum controls
+
+A `Ring` carries its items and their numeric values as two parallel attributes:
+
+```xml
+<Control _name="Terminal Configuration" style="Ring" type="int32"
+         items="default,RSE,NRSE,Differential,Pseudodifferential"
+         values="[-1,10083,10078,10106,12529]"
+         value="-1" outputs="value:2154.value" uid="2154" uid_parent="root"/>
+```
+
+Note the difference from an enum, which encodes its labels inside the *type*
+(`uint8{Label A,Label B}`, §5): a Ring keeps `type` plain and lists the labels separately,
+because its values need not be consecutive.
+
+### A waveform indicator is not a graph, and a wrong `style` is dropped in silence
+
+`type="doublewaveform"` alone produces the **cluster** display — t0, dt and the Y array as
+three fields. To get a Waveform Graph the indicator needs `style="graph21703"`:
+
+```xml
+<Indicator _name="waveform" style="graph21703" type="doublewaveform"
+           inputs="value:61.output waveform" uid="80" uid_parent="root" value="[0,0,[]]"/>
+```
+
+**An empty waveform-array CONSTANT is legal, and it is how you type an accumulator.**
+`<Constant type="array{doublewaveform.Waveform}" value="[]"/>` validates and generates, so a shift
+register collecting waveforms can be initialised from it rather than left uninitialised — measured
+while regenerating `DaqReadAndTDMS.vi`, where the accumulator carries the read blocks out of the
+loop. Note the element name inside the braces: `doublewaveform.Waveform`, not bare
+`doublewaveform`.
+
+**The token is an internal identifier, not a name, and nothing tells you when you get it
+wrong.** `WaveformGraph`, `Waveform Graph` and `Graph` are all plausible, all wrong, and all
+fail without a word: `ValidateAIXML` returns `errorCode 0` for every one of them, generation
+succeeds, and the VI comes back with a cluster on the panel. Measured in one round trip — five
+indicators of the same type, four spellings plus a control:
+
+| written | survives the round trip? |
+|---|---|
+| `style="WaveformGraph"` | no — attribute absent on export |
+| `style="Waveform Graph"` | no — attribute absent on export |
+| `style="Graph"` | no — attribute absent on export |
+| `style="graph21703"` | **yes** |
+| no `style` at all | (baseline: cluster display) |
+
+The symptom to recognise: you asked for a graph, validation was clean, the VI generated, and
+the panel shows a cluster. There is no error to search for — the only evidence is the missing
+attribute in a re-export, so **export the VI you just generated and grep for `style=`**.
+
+`graph21703` is not invented here: it is what LabVIEW itself writes when exporting a VI that
+has a Waveform Graph on it — NI's own `Feedback Node with Graph` example exports it twice. That
+is also how to re-derive it after a LabVIEW upgrade, and how to find the token for any other
+front-panel style: **drop the control by hand, export the VI, read the attribute.** Whether the
+`21703` suffix is stable across LabVIEW versions has not been measured; it was taken on
+LabVIEW 2026.
+
+Charts and XY graphs are untested — do not assume the token generalises. The style vocabulary
+confirmed so far is small: `latched` (boolean), `Ring` (§ above), `graph21703`.
+
+## 9. What the generator accepts
+
+### Measured over the shipping examples, not over a hand-picked few
+
+`LabVIEWMCP --corpus` exports every VI in a tree and hands each export straight back to
+`ValidateAIXML`; `scripts/aixml_corpus_report.py` mines the exports afterwards. That is the
+standing way to re-derive this section after a LabVIEW or addon update, and it replaces the
+13-VI corpus the rest of this document was built on. Run it before trusting anything below.
+
+The full run over LabVIEW 2026: **1687 VIs, 1679 exported, 627 round-tripped — 37 %.**
+
+Two numbers frame everything else:
+
+- **8 VIs could not be exported; 1052 exported and then failed to validate.** Reading a VI out is
+  close to always possible; reading it *back in* is where the gaps are. So a construct being
+  visible in an export is no evidence at all that it can be generated.
+- **377 distinct node kinds, 313 of them not named anywhere in this document.** The terminal table
+  in §8 is a small fraction of the vocabulary NI actually uses. `undocumented.tsv` from the report
+  is the working gap list, most frequent first — `Static VI Reference`, `Build Path`,
+  `New VI Object`, `To More Specific Class`, `Open VI Object Reference`, `Format Into String`,
+  `Feedback Node`, `In Range and Coerce` were the first eight. That list is checked in as
+  [`docs/aixml-node-gaps.tsv`](aixml-node-gaps.tsv), with each node's commonest ordered `inputs`
+  and `outputs` beside it, so a node absent from §8 still has a spelling to copy. Regenerate it
+  rather than editing it.
+
+Every failure, classified once each:
+
+| Cause | Count | Reading |
+|---|---|---|
+| **`Error 53`** — a `Call` to a project- or library-local subVI | **737** | the documented boundary below. Expected, and it dominates everything else: two thirds of NI's examples call their own subVIs |
+| `Error 1 … An input parameter is invalid`, no further detail | 146 | the generator refuses the document and does not say why. Unexplained |
+| `Event Data Node` / `no events defined` | 54 | the event registration is lost — see below |
+| other validation errors (type mismatches, unwired terminals on `Array Index / Replace Elements`, `Feedback Node`, `Global Variable`, …) | 51 | one-offs, each worth reading on its own |
+| `Static VI Reference 'X': SubVI is missing` | 31 | a static VI reference does not survive the trip |
+| `Property Node` / `Invoke Node` / `Constructor Node`: invalid property or method | 23 | the VI Server name is not rebound |
+| excluded: the project targets `RT Generic` | 8 | not attempted; out of scope for a plain LabVIEW |
+| LabVIEW unavailable or too slow | 6 | see §"What the sweep has to survive" in the README |
+| `Error -2628` — missing required attribute | 4 | a malformed document |
+
+**The headline is that `Error 53` is not a defect and everything else is small.** Excluding it,
+1687 VIs produce 315 real round-trip failures — so the format handles NI's own code far better
+than the 37 % headline suggests, and the single biggest constraint on generating LabVIEW code
+remains the one already known: a generated VI cannot call your own subVIs.
+
+The event-structure row is worth spelling out, because §7 lists event structures as working and
+that is only half true. Of 160 exports containing an `Event Structure`, 87 fail for reasons that
+have nothing to do with events (`Error 53`, mostly), and of the 73 that do return a verdict on the
+event structure itself:
+
+| Frame kind | passes | fails |
+|---|---|---|
+| **static** — a control's event, `selector=" &quot;Exported VI&quot;\3A Value Change "` | 12 | **48** |
+| **dynamic** — a user event through a registration terminal | 9 | 4 |
+
+**The static frames are the fragile ones**, which is the reverse of the obvious guess. The selector
+comes back intact, spaces and all, and the generator still reports `Event Structure: One or more
+event cases have no events defined` with an `Event Data Node: Cluster is invalid or empty` behind
+it. The plausible reading is that a static frame names its control as *text* and the generator
+never rebinds it, while a dynamic frame's event arrives structurally through the wire from
+`Register For Events` — but that is inference, and only the counts above are measured.
+
+Practical consequence: before planning any edit to a VI with a front-panel event structure,
+validate the **untouched** export. Four in five of NI's own do not come back.
+
+Structure kinds over the whole corpus: `Case Structure`, `While Loop`, `For Loop`,
+`Event Structure`, `In Place Element Structure`, `Flat Sequence Frame`, `Stacked Sequence
+Structure`. The In Place Element Structure is the one to know about beyond §7 — it is how NI
+modifies a cluster or array element without a copy, and its border node is
+`Unbundle / Bundle Elements` (§8).
+
+### The original 13-VI corpus
+
+Round-trip validation (`ValidateAIXML`) of the 13-VI corpus: **11 passed, 2 failed.** All
+failures share one cause.
+
+**Works:** every primitive `Node` seen (arithmetic, comparison, array, cluster, queue,
+notifier, user-event, property node, local variable, `Merge Errors`, `Wait (ms)`,
+`Variant To Data`), all four structure kinds, shift registers, nested cases, event
+structures, all type constructs above, `FreeLabel`.
+
+**Fails:** a `Call` whose `target` is a **project- or library-local subVI**:
+
+```
+Error 53 ... Manager call not supported.
+Errors:
+Unsupported SubVI: MyLib.lvlib:Helper.vi
+Object terminal not found for input: parameter 0:4971.value on Call
+```
+
+The second line is a knock-on effect: an unresolvable target has no terminals, so its
+wires fail too. Express VIs (`Ex_Inst_*.vi`) fail the same way.
+
+**The boundary is palette-reachability, not library membership — now isolated.** The trick is
+that the error message itself discriminates: `Unsupported SubVI` means the target was never
+resolved, while `Object terminal not found` means it *was* resolved and only the terminal name
+was wrong. Feeding a deliberately bogus terminal name therefore probes resolution alone:
+
+| `Call target=` | Result | Reading |
+|---|---|---|
+| `General Error Handler.vi` (vi.lib, on the palette) | `Object terminal not found for input: bogusTerminalName` | **resolved** |
+| `ScratchEdit.vi` (a plain `.vi` on disk, in no library) | `Unsupported SubVI: ScratchEdit.vi` | **not resolved** |
+| an absolute path, `C\3A\5CTemp\5C…\5CX.vi` | `Unsupported SubVI: C:\Temp\…\X.vi` | **not resolved** |
+| `<Module>.lvlib:X.vi`, a **project** library loaded in the IDE | `Unsupported SubVI: <Module>.lvlib:X.vi` | **not resolved** |
+| `openg_array.lvlib:Filter 1D Array__ogtk.vi`, a **palette** library | validated, generated and ran | **resolved** |
+| `Draw Image from File__ogtk.vi`, the **bare name** of that same kind of VI | `Unsupported SubVI: Draw Image from File__ogtk.vi` | **not resolved** |
+
+There is therefore **no target syntax that reaches your own code** — not a bare name, not a full
+path, and not a library-qualified name even while that library is open in LabVIEW.
+
+### Palette reachability is NOT the boundary. Findability by name is.
+
+Measured 2026-08-27, eight probes, all by the bogus-terminal trick above. The rule this section
+had — "palette reachability" — is a *consequence* of the real one and is wrong in both directions:
+it excludes targets that do resolve, and it does not explain the ones that do not.
+
+| `Call target=` | where the VI lives | Result |
+|---|---|---|
+| `Caraya.lvlib\3AVI Name.vi` | `vi.lib`, library member, **in no palette** | **resolved** |
+| `openg_variant.lvlib\3AconvertClusterToObject__ogtk.vi` | `user.lib`, library member, **in no palette** | **resolved** |
+| `Test Addition.vi` | `vi.lib`, **plain folder**, no library, **no palette** | **resolved** |
+| `LVMCP Socket 1x1 q7k2.vi` | `user.lib`, plain folder, freshly generated, no library, no palette | **resolved** |
+| `Agilent 34401.lvlib\3AInitialize.vi` | **`instr.lib`**, library member, in the library's `Public\` folder | **resolved** |
+| `Agilent 34401.lvlib\3APublic\5CInitialize.vi` | the same VI, qualifier carrying the **in-library folder** | not resolved |
+| `Initialize.vi` | the same VI by **bare name** | not resolved |
+| `Inverse Error Function_Estimation.vi` | `vi.lib`, **inside `SpecialFunctions.llb`**, no library, no palette | not resolved |
+| `ProbeLib.lvlib\3ACelsius To Fahrenheit.vi` | a **project** library, hand-written `.lvlib` | not resolved |
+| `LV_MCP\5CPlaceholder 1 in 1 out.vi` | the resolving VI above, addressed by **relative path** | not resolved |
+| `\3Cuserlib\3E\5CLV_MCP\5CPlaceholder 1 in 1 out.vi` | the same, by **symbolic-root path** | not resolved |
+
+So the target is resolved **by name, against what the installation can find**:
+
+- **a loose VI in a plain folder** under a LabVIEW symbolic root — bare file name. A palette entry
+  is irrelevant. This is what makes a *generated* placeholder dropped into `user.lib` callable with
+  no `.lvlib`, no `.mnu` and no LabVIEW restart.
+- **a library member** — the library-qualified name, nested for classes
+  (`Caraya.lvlib\3AAssert.lvclass\3AAssert Equal Value_Variant.vi`). Again no palette entry needed.
+  **THE QUALIFIER IS FLAT: the library's own FOLDERS are not part of it.** Measured 2026-09-07 on
+  `Agilent 34401.lvlib`, whose `Initialize.vi` sits in a `Public\` folder both on disk and in the
+  library tree: `Agilent 34401.lvlib\3AInitialize.vi` resolves, and
+  `Agilent 34401.lvlib\3APublic\5CInitialize.vi` is `Unsupported SubVI`. A library is a flat
+  namespace of qualified names; its folder structure is presentation.
+- **`instr.lib` IS on the search path**, and this list said `vi.lib`, `user.lib` and `LVAddons` for
+  a fortnight without it. Measured the same day on the only real instrument driver on this station:
+  the qualified form resolves and answers with a WIRING complaint - `required input 'VISA resource
+  name' is not wired` - which is the signature of a target LabVIEW loaded and read the pane of.
+  That matters because `instr.lib` is where every Plug and Play instrument driver installs, so the
+  omission read as "a generated VI cannot drive an instrument", which is false.
+- **inside an `.llb`** — the bare name does NOT reach it. `.llb` contents are exposed through the
+  palette or through the owning library, not by name alone. This is what the old rule was really
+  observing: most palette VIs live in `.llb`s.
+- **a path** — never, in any spelling. Relative, absolute and symbolic-root forms were all refused.
+- **project-local code** — never, loose or in a project library, palette or not.
+
+Two consequences worth stating separately, because each was a wrong belief that cost work:
+
+**A miss in `lvai_palette_index` is not proof that a `Call` is illegal.** The index scans `menus\`
+and `LVAddons\`; it does not see Caraya at all (its `.mnu` files live under
+`vi.lib\addons\_JKI Toolkits\dynamic_palette\`), yet every Caraya target in `labview-unit-testing.md`
+validates and runs. Query the index to *find* a VI; settle a target spelling with a throwaway probe.
+
+**A hand-written `.lvlib` does not make a generated VI a library member.** Dropping a `.lvlib` next
+to a generated VI in `user.lib` and listing it produced `Unsupported SubVI`, and still did with the
+library loaded in an open project. A real member carries `LIvi`/`LIbd` ownership blocks that only
+LabVIEW writes when it saves the library; a generated VI has none. Do not build on library
+membership for anything the generator produces — put the VI loose in a plain folder instead, which
+resolves anyway.
+
+**A library-owned palette VI needs the `lvlib:` prefix, and `lvai_palette_index` does not print
+it.** The index lists bare file names, so following it literally — "query the index, then `Call` the
+hit" — produces `Unsupported SubVI` for every VI a palette library owns, which reads exactly like
+"this VI is not callable" and sends you back to rebuilding from primitives. It is the last two rows
+of the table read together: the *same* VI fails bare and resolves qualified. Measured 2026-08-07 on
+LabVIEW 2026 — `target="Draw Image from File__ogtk.vi"` was refused,
+`target="openg_picture.lvlib\3ADraw Image from File__ogtk.vi"` validated, generated and ran.
+
+**A polymorphic VI needs `adapt` and `instance` as well as `target`.** Its own export is nothing
+but one `Call` per instance, so the terminal names to use are the *instance's*, not the
+polymorphic wrapper's. Measured 2026-08-07 generating `SinusFFT.vi` against
+`Extract Single Tone Information.vi`, which is `NI_MAPro.lvlib`-owned and has four instances:
+
+```xml
+<Call adapt="true"
+      target="NI_MAPro.lvlib\3AExtract Single Tone Information.vi"
+      instance="NI_MAPro.lvlib\3AExtract Single Tone Information 1 Chan.vi"
+      inputs="time signal in:40.output waveform,export mode:,error in (no error):12.value,advanced search:"
+      outputs="exported signals:,measurement info:,detected frequency:50.detected frequency,detected amplitude:,detected phase (deg):,error out:50.error out"
+      uid="50" uid_parent="root"/>
+```
+
+Two details that are easy to get wrong:
+
+- **List every terminal of the instance**, wired or not, and give the unused ones an empty net
+  (`export mode:`, `advanced search:`, `detected amplitude:`). Omitting them is what produces
+  `Contains unwired or bad terminal`.
+- Get the instance name by exporting the polymorphic VI itself: the export *is* the instance
+  list, one `Call` per line, with each instance's inputs and outputs spelled out. Two calls —
+  `lvai_convert_vi_to_aixml` on the wrapper, then copy — replace all guessing.
+
+The qualifier is not derivable from the index either: the palette prints
+`Categories\OpenG\functions_oglib_picture.mnu` and the VI lives in `picture.llb`, neither of which
+names `openg_picture.lvlib`. Get it the way §9 already recommends for the target itself — export a
+VI that calls it, where the `_name` comes back in the library-qualified form. Cheaper still: put
+both spellings in one throwaway probe document, one `Call` each, and validate once. Unresolvable
+targets are reported by name, and a resolved one only complains about its unwired terminals, so a
+single `errorCode 1` message tells you which spelling to use.
+
+> **The boundary is palette reachability, not library membership.** An earlier version of this
+> section read the fourth row as "library-qualified targets do not resolve" and concluded that only
+> library-free `vi.lib` VIs are callable. That is wrong, and it costs real work: it argues away the
+> 336 OpenG, 208 MGI and 63 JKI palette entries on a station that has those packages. Measured
+> 2026-08-06 on LabVIEW 2026 — a `Call` with
+> `target="openg_array.lvlib\3AFilter 1D Array__ogtk.vi"` and
+> `instance="openg_array.lvlib\3AFilter 1D Array with Scalar (String)__ogtk.vi"` validated,
+> generated, ran, and produced output byte-identical to the same filter hand-built from a For loop,
+> a Case structure, a shift register and `Build Array`. Three nodes instead of seven elements.
+>
+> The failing row is a **project** library — a library belonging to the code you are editing. Both
+> rows are true; the difference is not the `.lvlib`.
+>
+> **And it is not the palette either** — that was this section's second wrong answer, corrected
+> 2026-08-27 in "Palette reachability is NOT the boundary" above. The difference is whether the
+> installation can find the VI by name at all. A project library cannot be found that way; an
+> installation library can, palette entry or none.
+>
+> **So reuse first.** Query `lvai_palette_index` for the operation before designing a diagram, and
+> rebuild from primitives only when the target genuinely does not resolve. When reuse costs a
+> third-party dependency, name it and let the caller decide — the generated VI will not open on a
+> machine without that package.
+
+**This is not a DQMH quirk — it stops NI's own example applications too.** `Temperature
+Monitoring.vi` from `examples\Industry Applications\` exports cleanly (39.6 kB, `errorCode 0`) and
+then fails regeneration with ~30 `Unsupported SubVI` errors, hitting both forms at once: its two
+project libraries (`… Message Queue.lvlib:Enqueue Message.vi`) *and* its five loose support VIs
+referenced by bare name (`Simulate Temperature Acquisition.vi`). Any application organised the way
+real LabVIEW applications are organised — support VIs in a folder, a couple of `.lvlib`s — is
+outside regeneration. Treat "export succeeded" as saying nothing whatsoever about whether the same
+XML can be generated back: the two directions are independent, and reading is the one that works
+broadly.
+
+> **Escape the backslashes in a path target, or debug a phantom.** `target` is an ordinary AIXML
+> attribute value, so `\` starts an escape (§6) — a literal backslash is `\5C`, a colon `\3A`.
+> Writing `C:\Scratch\Demo\Libraries\…` raw silently mangles the string, and the error then reports
+> the *corrupted* path — `Unsupported SubVI: C:cratchemoibraries` — which looks like a resolution
+> bug and is really a quoting bug. Escaped correctly the path arrives intact; it simply still does
+> not resolve.
+
+So a generated VI may freely call the palette — every `vi.lib` utility by bare file name, and every
+palette VI owned by a library by its qualified name. What it may not call is *your* code:
+project-local, library-local to the project you are editing, and even a loose `.vi` sitting in a
+directory — **as long as that code is not loaded.**
+
+> **PROJECT-LOCAL CODE THAT IS OPEN IN LabVIEW RESOLVES — for conversion, not for validation.**
+> Measured 2026-09-25 on NI's hint; this section said "may not call your code" without the
+> qualifier until then. A loose `.vi` outside every installation tree, opened through its project
+> OR opened with no project at all, was accepted by bare name by `ConvertAIXMLToVI`
+> (`errorCode 0`); the caller ran correctly and was still executable from disk in a fresh LabVIEW.
+> Not loaded, or only a member of an active project, it is `Error 53` as the table above says.
+> `ValidateAIXML` refused the SAME document in every arm, bare name and both path spellings — which
+> is why the table was never contradicted: every row was taken by validating. A CLASS member
+> resolves the same way once one member of its class is open (`X.lvclass\3AMethod.vi`, class wires
+> chained between calls, executable in a fresh LabVIEW); a `.ctl` does not, neither as a `Call`
+> target nor as a `type=`. Project-library members are not measured yet.
+> `docs/aixml-call-loaded-vi.md`.
+
+**`lvai_palette_index` answers which names those are.** It reads the installed LabVIEW's own
+`menus\*.mnu` palette files, so the set is the one this station actually has — installed toolkits
+hook themselves into the palettes, so it is not a fixed list. Measured on a stock LabVIEW 2026:
+460 palette files, **2 202 reachable VIs**, against 19 322 `.vi` files in `vi.lib` — so roughly
+one file in nine is a legal `Call` target, and guessing from the filesystem is nine times more
+likely to be wrong than right. Built-in functions are deliberately absent from that index: they
+are `Node` elements, not `Call`s, and a palette entry for one carries only its display label,
+which is not the AIXML node name (`To XML` on the palette, `Flatten To XML` in AIXML).
+
+Two consequences worth stating plainly:
+
+- **Generated VIs cannot call each other.** A VI this server just produced is not
+  palette-reachable, so it is not a legal `Call` target for the next one. There is no way to
+  build a hierarchy of generated code.
+- **"No subVIs" is the wrong mental model.** Do not strip subVI calls out of a design; keep the
+  palette-reachable ones, which covers a great deal — error handling, file and string utilities,
+  timing, the instrument and DAQ palettes.
+
+**Practical consequence: generated VIs must be self-contained *with respect to your own code*.**
+Build them from primitives plus the palette. A VI that must call your own subVIs cannot be
+produced this way.
+
+### NI's published unsupported list
+
+NI publishes a "not-yet-supported" list for the **LabVIEW Coding Agent** — the same generator
+these RPCs drive. It constrains **generation only**: everything below still *reads* fine
+through `ConvertVIToAIXML`, which is how this document was written in the first place.
+
+**Program types and domains**
+
+- external-language interop wrappers (Python, C#)
+- VIs with complex UI or front-panel design requirements
+- FPGA-targeted and Real-Time-targeted VIs
+- SCPI and serial VIs needing robust parsing, framing or session patterns
+- **QMH with Event Structure**, **DQMH**, **Actor Framework**
+- plugin generation other than FlexLogger (VeriStand, measurement plugins, VI Analyzer
+  tests, CLI commands)
+- **VIs that depend on user VIs outside the supported LabVIEW node catalog**
+- new polymorphic VIs, new malleable VIs
+- custom controls or typedefs (`.ctl`), Global Variable VIs
+- **LabVIEW libraries (`.lvlib`)**, **classes or interfaces (`.lvclass`)**, XNodes, XControls,
+  **project files (`.lvproj`)**
+- non-default VI properties beyond basic `description`
+- VI icon graphics
+- **connector pane layout or wiring**
+
+**Node families:** `Timed Loop`, `Event Structure`.
+
+How this squares with the measurements above:
+
+| Measured here | NI's wording |
+|---|---|
+| `Unsupported SubVI` for project-local and Express VIs, while a vi.lib VI resolved | "user VIs outside the supported **node catalog**" — catalogue membership, not library membership or palette presence. Use the probe in the table above to test a specific target. |
+| **`conIdx` survives generation.** A VI authored with `conIdx` 0/1/2 in and 5/6 out came back from a fresh export with those indices intact — so terminals really are assigned to the connector pane. `connection` is dropped only when no `conIdx` accompanies it. | "connector pane layout or wiring" is not supported. Read that as the pane *pattern* and its wiring, not the index assignment, which demonstrably works. |
+| `description` survives; nothing else was attempted | "non-default VI properties beyond basic description" |
+| **An icon can be applied after generation.** A generated helper VI calling `Set VI Icon from File` + `Save\3AInstrument`, driven by `RunVIAsTopLevel`, replaced a generated VI's icon with a 32×32 PNG; the read-back was pixel-identical. Recipe in [`vi-server-reference.md`](vi-server-reference.md). | "VI icon graphics" — true of the *generator*. The icon is not out of reach, only out of AIXML. |
+| Event structures **export** correctly and their syntax is documented in §7 | they are not *generatable*. §7 is a reading aid for them, not an authoring recipe. |
+| A DQMH module needs `.lvlib` + `.ctl` + `.lvclass` + cross-calling VIs | each of those four is independently on the list |
+
+Two practical consequences. Generated VIs stay **self-contained and flat**: primitives, loops,
+case structures, shift registers, typed front-panel terminals — no custom types, no calls into
+your own code, no event handling. And a failure is not always a bug in your XML: check this
+list before debugging.
+
+**How the two kinds of refusal differ** — this matters more than the list itself:
+
+| | Unresolvable `Call` | Unsupported node family |
+|---|---|---|
+| `ValidateAIXML` | `errorCode 1`, `Unsupported SubVI: X` | `errorCode 0` |
+| `ConvertAIXMLToVI` | refuses, no VI written | `errorCode 0`, VI written |
+| Result | nothing | container built, configuration silently discarded |
+
+So the list's entries are not equally visible. A `Call` tells you. A node family does not.
+
+### A trick that does not work: wrapping in a Disable Structure
+
+Putting an unresolvable `Call` inside the `Disabled` diagram of a `Diagram Disable Structure`
+changes nothing. Measured with a control — the identical call at root level and inside a
+disabled diagram produce the **same** message, `Unsupported SubVI: <name>`.
+
+The reason is not arbitrary: *disabled* means excluded from execution, not absent. The code
+still exists on the diagram, so the generator must still instantiate the node, and resolution
+happens before any question of compilation. Deleting the call and substituting constants for
+its wired outputs does avoid the error — but see the silent-degradation row in §11 before
+concluding that the result is what you wanted.
+
+## 10. Workflow
+
+```
+ConvertVIToAIXML   read an existing VI as text        (does not modify the VI)
+ValidateAIXML      check without creating anything    ← always run this first
+ConvertAIXMLToVI   create a new .vi                   works
+ApplyAIXMLToVI     modify an existing .vi             unusable, see below
+```
+
+The reliable loop when authoring something new: export a VI that already contains the
+construct, copy its exact shape, edit, validate, generate. Validation is cheap and its
+messages are specific enough to work from.
+
+### Reading the same VI twice — the export cache
+
+**An export is not cheap, and the cost is not where it looks.** Measured over the whole examples
+tree of LabVIEW 2026 — 1677 VIs, one export-and-validate pair each (`--corpus`, results in
+`roundtrip.tsv`):
+
+| | export + validate | export size |
+|---|---|---|
+| median | **331 ms** | 4.1 kB |
+| p75 | 1.0 s | 7.4 kB |
+| p90 | 3.3 s | 14.6 kB |
+| p95 | 6.6 s | 25 kB |
+| p99 | **24 s** | 161 kB |
+| max | **93 s** | 5.8 MB |
+| total | 52 min | 28.8 MB |
+
+**Size and duration are uncorrelated: r = 0.002 over those 1677 rows.** The 5.8 MB export
+(`MATLAB Node\Cell Phone Towers\SubVIs\Set Up Objects.vi`) finished in 1.9 s; the slowest VI took
+93 s and produced 20 kB. So the time is not spent writing XML — it is spent **loading the VI and
+its dependencies**, which is why the slow ones are the DQMH libraries, the malleable VIs and the
+3D graph controls. Two consequences, and both are counter-intuitive enough to be worth stating:
+a big export is not a slow one, and no amount of memory inside the MCP server can avoid the cost,
+because the work happens in LabVIEW.
+
+`lvai_convert_vi_to_aixml` therefore **caches exports on disk**:
+
+```
+%USERPROFILE%\.labviewmcp\cache\aixml\<hash>.xml     the export
+%USERPROFILE%\.labviewmcp\cache\aixml\<hash>.json    its sidecar: full key, source VI, time, size
+```
+
+**Not under `%LOCALAPPDATA%`, and this document said otherwise for a while.** The cache moved out of
+AppData because a server started by the Claude desktop app inherits that packaged app's filesystem
+redirection: every level created under `%LOCALAPPDATA%` becomes a reparse point into the package's
+private store, so the same machine ended up with two caches depending on who launched the server.
+`CacheDirectory.Root` carries the measurement; `LABVIEWMCP_CACHE_DIR` overrides it. The stale path
+cost real work on 2026-08-13 — a session looked there, found nothing, reported "no AIXML cache on
+this machine" and stopped using it, while 2 382 exports sat in the real location.
+
+The key is the VI's normalised path, its last-write time and its size; `<hash>` is an MD5 of that.
+The sidecar is written **last** and is the commit record, so a crash between the two writes leaves
+an orphan payload that reads as a miss rather than as an entry that lies. A hit is two file reads
+and a copy, and **needs no running LabVIEW** — an example stays readable while the IDE is closed
+or still starting.
+
+**Only VIs belonging to the LabVIEW installation are cached** — the examples tree, `vi.lib`,
+`user.lib` and every LVAddon, which is exactly the example and palette VIs you read to learn from.
+**Your own code never is.** The reason is the one thing the key cannot see: an export depends on
+the VI's subVIs as well, and user code changes one subVI at a time behind a caller whose own
+timestamp never moves — a stale entry there would be silent and wrong. Installation trees do not
+have that problem: they change when something is installed or upgraded, which rewrites the files,
+and an upgrade lands in a new versioned directory anyway.
+
+Every answer carries `fromCache` and a one-line `cacheNote`, so which of the two happened is
+visible rather than guessed. Pass `refresh` to re-export a cached VI. A failed export is never
+stored — it can leave a partial file behind, and caching that would serve the failure back for as
+long as the VI sits untouched.
+
+**Pre-exporting the whole corpus is deliberately not done.** It is 52 minutes of LabVIEW time, and
+the sweep that measured it had to recycle LabVIEW along the way: about 130 handles leaked per VI,
+116 000 handles and 1.3 GB after 900 of them, and one VI killed the process outright. Entries are
+written as they are asked for.
+
+### The service is single-file: concurrent RPCs buy nothing
+
+**Measured, and worth knowing before designing around it.** Six `ConvertAIXMLToVI` calls for the
+same small VI, issued together against one channel, versus the same six one after another — two
+rounds each, alternating:
+
+| | 6 VIs | per VI |
+|---|---|---|
+| sequential | 543 ms | 90 ms |
+| **concurrent** | **559 ms** | 93 ms |
+| sequential | 507 ms | 84 ms |
+| **concurrent** | **539 ms** | 90 ms |
+
+Concurrent is a hair *slower*. With any real overlap six calls would finish in roughly the time of
+one or two; instead they finish in the time of six. **LabVIEW serialises the work**, and this is
+not our client getting in the way: the semaphore in `LvaiConnection` guards only the connection
+setup, and once the channel is up the calls go out unimpeded. It matches the other measurement
+from the corpus sweep, where a single slow export left every later RPC queued behind it.
+
+Consequences: never fan out `lvai_*` calls hoping for throughput — you get the same total, plus the
+risk that one slow VI blocks the rest. Real RPC parallelism would need several LabVIEW instances,
+each with its own port, which is expensive (the handle leak above, ~1 GB apiece) and fragile (the
+service starts with Nigel, not with the IDE).
+
+What *does* parallelise is anything that never reaches LabVIEW — reading files. That is exactly
+what the export cache turns candidate triage into.
+
+### Reading several candidates at once
+
+`lvai_convert_vis_to_aixml` takes a list of VIs, one path per line, and writes them all into one
+directory. It exists for the question "which of these examples is the right starting point", where
+the alternative is one tool call per candidate.
+
+It splits the work along the line the measurements above draw:
+
+- **cached exports are served concurrently** — a hit is a file copy in the MCP server's own
+  process, no LabVIEW involved, and concurrent reads are worth about 21x cold;
+- **everything else is exported sequentially**, because LabVIEW would serialise it anyway.
+
+So the first pass over a candidate set costs what it costs, and every later pass is nearly free.
+Content is **not** returned inline by default — a batch of full exports is large, and the point is
+to get the files onto disk cheaply so you can read the few worth reading; each row carries its
+`xmlPath`.
+
+Two details that are easy to get wrong and are handled here: output files are named
+`<VI name>.<hash>.xml`, because `Read Data.vi` exists in several example folders and the leaf name
+alone would have one silently overwrite another; and the path list is split on **newlines only**,
+not on commas, because a comma is legal in a Windows path (`C:\Data\Rev 2, final\`) while a line
+break is not.
+
+### Where a generation session's wall clock actually goes
+
+`CLAUDE.md` has long said that the cost of a generation is round trips rather than LabVIEW, on the
+strength of one session where three `lvai_*` calls took 30.4 s while LabVIEW's own share was 74 ms.
+That was right but thin. Here is the whole profile, taken from subagent transcript timestamps —
+which costs nothing and, unlike having the agent time itself, does not add the very round trips
+being measured. Scripts: `tprof.py` / `tphase.py` in the session scratchpad; attribution is
+`tool exec = tool_result.ts − assistant.ts` and `model turn = assistant.ts − previous.ts`.
+
+One **fresh, complete generation** of a DAQmx-to-TDMS VI by `labview-vi-generator`, 41 tool calls,
+455 s active (idle gaps > 60 s excluded):
+
+| | time | share |
+|---|---|---|
+| text-only turns — reasoning, plans, the final report | **240.3 s** | **52.8 %** |
+| model time in turns that end in a tool call | 146.3 s | 32.2 % |
+| **tool execution — LabVIEW and the MCP server together** | **72.2 s** | **15.9 %** |
+
+A second profile over 54 calls (a generation plus a correction round) agrees: 89.7 s of tool
+execution against 634 s of model turns, **12.5 % vs 88.1 %**.
+
+So the unit worth counting is a tool call, and it is worth about **11 s of wall clock** (455 s / 41)
+regardless of what the call does. That reframes the batching rule in `CLAUDE.md` as arithmetic
+rather than advice:
+
+- `lvai_aixml_reference`, 6 calls in that run, **0.1 s of server time in total** — the document cache
+  did its job — but 6 turns, so roughly 66 s of wall clock. Five of them were avoidable.
+- `lvai_palette_index`, 3 calls, again **0.1 s total**, ~33 s of wall clock.
+
+Batching saves nothing measurable on the server and everything on the clock. A cache on these calls
+would be pointless twice over: they are already sub-millisecond, and no two arguments repeat.
+
+No single `lvai_*` call exceeded 5 s. The expensive ones are exactly the ones that make LabVIEW
+work — `ConvertAIXMLToVI` 3.9 s, `lvai_connector_pane` with `viPath` 4.2 s,
+`lvai_run_vi_and_read_values` 4.0 s, `lvai_set_vi_icon` 3.6 s — and the read-only indexes are free.
+**LabVIEW is not the slow part; it is a sixth of the total.**
+
+By phase, over the 218.5 s that attributes to a tool call:
+
+| phase | calls | model s | tool s | total |
+|---|---|---|---|---|
+| authoring the AIXML — write, edit, validate, convert | 10 | 84.2 | 24.5 | 108.7 s |
+| research — palette, examples, references | 23 | 40.9 | 16.1 | 57.0 s |
+| verification — run, pane, project | 6 | 10.5 | 21.2 | 31.7 s |
+| icon | 2 | 10.7 | 10.4 | 21.1 s |
+
+**Bucket by what a call did, not by which tool ran it.** A first cut of this table charged every
+`Bash` and `PowerShell` call to the icon and reported it at 48.1 s — a fifth of the run — and that
+number was quoted onward before it was checked. Reading the actual commands back out of the
+transcript showed three of those `Bash` calls were `sed`/`python` edits to the AIXML. The icon is
+**21.1 s, under a tenth**; authoring is half the run. Dump the command strings, do not trust the
+tool name.
+
+**Research is 23 of 41 calls**, most individually free, which is where batching has room.
+
+Inside the icon's 21.1 s the split is worth knowing before anyone tries to optimise the VI Server
+side of it: **12.5 s goes on drawing the PNG** (a `PowerShell` call through `System.Drawing`, 6.8 s
+of it, plus 5.7 s of model time composing that call) and only **8.6 s on `lvai_set_vi_icon`** — which
+opens the VI reference, invokes `Set VI Icon from File`, `Save:Instrument` and `Save VI Icon to File`,
+and closes the reference, all in one helper run of 3.6 s. The write-and-read-back chain is already
+minimal; the cost is producing the image, and that never touches LabVIEW.
+
+The other lever is not a call count at all: the largest single turn in the run was **40.3 s of
+reasoning** and the final report cost **30.1 s for 6 001 characters**. Over half the wall clock is
+the model thinking and writing prose. Prescribing what the agent would otherwise derive — the
+station's `conIdx` set, the polymorphic instance name, the accumulator shape — buys more than any
+change on the LabVIEW side can.
+
+A worked example of that, from the same run: the agent authored `TDMS file path` on `conIdx` 1, a
+middle-column slot, and `lvai_connector_pane` flagged it — costing an extra `ConvertAIXMLToVI` and
+an extra pane measurement plus their turns, some 30 s, to arrive at the value the station's
+`DefaultConPane=4833` already fixed before the run began.
+
+### Where a node's documentation comes from
+
+The shipped `.chm` files are **stubs** — `help\glang.chm`, the LabVIEW Function and VI
+Reference, is 14 kB and `hh.exe -decompile` extracts nothing from it. The real help is online.
+Locally there is a better source anyway: **an AIXML export carries the Context Help.** A palette
+*VI* exports its own `description` plus a `description` on every `Control`/`Indicator`, with
+default values baked into the terminal names. `General Error Handler.vi` came back with all 15
+terminals documented, e.g.
+
+```
+type of dialog (OK msg\3A1)   "type of dialog determines what type of dialog box to display, if any."
+error out                     "...<a href="nihelplauncher\3A//docs/csh?context=lvcore..."
+```
+
+— the `nihelplauncher://docs/csh?context=…` id even names the online topic. So one export gives
+terminal names *and* their meaning.
+
+This does **not** extend to primitives. `Sort 1D Array`, `Read from Text File` and friends are
+nodes, not VIs: an export gives their terminal names and nothing else. For those, the only
+documentation is the terminal name itself and LabVIEW's online help.
+
+### Driving a generated VI with `RunVIAsTopLevel`
+
+The RPC moves control values as **strings through a variant**, which constrains the connector
+pane of any VI you intend to drive this way. Measured, all three on LabVIEW 2026:
+
+| Terminal | Result |
+|---|---|
+| `string` in, `string` out | works |
+| `path` **in** | `Error 91 ... Control Value\3ASet` — the variant will not coerce string to path, and it fails *before* the VI runs (`inputsSent` counts the attempt) |
+| `array` or `cluster` **out** | `Error 91 ... Variant To Data` — **the VI has already run correctly**; only the read-back fails, and the outputs come back as empty strings |
+| `bool`, `int32` or `cluster` **out** | `Error 91 ... Variant To Data`, and **that one indicator** comes back empty. Marshalling is **per indicator, not all-or-nothing**: one response carried a `string` indicator's full value while `status` (bool), `code` (int32) and `error out` (cluster) were all blank. So `errorCode 91` means "at least one output could not be read" — never "the VI failed". |
+| `double` **in** | `Error 91 ... Control Value\3ASet` — the same wall as `path`, and it also fails *before* the VI runs. Measured twice on the same control, as the JSON string `"100"` and as the JSON number `100`: neither coerces to a DBL. **This contradicts `lvai_run_vi_as_top_level`'s own description**, which says to pass numbers as their text form; that does not work. Numeric controls cannot be driven at all — take the number in as `string` and convert on the diagram. |
+
+**There is now a way out of the read-back half of this, and it is a shipped tool.**
+`lvai_run_vi_and_read_values` sets the inputs, runs the target and reads **every** control and
+indicator back through VI Server, flattening them to XML so the whole result crosses as one
+`string`. A boolean, cluster, array or waveform output is fully readable through it; measured on
+a VI whose three outputs — waveform, bool, error cluster — were all blank under plain
+`RunVIAsTopLevel`, and came back complete (`dt = 0.1`, eight Y samples, `loaded? = 1`) with
+`errorCode 0`. The advice below still governs what you can **send in**, and still applies to any
+helper you drive directly; it no longer forces you to design outputs around the marshaller.
+
+**Which operations burn a path for regeneration — measured in one isolated A/B run.** Same
+trivial VI, same path, one LabVIEW session, regenerating after each step in turn:
+
+| done before regenerating | `ConvertAIXMLToVI` |
+|---|---|
+| nothing (control) | `0` |
+| `ConvertAIXMLToVI` itself | `0` |
+| `ConvertVIToAIXML` — exporting it | `0` |
+| `RunVIAsTopLevel` — actually running it | **`0`** |
+| `lvai_run_vi_and_read_values` | `0` |
+| **`OpenFile`** | **`1357`** |
+
+**This corrects the row in §11, which claimed `RunVIAsTopLevel` leaves a VI loaded too.** It does
+not — running a VI as top level costs you nothing, and the fresh-name-per-iteration rule is
+therefore more conservative than it needs to be. What holds a VI in memory is an open **window**,
+not the fact that it executed; that also explains why the escape is a person closing the window.
+Caveat worth stating: measured on a two-element VI with no subVIs, so a VI that pulls a hierarchy
+in may behave differently — but the *cheap* operations are now known to be safe, and
+`lvai_run_vi_and_read_values` reaches its target through a reference it closes again, which is
+why it too leaves the path free.
+
+**Set, run and read must be ONE call.** Measured, and it is the trap that makes the obvious
+composition wrong: a `RunVIAsTopLevel` followed by a *separate* read of the same VI returns that
+VI's **defaults** — `Y` empty, `dt = 1.0`, `loaded? = FALSE` — not the values of the run that
+just happened. The two calls do not share the VI's data space, and nothing about the answer
+looks stale. Hence one helper holding one VI reference across all three steps
+(`scripts\lvai_run_and_read.xml`), not two tidy calls.
+
+Consequences for authoring:
+
+- Take paths **and numbers** in as `string` and convert on the diagram — `String To Path`
+  (`inputs="string:…"` → `outputs="path:…"`). This is why the icon/connector-pane helper VI in
+  `scripts\lvdoc_print.xml` has string controls and three conversion nodes.
+- **Return strings.** Only `string` indicators survive the round trip. `bool`, `int32` and clusters
+  come back blank and raise `errorCode 91` — but *only for themselves*: mixing is fine, the strings
+  still arrive. So convert on the diagram and read text, e.g. `Select` between two string constants
+  to turn a bool into a readable answer, and unbundle an error cluster's `source` rather than wiring
+  the cluster out whole.
+- **An empty string means "no error" at least as often as it means "not marshalled" — this document
+  got that wrong.** An earlier revision claimed a `status`/`code`/`source` trio came back entirely
+  empty because the non-string types poisoned the response. It did not: `source` was blank because
+  the helper had genuinely succeeded, and only `status` and `code` failed to marshal. The reading
+  cost real work, because the icon helper's result was declared unverifiable and checked against the
+  filesystem instead. Give a helper one string output that is **never** empty on success — a state
+  word, a path, anything — and the ambiguity disappears.
+- **`errorCode 91` is not proof of failure.** Distinguish the two: an empty `source` string means
+  the VI ran clean, and a non-empty one carries the real error. When the output type cannot be
+  read at all, verify out of band — write the result to a file and inspect that, rather than
+  trusting an empty answer either way.
+
+### Naming elements instead of numbering them
+
+`uid` may be a **symbol** rather than a number — `uid="read"`, `outputs="value:read.data"` — and the
+MCP server assigns the numbers immediately before the file goes to LabVIEW, which never sees a
+symbol. `lvai_validate_aixml`, `lvai_convert_aixml_to_vi` and `lvai_apply_aixml_to_vi` all accept
+it.
+
+The reason is measured, not aesthetic: profiling one whole generation put a single turn of **47 s**
+on "planning out the unique uids", pure notation overhead with no bearing on what the diagram does.
+The format needs numbers; the author does not need to keep a numbering scheme in their head while
+deciding what to wire to what.
+
+A symbol starts with a letter or underscore and contains letters, digits, underscore or hyphen.
+Dots and colons are reserved — they separate a uid from a terminal name. `root` keeps its meaning
+and is never treated as a symbol. Numbers and symbols may be mixed in one file.
+
+What the response tells you when symbols were used: `symbolicUids` maps each symbol to the number
+it was given, and `aiXmlSentToLabview` is the numbered file LabVIEW actually read. Messages naming
+a `uid` are translated back; a bare number is deliberately **not**, because turning `-200220` or
+`Error 1357` into a symbol name would be a worse failure than leaving one number untranslated.
+
+Three properties this was built to keep, because a mistake here yields a VI that validates, runs and
+is wired wrongly rather than an error:
+
+- **A file with no symbol is not rewritten at all** — the original path goes to LabVIEW. The same
+  applies to anything unreadable: a missing file, a locked one, malformed XML. That inertness is
+  not a nicety; adding the feature without it broke 13 existing tests at once, which pass paths that
+  were never created and relied on LabVIEW to say so.
+- **The mapping is injective**, one number per distinct symbol.
+- **Numbering starts above the highest number already in the file**, so a symbol can never take a
+  number the author used — **and never below 4200** (`AixmlCheck.SafeUidBase`). Until 2026-09-25
+  it started at the highest number plus one, so a file written only in symbols was numbered 1, 2,
+  3 … inside LabVIEW's reserved range, which costs one DWarn per element per generation: the fourth
+  ATM cold build numbered 36 symbols 1..36 and the next `lvai_status` read 82 events.
+
+### Starting from a skeleton
+
+`scripts/aixml-skeletons/` holds complete, validated AIXML whose purpose is to be read and copied
+from. It answers a different question from `lvai_example_index`: that one says *has NI already built
+this diagram*, this one says *how is this shape spelled in AIXML*. Skeletons use symbolic uids, so
+elements can be lifted out of one and dropped into your own file without renumbering.
+
+`accumulate-across-a-loop.xml` carries the shape that has been got wrong most often here: a For Loop
+given its `N` by `maxin`, an accumulator on a shift register seeded from an empty-array constant,
+and the seed / append / keep case pair without which the inner indexing loop runs zero times on
+iteration 0 and the accumulator stays empty for the whole run.
+
+**A skeleton is a frozen measurement, and this repository has already shipped one that stopped being
+true.** "A generated VI always gets pattern 4815, so this map is a constant" was correct when
+measured and produced a wrongly-populated connector pane on a station configured differently. So:
+
+- skeletons carry **no `conIdx`** — that is a station setting, and `lvai_connector_pane` with no
+  argument is the only honest source;
+- a polymorphic `instance=` in a skeleton is what was measured on the station named in its header,
+  and still wants confirming with `lvai_vi_terminals`;
+- each file states the date, the LabVIEW version and the station it was validated on, so a reader
+  can see how old the claim is.
+
+Copying a skeleton must not replace the lookups that produced it. It replaces the *typing*.
+
+## 11. Known failure modes
+
+| Symptom | Cause |
+|---|---|
+| `Error 7 ... File not found` on the *output* path | The target directory does not exist. LabVIEW's file write does not create directories — create them first. |
+| `Error 53 ... Unsupported SubVI: X` | `Call` target not resolvable; see section 9. |
+| `Error 1357 ... A LabVIEW file **from that path** already exists in memory` on `Save\3AInstrument` | The VI at that exact path is loaded, so the second iteration of author-generate-run cannot overwrite it. **`OpenFile` is the only operation measured to cause it** — see the table below, which narrows this considerably. |
+| `Error 1051 ... A LabVIEW file **of that name** already exists in memory` | A *different* file with the same **filename** is loaded. Rename the target. The two errors are distinct and the wording is the tell: 1357 says "from that path", 1051 says "of that name". **The commonest source is your own last validation.** A `ValidateAIXML` that *fails* appears to leave a VI named after the document's `_name` behind, and the next `ConvertAIXMLToVI` for that name is then refused. Observed 5 for 5 across one session: every 1051 followed a failed validation of the same `_name`, and every file that validated cleanly on the first attempt generated without complaint. The fix is free — bump `_name` (and the output file name) after any validation error, which you want anyway per the fresh-name rule. An earlier note here blamed a sibling probe VI that carried the same `_name`; that explanation fitted one case and this one fits all of them. **But it is the output FILE NAME that has to change, not `_name`** — measured 2026-08-29: after two failed validations of `_name="MainVI.vi"`, generating with `_name="MainVI_g1.vi"` to the *same* path gave the identical 1051, and generating with the same `_name` to `MainVI_g1.vi` went through. This row and the tool's own hint both used to say "generate under a fresh name" without distinguishing the two, which sends you to change the harmless one. Recovery without restarting LabVIEW: generate to a scratch file name **in the same folder** so relative subVI links still resolve, then copy the file over the target — LabVIEW derives a VI's name from its file name, and no name is stored in the file (`strings` finds none). Verified by re-exporting the copy: `_name` came back as the target's name, diagram intact. |
+| `<Structure>: Is a member of a cycle` plus `Wire: Is a member of a cycle` | A redundant border crossing, most often an `Out` tunnel added for a shift register's `Right` terminal — see §7. The net already crosses the border implicitly, so the extra tunnel routes the loop's output back to its own input. Delete the tunnel and let consumers outside read the `Right` output net directly. |
+| `Error 1051` on the **first** generation of a path that does not exist yet | A *different* file carrying that VI's internal name is loaded — and the usual cause is self-inflicted: a scratch iteration generated from the deliverable's own XML keeps `_name="Final.vi"` while being saved as `Probe.vi`, so "Final.vi" is in memory under the wrong path. Change `_name` in every scratch variant, not just the file name. Measured: `viExisted: false`, `viExistsNow: false` — nothing was written, and a LabVIEW restart cleared it. |
+| `Object terminal not found for input: width\3A on Number To Decimal String` | A guessed terminal name. Every wrong guess is reported exactly like this, naming the node and the terminal, so the cheap move is to drop the terminal and re-validate rather than guess again. `Number To Decimal String` has no `width` input. |
+| `Control with type=UDClassInst is not supported` / `Property Node with type=UDClassInst is not supported` | **LabVIEW classes cannot be expressed at all.** A class instance is rejected both as a front-panel control and inside a property node, so any VI whose connector pane carries an object — all LabVIEW OOP, and DQMH 5's `Module Admin` — is outside the type grammar. This is a *deeper* wall than `Unsupported SubVI`: inlining the subVIs would not help, because the VI's own terminal cannot be typed. Usually accompanied by `Could not find control with name "X" to apply fixup`. |
+| `Object terminal not found for input: ...` | Misspelled terminal name, or fallout from an unresolved `Call`. |
+| An export of 100–200 bytes containing only `<VI _name=… description=…/>` | **Silent failure, not an empty VI.** The diagram was not readable — inaccessible, password-protected or otherwise withheld — and `ConvertVIToAIXML` still returns `errorCode 0 / "No Error"`. Cross-check with the rendered diagram: if `GetDescribeVIPromptInfo` also carries no `viImage`, the diagram is unavailable. Never conclude "this VI is empty" from a childless `<VI>` element. |
+| **Everything reports success and the VI is hollow** | The generator has two ways of refusing. A `Call` it cannot resolve is a *hard* error (`Unsupported SubVI`). An unsupported **node family** is silent: the container is created, its configuration is discarded, `errorCode` stays 0. Measured on `Event Structure` — frames dropped, one `[0] Timeout` frame left (§7). Never take `errorCode 0` as proof that what you asked for was built: re-export the result and compare, or render it with `--diagram`. |
+| **You asked for a graph and got a cluster** | Third member of the silent family, and the same rule applies one level down: an unknown **`style` token on a control or indicator** is discarded without a word. `ValidateAIXML` returns `errorCode 0` for `WaveformGraph`, `Waveform Graph` and `Graph` alike; only `style="graph21703"` produces a Waveform Graph (§8). Attribute values are not validated at all, so the check is the same one as for a hollow VI — re-export and compare. |
+| **The VI runs, reports no error, and computes the WRONG ANSWER** | **`value="TRUE"` on a boolean is silently read as `false`.** The worst member of the family, because the other two leave something visibly missing and this one leaves a working VI that is simply wrong. Measured, four spellings in one probe VI, all validating with `errorCode 0` and all generating cleanly: <br>`value="true"` → **TRUE** — the only one that works<br>`value="TRUE"` → false `value="True"` → false `value="1"` → false<br>It cost a generated CSV loader a whole debugging round: its `transpose?` constant read `TRUE`, so the file was read untransposed, and the VI returned 1 sample with `dt = 1.0` instead of 8 with `dt = 0.1` — no error anywhere. It was caught only by comparing the numbers against the source file. **Emit exactly lowercase `true`/`false`, which is what an export writes**, and check a boolean constant's effect against real data rather than against `errorCode`. |
+| **A VI in memory CAN be evicted — via the active project** | **Read this row's ending first: there is a working recipe**, in `vi-server-reference.md` under "Unloading a VI so its path can be regenerated". Reach the IDE's application through `{LV.Application}` → `Project\3AActive Project` → `{LV.Project}` → `Application`, open the VI reference *there*, and write `Front Panel Window\3AState` = `Closed`. Measured A/B: `1357` before, `errorCode 0` after. The rest of this row is the long road that found it, kept because every step of it is a thing that does **not** work. The fallback rule remains sound when no project is active: **generate each iteration under a fresh name, and do not `lvai_open_file` a VI you still intend to regenerate.** Measured, in one helper run that itself reported no error: writing `Front Panel Window\3AOpen` **and** `Block Diagram Window\3AOpen` to `False`, then `FP.Set Close If Lonely`, then `Close Reference` — and the regeneration still failed with 1357. The catalogue carries no unload or remove-from-memory method at all across its 3 078 entries. Earlier advice here said "or make LabVIEW release the VI"; that is not achievable through this interface. Closing the VI in the IDE by hand, or restarting LabVIEW, is the reset. **Re-measured on a freshly restarted machine, with the one remaining explanation tested and killed:** the idea that closing the window *modifies* the VI and that a modified VI cannot be unloaded. Reading `Modifications\3AUser Changes` before the close, after it, and after a `Save\3AInstrument` gave **clean, clean, clean** — unsaved changes were never what held it. Same run, no error anywhere in it, regeneration still 1357. What every one of these attempts shared, and what took an evening to see: they all ran in the **addon's** application instance, where the VI's windows do not exist. That is why closing them changed nothing — see the recipe named at the top of this row. **The escape hatch is real, and measured:** a person closing the VI in the IDE by hand frees the path immediately — the very next `ConvertAIXMLToVI` on it returned `errorCode 0`. So when you are stuck on a path, the fix is a human closing that window, not another property write. **Opening the VI inside a project changes nothing** — tested, because "we never opened it in a project, which would be the normal case" is the obvious objection. A hand-written `.lvproj` (§2 of the lvproj reference), the VI generated beside it and opened with both the VI *and* project pairs, `describe_project` confirming it loaded as a real member with `missingFiles: []`: regeneration still `1357`. Project membership is not what holds the file. |
+| `Error 42 ... Generic error` from `ApplyAIXMLToVI` | **Not a payload problem — see §14.** The RPC itself works; it is gated on a per-VI attachment a third-party client cannot obtain. |
+| **A document that converts at `errorCode 0` into an EMPTY VI** — about 3 170 bytes, and a block-diagram heap holding `diag` and nothing else | **An XML COMMENT BEFORE `<VI>`.** Measured 2026-09-11 as a clean A/B over one document: with the leading `<?xml … ?>` declaration ONLY it came out **10 141 bytes** with the full diagram and every event frame registered; with a leading COMMENT only, **3 168 bytes** and an empty diagram — `errorCode 0` both times, no message anywhere. The declaration is harmless; the comment is not. A comment between CHILDREN of `<VI>` is the loud case in the row below. **So the rule is not "comments are risky" but "an AIXML document carries no comments at all"**: outside `<VI>` one costs you the whole diagram in silence, inside it costs you a message that names nothing. Skeletons under `scripts/aixml-skeletons/` therefore document themselves in a sibling `.md`. The cheap tell is the size — a VI of about 3 170 bytes is empty whatever it was meant to contain. |
+| `Error 42 ... Generic error` from **`ValidateAIXML`** | **Suspect an XML comment first — but know that comments are not always fatal, which is what makes this row long.** Measured 2026-08-27 on a generated test VI: the file failed with `Error 42`, and the SAME file with its three `<!-- case n -->` lines stripped and nothing else changed validated `errorCode 0` and generated. A single `<!-- plain -->` put back between two child elements of `<VI>` failed again, so the comment's text is irrelevant. That reproduces the original 2026-08-13 finding. **THAT PARADOX IS RESOLVED, 2026-09-11, and the resolution is worse than the paradox.** This row used to offer `scripts/aixml-skeletons/accumulate-across-a-loop.xml` as proof that comments are survivable, because it "still validates `errorCode 0` today carrying two comments". It validated — and `ConvertAIXMLToVI` on that same file wrote an **EMPTY VI**, 3 172 bytes, a block-diagram heap holding `diag` and nothing else, at `errorCode 0`. The discriminator was never found because the wrong operation was being watched: validation is not conversion and says nothing here. Stripping both comments took that file to a real 13 916-byte VI — see the row above. Three candidates were also tested and killed on the failing file: adding an `<?xml … ?>` declaration (still fails), adding a UTF-8 BOM (still fails), and the comment's content (a bare word fails too). **The practical rule: do not emit comments into AIXML you generate.** They buy readability in a file nobody reads twice and they cost a failure whose message names nothing. When you do meet this error, bisect — this message carries no line, no column and no element, while the well-formedness errors the RPC *does* report are precise to the column (`Line 5, Column 308, missing required attribute 'outputs'`), so a bare generic error reads as a deep structural fault and invites rewriting a diagram that is fine. |
+| **Every `lvai_*` call stops answering after you ran a generated VI** | The VI you generated is showing a MODAL DIALOG, and LabVIEW answers nothing until a human dismisses it. The known cause is the missing-subVI prompt, but there is a second, entirely independent one that fires on ordinary input: **a palette VI whose path input is named `… (dialog if empty)` opens a file dialog when handed an empty path.** `Read Delimited Spreadsheet.vi` has exactly that — `file path (dialog if empty)` — so a generated VI that passes an unvalidated file name through it wedges the session on the emptiest possible input. The terminal *name* is the only warning. Guard it on the diagram: compare the string against `""` and `Select` a placeholder path, which turns the hang into an ordinary file error. Measured: with the guard, an empty name returns in under 40 ms and no dialog appears. **Which error code you get depends on the placeholder you chose** — an absolute one that does not exist gives `7` (file not found), a bare relative name gives `1430` (path is empty or relative). Both are fine; just do not copy a code out of this table into a VI description without measuring your own. **Those two codes were measured on a READ, and they do not transfer to a CREATE — see the row below.** |
+| **A relative placeholder path silently writes into the LabVIEW installation directory** | The guard above, applied to a node that *creates*. `TDMS Open` with `operation` = `create or replace` does **not** reject a bare relative name: it resolves it against LabVIEW's working directory and creates the file there — measured in a generation run on 2026-08-14, which left `DaqReadAndTDMS_no_path_given.tdms` and its `_index` inside `C:\Program Files (x86)\National Instruments\LabVIEW 2026\` while the VI's own description claimed a file error had been returned. The `1430` in the row above came from `Read Delimited Spreadsheet.vi`, a **read**, where a relative path is invalid; for a create it is perfectly valid and gets created. **A file-path error code measured on one direction says nothing about the other.** Two consequences. If you use a placeholder at all, make it **absolute**. And check first whether the node needs a guard: the terminal name is the tell — `TDMS Open` takes `file path`, not `file path (use dialog)` or `(dialog if empty)`, so it cannot open a dialog, and an empty path returns error `118` in 48 ms on its own. The guard was protecting against something that node does not do. **Confirmed independently the same day with a purpose-built two-node probe** (`TDMS Open` → `TDMS Close`, create-or-replace, path taken as a string and converted on the diagram, error cluster unbundled): the bare relative name `lvai_probe_relative.tdms` returned **`status false`, `code 0`** — success, not an error — and the file plus its `_index` were then found at `C:\Program Files (x86)\National Instruments\LabVIEW 2026\`; the same probe with an **empty** path returned **`code 118` in 25 ms**, with `file path out` reading `<Not A Path>` and no dialog. Two runs of one VI settle both halves. |
+| **A generated VI wedges LabVIEW on the SECOND run, having worked the first time** | A **valid** path is enough. `Export Waveforms to Spreadsheet File.vi` and its `Write Delimited Spreadsheet.vi` siblings open a modal **`Replace existing "<path>"?`** dialog whenever the target file already exists and `append to file? (new file\3AF)` is FALSE — no empty path, no missing subVI, nothing the terminal names warn about. Measured 2026-08-24 on `DaqReadAndTDMS.vi`: the VI both logged TDMS to a path *and* handed that same path to the exporter, so the file existed **within the same run** and the very first execution hung; every `lvai_*` call answered `DeadlineExceeded` while `LabVIEW.exe` still answered the OS and the main frame reported `IsWindowEnabled = false`. The dialog carries an **empty window title**, so a window enumeration filtering on title finds nothing and the wedge looks like a deadlock — enumerate on `IsWindowEnabled` instead: an enabled `LVDChild` under a disabled `LVFrame` is a modal dialog, and `WM_CLOSE` to it is Cancel. **The fix is on the diagram, not in the call:** open the target with `Open/Create/Replace File` (`operation` = `4`, replace or create — or `3`, open or create, when appending) and `Close File` it before the exporter runs, then pass `append to file? = TRUE`. The file is then guaranteed to exist in the state you want and no confirmation is ever asked. Verified in `WriteWaveformsToCSV.vi`: repeated runs over an existing CSV return `status false`, `code 0`, no dialog. |
+
+## 12. This document has been tested
+
+A VI was authored from nothing but the rules above — while loop, uninitialised shift
+register, a three-terminal fan-out net, `Increment`, `Greater?`, a stop condition, two
+border tunnels, a connector-pane control and indicator, and a comment. Result:
+
+1. `ValidateAIXML` → `errorCode 0`
+2. `ConvertAIXMLToVI` → a real 7.3 KB `.vi`
+3. `ConvertVIToAIXML` on that new VI → **output identical to the authored input**, element
+   for element, attribute for attribute
+
+So the format description round-trips. If an authoring attempt fails, suspect a terminal
+name (section 8) or a `Call` target (section 9) before suspecting the structure rules.
+
+## 13. Open questions
+
+- Whether `MonitorCodeCompletion` accepts AIXML in `CodeSuggestion.changes`. Probably moot:
+  the monitors deliver to a single subscriber and NI's own service always wins that race
+  (§14), so a third-party client never receives the event to answer in the first place.
+- Whether `Tunnel.cond` has meanings beyond the observed `true`.
+- The full set of `Structure._name` values **for reading**. Five kinds are confirmed (While
+  Loop, For Loop, Case Structure, Event Structure, Flat Sequence Frame) and both disable
+  structures are confirmed as `Node`+`Diagram`. Still unseen: Stacked Sequence, In Place
+  Element Structure. (Timed Loop is on NI's unsupported list for *generation*; whether it
+  exports is untested.)
+- What exactly the "supported node catalog" contains. NI names the concept (§9) but does not
+  enumerate it, so the resolution probe remains the way to test a specific target. One data
+  point: the **DAQmx** API resolves and generates fine — including its polymorphic
+  `Create Virtual Channel` and `Read` — although it ships as an LVAddon rather than in core
+  `vi.lib`. So the catalog is not limited to what LabVIEW installs by itself.
+
+## 14. `ApplyAIXMLToVI` works — but not for you
+
+> **STANDING RULE, the user's instruction of 2026-09-16: DO NOT CALL IT. Not as a first try, not
+> as a cheap probe, not "to check whether the gate has opened" — only when the user asks for it
+> explicitly, by name, in that session.** It is settled: every configuration anyone here controls
+> has been measured, and the whole of this section is the evidence. Re-measuring a settled
+> negative costs turns and teaches nobody anything. **And since 2026-09-16 it no longer even
+> announces itself** — the refusal is a silent `errorCode 0` with the diagram unchanged, so the
+> old "expect `Error 42` and fall through" advice now reads as success. See the last subsection.
+>
+> The consequence for editing: **an AIXML edit is a full regeneration**, and where an existing
+> VI's front panel must survive that, say so and let the user choose the route. Do not go looking
+> for a way in through this RPC.
+
+This RPC patches an existing VI *surgically*, and that is worth knowing before writing it off.
+Measured on a VI patched through NI's own assistant:
+
+```diff
+1a2
+>   <FreeLabel comment="Hello World" uid="60" uid_parent="root"/>
+```
+
+One added line. All 56 other elements byte-identical, every `uid` unchanged, order preserved.
+So "apply" is literal — not a regenerate-and-overwrite behind a friendly name.
+
+**From a third-party client it always returns `Error 42 (generic)`.** Sixteen variables were
+ruled out as the cause. Every run carried two controls in the same call —
+`ValidateAIXML` and `ConvertVIToAIXML` against the same payload and the same target — and both
+returned `errorCode 0` every single time. So the server, the payload and the target VI were
+demonstrably fine in each attempt.
+
+| Ruled out | How |
+|---|---|
+| XML shape | full state, delta, `<Changes>` root, minimal single `FreeLabel` |
+| Target VI | the *same* VI that NI's assistant patches seconds earlier still fails |
+| Editor state | VI open, VI active, project open, project closed |
+| `uid` value or range | 5000, 5001, 90000, and low unused values 61–71 |
+| Client stack | C# (`Grpc.Net.Client`) **and** Python (`grpcio`) with hand-generated stubs — so it is not an artefact of one implementation |
+| LabVIEW process | before a crash, after it, and on a freshly started instance |
+| Assistant service | running, killed, and disabled via the registry |
+| Assistant login | logged in **and** logged out |
+| **VI activated for the assistant** | `labview:set_active_file` confirmed successful in the log, `Apply` fired 31 s later — still 42. See below; this is the decisive one. |
+| Paths | a missing XML file or VI gives a clean `Error 7` instead |
+| Parsing | malformed XML gives `Error -2628` ("error occurred while parsing"), so well-formed input *is* parsed and 42 comes later |
+
+**It fails cleanly.** Exporting the target afterwards shows none of the attempted `uid`s and a
+`.vi` of unchanged size — there is no partial write. Attempting it costs nothing but the round
+trip, which is worth knowing before experimenting on real code.
+
+### Retested after the v26.3 add-on update — still `Error 42`
+
+Re-measured 2026-08-22, on the suspicion that the upgrade had opened this up. It has not. Six
+configurations, every one `Error 42 occurred at LV AI Core.lvlibp:Apply code changes.vi`:
+
+| Configuration | Result |
+|---|---|
+| Patched payload (one added `FreeLabel`, unused `uid`), VI loose | 42 |
+| **Unmodified export** as payload — no delta at all | 42 |
+| VI opened in the IDE via `lvai_open_file` | 42 |
+| VI a confirmed member of a project (`describe_project`, `missingFiles: []`) | 42 |
+| VI generated *into* its project, never opened loose, first open through the project | 42 |
+| Same, with that project confirmed **active** | 42 |
+
+Two of those rows are new evidence rather than repetition. **The unmodified export fails
+identically**, so the failure happens before any diffing logic — it is a gate, not a payload or
+delta problem, which retires "XML shape" as a suspect for good. And the **active-project** row
+closes the objection that the earlier sweep never opened the VI the way a person would: the project
+was proven active because `lvai_close_active_project` later closed *that* project by name.
+
+Verification that nothing happened: the target's export before and after is **byte-identical**
+(1 193 bytes), with zero occurrences of the inserted `uid`. Note that the `.vi` file's md5 *did*
+move while its length did not — that was LabVIEW saving the VI when the project closed, not the
+apply. A changed hash at unchanged length is not evidence of a partial write; re-export and compare
+the AIXML instead.
+
+`§14`'s conclusion therefore stands unchanged: the RPC works, it is gated on a per-VI attachment
+established by the IDE's "Discuss with Nigel…" command, and that attachment is not reachable from a
+third-party client. The one variable still untested from here is a human performing that command on
+the exact VI and an `Apply` firing immediately after — worth trying if the opportunity arises, but
+the table above already rules out everything a client controls on its own.
+
+What it is instead: a **per-VI attachment**. The assistant's own trace shows the sequence
+
+```
+GetUserAttachedVIPathsAsync()   ->  which VIs is the user working on?
+ConvertLabVIEWVIToAIXMLAsync()  ->  read it
+ApplyLabVIEWAIXMLToVIAsync()    ->  patch it
+```
+
+and its chat agent is equipped with a tool named **`labview-set_active_file`**. That tool is
+not among the 23 RPCs of `lvai.LVAI`; the corresponding operations (`SetActiveVI`,
+`ObserveForActiveVIChange`) live in a *second* service, `lv_ai_assistant_service`, which is
+not reachable over gRPC.
+
+The attachment is established by the IDE's **"Discuss with Nigel…"** command, which fires
+`MonitorDiscussVI`. And that event cannot be intercepted:
+
+- with NI's service running, it consumes the event; a second subscriber gets nothing
+- with the service **stopped**, the click *starts it* (measured: service up at 10:55:43,
+  `[Discuss VI] Started monitoring` at 10:55:44), and the event still goes to it — even
+  though a third-party watch had subscribed first, while the hook was free
+
+**So the monitors are single-subscriber streams, and NI's service always wins.** That single
+fact explains every unanswered monitor wait in this project. It also rules out intercepting the
+attachment — though as the settled experiment below shows, holding the attachment would not have
+helped anyway.
+
+### The startup race, measured
+
+The last hope was to subscribe *before* NI's service exists: stop the service, close LabVIEW,
+attach a watcher that polls for the port, then start LabVIEW. The watcher attached 6 seconds
+after the port opened and still lost:
+
+```
+11:11:40   NI's service:  [Discuss VI] Started monitoring for requests
+11:11:46   third-party watcher: attached on port 59533
+           -> 0 events received; stream ended DEADLINE_EXCEEDED
+```
+
+LabVIEW brings its own consumer up with the service, and the service is launched on demand —
+by LabVIEW starting, or by the very click one is trying to observe. There is no window.
+
+### Two side effects worth knowing
+
+**Disabling the assistant in the registry disables this interface too.** With the assistant
+switched off, LabVIEW started but never opened an lvai port at all: 220 s of polling, no
+reflection endpoint anywhere on the machine, `VI Server` on 3363 the only thing listening.
+`lvai.LVAI` is part of the AI feature, not a separate service — so "LabVIEW with the AI
+feature active" in the README is a hard requirement, not a preference. Expect a slower first
+start afterwards too: 115 s against the usual 30–70 s.
+
+**The assistant's own tool calls can look like failures in its log.** Lines such as
+
+```
+Usage count for Code Generation feature left at 1 because operation failed or was canceled.
+```
+
+appear next to calls that demonstrably *succeeded* — the patch above was applied by the very
+call carrying that line. The message describes the usage counter, not the outcome. Verify by
+exporting the VI, never by reading that log line.
+
+### Settled: the attachment is caller-bound, not process-wide
+
+The assistant's chat accepts a direct command that activates a VI without any right-click. Run
+it, then immediately call `ApplyAIXMLToVI` from your own client: if the attachment were
+process-wide it would now succeed. Measured:
+
+```
+14:15:05  [PROMPT] labview:set_active_file C:\Temp\...\Start Module - Stub.vi
+14:15:09  [INVOKING TOOL] labview-set_active_file(filePath)
+14:15:10  [TOOL INVOCATION COMPLETE]        <- succeeded, no FAILED line
+14:15:41  third-party ApplyAIXMLToVI        -> Error 42
+```
+
+Activation succeeded and changed nothing. **The gate is on the caller, not on the VI.** A
+third-party client cannot borrow the attachment by arranging for the VI to be attached — NI's
+assistant is permitted because it brings its own session over `lv_ai_assistant_service`.
+
+That closes the question. `ConvertAIXMLToVI` (regenerate to a new file) is the only write path
+available to a third-party client; §12 covers what it costs.
+
+Two details from running this, in case anyone repeats it:
+
+- **`labview:set_active_file` needs the full path.** Passing just the file name logs
+  `[TOOL INVOCATION FAILED]`; the parameter is called `filePath` and means it literally.
+- **Check the log before trusting the precondition.** The first attempt here looked like a
+  clean negative result but the activation had silently failed — the `Apply` measurement was
+  meaningless. Confirm `[TOOL INVOCATION COMPLETE]` without a preceding `FAILED` line, then
+  measure.
+
+### But TRIGGERING Discuss from a third-party client works — measured 2026-09-10
+
+Everything above asks whether the `MonitorDiscussVI` event can be **intercepted**, and the answer
+stays no. **Emitting** it is a different door, and it is open. This section read as though Discuss
+were unreachable altogether, which is why the distinction is spelled out here: NI's service is the
+only *subscriber*, and that is an argument against receiving the event, not against sending it.
+
+**NI's menu callbacks are LOOSE VIs with intact diagrams**, under
+`LVAddons\lvai\<ver>\resource\plugins\`, owned by `LV AI Plugins.lvlib`. So they export, and they
+can be read rather than guessed at:
+
+```
+lv_discuss_with_nigel.vi        vi path (path), vi name (string), fileType constant = 1
+  -> lv_discuss_file_with_nigel.vi      path (path), name (string), fileType (uint32 enum)
+       [frame 1]  LV AI Core.lvlibp:Launch Nigel Chat.vi
+       [frame 2]  LV AI gRPC Service.lvlibp:gRPC Implementations.lvlib:InvokeDiscussVI.vi
+```
+
+**And `LV AI Plugins.lvlib\3Alv_discuss_file_with_nigel.vi` RESOLVES as an AIXML `Call` target** —
+`errorCode 0` from `ValidateAIXML`, which extends §9's resolution list: a library-owned loose VI
+under `LVAddons` resolves by its qualifier even from `resource\plugins`, a folder the list did not
+mention. The two VIs it calls in turn are **packed-library members and do not resolve**, so the
+callback is the only reachable rung of that ladder.
+
+**This paragraph used to read "call the callback, not `InvokeDiscussVI.vi`", and the shipped tool
+now does the opposite.** The argument for the callback was its `Flat Sequence`: it launches the chat
+before pushing, and `InvokeDiscussVI.vi` exposes no error terminal, so no wire could order the two.
+That is a real constraint and it is not the only way to order anything — a data dependency does it
+just as well, and the callback costs more than it saves, because it **returns nothing at all**.
+
+**So drive NI's two VIs yourself, over VI Server, and keep the verdict.** Both open by qualified
+name; four things had to be established first, all measured 2026-09-10:
+
+| question | answer |
+|---|---|
+| do the packed-library VIs open by qualified name? | yes, both, `Execution:State` **1** — idle, so runnable |
+| does `Ctrl Val.Set` accept InvokeDiscussVI's three controls? | yes — the string, the **`path`**, and the **`uint32` enum**, all `code 0` |
+| where does a correctly typed enum variant come from? | an **AIXML-authored enum constant**. `Ctrl Val.Set` type-checks the variant against the control, and this is the piece that made the route possible |
+| does `Run VI` on `Launch Nigel Chat.vi` block? | **no** — 181 ms for the whole helper against 667 ms through the callback, with the chat appearing from a closed state |
+
+Ordering comes from a `Select` whose two branches are the **same** string, gated on the launch's
+`status`: the value is unchanged, the data dependency forces the launch to finish first, and a
+launch failure is *reported* rather than allowed to suppress the push — which is what NI does, since
+it leaves that error out unwired.
+
+The prize is `error code` and `error message`, read back with `Ctrl Val.Get All` after the run.
+`lvai_discuss_file` reports them as `discussErrorCode`/`discussErrorMessage` and gates `ok` on them.
+
+**Exercised through the tool across all three paths**, same day: a `.vi` and a `.lvproj` both
+`ok: true` with `discussErrorCode 0`, and a non-VI refused before any RPC. `fileType` given as
+lowercase `project` folded correctly to the enum. **175 ms warm against 1 793 ms on the first call
+of a session** — the first one pays port discovery and LabVIEW loading the helper, so do not read
+the cold figure as the cost of the operation.
+
+Measured end to end: the chat application appeared (`LVNigelChat`, process 91 s old at the check,
+`server_url.txt` written two seconds after the process start) and the chat showed the VI with its
+diagram, description and terminal table. `lvai_discuss_file` is this, shipped;
+`scripts/lvai_discuss.xml` is the helper.
+
+**Both file types are confirmed through the tool**, measured the same day once it shipped. A `.vi`
+with the chat closed: `errorCode 0`, `chatStartedByThisCall: true`, **667 ms** including generating
+the helper. A `.lvproj` with `fileType PROJECT`: **11.3 s**, and the chat displayed and explained
+the project — so `DISCUSS_FILE_TYPE_PROJECT` is not merely accepted, it is served. The extra ten
+seconds are NI's, spent reading the project.
+
+And the extension check is genuinely LabVIEW-free, which fell out as a bonus measurement: it
+refused an `.xml` target correctly **while the gRPC service was down**. Had that check sat behind
+the RPC, the answer would have been a connection failure instead.
+
+**It does NOT unlock `ApplyAIXMLToVI`, and that settles the open variable above.** This section
+ends by naming the one thing untested from here — "a human performing that command on the exact VI
+and an `Apply` firing immediately after". Done programmatically: Discuss fired on a VI from our own
+client, `Apply` on that same VI 30 s later, **still `Error 42`**. The gate is on the caller, and
+triggering Discuss does not move it.
+
+**Re-measured over BOTH emit routes, which is what makes that conclusion safe.** The first test
+went through NI's menu callback; repeating it after the direct `InvokeDiscussVI.vi` route — with
+`discussErrorCode 0`, so the push demonstrably succeeded — gave `Error 42` again. That closes the
+objection that the callback might have been what Apply objected to. Three independent activations
+now fail the same way: NI's assistant activating the file itself, our push through the callback, and
+our push through InvokeDiscussVI. **Emitting Discuss and being allowed to write are unrelated
+permissions.**
+
+Three traps, each measured on this route:
+
+- **NI's callback returns NOTHING** — it discards `InvokeDiscussVI`'s `error code` and `error
+  message` by its own design, so through it a silent success and a silent failure are
+  indistinguishable. That is the whole reason the shipped route goes one level deeper; it is listed
+  here as the property of NI's VI that it is, not as a limit anyone still has to live with.
+- **The chat validates the file ITSELF, and it is the ONLY thing that does.** Handed an `.xml` path
+  with `fileType` VI, the chat window showed a red banner — *The file you selected is not a VI.* —
+  while every call in the chain answered `errorCode 0`. Re-measured against `InvokeDiscussVI.vi`
+  **directly**, now that its verdict is readable: `error code 0` there too. So NI validates at no
+  level a caller can see, and an extension check in the caller is not the cheaper guard, it is the
+  only one.
+- **An enum indicator is unreadable under `RunVIAsTopLevel`.** A `uint32{…}` echo came back **empty
+  with `errorCode 91`** *after* the VI had run correctly — §10's marshalling limit, seen from the
+  output side. Echo the enum's item name as a **string** instead.
+
+One more fact worth having, measured while establishing the above:
+**`Ctrl Val.Get All` returns INDICATORS ONLY**, despite the name. `InvokeDiscussVI.vi` answered with
+its two indicators and none of its three controls, and a VI with no indicators answered `Dimsize 0`.
+Reading a *control* back needs `Ctrl Val.Get` by name.
+
+### Retested with the front panel OPEN AND ACTIVATED, NI's own way — still `Error 42`
+
+Measured 2026-09-11, on the observation that NI's project provider **opens the VI before it pushes
+Discuss**. `resource\Framework\Providers\AI\AI_Item_OnCommand.vi` exports cleanly, and its
+`"NIGEL-DISCUSS"` frame reads:
+
+```
+mxLvGetItemRef.vi                                   the U64 Object -> an Item Refnum
+{LV.ProjectItem}  read VI Reference, Path, Name, Type String
+  VI Reference is a refnum (the item IS a VI)
+    {LV.VI}       read Front Panel Window:State
+    case "Invalid", "Closed"  -> State := Standard        default -> keep the current state
+    {LV.VI}       FP.Open     Activate := TRUE, State
+    Close Reference
+    fileType := DISCUSS_FILE_TYPE_VI
+  VI Reference is NOT a refnum
+    case Type String "Project" -> fileType := DISCUSS_FILE_TYPE_PROJECT, else UNSPECIFIED
+case No Error -> Call LV AI Plugins.lvlib:lv_discuss_file_with_nigel.vi (path, name, fileType)
+```
+
+So the open is real, it **activates** the window, and it is part of the *Discuss* path rather than
+of any apply. The table above ruled out "VI open" through `lvai_open_file`, which is not the same
+gesture, so it was worth measuring properly. Reproduced with a probe helper that copies the
+sequence — reach the project's application instance, `Open VI Reference` there, `FP.Open` with
+`Activate` true and `State` Standard — and confirmed against the VI's own properties
+(`Front Panel Window:Open` **true**, `Front Panel Window:Is Frontmost` **true**, error 0):
+
+| Configuration | Result |
+|---|---|
+| Panel open, activated, frontmost; project active; VI a member; **no Discuss** | 42 |
+| Same, immediately after `lvai_discuss_file` reported `discussErrorCode 0` | 42 |
+| Same, 30 s later, chat window up and showing the VI | 42 |
+| Panel re-opened and re-activated, Apply fired with nothing in between | 42 |
+
+Five refusals, all `Error 42 occurred at LV AI Core.lvlibp:Apply code changes.vi`, and the target's
+export was unchanged each time. **Opening and activating the front panel is not the missing
+precondition**, and §14's conclusion stands: the gate is on the caller.
+
+One near-miss worth recording, because it looked like a finding for two calls. After an Apply the
+panel *appeared* to have closed, which would have meant Apply reaches the VI before refusing —
+and the negative control killed it: with **no** Apply in between, the same two probes disagreed
+about the same panel at the same moment. It was the route, not the state; see the application-context
+measurement in `docs/vi-server-reference.md`. **Two probes that disagree are measuring two things,
+and the cheap control says which.**
+
+### The rest of the provider tree, read while establishing that
+
+Nothing here unlocks Apply, but these are the VIs to read next and they cost one batch export:
+
+- **`Support\Is discuss enabled.vi`** → `LV AI Plugins.lvlib:lv_are_nigel_features_enabled.vi` →
+  `LV AI Core.lvlibp:Are Nigel features enabled.vi`, which answers a **Boolean array indexed by
+  `LV AI Core.lvlib:Nigel feature.ctl`**, collapsed to a `uint32` for LabVIEW's C++ side. Discuss
+  requires `mask AND 3 == 3`, so chat and discuss are the low two bits. A per-feature gate is the
+  right shape for an Apply permission, and this is the only readable end of it.
+- **`AI_Item_OnPopup.vi`** offers "Discuss with Nigel..." (`Menu Tag` `NIGEL-DISCUSS`, weight 8001)
+  only for `Get File Type` = `"Instrument"` or `"Project"`, which is where the VI/PROJECT pair of
+  `fileType` values comes from.
+- **`Support\Cache VIs by project ref.vi`** walks `{LV.Project}` `Get All Descendents` and stores
+  the paths through `Invoke cache.vi`. That is the neighbourhood of the assistant's
+  `GetUserAttachedVIPathsAsync`, and the closest thing to the attachment list that is readable from
+  here — unchased.
+- **`resource\plugins\Show code suggestions.vi`** is the code-completion UI, and it does **not**
+  call `Apply code changes.vi` at all: it calls `Get code suggestions.vi` and hands the result to
+  `LV Nigel Suggestions Window.lvlib:Main window.vi`. Its one `{LV.Application}`
+  `FeatureToggleEnabled` call asks for `Wiring.CodeCompletionTarget.DebugRequest`, which only
+  reveals a debug window. So the apply decision is inside the packed `Apply code changes.vi`, whose
+  diagram NI ships stripped (§15).
+
+### The refusal went SILENT on 2026-09-16 — `errorCode 0`, and nothing written
+
+Everything above says the RPC "fails cleanly" with `Error 42`, and one sentence of it is now
+dangerous rather than merely stale: **`lvai_apply_aixml_to_vi` answers `errorCode 0` with an empty
+`errorMessage` and changes nothing.** Measured on LabVIEW 2026 Q3 (`26.3.1f1`), add-on fingerprint
+`208881B49233C81461F3E0B4`, server `0.0.0-dev (4a7aa8df)`, two arms on one copy of one VI:
+
+| arm | answer | the VI's own AIXML export afterwards |
+|---|---|---|
+| VI **closed**, never opened in the IDE | `errorCode 0`, `errorMessage ""`, `viBytesBefore` = `viBytesAfter` | identical to before — no `Constant`, no net |
+| same VI **open in the IDE** via `lvai_open_file`, applied again | `errorCode 0`, `errorMessage ""` | identical again |
+
+The payload was a two-element document — one labelled string `Constant` wired into an `Indicator`
+that already existed, referenced by the uid its own export had just given it. Neither element
+appeared afterwards.
+
+**Why this matters more than the error code it replaced.** `Error 42` was self-announcing: a caller
+saw a refusal and fell through to regeneration. `errorCode 0` is what *success* looks like
+everywhere else in this interface, so a caller that trusts it will report a VI as surgically
+patched — layout, decorations and icon preserved — when the file was never touched. The editor
+agent used to instruct exactly that ("if it returns `errorCode 0`, the VI was patched in place"),
+and that instruction has been removed rather than qualified.
+
+**Two things NOT established, and they are left as observations rather than dressed up.** The file
+shrank from 7 050 to 5 586 bytes somewhere between the two arms — something saved the VI, and the
+open is the obvious suspect, but the export was byte-equal on both sides of it, so whatever moved
+was compiled code and not the diagram. And nothing here says *why* the code changed from 42 to 0:
+the add-on version, the payload shape and the client are all different from the runs above, and
+separating them would mean more calls on a question the standing rule closes. **What is settled is
+the outcome — the diagram does not change — and that is the only part a caller needs.**
+
+**The check that decides it, whatever the code says: export the VI afterwards and compare.** Not
+the byte size (it moved without the diagram moving), not `errorCode` (0 now means nothing), not
+`errorMessage` (empty). This is the same rule as "ask the file, not the session", one layer down.
+
+## 15. Reach
+
+`ConvertVIToAIXML` works on VIs inside **packed libraries** (`.lvlibp`) as well — a compiled
+module can still yield its complete block diagram (~200 KB of AIXML for a large one). Paths
+inside a `.lvlibp` are not real directories, so directory listing fails where the RPC
+succeeds: address the VI by its path through the `.lvlibp` file.
+
+**"Can" and not "does": it depends on how that `.lvlibp` was built, and NI's own are built
+without diagrams.** Measured on the AI addon's two packed libraries: every VI answers `Error 47`,
+`Unknown heap`, from the exporter. That message names nothing useful; `GetDescribeVIPromptInfo` on
+the same path gives the real reason —
+
+```
+Error 1012 ... Cannot load block diagram.
+Property Name: Block Diagram
+The block diagram for ...\LV AI Core.lvlibp\...\XML generator.vi could not be loaded
+but is required by this property or method. (Traverse Failed)
+```
+
+So treat `Error 47` from the exporter as "diagrams were stripped at build time", and reach for
+`lvai_describe_vi` when you need to know why. **`describe_vi` is also the fallback that still
+works**: its `viXml` and `viImage` come back empty, but `controlsIndicators` is populated, so a
+diagram-less VI still yields its terminals. For the connector pane of many VIs at once there is a
+cheaper route that needs no diagram at all — `Connector Pane\3AReference` → `Controls[]` →
+`Label` → `Text`, which is what `scripts/lvai_inventory.xml` does; see
+[`vi-server-reference.md`](vi-server-reference.md).
+
+That makes read-only analysis possible on projects that link only compiled components, with
+no source checkout. Writing back is a different matter — see §9 and §11.
+
+### Finding VIs on disk: two containers that hide them
+
+Both bit here, and both produce a *false negative* that looks like "the driver is not
+installed":
+
+- **`.llb` is a single file, not a directory.** `find … -iname "DAQmx Read.vi"` can never
+  match a VI inside one, no matter which root you search. A driver's whole API can live in a
+  handful of `.llb`s — e.g. `read.llb`, `write.llb`, `create/channels.llb`.
+- **LVAddons live outside the LabVIEW tree.** Drivers ship as add-ons under
+  `C:\Program Files\NI\LVAddons\<name>\<version>\`, with their own `vi.lib`, `examples` and
+  `menus`. Searching every `…\National Instruments\LabVIEW <year>\` directory finds nothing.
+
+So: search for the `.llb` files themselves, and check `LVAddons` before concluding anything
+is missing. The reliable existence test is not the filesystem at all — it is a `Call` in a
+small AIXML file put through `ValidateAIXML` (§9).
+
+A related trap in shell probes: suppressing `2>/dev/null` turns a path typo into an empty
+result that reads exactly like "no matches". Keep stderr visible when a negative result would
+change a conclusion.
+
+## 16. A `.ctl` exports to AIXML as an EMPTY `<VI>` — with `errorCode 0`
+
+Measured 2026-08-28. `ConvertVIToAIXML` on a control file succeeds and returns **47 bytes**:
+
+```xml
+<VI _name="Pflanze_export.ctl" description=""/>
+```
+
+The control it was asked about had a six-field cluster with two bound typedefs. None of it appears —
+not the cluster, not one field, not a name. NI lists `.ctl` as unsupported for *authoring*; this
+records that **reading** one is equally empty, and that it reports success while doing it.
+
+The consequence is worth spelling out, because the round trip it kills is an obvious thing to try:
+*export a class's private data to a `.ctl`, convert to AIXML, edit the structure, convert back,
+import*. Step two returns nothing to edit, so step four would write an **empty** control, and
+importing that would erase the class's private data. `errorCode 0` at every step.
+
+Read a `.ctl` with `pylv_extract` instead — it needs no LabVIEW and carries the whole heap.

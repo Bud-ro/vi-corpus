@@ -1,0 +1,1337 @@
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
+using LabVIEWMcp.Grpc;
+using LabVIEWMcp.Infra;
+using LabVIEWMcp.Lvai;
+using ModelContextProtocol.Server;
+
+namespace LabVIEWMcp.Tools;
+
+/// <summary>
+/// Two fixed-order sequences, each collapsed into one call.
+///
+/// WHY THESE TWO AND NOT A GENERAL BULK ENDPOINT. Measured over one full generation session
+/// (DaqReadAndTDMS.vi plus its subVI, 2026-08-25): 55 tool-call turns, 810 s of wall clock, and
+/// the LabVIEW-side time the tools themselves reported for every writing step added up to
+/// **19 s** - 4.2 s across three validates, 11.4 s across three generations, 1.0 s across two
+/// extracts, 2.3 s across three rebuilds. The rest was turn latency, which CLAUDE.md already
+/// measures at about 7 s per turn. So the thing worth removing is round trips.
+///
+/// But only where the ORDER IS KNOWN IN ADVANCE. Most of that session's sequence was not bulkable
+/// and still is not: `--list` the anchors, then choose a mapping; measure a pane, then decide
+/// whether the pattern or the assignment is the wrong half. Each of those needs a human or a model
+/// to read the previous answer. Two sequences never do:
+///
+///   validate -> convert -> measure the pane        (<see cref="GenerateViAsync"/>)
+///   close project -> extract -> edit -> rebuild    (<see cref="PyApplyAsync"/>)
+///
+/// LATENCY IS THE SMALLER HALF OF THE REASON. Both sequences have a step that is easy to skip and
+/// expensive to skip. `lvai_convert_aixml_to_vi` cannot see a badly placed connector pane -
+/// CLAUDE.md records that shipping twice - so <see cref="GenerateViAsync"/> will not report success
+/// without the measurement. `pylv_rebuild` answers with a `gatesNotChecked` list because it cannot
+/// check them itself; <see cref="PyApplyAsync"/> is the composition that can, and closing the
+/// project first is the gate whose omission wedged a session on 2026-08-24.
+///
+/// WHAT IS DELIBERATELY NOT HERE: parallel fan-out. Six generate calls issued together took 559 ms
+/// against 543 ms one after another - LabVIEW serialises the work - so concurrency buys nothing and
+/// costs one slow VI blocking the rest.
+/// </summary>
+[McpServerToolType]
+internal sealed class BulkTools(LvaiConnection connection)
+{
+    private static readonly JsonSerializerOptions Indented = new() { WriteIndented = true };
+
+    // ---------------------------------------------------------------- generate
+
+    [McpServerTool(Name = "lvai_generate_vi", Destructive = true, OpenWorld = true,
+                   Title = "Validate, generate and pane-check a VI in one call")]
+    [Description("""
+        MUTATING: the whole create-a-VI sequence in one round trip - lvai_validate_aixml, then
+        lvai_convert_aixml_to_vi, then lvai_connector_pane on the result. Stops at the first step
+        that fails and reports which one, so a failure reads the same as calling the three by hand.
+        USE THIS INSTEAD OF THE THREE SEPARATE CALLS when you are generating from AIXML you have
+        just authored. It is not a shortcut past them: each step's own answer is returned under
+        `steps`, including elapsedMs, so nothing is hidden.
+        THE PANE CHECK IS THE POINT, not the saved turns. lvai_convert_aixml_to_vi cannot see a
+        badly placed connector pane and neither can a run: a VI whose inputs sit on the output edge
+        validates, generates and executes. That defect has shipped twice. `ok` here is false when
+        the pane breaches NI's style guide, and the corrected conIdx values come back ready to
+        paste - author them into the AIXML and call this again.
+        `ok` false with `paneViolations` > 0 still means the .vi FILE WAS WRITTEN. The generation
+        succeeded; it is the pane that needs another pass.
+        Pass measurePane=false to skip the measurement - only worth it for a scratch probe with no
+        connector pane at all.
+        Pass panePattern to put the result on a SPECIFIC pane pattern instead of the station
+        default - needed when the VI must match a pane that already exists, because a caller's
+        wires bind to terminal positions and the same conIdx means different edges on a different
+        pattern. It runs before the measurement, so what comes back describes the final pane.
+        IT CALLS YOUR OWN CODE DIRECTLY WHEN THAT CODE IS OPEN IN LABVIEW. ValidateAIXML refuses a
+        Call to a project-local VI or class member in every state, while ConvertAIXMLToVI resolves
+        it by name once the target is loaded - opened through its project, opened loose, or for a
+        class any one member opened. So when validation names ONLY `Unsupported SubVI` targets,
+        this converts anyway, under a throwaway _name so a refusal burns nothing, and then gates
+        on the VI being EXECUTABLE in place of the validation that could not check those calls.
+        The answer says so under `loadedSubVIs`. If the targets were not loaded the convert
+        answers Error 53 and the note names them: open one through its project with
+        lvai_open_file and call again. That replaces lvai_placeholder_subvi + lvai_swap_subvis
+        for a caller of project code; a .ctl is NOT a Call target, and a constant feeding a
+        typedef input still needs lvai_bind_typedef_constants. docs/aixml-call-loaded-vi.md.
+        """)]
+    public async Task<string> GenerateViAsync(
+        [Description(@"Absolute path to the source AIXML .xml file")] string aiXmlFilePath,
+        [Description(@"Absolute path of the .vi to create - WILL BE OVERWRITTEN")] string viPath,
+        [Description("Open the created VI in the LabVIEW editor")] bool openVI = false,
+        [Description("Measure the connector pane afterwards and gate `ok` on it")]
+        bool measurePane = true,
+        [Description("""
+            Connector pane PATTERN the generated VI must end up on, e.g. 4815. Omit to keep
+            whatever LabVIEW.ini's DefaultConPane gives it, which is the normal case.
+            Pass it when the VI has to match a pane that already exists - a caller's wires bind to
+            terminal positions, and the same conIdx means different edges on a different pattern.
+            Applied after generation by the same pylabview step as
+            pylv_apply {"op":"conpane"}, so it moves NO terminal and no caller has to change; it
+            also closes the active project first, because a rebuild under a loaded VI writes the
+            file while LabVIEW keeps serving its stale copy.
+            """)]
+        int? panePattern = null,
+        [Description("Local budget in seconds, per step")] int timeoutSeconds = 300,
+        CancellationToken ct = default,
+        [Description("""
+            Render the generated block diagram and report its size under `diagramSize`, with the
+            longest dependency chain read off the AIXML. On by default: the rule is a diagram of
+            about 1920 x 1080, and three agent builds in a row shipped main VIs 3306-4152 px wide
+            while every other check was green. An over-budget diagram does not fail the call - the
+            VI is written - but the answer says so and names the chain to fold into a subVI.
+            Costs one render, 90-320 ms measured.
+            """)]
+        bool measureDiagram = true) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            var total = Stopwatch.StartNew();
+            var steps = new JsonArray();
+            var aixml = new AixmlTools(connection);
+            var sourceAixml = aiXmlFilePath;
+
+            // A .vim TARGET IS REFUSED BEFORE ANYTHING IS WRITTEN. ConvertAIXMLToVI accepts one
+            // and produces a BROKEN malleable VI while this tool reports ok: true with
+            // paneViolations: 0 - measured 2026-09-17, with NI's own VIM as the control. The
+            // refusal has to come first: the point is that no broken file is left on disk for
+            // someone to find later and believe. MalleableVi.Refusal names the four-step route
+            // that does work.
+            if (MalleableVi.IsMalleableTarget(viPath))
+            {
+                steps.Add(new JsonObject
+                {
+                    ["step"] = "malleableTarget",
+                    ["errorCode"] = 1,
+                    ["answer"] = new JsonObject
+                    {
+                        ["refused"] = true,
+                        ["viPath"] = Path.GetFullPath(viPath),
+                    },
+                });
+                return Outcome(false, "malleableTarget", steps, total, viPath, null,
+                               MalleableVi.Refusal);
+            }
+
+            // THE CHECK GOES FIRST BECAUSE IT COSTS NOTHING AND LabVIEW CANNOT DO IT. It covers the
+            // three faults ValidateAIXML was measured to accept, of which a dangling `uid_parent`
+            // is the damaging one: LabVIEW silently reparents that element to the top-level
+            // diagram, so a node meant to sit inside a loop ends up outside it with nothing
+            // reported at validate, convert or run. Blocking here is consistent with this tool's
+            // existing contract - it stops at the first failure and names it - and the raw RPCs
+            // stay open for a caller who wants LabVIEW's own tolerance.
+            if (File.Exists(aiXmlFilePath))
+            {
+                // REPAIR FIRST, INTO A COPY, and fail only on what cannot be repaired. A duplicate
+                // uid nothing is nested inside, and a uid in the reserved range, are both mechanical
+                // - the numbers are ours to choose and no wire refers to them. What is left is
+                // exactly the set where the author's intent is unknowable, and guessing there would
+                // turn a reported fault into a hidden one.
+                var (source, repairReport) = AixmlTools.Repaired(aiXmlFilePath);
+                if (repairReport is not null) steps.Add(Step("repair", repairReport));
+                aiXmlFilePath = source;
+
+                if (AixmlTools.PreCheck(aiXmlFilePath) is { } check
+                    && check["errors"]?.GetValue<int>() > 0)
+                {
+                    steps.Add(Step("check", check));
+                    return Outcome(false, "check", steps, total, viPath, null,
+                        "The AIXML has a fault LabVIEW would ACCEPT silently and that cannot be " +
+                        "repaired without guessing, so nothing was written. `danglingParent` is " +
+                        "the one that changes the diagram: LabVIEW places that element on the " +
+                        "top-level diagram instead of inside the structure you named, and reports " +
+                        "nothing anywhere - which is why setting it to root here would hide the " +
+                        "fault rather than fix it. Name the structure's real uid. " +
+                        "`uidParentContradictsNesting` is its converse: an element written INSIDE " +
+                        "a structure whose uid_parent names something else lands inside it anyway. " +
+                        "lvai_convert_aixml_to_vi still generates it if you want LabVIEW's own " +
+                        "behaviour.");
+                }
+            }
+
+            var validate = await aixml.ValidateAixmlAsync(aiXmlFilePath, timeoutSeconds, ct: ct);
+            steps.Add(Step("validate", validate));
+
+            // THE LOADED-SUBVI ROUTE. ValidateAIXML refuses a Call to project-local code in EVERY
+            // state, while ConvertAIXMLToVI resolves it by name once the target is OPEN in
+            // LabVIEW - through its project or loose, and for a class once any one member is open.
+            // Measured 2026-09-25, docs/aixml-call-loaded-vi.md. So a refusal that names NOTHING
+            // BUT unresolved Call targets is not a verdict; the conversion is.
+            var unresolved = Failed(validate)
+                ? UnresolvedCallTargetsOnly(Field(validate, "errorMessage"))
+                : null;
+            if (Failed(validate) && unresolved is null)
+                return Outcome(false, "validate", steps, total, viPath, null,
+                    "The AIXML was refused, so nothing was written. Read the message under " +
+                    "steps[0]: \"Object terminal not found\" is a misspelled terminal name. An " +
+                    "\"Unsupported SubVI\" line ON ITS OWN would have been converted anyway, " +
+                    "because a target that is open in LabVIEW resolves at conversion - here " +
+                    "there is at least one other fault, so fix that first.");
+
+            // A FAILED CONVERT BURNS THE NAME, so the route converts under a throwaway one. The
+            // saved VI takes its name from the FILE, not from _name - measured - so nothing about
+            // the result changes; what changes is that a refusal leaves only an orphan nobody
+            // will ever ask for.
+            using var throwaway = unresolved is null
+                ? null
+                : ValidationScratch.Create(aiXmlFilePath, preserveName: false,
+                                           prefix: "LVMCP Convert", unique: true);
+
+            // THE TARGET FOLDER IS CREATED ON EVERY ROUTE. ConvertAIXMLToVI does not create it and
+            // answers Error 7 at Save:Instrument - and this was done only on the loaded-subVI route
+            // until 2026-09-25, so an ordinary generation into a new folder failed with a note about
+            // 1357 and 1051 that sends the reader hunting a memory conflict for a missing folder.
+            // On the loaded route it matters more still: there a Save-time failure with a project
+            // active leaves a path-less VI that makes the project unclosable (1019).
+            if (Path.GetDirectoryName(Path.GetFullPath(viPath)) is { Length: > 0 } folder)
+                Directory.CreateDirectory(folder);
+
+            if (unresolved is not null)
+            {
+                steps.Add(new JsonObject
+                {
+                    ["step"] = "loadedSubVIs",
+                    ["unresolvedAtValidate"] = new JsonArray([.. unresolved.Select(n => (JsonNode)n)]),
+                    ["convertedAs"] = throwaway!.ValidatedAs,
+                    ["note"] = "Validation named ONLY unresolved Call targets, so the conversion " +
+                               "decides: a target open in LabVIEW resolves there. Converted " +
+                               "under a throwaway _name so a refusal cannot burn the real one; " +
+                               "the saved VI is named after its file either way.",
+                });
+            }
+
+            var convert = await aixml.ConvertAixmlToViAsync(throwaway?.Path ?? aiXmlFilePath,
+                                                            viPath, openVI, timeoutSeconds, ct: ct);
+            steps.Add(Step("convert", convert));
+            if (Failed(convert) && unresolved is not null &&
+                RouteFailure(ErrorCode(convert), Field(convert, "errorMessage"),
+                             unresolved, throwaway!.ValidatedAs) is { } routeNote)
+                return Outcome(false, "convert", steps, total, viPath, null, routeNote,
+                    Route(unresolved, null, Resolution(ErrorCode(convert), Field(convert, "errorMessage"))));
+            if (Failed(convert))
+                return Outcome(false, "convert", steps, total, viPath, null,
+                    // A DROPPED RPC CAN LEAVE THE FILE BEHIND, and then the pane is a trap rather
+                    // than a missing file. Measured 2026-09-01 in an eight-entry lvai_generate_vis
+                    // batch: one entry answered `Unavailable: An existing connection was forcibly
+                    // closed by the remote host` with viExistsNow true and 5 959 bytes on disk,
+                    // LabVIEW alive and the other seven fine. Because panePattern is applied AFTER
+                    // convert, that file kept the station default - measured at 4833 with three
+                    // style violations - and nothing anywhere said so: the file exists, is the
+                    // right size, and the answer only mentions convert.
+                    (File.Exists(viPath)
+                        ? "THE .vi FILE EXISTS ANYWAY, and its connector pane is NOT the one you " +
+                          "asked for: panePattern is applied after this step, so the file is on " +
+                          "the station default from LabVIEW.ini. Treat the pane as unset - " +
+                          "regenerate this VI, or repair it with pylv_apply " +
+                          "[{\"op\":\"conpane\",\"pattern\":N}] and measure with " +
+                          "lvai_connector_pane. A transport error here (Unavailable, \"connection " +
+                          "forcibly closed\") is usually one dropped call rather than a LabVIEW " +
+                          "death - check the process before concluding anything worse. "
+                        : "Nothing was written. ") +
+                    "The two errors that otherwise get here are " +
+                    "different and the wording is the tell. Error 1357, \"from that path\": " +
+                    "LabVIEW holds THIS path in memory - close the project " +
+                    "(lvai_close_active_project) rather than opening it. Error 1051, \"of that " +
+                    "name\": something else carries the VI's internal name, and the commonest " +
+                    "source is YOUR OWN LAST FAILED VALIDATION of the same _name - measured, " +
+                    "twice in a row on the same document. Generate under a fresh name; the old " +
+                    "one stays poisoned until LabVIEW restarts. THE OTHER MEASURED SOURCE is a " +
+                    "same-named VI from ANOTHER FOLDER still in memory - an earlier build of the " +
+                    "same application, 2026-09-25 - and then a bare-name Call to that name links " +
+                    "to the OTHER folder's file without any error: do not generate callers until " +
+                    "LabVIEW has been restarted, and grep their link paths afterwards.",
+                    unresolved is null ? null
+                        : Route(unresolved, null, Resolution(ErrorCode(convert), Field(convert, "errorMessage"))));
+
+            // EXECUTABILITY STANDS IN FOR THE VALIDATION THAT COULD NOT LOOK. ValidateAIXML
+            // type-checks every Call's wiring and could not do that for the calls it could not
+            // resolve. A misspelt terminal does NOT get past the converter - measured 2026-09-25,
+            // it answers Error 1 and writes nothing - but the converter is known to write a
+            // diagram validation would refuse (a class wire, docs/labview-lunit-testing.md §3), so
+            // a written file is not proof of a sound one. Only on this route: the ordinary one has
+            // already been validated.
+            JsonObject? route = null;
+            if (unresolved is not null)
+            {
+                var reading = await (ReadExecState?.Invoke(viPath, timeoutSeconds, ct)
+                    ?? new ExecStateTools(connection).ReadAsync(
+                        viPath, helperAixmlPath: null, helperViPath: null,
+                        regenerateHelper: false, timeoutSeconds, ct: ct));
+                steps.Add(new JsonObject
+                {
+                    ["step"] = "execState",
+                    ["measured"] = reading is { CouldNotOpen: false },
+                    ["execState"] = reading?.State,
+                    ["meaning"] = reading is null ? null : ExecStateTools.Meaning(reading.State),
+                    ["linkerErrors"] = reading?.LinkerErrors,
+                });
+                route = Route(unresolved,
+                    reading is null or { CouldNotOpen: true } ? null : !reading.Broken, resolved: true);
+
+                // THE SIZE IS MEASURED HERE TOO, because this is the ROUTINE outcome for a class
+                // method and for any caller whose class seed is still a path: both are broken until
+                // a later step repairs them, and the diagram is already final. Returning before the
+                // size step skipped the measurement on exactly the VIs it was built for - found by
+                // the sixth ATM build on 2026-09-26, whose class method came back with no size.
+                if (reading is { Broken: true })
+                {
+                    var brokenSize = measureDiagram
+                        ? await DiagramSizeStepAsync(sourceAixml, viPath, timeoutSeconds, ct)
+                        : null;
+                    if (brokenSize is not null) steps.Add(brokenSize);
+                    return Outcome(false, "execState", steps, total, viPath, null,
+                        "THE VI WAS WRITTEN, and LabVIEW cannot run it. Validation was skipped " +
+                        "because it could not resolve these Call targets: " +
+                        string.Join(", ", unresolved) + " - so it never checked their wiring, " +
+                        "and the converter wrote something it would have refused. Compare each " +
+                        "Call's wire TYPES against lvai_vi_terminals on its target (a misspelt " +
+                        "terminal NAME does not get this far - the converter refuses it with " +
+                        "Error 1), and read linkerErrors in the execState step." +
+                        (brokenSize?["note"]?.GetValue<string>() ?? ""), route, brokenSize);
+                }
+            }
+
+            // The pattern repair goes BEFORE the measurement, so what gets reported is the pane
+            // the caller will actually get. Doing it the other way round measures a pane that is
+            // about to change, which is worse than not measuring at all.
+            if (panePattern is { } pattern)
+            {
+                var repair = await PyApplyAsync(
+                    viPath, $$"""[{"op":"conpane","pattern":{{pattern}}}]""",
+                    closeProject: true, verify: false, bundleDirectory: null,
+                    timeoutSeconds: timeoutSeconds, ct: ct);
+                steps.Add(Step("panePattern", repair));
+                if (Parsed(repair)?["ok"]?.GetValue<bool>() is not true)
+                    return Outcome(false, "panePattern", steps, total, viPath, null,
+                        "THE VI WAS WRITTEN and its diagram is sound - what failed is putting it " +
+                        "on pattern " + pattern + ". It is still on the station default, so a " +
+                        "caller whose wires expect the other pattern will report itself as not " +
+                        "executable. Read the panePattern step.", route);
+            }
+
+            // THE SIZE, after any pane repair (a render loads the VI, and a pylabview rebuild
+            // after that would write under LabVIEW's loaded copy) and before the pane measurement.
+            JsonObject? size = null;
+            if (measureDiagram)
+            {
+                size = await DiagramSizeStepAsync(sourceAixml, viPath, timeoutSeconds, ct);
+                steps.Add(size);
+            }
+            var sizeNote = size?["note"]?.GetValue<string>() ?? "";
+
+            if (!measurePane)
+                return Outcome(true, null, steps, total, viPath, null,
+                    "Generated. The connector pane was NOT measured because measurePane was " +
+                    "false, so nothing here says the terminals are on the right edges." +
+                    RouteNote(route) + sizeNote, route, size);
+
+            var verdict = await new PaneTools(connection).MeasureViAsync(
+                viPath, helperViPath: null, helperAixmlPath: null, regenerateHelper: false,
+                timeoutSeconds, ct: ct);
+            steps.Add(new JsonObject
+            {
+                ["step"] = "connectorPane",
+                ["pattern"] = verdict.Pattern,
+                ["violations"] = verdict.Measured ? verdict.Violations : null,
+                ["warnings"] = verdict.Measured ? verdict.Warnings : null,
+                ["answer"] = verdict.Text,
+            });
+
+            if (!verdict.Measured)
+                return Outcome(true, null, steps, total, viPath, verdict,
+                    "Generated, but the pane could not be measured - so this answer does NOT " +
+                    "confirm the terminals are placed correctly. Call lvai_connector_pane " +
+                    "yourself to find out why." + RouteNote(route) + sizeNote, route, size);
+
+            return verdict.Clean
+                ? Outcome(true, null, steps, total, viPath, verdict,
+                    "Generated, and the connector pane follows NI's style guide." +
+                    RouteNote(route) + sizeNote, route, size)
+                : Outcome(false, "connectorPane", steps, total, viPath, verdict,
+                    "THE VI WAS WRITTEN - generation succeeded. What failed is the connector " +
+                    "pane: the terminals are not on the edges NI's style guide puts them on. The " +
+                    "corrected conIdx values are in the connectorPane step; write them into the " +
+                    "AIXML and call this again. Nothing else about the VI has to change." +
+                    RouteNote(route) + sizeNote, route, size);
+        });
+
+    /// <summary>
+    /// The `diagramSize` step: one render of the written VI plus the longest chain of its AIXML.
+    /// Shared with lvai_generate_vi_with_events, which builds the main VIs that ran largest.
+    /// </summary>
+    internal async Task<JsonObject> DiagramSizeStepAsync(string aixmlPath, string viPath,
+                                                         int timeoutSeconds, CancellationToken ct)
+    {
+        var watch = Stopwatch.StartNew();
+        DiagramSize.ChainResult? chain = null;
+        try { chain = DiagramSize.Chain(await File.ReadAllTextAsync(aixmlPath, ct)); }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        var (measured, png) = await (MeasureDiagram?.Invoke(viPath, timeoutSeconds, ct)
+            ?? new RenderTools(connection).TopLevelSizeAsync(viPath, timeoutSeconds, ct));
+        var step = DiagramSize.Step(measured, chain);
+        step["png"] = png;
+        step["elapsedMs"] = watch.ElapsedMilliseconds;
+        return step;
+    }
+
+    /// <summary>Test seam for the render behind `diagramSize`; null in production.</summary>
+    internal Func<string, int, CancellationToken, Task<((int Width, int Height)? Size, string? Png)>>? MeasureDiagram
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// Test seam for the loaded-subVI route's executability check. Null in production, where the
+    /// real <see cref="ExecStateTools"/> helper runs; a test sets it because that helper is a
+    /// generated VI and cannot run against the fake service.
+    /// </summary>
+    internal Func<string, int, CancellationToken, Task<ExecStateReading?>>? ReadExecState
+    {
+        get; init;
+    }
+
+    /// <summary>
+    /// Every <c>Unsupported SubVI:</c> target in a validate refusal, whatever else it lists -
+    /// the list lvai_generate_vi_with_events names when ConvertAIXMLToVI's Error 53 names nothing.
+    /// </summary>
+    internal static IReadOnlyList<string> UnsupportedSubVIs(string? message)
+    {
+        const string prefix = "Unsupported SubVI:";
+        if (string.IsNullOrEmpty(message)) return [];
+        return [.. message.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries |
+                                              StringSplitOptions.TrimEntries)
+                          .Where(l => l.StartsWith(prefix, StringComparison.Ordinal))
+                          .Select(l => l[prefix.Length..].Trim())
+                          .Where(n => n.Length > 0)
+                          .Distinct(StringComparer.Ordinal)];
+    }
+
+    /// <summary>
+    /// The Call targets a validate refusal names, when it names NOTHING ELSE - or null.
+    ///
+    /// LabVIEW lists each fault as its own line under an <c>Errors:</c> header, and an unresolved
+    /// target reads <c>Unsupported SubVI: IMC Counter.lvclass:Read Count.vi</c>. One line of any
+    /// other kind means a real fault is present, and converting past it would write a diagram
+    /// LabVIEW refused for a reason this route knows nothing about - so it is null, and the
+    /// ordinary stop at validate applies. No <c>Errors:</c> block at all is also null: that shape
+    /// was never measured carrying only SubVI lines.
+    /// </summary>
+    internal static IReadOnlyList<string>? UnresolvedCallTargetsOnly(string? message)
+    {
+        const string header = "Errors:";
+        const string prefix = "Unsupported SubVI:";
+        if (string.IsNullOrEmpty(message)) return null;
+
+        var at = message.IndexOf(header, StringComparison.Ordinal);
+        if (at < 0) return null;
+
+        var lines = message[(at + header.Length)..]
+            .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (lines.Length == 0) return null;
+
+        var names = new List<string>();
+        foreach (var line in lines)
+        {
+            if (!line.StartsWith(prefix, StringComparison.Ordinal)) return null;
+            var name = line[prefix.Length..].Trim();
+            if (name.Length == 0) return null;
+            if (!names.Contains(name, StringComparer.Ordinal)) names.Add(name);
+        }
+        return names;
+    }
+
+    /// <summary>
+    /// The note for a conversion that failed on the loaded-subVI route, chosen by WHERE LabVIEW
+    /// failed - or null to fall back to the ordinary convert note. Measured 2026-09-25, three
+    /// shapes, and they need opposite advice:
+    ///   53 from the generator     - the targets are not loaded; nothing is left behind.
+    ///   1 from the generator      - a misspelt terminal on a call validation could not check;
+    ///                               the converter refuses it and nothing is left behind either.
+    ///   anything at Save:Instrument - resolution passed and the SAVE failed, which with a project
+    ///                               active leaves a path-less VI that makes the project's own
+    ///                               Save answer 1019. The first draft of this note gave that
+    ///                               warning for EVERY failure, including the Error 1 above,
+    ///                               after which the project closed normally.
+    /// </summary>
+    internal static string? RouteFailure(int? code, string? message,
+                                         IReadOnlyList<string> unresolved, string? throwaway)
+    {
+        var generator = message?.Contains("VI generator.vi", StringComparison.Ordinal) == true;
+        var atSave = message?.Contains("Save:Instrument", StringComparison.Ordinal) == true;
+        var targets = string.Join(", ", unresolved);
+
+        if (code == 53 && !atSave)
+            return "Nothing was written, and nothing was burned - the attempt ran under a " +
+                   "throwaway name. These Call targets are NOT LOADED in LabVIEW: " + targets +
+                   ". A project-local VI resolves once it is OPEN - open it through its project " +
+                   "with lvai_open_file (for a class, one member is enough) and call this again. " +
+                   "Otherwise the route is lvai_placeholder_subvi + lvai_swap_subvis. A .ctl is " +
+                   "never a Call target.";
+        if (code == 1 && generator && !atSave)
+            return "Nothing was written. The targets RESOLVED - this is past the not-loaded " +
+                   "case - and the generator then refused the document with Error 1, which is " +
+                   "what a misspelt terminal name on one of these calls produces (measured): " +
+                   targets + ". Validation would have named it, and could not, because it cannot " +
+                   "resolve them. Take each Call's input and output names from lvai_vi_terminals " +
+                   "on its target.";
+        if (atSave)
+            return "The targets RESOLVED and the SAVE failed. That leaves an unsaved VI called '" +
+                   throwaway + "' in LabVIEW, and with a project active the project's own Save " +
+                   "then answers Error 1019, so lvai_close_active_project cannot close it until " +
+                   "that VI is saved to a path - open it BY NAME in the project's application " +
+                   "instance and Save.Instrument it, docs/aixml-call-loaded-vi.md section 3. " +
+                   "1357 means this path is loaded, 1051 that a VI of this FILE's name already " +
+                   "is - including a project item of that name at another path.";
+        return null;
+    }
+
+    /// <summary>
+    /// The top-level summary of a generation that took the loaded-subVI route. The targets are
+    /// the ones validation could not resolve, and the KEY says what conversion made of them:
+    /// <c>resolvedAtConversion</c> when it wrote the VI (or failed past resolving them),
+    /// <c>notResolvedAtConversion</c> on the not-loaded Error 53, and <c>unresolvedAtValidate</c>
+    /// when the failure says nothing either way.
+    ///
+    /// THIS WAS ALWAYS <c>resolvedAtConversion</c> until 2026-09-25, so an Error 53 answer listed
+    /// under "resolved" the very VIs whose not being loaded was the failure - while the note beside
+    /// it said "NOT LOADED". Found on the fourth ATM cold build; a field that contradicts the
+    /// sentence next to it is read by whoever trusts the field.
+    /// </summary>
+    private static JsonObject Route(IReadOnlyList<string> unresolved, bool? executable,
+                                    bool? resolved) => new()
+    {
+        ["route"] = "loadedSubVIs",
+        [resolved switch
+        {
+            true => "resolvedAtConversion",
+            false => "notResolvedAtConversion",
+            null => "unresolvedAtValidate",
+        }] = new JsonArray([.. unresolved.Select(n => (JsonNode)n)]),
+        ["executable"] = executable,
+    };
+
+    /// <summary>
+    /// Whether a FAILED conversion got past resolving the Call targets, read the way
+    /// <see cref="RouteFailure"/> reads it: the not-loaded Error 53 did not; a generator Error 1
+    /// or a Save-time failure did; anything else is not known.
+    /// </summary>
+    internal static bool? Resolution(int? code, string? message)
+    {
+        var atSave = message?.Contains("Save:Instrument", StringComparison.Ordinal) == true;
+        var generator = message?.Contains("VI generator.vi", StringComparison.Ordinal) == true;
+        if (code == 53 && !atSave) return false;
+        if (atSave || (code == 1 && generator)) return true;
+        return null;
+    }
+
+    private static string RouteNote(JsonObject? route) => route is null
+        ? ""
+        : route["executable"]?.GetValue<bool>() is true
+            ? " Validation was SKIPPED for Call targets it could not resolve - they resolved at " +
+              "conversion because they are open in LabVIEW - and the VI was confirmed executable " +
+              "in its place. The links are in the file; the targets need not stay open."
+            : " Validation was SKIPPED for Call targets it could not resolve, and executability " +
+              "could NOT be read afterwards - so nothing here confirms the wiring of those calls. " +
+              "Run lvai_exec_state on the VI before relying on it.";
+
+    /// <summary>One entry in the `steps` array: the sub-tool's own answer, kept whole.</summary>
+    private static JsonObject Step(string name, string answer) => new()
+    {
+        ["step"] = name,
+        ["errorCode"] = ErrorCode(answer),
+        ["answer"] = Parsed(answer),
+    };
+
+    /// <summary>
+    /// A step whose answer was produced here rather than by LabVIEW, so there is no RPC error code
+    /// to report - the pre-check is the only one so far.
+    /// </summary>
+    private static JsonObject Step(string name, JsonObject answer) => new()
+    {
+        ["step"] = name,
+        ["errorCode"] = answer["errors"]?.GetValue<int>() > 0 ? 1 : 0,
+        ["answer"] = answer.DeepClone(),
+    };
+
+    private static string Outcome(bool ok, string? failedAt, JsonArray steps, Stopwatch total,
+                                  string viPath, PaneTools.PaneVerdict? pane, string note,
+                                  JsonObject? route = null, JsonObject? size = null)
+    {
+        total.Stop();
+        var result = new JsonObject
+        {
+            ["ok"] = ok,
+            ["failedAtStep"] = failedAt,
+            ["viPath"] = Path.GetFullPath(viPath),
+            ["viExistsNow"] = File.Exists(viPath),
+            ["viBytes"] = File.Exists(viPath) ? new FileInfo(viPath).Length : 0,
+        };
+        // Top level rather than only inside `steps`, because it changes what `ok` vouches for:
+        // on this route validation did not look at the unresolved calls, and `executable` is what
+        // stood in for it.
+        if (route is not null) result["loadedSubVIs"] = route.DeepClone();
+        if (pane is { Measured: true })
+        {
+            result["panePattern"] = pane.Pattern;
+            result["paneViolations"] = pane.Violations;
+            result["paneWarnings"] = pane.Warnings;
+        }
+        // Top level as well, because it is a verdict a reader should not have to dig for: the
+        // size rule held for weeks only in prose, and a number inside `steps` is read by nobody.
+        if (size is not null)
+            result["diagramSize"] = new JsonObject
+            {
+                ["width"] = size["width"]?.DeepClone(),
+                ["height"] = size["height"]?.DeepClone(),
+                ["withinBudget"] = size["withinBudget"]?.DeepClone(),
+                ["longestChainStages"] = size["longestChainStages"]?.DeepClone(),
+            };
+        result["steps"] = steps;
+        // Wall clock for the whole sequence, against the per-step elapsedMs inside `steps`. The
+        // difference between them is this server's own overhead, which is the only way to tell a
+        // slow LabVIEW from a slow composition without bracketing the call from outside - and
+        // bracketing from outside measures the model's turn, not the work.
+        result["totalElapsedMs"] = total.ElapsedMilliseconds;
+        result["note"] = note;
+        return result.ToJsonString(Indented);
+    }
+
+    // ---------------------------------------------------------------- pylv_apply
+
+    // ---------------------------------------------------------------- generate, plural
+
+    [McpServerTool(Name = "lvai_generate_vis", Destructive = true, OpenWorld = true,
+                   Title = "Generate several VIs from AIXML in one call")]
+    [Description("""
+        MUTATING: several AIXML files through the whole lvai_generate_vi sequence - validate,
+        convert, measure the pane - in ONE call, applied in the order given, EXCEPT that entries
+        with a `panePattern` run after the ones without: a pane repair closes the project, which
+        unloads the callees of everything after it (measured 2026-09-26, Error 53). `results` is
+        in the order given, and `ranLast` names what moved.
+        USE IT FOR BOILERPLATE SETS, which is where it pays: the socket VIs a class unit test needs
+        are one per test slot and fully determined by the subject's pane. Measured 2026-08-29 over a
+        three-class hierarchy, generating them one at a time cost 34 calls of lvai_generate_vi for
+        29 distinct targets - about four minutes, nearly all of it turn latency rather than LabVIEW.
+        pairsJson is a JSON ARRAY, one object per VI:
+          [{"aixml":"C:\\t\\a.xml","vi":"C:\\t\\a.vi","panePattern":4815},
+           {"aixml":"C:\\t\\b.xml","vi":"C:\\t\\b.vi"}]
+        `panePattern` is optional and per VI - a socket that has to match an accessor's pane needs
+        4815 while the test beside it takes the station default.
+        SEQUENTIAL ON PURPOSE, exactly like lvai_convert_vis_to_aixml: six generate calls issued
+        together took 559 ms against 543 ms one after another, because LabVIEW serialises the RPC.
+        The saving here is round trips, not throughput.
+        IT DOES NOT STOP AT THE FIRST FAILURE. Each entry gets its own answer under `results`, so
+        one bad AIXML does not cost you the other nine; `ok` is true only when every entry
+        generated. A failure reads exactly as lvai_generate_vi's would.
+        THE AIXML IS DELETED ON SUCCESS and KEPT ON FAILURE, the same bargain pylv_apply makes with
+        its bundle: the intermediate is noise once the .vi exists, and it is the only evidence when
+        the .vi does not. Pass keepAixml to keep it either way.
+        """)]
+    public async Task<string> GenerateVisAsync(
+        [Description("JSON array of {aixml, vi, panePattern?} objects, applied in order")]
+        string pairsJson,
+        [Description("Open each created VI in the LabVIEW editor")] bool openVI = false,
+        [Description("Measure each connector pane afterwards and gate `ok` on it")]
+        bool measurePane = true,
+        [Description("Keep the AIXML sources instead of deleting the ones that succeeded")]
+        bool keepAixml = false,
+        [Description("Local budget in seconds, per VI")] int timeoutSeconds = 300,
+        CancellationToken ct = default) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            List<GenerationRequest> requests;
+            try { requests = GenerationRequest.ParseAll(pairsJson); }
+            catch (ArgumentException bad) { return Json.Error("badArguments", bad.Message); }
+
+            var total = Stopwatch.StartNew();
+            var answers = new JsonNode?[requests.Count];
+            int generated = 0, failed = 0, removed = 0;
+
+            // A PANE REPAIR CLOSES THE PROJECT, AND EVERY ENTRY AFTER IT LOSES ITS LOADED CALLEES.
+            // `panePattern` is a pylabview rebuild, which closes the active project first - and a
+            // closed project is an UNLOADED one, so a later entry calling project code by name
+            // answered Error 53. Measured 2026-09-26 in the sixth ATM build: one pattern entry
+            // early in a batch cost a reopen and a second batch. So the entries WITHOUT a pattern
+            // run first and the pattern entries last, each group in the order given; `results`
+            // stays in the order asked for. Nothing is lost by it: generating a VI does not load
+            // it, so a later entry could never have called an earlier one without an open anyway.
+            var order = Enumerable.Range(0, requests.Count)
+                .OrderBy(i => requests[i].PanePattern is null ? 0 : 1)
+                .ToList();
+            var movedLast = order.Where((original, position) => original != position)
+                .Where(i => requests[i].PanePattern is not null)
+                .Select(i => (JsonNode?)JsonValue.Create(requests[i].Vi))
+                .ToArray();
+
+            foreach (var index in order)
+            {
+                var request = requests[index];
+                if (!File.Exists(request.Aixml))
+                {
+                    failed++;
+                    answers[index] = new JsonObject
+                    {
+                        ["vi"] = request.Vi,
+                        ["aixml"] = request.Aixml,
+                        ["ok"] = false,
+                        ["note"] = $"No AIXML at '{request.Aixml}', so this VI was not attempted.",
+                    };
+                    continue;
+                }
+
+                var answer = await GenerateViAsync(request.Aixml, request.Vi, openVI, measurePane,
+                                                   request.PanePattern, timeoutSeconds, ct: ct);
+                var parsed = Parse(answer);
+                // THE SUB-ANSWER'S OWN VERDICT, NOT `viExistsNow`. That field is true for a file
+                // some EARLIER run left behind, so a batch over targets that already existed
+                // reported `generated: 6, failed: 0` while five of the six entries carried
+                // `ok: false` - LabVIEW had gone down mid-batch and not one AIXML was even
+                // validated. Measured 2026-08-29. A green summary over red entries is the worst
+                // thing this tool could do, because the entries are exactly what nobody re-reads.
+                //
+                // `failedAtStep: connectorPane` is the one failure that still WROTE the file: the
+                // diagram is sound and the pane needs another pass, which lvai_generate_vi says in
+                // those words. It counts as generated here and keeps its own answer.
+                var wrote = CountsAsGenerated(parsed as JsonObject);
+                if (wrote) generated++; else failed++;
+
+                // Deleted only when the .vi is actually there. A kept AIXML after a failure is the
+                // only thing that says WHY - the answer names the node, the file is what you fix.
+                if (wrote && !keepAixml)
+                {
+                    try { File.Delete(request.Aixml); removed++; }
+                    catch (Exception failure) when (failure is IOException
+                                                    or UnauthorizedAccessException) { }
+                }
+
+                answers[index] = new JsonObject
+                {
+                    ["vi"] = request.Vi,
+                    ["aixml"] = wrote && !keepAixml ? null : request.Aixml,
+                    ["ok"] = wrote,
+                    ["answer"] = parsed,
+                };
+            }
+
+            var reordered = movedLast.Length > 0
+                ? $" {movedLast.Length} entr{(movedLast.Length == 1 ? "y" : "ies")} with a " +
+                  "panePattern ran LAST (named under `ranLast`), because a pane repair closes " +
+                  "the project and would unload the callees of every entry after it; `results` " +
+                  "is in the order you gave."
+                : "";
+
+            return Json.Document(new JsonObject
+            {
+                ["ok"] = failed == 0 && requests.Count > 0,
+                ["requested"] = requests.Count,
+                ["generated"] = generated,
+                ["failed"] = failed,
+                ["aixmlDeleted"] = removed,
+                ["ranLast"] = movedLast.Length > 0 ? new JsonArray(movedLast) : null,
+                ["results"] = new JsonArray(answers),
+                ["totalElapsedMs"] = total.ElapsedMilliseconds,
+                ["note"] = failed == 0
+                    ? $"{generated} VI(s) generated{(movedLast.Length == 0 ? " in order" : "")}. " + (keepAixml
+                        ? "The AIXML sources were kept."
+                        : $"{removed} AIXML source(s) deleted - the .vi is the artefact.") +
+                      reordered
+                    : $"{failed} of {requests.Count} did NOT generate; their AIXML was kept and is " +
+                      "named in `results`. Each entry carries the same answer lvai_generate_vi " +
+                      "would have given, so read that rather than this summary." + reordered,
+            });
+        });
+
+    /// <summary>
+    /// Did THIS run write the VI? Read from <see cref="GenerateViAsync"/>'s own verdict, never from
+    /// <c>viExistsNow</c> — that field is true for a file some EARLIER run left behind.
+    ///
+    /// Measured 2026-08-29: a batch of six sockets that all already existed reported
+    /// <c>generated: 6, failed: 0</c> while five of the six entries carried <c>ok: false</c>,
+    /// because LabVIEW had gone down mid-batch and not one AIXML was even validated. A green
+    /// summary over red entries is the worst thing a batch tool can do, since the entries are
+    /// exactly what nobody re-reads.
+    ///
+    /// <c>failedAtStep: connectorPane</c> is the one failure that still WROTE the file — the
+    /// diagram is sound and only the pane needs another pass — so it counts, and keeps its own
+    /// answer for the reader.
+    /// </summary>
+    internal static bool CountsAsGenerated(JsonObject? answer) =>
+        answer?["ok"]?.GetValue<bool>() is true
+        || (answer?["failedAtStep"]?.GetValue<string>() == "connectorPane"
+            && answer["viExistsNow"]?.GetValue<bool>() is true);
+
+    /// <summary>One entry of <see cref="GenerateVisAsync"/>'s <c>pairsJson</c>.</summary>
+    internal sealed record GenerationRequest(string Aixml, string Vi, int? PanePattern)
+    {
+        public static List<GenerationRequest> ParseAll(string? json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+                throw new ArgumentException("pairsJson is empty; name at least one VI to generate.");
+
+            JsonNode? parsed;
+            try { parsed = JsonNode.Parse(json); }
+            catch (JsonException bad)
+            { throw new ArgumentException($"pairsJson is not JSON: {bad.Message}"); }
+
+            if (parsed is not JsonArray array || array.Count == 0)
+                throw new ArgumentException(
+                    "pairsJson must be a non-empty JSON array, e.g. " +
+                    "[{\"aixml\":\"C:\\\\t\\\\a.xml\",\"vi\":\"C:\\\\t\\\\a.vi\"}].");
+
+            return [.. array.Select((entry, i) => One(entry, i))];
+        }
+
+        private static GenerationRequest One(JsonNode? entry, int index)
+        {
+            if (entry is not JsonObject o)
+                throw new ArgumentException($"pairsJson[{index}] is not an object.");
+
+            var aixml = o["aixml"]?.GetValue<string>();
+            var vi = o["vi"]?.GetValue<string>();
+            if (string.IsNullOrWhiteSpace(aixml) || string.IsNullOrWhiteSpace(vi))
+                throw new ArgumentException(
+                    $"pairsJson[{index}] needs both \"aixml\" and \"vi\" as absolute paths.");
+
+            int? pattern = o["panePattern"] is { } p && int.TryParse(p.ToString(), out var value)
+                ? value : null;
+            return new GenerationRequest(Path.GetFullPath(aixml), Path.GetFullPath(vi), pattern);
+        }
+    }
+
+    private static JsonNode? Parse(string answer)
+    {
+        try { return JsonNode.Parse(answer); }
+        catch (JsonException) { return null; }
+    }
+
+    [McpServerTool(Name = "pylv_apply", Destructive = true, OpenWorld = true,
+                   Title = "Close, extract, edit and rebuild a VI in one call")]
+    [Description("""
+        MUTATING: the whole pylabview edit cycle in one round trip - close the active project,
+        pylv_extract, run the helper scripts you name, pylv_rebuild, and AIXML-export the result to
+        check the edit landed. The bundle is an implementation detail; it is deleted on success and
+        KEPT (and named) on failure.
+        WITH NO OPERATIONS IT IS READ-ONLY AND INSPECTS: extract, then every helper script's listing
+        mode at once - the pane (`--show`), the subVI link table (`--list`), and the diagram
+        comments with their placeable anchors (`--list`). That is the call to make FIRST, because
+        the mapping you pass back in as operations is only knowable from those listings. Nothing is
+        rebuilt, the .vi is not touched, and the active project is NOT closed - inspect mode has no
+        side effects at all.
+        operationsJson is a JSON ARRAY, applied IN ORDER:
+          {"op":"conpane","pattern":4815}
+              change the connector pane PATTERN, moving no terminal - so no caller has to change.
+              This is the fix for a pane whose conIdx values were cloned from a VI on another
+              pattern. A genuinely wrong ASSIGNMENT is not repairable here: regenerate from AIXML.
+          {"op":"retarget","from":"Old.vi","to":"New.vi","path":"C:\\dir\\New.vi"}
+              point a subVI Call at a different subVI. Give `path` whenever the new VI is not in
+              the same folder as the old one. A POLYMORPHIC target needs TWO entries, one for the
+              instance and one for the wrapper, or the diagram caption keeps naming NI's wrapper.
+              `from` takes the qualified name the inspect listing prints - a library-owned subVI
+              reads `NI_Gmath.lvlib:Error Function.vi` - or just the file name when only one link
+              ends in it. `to` is always a plain file name; a library-owned NEW target is refused,
+              because its owning-library path cannot be derived.
+              The new subVI must keep the connector pane contract - check both with
+              lvai_connector_pane first; this tool cannot. When it is breached the symptom does
+              not mention linking at all: LabVIEW reports the CALLER as not executable.
+          {"op":"placeLabels","place":"9001:130,9002:140","side":"auto","gap":20}
+              move diagram comments onto the nodes they describe. `side` is auto|above|below and
+              auto is right nearly always: a comment about a subVI CALL goes below it, because the
+              subVI's own label already occupies the space above.
+        WHY THIS IS ONE TOOL AND NOT FOUR CALLS. pylv_rebuild answers with a `gatesNotChecked` list
+        because it cannot check them from where it stands. The first of those gates is the
+        expensive one: LabVIEW does not lock a .vi, so a rebuild under a loaded VI succeeds and
+        LabVIEW then keeps serving its stale in-memory copy - a verification run afterwards
+        confirms the VI you REPLACED. Worse, the usual way to release it (lvai_open_file) makes
+        LabVIEW COMPILE the VI, and the VICD blocks that leaves are copied through unparsed, so the
+        rebuilt file carries compiled code describing the state before your edit. Measured
+        2026-08-24 on one VI pair: 0 VICD blocks generated, ran and wrote its files; 3 VICD blocks
+        returned 1039 "VI was aborted" and then wedged LabVIEW into a restart. Hence closeProject
+        defaults to true and runs FIRST.
+        Needs no running LabVIEW for the pylabview half. closeProject and verify do; when LabVIEW
+        is unreachable both are reported as skipped, with why - an unreachable LabVIEW cannot be
+        holding the VI in memory either, so skipping the close is safe rather than silent.
+        """)]
+    public async Task<string> PyApplyAsync(
+        [Description(@"Absolute path to the .vi to edit - WILL BE OVERWRITTEN unless operations is empty")]
+        string viPath,
+        [Description("""
+            JSON array of operations, applied in order. Omit or pass [] for the read-only inspect
+            mode, which extracts and returns every listing instead of rebuilding.
+            """)]
+        string? operationsJson = null,
+        [Description("Save and close the project active in the IDE before extracting")]
+        bool closeProject = true,
+        [Description("""
+            AIXML-export the rebuilt VI, report its Call targets, and read whether LabVIEW can
+            still run it.
+            """)]
+        bool verify = true,
+        [Description("""
+            Where to put the extracted bundle. Defaults to a fresh temp directory, deleted on
+            success. Pass a path to keep it - useful when an operation needs debugging.
+            """)]
+        string? bundleDirectory = null,
+        [Description("Local budget in seconds, per step")] int timeoutSeconds = 120,
+        [Description("""
+            Let a NOT EXECUTABLE result make `ok` false. On by default, because `ok` is the field a
+            script reads before moving on, and a retarget that breaks the connector pane contract
+            is invisible everywhere else - measured, a caller was Error 1003 while callTargets, the
+            export and validate were all green.
+            `ok: false` is a measurement and NOT a rollback: the .vi on disk carries the edit.
+            Turn it OFF for a deliberately unfinished intermediate state. The
+            placeholder-plus-retarget route is built out of those, and a gate that forbade them
+            would break the one workflow this tool exists to serve.
+            """)]
+        bool gateOnExecState = true,
+        CancellationToken ct = default) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            if (!File.Exists(viPath))
+                return Json.Error("badArguments", $"No file at viPath '{viPath}'.");
+
+            if (PyLabview.Locate() is not { } bundle)
+                return Json.Error("notProvisioned",
+                    PyLabview.NotProvisionedMessage());
+
+            if (StatusTools.ScriptsDirectory() is not { } scripts)
+                return Json.Error("noScriptsDirectory",
+                    "No scripts folder next to the exe - lvai_status reports it as " +
+                    "scriptsDirectory. The helper scripts this tool drives live there.");
+
+            List<Operation> operations;
+            try { operations = Operation.ParseAll(operationsJson); }
+            catch (ArgumentException bad) { return Json.Error("badArguments", bad.Message); }
+
+            var total = Stopwatch.StartNew();
+            var steps = new JsonArray();
+            var keepBundle = bundleDirectory is not null;
+            var directory = Path.GetFullPath(bundleDirectory ?? Path.Combine(
+                Path.GetTempPath(), "LabVIEWMCP", "bundles",
+                $"{Path.GetFileNameWithoutExtension(viPath)}-{Environment.ProcessId}-{total.GetHashCode():x}"));
+
+            // 1. the gate. First, because everything after it is worthless under a loaded VI - but
+            // ONLY when something is going to be written. Inspect mode must not close the project
+            // somebody is working in: it reads the VI and rebuilds nothing, so the gate it protects
+            // (LabVIEW serving a stale in-memory copy of a file we replaced) cannot be reached.
+            if (closeProject && operations.Count > 0)
+                steps.Add(await CloseStepAsync(timeoutSeconds, ct: ct));
+
+            // 2. extract
+            var extract = await new PyLabviewTools(connection).ExtractAsync(
+                viPath, directory, annotate: true, timeoutSeconds, ct: ct);
+            steps.Add(Step("extract", extract));
+            if (!Succeeded(extract))
+                return PyOutcome(false, "extract", steps, total, viPath, directory, true,
+                    "pylabview could not read the VI, so nothing was changed.");
+
+            if (Field(extract, "mainXml") is not { } mainXml)
+                return PyOutcome(false, "extract", steps, total, viPath, directory, true,
+                    "The extract reported no mainXml, which this tool cannot continue without.");
+
+            var heaps = Directory.GetFiles(directory, "*_BDHb.xml");
+
+            // 3a. no operations: every listing at once, and stop before touching the .vi
+            if (operations.Count == 0)
+            {
+                foreach (var listing in Listings(mainXml, heaps, directory))
+                    steps.Add(await RunScriptAsync(bundle, scripts, listing.Script, listing.Args,
+                                                   listing.Label, timeoutSeconds, ct: ct));
+                return PyOutcome(true, null, steps, total, viPath, directory, keepBundle,
+                    "INSPECTED ONLY - no operations were given, so the VI is untouched and the " +
+                    "active project was NOT closed. The listings above are what an operations " +
+                    "array is written from: uids on the left of a placeLabels pair are comments, " +
+                    "uids on the right are anchors.");
+            }
+
+            // 3b. apply, in the order given
+            foreach (var operation in operations)
+            {
+                if (operation.NeedsSingleHeap && heaps.Length != 1)
+                    return PyOutcome(false, operation.Op, steps, total, viPath, directory, true,
+                        heaps.Length == 0
+                            ? $"'{operation.Op}' edits the block diagram, and this bundle has no " +
+                              "diagram heap (no *_BDHb.xml). A VI with no block diagram cannot be " +
+                              "edited this way."
+                            : $"'{operation.Op}' needs one diagram heap and this bundle has " +
+                              $"{heaps.Length}. Name the heap yourself and drive the script " +
+                              "directly - this tool will not guess which one you meant.");
+
+                var step = await RunScriptAsync(bundle, scripts, operation.Script,
+                    operation.Arguments(mainXml, heaps.FirstOrDefault(), directory),
+                    operation.Op, timeoutSeconds, ct: ct);
+                steps.Add(step);
+                if (step["exitCode"]?.GetValue<int>() != 0)
+                    return PyOutcome(false, operation.Op, steps, total, viPath, directory, true,
+                        $"The '{operation.Op}' operation failed, so the rebuild was NOT run and " +
+                        "the .vi on disk is untouched. The bundle is kept - the operations " +
+                        "before this one have been applied to it.");
+            }
+
+            // 4. rebuild
+            var rebuild = await new PyLabviewTools(connection).RebuildAsync(mainXml, viPath, timeoutSeconds, ct: ct);
+            steps.Add(Step("rebuild", rebuild));
+            if (!Succeeded(rebuild))
+                return PyOutcome(false, "rebuild", steps, total, viPath, directory, true,
+                    "The edits applied but the rebuild failed. The bundle is kept.");
+
+            // 5. verify - the third gate pylv_rebuild names and cannot check
+            JsonObject? verifyStep = null;
+            if (verify)
+            {
+                verifyStep = await VerifyStepAsync(viPath, timeoutSeconds, ct: ct);
+                steps.Add(verifyStep);
+            }
+
+            // GATED ON EXECUTABILITY, because `ok` is the field a script reads and moves on from.
+            // `ok: false` here is a MEASUREMENT, never a rollback: the file is written and the
+            // call targets are right. gateOnExecState turns it off for a deliberately unfinished
+            // intermediate state - the placeholder-plus-retarget route is built out of those, and
+            // a gate that forbids them would break the one workflow this tool exists to serve.
+            var broken = gateOnExecState && verifyStep?["broken"]?.GetValue<bool>() == true;
+            if (broken)
+                return PyOutcome(false, "verify", steps, total, viPath, directory, keepBundle,
+                    "The edit was applied and the call targets are right - and the result is NOT " +
+                    "EXECUTABLE (eBad). Nothing was rolled back; the .vi on disk carries the " +
+                    "change. Read linkerErrors in the verify step. The usual cause is a breached " +
+                    "connector pane contract, which never mentions linking in its symptom. Pass " +
+                    "gateOnExecState: false when the VI is deliberately unfinished at this point.");
+
+            return PyOutcome(true, null, steps, total, viPath, directory, keepBundle,
+                verify
+                    ? "Rebuilt. The verify step is LabVIEW's OWN export of the result - read its " +
+                      "callTargets and confirm the change you meant is there, and its execState " +
+                      "for whether LabVIEW can still run the caller."
+                    : "Rebuilt. NOTHING HERE CONFIRMS THE EDIT - verify was false, so LabVIEW has " +
+                      "not read the file back, and its executability was not measured either. " +
+                      "Export it yourself before believing this.");
+        });
+
+    /// <summary>
+    /// The close, as a step rather than a precondition. An unreachable LabVIEW is reported as a
+    /// skip with the reason, not as a failure: nothing can be holding the VI in memory when the
+    /// IDE is not running, so the gate this protects is already satisfied.
+    /// </summary>
+    private async Task<JsonObject> CloseStepAsync(int timeoutSeconds, CancellationToken ct)
+    {
+        var answer = await new CloseTools(connection).CloseActiveProjectAsync(
+            helperViPath: null, helperAixmlPath: null, regenerateHelper: false, timeoutSeconds: timeoutSeconds, ct: ct);
+
+        // 1055 is "no project was active", which is the desired end state, not a problem.
+        var code = ErrorCode(answer);
+        return new JsonObject
+        {
+            ["step"] = "closeActiveProject",
+            ["ran"] = Parsed(answer) is JsonObject o && o["ok"]?.GetValue<bool>() != false,
+            ["errorCode"] = code,
+            ["note"] = code == 1055
+                ? "Error 1055 means no project was active - nothing to close, which is the state " +
+                  "this step is trying to reach."
+                : null,
+            ["answer"] = Parsed(answer),
+        };
+    }
+
+    /// <summary>
+    /// LabVIEW's own reading of the rebuilt file. The distinct `target=` values are pulled out
+    /// because a retarget is the operation whose success is least visible otherwise - the script
+    /// reports how many strings it rewrote, which is not the same as LabVIEW resolving them.
+    /// </summary>
+    private async Task<JsonObject> VerifyStepAsync(string viPath, int timeoutSeconds,
+                                                   CancellationToken ct)
+    {
+        var exportPath = Path.Combine(Path.GetTempPath(), "LabVIEWMCP",
+            $"{Path.GetFileNameWithoutExtension(viPath)}-verify.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(exportPath)!);
+
+        var answer = await new AixmlTools(connection).ConvertViToAixmlAsync(
+            viPath, exportPath, returnContent: false, maxContentChars: 0, timeoutSeconds,
+            refresh: true, ct);
+
+        var targets = new JsonArray();
+        if (File.Exists(exportPath))
+            foreach (var target in Regex.Matches(await File.ReadAllTextAsync(exportPath, ct),
+                                                 @"target=""([^""]*)""")
+                         .Select(m => m.Groups[1].Value).Distinct().Order())
+                targets.Add(target);
+
+        var step = new JsonObject
+        {
+            ["step"] = "verify",
+            ["ran"] = Parsed(answer) is JsonObject o && o["ok"]?.GetValue<bool>() != false,
+            ["errorCode"] = ErrorCode(answer),
+            ["callTargets"] = targets,
+            ["exportPath"] = exportPath,
+        };
+
+        // The export above proves the call POINTS at the right VI. It cannot prove the wires into
+        // it still carry the right type, and after a retarget onto a subVI whose pane holds
+        // typedefs they do not: the stub was cloned with the bare underlying type, so every wired
+        // input comes out coerced. Nothing else in this cycle sees that - validation, the
+        // retarget and a run all pass - which is why the check belongs here, at the step that
+        // creates the defect, rather than at generation time where the call still targets the stub
+        // and no dot can exist yet.
+        var dots = await new TypedefTools(connection).CoercedTerminalsAsync(viPath,
+            timeoutSeconds, ct: ct);
+
+        if (dots is null)
+        {
+            step["coercionDots"] = null;
+        }
+        else
+        {
+            step["coercionDots"] = dots.Count;
+            if (dots.Count > 0)
+            {
+                var where = new JsonArray();
+                foreach (var d in dots) where.Add(d);
+                step["coercedTerminals"] = where;
+            }
+        }
+
+        // THE GATE pylv_rebuild has always named and never checked: "ExecState was not read - do
+        // it through VI Server; 0 means eBad". A retarget that breaks the connector pane contract
+        // shows up ONLY here - measured 2026-09-09, a caller was Error 1003 while this step's
+        // callTargets were all correct, the export was clean and validate answered errorCode 0.
+        var reading = await new ExecStateTools(connection).ReadAsync(
+            viPath, helperAixmlPath: null, helperViPath: null, regenerateHelper: false,
+            timeoutSeconds, ct: ct);
+
+        if (reading is null)
+        {
+            step["execState"] = null;
+            step["execStateNote"] = "not read - the helper could not be run. That is not a clean " +
+                                    "bill of health; it is no measurement at all.";
+        }
+        else
+        {
+            step["execState"] = reading.State;
+            step["execStateMeaning"] = ExecStateTools.Meaning(reading.State);
+            step["broken"] = reading.Broken;
+            if (reading.LinkerErrors.Length > 0) step["linkerErrors"] = reading.LinkerErrors;
+            if (reading.CouldNotOpen) step["execStateCode"] = reading.Code;
+        }
+
+        step["note"] = "Exporting does not keep the VI in memory - measured - so the path can " +
+                       "still be regenerated afterwards. Only lvai_open_file burns it." +
+                       (dots is { Count: > 0 }
+                           ? $" {dots.Count} terminal(s) now wear a COERCION DOT: the retarget " +
+                             "linked, but the subVI's pane carries typedefs the stub could not. " +
+                             "Repair with lvai_bind_typedef_constants."
+                           : "") +
+                       (reading is { Broken: true }
+                           ? " AND THE VI IS NOT EXECUTABLE (eBad). The edit was written and the " +
+                             "call targets are right, so this is not a rollback - but LabVIEW " +
+                             "cannot run the result. A breached connector pane contract is the " +
+                             "usual cause and it never mentions linking."
+                           : "");
+        return step;
+    }
+
+    private static string PyOutcome(bool ok, string? failedAt, JsonArray steps, Stopwatch total,
+                                    string viPath, string bundleDirectory, bool keepBundle,
+                                    string note)
+    {
+        total.Stop();
+        if (!keepBundle && Directory.Exists(bundleDirectory))
+            try { Directory.Delete(bundleDirectory, recursive: true); }
+            catch (IOException) { keepBundle = true; }
+            catch (UnauthorizedAccessException) { keepBundle = true; }
+
+        return new JsonObject
+        {
+            ["ok"] = ok,
+            ["failedAtStep"] = failedAt,
+            ["viPath"] = Path.GetFullPath(viPath),
+            ["viBytes"] = File.Exists(viPath) ? new FileInfo(viPath).Length : 0,
+            ["bundleDirectory"] = keepBundle ? bundleDirectory : null,
+            ["bundleKept"] = keepBundle,
+            ["steps"] = steps,
+            ["totalElapsedMs"] = total.ElapsedMilliseconds,
+            ["note"] = note,
+        }.ToJsonString(Indented);
+    }
+
+    // ---------------------------------------------------------------- operations
+
+    /// <summary>
+    /// One entry of operationsJson. Parsed into a record rather than handled as free JSON so a
+    /// misspelling is refused HERE, by name, before anything on disk has been touched - a bad
+    /// operation discovered after the extract would leave a half-applied bundle behind.
+    /// </summary>
+    internal sealed record Operation(string Op, string Script, bool NeedsSingleHeap,
+                                     IReadOnlyList<string> Tail)
+    {
+        public IEnumerable<string> Arguments(string mainXml, string? heapXml, string directory) =>
+            Op switch
+            {
+                // conpane reads the whole bundle; the other two are diagram edits and need the heap.
+                "conpane" => [directory, .. Tail],
+                "retarget" => [mainXml, heapXml!, .. Tail],
+                _ => [heapXml!, .. Tail],
+            };
+
+        public static List<Operation> ParseAll(string? json)
+        {
+            if (string.IsNullOrWhiteSpace(json)) return [];
+
+            JsonNode? node;
+            try { node = JsonNode.Parse(json); }
+            catch (JsonException bad)
+            {
+                throw new ArgumentException(
+                    $"operationsJson is not valid JSON: {bad.Message}. It is a JSON array, for " +
+                    """example [{"op":"conpane","pattern":4815}].""");
+            }
+
+            if (node is not JsonArray array)
+                throw new ArgumentException(
+                    "operationsJson must be a JSON ARRAY of operations, even for a single one.");
+
+            return [.. array.Select((entry, i) => Parse(entry, i))];
+        }
+
+        private static Operation Parse(JsonNode? entry, int index)
+        {
+            if (entry is not JsonObject o)
+                throw new ArgumentException($"operationsJson[{index}] is not an object.");
+
+            var op = o["op"]?.GetValue<string>()
+                ?? throw new ArgumentException($"operationsJson[{index}] has no \"op\".");
+
+            switch (op)
+            {
+                case "conpane":
+                    var pattern = Int(o, "pattern", index, op);
+                    return new Operation(op, "pylv-conpane.py", false,
+                        ["--pattern", pattern.ToString()]);
+
+                case "retarget":
+                    var tail = new List<string> { Text(o, "from", index, op), Text(o, "to", index, op) };
+                    if (o["path"]?.GetValue<string>() is { Length: > 0 } path)
+                        tail.AddRange(["--path", path]);
+                    return new Operation(op, "pylv-retarget-subvi.py", true, tail);
+
+                case "placeLabels":
+                    var place = new List<string> { "--place", Text(o, "place", index, op) };
+                    if (o["side"]?.GetValue<string>() is { Length: > 0 } side)
+                    {
+                        if (side is not ("auto" or "above" or "below"))
+                            throw new ArgumentException(
+                                $"operationsJson[{index}] \"side\" is '{side}'; it must be auto, " +
+                                "above or below.");
+                        place.AddRange(["--side", side]);
+                    }
+                    if (o["gap"] is { } gap) place.AddRange(["--gap", gap.GetValue<int>().ToString()]);
+                    return new Operation(op, "pylv-place-labels.py", true, place);
+
+                default:
+                    throw new ArgumentException(
+                        $"operationsJson[{index}] has op '{op}', which this build does not know. " +
+                        "The three are conpane, retarget and placeLabels.");
+            }
+        }
+
+        private static string Text(JsonObject o, string key, int index, string op) =>
+            o[key]?.GetValue<string>() is { Length: > 0 } value ? value
+                : throw new ArgumentException(
+                    $"operationsJson[{index}] is a '{op}' operation and needs \"{key}\".");
+
+        private static int Int(JsonObject o, string key, int index, string op) =>
+            o[key] is { } value ? value.GetValue<int>()
+                : throw new ArgumentException(
+                    $"operationsJson[{index}] is a '{op}' operation and needs \"{key}\".");
+    }
+
+    /// <summary>Every helper script's listing mode, which is what inspect mode runs.</summary>
+    private static IEnumerable<(string Label, string Script, string[] Args)> Listings(
+        string mainXml, string[] heaps, string directory)
+    {
+        yield return ("connectorPane", "pylv-conpane.py", [directory, "--show"]);
+        if (heaps.Length == 1)
+        {
+            yield return ("subViLinks", "pylv-retarget-subvi.py", [mainXml, heaps[0], "--list"]);
+            yield return ("diagramLabels", "pylv-place-labels.py", [heaps[0], "--list"]);
+        }
+    }
+
+    private static async Task<JsonObject> RunScriptAsync(
+        PyLabview.Bundle bundle, string scriptsDirectory, string script, IEnumerable<string> args,
+        string label, int timeoutSeconds, CancellationToken ct)
+    {
+        var path = Path.Combine(scriptsDirectory, script);
+        if (!File.Exists(path))
+            return new JsonObject
+            {
+                ["step"] = label,
+                ["exitCode"] = -1,
+                ["stderr"] = $"No helper script at '{path}'. It ships under scripts\\ next to the " +
+                             "exe; a source checkout has it under scripts\\ in the repository.",
+            };
+
+        var run = await PyLabview.RunAsync(bundle, path, args, Rpc.ClampToolWait(timeoutSeconds), ct);
+        return new JsonObject
+        {
+            ["step"] = label,
+            ["script"] = script,
+            ["exitCode"] = run.ExitCode,
+            ["stdout"] = run.StdOut.TrimEnd(),
+            ["stderr"] = run.StdErr.Length == 0 ? null : run.StdErr.TrimEnd(),
+            ["elapsedMs"] = run.ElapsedMs,
+        };
+    }
+
+    // ---------------------------------------------------------------- reading sub-answers
+
+    /// <summary>
+    /// A sub-tool's answer as a node, or the raw string when it is not JSON at all. Kept whole
+    /// rather than summarised: the whole point of composing these is that a failure must read the
+    /// same as it would from calling the tool directly.
+    /// </summary>
+    private static JsonNode? Parsed(string answer)
+    {
+        try { return JsonNode.Parse(answer); }
+        catch (JsonException) { return JsonValue.Create(answer); }
+    }
+
+    private static int? ErrorCode(string answer) =>
+        Parsed(answer) is JsonObject o && o.TryGetPropertyValue("errorCode", out var code)
+            ? code?.GetValue<int>() : null;
+
+    private static string? Field(string answer, string key) =>
+        Parsed(answer) is JsonObject o ? o[key]?.GetValue<string>() : null;
+
+    /// <summary>An lvai RPC answer failed when its errorCode is not 0, or when Rpc.Guard wrapped it.</summary>
+    private static bool Failed(string answer) => ErrorCode(answer) is not 0 || Guarded(answer);
+
+    /// <summary>A pylv tool answer succeeded when it says so - those carry `ok`, not `errorCode`.</summary>
+    private static bool Succeeded(string answer) =>
+        Parsed(answer) is JsonObject o && o["ok"]?.GetValue<bool>() == true;
+
+    private static bool Guarded(string answer) =>
+        Parsed(answer) is JsonObject o && o.TryGetPropertyValue("ok", out var ok) &&
+        ok?.GetValue<bool>() == false;
+}

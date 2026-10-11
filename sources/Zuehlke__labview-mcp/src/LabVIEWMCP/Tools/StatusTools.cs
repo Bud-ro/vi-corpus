@@ -1,0 +1,549 @@
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using LabVIEWMcp.Grpc;
+using LabVIEWMcp.GrpcReflection;
+using LabVIEWMcp.Infra;
+using LabVIEWMcp.Lvai;
+using ModelContextProtocol.Server;
+using Pbr = Google.Protobuf.Reflection;
+
+namespace LabVIEWMcp.Tools;
+
+[McpServerToolType]
+internal sealed class StatusTools(LvaiConnection connection)
+{
+    private static readonly JsonSerializerOptions Indented = new() { WriteIndented = true };
+
+    [McpServerTool(Name = "lvai_status", ReadOnly = true, Title = "LabVIEW gRPC connection status")]
+    [Description("""
+        Show whether LabVIEW's embedded AI gRPC server is reachable: the discovered port,
+        how it was found, and the service list reported by server reflection. Start here -
+        every other lvai_* tool depends on this connection. The port is ephemeral and
+        changes on each LabVIEW restart, so it is re-discovered automatically.
+        Also reports scriptsDirectory: the absolute path of the helper scripts shipped next to
+        this server's exe. Use it instead of a relative path - it works from any working
+        directory, and from a binary-only install with no repository checkout.
+        `labviewHealth` counts the `DWarn` EVENTS in NI's OWN crash log, which is where
+        LabVIEW records faults - its crash handler means Windows Error Reporting never sees them,
+        so an empty event log is not an alibi. Events, not lines: NI writes each one twice and
+        this counted the substring until 2026-09-08, so `dwarnCount` was double throughout and
+        every DWarn figure in this repository predating that halves. `dwarnCountedBy` names the
+        rule that counted. USE IT AFTER A FAILURE, NEVER AS A GATE BEFORE
+        WORK: measured 2026-09-03 over two runs, it was wrong in BOTH directions - an instance at
+        200 completed a whole cold class build without incident, and an instance reading 0
+        crashed inside ConvertAIXMLToVI minutes later. What it is good for is the retrospective
+        question: a class-editing call has failed for no reason the project state explains, so did
+        the count move, and does a restart cure it? The log is reset at start, so the count covers
+        this instance only.
+        """)]
+    public async Task<string> StatusAsync(CancellationToken ct = default) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            // Through InvokeAsync, never GetClientAsync. This tool's own description promises
+            // that a LabVIEW restart is re-discovered automatically, and only InvokeAsync drops
+            // a stale channel and re-scans. Measured: with the direct call, every lvai_status
+            // after a LabVIEW restart returned "Unavailable: Error connecting to subchannel"
+            // and kept doing so - the one tool that claimed to heal itself was the one that
+            // could not, and a unary tool had to be called first to unstick it.
+            var config = await connection.InvokeAsync((c, t) =>
+                c.GetApplicationConfigurationAsync(new GetApplicationConfigurationRequest(),
+                    deadline: Rpc.Deadline(15), cancellationToken: t).ResponseAsync, ct);
+
+            var services = new JsonArray();
+            string? reflectionError = null;
+            try
+            {
+                foreach (var name in await ListServicesAsync(ct)) services.Add(name);
+            }
+            catch (Exception e)
+            {
+                reflectionError = $"{e.GetType().Name}: {e.Message}";
+            }
+
+            return new JsonObject
+            {
+                ["ok"] = true,
+                ["address"] = connection.Address,
+                ["port"] = connection.Port,
+                ["discoveredVia"] = connection.DiscoveredVia,
+                ["applicationLanguage"] = config.Language,
+                // Which build of THIS server is answering. A `-dev` suffix means the exe did not
+                // come from the release workflow; `serverCommit` pins it exactly either way.
+                ["serverVersion"] = ServerVersion.Current.Display,
+                ["serverCommit"] = ServerVersion.Current.Commit,
+                ["scriptsDirectory"] = ScriptsDirectory(),
+                ["claudeAssetsDirectory"] = ClaudeAssetsDirectory(),
+                // The add-on build the export cache is keyed to. Reported because a dropped cache
+                // is otherwise invisible: the first read after an upgrade just takes longer, which
+                // looks like a slow VI rather than an invalidation that was supposed to happen.
+                ["aiAddonFingerprint"] = LvaiVersion.Compute(),
+                ["aiAddonRecorded"] = LvaiVersion.Recorded(),
+                ["services"] = services,
+                ["reflectionError"] = reflectionError,
+                // A LabVIEW that is running and answering can still be too sick to work.
+                ["labviewHealth"] = Health(),
+            }.ToJsonString(Indented);
+        });
+
+    /// <summary>
+    /// What NI's own crash log says about this LabVIEW instance, counted rather than parsed.
+    ///
+    /// WHY THIS IS IN `lvai_status`. Measured 2026-09-03: a LabVIEW that answered every RPC
+    /// normally was nevertheless refusing work - `lvai_bind_class_fields` failed 4/4 with
+    /// `Error 1073` on `Move` in three different project configurations, INCLUDING one where no
+    /// project held the class at all, and the accessor wizard answered `Error 1562`. After a
+    /// restart the identical calls succeeded. The instance had arrived unhealthy: NI's log
+    /// already carried 200 `DWarn` entries timestamped before the session began. Diagnosing
+    /// that cost about 240 s of wall clock for 2.9 s inside LabVIEW.
+    ///
+    /// READ NI'S LOG, NOT THE WINDOWS EVENT LOG. LabVIEW installs its own crash handler, so
+    /// Windows Error Reporting never sees these - an empty Application log is not an alibi.
+    ///
+    /// COUNTED, NOT DIAGNOSED, and the difference matters: a `DWarn` is not proof of anything
+    /// and a high count is not a verdict. `_cur.txt` is overwritten at start - it carries ONE
+    /// `#Date:` header - so the count is for this instance's lifetime and nothing earlier.
+    ///
+    /// IT HAS BEEN WRONG IN BOTH DIRECTIONS, measured 2026-09-03 over two runs: 200 was followed by
+    /// a flawless cold build, and 0 - a log reset minutes before - was followed by a crash inside
+    /// `ConvertAIXMLToVI`. Treat it as a record of what has already happened, useful AFTER an
+    /// unexplained failure, and never as a gate before starting work.
+    ///
+    /// A caution for anyone reading the file directly: comparing two SIZES across a restart looks
+    /// like evidence of appending and is not - the second reading is a different, fast-growing
+    /// file. Count the `#Date:` headers instead. An agent drew exactly that wrong conclusion here.
+    /// </summary>
+    internal static JsonObject Health()
+    {
+        var temp = Path.GetTempPath();
+        string? log = null;
+        try
+        {
+            log = Directory.EnumerateFiles(temp, "LabVIEW_*_cur.txt")
+                .OrderByDescending(File.GetLastWriteTimeUtc)
+                .FirstOrDefault();
+        }
+        catch (Exception failure) when (failure is IOException or UnauthorizedAccessException)
+        {
+        }
+
+        if (log is null)
+            return new JsonObject
+            {
+                ["logFound"] = false,
+                ["note"] = "No LabVIEW_*_cur.txt in %TEMP%. That is the normal state for an "
+                           + "instance that has never had a fault worth logging.",
+            };
+
+        string text;
+        try
+        {
+            // SHARED, because LabVIEW HOLDS THIS FILE OPEN. `_cur.txt` is the log of the running
+            // instance and it is written to as faults happen, so File.ReadAllText answers
+            // "being used by another process" on exactly the station this check exists for -
+            // caught by its own unit test on 2026-09-03, before it ever shipped.
+            using var stream = new FileStream(log, FileMode.Open, FileAccess.Read,
+                                              FileShare.ReadWrite | FileShare.Delete);
+            using var reader = new StreamReader(stream);
+            text = reader.ReadToEnd();
+        }
+        catch (Exception failure) when (failure is IOException or UnauthorizedAccessException)
+        {
+            return new JsonObject
+            {
+                ["logFound"] = true,
+                ["logPath"] = log,
+                ["note"] = "The log could not be read: " + failure.Message,
+            };
+        }
+
+        var (warnings, countedBy) = CountDwarnEvents(text);
+        var lastSignature = text.Split(['\n'], StringSplitOptions.RemoveEmptyEntries)
+            .LastOrDefault(line => line.Contains("DWarn", StringComparison.Ordinal))?.Trim();
+
+        // SATURATED AT 100 EVENTS, so the number is a FLOOR once it gets there. Measured
+        // 2026-09-03 across four captures of this log: three read exactly 200 at three different
+        // file sizes (1.94, 1.98 and 2.00 MB) while others read 16 and 146. A count that stops
+        // dead at a round number while the file keeps growing is a cap, not a coincidence - and
+        // reporting it as a magnitude invites the reader to compare two saturated logs and
+        // conclude nothing changed. NI documents no such limit; this is inferred from the four
+        // readings and is labelled as inference rather than fact.
+        //
+        // THOSE FOUR READINGS WERE LINE COUNTS, AND EVERY THRESHOLD HERE IS HALVED BECAUSE OF IT.
+        // Until 2026-09-08 this counted the substring "DWarn", and NI writes each event TWICE -
+        // a bare line, then the same message prefixed with `source\...cpp(N) : `. Measured that
+        // day by generating four diagram objects at uids inside LabVIEW's reserved range, which
+        // logs one event per object: the substring count went 2 -> 10 while the event count went
+        // 1 -> 5. Exactly 2x, in both readings. So the observed cap of 200 lines is 100 events,
+        // and the degraded threshold of 50 lines is 25 - the calibration is preserved, only its
+        // unit is corrected. Any DWarn figure recorded in this repository before that date is a
+        // line count and halves.
+        const int knownCap = 100;
+        var saturated = warnings >= knownCap;
+
+        // HOW OLD THE INSTANCE IS, because without it `dwarnCount` cannot be read at all.
+        // Measured 2026-09-18: LabVIEW went down at 14:45:15 - the Nigel service log records all
+        // six of its features dropping - and a NEW process appeared at 14:45:23. Every probe after
+        // that answered `Error 1025, Application Reference is invalid` and `1154` from
+        // {LV.Control} Replace, while this tool reported ok, dwarnCount 0, looksDegraded false.
+        // The zero was not health; it was a log reset eight seconds earlier. The note below has
+        // SAID "the log is reset at start" since it was written and never said WHEN that was, so
+        // the one number that settles it was the one number missing.
+        var upSeconds = LabViewUpSeconds();
+
+        return new JsonObject
+        {
+            ["logFound"] = true,
+            ["logPath"] = log,
+            ["logWrittenUtc"] = File.GetLastWriteTimeUtc(log).ToString("O"),
+            // The OS's own answer, not an inference from the log: a log can be appended to across
+            // restarts, so its age is not the instance's age.
+            ["labviewUpSeconds"] = upSeconds is null ? null : JsonValue.Create(upSeconds.Value),
+            ["dwarnCount"] = warnings,
+            ["dwarnCountSaturated"] = saturated,
+            // EVENTS, NOT LINES - and named, because the unit CHANGED on 2026-09-08 and a reader
+            // comparing this number against an older note would otherwise be comparing halves.
+            // "rawFallback" means no `cpp(N) : DWarn` line was found while the bare form was, so
+            // NI's format is not the one measured here and the number may be doubled again.
+            ["dwarnCountedBy"] = countedBy,
+            // COUNT AND SIZE BOTH, because the count alone was ambiguous: measured 2026-09-03, the
+            // log was rewritten during a run - logWrittenUtc moved by an hour - while dwarnCount
+            // stayed at exactly 200 and the last signature was byte-identical. Whether LabVIEW
+            // rotates, caps or rewrites in place is unknown; a length makes the movement visible
+            // instead of leaving it to be reconstructed afterwards.
+            ["logBytes"] = text.Length,
+            ["lastDwarn"] = lastSignature,
+            // SIGNATURE, NOT JUST COUNT. `0xECE53844 DestroyPlatformEvent` is LabVIEW
+            // failing to release an OS event handle during its own housekeeping, and it is
+            // measured harmless: runs 10, 11 and 12 produced 17, 26 and 18 of them with no
+            // crash, no restart and every artefact correct. Counting them made this field
+            // read `true` through a completely clean run, which is worse than not having it.
+            // A log carrying ONLY that signature is not degraded however many there are.
+            ["looksDegraded"] = warnings >= 25 && HasSignatureOtherThanBenignTeardown(text),
+            // `looksDegraded` HAS NOW BEEN WRONG IN BOTH DIRECTIONS, and saying so is the
+            // point of this field rather than a caveat on it. Measured 2026-09-03 over two runs:
+            // an instance at 200 completed a full cold class build, a typedef binding, ten
+            // accessors and five suite runs without incident; an instance at 0 - a log reset
+            // minutes earlier - CRASHED during lvai_create_class. So the count records trouble
+            // that HAS happened; it does not predict trouble that WILL. Keep using it the way
+            // the note says - as something to check AFTER an unexplained failure - and do not
+            // gate work on it.
+            ["note"] = warnings == 0
+                ? LowDwarnNote(warnings, upSeconds)
+                : saturated
+                    ? $"AT LEAST {knownCap} DWarn events - the count is SATURATED and is a "
+                      + "FLOOR, not a magnitude. Measured 2026-09-03: three captures read "
+                      + "exactly 200 LOG LINES at three different file sizes (1.94, 1.98, "
+                      + "2.00 MB) while others read 16 and 146, and NI writes two lines per "
+                      + "event - so the cap is 100 events. Two saturated logs cannot be "
+                      + "compared with each other, and a count that is NOT RISING is no "
+                      + "evidence that nothing new went wrong - read `lastDwarn` instead. "
+                      + "NI documents no such limit; this is inferred from four readings. "
+                      + "A RECORD OF WHAT HAS ALREADY GONE WRONG, not a prediction - an "
+                      + "instance at this level has also been measured completing a whole "
+                      + "cold class build without incident. Its use is RETROSPECTIVE: when "
+                      + "a class-editing call fails for no reason the project state "
+                      + "explains - Error 1073 on a private-data export, Error 1562 from "
+                      + "the accessor wizard - restart LabVIEW before hunting further. Do "
+                      + "not gate work on this number."
+                : warnings >= 25
+                    ? $"{warnings} DWarn events. A RECORD OF WHAT HAS ALREADY GONE WRONG, "
+                      + "not a prediction - an instance at this level has also been measured "
+                      + "completing a whole cold class build without incident. Its use is "
+                      + "RETROSPECTIVE: when a class-editing call fails for no reason the project "
+                      + "state explains - Error 1073 on a private-data export, Error 1562 from the "
+                      + "accessor wizard - check whether the count moved and restart LabVIEW "
+                      + "before hunting further. Do not gate work on this number."
+                    // THE SAME CAVEAT AS THE ZERO CASE, because a low count on a
+                    // 94-second-old instance says exactly as little. Measured 2026-09-18: two
+                    // fresh instances both read 1, so the zero branch alone was landing where it
+                    // would almost never be read.
+                    : LowDwarnNote(warnings, upSeconds),
+        };
+    }
+
+    /// <summary>
+    /// How many DWarn EVENTS the log records, and which rule counted them.
+    ///
+    /// NI WRITES EACH EVENT TWICE, which is why this is not a substring count. Every event is a
+    /// bare line followed by the same message prefixed with its source position:
+    ///
+    /// <code>
+    /// DWarn 0xBB613420: trying to override with non-reserved UID, request: 10 ...
+    /// source\panel\HeapObjMapImpl.cpp(226) : DWarn 0xBB613420: trying to override with ...
+    /// </code>
+    ///
+    /// MEASURED 2026-09-08, not inferred from one sample. Generating four diagram objects at uids
+    /// inside LabVIEW's reserved range logs one event per object, so the delta is known in
+    /// advance: the substring count went 2 -> 10 while `) : DWarn` lines and `DEBUG_OUTPUT`
+    /// blocks both went 1 -> 5. Two lines per event, in both the before and after readings.
+    ///
+    /// The consequence was not cosmetic. Every threshold in <see cref="Health"/> was calibrated
+    /// against doubled numbers, so the "saturates at 200" cap was really 100 events - and any
+    /// figure written down in this repository before that date halves.
+    ///
+    /// THE `) : DWarn` FORM IS THE MARKER, and `DEBUG_OUTPUT` blocks are not, because a block
+    /// need not carry a DWarn at all. The fallback exists so a format this was never measured
+    /// against cannot make the count read 0 while warnings are plainly present: that answers the
+    /// raw substring count and says so, rather than silently claiming health.
+    /// </summary>
+    internal static (int Count, string CountedBy) CountDwarnEvents(string text)
+    {
+        var events = Count(text, ") : DWarn");
+        if (events > 0) return (events, "events");
+
+        var raw = Count(text, "DWarn");
+        return raw > 0 ? (raw, "rawFallback") : (0, "events");
+    }
+
+    private static int Count(string text, string needle)
+    {
+        var count = 0;
+        var at = 0;
+        while ((at = text.IndexOf(needle, at, StringComparison.Ordinal)) >= 0)
+        {
+            count++;
+            at += needle.Length;
+        }
+        return count;
+    }
+
+    /// <summary>
+    /// Absolute path of the scripts/ folder copied next to the exe at build time, or null when
+    /// it is absent. Reported by lvai_status so an agent never has to guess a relative path:
+    /// the MCP server's working directory is whatever the client chose, which is not the
+    /// repository root, and a binary-only install has no repository at all.
+    /// </summary>
+    internal static string? ScriptsDirectory()
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "scripts");
+        return Directory.Exists(path) ? path : null;
+    }
+
+    /// <summary>
+    /// Absolute path of the Claude Code assets copied next to the exe - the documentation agent,
+    /// the tool allow-list and CLAUDE.md - or null when absent. The embedded documents are served
+    /// by tools, but an AGENT has to exist as a file where Claude Code looks for it, so a
+    /// binary-only install needs this path plus scripts\Install-ClaudeAssets.ps1.
+    /// </summary>
+    internal static string? ClaudeAssetsDirectory()
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "claude");
+        return Directory.Exists(path) ? path : null;
+    }
+
+    [McpServerTool(Name = "lvai_get_application_configuration", ReadOnly = true,
+                   Title = "Get LabVIEW application configuration")]
+    [Description("""
+        RPC GetApplicationConfiguration. Returns the LabVIEW application configuration
+        (currently just the UI language). Cheapest possible liveness probe.
+        """)]
+    public async Task<string> GetApplicationConfigurationAsync(CancellationToken ct = default) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            var response = await connection.InvokeAsync((c, t) =>
+                c.GetApplicationConfigurationAsync(
+                    new GetApplicationConfigurationRequest(),
+                    deadline: Rpc.Deadline(15), cancellationToken: t).ResponseAsync, ct);
+            return Json.Message(response);
+        });
+
+    [McpServerTool(Name = "lvai_dump_schema", ReadOnly = true, Title = "Dump the served gRPC schema")]
+    [Description("""
+        Ask the running LabVIEW server for its own schema via gRPC server reflection and
+        render it. Use this to detect schema drift: the interface is private and NI can
+        change it between LabVIEW versions, so this is the authoritative list of what the
+        installed version actually supports - not what this MCP server was built against.
+        format: 'summary' (services, rpcs, message fields) or 'json' (raw FileDescriptorProto).
+        """)]
+    public async Task<string> DumpSchemaAsync(
+        [Description("'summary' (default) or 'json'")] string format = "summary",
+        [Description("Optional: also write the rendered output to this file path")]
+        string? outputPath = null,
+        CancellationToken ct = default) =>
+        await Rpc.GuardAsync(async () =>
+        {
+            var descriptors = new List<Pbr.FileDescriptorProto>();
+            foreach (var service in await ListServicesAsync(ct))
+            {
+                if (service.StartsWith("grpc.", StringComparison.Ordinal)) continue; // stock services
+                foreach (var blob in await FilesForSymbolAsync(service, ct))
+                {
+                    var fd = Pbr.FileDescriptorProto.Parser.ParseFrom(blob);
+                    if (descriptors.All(d => d.Name != fd.Name)) descriptors.Add(fd);
+                }
+            }
+
+            var rendered = format.Equals("json", StringComparison.OrdinalIgnoreCase)
+                ? "[" + string.Join(",", descriptors.Select(d => Json.Node(d).ToJsonString())) + "]"
+                : SchemaRenderer.RenderSummary(descriptors);
+
+            string? written = null;
+            if (!string.IsNullOrWhiteSpace(outputPath))
+            {
+                await File.WriteAllTextAsync(outputPath, rendered, ct);
+                written = Path.GetFullPath(outputPath);
+            }
+
+            return new JsonObject
+            {
+                ["ok"] = true,
+                ["port"] = connection.Port,
+                ["fileCount"] = descriptors.Count,
+                ["writtenTo"] = written,
+                ["schema"] = rendered,
+            }.ToJsonString(Indented);
+        });
+
+    // ---------- reflection plumbing ----------
+
+    private async Task<List<string>> ListServicesAsync(CancellationToken ct)
+    {
+        var reflection = await connection.GetReflectionClientAsync(ct);
+        using var call = reflection.ServerReflectionInfo(
+            deadline: Rpc.Deadline(20), cancellationToken: ct);
+
+        await call.RequestStream.WriteAsync(new ServerReflectionRequest { ListServices = "" }, ct);
+        await call.RequestStream.CompleteAsync();
+
+        var names = new List<string>();
+        while (await call.ResponseStream.MoveNext(ct))
+        {
+            var response = call.ResponseStream.Current;
+            if (response.ErrorResponse is { } err)
+                throw new InvalidOperationException(
+                    $"reflection error {err.ErrorCode}: {err.ErrorMessage}");
+            if (response.ListServicesResponse is { } list)
+                names.AddRange(list.Service.Select(s => s.Name));
+        }
+        return names;
+    }
+
+    private async Task<List<byte[]>> FilesForSymbolAsync(string symbol, CancellationToken ct)
+    {
+        var reflection = await connection.GetReflectionClientAsync(ct);
+        using var call = reflection.ServerReflectionInfo(
+            deadline: Rpc.Deadline(20), cancellationToken: ct);
+
+        await call.RequestStream.WriteAsync(
+            new ServerReflectionRequest { FileContainingSymbol = symbol }, ct);
+        await call.RequestStream.CompleteAsync();
+
+        var blobs = new List<byte[]>();
+        while (await call.ResponseStream.MoveNext(ct))
+        {
+            var response = call.ResponseStream.Current;
+            if (response.ErrorResponse is { } err)
+                throw new InvalidOperationException(
+                    $"reflection error {err.ErrorCode}: {err.ErrorMessage}");
+            if (response.FileDescriptorResponse is { } files)
+                blobs.AddRange(files.FileDescriptorProto.Select(b => b.ToByteArray()));
+        }
+        return blobs;
+    }
+
+
+    /// <summary>
+    /// True when the log carries any DWarn signature OTHER than the benign event-handle teardown.
+    ///
+    /// WHY THIS EXISTS. `0xECE53844 DestroyPlatformEvent failed with MgErr 42` is LabVIEW failing
+    /// to release an OS event handle during housekeeping, marked `NOT InExec` - not our code, and
+    /// measured harmless across three full cold class builds (17, 26 and 18 events; no crash, no
+    /// restart, every artefact correct). Before this, `looksDegraded` counted them and read `true`
+    /// through an entirely clean run, which teaches a reader to ignore the field.
+    ///
+    /// It is deliberately a DENY-LIST OF ONE. The signatures that have preceded real deaths -
+    /// `OMAutoClasses`, `BadLinkerObjs`, `HeapObjMapImpl` - keep counting, and so does anything
+    /// new, because an unrecognised signature is the case where a warning is worth most.
+    /// </summary>
+    internal static bool HasSignatureOtherThanBenignTeardown(string text)
+    {
+        const string benign = "0xECE53844";
+        // LF spelled numerically, because an escape in this position has now been eaten in
+        // transit twice by the shell that wrote the patch.
+        foreach (var line in text.Split((char)10))
+        {
+            if (!line.Contains("DWarn", StringComparison.Ordinal)) continue;
+            if (!line.Contains(benign, StringComparison.Ordinal)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Seconds since the youngest LabVIEW process started, or <c>null</c> when that cannot be read.
+    /// </summary>
+    private static int? LabViewUpSeconds()
+    {
+        try
+        {
+            var youngest = Process.GetProcessesByName("LabVIEW")
+                .Select(p => { try { return (DateTime?)p.StartTime; } catch { return null; } })
+                .Where(t => t is not null)
+                .Max();
+            return youngest is null ? null : (int)(DateTime.Now - youngest.Value).TotalSeconds;
+        }
+        // A process that exits between the enumeration and the read, or a platform that refuses
+        // StartTime, is not a reason to fail a status call.
+        catch (Exception failure) when (failure is InvalidOperationException
+                                        or System.ComponentModel.Win32Exception) { return null; }
+    }
+
+    /// <summary>
+    /// What a LOW <c>dwarnCount</c> actually means, which depends on how old the instance is.
+    ///
+    /// THE OLD TEXT WAS RIGHT AND UNUSABLE. It said an instance reading 0 "has been measured
+    /// crashing minutes later, because the log is reset at start" - true, and it never reported
+    /// when that start was, so the reader had no way to tell a genuinely quiet instance from one
+    /// whose log had just been wiped.
+    ///
+    /// AND SCOPING IT TO ZERO WAS TOO NARROW, which acceptance showed rather than argued.
+    /// Measured 2026-09-18 across two freshly restarted instances, 98 s and 94 s old: BOTH read
+    /// <c>dwarnCount: 1</c>, not 0 - one <c>DestroyPlatformEvent failed with MgErr 42</c>, which
+    /// this repository already records as benign teardown. So on this station the zero branch is
+    /// very nearly unreachable and the caveat was landing where it would never be read, while the
+    /// low-count branch beside it - "Low enough to be ordinary" - carried the identical defect on
+    /// an instance a minute and a half old. The caveat is shared now.
+    ///
+    /// Thirty minutes is a READING AID, not a measured boundary, and the raw
+    /// <c>labviewUpSeconds</c> is reported beside it so nobody has to trust the line.
+    /// </summary>
+    internal static string LowDwarnNote(int warnings, int? upSeconds)
+    {
+        var opening = warnings == 0
+            ? "No DWarn entries in this instance's log. That is NOT a promise of health: an " +
+              "instance reading 0 has been measured crashing minutes later, because the log is " +
+              "reset at start and records only what has already gone wrong."
+            : $"{warnings} DWarn events. Low enough to be ordinary; read the log if a call fails " +
+              "in a way the arguments do not explain.";
+
+        return opening + " " + AgeCaveat(warnings, upSeconds);
+    }
+
+    /// <summary>
+    /// The half that depends on the clock rather than on the count.
+    ///
+    /// It deliberately says NOTHING about `Error 1025` any more. That sentence was here for a day
+    /// and it was wrong: 1025 means the `.lvproj` does not exist, measured as an A/B in one
+    /// directory, and `lvai_open_file` refuses a missing path before LabVIEW sees it. Pointing a
+    /// reader at a stale-reference story from a health note is how the wrong diagnosis spread the
+    /// first time.
+    /// </summary>
+    private static string AgeCaveat(int warnings, int? upSeconds)
+    {
+        var subject = warnings == 0 ? "this zero" : "this count";
+
+        if (upSeconds is null)
+            return "LabVIEW's process start time could not be read here, so whether " + subject +
+                   " reflects a quiet instance or a freshly reset log is not established.";
+
+        var minutes = upSeconds.Value / 60;
+
+        return upSeconds.Value < 30 * 60
+            ? $"AND THIS INSTANCE IS {minutes} MINUTE(S) OLD, so {subject} says almost nothing - " +
+              "the log was reset that recently, and nothing here has had time to go wrong yet. " +
+              "Read labviewUpSeconds beside this before treating a low count as health."
+            : $"This instance has been up {minutes} minutes, so {subject} is at least about a " +
+              "period of real work rather than a log that was just reset.";
+    }
+}

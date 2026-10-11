@@ -1,0 +1,1066 @@
+﻿using LabVIEWMcp.Infra;
+using LabVIEWMcp.Tests.Support;
+using Xunit;
+
+namespace LabVIEWMcp.Tests.Infra;
+
+/// <summary>
+/// The pre-flight AIXML check, added 2026-09-04.
+///
+/// EVERY FIXTURE HERE WAS RUN THROUGH THE REAL VALIDATOR FIRST, and the assertions encode what
+/// LabVIEW actually did with it - not what a schema says it should. That matters because the whole
+/// point of this class is the gap between the two: a checker written from the documentation would
+/// duplicate what LabVIEW already does and miss the three things it does not.
+/// </summary>
+public sealed class AixmlCheckTests
+{
+    private static string Sole(string xml, AixmlCheck.Severity severity)
+    {
+        var findings = AixmlCheck.Check(xml).Where(f => f.Severity == severity).ToList();
+        return Assert.Single(findings).Code;
+    }
+
+
+    // ------------------------------------------------- the one that loses the whole document
+
+    /// <summary>
+    /// VERBATIM FROM THE DOCUMENT THAT FAILED, 2026-09-14. Every Indicator carried `inputs`,
+    /// `type`, `conIdx` and `connection` and no `value`; ConvertAIXMLToVI answered
+    /// `Error -2628, An error occurred while parsing the document` and wrote NOTHING - viBytes 0.
+    /// Adding `value` to the three Indicators and changing nothing else converted clean at 6331
+    /// bytes. This checker and scripts/aixml_lint.py both answered clean at the time, which is the
+    /// whole reason the check exists.
+    /// </summary>
+    private const string IndicatorWithoutValue = """
+        <VI _name="Read Sample.vi" description="The shape that lost a document.">
+          <Control _name="ISampleSource in" conIdx="11" connection="required" type="path" uid="4210" uid_parent="root" outputs="value:4210.value" value=""/>
+          <Constant _name="Sample" type="double" uid="4230" uid_parent="root" outputs="value:4230.value" value="0"/>
+          <Indicator _name="ISampleSource out" conIdx="3" connection="recommended" type="path" uid="4240" uid_parent="root" inputs="value:4210.value"/>
+          <Indicator _name="Sample" conIdx="2" connection="recommended" type="double" uid="4250" uid_parent="root" inputs="value:4230.value"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AnIndicatorWithoutAValueIsAnERROR_becauseTheConverterRefusesTheWholeDocument()
+    {
+        var findings = AixmlCheck.Check(IndicatorWithoutValue)
+            .Where(f => f.Severity == AixmlCheck.Severity.Error).ToList();
+
+        Assert.Equal(2, findings.Count);
+        Assert.All(findings, f => Assert.Equal("indicatorWithoutValue", f.Code));
+        Assert.Equal(["4240", "4250"], findings.Select(f => f.Uid).Order());
+    }
+
+    /// <summary>
+    /// The message has to carry the literal for THAT type, because the whole failure mode next
+    /// door is a generator that wrote `0` for a path. A reader who pastes what this says must get
+    /// a correct document.
+    /// </summary>
+    [Fact]
+    public void TheMessageNamesTheRightLiteralForTheType()
+    {
+        var findings = AixmlCheck.Check(IndicatorWithoutValue)
+            .Where(f => f.Code == "indicatorWithoutValue").ToList();
+
+        Assert.Contains(findings, f => f.Uid == "4240" && f.Message.Contains("value=\"\""));
+        Assert.Contains(findings, f => f.Uid == "4250" && f.Message.Contains("value=\"0\""));
+    }
+
+    [Fact]
+    public void AnIndicatorThatHasAValueIsClean() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check(IndicatorWithoutValue.Replace(
+                "inputs=\"value:4210.value\"/>", "inputs=\"value:4210.value\" value=\"\"/>")
+                .Replace("inputs=\"value:4230.value\"/>", "inputs=\"value:4230.value\" value=\"0\"/>")),
+            f => f.Code == "indicatorWithoutValue");
+
+    /// <summary>
+    /// An EMPTY value is a value. `value=""` is the correct literal for a path or a string, so a
+    /// check that tested for non-emptiness would refuse exactly the documents it exists to produce.
+    /// </summary>
+    [Fact]
+    public void AnEmptyValueCounts() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check("""
+                <VI _name="P.vi">
+                  <Control _name="a" outputs="value:4200.value" type="path" uid="4200" uid_parent="root" value=""/>
+                  <Indicator _name="b" inputs="value:4200.value" type="path" uid="4210" uid_parent="root" value=""/>
+                </VI>
+                """),
+            f => f.Code == "indicatorWithoutValue");
+
+    /// <summary>
+    /// A Control and a Constant, each with no `value`, beside an Indicator that has one.
+    /// MEASURED 2026-09-15: each of the two refuses the whole document with `Error -2628` and
+    /// writes 0 bytes, while adding `value="0"` to the Control and changing nothing else
+    /// converts to 3968 bytes.
+    /// </summary>
+    private const string ControlAndConstantWithoutValue = """
+        <VI _name="P.vi">
+          <Control _name="a" type="double" uid="4200" uid_parent="root" outputs="value:4200.value"/>
+          <Constant _name="c" type="double" uid="4210" uid_parent="root" outputs="value:4210.value"/>
+          <Indicator _name="b" type="double" uid="4220" uid_parent="root" inputs="value:4200.value" value="0"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AControlAndAConstantWithoutAValueAreErrorsToo()
+    {
+        var findings = AixmlCheck.Check(ControlAndConstantWithoutValue)
+            .Where(f => f.Code == "indicatorWithoutValue").ToList();
+
+        Assert.Equal(2, findings.Count);
+        Assert.All(findings, f => Assert.Equal(AixmlCheck.Severity.Error, f.Severity));
+        Assert.Equal(["4200", "4210"], findings.Select(f => f.Uid).Order());
+    }
+
+    /// <summary>
+    /// THE CONTROL ARM, kept as a test because it is the half that makes the pair a measurement:
+    /// the same document with the attribute present converted cleanly.
+    /// </summary>
+    [Fact]
+    public void TheSameElementsWithAValueAreClean() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check(ControlAndConstantWithoutValue
+                .Replace("uid=\"4200\" uid_parent=\"root\" outputs", "uid=\"4200\" uid_parent=\"root\" value=\"0\" outputs")
+                .Replace("uid=\"4210\" uid_parent=\"root\" outputs", "uid=\"4210\" uid_parent=\"root\" value=\"0\" outputs")),
+            f => f.Code == "indicatorWithoutValue");
+
+    /// <summary>
+    /// THE ASYMMETRY IS DELIBERATE AND IS THE POINT OF THIS TEST. A Control's value is its default
+    /// state, so the type decides it and the repair is safe. A CONSTANT's value is the DATA - an
+    /// author who left it off may have meant 42, and writing 0 turns a document that refuses to
+    /// convert into one that converts and computes the wrong answer. Same reasoning as
+    /// timestampValueDiscarded: repair only where the type already decides the answer.
+    /// </summary>
+    [Fact]
+    public void TheControlIsRepairedAndTheConstantIsOnlyReported()
+    {
+        var repaired = AixmlCheck.Fix(ControlAndConstantWithoutValue);
+
+        var byName = System.Xml.Linq.XElement.Parse(repaired.Xml)
+            .Elements()
+            .ToDictionary(e => e.Attribute("_name")!.Value, e => e.Attribute("value")?.Value);
+
+        Assert.Equal("0", byName["a"]);      // Control - repaired
+        Assert.Null(byName["c"]);            // Constant - left alone
+        Assert.Equal(1, repaired.Repairs.Count(r => r.Code == "indicatorWithoutValue"));
+        Assert.Equal(1, repaired.Remaining.Count(f => f.Code == "indicatorWithoutValue"));
+    }
+
+    /// <summary>And the reader of a Constant finding is told not to wait for a fix.</summary>
+    [Fact]
+    public void TheConstantFindingSaysWhyItIsNotRepaired() =>
+        Assert.Contains(
+            AixmlCheck.Check(ControlAndConstantWithoutValue)
+                .Where(f => f.Code == "indicatorWithoutValue" && f.Uid == "4210"),
+            f => f.Message.Contains("NOT repaired automatically"));
+
+    // ----------------------------------------------------------------------------------------
+    // A CONTROL READ IN A LOOP THAT WAITS IS READ BEFORE THE WAIT RETURNS
+    // ----------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// The seventh ATM build, reduced: `User Input` read in the consumer loop beside its
+    /// `Dequeue Element`, so `Enter` verified the input from BEFORE the user typed. Found by the
+    /// user pressing the buttons, with every unit test and every cheap check green.
+    /// </summary>
+    private const string ConsumerReadsAControl = """
+        <VI _name="Probe.vi">
+          <Structure _name="While Loop" count="" uid="4300" uid_parent="root">
+            <Control _name="User Input" type="string" value="" outputs="value:4301.value" uid="4301" uid_parent="4300"/>
+            <Node _name="Dequeue Element" inputs="queue:,timeout in ms (-1):,error in (no error):" outputs="queue out:,element:,timed out?:,error out:" uid="4302" uid_parent="4300"/>
+          </Structure>
+        </VI>
+        """;
+
+    [Fact]
+    public void AControlBesideADequeueIsAWarning() =>
+        Assert.Contains(AixmlCheck.Check(ConsumerReadsAControl),
+            f => f.Code == "controlReadBeforeWait" && f.Uid == "4301"
+                 && f.Severity == AixmlCheck.Severity.Warning);
+
+    /// <summary>The control arm: the same loop with nothing to wait on reads it when it should.</summary>
+    [Fact]
+    public void AControlInALoopThatDoesNotWaitIsClean() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check(ConsumerReadsAControl.Replace("Dequeue Element", "Increment")),
+            f => f.Code == "controlReadBeforeWait");
+
+    /// <summary>
+    /// The FIX is the shape to leave alone: a control inside its own event frame is read when the
+    /// event fires, which is where the seventh build's `User Input` went.
+    /// </summary>
+    [Fact]
+    public void AControlInsideAnEventFrameIsClean() =>
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="Probe.vi">
+              <Structure _name="While Loop" count="" uid="4300" uid_parent="root">
+                <Structure _name="Event Structure" uid="4310" uid_parent="4300">
+                  <CaseFrame selector=" &quot;Enter&quot;\3A Value Change " uid="4320" uid_parent="4310">
+                    <Control _name="User Input" type="string" value="" outputs="value:4321.value" uid="4321" uid_parent="4320"/>
+                  </CaseFrame>
+                </Structure>
+              </Structure>
+            </VI>
+            """), f => f.Code == "controlReadBeforeWait");
+
+    /// <summary>And a control in a Case frame waits for its selector, which comes from the wait.</summary>
+    [Fact]
+    public void AControlInsideACaseFrameIsClean() =>
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="Probe.vi">
+              <Structure _name="While Loop" count="" uid="4300" uid_parent="root">
+                <Node _name="Dequeue Element" inputs="queue:,timeout in ms (-1):,error in (no error):" outputs="queue out:,element:4302.element,timed out?:,error out:" uid="4302" uid_parent="4300"/>
+                <Structure _name="Case Structure" selectin="4302.element" uid="4310" uid_parent="4300">
+                  <CaseFrame selector="&quot;Enter&quot;" selectout="" uid="4320" uid_parent="4310">
+                    <Control _name="User Input" type="string" value="" outputs="value:4321.value" uid="4321" uid_parent="4320"/>
+                  </CaseFrame>
+                </Structure>
+              </Structure>
+            </VI>
+            """), f => f.Code == "controlReadBeforeWait");
+
+    // ----------------------------------------------------------------------------------------
+    // A NON-EMPTY `timestamp` VALUE IS DISCARDED
+    // ----------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// The survival table, MEASURED 2026-09-15: one probe carrying six constants, converted and
+    /// exported back. string, path, double, int32 and bool all kept their literal; `timestamp`
+    /// alone came back `value=""`. errorCode 0 at every step, both cheap checkers clean.
+    /// </summary>
+    private const string TimestampWithAValue = """
+        <VI _name="Probe.vi">
+          <Constant _name="t" type="timestamp" value="3800000000" uid="4200" uid_parent="root" outputs="value:4200.value"/>
+          <Indicator _name="Last Seen" type="timestamp" value="3800000000" inputs="value:4200.value" uid="4210" uid_parent="root"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void ATimestampCarryingAValueIsAWarning_becauseTheConverterAcceptsItAndDropsIt()
+    {
+        var findings = AixmlCheck.Check(TimestampWithAValue)
+            .Where(f => f.Code == "timestampValueDiscarded").ToList();
+
+        Assert.Equal(2, findings.Count);
+        Assert.All(findings, f => Assert.Equal(AixmlCheck.Severity.Warning, f.Severity));
+        Assert.Equal(["4200", "4210"], findings.Select(f => f.Uid).Order());
+    }
+
+    /// <summary>
+    /// `value=""` is the ONLY timestamp literal AIXML can express, so it is the shape this check
+    /// exists to leave alone - a checker that refused it would refuse every correct document.
+    /// </summary>
+    [Fact]
+    public void AnEmptyTimestampIsClean() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check(TimestampWithAValue.Replace("3800000000", "")),
+            f => f.Code == "timestampValueDiscarded");
+
+    /// <summary>
+    /// THE CONTROL, and the reason this check is scoped to one type rather than to a family. The
+    /// same probe measured `string` KEEPING `PT-101` on both sides; widening the rule to a type
+    /// that merely looks similar is the guess this repository keeps being caught by.
+    /// </summary>
+    [Fact]
+    public void AStringCarryingAValueIsClean() =>
+        Assert.DoesNotContain(
+            AixmlCheck.Check(TimestampWithAValue.Replace("timestamp", "string")
+                                                .Replace("3800000000", "PT-101")),
+            f => f.Code == "timestampValueDiscarded");
+
+    /// <summary>
+    /// DELIBERATELY NOT REPAIRED. Every other finding in this class has a `Fix`, and this one
+    /// cannot: there is no non-empty timestamp literal to correct it TO, and emptying the value
+    /// would silently produce exactly the vacuous test the finding is warning about.
+    /// </summary>
+    [Fact]
+    public void ItIsReportedRatherThanRepaired()
+    {
+        var repaired = AixmlCheck.Fix(TimestampWithAValue);
+
+        Assert.DoesNotContain(repaired.Repairs, r => r.Code == "timestampValueDiscarded");
+        Assert.Equal(2, repaired.Remaining.Count(f => f.Code == "timestampValueDiscarded"));
+        Assert.Contains("3800000000", repaired.Xml);
+    }
+
+    /// <summary>
+    /// THE SURVIVAL TABLE ITSELF, because this predicate decides more than one finding: the LUnit
+    /// scaffold asks it whether a field can be round-trip tested at all. Measured 2026-09-15 with
+    /// one probe carrying all six constants, converted and exported back:
+    ///
+    ///     string PT-101 -> PT-101   path run.csv -> run.csv   double 21.5 -> 21.5
+    ///     int32  7      -> 7        bool true    -> true      timestamp 3800000000 -> ""
+    /// </summary>
+    [Theory]
+    [InlineData("timestamp", true)]
+    [InlineData("string", false)]
+    [InlineData("path", false)]
+    [InlineData("double", false)]
+    [InlineData("int32", false)]
+    [InlineData("bool", false)]
+    public void TheSurvivalTableIsTheOneThatWasMeasured(string type, bool discards) =>
+        Assert.Equal(discards, AixmlCheck.DiscardsNonEmptyValue(type));
+
+    [Fact]
+    public void FixWritesTheTypesOwnLiteral()
+    {
+        var repaired = AixmlCheck.Fix(IndicatorWithoutValue);
+
+        // Asserted off the PARSED result, not off its serialised text: what matters is the value
+        // each indicator now carries, and pinning the spacing of `/>` would test XElement.
+        var indicators = System.Xml.Linq.XElement.Parse(repaired.Xml)
+            .Elements("Indicator")
+            .ToDictionary(e => e.Attribute("_name")!.Value, e => e.Attribute("value")?.Value);
+
+        Assert.Equal("", indicators["ISampleSource out"]);   // path
+        Assert.Equal("0", indicators["Sample"]);             // double
+        Assert.Equal(2, repaired.Repairs.Count(r => r.Code == "indicatorWithoutValue"));
+        Assert.DoesNotContain(repaired.Remaining, f => f.Code == "indicatorWithoutValue");
+    }
+
+    /// <summary>
+    /// A cluster's literal is its fields' literals - the same recursion TestTools.DefaultFor
+    /// documents. Pinned here because the error cluster is the Indicator this rule meets most.
+    /// </summary>
+    [Fact]
+    public void FixKnowsWhatAnErrorClusterIsEmptyAs()
+    {
+        var repaired = AixmlCheck.Fix("""
+            <VI _name="P.vi">
+              <Control _name="error in" outputs="value:4200.value" type="cluster{bool.status,int32.code,string.source}" uid="4200" uid_parent="root" value="[false,0,]"/>
+              <Indicator _name="error out" inputs="value:4200.value" type="cluster{bool.status,int32.code,string.source}" uid="4210" uid_parent="root"/>
+            </VI>
+            """);
+
+        var repair = Assert.Single(repaired.Repairs, r => r.Code == "indicatorWithoutValue");
+        Assert.Equal("4210", repair.Uid);
+        Assert.Contains("[false,0,]", repair.Message);
+        Assert.DoesNotContain(repaired.Remaining, f => f.Code == "indicatorWithoutValue");
+    }
+
+    /// <summary>
+    /// An Indicator with NO `type` is REPORTED but not repaired: inventing a literal for a type
+    /// nobody declared is the catch-all that produced `value="0"` on a path field one file over.
+    /// </summary>
+    [Fact]
+    public void FixLeavesAnUntypedIndicatorAlone()
+    {
+        const string untyped = """
+            <VI _name="P.vi">
+              <Indicator _name="b" uid="4210" uid_parent="root"/>
+            </VI>
+            """;
+
+        Assert.DoesNotContain(AixmlCheck.Fix(untyped).Repairs, r => r.Code == "indicatorWithoutValue");
+        Assert.Contains(AixmlCheck.Check(untyped), f => f.Code == "indicatorWithoutValue");
+    }
+
+    // ------------------------------------------------------------------ the damaging one
+
+    /// <summary>
+    /// Verbatim from the probe that was measured: `errorCode 0` from ValidateAIXML, generated, and
+    /// LabVIEW's own export came back with uid_parent="root" - the node had been moved onto the
+    /// top-level diagram with nothing reported.
+    /// </summary>
+    private const string DanglingParent = """
+        <VI _name="NegParent.vi">
+          <Control _name="value" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/>
+          <Node _name="Increment" inputs="x:9010.value" outputs="x+1:9020.x+1" uid="9020" uid_parent="7777"/>
+          <Indicator _name="result" inputs="value:9020.x+1" type="double" uid="0" uid_parent="root" value="0"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void ADanglingParentIsAnERROR_becauseLabVIEWSilentlyReparentsIt()
+    {
+        var finding = Assert.Single(
+            AixmlCheck.Check(DanglingParent).Where(f => f.Severity == AixmlCheck.Severity.Error));
+
+        Assert.Equal("danglingParent", finding.Code);
+        Assert.Equal("9020", finding.Uid);
+        // The message has to say what LabVIEW DOES, not merely that the value is unknown - the
+        // whole hazard is that the file generates and runs.
+        Assert.Contains("TOP-LEVEL", finding.Message);
+    }
+
+    [Fact]
+    public void RootIsNotAnUnresolvedParent() =>
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi"><Control _name="v" uid="9010" uid_parent="root" type="double" value="0" outputs="value:9010.value"/></VI>
+            """), f => f.Code == "danglingParent");
+
+    [Fact]
+    public void AParentDeclaredLATERInTheFileStillResolves() =>
+        // Document order is not dependency order: a Tunnel may name its structure before the
+        // structure element is reached. Resolving against the whole document rather than a
+        // running set is what makes that work.
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi">
+              <Node _name="Increment" uid="9060" uid_parent="9030"/>
+              <Structure _name="For Loop" count="" uid="9030" uid_parent="root"/>
+            </VI>
+            """), f => f.Code == "danglingParent");
+
+    // ------------------------------------------------------------------ duplicates
+
+    [Fact]
+    public void ADuplicateUidIsAWarning_becauseLabVIEWRenumbersRatherThanRefusing()
+    {
+        // Measured: 9010 / 9020 / 9010 generated with errorCode 0 and came back 9045 / 9020 / 9010.
+        // Nothing broke; what was lost is the file matching its own export.
+        const string xml = """
+            <VI _name="UidDup.vi">
+              <Control _name="value" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/>
+              <Node _name="Increment" inputs="x:9010.value" outputs="x+1:9020.x+1" uid="9020" uid_parent="root"/>
+              <Indicator _name="result" inputs="value:9020.x+1" type="double" uid="9010" uid_parent="root" value="0"/>
+            </VI>
+            """;
+
+        Assert.Equal("duplicateUid", Sole(xml, AixmlCheck.Severity.Warning));
+        Assert.True(AixmlCheck.Summarise(AixmlCheck.Check(xml))["ok"]!.GetValue<bool>());
+    }
+
+    [Fact]
+    public void UID_ZERO_MAY_REPEAT_andMustNotBeReported()
+    {
+        // THE FALSE POSITIVE THIS DESIGN AVOIDS, and it is not hypothetical: `uid="0"` is the
+        // sentinel for "nothing references me, number me yourself". Measured - a VI written with
+        // 0 / 1 / 0 generated correctly and LabVIEW gave the two zeros distinct numbers. Reporting
+        // it would fire on the very idiom this repository now recommends.
+        const string xml = """
+            <VI _name="UidZero2.vi">
+              <Control _name="value" outputs="value:0.value" type="double" uid="0" uid_parent="root" value="0"/>
+              <Node _name="Increment" inputs="x:0.value" outputs="x+1:9001.x+1" uid="9001" uid_parent="root"/>
+              <Indicator _name="result" inputs="value:9001.x+1" type="double" uid="0" uid_parent="root" value="0"/>
+            </VI>
+            """;
+
+        Assert.DoesNotContain(AixmlCheck.Check(xml), f => f.Code == "duplicateUid");
+    }
+
+    // ------------------------------------------------------------------ rings
+
+    [Fact]
+    public void ARingDefaultOutsideItsValuesIsReported()
+    {
+        // Measured: value="7" against values="[0,1]" validated with errorCode 0.
+        const string xml = """
+            <VI _name="NegRing.vi">
+              <Control _name="Mode" items="Low,High" outputs="value:9010.value" style="Ring" type="int32" uid="9010" uid_parent="root" value="7" values="[0,1]"/>
+            </VI>
+            """;
+
+        Assert.Equal("ringValueNotInValues", Sole(xml, AixmlCheck.Severity.Warning));
+    }
+
+    [Fact]
+    public void ARingWhoseDefaultIsInRangeIsSilent() =>
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="OkRing.vi">
+              <Control _name="Mode" items="Low,High" outputs="value:9010.value" style="Ring" type="int32" uid="9010" uid_parent="root" value="1" values="[0,1]"/>
+            </VI>
+            """), f => f.Code == "ringValueNotInValues");
+
+    [Fact]
+    public void AnElementWithNoValuesAttributeIsNotARing() =>
+        // `value` alone is on every Control and Constant in every file. Treating those as rings
+        // would put a finding on essentially every element.
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi"><Control _name="v" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="41"/></VI>
+            """), f => f.Code == "ringValueNotInValues");
+
+    // ------------------------------------------------------------------ the advisory
+
+    [Fact]
+    public void LowUidsAreINFO_notAWarning_becauseTheRuleIsIncomplete()
+    {
+        // Measured both ways in one session: a three-object probe with uid 10 logs twelve DWarn
+        // entries, and this repository's own 65-object helper with controls at uid 10 and 11 logs
+        // none. Reporting it as a defect would flag every shipped helper on evidence that does not
+        // support it.
+        const string xml = """
+            <VI _name="Probe Subject.vi">
+              <Control _name="value" outputs="value:10.value" type="double" uid="10" uid_parent="root" value="0"/>
+              <Node _name="Increment" inputs="x:10.value" outputs="x+1:20.x+1" uid="20" uid_parent="root"/>
+              <Indicator _name="result" inputs="value:20.x+1" type="double" uid="30" uid_parent="root" value="0"/>
+            </VI>
+            """;
+
+        var finding = Assert.Single(
+            AixmlCheck.Check(xml).Where(f => f.Severity == AixmlCheck.Severity.Info));
+        Assert.Equal("uidInReservedRange", finding.Code);
+
+        var summary = AixmlCheck.Summarise(AixmlCheck.Check(xml));
+        Assert.True(summary["ok"]!.GetValue<bool>());
+        Assert.Equal(0, summary["warnings"]!.GetValue<int>());
+        Assert.Contains("not established", finding.Message);
+    }
+
+    [Fact]
+    public void HighUidsAndTheSentinelProduceNothingAtAll() =>
+        // The shape this repository now recommends, taken from the VI that measured zero DWarns as
+        // the first act in a fresh LabVIEW.
+        Assert.Empty(AixmlCheck.Check("""
+            <VI _name="HighUidLoop.vi">
+              <Control _name="Input Array" outputs="value:9010.value" type="array{double}" uid="9010" uid_parent="root" value="[]"/>
+              <Constant _name="Seed" outputs="value:9020.value" type="double" uid="9020" uid_parent="root" value="0"/>
+              <Structure _name="For Loop" count="" maxin="" maxout="" uid="9030" uid_parent="root">
+                <Tunnel _id="In1" inputs="value:9010.value" mode="index" outputs="value:9040.value" uid="9040" uid_parent="9030"/>
+                <Node _name="Add" inputs="x:9060.x,y:9040.value" outputs="x+y:9060.x+y" uid="9060" uid_parent="9030"/>
+                <ShiftReg uid="9070" uid_parent="9030">
+                  <Left inputs="value:9020.value" outputs="value:9060.x" uid="9080" uid_parent="9070"/>
+                  <Right inputs="value:9060.x+y" outputs="value:9090.value" uid="9090" uid_parent="9070"/>
+                </ShiftReg>
+              </Structure>
+              <Indicator _name="Sum" inputs="value:9090.value" type="double" uid="0" uid_parent="root" value="0"/>
+            </VI>
+            """));
+
+    // ------------------------------------------------------------------ malformed input
+
+    [Fact]
+    public void MalformedXmlIsReportedHERE_becauseLabVIEWDisguisesIt()
+    {
+        // LabVIEW answers `Error -2628 ... An error occurred while parsing the document`, which
+        // reads as an AIXML fault rather than an unclosed tag. This is also the failure a shell
+        // heredoc produces when it eats a backslash escape.
+        var finding = Assert.Single(AixmlCheck.Check("<VI _name=\"X.vi\"><Control></VI>"));
+
+        Assert.Equal("notWellFormedXml", finding.Code);
+        Assert.Equal(AixmlCheck.Severity.Error, finding.Severity);
+    }
+
+    [Fact]
+    public void AWrongRootElementIsReported() =>
+        Assert.Contains(AixmlCheck.Check("<Diagram><Node uid=\"9010\" uid_parent=\"root\"/></Diagram>"),
+                        f => f.Code == "rootIsNotVI");
+
+    // ------------------------------------------------------------------ the repair
+
+    [Fact]
+    public void ADanglingParentIsNEVERREPAIRED_becauseRootIsTheDamageNotTheFix()
+    {
+        // THE MOST IMPORTANT TEST HERE. LabVIEW already puts that element on the top-level diagram
+        // silently; doing the same thing deliberately would convert a reported fault into a hidden
+        // one, which is the failure mode this whole check exists to prevent.
+        var fixedUp = AixmlCheck.Fix(DanglingParent);
+
+        Assert.Empty(fixedUp.Repairs);
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "danglingParent");
+        Assert.DoesNotContain("uid_parent=\"root\" uid=\"9020\"", fixedUp.Xml);
+        Assert.Contains("7777", fixedUp.Xml);
+    }
+
+    [Fact]
+    public void ARingDefaultIsNEVERREPAIRED_becauseTheIntendedValueIsTheAuthorsIntent()
+    {
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="NegRing.vi">
+              <Control _name="Mode" items="Low,High" outputs="value:9010.value" style="Ring" type="int32" uid="9010" uid_parent="root" value="7" values="[0,1]"/>
+            </VI>
+            """);
+
+        Assert.Empty(fixedUp.Repairs);
+        Assert.Contains("value=\"7\"", fixedUp.Xml);
+    }
+
+    [Fact]
+    public void ALowUidIsRaisedANDItsChildrenFollow()
+    {
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="X.vi">
+              <Structure _name="For Loop" count="" uid="30" uid_parent="root"/>
+              <Node _name="Increment" inputs="x:10.value" outputs="x+1:20.x+1" uid="20" uid_parent="30"/>
+            </VI>
+            """);
+
+        Assert.Equal(2, fixedUp.Repairs.Count);
+        Assert.Empty(fixedUp.Remaining.Where(f => f.Code == "uidInReservedRange"));
+        // The child must still be inside the loop: a repair that reparented it would be the very
+        // defect the checker reports.
+        Assert.DoesNotContain("uid_parent=\"30\"", fixedUp.Xml);
+        // The repaired document must itself be clean - a repair that produced a NEW dangling
+        // parent would be worse than the fault it set out to fix.
+        Assert.DoesNotContain(AixmlCheck.Check(fixedUp.Xml), f => f.Code == "danglingParent");
+    }
+
+    [Fact]
+    public void WIRENAMESARENOTTOUCHEDBYARENUMBER()
+    {
+        // Measured: a wire name is an arbitrary token, so `10.value` keeps working after uid 10
+        // becomes 4200. Rewriting nets too would be extra risk for no gain.
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="X.vi">
+              <Control _name="v" outputs="value:10.value" type="double" uid="10" uid_parent="root" value="0"/>
+              <Indicator _name="r" inputs="value:10.value" type="double" uid="0" uid_parent="root" value="0"/>
+            </VI>
+            """);
+
+        Assert.Single(fixedUp.Repairs);
+        Assert.Contains("outputs=\"value:10.value\"", fixedUp.Xml);
+        Assert.Contains("inputs=\"value:10.value\"", fixedUp.Xml);
+    }
+
+    [Fact]
+    public void ADuplicateWITHAChildNestedInsideItIsLeftALONE()
+    {
+        // Two candidates carry the same number, so which one the child belongs to is unknowable.
+        // Renumbering either would silently move the child.
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="X.vi">
+              <Structure _name="For Loop" count="" uid="9010" uid_parent="root"/>
+              <Node _name="Increment" uid="9010" uid_parent="root"/>
+              <Node _name="Add" uid="9020" uid_parent="9010"/>
+            </VI>
+            """);
+
+        Assert.Empty(fixedUp.Repairs);
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "duplicateUid");
+    }
+
+    [Fact]
+    public void ADuplicateNOTHINGIsNestedInsideIsRenumbered()
+    {
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="X.vi">
+              <Control _name="v" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/>
+              <Indicator _name="r" inputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/>
+            </VI>
+            """);
+
+        Assert.Equal("duplicateUid", Assert.Single(fixedUp.Repairs).Code);
+        Assert.DoesNotContain(fixedUp.Remaining, f => f.Code == "duplicateUid");
+    }
+
+    [Fact]
+    public void UIDZEROSURVIVESAREPAIRUNCHANGED()
+    {
+        var fixedUp = AixmlCheck.Fix("""
+            <VI _name="X.vi">
+              <Control _name="v" outputs="value:10.value" type="double" uid="10" uid_parent="root" value="0"/>
+              <Indicator _name="a" inputs="value:10.value" type="double" uid="0" uid_parent="root" value="0"/>
+              <Indicator _name="b" inputs="value:10.value" type="double" uid="0" uid_parent="root" value="0"/>
+            </VI>
+            """);
+
+        // One repair - the low uid. The two sentinels are neither duplicates nor low.
+        Assert.Single(fixedUp.Repairs);
+        Assert.Equal(2, fixedUp.Xml.Split("uid=\"0\"").Length - 1);
+    }
+
+    [Fact]
+    public void ACleanFileIsNotREWRITTENByARepair()
+    {
+        const string clean = """
+            <VI _name="X.vi"><Control _name="v" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/></VI>
+            """;
+
+        var fixedUp = AixmlCheck.Fix(clean);
+
+        Assert.Empty(fixedUp.Repairs);
+        // Returned byte-identical, so a caller can tell "nothing to do" from "reformatted".
+        Assert.Equal(clean, fixedUp.Xml);
+    }
+
+    [Fact]
+    public void MalformedXmlIsReportedRatherThanRepaired()
+    {
+        var fixedUp = AixmlCheck.Fix("<VI _name=\"X.vi\"><Control></VI>");
+
+        Assert.Empty(fixedUp.Repairs);
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "notWellFormedXml");
+    }
+
+    [Fact]
+    public void ACleanFileSaysSoAndNamesWhatItDidNotCheck()
+    {
+        var summary = AixmlCheck.Summarise(AixmlCheck.Check("""
+            <VI _name="X.vi"><Control _name="v" outputs="value:9010.value" type="double" uid="9010" uid_parent="root" value="0"/></VI>
+            """));
+
+        Assert.True(summary["ok"]!.GetValue<bool>());
+        Assert.Equal(0, summary["errors"]!.GetValue<int>());
+        // A clean answer that did not say what it left alone would be read as "this file is valid".
+        Assert.Contains("lvai_validate_aixml", summary["note"]!.GetValue<string>());
+    }
+
+    // ------------------------------------------------------------------ the wire rule
+
+    /// <summary>
+    /// THE MEASUREMENT BEHIND THESE, 2026-09-04: one probe VI with three pane terminals - one
+    /// Control carrying connection="recommended", one Control without the attribute, one Indicator
+    /// without it. lvai_vi_terminals read them back as recommended / required / required. So an
+    /// omitted `connection` is not "unspecified", it is `required`.
+    /// </summary>
+    private const string NoConnectionAttribute = """
+        <VI _name="Probe.vi" description="d">
+          <Control _name="with attr" conIdx="0" connection="recommended" outputs="value:4300.value" type="double" uid="4300" uid_parent="root" value="0"/>
+          <Control _name="no attr" conIdx="1" outputs="value:4310.value" type="double" uid="4310" uid_parent="root" value="0"/>
+          <Indicator _name="out no attr" conIdx="2" inputs="value:4310.value" type="double" uid="4320" uid_parent="root" value="0"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AnOutputWithNoConnectionIsAWARNING_becauseItSilentlyBecomesRequired()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(NoConnectionAttribute),
+                                    f => f.Code == "outputTerminalDefaultsToRequired");
+
+        Assert.Equal(AixmlCheck.Severity.Warning, finding.Severity);
+        Assert.Equal("4320", finding.Uid);
+        // The consequence lands in the CALLER, so the message has to name it - a reader looking at
+        // this VI alone sees nothing wrong with it.
+        Assert.Contains("1003", finding.Message);
+    }
+
+    [Fact]
+    public void AnInputWithNoConnectionIsINFO_becauseARequiredInputMayBeIntended()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(NoConnectionAttribute),
+                                    f => f.Code == "inputTerminalDefaultsToRequired");
+
+        Assert.Equal(AixmlCheck.Severity.Info, finding.Severity);
+        Assert.Equal("4310", finding.Uid);
+    }
+
+    [Fact]
+    public void ATerminalThatSAYSWhatItWantsIsLeftAlone() =>
+        Assert.DoesNotContain(AixmlCheck.Check(NoConnectionAttribute),
+                              f => f.Uid == "4300");
+
+    [Fact]
+    public void AControlOFFTheConnectorPaneHasNoWireRuleToGetWrong() =>
+        // `connection` without a conIdx is dropped on export anyway, so a diagram-only control
+        // must not be nagged about one.
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi" description="d"><Indicator _name="v" inputs="value:9010.value" type="double" uid="9020" uid_parent="root" value="0"/></VI>
+            """), f => f.Code.EndsWith("DefaultsToRequired", StringComparison.Ordinal));
+
+    [Fact]
+    public void AnOutputWithNoConnectionIsREPAIRED_toRecommended()
+    {
+        var fixedUp = AixmlCheck.Fix(NoConnectionAttribute);
+
+        var repair = Assert.Single(fixedUp.Repairs,
+            r => r.Code == "outputTerminalDefaultsToRequired");
+        Assert.Equal("4320", repair.Uid);
+        Assert.Contains("connection=\"recommended\"", fixedUp.Xml, StringComparison.Ordinal);
+        // Repaired means gone from what is left, or the caller sees the same fault twice.
+        Assert.DoesNotContain(fixedUp.Remaining,
+                              f => f.Code == "outputTerminalDefaultsToRequired");
+    }
+
+    // ---- the flag that is PRESENT and still wrong -------------------------------------------
+    //
+    // The checks above all turn on a MISSING `connection`, and the method returned early on any
+    // attribute at all - so a flag that says the wrong thing outright travelled through untouched.
+    // `scripts/aixml_lint.py` had caught the required-output case since 2026-09-15 and the C# side
+    // had not: two implementations of one rule, drifted, which is the failure this repository
+    // already paid for with `SafeUidBase`.
+
+    private const string FlagsPresentButWrong = """
+        <VI _name="Probe.vi" description="d">
+          <Control _name="error in" conIdx="11" connection="optional" outputs="value:4400.value" type="cluster{bool.status,int32.code,string.source}" uid="4400" uid_parent="root" value="[false,0,]"/>
+          <Indicator _name="error out" conIdx="15" connection="required" inputs="value:4400.value" type="cluster{bool.status,int32.code,string.source}" uid="4410" uid_parent="root" value="[false,0,]"/>
+          <Control _name="ok error in" conIdx="9" connection="recommended" outputs="value:4420.value" type="cluster{bool.status,int32.code,string.source}" uid="4420" uid_parent="root" value="[false,0,]"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AnOutputWrittenRequiredONPURPOSEIsStillAWarning()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(FlagsPresentButWrong),
+                                    f => f.Code == "outputTerminalIsRequired");
+
+        Assert.Equal(AixmlCheck.Severity.Warning, finding.Severity);
+        Assert.Equal("4410", finding.Uid);
+        Assert.Contains("1003", finding.Message);
+    }
+
+    [Fact]
+    public void ErrorInThatIsNotRecommendedIsAWarning()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(FlagsPresentButWrong),
+                                    f => f.Code == "errorInNotRecommended");
+
+        Assert.Equal(AixmlCheck.Severity.Warning, finding.Severity);
+        Assert.Equal("4400", finding.Uid);
+        // The message names the flag it found, because the attribute is present and the reader is
+        // looking at a pane that passed every other check.
+        Assert.Contains("optional", finding.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// THE CONTROL ARM. An `error in` that already says `recommended` must produce nothing - a
+    /// check that fired on every error terminal would pass the two tests above and be useless.
+    /// </summary>
+    [Fact]
+    public void AnErrorInThatAlreadySaysRecommendedIsLeftAlone() =>
+        Assert.DoesNotContain(AixmlCheck.Check(FlagsPresentButWrong), f => f.Uid == "4420");
+
+    /// <summary>
+    /// Narrow on purpose: `error in (no error)` is NI's own label on a CALLEE we do not own, and
+    /// CLAUDE.md's rule governs the terminal we name. Policing somebody else's pane would be the
+    /// damaging half of an otherwise harmless sweep.
+    /// </summary>
+    [Fact]
+    public void TheNIErrorLabelIsNotPoliced() =>
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi" description="d">
+              <Control _name="error in (no error)" conIdx="11" connection="optional" outputs="value:4500.value" type="cluster{bool.status,int32.code,string.source}" uid="4500" uid_parent="root" value="[false,0,]"/>
+            </VI>
+            """), f => f.Code == "errorInNotRecommended");
+
+    [Fact]
+    public void BothWrongFlagsAreREPAIRED_toRecommended()
+    {
+        var fixedUp = AixmlCheck.Fix(FlagsPresentButWrong);
+
+        Assert.Single(fixedUp.Repairs, r => r.Code == "outputTerminalIsRequired");
+        Assert.Single(fixedUp.Repairs, r => r.Code == "errorInNotRecommended");
+
+        Assert.DoesNotContain("connection=\"optional\"", fixedUp.Xml, StringComparison.Ordinal);
+        Assert.DoesNotContain("connection=\"required\"", fixedUp.Xml, StringComparison.Ordinal);
+
+        // Repaired means gone from what is left, or the caller sees the same fault twice.
+        Assert.DoesNotContain(fixedUp.Remaining, f => f.Code == "outputTerminalIsRequired");
+        Assert.DoesNotContain(fixedUp.Remaining, f => f.Code == "errorInNotRecommended");
+    }
+
+    [Fact]
+    public void ARequiredINPUTIsNotRepairedAway()
+    {
+        var fixedUp = AixmlCheck.Fix(NoConnectionAttribute);
+
+        // Only the author knows whether a required input was meant, so the Info survives the fix.
+        Assert.DoesNotContain(fixedUp.Repairs,
+                              r => r.Code == "inputTerminalDefaultsToRequired");
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "inputTerminalDefaultsToRequired");
+    }
+
+    // ------------------------------------------------------------------ enums
+
+    /// <summary>
+    /// MEASURED 2026-09-04 by generating this exact document and exporting the VI back. LabVIEW
+    /// answered errorCode 0 for all three constants and then wrote 1, **0** and **4**: the label
+    /// was discarded, and the out-of-range index was clamped to the last item.
+    /// </summary>
+    private const string EnumProbe = """
+        <VI _name="EnumProbe.vi" description="d">
+          <Constant _name="by index" type="uint32{open,open or create,create or replace,create,open (read-only)}" value="1" outputs="value:4300.value" uid="4300" uid_parent="root"/>
+          <Constant _name="by label" type="uint32{open,open or create,create or replace,create,open (read-only)}" value="open or create" outputs="value:4310.value" uid="4310" uid_parent="root"/>
+          <Constant _name="out of range" type="uint32{open,open or create,create or replace,create,open (read-only)}" value="9" outputs="value:4320.value" uid="4320" uid_parent="root"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AnEnumValueThatIsALabelIsReported_becauseLabVIEWWritesZero()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(EnumProbe), f => f.Code == "enumValueIsALabel");
+
+        Assert.Equal("4310", finding.Uid);
+        // The message has to carry the index to write, or the reader has to count the labels.
+        Assert.Contains("value=\"1\"", finding.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void AnEnumIndexPastTheEndIsReportedSeparately_becauseLabVIEWClampsIt()
+    {
+        var finding = Assert.Single(AixmlCheck.Check(EnumProbe),
+                                    f => f.Code == "enumValueOutOfRange");
+
+        Assert.Equal("4320", finding.Uid);
+        Assert.Contains("CLAMPS", finding.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void AValidEnumIndexIsLeftAlone() =>
+        Assert.DoesNotContain(AixmlCheck.Check(EnumProbe), f => f.Uid == "4300");
+
+    [Fact]
+    public void ANUMERICValueIsAlwaysAnIndex_evenWhereALabelLooksLikeOne() =>
+        // `uint16{0,1,2}` is legal, and "they must have meant the label" would break the ordinary
+        // case to rescue an exotic one. A number is an index, full stop.
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi" description="d"><Constant _name="n" type="uint16{0,1,2}" value="1" outputs="value:4300.value" uid="4300" uid_parent="root"/></VI>
+            """), f => f.Code.StartsWith("enumValue", StringComparison.Ordinal));
+
+    [Fact]
+    public void ARingIsLeftToTheRingCheck() =>
+        // A Ring lists its labels in items/values beside a plain type. Both checks firing on one
+        // element would report the same fault twice under two names.
+        Assert.DoesNotContain(AixmlCheck.Check("""
+            <VI _name="X.vi" description="d"><Control _name="r" style="Ring" type="int32" items="a,b" values="[-1,10]" value="-1" outputs="value:4300.value" uid="4300" uid_parent="root"/></VI>
+            """), f => f.Code.StartsWith("enumValue", StringComparison.Ordinal));
+
+    [Fact]
+    public void AnEnumLabelIsREPAIRED_toItsIndex()
+    {
+        var fixedUp = AixmlCheck.Fix(EnumProbe);
+
+        var repair = Assert.Single(fixedUp.Repairs, r => r.Code == "enumValueIsALabel");
+        Assert.Equal("4310", repair.Uid);
+        Assert.Contains("value=\"1\"", fixedUp.Xml, StringComparison.Ordinal);
+        Assert.DoesNotContain(fixedUp.Remaining, f => f.Code == "enumValueIsALabel");
+    }
+
+    [Fact]
+    public void AnOutOfRangeEnumIndexIsNotRepairedAway()
+    {
+        var fixedUp = AixmlCheck.Fix(EnumProbe);
+
+        // Clamping here would hide exactly what LabVIEW already does silently.
+        Assert.DoesNotContain(fixedUp.Repairs, r => r.Code == "enumValueOutOfRange");
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "enumValueOutOfRange");
+        Assert.Contains("value=\"9\"", fixedUp.Xml, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void AValueMatchingNoLabelIsReportedButNotRepaired()
+    {
+        const string xml = """
+            <VI _name="X.vi" description="d"><Constant _name="m" type="uint8{a,b}" value="zzz" outputs="value:4300.value" uid="4300" uid_parent="root"/></VI>
+            """;
+
+        Assert.Contains(AixmlCheck.Check(xml), f => f.Code == "enumValueIsALabel");
+        // Nothing says which item was meant - a label with a comma in it lands here too, which is
+        // the safe way for the comma split to degrade.
+        Assert.Empty(AixmlCheck.Fix(xml).Repairs);
+    }
+}
+
+/// <summary>
+/// THE SHIPPED HELPERS MUST BE CLEAN UNDER OUR OWN CHECK. Every `scripts\*.xml` in this repository
+/// is AIXML we author and hand to LabVIEW, so a check that fires on them is either a false positive
+/// we would inflict on every user, or a real defect in a helper. Added 2026-09-04 with the enum and
+/// wire-rule checks, because both are the kind that can be noisy.
+/// </summary>
+public sealed class ShippedHelperAixmlTests
+{
+    public static TheoryData<string> Helpers
+    {
+        get
+        {
+            var data = new TheoryData<string>();
+            foreach (var f in Directory.GetFiles(RepoRoot("scripts"), "*.xml", SearchOption.AllDirectories))
+                data.Add(f);
+            return data;
+        }
+    }
+
+    // Was a walk for a directory called ".git", which in a linked worktree lands on the MAIN
+    // checkout and lints ITS scripts\ instead of the branch's. RepoTree explains the measurement.
+    private static string RepoRoot(string leaf) => RepoTree.Path(leaf);
+
+    [Theory]
+    [MemberData(nameof(Helpers))]
+    public void AShippedHelperHasNoErrorsOrWarnings(string path)
+    {
+        var findings = AixmlCheck.Check(File.ReadAllText(path))
+                                 .Where(f => f.Severity != AixmlCheck.Severity.Info)
+                                 .ToList();
+
+        Assert.True(findings.Count == 0,
+            $"{Path.GetFileName(path)}: " +
+            string.Join(" | ", findings.Select(f => $"{f.Severity} {f.Code} uid={f.Uid}")));
+    }
+
+    // ---------------------------------------------------------------- net attributes
+
+    /// <summary>
+    /// The shape measured refusing the whole document: an UNWIRED interface-declaration pane, which
+    /// is the normal shape of an interface member rather than an exotic one. Every element here
+    /// carries its `value`, so nothing but the net attribute is missing.
+    /// </summary>
+    private const string TerminalsWithoutNetAttributes = """
+        <VI _name="Read Speed.vi" description="An interface declaration, payload unwired.">
+          <Control _name="Raw Counts" conIdx="10" connection="recommended" type="double" uid="4210" uid_parent="root" value="0"/>
+          <Constant _name="Zero" type="double" uid="4220" uid_parent="root" value="0"/>
+          <Indicator _name="Speed RPM" conIdx="2" connection="recommended" type="double" uid="4230" uid_parent="root" value="0"/>
+        </VI>
+        """;
+
+    [Fact]
+    public void AMissingNetAttributeIsAnERROR_onAllThreeElementKinds()
+    {
+        var findings = AixmlCheck.Check(TerminalsWithoutNetAttributes)
+            .Where(f => f.Code == "terminalWithoutNetAttribute").ToList();
+
+        Assert.Equal(3, findings.Count);
+        Assert.All(findings, f => Assert.Equal(AixmlCheck.Severity.Error, f.Severity));
+        Assert.Equal(["4210", "4220", "4230"], findings.Select(f => f.Uid).Order());
+    }
+
+    /// <summary>
+    /// The control arm, and the half that decides whether the rule is worth having: a document
+    /// carrying the EMPTY-NET spelling must pass. That spelling was measured converting cleanly on
+    /// all three kinds in one document (4 216 bytes), so flagging it would refuse working code -
+    /// the way to buy a quiet checker cheaply is to make it inert, and this is where that shows.
+    /// </summary>
+    [Fact]
+    public void TheEmptyNetSpellingIsAccepted_becauseItIsWhatAnUnwiredTerminalLooksLike()
+    {
+        var withSpelling = TerminalsWithoutNetAttributes
+            .Replace("type=\"double\" uid=\"4210\"", "outputs=\"value:\" type=\"double\" uid=\"4210\"")
+            .Replace("type=\"double\" uid=\"4220\"", "outputs=\"value:\" type=\"double\" uid=\"4220\"")
+            .Replace("type=\"double\" uid=\"4230\"", "inputs=\"value:\" type=\"double\" uid=\"4230\"");
+
+        Assert.DoesNotContain(AixmlCheck.Check(withSpelling),
+                              f => f.Code == "terminalWithoutNetAttribute");
+    }
+
+    /// <summary>
+    /// A terminal whose net something ALREADY reads is a different repair from an unwired one, and
+    /// the message has to say which - pasting `outputs="value:"` there would leave the reader
+    /// dangling.
+    /// </summary>
+    [Fact]
+    public void TheMessageNamesTheNetWhenTheDocumentDeterminesIt()
+    {
+        const string xml = """
+            <VI _name="Pass.vi" description="A control whose net is read, with no outputs attribute.">
+              <Control _name="In" conIdx="11" connection="required" type="double" uid="4200" uid_parent="root" value="0"/>
+              <Indicator _name="Out" conIdx="3" connection="recommended" inputs="value:4200.value" type="double" uid="4210" uid_parent="root" value="0"/>
+            </VI>
+            """;
+
+        var finding = Assert.Single(AixmlCheck.Check(xml),
+                                    f => f.Code == "terminalWithoutNetAttribute");
+        Assert.Contains("outputs=\"value:4200.value\"", finding.Message);
+    }
+
+    [Fact]
+    public void FixWritesTheUnwiredSpelling_andTheRepairedDocumentIsClean()
+    {
+        var fixedUp = AixmlCheck.Fix(TerminalsWithoutNetAttributes);
+
+        Assert.Equal(3, fixedUp.Repairs.Count(r => r.Code == "terminalWithoutNetAttribute"));
+        Assert.Contains("outputs=\"value:\"", fixedUp.Xml);
+        Assert.Contains("inputs=\"value:\"", fixedUp.Xml);
+        Assert.DoesNotContain(fixedUp.Remaining, f => f.Code == "terminalWithoutNetAttribute");
+    }
+
+    /// <summary>
+    /// SEVERAL nets naming one uid is the case where the document does NOT determine the answer, so
+    /// it is reported and left alone - the same line the missing-`value` repair draws around a
+    /// Constant, and for the same reason: a guess that converts cleanly is worse than a refusal.
+    /// </summary>
+    [Fact]
+    public void FixLeavesATerminalAloneWhenSeveralNetsNameItsUid()
+    {
+        const string xml = """
+            <VI _name="Ambiguous.vi" description="Two nets name uid 4200.">
+              <Control _name="In" conIdx="11" connection="required" type="double" uid="4200" uid_parent="root" value="0"/>
+              <Indicator _name="A" conIdx="3" connection="recommended" inputs="value:4200.value" type="double" uid="4210" uid_parent="root" value="0"/>
+              <Indicator _name="B" conIdx="2" connection="recommended" inputs="value:4200.other" type="double" uid="4220" uid_parent="root" value="0"/>
+            </VI>
+            """;
+
+        var fixedUp = AixmlCheck.Fix(xml);
+
+        Assert.DoesNotContain(fixedUp.Repairs, r => r.Code == "terminalWithoutNetAttribute");
+        Assert.Contains(fixedUp.Remaining, f => f.Code == "terminalWithoutNetAttribute");
+    }
+}

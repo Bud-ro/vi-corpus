@@ -1,0 +1,557 @@
+name: release
+
+# Tag a commit v1.2.3 and push the tag to cut a release. The job runs on Windows because
+# the server is win-x64 only, publishes the self-contained single-file exe, packs it into
+# the plugin staging tree, and attaches the zip to the GitHub Release under a FIXED asset
+# name.
+#
+# THE TAG MUST BE vX.Y.Z, lower-case, three numeric components. scripts\Assert-ReleaseTag.ps1
+# is the first step and refuses anything else with a diagnosis and the retag commands; the tag
+# is then stamped into the exe's version resource, plugin.json's `version` and VERSION.txt at
+# the archive root, so an install can say what it is. Three further assets go alongside the
+# fixed-name zip: a version-named copy of it, its SHA-256, and a per-file manifest.
+#
+# The marketplace manifest points at
+#   https://github.com/Zuehlke/labview-mcp/releases/latest/download/labview-mcp.zip
+# so the manifest never needs editing after a release: GitHub redirects /releases/latest/
+# to the newest published release, and the archive's own digest is the plugin version, so
+# every release with different bytes is seen as an update.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    env:
+      ASSET_NAME: labview-mcp.zip
+      PROJECT: src/LabVIEWMCP/LabVIEWMCP.csproj
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 0. THE TAG IS THE VERSION, so refuse a tag that cannot be one - FIRST, before the test
+      #    run, so a mistyped tag costs seconds instead of ten minutes and publishes nothing.
+      #
+      #    The tags in this repository did not agree on a format: v1.3.0, v1.1.1 and v1.0.7 are
+      #    lower-case, V1.2.8/V1.2.5/V1.2.2/V1.2.0/V1.1.5 are upper-case, and v10.4 has two
+      #    components - which also sorts ABOVE every three-part tag in
+      #    `git tag --sort=-v:refname`, so the newest-looking tag in the list was for ten days
+      #    neither the newest release nor a valid version.
+      #
+      #    The script prints the diagnosis and the delete-and-retag commands; it also parses the
+      #    tag into steps.tag.outputs.version for the stamping steps below. A maintainer can run
+      #    it locally before pushing, which is the point at which it is cheapest to be told.
+      - name: Validate the release tag
+        id: tag
+        shell: pwsh
+        run: |
+          powershell -ExecutionPolicy Bypass -File scripts/Assert-ReleaseTag.ps1 -Tag "${{ github.ref_name }}"
+          exit $LASTEXITCODE
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 1. Run the test suite. The repo's own hook script stops a running server first and
+      #    then tests; on the runner there is no server, but using the same entry point keeps
+      #    CI and local behaviour identical.
+      - name: Test
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File .githooks/run-tests.ps1
+
+      # 2. Prove the embedded documentation is intact in the RELEASE assembly BEFORE we bother
+      #    publishing. A plugin install is exactly a binary-only install, and this check is the
+      #    only evidence the knowledge tools (lvai_aixml_reference, lvai_vi_server_reference, …)
+      #    still answer correctly from the assembly alone. It gates the release.
+      - name: Build Release and verify embedded documentation
+        shell: pwsh
+        run: |
+          dotnet build $env:PROJECT -c Release --nologo -v quiet -p:Version=${{ steps.tag.outputs.version }}
+          if ($LASTEXITCODE -ne 0) { throw "Release build failed" }
+          powershell -ExecutionPolicy Bypass -File build.ps1 -VerifyOnly -Configuration Release
+          if ($LASTEXITCODE -ne 0) { throw "Embedded-documentation verification failed" }
+
+      # 3. Publish the shippable binary: self-contained single file, native libraries included
+      #    for self-extract, and PublishTrimmed=false. Trimming strips the protobuf/gRPC
+      #    reflection metadata the schema-recovery path depends on, and the failure only shows
+      #    up at runtime as an empty schema dump — so trimming must stay off.
+      #
+      #    -p:Version stamps the tag into the Win32 version resource, so the exe names the release
+      #    it came from in Explorer → Properties → Details and through `--version`. The csproj
+      #    default is 0.0.0, which marks a build that did NOT come from here. Until 2026-09-11
+      #    nothing set it, so every release ever published carried the SDK default 1.0.0 and was
+      #    indistinguishable from a local debug build; identifying an install meant hashing 800
+      #    files. The commit SHA was already present - the SDK appends SourceRevisionId to
+      #    InformationalVersion - so only the semantic half was missing.
+      - name: Publish (win-x64, self-contained, single file, NOT trimmed)
+        shell: pwsh
+        run: |
+          dotnet publish $env:PROJECT `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:PublishTrimmed=false `
+            -p:Version=${{ steps.tag.outputs.version }} `
+            -o publish
+          if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed" }
+          if (-not (Test-Path publish/LabVIEWMCP.exe)) { throw "publish/LabVIEWMCP.exe missing after publish" }
+
+          # Assert the stamp actually landed. `-p:Version=` is silently ignored if the property is
+          # overridden later in the build, and the failure would otherwise ship: an exe reporting
+          # 0.0.0 from a tagged release looks exactly like a dev build to every later check.
+          $stamped = (Get-Item publish/LabVIEWMCP.exe).VersionInfo.ProductVersion
+          Write-Host "stamped ProductVersion: $stamped"
+          if (-not $stamped.StartsWith("${{ steps.tag.outputs.version }}")) {
+            throw "the published exe reports '$stamped' but the tag is ${{ github.ref_name }} - the version stamp did not take"
+          }
+
+      # 3b. Assemble the pylabview bundle.
+      #
+      #     WHY THIS EXISTS. tools/pylabview/runtime/ is gitignored - 38 MB of interpreter,
+      #     trimmed stdlib and Pillow - and nothing in the build assembles it: the .csproj only
+      #     COPIES the folder if it happens to be there, and no MSBuild target runs provision.ps1.
+      #     So on a clean CI checkout the condition was false and the release shipped without the
+      #     bundle entirely. Up to and including v0.9.0 that meant pylv_status, pylv_extract,
+      #     pylv_rebuild, pylv_route and pylv_apply all answered `notProvisioned` on a plugin
+      #     install, pointing the reader at tools\pylabview\provision.ps1 - a path that does not
+      #     exist in a binary install. README framed the gap as a fresh-checkout concern only.
+      #
+      #     It runs AFTER publish on purpose: `dotnet publish` would otherwise copy all 636 files
+      #     into publish/ for nothing, since only the single-file exe is taken from there.
+      #
+      #     Cost: the asset grows by about 38 MB.
+      - name: Set up Python for the pylabview bundle
+        uses: actions/setup-python@v5
+        with:
+          # Pinned rather than "whatever the runner has", because this interpreter IS what ships.
+          # 3.14 also works - measured - but emits three SyntaxWarnings from pylabview's own
+          # LVheap.py on every import, and those are noise in every pylv_* answer.
+          python-version: '3.12'
+
+      - name: Install Pillow for the bundle
+        shell: pwsh
+        run: |
+          # provision.ps1 deliberately does NOT reach for the network - "installing it is a
+          # download, and that is the caller's decision". In CI we are the caller.
+          # `from PIL import Image` is an unguarded top-level import in LVblock.py, so this is a
+          # hard requirement, not an icons-only extra.
+          python -m pip install --disable-pip-version-check --no-input pillow
+          if ($LASTEXITCODE -ne 0) { throw "pip install pillow failed" }
+
+      - name: Assemble the pylabview bundle
+        shell: pwsh
+        run: |
+          $python = (Get-Command python).Source
+          $source = Split-Path -Parent $python
+          Write-Host "Assembling from $source"
+          powershell -ExecutionPolicy Bypass -File tools/pylabview/provision.ps1 -Source $source
+          if ($LASTEXITCODE -ne 0) { throw "provision.ps1 failed" }
+          if (-not (Test-Path 'tools/pylabview/runtime/python.exe')) {
+            throw "provision.ps1 reported success but tools/pylabview/runtime/python.exe is missing"
+          }
+
+      # 4. Assemble the staging tree: the source-controlled plugin/ contents, plus the
+      #    published exe at bin/LabVIEWMCP.exe (the path plugin/.mcp.json launches), plus the
+      #    repository's scripts/ contents at bin/scripts/ — NEXT TO the exe, because that is where
+      #    the server and the doc agent look for them (see the note on the copy step below).
+      - name: Assemble staging tree
+        shell: pwsh
+        run: |
+          $staging = 'staging'
+          if (Test-Path $staging) { Remove-Item $staging -Recurse -Force }
+          New-Item -ItemType Directory -Path $staging | Out-Null
+
+          # plugin/ contents, copied by explicit entry so the dot-prefixed .claude-plugin and
+          # .mcp.json are never dropped by wildcard hidden-file semantics.
+          Copy-Item -Path 'plugin/.claude-plugin' -Destination $staging -Recurse -Force
+          Copy-Item -Path 'plugin/.mcp.json'      -Destination $staging -Force
+          Copy-Item -Path 'plugin/agents'         -Destination $staging -Recurse -Force
+          Copy-Item -Path 'plugin/hooks'          -Destination $staging -Recurse -Force
+
+          # the published exe at the path plugin/.mcp.json launches
+          New-Item -ItemType Directory -Path (Join-Path $staging 'bin') | Out-Null
+          Copy-Item -Path 'publish/LabVIEWMCP.exe' -Destination (Join-Path $staging 'bin/LabVIEWMCP.exe') -Force
+
+          # the repository's scripts/, placed NEXT TO the exe as bin/scripts/. The server locates
+          # its helper scripts as AppContext.BaseDirectory\scripts (StatusTools.ScriptsDirectory,
+          # reported by lvai_status as scriptsDirectory) — i.e. <exe dir>\scripts. The doc agent
+          # reads that same path to find generate_labview_doc.py. If scripts sat at the staging
+          # root instead, scriptsDirectory would be null on a plugin install (no repository for the
+          # documented fallback), breaking lvai_set_vi_icon, lvai_close_vi, lvai_run_vi_and_read_values
+          # and the documentation agent.
+          New-Item -ItemType Directory -Path (Join-Path $staging 'bin/scripts') | Out-Null
+          Copy-Item -Path 'scripts/*' -Destination (Join-Path $staging 'bin/scripts') -Recurse -Force
+
+          # the repository's docs/, placed as bin/docs/ so that <exe dir>\scripts\..\docs resolves
+          # exactly as scripts\..\docs does in the repository. This is NOT documentation for a human
+          # to read: scripts/pylv-conpane.py OPENS docs/connector-pane-patterns.tsv and
+          # docs/connector-pane-typecodes.tsv at run time, and without them it dies on its first
+          # call. Until v0.9.0 the staging tree carried the exe and scripts/ only, so a plugin
+          # install shipped a script whose data files were not there - the same
+          # embedded-is-not-shipped mistake CLAUDE.md records, one layer further out.
+          New-Item -ItemType Directory -Path (Join-Path $staging 'bin/docs') | Out-Null
+          Copy-Item -Path 'docs/*' -Destination (Join-Path $staging 'bin/docs') -Recurse -Force
+
+          # the pylabview bundle, as bin/pylabview/. The location is not a choice: PyLabview.Locate()
+          # looks for <exe dir>\pylabview\python.exe plus <exe dir>\pylabview\app\pylabview\readRSRC.py,
+          # the same AppContext.BaseDirectory anchoring scripts/ and docs/ use above.
+          New-Item -ItemType Directory -Path (Join-Path $staging 'bin/pylabview') | Out-Null
+          Copy-Item -Path 'tools/pylabview/runtime/*' -Destination (Join-Path $staging 'bin/pylabview') -Recurse -Force
+
+          # the repository's .claude\ assets as bin/claude/ - the SAME arrangement the local build
+          # output has, because scripts\Install-ClaudeAssets.ps1 looks for a 'claude' folder beside
+          # the exe and README section 7 tells a non-plugin install to run it. Until 2026-08-30 the
+          # zip's ONLY agents were the plugin-flavoured ones at the root, whose tools: lists name
+          # mcp__plugin_labview-mcp_labview__* - tool names that do not exist when the server is
+          # registered directly as `labview`, so installing those into ~\.claude\agents produced
+          # agents with no LabVIEW tools at all.
+          New-Item -ItemType Directory -Path (Join-Path $staging 'bin/claude') | Out-Null
+          Copy-Item -Path '.claude/agents'        -Destination (Join-Path $staging 'bin/claude') -Recurse -Force
+          Copy-Item -Path '.claude/settings.json' -Destination (Join-Path $staging 'bin/claude') -Force
+          Copy-Item -Path 'CLAUDE.md'             -Destination (Join-Path $staging 'bin/claude') -Force
+
+          # README.md beside the exe, as bin/README.md. The .csproj stages it next to the exe in a
+          # LOCAL build (<None Include="..\..\README.md" Link="README.md">) and this step did not,
+          # so a plugin install was the one install route with no README at all - while CLAUDE.md
+          # asserted flatly that "the build copies all of docs\ and README.md next to the exe".
+          # True of the csproj, false of the release archive, and nothing compared the two. Found
+          # 2026-09-11 while auditing this file against build.ps1's output. `bin/` rather than the
+          # archive root for the same reason claude/ and docs/ are there: "beside the exe" is the
+          # layout invariant the rest of this step keeps.
+          Copy-Item -Path 'README.md' -Destination (Join-Path $staging 'bin/README.md') -Force
+
+          Write-Host "Staging tree:"
+          $root = (Resolve-Path $staging).Path
+          # The bundle is 636 files of interpreter and stdlib; listing them buries everything else,
+          # so it is summarised. Its contents are asserted separately below.
+          $bundle = Join-Path $root 'bin\pylabview'
+          Get-ChildItem $staging -Recurse -Force |
+            Where-Object { -not $_.FullName.StartsWith($bundle, [StringComparison]::OrdinalIgnoreCase) } |
+            ForEach-Object { Write-Host "  $($_.FullName.Substring($root.Length))" }
+          $bundleFiles = @(Get-ChildItem $bundle -Recurse -File -Force)
+          $bundleMB = [math]::Round(($bundleFiles | Measure-Object Length -Sum).Sum / 1MB, 1)
+          Write-Host "  \bin\pylabview  ($($bundleFiles.Count) files, $bundleMB MB)"
+
+      # 4b. Make the ARTEFACT self-identifying, which the exe's version resource alone does not.
+      #
+      #     Two separate things, for two separate readers:
+      #
+      #     VERSION.txt at the archive root, because a FILE NAME dies at extraction. That is not
+      #     hypothetical: on 2026-09-11 a hand-extracted install at C:\Projects\labview-mcp could
+      #     not say what it was, and identifying it needed the exe's embedded commit SHA resolved
+      #     against `git describe`. A plain key/value file survives extraction, is greppable, needs
+      #     nothing to be running, and answers even when the exe will not start. It also carries
+      #     the TAG, which the assembly cannot: the assembly knows 1.3.0, not that it came from
+      #     `v1.3.0`.
+      #
+      #     plugin.json's `version`, because that is what `claude plugin list` and
+      #     `claude plugin details` read. The repository file carries the 0.0.0 placeholder so the
+      #     key's presence and position are reviewable in-repo; only the value is injected here.
+      #     A targeted string replacement rather than ConvertFrom-Json/ConvertTo-Json, so the rest
+      #     of the file - including the non-ASCII author name - stays byte-for-byte what was
+      #     reviewed.
+      - name: Stamp the version into the staging tree
+        shell: pwsh
+        run: |
+          $version = '${{ steps.tag.outputs.version }}'
+          $tag     = '${{ steps.tag.outputs.tag }}'
+
+          $lines = @(
+            "tag: $tag",
+            "version: $version",
+            "commit: ${{ github.sha }}",
+            "built: $([DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ'))",
+            "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          )
+          $versionFile = 'staging/VERSION.txt'
+          [IO.File]::WriteAllText($versionFile, ($lines -join "`n") + "`n",
+                                  [Text.UTF8Encoding]::new($false))
+          Write-Host "VERSION.txt:"
+          Get-Content $versionFile | ForEach-Object { Write-Host "  $_" }
+
+          # Encoding stated explicitly on every read and write. plugin.json holds a non-ASCII
+          # author name, and `Get-Content` decodes a BOM-less file with the system ANSI codepage
+          # on Windows PowerShell while `pwsh` uses UTF-8 - so a step that relies on the host
+          # default turns "Zühlke" into "ZÃ¼hlke" depending on which shell ran it. Measured while
+          # dry-running this step locally: the bytes on disk were right and the VERIFICATION was
+          # wrong, which is the failure that would have shipped a mojibake manifest one day.
+          $utf8 = [Text.UTF8Encoding]::new($false)
+          $manifestPath = 'staging/.claude-plugin/plugin.json'
+          $before = [IO.File]::ReadAllText($manifestPath, $utf8)
+          $after = $before -replace '"version"\s*:\s*"0\.0\.0"', ('"version": "' + $version + '"')
+          if ($after -eq $before) {
+            throw ("$manifestPath does not contain the `"version`": `"0.0.0`" placeholder, so the " +
+                   "release version could not be injected. Restore the placeholder in " +
+                   "plugin/.claude-plugin/plugin.json - a plugin with no version is one " +
+                   "`claude plugin list` cannot identify, which is the whole reason it is there.")
+          }
+          [IO.File]::WriteAllText($manifestPath, $after, $utf8)
+
+          # Read it back through a JSON parser: a replacement that produced invalid JSON would make
+          # the plugin uninstallable, and the string substitution above cannot tell.
+          $parsed = [IO.File]::ReadAllText($manifestPath, $utf8) | ConvertFrom-Json
+          if ($parsed.version -ne $version) {
+            throw "plugin.json reports version '$($parsed.version)' after stamping, expected '$version'"
+          }
+
+          # And that what reached disk is EXACTLY what we meant to write. plugin.json holds a
+          # non-ASCII author name, and a re-encode would leave valid JSON carrying a mangled
+          # string - so the parser above cannot see it, and the damage would surface only in the
+          # plugin's own listing. Compared as decoded bytes against $after rather than against a
+          # literal, so this assertion carries no non-ASCII text of its own to go wrong.
+          $roundTrip = [Text.Encoding]::UTF8.GetString([IO.File]::ReadAllBytes($manifestPath))
+          if ($roundTrip -ne $after) {
+            throw "plugin.json on disk is not byte-identical to the stamped text - it was re-encoded"
+          }
+          Write-Host "OK: plugin.json version = $($parsed.version), encoding intact"
+
+      # 5. The manifest is what makes the zip installable. Fail loudly if it is not at the root.
+      - name: Assert plugin manifest is at the staging root
+        shell: pwsh
+        run: |
+          if (-not (Test-Path 'staging/.claude-plugin/plugin.json')) {
+            throw "staging/.claude-plugin/plugin.json is missing — the zip would not be installable"
+          }
+          Write-Host "OK: staging/.claude-plugin/plugin.json present"
+
+      # 5b. A helper script is only shipped if the data it opens is shipped with it. These two
+      #     tables are read at run time by scripts/pylv-conpane.py, which resolves them as
+      #     <script dir>\..\docs — so the assertion is about the LAYOUT, not just the files.
+      - name: Assert the scripts' run-time data files are staged beside them
+        shell: pwsh
+        run: |
+          $needed = @(
+            'staging/bin/docs/connector-pane-patterns.tsv',
+            'staging/bin/docs/connector-pane-typecodes.tsv'
+          )
+          foreach ($path in $needed) {
+            if (-not (Test-Path $path)) {
+              throw "$path is missing — pylv-conpane.py opens it at run time and would fail on a plugin install"
+            }
+          }
+          Write-Host "OK: run-time data files staged at bin/docs/"
+
+      # 5c. The pylabview bundle: present, locatable, and PATCHED.
+      #     The last of those is the one worth a step of its own. Patches are applied when the
+      #     bundle is ASSEMBLED, never to vendor\, so a staging tree copied from a stale runtime
+      #     would ship the unpatched crash while every log line still said "assembled". Check the
+      #     bytes in the staged file against patches.json, which is the same test provision.ps1
+      #     runs on its own output - here it is run on what actually goes in the zip.
+      - name: Assert the pylabview bundle is staged, locatable and patched
+        shell: pwsh
+        run: |
+          # PyLabview.Locate() requires BOTH of these; half a bundle must not count.
+          $needed = @(
+            'staging/bin/pylabview/python.exe',
+            'staging/bin/pylabview/app/pylabview/readRSRC.py'
+          )
+          foreach ($path in $needed) {
+            if (-not (Test-Path $path)) {
+              throw "$path is missing - every pylv_* tool would answer notProvisioned on a plugin install"
+            }
+          }
+          Write-Host "OK: bundle staged at bin/pylabview/"
+
+          $patchFile = 'tools/pylabview/patches/patches.json'
+          if (Test-Path $patchFile) {
+            foreach ($patch in (Get-Content $patchFile -Raw | ConvertFrom-Json).patches) {
+              $target = Join-Path 'staging/bin/pylabview/app' $patch.file
+              if (-not (Test-Path $target)) { throw "patch '$($patch.id)': $target is not in the staged bundle" }
+              if (-not ([IO.File]::ReadAllText($target)).Contains($patch.replace)) {
+                throw "patch '$($patch.id)' is NOT applied in the staged bundle - it would ship the bug it fixes"
+              }
+              Write-Host "OK: patch $($patch.id) present in the staged bundle"
+            }
+          }
+
+      # 5d. Import the STAGED interpreter, not the one provision.ps1 tested. Copying 636 files is
+      #     itself a step that can go wrong, and `from PIL import Image` is an unguarded top-level
+      #     import in LVblock.py - so a bundle missing Pillow imports fine until the first real
+      #     call. Do not redirect stderr into the pipeline here: pylabview writes warnings there
+      #     and PowerShell would turn them into a failure (see the note in provision.ps1).
+      - name: Smoke-test the staged pylabview bundle
+        shell: pwsh
+        run: |
+          # No sys.path juggling: the pythonNN._pth beside python.exe already pins Lib, DLLs and
+          # app relative to the interpreter, so this also proves the _pth travelled with the copy.
+          & staging/bin/pylabview/python.exe -c "import sys, PIL; from pylabview import LVblock; print('python', sys.version.split()[0], '| Pillow', PIL.__version__, '| pylabview imported')"
+          if ($LASTEXITCODE -ne 0) { throw "the staged pylabview bundle does not import (exit $LASTEXITCODE)" }
+          Write-Host "OK: staged bundle imports"
+
+      # 5e. Both agent flavours, each carrying the tool names its own install actually serves.
+      #     The zip ships the agents TWICE on purpose: agents/ at the root is what the plugin
+      #     loader reads, and its tools: lists must name mcp__plugin_<plugin>_<server>__*, while
+      #     bin/claude/agents/ is what scripts\Install-ClaudeAssets.ps1 installs for a plain
+      #     `claude mcp add labview` and must name mcp__labview__*. Swapping the two costs nothing
+      #     at install time and leaves an agent that can call no LabVIEW tool at all.
+      #     scripts\Sync-PluginAgents.ps1 generates the plugin flavour; PluginAgentTests asserts
+      #     the SOURCE relationship, this asserts the staged LAYOUT.
+      - name: Assert both agent flavours are staged with the right tool names
+        shell: pwsh
+        run: |
+          $source = @(Get-ChildItem '.claude/agents' -Filter '*.md')
+          $flavours = @(
+            @{ Path = 'staging/agents';            Prefix = 'mcp__plugin_labview-mcp_labview__'; Wrong = 'mcp__labview__lvai' },
+            @{ Path = 'staging/bin/claude/agents'; Prefix = 'mcp__labview__';                    Wrong = 'mcp__plugin_' }
+          )
+          foreach ($flavour in $flavours) {
+            $staged = @(Get-ChildItem $flavour.Path -Filter '*.md' -ErrorAction SilentlyContinue)
+            if ($staged.Count -ne $source.Count) {
+              throw "$($flavour.Path) holds $($staged.Count) agent(s); .claude/agents holds $($source.Count)"
+            }
+            foreach ($agent in $staged) {
+              $tools = @(Get-Content $agent.FullName | Where-Object { $_ -like 'tools:*' })
+              if ($tools.Count -ne 1) { throw "$($agent.FullName) has $($tools.Count) tools: lines" }
+              if ($tools[0] -notmatch [regex]::Escape($flavour.Prefix)) {
+                throw "$($agent.Name) in $($flavour.Path) names no $($flavour.Prefix)* tool"
+              }
+              if ($tools[0] -match [regex]::Escape($flavour.Wrong)) {
+                throw "$($agent.Name) in $($flavour.Path) names $($flavour.Wrong)* tools - the flavours are swapped"
+              }
+            }
+            Write-Host "OK: $($staged.Count) agent(s) at $($flavour.Path) naming $($flavour.Prefix)*"
+          }
+
+      # 6. Smoke-test the packaged binary. LabVIEW is not on the runner, so --help is the limit
+      #    of what is testable — but it exercises the self-extract, which is the failure mode
+      #    single-file publishing actually produces, and asserts a clean exit.
+      - name: Smoke-test the packaged exe (--help, exit 0)
+        shell: pwsh
+        run: |
+          & staging/bin/LabVIEWMCP.exe --help
+          if ($LASTEXITCODE -ne 0) { throw "LabVIEWMCP.exe --help exited $LASTEXITCODE (expected 0)" }
+          Write-Host "OK: --help exited 0"
+
+      # 6b. --version, from the exe IN THE STAGING TREE, so this also proves VERSION.txt is where
+      #     the exe looks for it (<exe dir>\..\VERSION.txt) rather than merely present somewhere.
+      #     Asserting the OUTPUT, not just the exit code: the version resource is read at run time
+      #     through reflection, and an exe that starts fine can still report 0.0.0.
+      - name: Smoke-test the packaged exe (--version reports the tag)
+        shell: pwsh
+        run: |
+          $out = & staging/bin/LabVIEWMCP.exe --version
+          if ($LASTEXITCODE -ne 0) { throw "LabVIEWMCP.exe --version exited $LASTEXITCODE (expected 0)" }
+          $out | ForEach-Object { Write-Host "  $_" }
+          $text = $out -join "`n"
+          foreach ($want in @('${{ steps.tag.outputs.version }}', '${{ steps.tag.outputs.tag }}', '${{ github.sha }}')) {
+            if ($text -notlike "*$want*") {
+              throw "--version output does not mention '$want' - the stamp or VERSION.txt did not reach the exe"
+            }
+          }
+          if ($text -like '*-dev*') { throw "--version reports a dev build from a tagged release" }
+          Write-Host "OK: --version reports the tag, the version and the commit"
+
+      # 7. Zip the staging CONTENTS so .claude-plugin/plugin.json sits at the zip root, then
+      #    attach it to the Release under the fixed asset name the marketplace manifest expects.
+      - name: Zip the staging tree
+        shell: pwsh
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $src = (Resolve-Path 'staging').Path
+          $dst = Join-Path (Get-Location).Path $env:ASSET_NAME
+          if (Test-Path $dst) { Remove-Item $dst -Force }
+          # CreateFromDirectory with includeBaseDirectory = $false puts the CONTENTS of staging
+          # at the zip root (so .claude-plugin/plugin.json is at the top level) and, unlike
+          # Compress-Archive, includes dot-prefixed entries.
+          [System.IO.Compression.ZipFile]::CreateFromDirectory(
+            $src, $dst, [System.IO.Compression.CompressionLevel]::Optimal, $false)
+
+          Write-Host "Zip contents:"
+          $zip = [System.IO.Compression.ZipFile]::OpenRead($dst)
+          $names = $zip.Entries | ForEach-Object { $_.FullName -replace '\\','/' }
+          $names | ForEach-Object { Write-Host "  $_" }
+          $zip.Dispose()
+          if ($names -notcontains '.claude-plugin/plugin.json') {
+            throw ".claude-plugin/plugin.json is not at the zip root"
+          }
+          if ($names -notcontains 'VERSION.txt') {
+            throw "VERSION.txt is not at the zip root - an extracted install could not identify itself"
+          }
+          Write-Host "OK: .claude-plugin/plugin.json and VERSION.txt are at the zip root"
+
+      # 7b. Three more assets, none of which may replace the fixed-name zip above.
+      #
+      #     labview-mcp-<tag>.zip  - the SAME bytes under a self-identifying name. The fixed name
+      #       is load-bearing: .claude-plugin/marketplace.json points at
+      #       releases/latest/download/labview-mcp.zip, which is why the manifest never needs
+      #       editing after a release. So the versioned copy is an ADDITION, for the human who
+      #       downloads from the Releases page and later wants to know what they extracted.
+      #
+      #     labview-mcp.sha256  - the archive's own digest, so a download can be checked.
+      #
+      #     labview-mcp.manifest.sha256  - relative path plus SHA-256 of EVERY file in the
+      #       archive. This is the one that answers "is my install intact and complete?" without a
+      #       second install to diff against - which on 2026-09-11 was the only way to settle a
+      #       report that the plugin route shipped less than the zip route (it does not: same
+      #       archive, 732 files, every hash equal - the reported difference was a three-release
+      #       stale plugin cache). scripts\Compare-Installs.ps1 -ManifestPath consumes it.
+      - name: Publish the version-named copy, the digest and the file manifest
+        shell: pwsh
+        run: |
+          $tag = '${{ steps.tag.outputs.tag }}'
+          Copy-Item $env:ASSET_NAME "labview-mcp-$tag.zip" -Force
+
+          $hash = (Get-FileHash $env:ASSET_NAME -Algorithm SHA256).Hash.ToLowerInvariant()
+          # Two spaces then the name: the `sha256sum -c` format, so this is checkable with the
+          # tool people already have rather than only by eye.
+          [IO.File]::WriteAllText('labview-mcp.sha256', "$hash  $env:ASSET_NAME`n",
+                                  [Text.UTF8Encoding]::new($false))
+          Write-Host "archive sha256: $hash"
+
+          # Hashed from the STAGING TREE, whose bytes are what went into the archive. Sorted, so
+          # two releases' manifests diff meaningfully.
+          $root = (Resolve-Path 'staging').Path
+          $rows = Get-ChildItem $root -Recurse -File -Force | ForEach-Object {
+            $rel = $_.FullName.Substring($root.Length).TrimStart('\').Replace('\', '/')
+            "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant())  $rel"
+          } | Sort-Object
+          [IO.File]::WriteAllText('labview-mcp.manifest.sha256', (($rows -join "`n") + "`n"),
+                                  [Text.UTF8Encoding]::new($false))
+          Write-Host "file manifest: $($rows.Count) entries"
+
+      - name: Attach the assets to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          # The fixed name FIRST and always: the marketplace resolves
+          # /releases/latest/download/labview-mcp.zip, so a release missing it is a release no
+          # plugin install can fetch.
+          files: |
+            ${{ env.ASSET_NAME }}
+            labview-mcp-${{ steps.tag.outputs.tag }}.zip
+            labview-mcp.sha256
+            labview-mcp.manifest.sha256
+          fail_on_unmatched_files: true
+
+      # 8. Read back what was actually PUBLISHED, over the network, as any user would. Every step
+      #    above checked the staging tree; this is the first one that checks the release - it
+      #    re-downloads labview-mcp.zip from the Releases page, verifies its digest against the
+      #    published labview-mcp.sha256 and every one of its ~800 entries against the published
+      #    manifest, and confirms the uploader is github-actions[bot].
+      #
+      #    Cheap insurance against a partial or reordered upload. The same script runs daily from
+      #    verify-release.yml, which is what catches an asset REPLACED by hand after the fact -
+      #    the failure this repository actually had, five times.
+      - name: Verify what was published
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Two attempts: an asset can still be settling immediately after the upload step.
+          for ($attempt = 1; $attempt -le 2; $attempt++) {
+            powershell -NoProfile -ExecutionPolicy Bypass `
+              -File scripts/Assert-PublishedRelease.ps1 `
+              -Repo '${{ github.repository }}' -Tag '${{ steps.tag.outputs.tag }}' -Token $env:GH_TOKEN
+            if ($LASTEXITCODE -eq 0) { exit 0 }
+            if ($attempt -eq 1) { Write-Host 'retrying in 30s'; Start-Sleep -Seconds 30 }
+          }
+          throw 'the release was published but does not verify - see the FAIL lines above'
