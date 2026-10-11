@@ -1,0 +1,12 @@
+name: oopanel-dev-package
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  dev-package:
+    runs-on: [self-hosted, Windows, lv-2020]
+    steps:
+      - uses: actions/checkout@v3
+      - run: .\build\test.bat
