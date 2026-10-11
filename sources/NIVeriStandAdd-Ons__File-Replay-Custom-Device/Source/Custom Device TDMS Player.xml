@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>TDMS Player</eng>
+		<loc>TDMS Player</loc>
+	</AddMenu>
+	<Version>1.0</Version>
+	<Type>Asynchronous</Type>
+	<MaxOccurrence>2474</MaxOccurrence>
+	<MainPageGUID>B65DDF15-1B5F-9DC8-75F2-DEE39C08F09B</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<Source>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\TDMS Player\TDMS Player Engine.llb\TDMS RT Driver VI.vi</Path>
+		</Source>
+		<RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\TDMS Player\TDMS Player Engine.llb\TDMS RT Driver VI.vi</RealTimeSystemDestination>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>TDMS Player</eng>
+				<loc>TDMS Player</loc>
+			</Name>
+			<GUID>B65DDF15-1B5F-9DC8-75F2-DEE39C08F09B</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Main Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS Player</eng>
+				<loc>TDMS Player</loc>
+			</Name>
+			<GUID>71D4EC43-7C0F-4AA8-B21A-D9A90DB97D95</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS Player</eng>
+				<loc>TDMS Player</loc>
+			</Name>
+			<GUID>CFBA0536-B2EC-4641-AAED-6FD87F559B2C</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Mode Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS File Position</eng>
+				<loc>TDMS File Position</loc>
+			</Name>
+			<GUID>876EAA76-6BAB-C0B1-D277-2CBEBD17E048</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS File Position Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS Current Channel Time</eng>
+				<loc>TDMS Current Channel Time</loc>
+			</Name>
+			<GUID>9A10885E-9C41-FCC3-06A2-CE83BF07D287</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Current Channel Time Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS Total Channel Length</eng>
+				<loc>TDMS Total Channel Length</loc>
+			</Name>
+			<GUID>87524F22-E9C6-7911-49DA-4E1F86115CF8</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS Total Channel Length Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>TDMS dt</eng>
+				<loc>TDMS dt</loc>
+			</Name>
+			<GUID>038C091E-D8D4-4203-C7C2-68808EBCDDA4</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\TDMS Player\TDMS Player Configuration.llb\TDMS dt Page.vi</Path>
+			</Item2Launch>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<Dummy />
+	</CustomXML>
+</CustomDevice>
