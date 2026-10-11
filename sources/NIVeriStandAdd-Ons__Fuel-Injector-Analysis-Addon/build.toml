@@ -1,0 +1,40 @@
+[archive]
+build_output_dir = 'Built'
+archive_location = '\\us-aus-hilbuild\builds\niveristandadd-ons\custom devices\fuel_injector_analysis_addon'
+
+[projects.cd]
+path = 'Source\Fuel Injector Analysis Addon.lvproj'
+
+[projects.api]
+path = 'Source\Fuel Injector Analysis Addon SysDef API.lvproj'
+
+[[build.steps]]
+name = 'Configuration Library'
+type = 'lvBuildSpec'
+project = '{cd}'
+target = 'My Computer'
+build_spec = 'Configuration Release'
+
+[[build.steps]]
+name = 'Engine Libraries'
+type = 'lvBuildSpecAllTargets'
+project = '{cd}'
+build_spec = 'Engine Release'
+
+[[build.steps]]
+name = 'SysDef API'
+type = 'lvBuildSpec'
+project = '{api}'
+target = 'My Computer'
+build_spec = 'System Definition API'
+
+[package]
+type = 'nipkg'
+name = 'ni-fuel-injector-analysis-addon-{veristand_version}'
+dev_xml_path = 'Source\Addon\Custom Device Fuel Injector Analysis Addon.xml'
+install_destination = 'documents\National Instruments\NI VeriStand {veristand_version}'
+
+[[release.steps]]
+name = 'Master Release'
+type = 'githubRelease'
+2019_release_branches = ["master",]

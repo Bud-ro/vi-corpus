@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<title>Fuel Injector Analysis Addon</title>
+		<link rel="STYLESHEET" type="text/css" href="css/VSsystemexplorer.css">
+		<script src="common.js" type="text/javascript"></script><script src="js/expandable_tree.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="css/expandable_tree.css">
+		<script src="launchhelp.js" type="text/javascript"></script><script src="js/dynamicjumps.js" type="text/javascript"></script>
+	</head>
+<body>
+	<noscript>
+		<p class="Body">JavaScript is disabled. <a href="veristandmerge.chm::/JavaScript_Disabled.html">Details</a></p>
+		<hr width="100%" noshade>
+	</noscript>
+<h1>Fuel Injector Analysis Addon</h1>
+<p class="Body">This add-on allows the user to acquire injection signals from an FPGA program.  These acquisitions are streamed over a DMA channel and analyzed on the controller.</p>
+<p>The complete injection is referred to as an injection event. An injection event can have multiple shots or individual releases of fuel.  Each shot can have multiple stages or current levels.  The following image shows an example current signal with these different pieces defined.</p>
+<img src="Injection.jpg" 
+alt = "Injection Cycle">
+</p>
+Furthermore, each stage is broken up into 3 sections of pull in, hold, and off.
+<h2>What do you want to do?</h2>
+<h3>Disable the Device</h3> 
+<p>Right click on the custom device and select <strong>Disable</strong>.</p>
+<h3>Add a Bitfile</h3>
+<p>To add a bitfile, select the file from the <strong>Bitfile path</strong>. Note: if you change or re-load the bitfile, all settings will be reset.</p>
+<h3>Set the RIO Address</h3>
+<p>Enter in the target FPGA address (usually RIO#) in <strong>RIO Device Address</strong>.</p>
+<h3>Set the Sampling Rate (Hz)</h3>
+<p>The addon must know the sampling rate used to acquire the injection signals.  This is the rate that the FPGA inputs are looped at.  Enter in the rate in <strong>Sampling Rate (Hz)</strong>.</p>
+<h3>Set the Analysis Settings</h3>
+<p>In addition to configuring the FPGA settings on the main page, additional settings are required for finding and analyzing the various shots and stages of the event.  To configure these settings, select <strong>Go To Analysis Settings</strong>.</p>
+</body>
+</html> 
