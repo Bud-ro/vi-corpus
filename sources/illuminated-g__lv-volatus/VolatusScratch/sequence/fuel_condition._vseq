@@ -1,0 +1,113 @@
+{
+    "Sequence": {
+        "Name": "Fuel Condition",
+        "Version": "1",
+        "Comment": "Control state machine for bottle heating/cooling.",
+        "Period": 100,
+        "Constants": {
+            "RangeLow": 775,
+            "Target": 800,
+            "RangeHigh": 825
+        },
+        "Entry": "Hold",
+        "Abort": "Stop",
+        "Debug": {
+            "States": true,
+            "Conditions": true
+        },
+        "States": {
+            "Hold": {
+                "Comment": "Fuel in range, controls off.",
+                "Color": "#006304",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "FuelCool", "Value": false},
+                            {"Type": "Digital", "Channel": "FuelHeat", "Value": false},
+                            {"Type": "Event", "Message": "Fuel Holding"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "Cool",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "HighLimit", "Channel": "FuelPSI", "Limit": "{RangeHigh}"}
+                        ]
+                    },
+                    {
+                        "Type": "State",
+                        "Target": "Heat",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "LowLimit", "Channel": "FuelPSI", "Limit": "{RangeLow}"}
+                        ]
+                    }
+                ]
+            },
+            "Cool": {
+                "Comment": "Cooling, wait for pressure to drop.",
+                "Color": "#033c8a",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "FuelCool", "Value": true},
+                            {"Type": "Event", "Message": "Fuel Cooling"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "Hold",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "LowLimit", "Channel": "FuelPSI", "Limit": "{Target}"}
+                        ]
+                    }
+                ]
+            },
+            "Heat": {
+                "Comment": "Heating, wait for pressure to rise.",
+                "Color": "#906b00",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "FuelHeat", "Value": true},
+                            {"Type": "Event", "Message": "Fuel Heating"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "Hold",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "HighLimit", "Channel": "FuelPSI", "Limit": "{Target}"}
+                        ]
+                    }
+                ]
+            },
+            "Stop": {
+                "Comment": "Stopping, ensure controls off.",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "FuelCool", "Value": false},
+                            {"Type": "Digital", "Channel": "FuelHeat", "Value": false},
+                            {"Type": "Error", "Message": "Fuel Stopping"},
+                            {"Type": "Stop"}
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
