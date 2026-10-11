@@ -1,0 +1,28 @@
+name: LabVIEW Project Tests
+
+# Controls when the workflow will run
+on: [push,workflow_dispatch]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  lvCICD:
+    # The type of runner that the job will run on
+    name: lvCICD LabVIEW Project Tests
+    runs-on: [self-hosted]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: CloneRepo
+        uses: actions/checkout@v4.1.1
+
+      - name: echo GITHUB_WORKSPACE
+        run: echo ${{ github.workspace }}
+        shell: powershell
+
+      - name: Run lvCICD Test cases with VITester
+        uses: NEVSTOP-LAB/lvCICD@main
+        with:
+          LabVIEW_Version: 2017
+          Operation: StartVITester
+          Parameter1: ${{ github.workspace }}\LabVIEW-Adapter\CICD-LabVIEW-Adapter.lvproj
