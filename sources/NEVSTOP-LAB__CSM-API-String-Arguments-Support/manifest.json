@@ -1,0 +1,866 @@
+{
+ "repo": "NEVSTOP-LAB/CSM-API-String-Arguments-Support",
+ "url": "https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support",
+ "commit": "ac01502e410f401c0b89b4798065627b82e9f0eb",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "CSM API String Arguments Support.lvproj",
+   "bytes": 66632,
+   "sha256": "a22882c30c8f4786130ee42e42b32e0221c0098e3e4c9bf50c36db408c43c658",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Get Module Configuration Example/0. Using within CSM - Get Module Configuration.vi",
+   "bytes": 212618,
+   "sha256": "7983dbd7f1704804488deae5e3b33ac7bdd26cc65212d0552175c2d3f72d3435",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/1. Empty String to Typical data types.vi",
+   "bytes": 379345,
+   "sha256": "4a1ecb7a30ca827a55825c80394e3301cd54ca6a877ba60cf12fc2a689869be4",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/2. CSM API String to Typical datatypes.vi",
+   "bytes": 353982,
+   "sha256": "4cb32ea4735d8e286ea0f48949958f4fa0c550181faa7ca4588b0ea099d693fb",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/3. Incorrect usage collections.vi",
+   "bytes": 43662,
+   "sha256": "0a4d5fd4b62c2524a4c2e34fdabb4539939b82498f147dbb73bd5c783e7ca35d",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/4.1 CSM API String to Float.vi",
+   "bytes": 155255,
+   "sha256": "d5327515e3663f69072340b1dcf0b3db2a5eb663b876a5e2f3e2f6dda57a48ef",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/4.2 Float with Unit CSM API String to Float.vi",
+   "bytes": 21923,
+   "sha256": "0d7fa502d8d350d7c466f642b4e52a2f5d4a0c8b3025e9cb86a4650f5b71d8df",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/4.3 CSM API String to Complex Numeric.vi",
+   "bytes": 489345,
+   "sha256": "4d4643a737a1be3dd794b771a8f4c9ced109ee8cc6e3681a9d23f88b329347ee",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/4.4 CSM API String to TimeStamp.vi",
+   "bytes": 175707,
+   "sha256": "e15a62af1ce46ff9848217af9cc704f23a8bc1fdcdd6067bf116d76618591609",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/4.5 CSM API String to Enum(special format).vi",
+   "bytes": 32786,
+   "sha256": "e2a97fa4ba141f33e6eedbb07217e18f8d0e49a0d484848c414b830acf3dde3e",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/5.1 CSM API String to Array.vi",
+   "bytes": 97063,
+   "sha256": "2c6744c5986f061c57c1821c243dcff175dbd414456f39f71d89faf35fa45689",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/5.2 Cluster 1D Array to CSM API String.vi",
+   "bytes": 66974,
+   "sha256": "a39af9a6434dfeba3e0fa769687599d45197e6954b9b690ec73d11a43478bd71",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/5.3 Cluster 2D Array to CSM API String.vi",
+   "bytes": 68194,
+   "sha256": "2f8f534654263d3575aabffdef83477fc72dd1135e1765ea39ecb96c8ee8f1a1",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/6.1 Cluster to CSM API String.vi",
+   "bytes": 126081,
+   "sha256": "49024ed0679cb5a86ee2baaa839e683e974d69cbea19ca9e8dbd5a3d3092bcc0",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/6.2 CSM API String to Cluster.vi",
+   "bytes": 372421,
+   "sha256": "c7fbbc288eb3a7e882faedd0a127a000fa6396f1dc3c805a91477aa1fb55e967",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/7.1 Complex Cluster in Array.vi",
+   "bytes": 76044,
+   "sha256": "82338cf153ae52f83669bfe3eae42bfc6f97025302e2989f6ee81170defd66f2",
+   "via": "extension"
+  },
+  {
+   "path": "Example/Supported Datatype Examples/7.2 Cluster with 2D Array elements.vi",
+   "bytes": 70814,
+   "sha256": "11dba4db5cb68535d5b9c3ba57caf3b533ee8c42f9672143475749c0d3ad8f73",
+   "via": "extension"
+  },
+  {
+   "path": "Template/CSM Module Template(+Configuration).vi",
+   "bytes": 157479,
+   "sha256": "2c6b9400ef2631333385326aa493c2964ce009f4c5a02337d9a76c3efe401927",
+   "via": "extension"
+  },
+  {
+   "path": "Template/CSM User Interface(UI) Module Template(+Configuration).vi",
+   "bytes": 177370,
+   "sha256": "5ad7130423b7175926c86cbcc7880b40a33fa5315e0f12038d48b4ecb03abeec",
+   "via": "extension"
+  },
+  {
+   "path": "_test/CSM API-String APIOnly.lvproj",
+   "bytes": 1945,
+   "sha256": "76706155255cca0e72e0953ba624c12f705fe8ea0ab52a044d50ed3ce8d6368f",
+   "via": "extension"
+  },
+  {
+   "path": "_test/Show DBL postfix.vi",
+   "bytes": 124640,
+   "sha256": "e4b8b8d1206b8318631dd737c37e75efcefebce34bc2759d76041083f33faf2a",
+   "via": "extension"
+  },
+  {
+   "path": "_test/Test Cases - API String Arguments Support(VIM).vi",
+   "bytes": 372082,
+   "sha256": "0db5434b6f4066da1569f1f75f12a56a8b02834502896dd0bb3bebeb7776f18c",
+   "via": "extension"
+  },
+  {
+   "path": "_test/Untitled 1.vi",
+   "bytes": 45078,
+   "sha256": "fa54a40fcee781e47fba56b6ec46b1d6569e55997d71786e59edda72c66cce63",
+   "via": "extension"
+  },
+  {
+   "path": "_test/Untitled 15.vi",
+   "bytes": 100103,
+   "sha256": "afbcfb74532e15486f92fdae9012254f492217ca302a613317332b2d91c40d06",
+   "via": "extension"
+  },
+  {
+   "path": "_test/benchmark of to 1d array.vi",
+   "bytes": 9276,
+   "sha256": "6930f2bc7802e808c410300157966d3eaad3ddfcab89247768dbf3041f9532f0",
+   "via": "extension"
+  },
+  {
+   "path": "_test/remove zero.vi",
+   "bytes": 4551,
+   "sha256": "4fa3347482adaef892e014f231a74432b15472b58cbe03e2278b4faefd3a5be6",
+   "via": "extension"
+  },
+  {
+   "path": "_test/test - strip brackets.vi",
+   "bytes": 4849,
+   "sha256": "7198a97d537a57b36ca02f16d2913e03b0fd29f5abdb249d3d05638903694823",
+   "via": "extension"
+  },
+  {
+   "path": "_test/test Enum.vi",
+   "bytes": 5377,
+   "sha256": "aa6ed4a131225dbd754ef5f71daf0b313102f4569f61d15ca616886418a4823e",
+   "via": "extension"
+  },
+  {
+   "path": "_test/test boolean strings.vi",
+   "bytes": 36976,
+   "sha256": "83cb0f41b54e183aa71ba5379208b3f9e199a04aa5db1edc83ff11ed4df7a813",
+   "via": "extension"
+  },
+  {
+   "path": "_test/test tag value mode.vi",
+   "bytes": 39023,
+   "sha256": "6f69dd5a47de445fb19063f97501cc124fdf0a9fc5576259bcea11d6daf26c6f",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Add Boolean Strings.vi",
+   "bytes": 26020,
+   "sha256": "3002f3642ec329e1ea46160f2ee94eefd9b5a07589a345e8c252e866bb37cbc8",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Float Format String.vi",
+   "bytes": 24376,
+   "sha256": "69d033429f71896924f5e268029e80dca69399f73115776e25a938a5c2f4d970",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Is Supported Datatype.vi",
+   "bytes": 30814,
+   "sha256": "f8cc152f0745d3c1fc9ea17bb2ec2e4546e593b2600cd3995050b11b30962639",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - List Boolean Strings.vi",
+   "bytes": 26009,
+   "sha256": "2c76701b251bceb0d463d482c74d3c5875a65d9115f9626fac5815bf0059e144",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Remove Boolean Strings.vi",
+   "bytes": 26023,
+   "sha256": "4b03c2a2af14e4b1a77b108cca6cce473f4d9c69b17f3feb368f782794412b33",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Set Float Format String.vi",
+   "bytes": 18516,
+   "sha256": "206a0dc11e6f3f584c840e6ce1daa7164b2eb51a49159aa5a98adb474f9d39f5",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String - Set Float Precision.vi",
+   "bytes": 28788,
+   "sha256": "db56ab4a39fe6782edc423fae43c0fb469071b9e22c42c5b58eb0246fee66263",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/API String Arguments Support.lvlib",
+   "bytes": 19112,
+   "sha256": "f9b5bc087b1c8588e24da11a2cf5dfa98a300051d57c6b35e98d98c1516aea8b",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/CSM - Broadcast Data As API String.vim",
+   "bytes": 23067,
+   "sha256": "a8647a08479c67bb2ce4050665545dafb1865e31749f35dd5e594b67d3d8ea56",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/CSM - Convert HexStr to Data.vim",
+   "bytes": 19153,
+   "sha256": "0605aa156fc7cde13cfbab44fa41c0884345404b920c31bcc2152e57efb868ab",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/CSM - Query Internal Data Names By API String.vi",
+   "bytes": 61489,
+   "sha256": "aac6050f238780d7bd6b02c3d7dcf4b04afcf9f890a22a579705cc6bba47b051",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/CSM - Timestamp to API String Arguments.vi",
+   "bytes": 17911,
+   "sha256": "2d6842b5cee13f3140107b56a84e0bc8934aedaa171797db4157d929e3e9e006",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/Convert API String Arguments to Data.vim",
+   "bytes": 22541,
+   "sha256": "9fb351737cad0cb14020195af87257fe69661af16cf9523a5b79628842996406",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/Convert Data To API String Arguments.vim",
+   "bytes": 22541,
+   "sha256": "f7046dc04b21c1d65924aa160df0db4de6b5071670c8691be2506423866ebf9f",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/Query Data as API String Arguments.vim",
+   "bytes": 24935,
+   "sha256": "615d4bf98aafd4d4b52c293855de32e6072ca6ba2a40fae5a23614e4a468a0a2",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/API String to 1D Array.vi",
+   "bytes": 9342,
+   "sha256": "0e06ab400bb2b1169a126e5f8fc010afcfdb8a31aa0fbeb37dc63ac67cfd60f2",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Boolean Strings(lvlibp).vi",
+   "bytes": 21391,
+   "sha256": "c5a6059108c8f92daf1e67e4ca8011a39a51ab592f6812d9d0d84f79c34d8447",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Boolean Strings.vi",
+   "bytes": 19671,
+   "sha256": "4ad20300061fe728a85e3ce90fa83a7821f3561f4e0880a43493c1b64cac4155",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Cluster API String to 1D Array(Splite Nested Cluster).vi",
+   "bytes": 13161,
+   "sha256": "f276bf068171a438b58b3b061833b82b802749fe2c00a52368f4d164a9f965a9",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Compare Two Numbers_csm.vim",
+   "bytes": 26084,
+   "sha256": "4e552b834c3073944d91adc1e3bf72e6e3129493927e0b2f12307de0f854ef9b",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Concatenate Strings If not Empty_csm.vi",
+   "bytes": 12344,
+   "sha256": "28ac15d9043e268e737a2799a6a5911afce611479b3312793052ec5b17f04e2a",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Convert API String Arguments to Data(variant).vi",
+   "bytes": 84389,
+   "sha256": "fa0231022d4a9e40df6a278771a1d35c82d58f2800c968ffc5db47022429bd45",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Data To API String Arguments.vi",
+   "bytes": 51408,
+   "sha256": "cf5a4bd63cb55968adcacf8d320423dfc57743772566b7b0bf0704a80bac9dd1",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Data To SingleElementsArray_csm.vi",
+   "bytes": 20491,
+   "sha256": "e3c684bfcf290ebc530f39bfa5f6ac734a924bfe17522b4213b101e57d3a722e",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Data To SingleElementsArray_with_itself_csm.vi",
+   "bytes": 18995,
+   "sha256": "3a66999c1bb584c33975ebaa93fae06afd04262c2bf65e9f7330994d0aed4e74",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Float Precision(lvlibp).vi",
+   "bytes": 16723,
+   "sha256": "34e25f1f382dba5fce0be24f40a28658d6b49394bb4b2d4fe4920100f88a6cbb",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Float Precision.vi",
+   "bytes": 6951,
+   "sha256": "feffc4faae96a64a90dbbab3f1294328a7cf6dcbd22119aa75fc0668c9c3ba8b",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Indexed Enum to Numeric_csm.vim",
+   "bytes": 29612,
+   "sha256": "e9c3f584f8bfdf83639b479fa2b4927834528a82899f3b4f53a696410e82d5ee",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Indexed String To Enum_csm.vi",
+   "bytes": 23170,
+   "sha256": "6e67d321609032c3be9748d41b2c56bfbfd8063bf01ea7f511ea1a6210efd770",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Match Multiple Pattern_csm.vi",
+   "bytes": 14918,
+   "sha256": "b748bf0dd86691a83af63062e7549f0734e4b3b8c4811846308c2878c0ea6e8b",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Numeric to Indexed Enum_csm.vim",
+   "bytes": 21592,
+   "sha256": "0ff96a1602fe33c2a9bc08ba793d7d298cca0165ae6686102ea973ba0fce5b45",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Query Data as API String Arguments(variant).vi",
+   "bytes": 23779,
+   "sha256": "76cf1c1d1c4e56e5ea7f669e3d59b694f2a7b3b0e09ffa7775e104be24dacdce",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Reorder String Array Breadth-firstly.vi",
+   "bytes": 11700,
+   "sha256": "5334df3020f53fb457de8fb3f60dc735894d50d7f68feb241d86ff443848eeeb",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Search 1D String Array by Pattern.vi",
+   "bytes": 13777,
+   "sha256": "b852e230aee363d6804f978c9dc3908f266bc7dad67a8eef6905a512d8c85bfa",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/SingleElementsArray To Data_csm.vi",
+   "bytes": 36115,
+   "sha256": "cb3d43c872722e099aaa4bbca5703c10789a54f2a1e8070d5d9ae1975b5c039a",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/String To Float_csm.vi",
+   "bytes": 34027,
+   "sha256": "8b0d885ec40d47ba538083d34dc060f3625f124d3e6d4bef4fa0f56ea2320805",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/String To Indexed Enum_csm.vi",
+   "bytes": 36206,
+   "sha256": "dc55af0e6eceeaa0d833226114b7331c38c0bd44dbe53be863e9cb450d71c109",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/String To Number(I64)_csm.vi",
+   "bytes": 79517,
+   "sha256": "89387518854806e462f2548c592da77a5abc5579fb787d697ae4ed3c748a9fc9",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/String to Boolean_csm.vi",
+   "bytes": 20945,
+   "sha256": "985aaf6f82bc0c5a1faa8feae4c98d4179628dab18bdc381b96006a9aac98568",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/Cluster API String Mode.vi",
+   "bytes": 9999,
+   "sha256": "d09adeb759d1100e75846a6f744987362915fd664aa2b6510fd87ca363abe6c7",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/Get content in brackets.vi",
+   "bytes": 10663,
+   "sha256": "9c93dfda05a3f1d7aecc610de60ba1eee85bb66d41494000d9a8bb1df732d058",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/String to 1D Array 2.vi",
+   "bytes": 19156,
+   "sha256": "888e907697fc133f313562a0b484c51e72de664b935906d3883e212aa79a1181",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/Strip brackets with Option.vi",
+   "bytes": 13514,
+   "sha256": "3fea228bb8658f2af4e4d504d56bda2b5984ee50174bdff9157f609d1d9cca2f",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/Strip brackets.vi",
+   "bytes": 14422,
+   "sha256": "4fa249e6b20f01443f29e550c6f29038c23ca6756dd7cf051bced27a12da2359",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/bracket code.vi",
+   "bytes": 6460,
+   "sha256": "d53c0e9eaccc34922e2fe88e162f2e9aed655a1e70bef292379c5959025636f5",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/check if brackets Matched 2.vi",
+   "bytes": 21523,
+   "sha256": "8e63addd4cd1a0e3754b5950d4018a408c0ae60fd5fd84687bbcd68323bb8f78",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/StringAnalyze/check if brackets Matched.vi",
+   "bytes": 18489,
+   "sha256": "e4875b78674d32acc4bdd4d06b43f794c5ed3f7ae742cb4e97446e955c73683d",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Strip Tag in Tag Value Pair.vi",
+   "bytes": 5859,
+   "sha256": "3151739cd837d91d9cef6c8a9eb76680e7f7310daf4a6052b2b5ee2c2dfbf96d",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/Strip Trailing Zeros for Float String.vi",
+   "bytes": 25621,
+   "sha256": "9e4c8764fb174081fa738e275d64f3cfcbb6e30c1cbe6a351058071de1e591c2",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/_JDP Science/Text to Timestamp(RFC3339).vi",
+   "bytes": 31830,
+   "sha256": "96968de9e746dbc670ad243a799a7b53284f67f009c1af3e479c48ff1fd37fbd",
+   "via": "extension"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/_Support/_JDP Science/Timestamp to Text(RFC3339).vi",
+   "bytes": 13094,
+   "sha256": "4763c2a736bf7e7fa560a4bf901b9e7adf80ac746693e5228b0f58e57f3aebe9",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/setUp.vi",
+   "bytes": 10521,
+   "sha256": "7d42deb701bbfb395f060d16eb33527c0261fb46388df4f3ddffa46f554d3e02",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/tearDown.vi",
+   "bytes": 8648,
+   "sha256": "8f7a8387cc7525a9388b9d3ee00f1ea2a3421f0bb3b2e778287281172dada591",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/temp_VI_UnderTest.vi",
+   "bytes": 9893,
+   "sha256": "f4a82e5847c2cedacfbb7fffaf05797fe85dc57969f0a632aad799682b92689d",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testExample.vit",
+   "bytes": 14824,
+   "sha256": "96726fcbcef39b0903f0328d7e6dcdd9f8df72dce64dd2ec0781dc3e8680eaf7",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcase-Supported-Datatype.lvclass",
+   "bytes": 49184,
+   "sha256": "1eb07fcd841f24028f4ef3de3048e4b3ac503dcdfc2cc020518916c32beff833",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - #104.vi",
+   "bytes": 26523,
+   "sha256": "a324b894695ce3d34414e72db768af6f1018f2c4372aff29985ff0bc77f61cba",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - #86.vi",
+   "bytes": 82862,
+   "sha256": "a607ef3adf1cf02a780ba60403efac39972631ebbb7450287cd9bb08be49069e",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - #98.vi",
+   "bytes": 104730,
+   "sha256": "907f05afde589c0c0b6192d8a47a7c8937c250fc73e01fec838c11b76c39eb18",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - API String Arguments Support(Variant).vi",
+   "bytes": 55640,
+   "sha256": "72843f580190e7af74af8f8c8e33734e4d5622cc49ba09e282fe74d47f93008b",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Arguments or Respsone.vi",
+   "bytes": 150460,
+   "sha256": "ccabd551006793fb144dd42b052ee33917cce61bd265ebbf732f8d757636ea92",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster Changed Value as Arguments.vi",
+   "bytes": 150633,
+   "sha256": "5bc5d469909f69e798630b7094fb33eaf697dbc1a535c89fcffe3ca86d02b761",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster Changed with Leaf Element Name.vi",
+   "bytes": 122985,
+   "sha256": "d39eb715596d0d6308aabb8d6412641da5546be3ef4dead3838f7ebf7d83c781",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster mixed with Array 2.vi",
+   "bytes": 43221,
+   "sha256": "daa4bc6b8580622b9b9b677a99e22b55238a5fd7b19b43a7d471835a8929550f",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster mixed with Array.vi",
+   "bytes": 235663,
+   "sha256": "1426bca940ac2d70b9321e6c70d9cc45baea6d570547af69417624f32f329e19",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster with Reference.vi",
+   "bytes": 117117,
+   "sha256": "aaab02c8971d239e066d7f7d9bbfa7a5b8e029b5b8d44070b37077e1757d5287",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster.vi",
+   "bytes": 80426,
+   "sha256": "6e9bc26d6a6dbe145d95d44e574e9515bf45c566a32c1ef62c916fc4b888e820",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Cluster2.vi",
+   "bytes": 108435,
+   "sha256": "53dd7670150eaa7af10f89e07ea30c1d736f91ce96f999b809a916635535ed68",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Complex.vi",
+   "bytes": 85198,
+   "sha256": "654e949e8f82e3fd956e32d923cb8ed1b7964473378fbb1b19a47b3dc8b95551",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Datetype Check.vi",
+   "bytes": 68285,
+   "sha256": "bdbc118d063dc0b3eff4087e86b006d9bae58c546ca89bce7098538625fbc3fb",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Empty String Check.vi",
+   "bytes": 50805,
+   "sha256": "ebb33865e633d7f81edf15eef73ba145b9f1ee220bf3b515aa93d26afc08e762",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Enum.vi",
+   "bytes": 36167,
+   "sha256": "aa5a2d27150e8e12f5cc6fd18a3706c907bdfa23b62ba0a5a5222d9dff405633",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - No Tag Mode.vi",
+   "bytes": 54326,
+   "sha256": "b02a4393d9b7352794ded1ef41a5478fdbe15a9f3b97439731b5e6316059eb78",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Numeric.vi",
+   "bytes": 23202,
+   "sha256": "a3c1b2b4fdc2169bdebb368fc8d41f322cad850a2303437e17867b3139426a0d",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Refnum.vi",
+   "bytes": 88305,
+   "sha256": "387bad6d5ad5e37d1b2d127722bf5f532e25f9edac6abaf47252a126a83aeb38",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - String with Keywords.vi",
+   "bytes": 223931,
+   "sha256": "e9d4f12e664b4a0b6f37de9bb1158a0d5cbd3f210cd0fb0ebfb354a474e36862",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - Tag.vi",
+   "bytes": 81674,
+   "sha256": "fa396756b68c2dd18dfc65b523fd1068260885a17c4e2242c47d75e76f7e6d89",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - float format.vi",
+   "bytes": 61343,
+   "sha256": "c3616c852ddcde9646ecb74b251b7c80b88b671656c0817134a624032ebeaa8a",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - float.vi",
+   "bytes": 250156,
+   "sha256": "9c056ec6084aed6183043ecce738b7f7682d8f67aa4d45a6bc5051e44b4cf244",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/testcase-Supported-Datatype/testcases/test - timestamp.vi",
+   "bytes": 35588,
+   "sha256": "99de79c64e3b340b460ababc38abf8b142fa41d5e423c3633fd78a94b7d59eae",
+   "via": "extension"
+  },
+  {
+   "path": ".github/doc.png",
+   "bytes": 51989,
+   "sha256": "e17a7ae544d8fabd77d39ee8a170190cf83d88f43f527665a8abb26a314224a4",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Build_VIPM_Library.yml",
+   "bytes": 2806,
+   "sha256": "0bdd07e3ef23954a34f101ce6291a9fc2678c7aa2112423f2dc5f47bdfd4fd81",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Check_Broken_VIs.yml",
+   "bytes": 1725,
+   "sha256": "0d2cf10a6de0b3dc42bde1eea854417e1acedc00e331ea8a95c60c4c48fb8c7e",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Run Testcases.yml",
+   "bytes": 1354,
+   "sha256": "d8bce32edd8b4e257ad7e851a74c4012cb23feb656224fc0fb1b46e63aa607df",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 32,
+   "sha256": "1ef965ccb4fdd50fb8e91af1d6e1494996a6cd01ec3c7cddb183659e59c49564",
+   "via": "tree"
+  },
+  {
+   "path": ".markdownlint.json",
+   "bytes": 162,
+   "sha256": "87eae964f05deb1b5745e00767cbbdceb8acea10e66235844dc546693c4f529b",
+   "via": "tree"
+  },
+  {
+   "path": ".vscode/settings.json",
+   "bytes": 328,
+   "sha256": "556c6b8be2a94f38a61184bb490101f21c4d44b67c22fb25002ba75bac84b229",
+   "via": "tree"
+  },
+  {
+   "path": "Arguments/API String Arguments.mnu",
+   "bytes": 2255,
+   "sha256": "da1440feef3f53cd26a2948c2c33549e21db7b0a51474a83a5353827caf5d233",
+   "via": "tree"
+  },
+  {
+   "path": "CSM API String Arguments Support.vipb",
+   "bytes": 21108,
+   "sha256": "9bf3f2ab5c5445a482ae077be2edc767ebf1f86edff9dead43a654dfb70d6dec",
+   "via": "tree"
+  },
+  {
+   "path": "DEV ENVIRONMENT LabVIEW 2017",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1068,
+   "sha256": "60a2b98361b86dc57cc9505ecde246b4bfc5fa4890bab7b6f07c373e0e1f40ec",
+   "via": "tree"
+  },
+  {
+   "path": "README(zh-cn).md",
+   "bytes": 10321,
+   "sha256": "482f1f3607adcb6b2ef6d42a779131288635daaac697e70db8ba00da2e886e24",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 10448,
+   "sha256": "f08a134541e2d0886d1f6efdf551ddd07f39ca24ff15682ce72ee1ad2eda521e",
+   "via": "tree"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/CSM-Utility.mnu",
+   "bytes": 1940,
+   "sha256": "055d3e0334dd1f254888517e8af705237e1d0663286d15b6937ec04b0c04bafb",
+   "via": "tree"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/Configure.mnu",
+   "bytes": 1926,
+   "sha256": "8c6b649680d0056ecc47b3019ba1b42bc493b1c95610400757c88246ace91e89",
+   "via": "tree"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/Utility.mnu",
+   "bytes": 2081,
+   "sha256": "92293666f54b201600516780eb9e75b01662fd5cb6a01623f52d6e67fc8a25f8",
+   "via": "tree"
+  },
+  {
+   "path": "addons/API-String-Arugments-Support/dir.mnu",
+   "bytes": 4384,
+   "sha256": "27764946fa06c58ca586ab65dac6677aa4cb535271d86c3f1588f082cb4b3c97",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/Examples/Addons - API String Arguments Support(en-us).md",
+   "bytes": 13024,
+   "sha256": "a4e5d18e436726d118798e0e258411571b1a2e5e3f592bdcb3a2b00dcec82d80",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/Examples/Addons - API String Arguments Support(zh-cn).md",
+   "bytes": 12111,
+   "sha256": "d492e72bf273154a12d552c257ec7f47c6a0139864121d6e533574ba5724ab3a",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/VI Description/VI Description(en-us)/VI Description(en-us) - Addon API String.md",
+   "bytes": 11489,
+   "sha256": "46b9db5e25b360abc5db832bec4236454cac10d902a2f68e3b43f2acbcc986dd",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/VI Description/VI Description(zh-cn)/VI Description(zh-cn) - Addon API String.md",
+   "bytes": 11403,
+   "sha256": "3a16ccb8daff6d2144b399d511f771b800cb8696a50f31f6fd7592d556dfa8a8",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Break Down Multiple States String.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Broadcast Status Change.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Compact Multiple States.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Argument to Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Data to HexStr.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Error to Argument.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert HexStr to Data.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Generate User Global Log.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Get New State Notifier Event.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Internal State Debug Log History.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Keywords.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Make String Arguments Safe.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Module VI Reference.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Post Message.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Revert Arguments-Safe String.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Send Message and Wait for Reply.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Wait for Module to Be Alive.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Communicable State Machine.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Parse State Queue++.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Build Error Cluster.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Timeout Selector.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\1D Array to String_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\Array of VData to VCluster_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\Get Header from TD_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\Get Strings from Enum_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\Set Data Name_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\Set Enum String Value_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\_openG\\String to 1D Array_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\CSM Shared.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Semaphore Lock.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Semaphore Unlock.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Trim Single-line Text.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\CSMKVMap\\CSMKVMap-Read.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Error\\CSM Critical Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Error\\CSM Target Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Error\\CSM Target Timeout Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Error\\CSM Unhandled State Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\GlobalEvent\\Cache-GEvt Refs.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\GlobalEvent\\GEvt-Generate with Rule Check.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\GlobalEvent\\LogFilter\\LogFilter - Check.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\GlobalEvent\\LogFilter\\LogFilter.lvclass",
+  "<vilib>\\Utility\\Data Type\\Get Array Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get Refnum Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get Type Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\Data Type\\Type Definitions\\Data Type.ctl",
+  "<vilib>\\Utility\\Data Type\\Type Definitions\\Refnum Type.ctl",
+  "<vilib>\\Utility\\Data Type\\Type Definitions\\Tag Type.ctl",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Add State(s) to Queue__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Build State String with Arguments__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\WaitOnTestComplete.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\skip.vi",
+  "C:\\NEVSTOP-LAB",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2017\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "C:\\data\\abc.txt",
+  "C:\\ni-rt\\a",
+  "C:\\ni-rt\\data\\a\\2023.07.25",
+  "C:\\ni-rt\\data\\a\\2025.08.25",
+  "D:\\CSMAPT-LUOYANG\\src\\user.lib\\Indexed Enum to Numeric.vim",
+  "D:\\CSMAPT-LUOYANG\\src\\user.lib\\Numeric to Indexed Enum.vim",
+  "D:\\OneDrive\\_WorkingOn\\Transformer-Project\\Transformer\\user.lib\\CSM\\CSM - Convert HexStr to Data.vim",
+  "d:\\1234"
+ ]
+}
