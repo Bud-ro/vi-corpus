@@ -1,0 +1,26 @@
+
+Instructions to be used for when having AI doing the documentation based on a screenshot of the VI as represented in the help view.
+
+
+Document the attached LabVIEW VI in a dense but correct manner. 
+The documentation should be written in pure text returned here as inline code/text and the only formatting options you have is the <b>bold</b> tags and the ability to use newlines. 
+Input and output error terminals must not be documented. You may use the name of the vi for better understanding the context of the VI. 
+Given this context, the input terminals and the output terminals you should start with a description of the VI before describing each input and output terminal. 
+Required input terminals are shown with bold font. Error input and output terminals need no documentation.
+Input terminals with a suffix containing a value within parentheses shows the default value of the terminal when it is not connected, with the only expectation that (v5) refers to parameter which are only applicable for MQTT v5 connections.
+Input terminals with Properties in their name is referring to MQTT v5 properties which only may be used for MQTT v5 connections, and they consist of an array of Property and Value pairs.
+It is off course essential to keep the terminal names exactly as in the picture with the extract same name and index in square brackets, but sort them from top to down in the output.
+
+-------- EXAMPLE -------
+<b>Description:</b> This VI configures Transport Layer Security (TLS) settings for a MQTT client session. It takes in several security parameters and establishes a secure connection based on the provided certificates and keys.
+
+<b>Input Terminals:</b>
+- <b>Trust OS trusted CAs? [1]</b>: Boolean value indicating whether to trust operating system trusted Certificate Authorities (CAs).
+- <b>MQTT Session [4]</b>: Reference to the MQTT session that will utilize the configured TLS settings.
+- <b>Private Certificate (PEM) [5]</b>: The private certificate in PEM format used for authenticating the client to the broker.
+- <b>Private Key [7]</b>: The private key corresponding to the provided private certificate, essential for establishing a secure connection.
+- <b>Private Key Password (optional) [9]</b>: Optional password for the private key, used if the key is encrypted.
+- <b>Trusted Certificates (PEM) [12]</b>: Additional certificates in PEM format that are trusted for the secure connection.
+
+<b>Output Terminals:</b>
+- <b>MQTT Session [4]</b>: Reference to the configured MQTT session with the applied TLS settings.
