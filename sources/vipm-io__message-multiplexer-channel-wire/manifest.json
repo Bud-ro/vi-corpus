@@ -1,0 +1,586 @@
+{
+ "repo": "vipm-io/message-multiplexer-channel-wire",
+ "url": "https://github.com/vipm-io/message-multiplexer-channel-wire",
+ "commit": "04dc0447feeb5e7140e7b4e477c2a743a639b11f",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "source/examples/MultiStation Controller/Command.ctl",
+   "bytes": 3968,
+   "sha256": "b1328ffc864bc40fca07843b3d9137f9823661da236cd2615170b1e3dd4ce2a4",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/MultiStation Controller/Main.vi",
+   "bytes": 22464,
+   "sha256": "3eae691cfcfaaba57665934255355ac189410294f76ef853bbe386054d54606c",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/MultiStation Controller/MultiStation Controller.lvproj",
+   "bytes": 4657,
+   "sha256": "d1fbecc2f67aa00662caac1bd9565e17b4f328ab4a11f506abc55931bf862eb1",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/MultiStation Controller/Process Increment.vi",
+   "bytes": 16101,
+   "sha256": "9c3df41f735f31c1ad1100cadbeb0b5e77c0d0ac15d394098e2006b01d83d37b",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/MultiStation Controller/Station.vi",
+   "bytes": 120103,
+   "sha256": "6f027bb417b403034278b9ac1f97144c2ed713bff3e47b0432bfba0870c65fec",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/MultiStation Controller/Status.ctl",
+   "bytes": 10035,
+   "sha256": "ea547709faabd8c4c376f0525119c11f7f90d078d10336199e01f7ca30eac6c0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/))Channel.ctl",
+   "bytes": 12222,
+   "sha256": "33204fd3f7711b242f94a29f8054c46348be2dfbc52a2b1444c4ea95409ae99e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/))Channel.vi",
+   "bytes": 32445,
+   "sha256": "2f8a1bb0359cd4c26d997e0679fd15bdf097ddbb7f621c72b907393df29be4b1",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Channel Probe.vi",
+   "bytes": 56605,
+   "sha256": "bb2ca0927fa7b795e560b41624c545f9414f5cd43b01c383d55db1326864c4fe",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Channel Probe_Background Updater.vi",
+   "bytes": 22996,
+   "sha256": "76ca38579764ad5d19767c1f4af23a3dcb8238d89986c9bd5ca6c2c8f097fb7a",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Channel Probe_Find Specific VI.vi",
+   "bytes": 27002,
+   "sha256": "b53912fd05bd3374397fbd3352bde31537ed18848549169b365632846f118271",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/ChannelOp.ctl",
+   "bytes": 8138,
+   "sha256": "8ac7d53e458fb4297715af7c57d32f09faa65387ac1f7242283a3e8d4dbd1907",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Element.ctl",
+   "bytes": 8008,
+   "sha256": "57a4b3dbacf7d3466dd7b6e5bed68f230875fdd513b67e31eb424522519e82aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Endpoint.vi",
+   "bytes": 37320,
+   "sha256": "bcab07291be038a3cc08da867b3a18b917455fce8486e215b5db04e8d6e2991e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/EndpointOp.ctl",
+   "bytes": 4651,
+   "sha256": "9cfe44299aee771e9390b12b83f193759da3673b10f2d70abe8dc22e97089638",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Instantiate.vi",
+   "bytes": 17359,
+   "sha256": "705d4779958c0168d98e91ae086eb9ba45f17110ee570ced7e337e1d5cac68f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerM.lvlib",
+   "bytes": 55105,
+   "sha256": "f549831fb289451307f8d95442731d84082b8dc51cb7e928853f13ef1b686b3e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/Abort.vi",
+   "bytes": 13025,
+   "sha256": "4fc1b515b5316739d4b9b9c0b1f7a808766ba8eaff479186467cda1ea9299e8d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/Acknowledge.vi",
+   "bytes": 17759,
+   "sha256": "769261742c05fdb4ba89f4ef599fa4be15a91ea6f408574ef8bcdc0824b5e63a",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/FindAck.vi",
+   "bytes": 18007,
+   "sha256": "09ab3218791589e99962c6b391daa6af1ffb3513dcb532d0b7cc98abd1eb0cb3",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/Initialize.vi",
+   "bytes": 12590,
+   "sha256": "f79df6a76f997c1643258753f7704ec183cd6784047639da547d9386472d0fea",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/MessengerMBase.lvclass",
+   "bytes": 32691,
+   "sha256": "a6d8434458ecd7329fcf4d6ea846ca103a07a988cabe9cc0d376b9182755c712",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/Read.vi",
+   "bytes": 18716,
+   "sha256": "471b06cd1dd19a54977fbfed7c76e7bf0ff3afd2dd85676e0c0169cd114b3baa",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/ShowData.vi",
+   "bytes": 17152,
+   "sha256": "5065de72fab1f8355511f2fb5d15fd77dcfd4211114c8da5e67766f3423d66fe",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMBase/Write.vi",
+   "bytes": 18717,
+   "sha256": "684de42dc0cbc3b0fb21aaef98d5cabacc61964513ced48971f1d9ac7ded0279",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/Abort.vi",
+   "bytes": 16137,
+   "sha256": "1e1208ca9c41b0cfe264a63b1a051d64e4d231f2c3d2fef62342f6e0d83c3799",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/Acknowledge.vi",
+   "bytes": 20715,
+   "sha256": "1d2e1facbf036792b947cbc23d00749e3e2840b985137d9314f1204b72c379e2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/FindAck.vi",
+   "bytes": 20647,
+   "sha256": "853f398ff5fed1c59b0aa8c24f2f7cf832c1d8295652e2db06ff0035e935c662",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/FindOrAddGUIDSubchannel.vi",
+   "bytes": 16539,
+   "sha256": "cd4cc03dc16cbdd1cd7a0b0c7383f9fba12214703ce0006aa076e5359cfda3b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/IncOpCount.vi",
+   "bytes": 13858,
+   "sha256": "b5269ee0ffd3733c94e2b8da9538115ba305e90097783d65e2487f872b31897e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/InitSubChannel.vi",
+   "bytes": 17326,
+   "sha256": "3f20cb78fda40e0e9d098042215ad387db95eb87e7690d903c52f4170276f079",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/Initialize.vi",
+   "bytes": 15194,
+   "sha256": "c5e1a9a4d0bd2219b05e99514faeddb08afa87a15df3c8d23b3c017ab2809c98",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/MessengerMCPU.lvclass",
+   "bytes": 48321,
+   "sha256": "e705fbc07f3c2ad2cd0c3f07bc12c2771c4a6eb6dba9d6cb2247fc8e611a5e2f",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/Read.vi",
+   "bytes": 26600,
+   "sha256": "d90582993cdf312c5f0a4b156298194d1401f8d916378c367138c0fa4faa4c38",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/ShowData.vi",
+   "bytes": 20948,
+   "sha256": "1b84c8d9542eb33562838a603fb4668f4f7911acb7f5772fbf6f1471751c26d0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/AbortSub.vi",
+   "bytes": 17920,
+   "sha256": "466e8abecc786f0e17f82927c2b6364bf49ebabaf6fe7c97e386da829d0d8066",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/AddOccurrence.vi",
+   "bytes": 15425,
+   "sha256": "f915c834ab2aaaa93eaca7b90c44409821cfe2ce92add6d694e88bfa77f7739f",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/DequeueSub.vi",
+   "bytes": 18862,
+   "sha256": "13449a9726117413935dd71b0c5eed0ad0278f4eca5664cd3bd7a892820c8698",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/Drop.vi",
+   "bytes": 13044,
+   "sha256": "197f703b490b9ef6b961bb584f21f8d53449a221956b3b4199d9369f4bbf7bf0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/EnqueueSub.vi",
+   "bytes": 25870,
+   "sha256": "93b4f8612c76721c19c02beaab5ff5dbb7ad6dc54a0c8ecb4849f539e925ab00",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/GrowArray.vi",
+   "bytes": 14325,
+   "sha256": "2294625952e7b34f730ae1781e938471e004a8ff7dc9d24209b0027c260c421a",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/InitSub.vi",
+   "bytes": 16003,
+   "sha256": "d3308263206355ee9a9dc4ba98401e319f189cd8b1b5145a45adc821123a141a",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/Merge.vi",
+   "bytes": 16433,
+   "sha256": "41cc0461f99a133a15fab507720409bf77b7cb6da85c6550e820bcb0a9dfde8b",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/SetAllOccurrences.vi",
+   "bytes": 9637,
+   "sha256": "9efd6b51a6da2857086d95f07ae77d38a4a5246f5d5f4d45c3aff28664d2c3b2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/SetSize.vi",
+   "bytes": 14263,
+   "sha256": "2dd9aed8d898408075d2cb03f5361549ef3a6807d86e630437905420c519ee89",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/ShowDataSub.vi",
+   "bytes": 16375,
+   "sha256": "7d44ce73508d6d923b8834614cd8357be6a6ac39f3a6d96f59507a07f64f026d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/SubChannelCPU.lvclass",
+   "bytes": 47861,
+   "sha256": "8b0919730194fbb12bb8ff349626acf32c084a0bc6812cf3b753c3ee734e258d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/SwapIntoArray.vi",
+   "bytes": 17685,
+   "sha256": "5fab24281302b21493f892f40fcf358c2806fc3519f48947bfcaeeaf85565628",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/SubChannelCPU/WrtID.vi",
+   "bytes": 14157,
+   "sha256": "0249acf1c4ecd3fb9ce48e0dd2ea0e4729a2b65c34ab0dc537f2b09cef8e713a",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/MessengerMCPU/Write.vi",
+   "bytes": 27161,
+   "sha256": "1846d35cbf2b869edc262a3e0d042151f3677e5c9bf24df8fdae147769d81bef",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/ParmsIn.ctl",
+   "bytes": 6732,
+   "sha256": "9177b63832b968da881b55ead49300ccf69650b1bddc178be0f52325bedaf852",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/ParmsOut.ctl",
+   "bytes": 5649,
+   "sha256": "22c647fe9177cb71aa2bb8202243a9b31cb416ff74a1db6bb3b153dc383e85f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/RdID.vi",
+   "bytes": 9716,
+   "sha256": "9d1bc6467027e3803b7f562d3f8f11ca5b699dfd58cdf6e14a5a8f45086c3e46",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read Ack With Abort.vi",
+   "bytes": 23739,
+   "sha256": "5c736925c5402e389310a2348dbd5d21ad8cbfaeb8d52d866a85d0d6c103e023",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read Ack.vi",
+   "bytes": 17936,
+   "sha256": "e134c8fc64dfb9548e614a1567f7fdba4df5a81bef0fb757644f9042061202e0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read Command.vi",
+   "bytes": 24844,
+   "sha256": "924f185d05f6cbc6b34f9127abe0e8a355f7d62392c4763dbce0986777a135f9",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read Response.vi",
+   "bytes": 28377,
+   "sha256": "d421cde61481632e1e3b832975e5412a1f4c5d3d2a35dc147c85966acdc94f44",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read Scheduled.vi",
+   "bytes": 23294,
+   "sha256": "6f44627c92e1ac500628ec29b323bce11ec28cc4211b10b26c8559be49286f0d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read With Abort.vi",
+   "bytes": 24795,
+   "sha256": "1c19b4f92e50c2b1e511aef5bf730ebe9bdef8d62253df46180a4d804d1c8414",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Read.vi",
+   "bytes": 18804,
+   "sha256": "2434f6d28a7776b6fab10c46e36c18d639e73efbdf5f423793bf37a345508e51",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Replicate.vi",
+   "bytes": 11625,
+   "sha256": "a4d54c3f5fe2ae106c78a05b4109df05b0f49e963aea38a24786252be2f175b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Wire Probe.vi",
+   "bytes": 25542,
+   "sha256": "8906aeec8dc23046a62648116dbdd89958acbb8e21092143cb2f33f3d75367eb",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write Ack.vi",
+   "bytes": 18797,
+   "sha256": "d4d7274b1804061499dc083984affb479ab1d4d465ae7a6fe0016f4ccfcb0538",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write Command.vi",
+   "bytes": 22929,
+   "sha256": "eecef603d541440383d3aa87e9849c51db6873e8fc59963a9ccab2e87336cffe",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write Response.vi",
+   "bytes": 23278,
+   "sha256": "cdcf730432be13336c263b02e4738ac2546fb871e7dc943a7dc684ecdea485e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write Scheduled.vi",
+   "bytes": 14567,
+   "sha256": "4e49a688ec0e9cb903645c14debc89dc5c7986e4396e34bbdb6d1220eb28d3a2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write With Abort.vi",
+   "bytes": 25612,
+   "sha256": "a12530777a0bd4138643d5754e7148f4ca05fab7e59ed2ce88fe194ebad2ae30",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Write.vi",
+   "bytes": 13349,
+   "sha256": "f1db59936c23e1d7492e0ddf4f66a64945d8968f6634539e6b6833177dd20f71",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 156,
+   "sha256": "d0b89e7734f6072b6a9e0fd826b442d0b14a027f7d08c44178acafc0eb7c58ef",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1136,
+   "sha256": "e1867e0dd3bb8274f116fe2a52ab35a5211a79523ca30d499ce7658fd7b44cd8",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2027,
+   "sha256": "1758b5fd300ff7ca3934e0489cd16ab3b298ba3fcea22ab216ac6e5a1d97b888",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Bi-Directional Channel.png",
+   "bytes": 302388,
+   "sha256": "bbfb17b892c928f28fd7d7815344406b29a291fa7e77ebd0503816e5f7268687",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Client And Worker.png",
+   "bytes": 409801,
+   "sha256": "fe7f6dcf5ce8a9c65128d6bd91df1d4ced5a9ea6e615bc8e019a694a284ad399",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Client Server Example.png",
+   "bytes": 301095,
+   "sha256": "0713390b6217ba78065952b761b2778c11fa0322ab062c152b483934ff43956c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Client.png",
+   "bytes": 348731,
+   "sha256": "b4c4ebddc8077599ff779715dc27fe7eb2ba932813821b92f87a14546fb1e691",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Example Project.png",
+   "bytes": 99298,
+   "sha256": "f2290876955103473513f3f91da0dee62861438af58dd569b99cee31964fda1e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Functions Palette.png",
+   "bytes": 17450,
+   "sha256": "a79a49eaea3af097639fb39a57deb4410f280fda6a67dbeaba1757d0b26bbd66",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Main.png",
+   "bytes": 571757,
+   "sha256": "76b4c2272e52ae1ffb1a8216857d7e41b38e747c8390c19271feca68568e0f9c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Manager Minion Example.png",
+   "bytes": 570970,
+   "sha256": "408bd6c590e2a334bb93a32efd65affffcf83cef54efe6eef4c49b36426adb0d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/MessengerM Read.png",
+   "bytes": 60390,
+   "sha256": "42277602fcf634b966e897707007f6de99c7a9074727ddf071896e72184501ee",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/MessengerM Write Read.png",
+   "bytes": 130878,
+   "sha256": "5ad1a1cd0641375f4eb27ed7c2697df88a4e3b660d037f7ec40f91934a2802e4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/MessengerM Write.png",
+   "bytes": 71190,
+   "sha256": "293150e2147ab141513066b39795a54c18043e7031aaceb48c4cf2cdb74945d6",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Package Properties.png",
+   "bytes": 53011,
+   "sha256": "84b2437b84769fa0190e0ab3dfbad4891cf1eaeed8ab54fff9e2f99bea43b489",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Reentrant Station VI.png",
+   "bytes": 299683,
+   "sha256": "4f97089a1a336ad129771540ada384bafa10721bd1c8560f18bd06ffe2ece1ec",
+   "via": "tree"
+  },
+  {
+   "path": "docs/content/Worker.png",
+   "bytes": 341648,
+   "sha256": "eae040cb4cf8881519a5475f69f4fbc020a19a900eba88ec76946460ba05812b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/index.md",
+   "bytes": 7269,
+   "sha256": "ab2fb816bb04a20f852aeefa5787f1c9c4684da7ad0d99717bd517728108f941",
+   "via": "tree"
+  },
+  {
+   "path": "source/MessengerM.vipb",
+   "bytes": 131197,
+   "sha256": "6585244ec092ac285c75bda9127c064343b4762429734da889d6e0b7c9c1eeb7",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl').lvlib",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\))Channel.ctl",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Instantiate.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Read With Abort.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Read.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Unwrap.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Wrap.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Wrapper.lvclass",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Write With Abort.vi",
+  "<extravilib>\\ChannelInstances\\Messenger-c(i32,t'Status.ctl')\\Write.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'.lvlib",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\))Channel.ctl",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Endpoint.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Instantiate.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Read With Abort.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Read.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Write With Abort.vi",
+  "<extravilib>\\ChannelInstances\\MessengerM-t'Command.ctl'\\Write.vi",
+  "<helpdir>\\glang.chm",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\ChannelProbePositionAndTitle.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\Dequeue.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\Enqueue.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\Init.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\PipeLogic2.lvclass",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\Reset.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\SetSentinel.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\SetSize.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\PipeLogic2\\Status.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\ProbeSupport\\Update Probe Details String.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\Wait.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\WaitIfNeeded2.vi",
+  "<resource>\\ChannelSupport\\_ChannelSupport\\_ChannelSupport.lvlib",
+  "<resource>\\Channels\\MessengerM\\MessengerMCPU\\SubChannelCPU\\Drop.vim",
+  "<resource>\\Channels\\MessengerM\\MessengerMCPU\\SubChannelCPU\\Merge.vim",
+  "<resource>\\Channels\\MessengerM\\MessengerMCPU\\SubChannelCPU\\WrtID.vim",
+  "<resource>\\Channels\\MessengerM\\RdID.vim",
+  "<resource>\\Channels\\Messenger\\Endpoint.vi",
+  "<resource>\\Channels\\Messenger\\Read With Abort.vi",
+  "<resource>\\Channels\\Messenger\\Write With Abort.vi",
+  "<vilib>\\ChannelSupport\\Channel Message\\Channel Message.lvclass",
+  "<vilib>\\ChannelSupport\\Channel Message\\Probe_Channel Message.vi",
+  "<vilib>\\ChannelSupport\\Channel Message\\Read ID.vi",
+  "<vilib>\\ChannelSupport\\Channel Message\\Write ID.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Default Value.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Path.vi",
+  "<vilib>\\Utility\\LVClass\\Read Class Ancestry Without Loading.vi",
+  "<vilib>\\Utility\\NI_SDE_DetermineTransition.llb\\;DNI_DetermineTransition.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\ChannelSupport\\Channel Message\\Channel Message.lvclass",
+  "C:\\Users\\jimkring\\Desktop\\MessengerM\\MultiStation Controller\\MessengerM\\MessengerMBase\\MessengerMBase.lvclass",
+  "Y:\\JKI\\GitHub\\labview-MessengerM\\source\\library\\MessengerMBase\\MessengerMBase.lvclass"
+ ]
+}
