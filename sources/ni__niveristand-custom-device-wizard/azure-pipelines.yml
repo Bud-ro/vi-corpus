@@ -1,0 +1,70 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+      - release/*
+
+resources:
+  repositories:
+    - repository: niveristand-custom-device-build-tools
+      type:       github
+      ref:        main
+      endpoint:   nivs-custom-devices
+      name:       ni/niveristand-custom-device-build-tools
+
+stages:
+  # ---------------- Wizard (Classic + Express in a single package) ----------------
+  - template: azure-templates/stages.yml@niveristand-custom-device-build-tools
+    parameters:
+      stageName: Build_Wizard
+      lvVersionsToBuild:
+        - version: '2024'
+          bitness: '64bit'
+        - version: '2025'
+          bitness: '64bit'
+        - version: '2026'
+          bitness: '64bit'
+
+      buildSteps:
+        # Classic wizard builds for every supported LabVIEW version and is
+        # staged into the shared BuildOutput folder that becomes the payload.
+        - projectLocation: 'Custom Device Classic\ProjectTemplate\Source\NI VeriStand\Custom Device\Consolidated Custom Device.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'My Computer'
+          buildSpec: 'Configuration Source'
+          postBuildScript: |
+            $dst = "$(CD.Workspace)\$(CD.Repository)\BuildOutput"
+            New-Item -ItemType Directory -Force -Path $dst | Out-Null
+            robocopy "$(CD.Workspace)\$(CD.Repository)\Custom Device Classic\ProjectTemplate" "$dst" /E /R:3 /W:5 | Out-Null
+            if ($LASTEXITCODE -ge 8) { throw "robocopy failed with exit code $LASTEXITCODE" }
+            $global:LASTEXITCODE = 0
+
+        # Express wizard only builds on LabVIEW 2026, so it is excluded from the
+        # 2024 and 2025 builds. On those versions the step (and its staging
+        # copy) is skipped, so the package ships Classic only.
+        - projectLocation: 'Custom Device Express\ProjectTemplate\Source\NI VeriStand\Custom Device Express\Custom Device\Custom Device Express.lvproj'
+          buildOperation: 'ExecuteBuildSpec'
+          target: 'My Computer'
+          buildSpec: 'Configuration Source'
+          exclusions:
+            - version: '2024'
+              bitness: '64bit'
+            - version: '2025'
+              bitness: '64bit'
+          postBuildScript: |
+            $dst = "$(CD.Workspace)\$(CD.Repository)\BuildOutput"
+            New-Item -ItemType Directory -Force -Path $dst | Out-Null
+            robocopy "$(CD.Workspace)\$(CD.Repository)\Custom Device Express\ProjectTemplate" "$dst" /E /R:3 /W:5 | Out-Null
+            if ($LASTEXITCODE -ge 8) { throw "robocopy failed with exit code $LASTEXITCODE" }
+            $global:LASTEXITCODE = 0
+
+      releaseVersion: '26.5.0'
+      buildOutputLocation: 'BuildOutput'
+      archiveLocation: '\\nirvana\Measurements\VeriStandAddons\niveristand-custom-device-wizard'
+
+      packages:
+        - controlFileName: 'control_custom_device_wizard'
+          payloadMaps:
+            - installLocation: 'ni-paths-LV$(lvVersion)DIR$(nipkgx64suffix)\ProjectTemplates'
+
