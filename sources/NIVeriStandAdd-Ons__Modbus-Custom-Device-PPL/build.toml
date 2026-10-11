@@ -1,0 +1,11 @@
+[projects.ModbusPPL]
+path = 'Source\Protections\Protections.lvproj'
+
+[projects.ModbusPPL]
+path = 'Source\Modbus PPL.lvproj'
+
+[[build.steps]]
+name = 'ModbusPPL Library'
+type = 'lvBuildSpecAllTargets'
+project = '{ModbusPPL}'
+build_spec = 'Modbus API'
