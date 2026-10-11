@@ -1,0 +1,810 @@
+{
+ "repo": "petervago/NI-5772-digital-receiver-with-IDL",
+ "url": "https://github.com/petervago/NI-5772-digital-receiver-with-IDL",
+ "commit": "a57c8a58264fdc156cd0a34d8de1030b096c2fda",
+ "license": "GPL-3.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "DDC.lvproj",
+   "bytes": 443084,
+   "sha256": "07ed0a17ccbd584daaa1541ac4614838b6ec62fc3e847da0029d73d5cbdec0eb",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/DDC_7976R_v1.lvlib",
+   "bytes": 5789,
+   "sha256": "e62f59ea046806ae25757009bfb5e2ded57f87dc0a5e474f5af95845cf23e046",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/NI 5772 (AC) - DDC with IDL v1.8.vi",
+   "bytes": 141772,
+   "sha256": "9fa42f6dd7f687278d008fb00d4a9e4bc797ba2f308b6876161182b4c1cc9609",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/NI 5772 (AC) - TIS Mode Enabled (FPGA).vi",
+   "bytes": 108862,
+   "sha256": "2aa7b032ebbe2a3335da4db64a91e06829977833b0b8e889546a30698c7eeeac",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/16xIQData.ctl",
+   "bytes": 7850,
+   "sha256": "0f71792868099ce645ac11004b232bddcc664315c745973e7eaa8aa8156ebb8e",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/16xIQData_without_overflow.ctl",
+   "bytes": 5263,
+   "sha256": "3185913c3937c30ec0e185c59e2b51372ad60e225afc2af787eee3b4a124fab7",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/8xIQData.ctl",
+   "bytes": 7841,
+   "sha256": "e251f6ed883d593aa2649a96dec9f19ea85e7f218a98ae0ba5e8222e65d86fa5",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Buffer - U32 - 1-to-2.vi",
+   "bytes": 26793,
+   "sha256": "06f416544652441771630d723f8c764176bf052e48a6a05c2ea7fb598362d2cc",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Buffer - U32 - 2-to-4.vi",
+   "bytes": 27569,
+   "sha256": "6074ae38c1103bcf499a6a351bc3794fac11924b01cd1e70e92b550779505eff",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Buffer - U32 - 4-to-8.vi",
+   "bytes": 24305,
+   "sha256": "bd4d0dbdf37efe9cae027ebdf1b1fa020edc2d625e98d8bcaa8faeadb5738b8f",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Buffer - U32 - 8-to-16.vi",
+   "bytes": 24330,
+   "sha256": "90cf70abf6f5157e190c8416495bcf4950380fa0b33b9d3759aa0267c8c2e6c2",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert 16xIQData to 16IQpair.vi",
+   "bytes": 25805,
+   "sha256": "cdb1339d24cce927fbf924d9cfe5842531c762fcb9e2ac08097b903fdfc03d1b",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert 16xIQpair to 16IQdata.vi",
+   "bytes": 26309,
+   "sha256": "fbfa867d905bd9df0634ceed52762454e184287d9cba4f4221c09f3d6dcc568c",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert U8 input to constants - 16.vi",
+   "bytes": 14522,
+   "sha256": "d2b0b06d23c27f65386042f6efdd72f6639f054f66bdd89131a71a91fb621b9f",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert-I16-to-FXP.vi",
+   "bytes": 35770,
+   "sha256": "f5c5a72b8af307571f96ba1658a10b9110939e00c65b9ad14d3ed72381de6105",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert-I16-to-FXP_v1.9.vi",
+   "bytes": 35747,
+   "sha256": "b386c009359b3d05bf67ec22bc08f612a4e2d98bab4022014efce2f5ed3e4f9d",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Convert_1SPC_IQData-to-16xU32.vi",
+   "bytes": 24389,
+   "sha256": "868669bf1dd4817f4ec6bd5fd9c48c7941eec519cf53d9cb9ba6bfab06bc645e",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/DDC Stage 01 - Single Channel.vi",
+   "bytes": 30697,
+   "sha256": "63a8692de98c9c513d91d87b8f075910f0f0a9fd373fa5830dc268e9fb053d7b",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/DDC Stage 02 - Single channel.vi",
+   "bytes": 44553,
+   "sha256": "411b50ca47466264c0ea30e0c82fd10b545a231df6157393627053ef101ea855",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/FIFO Names.ctl",
+   "bytes": 32095,
+   "sha256": "bd9b5a6845d9a3ab7fb47ce2275bed31c1b56b60b4986ede4709950711fe739a",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/FPGA_Auth/Priv_DisassembleU64.vi",
+   "bytes": 29259,
+   "sha256": "f4f1afeb3e2ac1663a5a61b795d6fa866c31a59bd19aee2c8598394e69422352",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/FPGA_Auth/Random Generator.vi",
+   "bytes": 18608,
+   "sha256": "4a6afadbde411cbe02164e07b547d6204be4b90c69d08f723a9e8cafa4286931",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/FPGA_Auth/Random counter.vi",
+   "bytes": 13778,
+   "sha256": "99c74464eccca11efb541a2793d8db06185a6a71a0680f445ca84af95f20ee14",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/FPGA_Auth/dbg.auth.vi",
+   "bytes": 4928,
+   "sha256": "c5e70f76b4381e96c40535013db5b41e69d563f4bd1beb5bbe2a4dc4780b2067",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/IQData_with_overflow.ctl",
+   "bytes": 4829,
+   "sha256": "45e187bd8cef0c43c9f7aab96ffabe706044896b3df6c1237be466ec5879adc6",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/IQpair_without_overflow.ctl",
+   "bytes": 9512,
+   "sha256": "87dabeb182ae94fec45b96534686b59b1caab117fedc3d40b4ffcec2ebf715ed",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Read Target-FIFO 16ch.vi",
+   "bytes": 219249,
+   "sha256": "2381763593509ff03010b211d965648d93b64d1b4eea571ea8556276a03850d4",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Read Target-FIFO 1ch.vi",
+   "bytes": 55756,
+   "sha256": "64206a07e1b85415e9de61aab3216202d27cb8156e336c718398ea870b6f32a7",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Read Target-FIFO Single channel.vi",
+   "bytes": 28079,
+   "sha256": "06db5af58b26731e13652ae1d332b6020c150552def9e39478d88cd4ebb36879",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Select U8 values.vi",
+   "bytes": 13380,
+   "sha256": "383a561c0bbb4cc082e2980f548b91b62efd26b6702cd3ce26324d7c925481d2",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Typedef - internal -01.ctl",
+   "bytes": 11831,
+   "sha256": "b486d1482fbc04073e152adc2e57bca9a23ef52588da3325ffc91d1e8ee70f47",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Typedef - internal -02.ctl",
+   "bytes": 4679,
+   "sha256": "4007f0cf5b7388c9161e5d7605a3d45033e6083a44c29de944e74a142ddc9f80",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Typedef - internal -03.ctl",
+   "bytes": 4771,
+   "sha256": "b2ce80977a87f39dc3f4f19fc73a1587d0e414051645a8b8494a56751f7dffa5",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Typedef - internal -04.ctl",
+   "bytes": 10415,
+   "sha256": "2b1eee3152f7df5514e5e6c46849d184a2fead6eedf7fff07dd1d1b1adc13984",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Untitled 2.vi",
+   "bytes": 13766,
+   "sha256": "96644f9119a4911ecea385769e98ba106641ad75bcbb993b4df44acdfdad5d1d",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Util - Unbundle - 1Ch.vi",
+   "bytes": 14045,
+   "sha256": "067491a7b29971cece6d20b9abcf8d8d328ba39452fc3af8edd437b2e06e2189",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Util - Unbundle - 4Ch.vi",
+   "bytes": 20385,
+   "sha256": "39a17598a12cda2478cb459d5e37c7ad09ff5a04dc07a4872edabe53337963e6",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Write Target-FIFO 16ch.vi",
+   "bytes": 62974,
+   "sha256": "310236d568b88774c404c57830af3ce022eb655fb310123f27427230382d364d",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Private/Write Target-FIFO 1ch.vi",
+   "bytes": 53641,
+   "sha256": "0aca672219490ea8130f0d35148b7961950002243ef9a33766ffa94a0ca4a535",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Convert 8SPC to 16SPC.vi",
+   "bytes": 24457,
+   "sha256": "e8ae4fc4dc3d74334b89a8f9aad7d9383531510e30a01c72b53f6c2df0e74ec0",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Convert to U32 array.vi",
+   "bytes": 22448,
+   "sha256": "4f63131e7dedb7ab823e5fe91ab8fd1888e6dbc06e97f1ed39e79f71929b14a9",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Convert to U32.vi",
+   "bytes": 27402,
+   "sha256": "48286b40ed1dc8d45ef0336ccd4dea29fdc93a5b12adfa86676d59788a716738",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/DDC Stage 01 - 1Ch.vi",
+   "bytes": 35050,
+   "sha256": "8eb6034190772d1e80162f14d21d980954a942f3015f1df023c64635d6b95bc1",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/DDC Stage 02 - 1ch.vi",
+   "bytes": 31678,
+   "sha256": "6cecb0bae20122d6dc576f3272f614f7a7cb2af3dcd0045341cd93b5fcdea99a",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Read Input Samples.vi",
+   "bytes": 45710,
+   "sha256": "e41c6288da829164f43bd459c913a17255fe13e6ff0af32eb87fbca4bc8426ff",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Read Input Samples_v1.9.vi",
+   "bytes": 49015,
+   "sha256": "01857f444c6ba639228d3d8cdef27d25dab813fbf541d138e34bb280fd2b15db",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Trigger logic - counter.vi",
+   "bytes": 24715,
+   "sha256": "45634a817f7f41cf42f306568d099e6aac1271c55f322667ffef6c4d073b0bd1",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/Write DMA.vi",
+   "bytes": 40321,
+   "sha256": "7c8b335450a530aa21753223b36ab649a1f901a632b009ae18a6f71e17b349bb",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/temp/Buffer - IQData - 1Ch.vi",
+   "bytes": 27737,
+   "sha256": "343afedf3fa5281e107e4fa58a0b3388e4bdc483e4a48ee649a9494377da5fa4",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Public/temp/DDC Stage 01 - 16ch - Does Not Work - for loops.vi",
+   "bytes": 31367,
+   "sha256": "554b4a7761da0f6148a08531906cdd6767d9fab983343ae536351b7b2ff7b4a8",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing 1SPC to 16xU32 conversion.vi",
+   "bytes": 43029,
+   "sha256": "8566f816c937aa65a97cfeffddb8ff87b822a0bb54ef557510f1856e340e5de9",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing 8SCP to 16SPC converter.vi",
+   "bytes": 43843,
+   "sha256": "cad8ee71ad308b3b9785f8bd3a3be45027b8db221d21c86481caa224cf5925ce",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing Buffers.vi",
+   "bytes": 55123,
+   "sha256": "18fcbf184ef6dff5488db0fcc9a01ed87c73e4cc4e71fcb22e0bd08d00e94925",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing FXP18-to-I16 conversions.vi",
+   "bytes": 23568,
+   "sha256": "baf643bed5ddae2aada568e08e947242b35e98fbf75a18bfa16cb2d39a9ae125",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing I16 to FXP18 conversions.vi",
+   "bytes": 20932,
+   "sha256": "12574f7123fcdf719e26e1380d6b190fc119f4ba7416ea9279f3154abb9b5159",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Simulations/Testing_Trigger_logic.vi",
+   "bytes": 4769,
+   "sha256": "973d9ff769f1bb93f752d6e2835334f4d0ad4be1104949c14c34f513efa57916",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/Test only (FPGA).vi",
+   "bytes": 54844,
+   "sha256": "c6bb6dbb5bc90540f2a1803b8f62b3e848a0aa32eb3e19738f5c1fbc802854f0",
+   "via": "extension"
+  },
+  {
+   "path": "FPGA_7976R_v1/temp/Untitled 2 (SubVI).vi",
+   "bytes": 25278,
+   "sha256": "5d10f1917d6d89fdbdd0492cb25a0cd9ed1e00d07de0008506f68129fb1adcb6",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Monit-receiver-SubVIs/Convert CDB Wfm to TCP String.vi",
+   "bytes": 30801,
+   "sha256": "b6d44f088c61e6ff7a7a0881da8bfbd936e5c19a31ab78a5d89748f8c4e37b99",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Monit-receiver-SubVIs/Display Time Domain and Spectrum.vi",
+   "bytes": 36356,
+   "sha256": "bdfc3613cec418b10370963496d2181dc7ce892ddf5ea183ccda4dfbbef3cd52",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Monitoring_receiver.lvlib",
+   "bytes": 2476,
+   "sha256": "31df751329a431a2dbef570f41605307553d2bad21695e4960064fa5932e03e7",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Monitoring_receiver_.lvlib",
+   "bytes": 2678,
+   "sha256": "a0405a4dba2a7aab9a51077e7f16b86e807f3a543293b5395cc3c029c9690c87",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Monitoring_receiver_v2.0.vi",
+   "bytes": 150908,
+   "sha256": "37cecb1305c679bab59cf6bbe0892d1f5b3a62180657ff62ec5b17f98a5372c4",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Utilities/Set Frequency.vi",
+   "bytes": 22073,
+   "sha256": "01ada5163a223cc0d39031956d18f4e909fdd7dd35f89fcfd7c17c9ad88da270",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/Utilities/TCP Data Client.vi",
+   "bytes": 34171,
+   "sha256": "33748ae4c8593d3bb73886273d5dde9e2f1c81aa4c7bfd216bb98c7bd6a20886",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/Example - Continuous Acquisition v1.0.vi",
+   "bytes": 1520149,
+   "sha256": "52ac085b5ce0ebcd91dc19c97f2ca48766da5a28d2376132ac3aa07d5245a90e",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/Example - Monitoring_receiver_v0.1.vi",
+   "bytes": 935994,
+   "sha256": "b3e7087d4d1037230f697137d7b4f0211e99e06bd618c2b5ab0d19e87a858171",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/Example - Monitoring_receiver_v1.0.vi",
+   "bytes": 168574,
+   "sha256": "e32fab07390fc5dc9575b1748748deadfd84a7e85f8bd592ced4b01c95798a3b",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/SubVIs/Downconvert complex waveform.vi",
+   "bytes": 31700,
+   "sha256": "e8589716a8279f5d6177c054da22e6b52793774393270f4990fa0210e87d81de",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/SubVIs/Downconvert.vi",
+   "bytes": 41803,
+   "sha256": "4ef8e9683d3966ccaea9c34cb1d8634657fa427c7ad818b5a3fbc499aa03ff8b",
+   "via": "extension"
+  },
+  {
+   "path": "Monitoring_receiver/testing/SubVIs/Select channel.vi",
+   "bytes": 33054,
+   "sha256": "47868f88e656dfe214eee9b5218ae881692ad6427d6400295e7801e999b0f61d",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7965R_v1/7965R_v1.lvclass",
+   "bytes": 14060,
+   "sha256": "1f42e79f5db649f31fb556f7a67f07722e82cc11792f4824a31cd1640e9fddfd",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7965R_v1/Private/FPGA Reference_v2.ctl",
+   "bytes": 6682,
+   "sha256": "67322348168f3423b74d4665142a2ea70900b1fb09bba4984c6b1974d82bb12c",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/7976R_v1.lvclass",
+   "bytes": 249546,
+   "sha256": "958e53c19687ea9b3abe427d5253bfd934c49e8ad476c2739a436271261f15b1",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Adjust TIS clock rate value.vi",
+   "bytes": 25907,
+   "sha256": "28e576175f13df7f6e108aa17176c847e29d43ccb1578ba82d8ec8180ba13b5f",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Configuration FAM wakeup complete.vi",
+   "bytes": 42869,
+   "sha256": "7fa3f96f81bb69f172fe7b7a030a020e4d992b5d26e94b2129f28c37e395780a",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Configure Clock 5772_v1.vi",
+   "bytes": 63683,
+   "sha256": "6e13441a4e1b1653d1a5753203e90fbdd6a5d14418fc9c789707a5b59093208d",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Configure TIS Mode.vi",
+   "bytes": 71414,
+   "sha256": "9d7afaabc61cd2b418dfd750d1665e5c3b68903232956b9cbccccfecd483bbc3",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Convert freq-shift.vi",
+   "bytes": 34818,
+   "sha256": "b40c5aa3b1cdc402cfd14457c25b059f3aa24e7e4e8c41f87ac86c73c5496088",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Convert rate.vi",
+   "bytes": 24676,
+   "sha256": "6fde2e3c911de71baee6ac0bf9cbed501d1cd3881f15cdc1c976537f6714a4cb",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Evaluate_version.vi",
+   "bytes": 44684,
+   "sha256": "cbd5c7b82bd8e8f061da676a343a45f6349a6bcadff0e644d72a94ef72b95471",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/FPGA VI Reference_DDC_v1.8.ctl",
+   "bytes": 11999,
+   "sha256": "4da2f254f2f85d92e0f8189cd335694bb72c4d918e4bc52af2749f9e1d7db40b",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/FPGA_DMA_Init_v1.vi",
+   "bytes": 47776,
+   "sha256": "9c0aa61af5873ac3b5bed4cd2a54a2ff05904e03f8897059ea713e4260ee8e70",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/Read firmware info.vi",
+   "bytes": 42586,
+   "sha256": "17acab7efddd6e48a175acdb0786f3c294e749dfa1ba93752aaa42bc7181a5c2",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Private/TIS Mode_v1.ctl",
+   "bytes": 9492,
+   "sha256": "f950ab5a199f6da5b8577685fbdde2b4928a6397a8ab58d62a16d7394c9aa282",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/Configure Clock 5772.vi",
+   "bytes": 47772,
+   "sha256": "df6d2b3003cfda35b39144b2322988e28874d450029d6cb9455afdb56776db56",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Abort.vi",
+   "bytes": 42515,
+   "sha256": "d9e9f946cee6681b90077abadd56e2bfa6f03d18c43f746061794aa69ef5c8b2",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Close.vi",
+   "bytes": 33551,
+   "sha256": "1ec419be4d967bb1d200f1fdd4a897173326edbd8946f3bf89c7e6fcaa42a87a",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Configure Acquisition Type.vi",
+   "bytes": 28312,
+   "sha256": "16d21e99a71c103062cba7668c01507c320e8635688ed7f2024b79863f4e35a8",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Configure Channels.vi",
+   "bytes": 35360,
+   "sha256": "d78b2b451608ec6742b0a492197d222bcd31f51a2ca2207e9fa2556ea1a4f7d2",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Configure Clock.vi",
+   "bytes": 37769,
+   "sha256": "4732375df2de3b8e73f67c0aff5ec2756a282006b007a40a8731869e0856f744",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Fetch.vi",
+   "bytes": 60311,
+   "sha256": "e7ff4b8456dcaf5740fa24383e318a8565071c19812e1228d96d766b4fb5332d",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Initialize.vi",
+   "bytes": 3858076,
+   "sha256": "1269ec3b6e27078553d95df25f5f709e721e74f52b51d94dab4c1da884977e64",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Initiate Acquisition.vi",
+   "bytes": 57598,
+   "sha256": "35d9df9b754c1c933ab70534b04da0704ab2bbd5d260cd2442cedd38edc4b872",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Send Software Trigger.vi",
+   "bytes": 36099,
+   "sha256": "d118e8bd491933c715628310712b1d4d373a2f25a2f14d5d8f96b83e91ad6472",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC Set DDC parameters.vi",
+   "bytes": 49920,
+   "sha256": "154c77c6baf0da1e60c39d0870ce9ef1d3f2659f7ce6ee8490feef069bca04a7",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC temp - read FPGA debug info.vi",
+   "bytes": 93717,
+   "sha256": "38259ec7644e771abb2cb75192112d97ea05984fdf2283f626c9bd7b54e93086",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC temp - read debug info.vi",
+   "bytes": 39748,
+   "sha256": "64562a82681104871e0e3e1cb66c329a08e384432aa00f01045779501b7799a7",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/Public/niDDC template.vi",
+   "bytes": 19474,
+   "sha256": "35a117cfb0bf6c0c232d83bb1af932cd40688fc9c170a8e3c35118c3d9c6b637",
+   "via": "extension"
+  },
+  {
+   "path": "user.lib/SE-APP-Receiver/NI5772/7976R_v1/properties/Write stream.enabled.vi",
+   "bytes": 37056,
+   "sha256": "5c1aa5c343da83cb45b7b4279e6fbf6b43fb136275a5b3b49e2ae34df95b9deb",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 142,
+   "sha256": "4cbc1aac331e192d82f117c08c12d573bcb5f0b92e7e2f6dc41491e0a544c153",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/FPGA_versions.txt.txt",
+   "bytes": 223,
+   "sha256": "5e1c49b04f0f77c0bceb3c13ac9b4dd04d7492ffb165b89fb13ae5ee51c7510d",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 35147,
+   "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 154,
+   "sha256": "edb6182c6a7cda8dbb461ad4e284a0a4c27708de97e3d0aa9389de68e633a715",
+   "via": "tree"
+  },
+  {
+   "path": "user.lib/readme.txt.txt",
+   "bytes": 143,
+   "sha256": "1188121a88ec912b745c1be1ab49919fa72a3b7cfd5172503bf969c242132fa8",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<instcachedir>\\0\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5.lvgen\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5_040.vi",
+  "<instcachedir>\\0\\nirviRandomDataMultiElementFPGAFIFO_8F99493546E24284B0D6A8E519C457F7.lvgen\\nirviRandomDataMultiElementFPGAFIFO_8F99493546E24284B0D6A8E519C457F7_003.vi",
+  "<instrlib>\\FlexRIO\\Libraries\\Synchronization\\Host\\Interface\\FPGA Self Synchronization.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Private\\Count Down U16.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Private\\Count Down U64.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Private\\Count Up U16.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Private\\Count Up U32.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Private\\Count Up U64.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Public\\Count Down.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Public\\Count Up.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Public\\Detect Rising Edge.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\Public\\Synchronous Latch.vi",
+  "<instrlib>\\_niInstr\\Basic Elements\\v1\\FPGA\\niInstr Basic Elements v1 FPGA.lvlib",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Halfband Decimator.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\Digital Gain\\Digital Gain Base.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\Fractional Decimator\\Fractional Decimator - 1 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\Fractional Decimator\\Fractional Decimator - 8 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\Frequency Shift\\Frequency Shift - 8 spc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\HB Decimator\\Halfband Decimator - IQ - 16 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\HB Decimator\\Halfband Decimator - IQ - 2 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\HB Decimator\\Halfband Decimator - IQ - 4 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\Public\\Sub VIs\\HB Decimator\\Halfband Decimator - IQ - 8 spc - 2x oc.vi",
+  "<instrlib>\\_niInstr\\DSP\\v1\\FPGA\\niInstr DSP v1 FPGA.lvlib",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Shared\\Public\\IQ Data.ctl",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Shared\\Public\\IQ Gain.ctl",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Shared\\niInstr DSP v1 Shared.lvlib",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Xnodes\\Public\\Decimator\\niInstr DSP v1 Decimator FPGA.xnode",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Xnodes\\Public\\Digital Gain\\niInstr DSP v1 Digital Gain FPGA.xnode",
+  "<instrlib>\\_niInstr\\DSP\\v1\\Xnodes\\Public\\Frequency Shift\\niInstr DSP v1 Frequency Shift FPGA.xnode",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Abort.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Acquisition Status.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Fetch (poly).vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Fetch Cluster.vi",
+  "<instrlib>\\niScope\\Acquire\\Fetch\\niScope Initiate Acquisition.vi",
+  "<instrlib>\\niScope\\Configure\\Horizontal\\niScope Configure Horizontal Timing.vi",
+  "<instrlib>\\niScope\\Configure\\Trigger\\niScope Configure Trigger (poly).vi",
+  "<instrlib>\\niScope\\Configure\\Trigger\\niScope Configure Trigger Software.vi",
+  "<instrlib>\\niScope\\Configure\\Vertical\\niScope Configure Chan Characteristics.vi",
+  "<instrlib>\\niScope\\Configure\\Vertical\\niScope Configure Vertical.vi",
+  "<instrlib>\\niScope\\Configure\\niScope Configure Acquisition.vi",
+  "<instrlib>\\niScope\\Configure\\niScope Configure Equalization Filter Coefficients.vi",
+  "<instrlib>\\niScope\\Controls\\niScope acquisition type.ctl",
+  "<instrlib>\\niScope\\niScope Close.vi",
+  "<instrlib>\\niScope\\niScope Initialize.vi",
+  "<nishared>\\CompactRIO\\LabVIEW\\2015",
+  "<resource>\\lvanlys.dll",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\7976R_v1.lvclass",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\7976R_v1.lvclass\\7976R_v1.ctl",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Adjust TIS clock rate value.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Configuration FAM wakeup complete.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Configure Clock 5772_v1.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Configure TIS Mode.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Convert freq-shift.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Convert rate.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Evaluate_version.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\FPGA VI Reference_DDC_v1.8.ctl",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\FPGA_DMA_Init_v1.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\Read firmware info.vi",
+  "<userlib>\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\TIS Mode_v1.ctl",
+  "<vilib>\\Analysis\\1siggen.llb\\Gaussian White Noise.vi",
+  "<vilib>\\Analysis\\1siggen.llb\\Sine Pattern.vi",
+  "<vilib>\\Analysis\\2dsp.llb\\Decimate (continuous).vi",
+  "<vilib>\\Analysis\\2dsp.llb\\Decimate (continuous, DBL).vi",
+  "<vilib>\\Analysis\\4window.llb\\windowTd.ctl",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\NI_AALPro.lvlib",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_Close_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_ConfigureFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_ReadFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_Reset_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_Run_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_StartFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\PXIe-7965R\\niLvFpga_Open_PXIe-7965R.vi",
+  "<vilib>\\FPGAPlugInAG\\PXIe-7976R\\niLvFpga_Open_PXIe-7976R.vi",
+  "<vilib>\\National Instruments\\TCP - IP Functions\\TCP Read String.vi",
+  "<vilib>\\National Instruments\\TCP - IP Functions\\TCP Write String.vi",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDNodeRunTimeDep.lvlib",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDataNode.xnode",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\nitl_modes.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\timing_clust.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\wakeup.ctl",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\tcp.llb\\TCP Listen.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\MT Downconvert Passband (Complex).vi",
+  "<vilib>\\addons\\Modulation\\Analog\\MT Downconvert Passband.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\MT Resample (Complex Cluster).vi",
+  "<vilib>\\addons\\Modulation\\Analog\\controls\\Complex Data Waveform.ctl",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\Validators\\mod_Check Flush State.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\Validators\\mod_Fractional Resample Validate.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\Validators\\mod_Validate Complex Waveform.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\Validators\\mod_WFErrorHandler.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_FractionalResampler.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_Generate Integer Interpolation Filter.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_Integer Rate Interpolation.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_PerformResampling.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_Resampling Factors.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_ResamplingFilter.vi",
+  "<vilib>\\addons\\Modulation\\Analog\\support\\mod_Set Error Source.vi",
+  "<vilib>\\addons\\Modulation\\niAMT.lvlib",
+  "<vilib>\\eio\\EIONode\\EIONode.xnode",
+  "<vilib>\\express\\rvi\\timingcommon\\nirviCommon.vi",
+  "<vilib>\\fxp\\LVFixedPointOverflowPolicyTypeDef.ctl",
+  "<vilib>\\fxp\\LVFixedPointQuantizationPolicyTypeDef.ctl",
+  "<vilib>\\measure\\NI_MAPro.lvlib",
+  "<vilib>\\measure\\maspectr.llb\\FFT Power Spectrum and PSD for 1 Chan (CDB).vi",
+  "<vilib>\\measure\\maspectr.llb\\FFT Power Spectrum and PSD.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerExecOnDevCompGetState.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerGetUniqueNameForEmu.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\XNode\\niFpgaContainer.xnode",
+  "<vilib>\\rvi\\Emulation\\niFpgaCriticalErrorInLSC.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationIsFPGAContextNoSignature.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationReportErrorSimple.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaGetClockAttributes.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaProcessEmulError.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaSctlEmulationGetInTimedLoop.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\niFpgaFifoEmulationRefIn.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\niFpgaFifoEmulationRefInMultiElement.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirviFifoEmulationQueueMgr.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationCreateLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationDetermineInputValidOut.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationObtainLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationReleaseLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationSetSize.vi",
+  "<vilib>\\rvi\\FXPMathLib\\FxpAdd\\XNode\\nifxpmath_Add.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpConvert\\XNode\\nifxpmath_Convert.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpConvert\\simVIs\\DllFxpConvertTemp_sub.vi",
+  "<vilib>\\rvi\\FXPMathLib\\FxpConvert\\subVIs\\nifxpmath_Convert_SimConfig.ctl",
+  "<vilib>\\rvi\\FXPMathLib\\FxpInterpret\\XNode\\nifxpmath_Interpret.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\sim\\FxpSim.dll",
+  "<vilib>\\rvi\\Simulation\\lvSimController.dll",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuReportErrorAndStop.vi",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuTemplateMethod_errors.vi",
+  "<vilib>\\rvi\\errors\\niFpgaSetErrorForExecOnDevCompSimple.vi",
+  "<vilib>\\rvi\\errors\\niLvFpgaAdjustHostInterfaceError.vi",
+  "<vilib>\\rvi\\errors\\niLvFpgaMergeErrorWithErrorCode.vi",
+  "<vilib>\\rvi\\errors\\nirviReportUnexpectedCaseInternalError (U32).vi",
+  "<vilib>\\rvi\\errors\\nirviReportUnexpectedCaseInternalError.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\niFpgaRandomDataHandleErrors.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviFPGAContextMergeError.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataAcquireLock.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataCheckExitLoopConditions.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataFpgaMultiElementTemplate.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataMultiElementFPGAFIFO.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataQueueStore.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataReleaseLock.vi",
+  "<vilib>\\rvi\\interface\\Simulation\\niFpgaSimulationCallBeginRW.vi",
+  "<vilib>\\rvi\\interface\\common\\dynamic\\niFpgaDynamicAddResources.vi",
+  "<vilib>\\rvi\\interface\\common\\niFpgaWaitOnOcc.vi",
+  "<vilib>\\rvi\\interface\\nirviCloseFPGA\\nirviCloseFPGA.xnode",
+  "<vilib>\\rvi\\interface\\nirviMethod\\nirviMethod.xnode",
+  "<vilib>\\rvi\\interface\\nirviOpenFPGA\\nirviOpenFPGA.xnode",
+  "<vilib>\\rvi\\interface\\nirviReadWriteControl\\nirviReadWriteControl.xnode",
+  "<vilib>\\rvi\\occurrence\\nirviWaitOnOccurrenceBase.vi",
+  "<vilib>\\userdefined\\High Color\\nirio_resource_hc.ctl",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2015\\instr.lib",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2015\\instr.lib\\_niInstr\\DSP\\v1\\Shared\\Public\\IQ Data.ctl",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2015\\instr.lib\\_niInstr\\DSP\\v1\\Shared\\Public\\IQ Gain.ctl",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2015\\user.lib\\SE-APP-Receiver\\NI5772\\7976R_v1\\Private\\FPGA VI Reference_DDC_v1.8.ctl",
+  "C:\\Users\\Public\\Documents\\National Instruments\\FPGA Extensions Bitfiles\\NI PXIe-7976R\\DDC with IDL v1.8_s7hk67NzjzY.lvbitx",
+  "C:\\Users\\bsisney\\Desktop\\5772 Examples\\NI 5772 - Clock Select\\Controls\\FPGA VI Reference.ctl",
+  "C:\\Users\\ni\\Desktop\\NIE-SE\\Sandbox\\huvagop\\NI-5772-DDC\\FPGA Bitfiles\\DDC_FPGATarget_DDCmain0v9_166F806D.lvbitx",
+  "C:\\Users\\ni\\Desktop\\NIE-SE\\Sandbox\\huvagop\\NI-5772-DDC\\Host_7976R_v1\\7976R_v1\\Private\\FPGA Reference.ctl",
+  "C:\\Users\\ni\\Desktop\\ReceiverTest\\7965R_1MHz DDC\\DDC_0v1_LV2011\\FPGA Bitfiles\\DDC_FPGATarget_DDCmain0v9_166F806D.lvbitx",
+  "C:\\Users\\ni\\Desktop\\ReceiverTest\\7965R_1MHz DDC\\DDC_0v1_LV2011\\Host\\Proto\\Host_Simple\\Typedef\\FPGA_reference.ctl",
+  "H:\\_tools\\LV\\Projects\\Thales 1MHz DDC\\DDC_0v1_LV2011\\Host\\Proto\\Host_Simple\\Typedef\\FPGA_reference.ctl"
+ ]
+}
