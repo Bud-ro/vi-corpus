@@ -1,0 +1,999 @@
+{
+ "repo": "JKISoftware/reqwest-rs-labview",
+ "url": "https://github.com/JKISoftware/reqwest-rs-labview",
+ "commit": "3e2b66bdf37c6ba587bb956b9e9f77a09b61c2fa",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE-APACHE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "lv_src/Client/Client.lvclass",
+   "bytes": 31033,
+   "sha256": "54f8da74f84d1616eab5e7d9299db1505e293fe1fd0b3d3260dc9d5d7a0161c5",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/close.vi",
+   "bytes": 20757,
+   "sha256": "9f4ba32c237223d4b9bc2d5b9fa187269bc9df9fc3dff7e2a84f4c18477862a6",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/create_request_builder.vi",
+   "bytes": 17258,
+   "sha256": "faa1fae5e25aca96195c2e49f1526e6b5e109903aa5cfbfd21f7e19548015b95",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/is_valid.vi",
+   "bytes": 11816,
+   "sha256": "db844250bf14bc0c1b8dea563ba54182ee52b8611cc88eb7d860b71d04408a9b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/new_from_ref.vi",
+   "bytes": 18904,
+   "sha256": "607f4afb7d209433a2953dee8d514d40432c44be16086ac28f336db80f352dcd",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/start_get_request.vi",
+   "bytes": 18933,
+   "sha256": "76f989008070d92fe7297adc04797ba641ab3b87343462d45fbe48c00915f421",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Client/start_multipart_post_request.vi",
+   "bytes": 19128,
+   "sha256": "a1553ef68ea0355ce433b8536cc077043e66a50fbf0c4650077bf166a249ee19",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/ClientBuilder.lvclass",
+   "bytes": 37835,
+   "sha256": "fd4ba4ec63992718db87ad82069c1dc37efe5903bd741e28d40944b851b1732b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/create_client_and_start.vi",
+   "bytes": 16239,
+   "sha256": "01a1e7490cdd83df4ab7b8e21742bc1208495d1eca7fb3a857336ad0e2ff3152",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/destroy.vi",
+   "bytes": 18895,
+   "sha256": "cc0a1aa9afbf441a4fd71f48de522b88aaa553c5bf12fbbb39b25a75f387e16a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/is_valid.vi",
+   "bytes": 11864,
+   "sha256": "d9c20a9a4e906e04098362d94607d0629d435a96c7a26185079d4e23c6dc5fd4",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/new_client_builder.vi",
+   "bytes": 18094,
+   "sha256": "5436b3e712d43e71d0d17de2fee76618aec29923aeb15555e30f36b6a3eb92b3",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/read_error_message.vi",
+   "bytes": 16054,
+   "sha256": "beca5b53a8e6c0d6e445566d6b595cdc2c34332e3cba440bd756fda8b9d79362",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_connect_timeout_ms.vi",
+   "bytes": 18750,
+   "sha256": "7b86d6d64a6c8f84d27fa749c842d2709d14dedb662053dfed8d62823d072f99",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_danger_accept_invalid_certs.vi",
+   "bytes": 19055,
+   "sha256": "c9f828e02b36ec0b086ec018d8fc5c03236df2ee34362cef51e4b1864acd2dd2",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_default_headers.vi",
+   "bytes": 19431,
+   "sha256": "4a8cb8b6445500309e0bcc6428bc8c43278e30b23d63c2b687e80f0bb686347c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_no_proxy.vi",
+   "bytes": 18444,
+   "sha256": "a6481d4925bf454a73ba8e460ae4ebb47117c83d1ac602f9c87ad019e5f6e04d",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_proxy.vi",
+   "bytes": 19781,
+   "sha256": "949987f0dbc0206457a5613aec748c34312cfcd2b7bfbcd52e827fa8fe6e3765",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/ClientBuilder/set_timeout_ms.vi",
+   "bytes": 18722,
+   "sha256": "675bfb98057fb67b77b18ad5b867cf37a629052acaae67e5b0dc0e4a1dce5e77",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Examples/Example - Download with Progress and Abort (RUST).vi",
+   "bytes": 32729,
+   "sha256": "c0f53cff9a4f1c6184a9adb5bd055a02ee71d8ee092db36fcf5511d451890496",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/Close Handle.vi",
+   "bytes": 19092,
+   "sha256": "56a20fdb7c2f24c54bfa3fdd7f94b0a033c59656b6ed0d32958ca7b783c7a45a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/GET.vi",
+   "bytes": 32695,
+   "sha256": "6b39926342682dd9717e9a833064588ee5d74b70b215db9ee11ab327aad9a67f",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/HTTP Client reqwest Tree.vi",
+   "bytes": 17976,
+   "sha256": "59a6633a1f21270343d0e1d7d5fc8bef61082a71793d548fdf3cdd3b1abac2c2",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/HTTP Client reqwest.lvclass",
+   "bytes": 31042,
+   "sha256": "470bcf224f5663f9ad3cadee590dacb1abd90cd73d94a15c05fb7f926661534c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/Open Handle.vi",
+   "bytes": 21043,
+   "sha256": "67d06f003aa1bff291b06173b5546e5ba398a212725badaf4faa06fae8848be0",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/support/LabVIEW timeout to reqwest timeout.vi",
+   "bytes": 19678,
+   "sha256": "ceaba636d25427d4053a83e5be548cef41234a556c6bd519dd19a3e40cd4f4a5",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/support/get_http_version_and_status_string_line_for_headers.vi",
+   "bytes": 15947,
+   "sha256": "f753ba78aa4ebd62adf9fc7a65bb8d579a6ca73dac7f1837128ad7c2d383fd49",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/support/get_reason_phrase_from_status_code.vi",
+   "bytes": 20062,
+   "sha256": "95bb3d6f36a48204cd35069b1e3554187e8e225294646725bc259b639cb4159d",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/HTTP Client Plugin/support/get_status_code_and_header_string.vi",
+   "bytes": 17757,
+   "sha256": "797c15a6358e31b2f0d667072e8f99cb012c4274e4744ff97cc3e46d68e6aef6",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/Headers.lvclass",
+   "bytes": 32896,
+   "sha256": "b18cbc55be96ded4dfbdfedf3d59744f739baa97ac58ab087e9380cbf968c80e",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/add_header.vi",
+   "bytes": 15766,
+   "sha256": "ab42c784d56cd20179bcc65cade4a05ea96bf43d9b192dd567a14f12af9a7363",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/create.vi",
+   "bytes": 19734,
+   "sha256": "2dac79d144c0e565e3c0bb0e8a024084d39aae14754e6dc796beb204a46c1a4e",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/destroy.vi",
+   "bytes": 18967,
+   "sha256": "f9a18195f3d1835d4ad4683ccb9a62c80d9dac2e5009124c3b61f35a50b52ed1",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/get_all.vi",
+   "bytes": 18763,
+   "sha256": "bdc99e7324cff29a355f896462b898a16b3beb2b985250a689e3c3fab5149d50",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/get_refnum.vi",
+   "bytes": 12854,
+   "sha256": "0f5eb608c99043abfdd47eadafa1458e61a079480ab9fe20c06a3390551eac9f",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/is_valid.vi",
+   "bytes": 11816,
+   "sha256": "64ffbd6fe00621769bae9018e2f06633d4813ba7ddd2667bf6ccff2234216f3b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Headers/set_refnum.vi",
+   "bytes": 15962,
+   "sha256": "550c04ac35f40c9ecbab3de7ed77278d46cffe2b684f624576ffec0a64fe215d",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/Example - Multipart File Upload.vi",
+   "bytes": 25647,
+   "sha256": "d8f7c25e2bd5e600beb303d8c95dacfff68f3e3ac9bf86642d062889fb72902b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/MultipartForm.lvclass",
+   "bytes": 32240,
+   "sha256": "c7298f00b46eaedc432aff275d13a3d71469ffe92ed56fb12d37020bbd9b72a6",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/add_binary_data.vi",
+   "bytes": 17943,
+   "sha256": "0a125e953c04b8b6ca537ab2a806d9107e0b5bc3d3c34830fc24da5743119761",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/add_file.vi",
+   "bytes": 17496,
+   "sha256": "7219b4f1c1fd0057195d0c318d517eda4eb7576f349cd5b4ec5483660d33083c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/add_text_field.vi",
+   "bytes": 16826,
+   "sha256": "6a76cd5019aa1b632e89f99072cf1ebf44c040933ab50d90e88597ba6e8bcd78",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/create.vi",
+   "bytes": 17822,
+   "sha256": "81bfcb8ff00e90913e24fdffefbcedb579e7e0902f66edbd17be4e1939ef2537",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/destroy.vi",
+   "bytes": 18423,
+   "sha256": "70d6c4269c94961fbcf768e1b5271d52488b3a170e72511539159705ff8cddd9",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/get_refnum.vi",
+   "bytes": 12802,
+   "sha256": "242bce816b174f0f50406f7290e225f6c69dfb70fc93423a93148abc36ef75d6",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/is_valid.vi",
+   "bytes": 11640,
+   "sha256": "abcc688cd0dcb2ec2eaaf746fd25e22084017e587943d7218367890150a773de",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/MultipartForm/read_error_message.vi",
+   "bytes": 15858,
+   "sha256": "27aec7971d521e69e152a23a7920b7cc6fc4812530c7728b8526840f9f2b1ad5",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/Request.lvclass",
+   "bytes": 45958,
+   "sha256": "730ca28a8961c512ccda665a1b0fe46db36ddc269e99f9fdd837a980ce6fea84",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/cancel.vi",
+   "bytes": 20230,
+   "sha256": "564d0c806394458f5d147338570629dc832e311469305213f066ab99025cf60c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/destroy.vi",
+   "bytes": 21231,
+   "sha256": "eb0227945976ed7c0d19ea858f9c9cf90ddafd9001ac30a4b52b90f27db6d50c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_error_kind.vi",
+   "bytes": 17726,
+   "sha256": "abc8e4ffcff21fe64d963a09dd7e9ed7b9287bbf31c73bfdeabb89cf2810d87b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_error_message.vi",
+   "bytes": 17973,
+   "sha256": "3e6d5a209e6275bd81c9d75e4c3e53718b510bff39525d45ad85f7a60f9c85cc",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_error_source.vi",
+   "bytes": 18032,
+   "sha256": "9bdaf74f9b61e0ac4aa0d99b2a78568abccc6888ca82bb15a1383042104090b0",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_error_url.vi",
+   "bytes": 18009,
+   "sha256": "e2a2e88b4dd9b3e997866713c844539af2ef4070a993cb7d4ed85ec204fa16fe",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_has_error.vi",
+   "bytes": 16969,
+   "sha256": "bb49b908d64c2a85cc2e2339ffd33421bcfb07a4075702a589fad7f776e70d01",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_is_complete.vi",
+   "bytes": 16979,
+   "sha256": "9fdc0a66e2764883fc49d1a10e22f6dd7ee89fc213018f3d2689970d6829571b",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_progress.vi",
+   "bytes": 16868,
+   "sha256": "cac03dfc66f96cd408ca37995c9dcc0d94cd1d778a6f1422d83cc72222cb9a45",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_received_bytes.vi",
+   "bytes": 16922,
+   "sha256": "41ee25474c457fe43d7b0e611efbb1c42a5a1e4985d71e8da848b926f50b68f5",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_response_body.vi",
+   "bytes": 20569,
+   "sha256": "d369d969fca629b3feeeb0e1257f767ddd2f6b14da199e18fcd8aca76800e6e3",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_response_headers.vi",
+   "bytes": 19004,
+   "sha256": "317978e34f4049c899321c57c6eac25b86b3469f89f066f12759ea1c211bf551",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_response_status.vi",
+   "bytes": 16919,
+   "sha256": "899215c21bf15d37d43c7f14baba9016a0142f8cd358245526e6abde55043fe5",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_response_version.vi",
+   "bytes": 18056,
+   "sha256": "7e7f8e6c8dcc726516860a886af3be0d9d2b2b26faf8b958f8daaf108033e16d",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/get_total_bytes.vi",
+   "bytes": 16887,
+   "sha256": "3a645743bb6a2e0eaa3a9d703e71817157d7269e46e30c109d7a375e66d781a9",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/is_valid.vi",
+   "bytes": 13148,
+   "sha256": "c1ae0bba1fa812d5b9dc70c9644e27a9d52d74a1a8d26da0a5427bc2a25caaed",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/raise_any_errors.vi",
+   "bytes": 18420,
+   "sha256": "9bda24a7b44549a1e99310bdbab0811468cbb0895171274d563d08e8debd08b1",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/request_id.ctl",
+   "bytes": 11159,
+   "sha256": "1342b3d7ece31f411a5732c686524e265fc6a0923ec0755b28c549d111e7ff92",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/reqwest_error_kind_enum.ctl",
+   "bytes": 11344,
+   "sha256": "a78e63ad7f913eae22b784fce389795a0b42e1fa1cf6a2f18cf7b172c9798e7a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Request/set_ref.vi",
+   "bytes": 16451,
+   "sha256": "745a86106d9bf74950e467029a64eb198b88980e3b59bde7f12209cffde2885c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/RequestBuilder.lvclass",
+   "bytes": 53894,
+   "sha256": "dfee2d35591a5df06a7ac640ab096416cb82bd0047fcd3f40d49705551f64ab7",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/create_request_and_send.vi",
+   "bytes": 18675,
+   "sha256": "a7ce3b376847228e98919e80e71023c3b8e4d052620e1296eee38914005aa4c3",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/destroy.vi",
+   "bytes": 19451,
+   "sha256": "4dfeb32e24bd5dfd683c3bb15b5a42dc68b847bd1175c2b9ddd18e5de785a68e",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/is_valid.vi",
+   "bytes": 11900,
+   "sha256": "339cdc97150a44bb688756f3a8143e5b2f0a4c0be93b2fa3f975856b8ed986bf",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/read_error_message.vi",
+   "bytes": 17994,
+   "sha256": "bcd06290f7e034e0e734b216991620ecc93cdb7e8fb7d7a8ab5ca2a636ebc76c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_basic_auth.vi",
+   "bytes": 20946,
+   "sha256": "e9a0d0c22b8e256abc1b659f22d08b485a3bce03e6bd803cb736cd3c46781904",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_bearer_auth.vi",
+   "bytes": 20635,
+   "sha256": "dfb0637927519d3956a27762893731a71e8c7889063aa77c0d07a0b9e813dabc",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_headers.vi",
+   "bytes": 16595,
+   "sha256": "d82b4995465ea9d1510d7063f1b6d97cb34a89ec3d3e9dbde3619157f85b7099",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_multipart_form.vi",
+   "bytes": 16806,
+   "sha256": "e71802349cd0992b216ca9fb44729f5d30b3e1a08d332da142b06d1fa8632171",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_output_file.vi",
+   "bytes": 21455,
+   "sha256": "0cfae6b698bfdaaa13eaef09af7f80312d195ff084b9576e8c7a7ba7bb2433e7",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_ref.vi",
+   "bytes": 19423,
+   "sha256": "11096d4afefaf056e5688250eef97e33d1551a94e5fe3d175ff87c581cbaf4f2",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_request_body.vi",
+   "bytes": 15868,
+   "sha256": "1eb95872c8d9585c825b66d5d5aecc4bba5181d6167ac197cf3b954056c75b56",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_request_body_form.vi",
+   "bytes": 16109,
+   "sha256": "0d313c12397debffef67157d1eeb8462d8b015b3c01bf457bb78e39bc9f9687c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_request_body_json.vi",
+   "bytes": 15869,
+   "sha256": "d062e310bd9d33a4f1ca917efcef2ae90cb1c2590e4693e4d838ebcaff310a3c",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_request_query.vi",
+   "bytes": 16033,
+   "sha256": "20d095e081db94ac38b7115562f2914e133297f5c8a4e61b5d184c3eddccb9b7",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/RequestBuilder/set_timeout_ms.vi",
+   "bytes": 20730,
+   "sha256": "347ba7a1e650e536e8aee1ff7eef0a49d2e366e24442f71c90452098f796c475",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Response/Response.lvclass",
+   "bytes": 26717,
+   "sha256": "d7b41c0e88655b1a9537275158a20397582582dda0837036fd9a8a57edeeee55",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Response/close.vi",
+   "bytes": 19569,
+   "sha256": "a2a1c1122edb8bdefa349015f57bba05cd15dde088732563b02715db3bfa8b6f",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Response/is_valid_ref.vi",
+   "bytes": 11816,
+   "sha256": "6966851b146dae6ce73e36fcbcbb5a62e8a037653a450086f32ea156cbb4250a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Response/new_from_int.vi",
+   "bytes": 18712,
+   "sha256": "b8d24bfdf5cf8f2fa0d2fe90cb69c7330f85af51c122566f47d1ae4bddceb3e2",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Scripts/Post-Build Custom Action.vi",
+   "bytes": 16096,
+   "sha256": "42fde4c031992f82592c5d09e850ab8f6430c66f62130b10e49a4114ba920866",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Scripts/VIPM-Package-Building-Tools/Repack Package.vi",
+   "bytes": 27758,
+   "sha256": "bc779d5b6974b895645e82f0f7762d31acd0956fdf0fa571821052560fee8ae3",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Scripts/VIPM-Package-Building-Tools/Unpack Package.vi",
+   "bytes": 23886,
+   "sha256": "f2257818076d6bcf02528ea7ec7bb9e5e0d3665ca1e9dd5a86a0d627e9a60b03",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Scripts/fix_shared_library_paths_for_folder.vi",
+   "bytes": 30095,
+   "sha256": "9733bc085bb32d4b58f4d2aefdc69c2eb81e0c5c8090acba56c43c465c814b7a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Scripts/fix_shared_library_paths_for_package.vi",
+   "bytes": 11056,
+   "sha256": "482d56c9848c42df52033338bab1eefa703888f8ae94591cb217bbef072837b7",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/reqwest_tests.lvlib",
+   "bytes": 1706,
+   "sha256": "9c05ac5bf9462620b6c51f8ab30b0743ea134a8f078450468451a4e666175625",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_client_builder.vi",
+   "bytes": 11815,
+   "sha256": "486999cc5267c19d9a3e31a738c439e77a15260d9394a2e8e820d15a573d0d76",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_client_builder_configured.vi",
+   "bytes": 14002,
+   "sha256": "ed7a2f171d3c69fdb908ef069e4b6f9b97d5529c8d808433626230076610b14f",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_full_flow.vi",
+   "bytes": 21386,
+   "sha256": "d95b47bb5c6574b419031a39b5b475674ed18ab5e999a3595a55f4e9a0b41730",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_header_map.vi",
+   "bytes": 11427,
+   "sha256": "fe28f0d9f6b40bf55fd891bb6b750ab6ea92f359a8a2aa64b270021e2a98a6ee",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_headers_get_all.vi",
+   "bytes": 16528,
+   "sha256": "69116f894672ad6b2c97239c2660f8c573a2d0a022fd866be8acf912ae9501a1",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Tests/test_request_builder_api.vi",
+   "bytes": 25184,
+   "sha256": "7957b0f7c0aa90daa49a3b2e9c211428639c15899fabfbfb72396c29323cbbe9",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/Types/http_method_enum.ctl",
+   "bytes": 15141,
+   "sha256": "e4427eb2062eda2e830a1c80a5fb10c30ddb8872ff9b10e72d837d4702046631",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/reqwest.lvlib",
+   "bytes": 15626,
+   "sha256": "753d45c21d198701e638e8943daae0326bac4159198d4618fcee0afc1b25b136",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/reqwest.lvproj",
+   "bytes": 27516,
+   "sha256": "30f4d895937c438caa1f0394b680631868a461786649dc74ca955ccd5f079611",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/free_c_string_at_memory_address.vi",
+   "bytes": 17123,
+   "sha256": "2406b7e1e43b0b25d6c22b7bea6b8be811b110cb7e097dbaf370e789b1c9f552",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/read_c_string_at_memory_address.vi",
+   "bytes": 18539,
+   "sha256": "59d852d1b2a153b9216462b392b1cb706c7aea30da5a9d2bfe2cfbc1164e725a",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/read_c_string_at_memory_address_to_file.vi",
+   "bytes": 19827,
+   "sha256": "420712b7d06f287968bc1aa67aa51f79855450bf167ac072b00132f57eafd1ce",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/support.path_to_string.vi",
+   "bytes": 13718,
+   "sha256": "a745285c327ec973f766435ca7312647b755c6854867ee2c9907da63ef44d9f3",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/support.read_and_free_array_multiline_string_at_address.vi",
+   "bytes": 14375,
+   "sha256": "d71932fdcf5e88ee3a763805e3520fc454bf357dfc8ab55ed2a26817d1822cf0",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/support/support.read_and_free_string_at_address.vi",
+   "bytes": 14319,
+   "sha256": "d2ad5139015f95d517eedec7b1c9a6f6348052a61bd1a106670fbdda0248edf0",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/test_client.vi",
+   "bytes": 26839,
+   "sha256": "914cca9273ad8574a3799de986f1f445cf9e31fb148c261d4b4f72b116e64779",
+   "via": "extension"
+  },
+  {
+   "path": "lv_src/lv_reqwest_64.so",
+   "bytes": 3983576,
+   "sha256": "668576d1d102298124cd5d3ea1f991e3428053f19da7d67a15c2697ff39e0919",
+   "via": "ref:lv_src/Client/close.vi"
+  },
+  {
+   "path": "lv_src/lv_reqwest_32.dll",
+   "bytes": 2840064,
+   "sha256": "6f4bc0f53c628ce61d60d94aadcfbbab82df38a8aab88fde3439895ae3954056",
+   "via": "ref:lv_src/Client/create_request_builder.vi"
+  },
+  {
+   "path": "lv_src/lv_reqwest_64.dll",
+   "bytes": 3700224,
+   "sha256": "393ae9e55ffbb73ffa6220604be3fd3c7548b1f2b6cfb9878e35c9a96f899413",
+   "via": "ref:lv_src/ClientBuilder/create_client_and_start.vi"
+  },
+  {
+   "path": ".github/copilot-instructions.md",
+   "bytes": 10173,
+   "sha256": "7a007ee939eb771417008f08d3eaaa9260c36d8dacc789af72d611a73e374d09",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/rust.yml",
+   "bytes": 4779,
+   "sha256": "16b7eb1d5d1539d5cf442eb90447d11175c1142db7e8678e55382020a29d57c4",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 156,
+   "sha256": "159e00b4f73922d3677b445a576afcd1db4b6c418e42fd716efc014fe507e2bc",
+   "via": "tree"
+  },
+  {
+   "path": "Cargo.lock",
+   "bytes": 69824,
+   "sha256": "f30cba6a5948e1c5e21b5ae5ae213863de1a4b90631ba58acf34b6a61e888f2e",
+   "via": "tree"
+  },
+  {
+   "path": "Cargo.toml",
+   "bytes": 1139,
+   "sha256": "8a0d599c4aead0e012e6e1bfab0127fc1a6d75013e41402329e3399249663957",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE-APACHE",
+   "bytes": 10823,
+   "sha256": "aae97c1d49758db8221ab765747ae30b119e49e27f95a458ee94023c985f4f38",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE-MIT",
+   "bytes": 1077,
+   "sha256": "da523b8117b635fd3e236708c5df3c09e295ab33e7fbe4dde6e8d054b4b5343f",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 6721,
+   "sha256": "3404ecc3115b1b29d8269b5cfb39b7d29220091356d0b6ae7a882330b3c6a3ba",
+   "via": "tree"
+  },
+  {
+   "path": "docs/ROADMAP.md",
+   "bytes": 7212,
+   "sha256": "9aca482ca341269e978826a4d1339eebfe734f50b062f2c06c48abddd547eb2f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/developer/index.md",
+   "bytes": 3186,
+   "sha256": "8efb1923739675702f2fb85fc7f84848c9f4390b144d44c26473dc1dbb24e83a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/developer/labview_library_features.md",
+   "bytes": 4780,
+   "sha256": "e558eed4f067220a4bcb9436f082c159fcf49648c6286ab454bd9860b6c6d915",
+   "via": "tree"
+  },
+  {
+   "path": "docs/developer/shared_library_features.md",
+   "bytes": 8979,
+   "sha256": "bbe04b9ab84c290085947d5ef314cf4325d000f7cc35cb2f6cf2f092b0d53552",
+   "via": "tree"
+  },
+  {
+   "path": "docs/pull_requests/multipart-uploads/labview_multipart_vis_specification.md",
+   "bytes": 9532,
+   "sha256": "616e7dce115b68a5c13e0e6c19829fe8147e129d0885777bc1977d4257558b4c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/pull_requests/multipart-uploads/multipart_form_implementation_research.md",
+   "bytes": 7298,
+   "sha256": "f2dc1f9c05ad400e9f5f258e6042594d34bfeed977b3c55de276af6dbdccd0ba",
+   "via": "tree"
+  },
+  {
+   "path": "docs/pull_requests/multipart-uploads/multipart_incremental_implementation_plan.md",
+   "bytes": 9508,
+   "sha256": "925b8ac6106bd179b615cceead4254303093cd529cf1d1bd4b7823ace0c8ec54",
+   "via": "tree"
+  },
+  {
+   "path": "docs/user/index.md",
+   "bytes": 45,
+   "sha256": "13c59d3a9940fdb6d69da6e5b5b350aca9df2f685ccf4e742b8981541087f691",
+   "via": "tree"
+  },
+  {
+   "path": "justfile",
+   "bytes": 1681,
+   "sha256": "353a55b2e54f9ad54172a489a8335c1a87a4dcb6b705eac4862e374d67bcd9a1",
+   "via": "tree"
+  },
+  {
+   "path": "lv_src/.lvversion",
+   "bytes": 4,
+   "sha256": "585348dbd28810f9a34f57be46f000c5f9effab894d074713d93fe7ccfeb3b76",
+   "via": "tree"
+  },
+  {
+   "path": "lv_src/Scripts/VIPM-Package-Building-Tools/VIPM-Package-Building-Tools - GitHub.url",
+   "bytes": 139,
+   "sha256": "16b6af0eb6f8148e3a6a90203172aebc6cb99a4443e605f20eae1e984ab50d5f",
+   "via": "tree"
+  },
+  {
+   "path": "lv_src/reqwest-rs-labview.vipb",
+   "bytes": 220542,
+   "sha256": "dd61792e7857b41bd55cc293096fad8a6ce69236b9fc1b3d3547863c87ff4c8d",
+   "via": "tree"
+  },
+  {
+   "path": "scripts/bundle_framework.sh",
+   "bytes": 1511,
+   "sha256": "6d38681103b48e11f0ff49f22aba2fb437cda8f7a43a7a1786ab160372a918fa",
+   "via": "tree"
+  },
+  {
+   "path": "scripts/mac_build.sh",
+   "bytes": 885,
+   "sha256": "af980f592309c3be0902e4b813179dcd36f380bbb313d0adad6f50832ebceeb9",
+   "via": "tree"
+  },
+  {
+   "path": "src/async_support.rs",
+   "bytes": 9463,
+   "sha256": "3be3b290b47de28d78d4b73948e45dde21010fdbaf939d158e12a473e5ef2409",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/client.rs",
+   "bytes": 3844,
+   "sha256": "59ad50d9145a5d27fcf614982a65218f1d835d1a0976f7aad8e8e2dd822210e7",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/client_builder.rs",
+   "bytes": 9626,
+   "sha256": "2a86feeb37733ed7492f2f4c10150683251ca0d91fe80ea26afd583f7a66ffdd",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/headers.rs",
+   "bytes": 2527,
+   "sha256": "658d1c5424cb222acda6bc545205bc0010a40b781f9765103b3df1112f6062cd",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/mod.rs",
+   "bytes": 247,
+   "sha256": "359b44d6ed4eb841bc592b09fe3942bb49f6053a6f9e09b636533c13eb10314d",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/multipart.rs",
+   "bytes": 7702,
+   "sha256": "26fe0c7d4c85f70b408a1ce9f0c6a10129d995adf1b11028e1f3b77f7bf79c30",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/request.rs",
+   "bytes": 12277,
+   "sha256": "39c1e1c1a4f6f9f17b0819cefc19770c34ff22e796070038d20132687930add7",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/request_builder.rs",
+   "bytes": 15322,
+   "sha256": "de36bf5b4733a3a3d929b8229695ecefade5a2cd246c296bcf08533e35050d7a",
+   "via": "tree"
+  },
+  {
+   "path": "src/ffi/utils.rs",
+   "bytes": 370,
+   "sha256": "6a7a5ab18598e19e7a34247191a222127b55713ea878af560ef2adde847b9a47",
+   "via": "tree"
+  },
+  {
+   "path": "src/globals.rs",
+   "bytes": 2094,
+   "sha256": "4cdf35a8c8a5e917d1afa47e3192607b3ec6ef3531f9391f7f187ec69d1f3ca7",
+   "via": "tree"
+  },
+  {
+   "path": "src/helpers.rs",
+   "bytes": 927,
+   "sha256": "9e43fa523addd0067ad7c273de8276ff0ce9e0d07c8ac434cf1a080e21fda1a6",
+   "via": "tree"
+  },
+  {
+   "path": "src/lib.rs",
+   "bytes": 2045,
+   "sha256": "eac6659ff44ff72223ec742f6da1056b1186556a455e7e2f1a27b52b621343b8",
+   "via": "tree"
+  },
+  {
+   "path": "src/types.rs",
+   "bytes": 3394,
+   "sha256": "9708107c36cc9eb82cf4d713d6733e07e7fd6b1f65119de86bd32a61ef9fa8bc",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/client.rs",
+   "bytes": 3982,
+   "sha256": "5de92e55f308edd97b6a54cb6390c7d3465f573deff59b56b506028c5eba6a9c",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/common.rs",
+   "bytes": 2746,
+   "sha256": "96ec41a943819827003305d509d52df1cc41b046f8233733bbf13607742dfd85",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/error_handling.rs",
+   "bytes": 4831,
+   "sha256": "f89dcd6d6344b4ef9b28ce851cdfcadba7146aefaad72e3eda2e2bc879e1d465",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/headers.rs",
+   "bytes": 1853,
+   "sha256": "5372878363b75e669573cc4976edca77f0ac05c2b56af68c76fb6b4dc135a00f",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/mod.rs",
+   "bytes": 197,
+   "sha256": "6f2b5c584d76a4af83fd7e746bc6ff1ac9a57667299d1c20f288725fd323bea1",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/multipart.rs",
+   "bytes": 11052,
+   "sha256": "78abad84590d5208e3bece3fa745213d21723f5dc326eded1d7022de62a16559",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/proxy.rs",
+   "bytes": 5996,
+   "sha256": "da7f16145172753a78151166dc6b5ddc3178e1bfaf800cc4fa53a5af68945f03",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration/request.rs",
+   "bytes": 13174,
+   "sha256": "a260dee0645cbd3fe6726a1259c3cda329636e0722ce4fbfc13b0f2b93fb393b",
+   "via": "tree"
+  },
+  {
+   "path": "tests/integration_tests.rs",
+   "bytes": 44,
+   "sha256": "a085da5440567f783c3200cde132f74acbfd48be70a95b85ce81209870785aaf",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Valid Path - Traditional__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Valid Path__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\openg_file.lvlib",
+  "<userlib>\\_OpenG.lib\\string\\string.llb\\Multi-line String to Array__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\string\\string.llb\\openg_string.lvlib",
+  "<vilib>\\AdvancedString\\Delimited String to 1D String Array.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\DialogType.ctl",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Search and Replace Pattern.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Create Directory Recursive.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Recursive File List.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\TRef TravTarget.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\Traverse for GObjects.vi",
+  "<vilib>\\Utility\\traverseref.llb\\VI Scripting - Traverse.lvlib",
+  "<vilib>\\VIPM Community\\HTTP Client Plugin - Base\\Classes\\Abstract HTTP Client\\Abstract HTTP Client.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert Equal Value_Variant.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert True.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Define Test.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Test.lvclass",
+  "<vilib>\\ptbypt\\NI_PtbyPt.lvlib",
+  "<vilib>\\ptbypt\\Probability & Statistics.llb\\Mean PtByPt.vi",
+  "<vilib>\\zip\\Add File to Zip.vi",
+  "<vilib>\\zip\\Close Zip File.vi",
+  "<vilib>\\zip\\NI_Unzip.lvlib",
+  "<vilib>\\zip\\New Zip File.vi",
+  "<vilib>\\zip\\Unzip.vi",
+  "C:\\Projects\\reqwest-rs-labview\\jki_lib_reqwest_rs_labview-0.1.0.1\\File Group 0\\vi.lib\\JKI\\reqwest-rs-labview",
+  "C:\\Projects\\reqwest-rs-labview\\lv_src\\lv_reqwest_*.*",
+  "C:\\Projects\\reqwest-rs-labview\\lv_src\\lv_reqwest_64.dll",
+  "C:\\Projects\\vipm-desktop\\source\\submodules\\reqwest-rs-labview\\lv_src\\lv_reqwest_*.*",
+  "C:\\Users\\bjustice\\Documents\\GitHub\\HTTP-Client-Abstract\\lv_src\\Classes\\HTTP Client Abstract\\Close Handle.vi",
+  "C:\\Users\\bjustice\\Documents\\GitHub\\HTTP-Client-Abstract\\lv_src\\Classes\\HTTP Client Abstract\\Open Handle.vi",
+  "C:\\code\\reqwest-rs-labview\\lv_src\\lv_reqwest_*.*",
+  "home:\\jim-kring\\Projects\\reqwest-rs-labview\\lv_src\\lv_reqwest_*.*",
+  "usr:\\local\\natinst\\LabVIEW-2024-64\\vi.lib\\VIPM Community\\HTTP Client Plugin - Base\\Classes\\Abstract HTTP Client\\Abstract HTTP Client.lvclass"
+ ]
+}
