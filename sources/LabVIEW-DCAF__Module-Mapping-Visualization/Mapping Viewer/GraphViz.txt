@@ -1,0 +1,106 @@
+digraph g { 
+rankdir = LR;
+node0
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td COLSPAN="2" port="port0" border="1" bgcolor="dodgerblue">Temperature Controller Logic (Process)</td></tr>
+                    <tr><td port="port1" border="1">Temperature</td><td port="port2" border="1">fan</td></tr>
+                    <tr><td port="port3" border="1">setpoint</td><td port="port4" border="1">lamp</td></tr>
+                    <tr><td port="port5" border="1">Kc</td><td port="port6" border="1"></td></tr>
+                    <tr><td port="port7" border="1">Ti</td><td port="port8" border="1"></td></tr>
+                    <tr><td port="port9" border="1">Td</td><td port="port10" border="1"></td></tr>
+                    <tr><td port="port11" border="1">Fan on?</td><td port="port12" border="1"></td></tr>
+</table>>
+]
+node1
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td COLSPAN="2" port="port0" border="1" bgcolor="cadetblue1">Temperature Chamber Model (Process)</td></tr>
+                    <tr><td port="port1" border="1">Fan PWM</td><td port="port2" border="1">Thermocouple Reading</td></tr>
+                    <tr><td port="port3" border="1">Lamp PWM</td><td port="port4" border="1"></td></tr>
+</table>>
+]
+node2
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td port="port0" border="1" bgcolor="darkgoldenrod1">Scan Engine (Input)</td></tr>
+                    <tr><td port="port1" border="1">ni.var.io://localhost/Mod1/Temperature-cRIO</td></tr>
+</table>>
+]
+node3
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td port="port0" border="1" bgcolor="darkgoldenrod1">Scan Engine (Output)</td></tr>
+                    <tr><td port="port1" border="1">ni.var.io://localhost/Mod2/Fan-cRIO</td></tr>
+                    <tr><td port="port2" border="1">ni.var.io://localhost/Mod2/Lamp-cRIO</td></tr>
+</table>>
+]
+node4
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td port="port0" border="1" bgcolor="gainsboro">UDP (Input)</td></tr>
+                    <tr><td port="port1" border="1">D</td></tr>
+                    <tr><td port="port2" border="1">Fan on?</td></tr>
+                    <tr><td port="port3" border="1">I</td></tr>
+                    <tr><td port="port4" border="1">P</td></tr>
+                    <tr><td port="port5" border="1">Setpoint</td></tr>
+</table>>
+]
+node5
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td port="port0" border="1" bgcolor="gainsboro">UDP (Output)</td></tr>
+                    <tr><td port="port1" border="1">Lamp-Model</td></tr>
+                    <tr><td port="port2" border="1">Lamp-cRIO</td></tr>
+                    <tr><td port="port3" border="1">Temperature-Model</td></tr>
+                    <tr><td port="port4" border="1">Temperature-cRIO</td></tr>
+</table>>
+]
+node6
+[
+shape = none
+
+label = <<table border="0" cellspacing="0">
+                    <tr><td COLSPAN="2" port="port0" border="1" bgcolor="palegreen">Temperature Controller Simulation (Process)</td></tr>
+                    <tr><td port="port1" border="1">Temperature</td><td port="port2" border="1">fan</td></tr>
+                    <tr><td port="port3" border="1">setpoint</td><td port="port4" border="1">lamp</td></tr>
+                    <tr><td port="port5" border="1">Kc</td><td port="port6" border="1"></td></tr>
+                    <tr><td port="port7" border="1">Ti</td><td port="port8" border="1"></td></tr>
+                    <tr><td port="port9" border="1">Td</td><td port="port10" border="1"></td></tr>
+                    <tr><td port="port11" border="1">Fan on?</td><td port="port12" border="1"></td></tr>
+</table>>
+]
+node4:port5 -> node6:port3 [color="orange"]
+node4:port5 -> node0:port3 [color="orange"]
+node4:port2 -> node6:port11 [color="green"]
+node4:port2 -> node0:port11 [color="green"]
+node0:port4 -> node3:port2 [color="orange"]
+node0:port4 -> node1:port3 [color="orange"]
+node0:port4 -> node5:port2 [color="orange"]
+node2:port1 -> node5:port4 [color="orange"]
+node2:port1 -> node0:port1 [color="orange"]
+node1:port2 -> node6:port1 [color="orange"]
+node1:port2 -> node5:port3 [color="orange"]
+node6:port4 -> node1:port3 [color="orange"]
+node6:port4 -> node5:port1 [color="orange"]
+node0:port2 -> node3:port1 [color="orange"]
+node0:port2 -> node1:port1 [color="orange"]
+node4:port4 -> node0:port5 [color="orange"]
+node4:port4 -> node6:port5 [color="orange"]
+node4:port3 -> node0:port7 [color="orange"]
+node4:port3 -> node6:port7 [color="orange"]
+node4:port1 -> node0:port9 [color="orange"]
+node4:port1 -> node6:port9 [color="orange"]
+}
