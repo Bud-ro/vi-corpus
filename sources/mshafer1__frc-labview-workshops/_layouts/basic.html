@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<body>
+  {% include nav.html %}
+  {% include lgImgPanel.html %}
+
+  <div id = "body" class="bodyMain">
+    {% include announcements.html %}
+    <h1 style="text-align: left;">FRC LabVIEW Tutorials - {{ page.title }}</h1>
+    {{ content }}
+    {% include tracking.html  %}
+  </div>
+  
+  {% include pageManipulation.html %}
+  {% include toc.html %}
+</body>
+
+</html>
