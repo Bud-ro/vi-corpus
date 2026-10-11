@@ -1,0 +1,28 @@
+{
+  "name": "awesome-webvis",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Tests for awesome-webvis list",
+  "scripts": {
+    "lint": "npm run lint-markdown && npm run lint-awesome && npm run lint-cspell",
+    "lint-markdown": "markdownlint ./*.md",
+    "lint-awesome": "awesome-lint ./README.md",
+    "lint-cspell": "cspell \"*.md\"",
+    "link": "glob-exec --foreach \"./*.md\" -- \"npm run markdown-link-check -- -c .linkcheck.json {{file}}\"",
+    "markdown-link-check": "markdown-link-check",
+    "test": "npm run lint && npm run link"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajsite/awesome-webvis.git"
+  },
+  "author": "Milan Raj (@rajsite)",
+  "license": "MIT",
+  "devDependencies": {
+    "awesome-lint": "^1.2.0",
+    "cspell": "^8.15.2",
+    "glob-exec": "^0.1.1",
+    "markdown-link-check": "^3.12.2",
+    "markdownlint-cli": "^0.42.0"
+    }
+}
