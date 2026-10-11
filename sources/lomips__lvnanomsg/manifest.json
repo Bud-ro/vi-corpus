@@ -1,0 +1,594 @@
+{
+ "repo": "lomips/lvnanomsg",
+ "url": "https://github.com/lomips/lvnanomsg",
+ "commit": "a99b9573955237350ee18d31fbfb9304c9111d23",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "endpoint_proto.ctl",
+   "bytes": 11731,
+   "sha256": "92eeba6c290ed286a10a1601daaaaa8fe0b501388df545dd9e9bdb88675b6bf4",
+   "via": "extension"
+  },
+  {
+   "path": "error_type.ctl",
+   "bytes": 12359,
+   "sha256": "ee04c2373c4ea9cb8c39beb296b7e34b74ce94099f6eb5596076f6ca23d4e8b9",
+   "via": "extension"
+  },
+  {
+   "path": "examples/get_attrs.vi",
+   "bytes": 9449,
+   "sha256": "f5c146ea781abc6518f544c58ed02c4d1adb6de44cd8aa2ea665b3e009791915",
+   "via": "extension"
+  },
+  {
+   "path": "examples/lp-client.vi",
+   "bytes": 19441,
+   "sha256": "35fc88c0d1004dbce92976807fcb17b46a8e6737fd3039097e9dc92bf8ed40b0",
+   "via": "extension"
+  },
+  {
+   "path": "examples/lp-server-events.vi",
+   "bytes": 22600,
+   "sha256": "6b3c4a6907e2d60ae2d9c6cff5d09ab12e8768328759397fe5fd67815d0f9f1b",
+   "via": "extension"
+  },
+  {
+   "path": "examples/lp-server-timeouts.vi",
+   "bytes": 15726,
+   "sha256": "539ecfca2aff97af5f3551d3eb9d4dd65b4ebd1997fa344a12d09c3acf2ec229",
+   "via": "extension"
+  },
+  {
+   "path": "examples/lp-server.vi",
+   "bytes": 17321,
+   "sha256": "445f20f0556bd3dd08085615c08761068b3dca7a13f28f7bc0075aaf0b1e1507",
+   "via": "extension"
+  },
+  {
+   "path": "examples/nanomsg_pub.vi",
+   "bytes": 14999,
+   "sha256": "049659ccd4564820be54469b34af27ee9f1c86d7a57bf202d446c90261d84bfd",
+   "via": "extension"
+  },
+  {
+   "path": "examples/nanomsg_sub.vi",
+   "bytes": 16911,
+   "sha256": "8529070adc1cd6626fb4cefe47c4bc1c5923e500f0d82dfe1485e6e6427ca539",
+   "via": "extension"
+  },
+  {
+   "path": "examples/nanomsg_sub_single.vi",
+   "bytes": 14426,
+   "sha256": "2665c950ae11ba34e261d1daf8df491d25f6a6960371b187571477a7841dfcdb",
+   "via": "extension"
+  },
+  {
+   "path": "examples/ni_crio_9065/Publisher.vi",
+   "bytes": 25341,
+   "sha256": "a0aa245edc929a2cd873551b9603a3ac131a7bd22ec923d796caca4825e121b8",
+   "via": "extension"
+  },
+  {
+   "path": "examples/ni_crio_9065/Subscriber.vi",
+   "bytes": 29718,
+   "sha256": "7e6d7841f22eb80e68b1cc4956064758e684135339c64bd73d3611f5f912303c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/ni_crio_9065/nanomsg_9065.aliases",
+   "bytes": 113,
+   "sha256": "75629079e6cabaeec2d2ba2118bee97205cc492cf83df50528257fa498d5760f",
+   "via": "extension"
+  },
+  {
+   "path": "examples/ni_crio_9065/nanomsg_9065.lvlps",
+   "bytes": 86,
+   "sha256": "5dae11149ff82270df66033f24bab36b3f83788a037f9b800a4a129084a1b9df",
+   "via": "extension"
+  },
+  {
+   "path": "examples/ni_crio_9065/nanomsg_9065.lvproj",
+   "bytes": 8173,
+   "sha256": "3a0eef727ebf65e2be6ca8fa64ddc160e4094f0488a322ce872bef529a092372",
+   "via": "extension"
+  },
+  {
+   "path": "examples/polling_events.vi",
+   "bytes": 21878,
+   "sha256": "058aa726d335a00a7cb4be51565d79c3ab9c2997e494de30f7956792be4471c8",
+   "via": "extension"
+  },
+  {
+   "path": "examples/pub_multipart.vi",
+   "bytes": 14713,
+   "sha256": "bfce5c8387b45f4d7cd59f080de5b251042fccd099a0c4e6f560ba41dcc3387d",
+   "via": "extension"
+  },
+  {
+   "path": "examples/pubsub/Publisher.vi",
+   "bytes": 25313,
+   "sha256": "6f7c4182f35e66eb80ae2203891c67b9372c66a284ef19cb5ef2f03e0641a8bf",
+   "via": "extension"
+  },
+  {
+   "path": "examples/pubsub/Subscriber.vi",
+   "bytes": 29654,
+   "sha256": "ced189e0febac8a8459662e06ccfbae88e3955a99fd63009bd51d65cef104356",
+   "via": "extension"
+  },
+  {
+   "path": "examples/req-rep/trivial_rep.vi",
+   "bytes": 13535,
+   "sha256": "7497f9bad4b4276878d7503d69d27d9db9c3bbd42b32bdd8090159e80e33204a",
+   "via": "extension"
+  },
+  {
+   "path": "examples/req-rep/trivial_req.vi",
+   "bytes": 12735,
+   "sha256": "88c3ba88e9e4a66e37c9a4f16c7a5a352936beb850fa35cb35fcbaa20ccc116e",
+   "via": "extension"
+  },
+  {
+   "path": "examples/req-rep/trivial_req.vit",
+   "bytes": 12740,
+   "sha256": "9e6b2361323c471be3d68c236466defe4476ca021463fde719947718503af818",
+   "via": "extension"
+  },
+  {
+   "path": "examples/sub_multipart.vi",
+   "bytes": 15213,
+   "sha256": "64f506d5364386cbde6a293af0d7d2c4a2636cb5b00bf83639697531b79224bb",
+   "via": "extension"
+  },
+  {
+   "path": "lib/hardcode_libs.vi",
+   "bytes": 20661,
+   "sha256": "3ba4b6fd5d05b296d0fb52c029dc94049058c7e4a1b219aa3a7845cc7859aff7",
+   "via": "extension"
+  },
+  {
+   "path": "lib/rename_calls.vi",
+   "bytes": 20052,
+   "sha256": "b841d8e1410dd9f3bf7ce305ac07c06534fc54819de5b8fbd90109923524414e",
+   "via": "extension"
+  },
+  {
+   "path": "lib/rename_lib2.vi",
+   "bytes": 14619,
+   "sha256": "2b4652d22e86fa3a28374b4cf89ebf1ec64e00c96a97d590afcc8c9cd20a78a1",
+   "via": "extension"
+  },
+  {
+   "path": "monitor_event.ctl",
+   "bytes": 11842,
+   "sha256": "822c4a37934454f307b1d7bb32a6b152216c55a2d6a57afd01f652fd3eb4ca9a",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg.lvlib",
+   "bytes": 15971,
+   "sha256": "6cd15c6fd5feab9d029147e66cdafd5156cbaa23b011eb5163bb18eead095f3a",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_bind.vi",
+   "bytes": 20828,
+   "sha256": "f75e50af881284f7e6ca8a13ef593df7cdf6778c799d9727b00a5a0343b050db",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_bind_random.vi",
+   "bytes": 18875,
+   "sha256": "f9d307a90347b416cf52f080818f5b35d7a6bb9cc4df5f2e7be12c711af8f240",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_check_term.vi",
+   "bytes": 22750,
+   "sha256": "06aa0a3b55f58f30d0c8ab8396fb28c3063f83762c6b8cfaa15df62d327050bc",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_close.vi",
+   "bytes": 21249,
+   "sha256": "dd5c3607577cdebef5852c88ed3d43550b10546ca7351699786b3efc281eb9c8",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_connect.vi",
+   "bytes": 21927,
+   "sha256": "be914d85ee4a82e209ad378262f1709905c802aeb380639cf174b788f22071ff",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_context.lvclass",
+   "bytes": 54670,
+   "sha256": "78f618ac086dc9b6535c6635b192b74a96bd5e1ada9f1ec2ab96a362eb70e03b",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_ctx_check.vi",
+   "bytes": 20329,
+   "sha256": "2d0f244d41992dd3da760faa6133970ab878b0b2abf2ef48f40334ab95616a99",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_ctx_create.vi",
+   "bytes": 17782,
+   "sha256": "43b577d45e076d300ecb8f7a59f0497fc904710522a739b19834652aacd8300b",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_ctx_destroy.vi",
+   "bytes": 18635,
+   "sha256": "0515ab2ee9a82e4f3394ef8f6d77bbae8a4815f4e6807ce7280291c8fdde5185",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_endpoint_build.vi",
+   "bytes": 26934,
+   "sha256": "52f569656620d1e650dea689459d1e7e0adc7e8710a77c0c13eb6ef8f51976ce",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_endpoint_split.vi",
+   "bytes": 40550,
+   "sha256": "fec4afd83ff06b26204b910297fda17b706490b28642c91fb314620d25c54e54",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_errno.vi",
+   "bytes": 21353,
+   "sha256": "6b44978cfe1ab1e969f9925738885bd6f9dd5f80c1ee8a15047fb6651366be7e",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_get_attrs.vi",
+   "bytes": 9105,
+   "sha256": "3a55ef1b29614d84f9f1644efa9f4dd04c1327eac1363a2721a6af7f5ba3d5d6",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_get_monitor.vi",
+   "bytes": 22879,
+   "sha256": "6b1e6a1acca8ca3ab718d7adfcd65d7b794ebd09dd77f5fa14a41d3dc7739395",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_get_statistic.vi",
+   "bytes": 22265,
+   "sha256": "132152da5c9535f285770a6ee2a40ac4d26de20e36c7592120b62b152cad341c",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_geterr.vi",
+   "bytes": 31218,
+   "sha256": "d3859cdb28f66c466f92b1943f8416c58966c8115f2aaf95a52cea86bbce42f9",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_getsocketopt.vi",
+   "bytes": 16404,
+   "sha256": "12e904ea64c038d09d8e0efb444dc28557f33a9d5e9e1747d1bbbe8e1c785f31",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_getsocketopt_binary.vi",
+   "bytes": 21659,
+   "sha256": "e0fb39ac167413a0d4248c8cccce3b0bef9e7e5f17f69333921081548d622d06",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_getsocketopt_int.vi",
+   "bytes": 21672,
+   "sha256": "e49d0a94c058d75d683d0743b007462cf3d24420da53334b58d2fbd2079c4bb0",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_getsocketopt_int64.vi",
+   "bytes": 21638,
+   "sha256": "9aab7f32b9ac4fae20c24b72aeb614d27c8a8a57f7890b158d11524a19a80565",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_libpath.vi",
+   "bytes": 20943,
+   "sha256": "36a1d134cb47d5e41ef12ae1581caab4e741c84b20e28366fbcc4f14a89d266a",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_new_event.vi",
+   "bytes": 24293,
+   "sha256": "e9c1b217c47dd2f6a0fba31e1ecf736b0d03f34e3deea4424df99b975a74c3d1",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_poll.vi",
+   "bytes": 15908,
+   "sha256": "3395b78b2054f1836acde3c1b8a23e32960ea9c75246dde107cbfb6f9d235435",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_poll_array.vi",
+   "bytes": 23550,
+   "sha256": "3377d12ef82c52eb2735c9556ae515689e7b6b670d9c7ac652eab034e8398bb6",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_poll_scalar.vi",
+   "bytes": 20911,
+   "sha256": "b17b73d801f69a298d6196fe698941aff7281aab5ab6301071e3dbec628bf96a",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_recv.vi",
+   "bytes": 21404,
+   "sha256": "9d259c1e2369164861a736bd0e5daa072087c4cf27e4ee64f7f44eb367b53e9e",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_recv_event.vi",
+   "bytes": 26906,
+   "sha256": "bf7aae5acbb7e3ad7329a01f6be8575ce7dbe62fadb674987ec42f7cb32ecbc9",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_recv_multi.vi",
+   "bytes": 27506,
+   "sha256": "734a7807db8cdb3f93cd3933307bc18aa59a0b06afe5c337c0283612f1e11a81",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_recv_timeout.vi",
+   "bytes": 23404,
+   "sha256": "ddab2de7a9529d5370df8fd34b66e8dcc079be2c1df9834d153484f3c3be834e",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_recvmsg.vi",
+   "bytes": 28919,
+   "sha256": "adcb12d81332dc3f48f4bf250608f289126320fce014eabf1fd4f4159e350ba1",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_send.vi",
+   "bytes": 20064,
+   "sha256": "40a2265c331f5dde9d1e1c0eb00f4ad449701ba14ba9e644182de0f124d96b7e",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_send_multi.vi",
+   "bytes": 20766,
+   "sha256": "d0031f78ed0403c37ee1da2afe3013fb35b7640362a215786baa55202f832c7c",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_sendmsg.vi",
+   "bytes": 21695,
+   "sha256": "8a99792205936e564bede96e8384e519075dc3c0778f7245d2695291bdc0a89f",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_setsocketopt.vi",
+   "bytes": 21508,
+   "sha256": "9b214fdd2166d6e19e813aea78059c5e5abee972ee01b56a3492bce3ffd1d6e1",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_shutdown.vi",
+   "bytes": 21136,
+   "sha256": "42010820be040f4257891b440476f96fdc896666cd63fa00bd7f161c16994037",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_socket.lvclass",
+   "bytes": 77491,
+   "sha256": "4a04828120105b2628c09047ed2472d851a4c83873af0e4c1a50c9d049dfddf5",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_socket.vi",
+   "bytes": 27122,
+   "sha256": "c52037ced7a4bef1a288a70ae0aa6dc5abae9b3893cfc1db92d11e175e20d4e8",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_socket_check.vi",
+   "bytes": 19336,
+   "sha256": "19c6fc4909e72ef4c58027a951364f897abb01a605f4e3ec15869abfb14c6e63",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_socket_set.vi",
+   "bytes": 25426,
+   "sha256": "534f3d94eced6dadf0d77cb213c9dc1ff48966aec3a2ba173436f5327a369fd0",
+   "via": "extension"
+  },
+  {
+   "path": "nanomsg_version.vi",
+   "bytes": 15691,
+   "sha256": "de23b7fc52c97b8749743d1f8945ebebc9089860c34dd1a8e06d59a16abb7b8b",
+   "via": "extension"
+  },
+  {
+   "path": "poll_event_data.ctl",
+   "bytes": 12744,
+   "sha256": "1789d4422c62f715bdc64536802d695354b7f4d80088b3ef5b8bbfa3702316d8",
+   "via": "extension"
+  },
+  {
+   "path": "poll_type.ctl",
+   "bytes": 11750,
+   "sha256": "05e02a952f88a503696b34052459e7ffc9b2f0e2f74c519aca20131c003274dd",
+   "via": "extension"
+  },
+  {
+   "path": "socket_levels.ctl",
+   "bytes": 15074,
+   "sha256": "bd21eb8fce9f1739c94ecddf58fd4a5e89480a73200b7f80d255d59ab9e1c52f",
+   "via": "extension"
+  },
+  {
+   "path": "socket_options.ctl",
+   "bytes": 12191,
+   "sha256": "753c4048e343cef24988d9366dd93e6e64734e769e2172d4daa810ca382d35f3",
+   "via": "extension"
+  },
+  {
+   "path": "socket_req_options.ctl",
+   "bytes": 14987,
+   "sha256": "db22da18426f607d617cc52e23f4f4ef6019cd4609a87f5a2ab57c92bb160da9",
+   "via": "extension"
+  },
+  {
+   "path": "socket_sub_options.ctl",
+   "bytes": 14991,
+   "sha256": "d742f15fefd304f4f08c90af3f2fa48cb68d907ce26b3600455dfbe23e707176",
+   "via": "extension"
+  },
+  {
+   "path": "socket_tcp_options.ctl",
+   "bytes": 14979,
+   "sha256": "7e32271e76dd135c0db81d90cbd37c13f97ca0bb30eb7a9de5067743a846ef70",
+   "via": "extension"
+  },
+  {
+   "path": "socket_type.ctl",
+   "bytes": 12596,
+   "sha256": "8eed2fdb0866c72810103e9dc02e5992f55f9e3ebd5b74222aafdde066c46605",
+   "via": "extension"
+  },
+  {
+   "path": "statistics_type.ctl",
+   "bytes": 9200,
+   "sha256": "359da30b4acd519bf57c3b03571f028b8b9361bf273e0b8f56f1e232cc6cb243",
+   "via": "extension"
+  },
+  {
+   "path": "vi_tree.vi",
+   "bytes": 20675,
+   "sha256": "f1120fe2c6fd50280fcb35f88579d94f2e2cbb107b393f7f78d4729578e503e9",
+   "via": "extension"
+  },
+  {
+   "path": "liblvnanomsg.so",
+   "bytes": 22679,
+   "sha256": "afcfc7f2447ba4ae65bd0039c6345952541b268b17a4c040a0659512cc245c27",
+   "via": "ref:nanomsg_libpath.vi"
+  },
+  {
+   "path": "lvnanomsg32.dll",
+   "bytes": 19456,
+   "sha256": "94bc9599eaef862ae4de16873bceda6a2d7a0f4fdbc2d5391bf265f523ebc02e",
+   "via": "ref:nanomsg_libpath.vi"
+  },
+  {
+   "path": "AUTHORS.txt",
+   "bytes": 512,
+   "sha256": "9a586478eb89bbd66a4e8ef7454770b8aa191986fdaaa97cce62182b750a0896",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1068,
+   "sha256": "ba10a0ff268ebcff47733d34c595cd68280b59bbdce3e7ae2c3441481579a4a3",
+   "via": "tree"
+  },
+  {
+   "path": "README.txt",
+   "bytes": 1986,
+   "sha256": "ed6d2f1fb85cd04ef5dc3feb41dbd0718d51f2fd164718b30da9e8558f2d09e6",
+   "via": "tree"
+  },
+  {
+   "path": "examples/ni_crio_9065/README",
+   "bytes": 98,
+   "sha256": "7df2842563c725f903ea72e4fce391b91ba3a2589fae5a96afd5854bc6f50588",
+   "via": "tree"
+  },
+  {
+   "path": "examples/ni_crio_9065/libnanomsg.so.1.0.0",
+   "bytes": 1034450,
+   "sha256": "87e062de546269b40c162297147d1f534a5aa7f8c7a997dce9661fd9cf1501e8",
+   "via": "tree"
+  },
+  {
+   "path": "lib/Makefile",
+   "bytes": 2085,
+   "sha256": "2db18f8ef0ad0c35670f9a67da57601a60003e0f401e01a84174fd69e038c599",
+   "via": "tree"
+  },
+  {
+   "path": "lib/bonzai.c",
+   "bytes": 3702,
+   "sha256": "7b14daa32b22f69aba071c5686a08a636b16058464f2b1d2e93bf0cdedc6b711",
+   "via": "tree"
+  },
+  {
+   "path": "lib/bonzai.h",
+   "bytes": 903,
+   "sha256": "6dc13f71f7c3710a434b86c9fbb708e33b68a3d4c21afff017307f48bf06e958",
+   "via": "tree"
+  },
+  {
+   "path": "lib/buildlib.bat",
+   "bytes": 262,
+   "sha256": "775cdfc36535f11b86eba2a2c1dfc46f60a74b35e2f26c0b20426825ab263172",
+   "via": "tree"
+  },
+  {
+   "path": "lib/debug.c",
+   "bytes": 1127,
+   "sha256": "b250e547d33be8b5c5ab5ea82034b8b0c9649cd743d54e029b78525179782d8b",
+   "via": "tree"
+  },
+  {
+   "path": "lib/debug.h",
+   "bytes": 138,
+   "sha256": "36af208984758e03dbf765227be145a2341b7195bc62967e9326e337e409d5e8",
+   "via": "tree"
+  },
+  {
+   "path": "lib/nanomsg-errors.txt",
+   "bytes": 2757,
+   "sha256": "9c3930a3448e0a3b1bfbe04ec1ac8728c09f4a75b1d2c40a6d8c607069884337",
+   "via": "tree"
+  },
+  {
+   "path": "lib/nanomsg_labview.c",
+   "bytes": 29563,
+   "sha256": "486751a2ccea78eea1cf2d731fdd023e4d719255a06aa0f86004dd750b74ef4f",
+   "via": "tree"
+  },
+  {
+   "path": "lib/parse_errnos.py",
+   "bytes": 820,
+   "sha256": "e8766fd066203660afd469dd75b99d7ca911015dd6da24bc81667c799fdb507f",
+   "via": "tree"
+  },
+  {
+   "path": "nanomsg.dll",
+   "bytes": 158720,
+   "sha256": "6cc9ed96cc50253db14fd07bb4456f791b4029ec7ffa63fcddf937fd67ab9e1d",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\traverseref.llb\\TRef TravTarget.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\Traverse for GObjects.vi",
+  "<vilib>\\Utility\\traverseref.llb\\VI Scripting - Traverse.lvlib",
+  "<vilib>\\ptbypt\\NI_PtbyPt.lvlib",
+  "<vilib>\\ptbypt\\Signal Generation.llb\\Sine Wave PtByPt.vi",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "usr:\\lib"
+ ]
+}
