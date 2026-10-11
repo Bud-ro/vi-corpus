@@ -1,0 +1,987 @@
+{
+ "repo": "JanGoebel/LabVIEW-MCP-Server-Toolkit",
+ "url": "https://github.com/JanGoebel/LabVIEW-MCP-Server-Toolkit",
+ "commit": "e3e2ad4eceea5d728dcf8f284177064978af676d",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "examples/Datalogger MCP Server/Datalogger MCP Server.aliases",
+   "bytes": 43,
+   "sha256": "0ec598c3d3ca2378d81494cb6317dac95b95a51877bfe377ee8a2bc448270d28",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/Datalogger MCP Server.lvlps",
+   "bytes": 81,
+   "sha256": "b7d0e50c3260205375e5303ffe8a44af7acbc2bae0e121eff3fb9c8e223fff68",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/Datalogger MCP Server.lvproj",
+   "bytes": 2127,
+   "sha256": "27184840b9a9eca8077cc644919cf9092dec5e134b7b7d39ee7678be611bbeea",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/Datalogger Main.vi",
+   "bytes": 29827,
+   "sha256": "11980404f6a6a7a2bd25819842a87b5b60f54c6c32cbd87f0035b4b1ddaf3c1e",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/prompts/Log Prompt.vi",
+   "bytes": 10178,
+   "sha256": "56fe441606e7e4478f45a3728290a3d4acf3bf5cc48baf006d8f209a19381bc1",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/sub VIs/Acquire Signals.vi",
+   "bytes": 135275,
+   "sha256": "19c26302746233ee5623c25c802c75d29e9315bcf4002fe89162be734ff59ee7",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/sub VIs/Get Log Path.vi",
+   "bytes": 9840,
+   "sha256": "af6bfd4229c5d5dbcd1edb29424221a961eb2029a125b097f69b82087d996e22",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/sub VIs/Globals.vi",
+   "bytes": 4243,
+   "sha256": "b54b4b51a6a04074547c23c9a7bfca8d4712d848c6b046ef700969ecf76059fd",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/sub VIs/Log Data.vi",
+   "bytes": 59608,
+   "sha256": "521bf33acdc70c18d9c56e7276c62af6d5601998d2a3576643c0638c3af4251d",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/tools/Get Waveform.vi",
+   "bytes": 19936,
+   "sha256": "09e192ac9fb52a431180224d684406924b15506c4d010fd03de0aa120c2dcd3d",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/tools/Read Log.vi",
+   "bytes": 11992,
+   "sha256": "38ecc927706139ab0aa8b837ecd57273f62e7abf9e893377b160793e8537a410",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/tools/Start Logging.vi",
+   "bytes": 15205,
+   "sha256": "d304a87e55b6822b5b2854f505be187d76cbdfa40434adf3bfd809f58bdde5bc",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/tools/Stop Logging.vi",
+   "bytes": 11300,
+   "sha256": "d1a35416fb12ba11ead8e57e21da95f42c8ffd9ff80a05999b4275817cda35a9",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Add Stock Price.vi",
+   "bytes": 12883,
+   "sha256": "22bb79f0e0ace6c0253efc05ddf0c9082da109d7a6949820ee11b9d9f2479d21",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Buy Any.vi",
+   "bytes": 10475,
+   "sha256": "7bbd1d4ef9e0619eabc1091f5ab64b17a2e7d5a567a0558b8cdc24a9d4948d1c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Buy Stock.vi",
+   "bytes": 12881,
+   "sha256": "5a61428d432d08f404bbab738349d73edbf407fc71f7b4481f951c3af18686d4",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Find Best Trending Stock.vi",
+   "bytes": 10720,
+   "sha256": "dbbfa1c6d4cd7560c242f2780a4a7d7def978211cf6c71684bd67cfbdc7e9b17",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Full Featured MCP Server.aliases",
+   "bytes": 43,
+   "sha256": "0ec598c3d3ca2378d81494cb6317dac95b95a51877bfe377ee8a2bc448270d28",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Full Featured MCP Server.lvlib",
+   "bytes": 2190,
+   "sha256": "4d859eda32508832450a753469e3117916e934ad5491fd50e3078148dd58dd37",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Full Featured MCP Server.lvlps",
+   "bytes": 83,
+   "sha256": "99ddb54f9ce68ec6e68e9aea82dc8c5caf5babb3e2da848231a68618b6a134d1",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Full Featured MCP Server.lvproj",
+   "bytes": 1234,
+   "sha256": "8513c13c68d1d8ab08df279ed404ea9b52c5a1ab0ac33d20310ec09940e305d8",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Get History Chart.vi",
+   "bytes": 24385,
+   "sha256": "d29c7f5e9f10e3ccdc79033a53482b185de01071ec33013611fde23c70add0eb",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Get Owned Stocks.vi",
+   "bytes": 10832,
+   "sha256": "89660ceb4a21a3ab3caad7a51c23d55ee7508a340545f59ea59d2ad7e2615479",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Get Stock Names.vi",
+   "bytes": 10795,
+   "sha256": "d18e6f83676b5604ce3ab42b29df9fc3d66ef464291dcfc016415b1c724bc5da",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Get Stock Prices.vi",
+   "bytes": 12104,
+   "sha256": "85e83da32fb919fbc636167b44f7a82beac63a04c1b270c9c9a6635826b09b56",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Get Wallet.vi",
+   "bytes": 10518,
+   "sha256": "fba3aa91f9ac124daf35066d54ced28db4b79efb70c870c65f8f93c326515e9a",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Server Data.ctl",
+   "bytes": 8452,
+   "sha256": "87f9de5014ae4b4afd9a4ae4edace001620ae6038986f156792b678f1a69e9bf",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Server FGV Modes.ctl",
+   "bytes": 3905,
+   "sha256": "088d0d4d0484815b1639c18f420f0afd83b543d2d52198fb00f004fbf81a738a",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/Server FGV.vi",
+   "bytes": 64698,
+   "sha256": "c342705eac9485e2c5f3e19e69389f9bf38f63c97463921ede4779eed14af48c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/main.vi",
+   "bytes": 33424,
+   "sha256": "c60ae5421e405108d059cc937a1a5ddd50c2ee904e24a804d1a91d876c400ade",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/Get System Stats.vi",
+   "bytes": 13200,
+   "sha256": "75ed23dee2b923af43c7f106eb63dcd84b8ebd77c5b2217aa29753b51e3cf5d2",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/Simple MCP Server.aliases",
+   "bytes": 43,
+   "sha256": "0ec598c3d3ca2378d81494cb6317dac95b95a51877bfe377ee8a2bc448270d28",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/Simple MCP Server.lvlib",
+   "bytes": 1291,
+   "sha256": "a5008a9c98a7efb77bab158ba68eebe52a7612ff427507fabf80f37b9211f3af",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/Simple MCP Server.lvlps",
+   "bytes": 83,
+   "sha256": "d1eca07f400c44d0cf50968557dcadc75872e490bebc38b7896c615879f2b330",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/Simple MCP Server.lvproj",
+   "bytes": 1220,
+   "sha256": "142fb7a35c9a097c7572e0294c20b55571f343cd53932f9e333db20728040057",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Simple MCP Server/main.vi",
+   "bytes": 11696,
+   "sha256": "70c9ddab002e19a8326f87af74380b151b8345cd722ac1df902ed4ed6a30c535",
+   "via": "extension"
+  },
+  {
+   "path": "src/LabVIEW MCP Server SDK.aliases",
+   "bytes": 43,
+   "sha256": "0ec598c3d3ca2378d81494cb6317dac95b95a51877bfe377ee8a2bc448270d28",
+   "via": "extension"
+  },
+  {
+   "path": "src/LabVIEW MCP Server SDK.lvlps",
+   "bytes": 483,
+   "sha256": "5a655165f322b344c7c9bb4330e8791957cca6d5faa1adf18a96d60e10533bf6",
+   "via": "extension"
+  },
+  {
+   "path": "src/LabVIEW MCP Server SDK.lvproj",
+   "bytes": 4942,
+   "sha256": "a7c539b5b8af814d504a5e4533dc642bf2635a71b6e43b48f2a1ca9040dbf379",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Add Prompt.vi",
+   "bytes": 51314,
+   "sha256": "e5345dac0e26d782331cf7c7df5f00bf113c76f3e59d4fc99ebff9f28f7b25e9",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Add Resource (File).vi",
+   "bytes": 23415,
+   "sha256": "ead3aa7fcbb18f8b5c5b506b13fb43d2dc3d23cd0972239748fcde589ebab400",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Add Tool.vi",
+   "bytes": 21680,
+   "sha256": "2c8d749dd1aa59f8e211141a35741a31456366b18a4bb7085a04b1afffd1d05f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Content.vi",
+   "bytes": 46853,
+   "sha256": "f85f93273fc71405af2c2cf8410725ccde90be1a5995c2c34227971640dd8f8f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Picture JSON.vi",
+   "bytes": 43306,
+   "sha256": "71ea2627d8163db7a7113a88c8fd6e5674bc6d8667378ad324779bf7796772b6",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Response Error.vi",
+   "bytes": 129736,
+   "sha256": "80a98ce5742faa248dfa38f1002328ec7878e34ca16f055621119acef5047eba",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Response Message.vi",
+   "bytes": 72286,
+   "sha256": "8f665497ef163338a8fa37a60944bf0f6f4f31b6d99fb2e1d0ccc3de5c036d41",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Text JSON for MCP.vi",
+   "bytes": 15707,
+   "sha256": "0e53712dc0c894e816c45c07a59c81b6a0737c6538395540fefafa7d0bd1eb2b",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Build Tool.vi",
+   "bytes": 26618,
+   "sha256": "ca8b0b9c3e7c1f4402a7994e59210886caff30fcfcb8e2bf4323ae24ff71fd96",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Call VI.vi",
+   "bytes": 484287,
+   "sha256": "85dc3a7ba6c8ddf59b116a8776722a9b17b48635b61779a75a2b3781f2e7eb86",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Clear Tools.vi",
+   "bytes": 19607,
+   "sha256": "421a799775b64371d5db933fdf0c711a553b186a38015ab0eeb97628b874b26c",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Convert Image To Base64.vi",
+   "bytes": 22327,
+   "sha256": "5573ea49736fbc27c8b5f3fb0355a701e59fb21495a6d18a6f640fa8fe395927",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Create Events.vi",
+   "bytes": 33125,
+   "sha256": "89045c9eaddb71851488e33b4acfa346761fc68424a7084c614db73a6e2870e8",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Create Server.vi",
+   "bytes": 35201,
+   "sha256": "2fd271d8db5a10590aca5f8ddac835a134f57113c89d2d289bb09c21a029364f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Generate Unique Server ID.vi",
+   "bytes": 41969,
+   "sha256": "94d1cc8d9bf78760b40d5857282c88edf16724015367371e4b43b2f7da315e94",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Connector Pane Info.vi",
+   "bytes": 27183,
+   "sha256": "b86a45e632d3c499bcce1789961a90a926ea99590dac4fb1b1a6094134f4b107",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get ID from JSON.vi",
+   "bytes": 45612,
+   "sha256": "810106ecee94d00b9681775322e2684749bd1a14afa2da807066f3596d936719",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get ID from name.vi",
+   "bytes": 18616,
+   "sha256": "56c4cf9e51a7104431d5b5def9707e600daf6f09a61f279d2c41871be2692595",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Parameter.vi",
+   "bytes": 18561,
+   "sha256": "8545b6ad1b39b6656a64086466fe95f657512f96ca2c2df90ed27b8c18b33a01",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Prompts.vi",
+   "bytes": 18331,
+   "sha256": "59638a7d81203302c696179ec740b4c763ef66eccff3c0d2e39cbfc9a3f8d773",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Resources.vi",
+   "bytes": 17613,
+   "sha256": "8702dffc9607eb010f58aeb5486c2da5e3da6a8044fa73b93b14c5ac53db6e5a",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Server Name from ID.vi",
+   "bytes": 16883,
+   "sha256": "0c0f4698ca9992ef53416036b73dff342ab06c4472180dda1f4c47ddbc39b2d8",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Server.vi",
+   "bytes": 67078,
+   "sha256": "886bec0d72da4c001523082f9f71e29d43fef1f6d4a22d8e9e4a49b10c1acc06",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Tool.vi",
+   "bytes": 20980,
+   "sha256": "bb97bf4712a33402df75f2e7c03eef49f81df4b60967c49b3c07733988943961",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Get Tools.vi",
+   "bytes": 19621,
+   "sha256": "8b97c766cd7a92cf13de192efc07fe208ab88ac2c74eddf8ee6eb6bcb7bfabbe",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Handle Server Request.vi",
+   "bytes": 55461,
+   "sha256": "d4b192a86f898c404bf4637fbbe439a38f4149535d47628b6f7e389383c43315",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Input Parameter.ctl",
+   "bytes": 4704,
+   "sha256": "d0a83501afb82dcc6bae1c8654cfcda50054453280f24caa8a9c2303da4b7ce0",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/LV type to MCP type.vi",
+   "bytes": 16631,
+   "sha256": "d057ad64af8374a2827608e136e6cf324fa4b57ff80a353cdd30acfad657eba6",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Log.vi",
+   "bytes": 16347,
+   "sha256": "b1c6b4850de48c198da35df714119d6ca674e82a525fe40c4c85f6384c6f4c42",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Logging.ctl",
+   "bytes": 6396,
+   "sha256": "67b4c3ebeb940198d5aabdbb97d64fb007dc1b3395aeaffffc9b5abd81db6e8e",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/MCP Handler/Do Request.vi",
+   "bytes": 23530,
+   "sha256": "fddfde1b64baa77d896752489486ce7cc6a1d4aa538dc422e501c78f65b4701b",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/MCP Handler/Get Path Regex.vi",
+   "bytes": 18094,
+   "sha256": "86ab0a12431efb159ea919c8a424a6624e66c82e8a77160eb3e24f8b677ff8be",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/MCP Handler/Init.vi",
+   "bytes": 16576,
+   "sha256": "eb6f5497bf04e16522dd7d8eee78e7a9218c024fd6bf5468c4a2ce89b9240496",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/MCP Handler/MCP Handler.lvclass",
+   "bytes": 28150,
+   "sha256": "22f883e5794b048865f3b3849f946fc0a90a40917ad343592d5bcc09b2c1639c",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/MCP Server.lvlib",
+   "bytes": 18098,
+   "sha256": "efaebb3b48b23f4d539ec316ca88f26be0e2d6b343022f8f0ff12f7b2d09c8f3",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Output Parameter.ctl",
+   "bytes": 4157,
+   "sha256": "b4ab0b49c1d9fc143e95f1927af60ffedca1a9b2b61863a3d6514fe6e9d0af14",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Prompt Argument.ctl",
+   "bytes": 4344,
+   "sha256": "c05e6aa82374de93b13fdbc71d29763e5c836696bdb5e818a0fb0745e296eee4",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Prompt Data.ctl",
+   "bytes": 5544,
+   "sha256": "03ebe1ec8563871ae2e59e6738b69a956ef3607294bab9cf304c8ba3aece28fe",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Remove Server.vi",
+   "bytes": 60477,
+   "sha256": "ce0a6f0dcb8f320fafc89059381a3f7d85d27ae0b405ae0f1c0471e55b04197e",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Send onError.vi",
+   "bytes": 17816,
+   "sha256": "2f7622a04ad8778bf30efcb464df936ca4fb79efbde8d7b62a2a6cc27bbdbc66",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Send onRpc.vi",
+   "bytes": 18154,
+   "sha256": "2a90ae97f4415cb3392f7be13475e9ee5461efaf57af3f119068a404b8d6dd64",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Server Data.ctl",
+   "bytes": 15448,
+   "sha256": "545e69846bcd4331be2daf36ea533d88ae08d741ecb3cad44a15382bc1b4ac7f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Server FGV.vi",
+   "bytes": 55134,
+   "sha256": "04466f548b46d87906de7d1d8fb89481141e3a62119f217342ab983748e6477f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Set Parameters.vi",
+   "bytes": 16986,
+   "sha256": "a70759908c481c96e5a3c8233582b046310ed249d87ca79bd32583cfaab5f9c0",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Start.vi",
+   "bytes": 41173,
+   "sha256": "8104efe6e1ca1128e2c5fb0ff81a9da6be6f70aeb9f476c4de6dbac0d668e8ef",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Stop.vi",
+   "bytes": 17940,
+   "sha256": "6f3d12726cf1881145cd2cac2b5fdd7b0b94a472fb0e8581ce6e32c369b8c532",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Terminal.ctl",
+   "bytes": 4705,
+   "sha256": "38654e54a00cac5d9f668c2c502bcebaf46894243fecd6408a9ca12799ccf0cc",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/To MCP Name.vi",
+   "bytes": 13831,
+   "sha256": "934d8ffa2308456cff024fb768cffefe9d3d809be1ac8917810d5bff126e4cc8",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Tool Data.ctl",
+   "bytes": 13770,
+   "sha256": "bdfde5c7e6e7a99449461cd9165d70e9b112220bf20f8b032c93a814741f0d95",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/Transport Layer.ctl",
+   "bytes": 3828,
+   "sha256": "129c7f8439636c9a391868a1347ab1779efc0923e23887a06441a60d41b1a0ee",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/User Events.ctl",
+   "bytes": 5784,
+   "sha256": "59e19ff87755bd2621702cdb56fb336815aacd14f1ba605ac705bafd88a2a147",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/exit.vi",
+   "bytes": 14620,
+   "sha256": "b7d15983f7aa686cadb0ec5288a6306c556662c40aa055c9e19cbb5d5de971ac",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/initialize.vi",
+   "bytes": 49770,
+   "sha256": "4577c71a4f2875f11dcdc5a4d60eec5a8d2051b26836af1f6a4e3f71df9a013f",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onConnect.ctl",
+   "bytes": 8166,
+   "sha256": "76c7abed6aa14f317939404fc7948b3b1f7ebbae3f9925d9951a57783960b0c0",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onLog.ctl",
+   "bytes": 8170,
+   "sha256": "212675d442ace9c42ab23cc8293d3cb5cb4337d7da2f8dfac6abdc768394421e",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onNotification.ctl",
+   "bytes": 8195,
+   "sha256": "608c2fc502696f7181ad808ad96dc4e25b058c7c87331aed665f20eace15779e",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onRpc.ctl",
+   "bytes": 8242,
+   "sha256": "c1d35bca67386336b544b9f7b8ed4e4a2f6b2dcc58640307caefae266a8d25b7",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onTool.ctl",
+   "bytes": 11227,
+   "sha256": "69bac366f5cf3749fbef7e7112bb4f71f0797bfa1e6d0e5f7042e6ca6bf4d960",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onToolsCall.ctl",
+   "bytes": 8264,
+   "sha256": "e5c02c0984286ea313a5c049bbb4c5a1d96d975ad5bf7bceeb43714af403e4cf",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/onToolsList.ctl",
+   "bytes": 8268,
+   "sha256": "9b8edcd3d39d78780b2f5b4667db29315455eae573964a13748fa169aa822f4b",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/prompts get.vi",
+   "bytes": 155599,
+   "sha256": "42b08bd159a5f9eb895ca95e09da24c0cf01fc302eca5137a41766d70f7cbccb",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/prompts list.vi",
+   "bytes": 49064,
+   "sha256": "aa7f52b60306f70d257bf4b0e6d5047c612425e3c287c781528a02c89f048e6a",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/resource data.ctl",
+   "bytes": 4442,
+   "sha256": "4c821312725a8fa3eb0139a74f80f75b14549a21c0a2c277fc8ef92fd55d8900",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/resources list.vi",
+   "bytes": 48182,
+   "sha256": "bdd4348e0b0bd6e84c358474572c07265a8d4c609e9d11c3d72ef0ca5a9763e3",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/resources read.vi",
+   "bytes": 208898,
+   "sha256": "43c84efda111473dd49e657ae1c3d005888135b7ae7121f42a8c4d72d0b77f4e",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/shutdown.vi",
+   "bytes": 14628,
+   "sha256": "87c1449b48319b92ed814c8ed22e019be7061b7ba725fb76554eae1d92b1eee2",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/tool call.vi",
+   "bytes": 53465,
+   "sha256": "59dc464f461f51eaa8329c6c458adc2fc23b0943bf89eae34898250d9cfe218c",
+   "via": "extension"
+  },
+  {
+   "path": "src/MCP Server/tool list.vi",
+   "bytes": 188641,
+   "sha256": "f911a01e63afd1abf5e3bba37b12def724fd091c70353f52c51498f96e6bf55a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/MCP Server tests.lvlib",
+   "bytes": 3386,
+   "sha256": "85594f4ac34de7fd25e8085fed8ec9a64ae4ab7a23cba102d78990637546ae9a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Run_Tests_CLI.vi",
+   "bytes": 8721,
+   "sha256": "9108a84d77567603b23934913ea533c5148568d2c968df809bdcaab2432013ff",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Send HTTP request.vi",
+   "bytes": 19217,
+   "sha256": "cd1be6fbd56459a81f7ca4a91941b7c114f8d3274129c319f1822b7885f1662d",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test Initialize.vi",
+   "bytes": 47151,
+   "sha256": "4d22c82231e0f789a20b1d10b2cb4bb49574adb39c67581de9d667da739f74f3",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test Initialized.vi",
+   "bytes": 16836,
+   "sha256": "f28a7b61ea0548208265e06f4fac157f829a8d1ce632eacab58606f1c8c5dbd8",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test tools list.vi",
+   "bytes": 35707,
+   "sha256": "13c0c9cf9cf1b25ba0efb3a1fe6bf9121ef73ae2c48d40af2cf316a980d641b2",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test_MCP_Server.vi",
+   "bytes": 32679,
+   "sha256": "776ad791e2dd74c975015944f60a9d2654f064b3175ba975cb15c38855ec3037",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake prompt broken vi.vi",
+   "bytes": 11749,
+   "sha256": "108878810a4ff4c93152ae216df14f650fcfee4f38a9d03062a19e9bbba5004c",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake prompt concatanate strings.vi",
+   "bytes": 13067,
+   "sha256": "8edb5cbc682bdfa6a2538d918b8b0bbf612d91069960175450348c4ac35e5f8a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake resource broken vi.vi",
+   "bytes": 11755,
+   "sha256": "5e19dcd2321ef24993dfd4e7f498c7a88a4d6c3e31e86e3bc41d28f8653c8fef",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake resource long string.vi",
+   "bytes": 13797,
+   "sha256": "af3d942ded704c97d4eab216fec3d3099c9654bed3d2da4b848951727cb4af67",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake resource short string.vi",
+   "bytes": 12686,
+   "sha256": "053ac528d7c1b999dfcf8aa3f1bb512f9fbec58de6313f25ef927d7fbb4a0942",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool add.vi",
+   "bytes": 12497,
+   "sha256": "7a38835e67dae3d29d4e2225941ac35038b2029531ac3575c253c638750088fd",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool arrays.vi",
+   "bytes": 15192,
+   "sha256": "3657f5f08ed6b36f3aab11f030739d06a96db6f36f1da5be72d1f23acb6f65f3",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool broken vi.vi",
+   "bytes": 11439,
+   "sha256": "c9edd60c19999cf162fcebf639e1006b83129f8047c3a88c44ea3482c7d471da",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool ignored.vi",
+   "bytes": 12449,
+   "sha256": "172823cff3dd1c047616962986b9500d17a108a6fb7c80dc1cdaa5059c6e5797",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool no description.vi",
+   "bytes": 11984,
+   "sha256": "eb1a86ebf6e1396a07680adcf8fa83bf885ff158f18d3c2da058a1a349176719",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool no inputs outputs.vi",
+   "bytes": 11127,
+   "sha256": "55a1b599679290e13dfda407846c5785c552f4afdc06101faa182ab44f855fbc",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake tool return error.vi",
+   "bytes": 14758,
+   "sha256": "f7f25dcbb2a35ffdfab56e5f8087b2b941fa78faedaa1f10f90f37694d6b9caf",
+   "via": "extension"
+  },
+  {
+   "path": "tests/fake_tool_say_hello.vi",
+   "bytes": 13287,
+   "sha256": "bc6582b9789dda66799d4a78ebc34e5ed60480f5bfc2807fa27418c8eae135ec",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test broken tool.vi",
+   "bytes": 38596,
+   "sha256": "137900a99fb8d0419cb1b9cb1d06415ae5eaacc019c9126d2fb462e345ed891a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test empty msg.vi",
+   "bytes": 35434,
+   "sha256": "bcfb59d9060447e517f500862f3281b867526b4f4fa58d883e8bb83424ad36b0",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test prompts list.vi",
+   "bytes": 35345,
+   "sha256": "410471d5d6a5b50f0446cee7b535613b1486bd816aecfc9dfe00543c3928890f",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test resources list.vi",
+   "bytes": 35399,
+   "sha256": "6cbfef92880e83fe171bdfce79f5fd8443455aec28fb0bfba74f214c2f599d93",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test tools call array.vi",
+   "bytes": 40029,
+   "sha256": "6aa0700482fa473f105d576ac78a243a836b1a6cbdd6e92b8c34645844f96638",
+   "via": "extension"
+  },
+  {
+   "path": "tests/test tools call.vi",
+   "bytes": 42579,
+   "sha256": "c12e0f495294d30bec10541986c64aeab663f3dfed30643ff91a1a6c5ebf924e",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/resources/Stockmarket Expert.txt",
+   "bytes": 2018,
+   "sha256": "21e26e5d0e9ebbf5a1c1d12422663024631f750f9efe132d5c0b4b88e06e4d7f",
+   "via": "ref:examples/Full Featured MCP Server/main.vi"
+  },
+  {
+   "path": ".github/workflows/release.yml",
+   "bytes": 4582,
+   "sha256": "1da304a0f1fab8dc5bfaaf78a6ee0b1d914d4e2daeb667f3eeb92bf79644132c",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 236,
+   "sha256": "4b39d7cbc8e39cf0471c51fd493f21c2ef8b17294e5405c2aea8cb17f4ae69b3",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1066,
+   "sha256": "d80d40e5c9845d7f11c2f021c0137976a676709d719aea0890ca13706d77aebb",
+   "via": "tree"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/log.lvm",
+   "bytes": 242457,
+   "sha256": "bf634463a5cbfd2e46499d76dee05dc77d69ba181666a5c57bab6c86559175e1",
+   "via": "tree"
+  },
+  {
+   "path": "examples/Datalogger MCP Server/readme.md",
+   "bytes": 1489,
+   "sha256": "f97dbb3a7734a1d7844d5d88a8eb8739f7ac95eec39e98225ad204d558f26017",
+   "via": "tree"
+  },
+  {
+   "path": "examples/Full Featured MCP Server/.Full Featured MCP Server.UserState/debug.lvprojstate",
+   "bytes": 134,
+   "sha256": "6b2975e3d368a71475001f587e355da1b83bd26d4f84532b41d19ef4f431dbb0",
+   "via": "tree"
+  },
+  {
+   "path": "examples/Simple MCP Server/.Simple MCP Server.UserState/debug.lvprojstate",
+   "bytes": 134,
+   "sha256": "6b2975e3d368a71475001f587e355da1b83bd26d4f84532b41d19ef4f431dbb0",
+   "via": "tree"
+  },
+  {
+   "path": "examples/Simple MCP Server/readme.md",
+   "bytes": 343,
+   "sha256": "a4b30f5688f7d2bb41f50fdc69be32c0498f770e0f5c0fc922da6cf8dbd4525b",
+   "via": "tree"
+  },
+  {
+   "path": "readme.md",
+   "bytes": 3510,
+   "sha256": "14c58e20c292a2943ae9f65c55d6255a2d2a5e593e37ad29de8184ce5d6fc6e9",
+   "via": "tree"
+  },
+  {
+   "path": "src/LabVIEW MCP Server SDK.vipb",
+   "bytes": 28877,
+   "sha256": "bc26c575ff06121a939caa4c64ac2c6ddacb47aed38f95522431d58b15f991f6",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\JDP Science\\JSONtext Help\\Find Item (as LVtype)_VIM.html",
+  "<helpdir>\\JDP Science\\JSONtext Help\\From JSON Text_VIM.html",
+  "<helpdir>\\JDP Science\\JSONtext Help\\Merge Cluster into Object_VIM.html",
+  "<helpdir>\\JDP Science\\JSONtext Help\\To JSON Text_VIM.html",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Complete Handler\\Complete Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Connection Handler\\Connection Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Controller Handler\\Controller Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Controller\\Controller.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Exception Handler\\Exception Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Handler\\Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Get Request.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Processing.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Processing.lvclass\\Processing.ctl",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Request Body.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Request Header.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Processing\\Set Response.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Request Handler\\Request Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Response Handler\\Response Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Route Handler\\Route Handler.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Complete Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Connection Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Controller Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Controller.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Exception Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Request Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Response Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Add Route Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Cleanup.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Ctor.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Open.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Server\\Register Handler.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Server\\HTTP Server\\server\\Server.lvclass",
+  "<vilib>\\IlluminatedG\\IG HTTP Utils\\HTTP Utils\\Request\\Get Body.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Utils\\HTTP Utils\\Request\\Header Value.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Utils\\HTTP Utils\\Response\\Create Basic Response.vi",
+  "<vilib>\\IlluminatedG\\IG HTTP Utils\\HTTP Utils\\Response\\Response.lvclass",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Base64\\Base64 Encode.vi",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Base64\\Base64 Support.lvlib",
+  "<vilib>\\JDP Science\\JSONtext\\Find Item (as LVtype).vim",
+  "<vilib>\\JDP Science\\JSONtext\\Find Item.vi",
+  "<vilib>\\JDP Science\\JSONtext\\From JSON Text.vim",
+  "<vilib>\\JDP Science\\JSONtext\\Get Array Elements.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Get all Object Items.vi",
+  "<vilib>\\JDP Science\\JSONtext\\JSON text to Variant.vi",
+  "<vilib>\\JDP Science\\JSONtext\\JSONtext.lvlib",
+  "<vilib>\\JDP Science\\JSONtext\\LVClass Serializer\\JSONtext LVClass Serializer.lvclass",
+  "<vilib>\\JDP Science\\JSONtext\\Make JSON Array.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Make JSON Object.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Merge Cluster into Object.vim",
+  "<vilib>\\JDP Science\\JSONtext\\Merge into Object.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Next JSON Value.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Offset\\Find Item Locations by Path.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past Array.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past Line Ending.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past Number.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past Object.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past String.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past next JSON Value (inlined COPY).vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Advance past whitespace.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Parsing\\Parse Full Path or Item Name.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Pretty Print.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Set Item.vi",
+  "<vilib>\\JDP Science\\JSONtext\\Set Multiple Object Items.vi",
+  "<vilib>\\JDP Science\\JSONtext\\String Subset.vi",
+  "<vilib>\\JDP Science\\JSONtext\\To JSON Text.vim",
+  "<vilib>\\JDP Science\\JSONtext\\Variant to JSON Text.vi",
+  "<vilib>\\JDP Science\\JSONtext\\support\\Error Cluster From Code.vi",
+  "<vilib>\\JDP Science\\JSONtext\\support\\Format JSON Array Text.vi",
+  "<vilib>\\JDP Science\\JSONtext\\support\\Format JSON Object.vi",
+  "<vilib>\\MemoryControl\\Get Memory Status.vi",
+  "<vilib>\\Utility\\Data Type\\Get Array Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get Type Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get VI Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\Data Type\\Type Definitions\\Data Type.ctl",
+  "<vilib>\\Utility\\Stall Data Flow.vim",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert True.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test Suite\\Define Test Suite (Default).vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test Suite\\Define Test Suite (Poly).vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test Suite\\Test Suite.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Define Test.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Test.lvclass",
+  "<vilib>\\express\\express input\\SimulateSignalBlock.llb\\Ex_Inst_Simulate Signal.vi",
+  "<vilib>\\express\\express input\\SimulateSignalBlock.llb\\subSigGeneratorBlock.vi",
+  "<vilib>\\express\\express input\\SimulateSignalConfig.llb\\Configure Simulate Signal.vi",
+  "<vilib>\\express\\express shared\\transition.llb\\Dynamic To Waveform Array.vi",
+  "<vilib>\\express\\express shared\\transition.llb\\Waveform Array To Dynamic.vi",
+  "<vilib>\\express\\express signal manip\\ConvertfromDDTBlocks.llb\\DDT to 1D Dbl Automatic.vi",
+  "<vilib>\\express\\express signal manip\\ConvertfromDDTConfig.llb\\Configure Convert from DDT.vi",
+  "<vilib>\\express\\express signal manip\\ConverttoDDTBlocks.llb\\2D Dbl to DDT.vi",
+  "<vilib>\\express\\express signal manip\\ConverttoDDTConfig.llb\\Configure Convert to DDT.vi",
+  "<vilib>\\httpClient\\AddHeader.vi",
+  "<vilib>\\httpClient\\CloseHandle.vi",
+  "<vilib>\\httpClient\\LabVIEWHTTPClient.lvlib",
+  "<vilib>\\httpClient\\OpenHandle.vi",
+  "<vilib>\\httpClient\\POST.vi",
+  "<vilib>\\httpClient\\POSTBuffer.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Flattened Pixmap.vi",
+  "<vilib>\\picture\\pictutil.llb\\Picture to Pixmap.vi",
+  "<vilib>\\picture\\png.llb\\Write PNG File.vi",
+  "C:\\Program Files\\National Instruments\\LabVIEW 2026\\vi.lib\\IlluminatedG\\IG HTTP Server\\HTTP Server\\Handler\\Handler.lvclass"
+ ]
+}
