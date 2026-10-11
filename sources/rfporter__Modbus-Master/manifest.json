@@ -1,0 +1,797 @@
+{
+ "repo": "rfporter/Modbus-Master",
+ "url": "https://github.com/rfporter/Modbus-Master",
+ "commit": "da8f0102198509bcb1213daf439c3e2f27113243",
+ "license": "BSD-2-Clause",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Documentation/MB_Master.vi",
+   "bytes": 21337,
+   "sha256": "36efc6c3bebf53f86cfccca1cfbfd1b44651074b6f3fc7a15324705c7c7e8dc2",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/MB_Master Comm Tester.vi",
+   "bytes": 97937,
+   "sha256": "cd808089679d372cf5860711a2d0cf6d739f7155fb0aae65c501e2d7ff780d8d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/MB_Master Multiple Sessions.vi",
+   "bytes": 20455,
+   "sha256": "a881f4f6545915737e0c47ec231348bbb400d7f16db3866b64a20db511729b21",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/MB_Master Simple Serial.vi",
+   "bytes": 27487,
+   "sha256": "07944a7059cd62afd817d6d848d4ed608ca68977237a1a14392f76302116affd",
+   "via": "extension"
+  },
+  {
+   "path": "MB Master.aliases",
+   "bytes": 47,
+   "sha256": "a46f45e588e7c9b6f562c4ebbb935cf47ff2b5c7acbff03a715d4ff0cb811b38",
+   "via": "extension"
+  },
+  {
+   "path": "MB Master.lvlib",
+   "bytes": 5987,
+   "sha256": "403482437def7816e7372d70642802897c8cb4a84631e981cdbf5892f86e0d99",
+   "via": "extension"
+  },
+  {
+   "path": "MB Master.lvlps",
+   "bytes": 496,
+   "sha256": "468fa3a16b64572912230a3dc0e58c2e44124f540e834208f7efc61cb7ab0639",
+   "via": "extension"
+  },
+  {
+   "path": "MB Master.lvproj",
+   "bytes": 13205,
+   "sha256": "bc8dc534f57ccd79536566cf76c175000959b94d675179ec12e24ed1174f0a7f",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Build ADU.vi",
+   "bytes": 22673,
+   "sha256": "39b6d8b0c3846a67d0c450322feacef4059234678d6179a1834aba78280a8322",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/MB_ADU.lvclass",
+   "bytes": 64594,
+   "sha256": "81429b11deb4d94feff477995bf403fb8d0ee02e61f5a1a9ca2ca4afa6d65a87",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read PDU Req.vi",
+   "bytes": 14508,
+   "sha256": "5413a0514c09f22fc29057bdf7002678db503d43720b8f88e143e26d6943574b",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read PDU Resp.vi",
+   "bytes": 14509,
+   "sha256": "ab29d44f4820e250282737dc7a54b049e29953c61ef0a0ceb2884e0b677cf518",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read RX Data.vi",
+   "bytes": 13284,
+   "sha256": "22d6b9b201a54314bf650c1e317a927b595183acc67e137d44784f8a8fdf2954",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read RX Timestamp.vi",
+   "bytes": 13477,
+   "sha256": "dc2d63f697cd96cb8d3dd1b14874e7a823e75c2c0b1a910fa81c0a959678cc86",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read Slave ID.vi",
+   "bytes": 13361,
+   "sha256": "bedd9c63816cda78b9f54b77c17e43a96bbd65cf2e05dcfe238e06bd871d2c8d",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read TX Data.vi",
+   "bytes": 13276,
+   "sha256": "aaaf041045b43241261f94b9b2d4fa1b392120271f2ba59ad7d368ae01a9eaa0",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Read TX Timestamp.vi",
+   "bytes": 13469,
+   "sha256": "f119aa9573429eba59a53dcbc039459c7af8ff1986ee49af70990e7ceb61e893",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write PDU Req.vi",
+   "bytes": 16125,
+   "sha256": "0da68b77e2cfd262b1f7caa7d9b0c38bb7ac9a0da324cc65ce7fd5b2fe781870",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write PDU Resp.vi",
+   "bytes": 16126,
+   "sha256": "2438c6a086a65042fcb6ab97653e1d0fe32b008624acaf84d511f44a7fe24409",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write RX Data.vi",
+   "bytes": 14893,
+   "sha256": "7a801001361a90f68b197d91265d2d3ad51d6be493693bc6c8408aba6de173a9",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write RX Timestamp.vi",
+   "bytes": 15078,
+   "sha256": "fd8184b409c656c1fb13bca0fd0278a76138e6d7496b1c7fdd3ce2b9b4b35602",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write Slave ID.vi",
+   "bytes": 14970,
+   "sha256": "4ba5fc19c8d1373c865eb211762111b65533360f7609868d32dafccadc3822fd",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write TX Data.vi",
+   "bytes": 14889,
+   "sha256": "dbb86e35395f2f62c3c97f205f901c40c22d71e4228c4b87968b5b02e6b725f3",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU/Write TX Timestamp.vi",
+   "bytes": 15078,
+   "sha256": "4f76672c77aecec3249740260fee6b9ee40b76a8a1e8a8af6377d2fbad4a5dbf",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_ASCII/Build ADU_ASCII.vi",
+   "bytes": 22767,
+   "sha256": "aca90e9617a50994843b1f57a0244f0e6a04c4dbfdb6e6f7cd8b35937efd5b7c",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_ASCII/Calc LRC-8.vi",
+   "bytes": 9230,
+   "sha256": "883d079d79f6d173e3d62884bbf3347c8301dd8312c6d34df5bce2389dfd95bd",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_ASCII/MB_ADU_ASCII.lvclass",
+   "bytes": 58964,
+   "sha256": "db4700e789d02236987d594c177570b8794dbe9ac1b540ece4d7b27f5dc8de41",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_ASCII/RX ADU.vi",
+   "bytes": 36122,
+   "sha256": "9b4871da820453af75a55d2993ad6a2540e247279ec4a4fc47800f618d2efa97",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_ASCII/TX ADU.vi",
+   "bytes": 23622,
+   "sha256": "15c32ee3aceb9f28eeb725af7862d6bb56864beac4f820cbdc5e3b13f5468a62",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/Build ADU_RTU.vi",
+   "bytes": 24341,
+   "sha256": "78d167e15c24bcae2dad2c99b8762695886ac9f3692ff12028283cd028c5aca1",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/Calc CRC-16.vi",
+   "bytes": 13083,
+   "sha256": "1e2974a1de9d80c370807290d9a8c148568b841f5b4d8c8610aa49953b121c01",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/MB_ADU_RTU.lvclass",
+   "bytes": 60258,
+   "sha256": "34fcad7a6504274907c44c38965772187ea3acaa661fccee4c1f5c8492d7e21f",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/RX ADU.vi",
+   "bytes": 37498,
+   "sha256": "3fb3119a2eaa2b9725d11de3b44a255030790424aa3f9b8851ddc5615522b3ea",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/RX MEI Data.vi",
+   "bytes": 20707,
+   "sha256": "0b121187fc4b4d3101faa8edda181e587952ebb97403be431eb58183f79fd774",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/Read inter-frame delay.vi",
+   "bytes": 13030,
+   "sha256": "e62ea9080bf3bffbaa9890497cb177a928fc2397e5fb3e1102ad9ac14e2b3924",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/TX ADU.vi",
+   "bytes": 23942,
+   "sha256": "2db162413334d7d19f1b75954f08b6b2d770c25602f308fa3f748748bc9f83d0",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_RTU/Write inter-frame delay.vi",
+   "bytes": 14639,
+   "sha256": "531ddf6f4a796ecf35cf04e032ccba68b33cd4ff244c89991c7bb9419efcf7e6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_Serial/MB_ADU_Serial.lvclass",
+   "bytes": 53213,
+   "sha256": "1dfbac8cf67877593ac68c61b6e97b41da847637330d2e65d83c440274879598",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_Serial/RX ADU.vi",
+   "bytes": 17210,
+   "sha256": "5757472d19cd9828dfe6e4e22354d55ac55e6b9aef9ff3ff08a648c16546d975",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_Serial/TX ADU.vi",
+   "bytes": 17202,
+   "sha256": "a1a6e75e9e95aa2812db58d7b65978120bf0affab062698576bdae2485cb28a5",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/Build ADU_TCP.vi",
+   "bytes": 20193,
+   "sha256": "3226de7967c4fb3044124953c43fa9f8b9cd8e3955863d88a3518bfd4f6e4e6d",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/MB_ADU_TCP.lvclass",
+   "bytes": 61328,
+   "sha256": "78060349943f96e692e08bf94677d7dd95d1aa48e06dad33e9df432dd1e94cc6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/RX ADU.vi",
+   "bytes": 30394,
+   "sha256": "1babf34b8d1931078a868adf6964e759e4b2827ca5a4aeeb08a1b9b89080851e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/Read Protocol ID.vi",
+   "bytes": 13096,
+   "sha256": "19246b65a0582d5416a67519138541c96d7387691e9d4cf21dc07e8e036e9cd7",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/Read Transaction ID.vi",
+   "bytes": 13095,
+   "sha256": "0b3ce2358e58c437f42facb8b5db7c065771e886abb70d894ad622fa7ba93fde",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/TX ADU.vi",
+   "bytes": 21986,
+   "sha256": "3e53fffbd4a23bc9a82fc5d12a0a4d46f807dfd81faa1a845a5a0455f8984f36",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/Write Protocol ID.vi",
+   "bytes": 14709,
+   "sha256": "6dc05454a64b2d6e770ac03828a5251e4cdc2114b01dfe54299a0d19e9c266b2",
+   "via": "extension"
+  },
+  {
+   "path": "MB_ADU_TCP/Write Transaction ID.vi",
+   "bytes": 14712,
+   "sha256": "097250a2a3eeb264dcd13b5835a9088bc1871e25663454f6092edb9dc95ee2b3",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Close Session.vi",
+   "bytes": 25021,
+   "sha256": "39627fcd1ee85461e4a7b6e24570d05fdba40f5058b03ec6e7212899a2e3825e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/MB_Master.lvclass",
+   "bytes": 57224,
+   "sha256": "0478b5da43951dca2715a523a92c00408e1c5d611f4d7b9943f9ab4991e76046",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Mask Write Holding Register.vi",
+   "bytes": 28235,
+   "sha256": "5cb44c1c60804be059004968ade7a892d85e07d7fe820d02fdbceb0a5151539d",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Querry.vi",
+   "bytes": 19346,
+   "sha256": "aecb51b25a6aa45ff02be2e8b1c4be89419a348613992d56a5e3124cd11a56f4",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read ADU.vi",
+   "bytes": 12388,
+   "sha256": "eb54a6e7f9fe48214695325db608493c3508491bb36145fe01ec8506d8a62458",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Coils.vi",
+   "bytes": 28570,
+   "sha256": "16a450ed2e3c628db52867bf1ea838d5312e48d39d54fe44add75714dd86b773",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Device Identification.vi",
+   "bytes": 31366,
+   "sha256": "fb6e9c3cc035accb1ef4d6f5c6b14d7ed15132ba5a9335986930b26576e6eaa6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Discrete Inputs.vi",
+   "bytes": 28672,
+   "sha256": "ffc7a222f868683d5dc25c581dfa2e4dccf7b448e7ba74c0ca7fc2355a271d49",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Exception Status.vi",
+   "bytes": 27893,
+   "sha256": "227d810ce3291e94953ea61f35ff084019c6aa3923cdfef0e34c4f0bd9150b77",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Holding Registers.vi",
+   "bytes": 31926,
+   "sha256": "12e2235aed798f7a63c52253a4db89d383095d1ff8fe6a1671bd5c274c25da9b",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Input Registers.vi",
+   "bytes": 25752,
+   "sha256": "8d09792b4ddeb9de624fd5df4acc09aafcbb73a424332555d2cccea91df56cae",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Session Valid.vi",
+   "bytes": 12214,
+   "sha256": "3458498c6fd5ec3932dd86efb8da171ce4ef82c8723cc3b6e43a20377ec7ec62",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read Slave ID.vi",
+   "bytes": 21421,
+   "sha256": "b6a9217589455ccfd8e0db38b4bd8627a061c0c61d104fbb3db4f4ca6157932e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Read-Write Holding Registers.vi",
+   "bytes": 35992,
+   "sha256": "2312fd5625debb2362670844f39ff0b4d14493ff664b10b5f678a83baf869f4b",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Set Slave ID.vi",
+   "bytes": 20692,
+   "sha256": "bf937eb3562db486313b154b46672de2a40897319f45855eaae4555e2a11e925",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Write Multiple Coils.vi",
+   "bytes": 31220,
+   "sha256": "f5a3061cce7b43cee4a8291cb06cf6e98075cebbcf20ac9c928c3be4ae7fb787",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Write Multiple Registers.vi",
+   "bytes": 31244,
+   "sha256": "c3f024a9f07d89abb0100cc2dde1f0e43abd6e32808e888f9185fdfa808fa87e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Write Single Coil.vi",
+   "bytes": 27577,
+   "sha256": "58b8bfd11fb3fb2fd098e896e226ae17cdefdc755f78455017cf0d1bc199ff08",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master/Write Single Register.vi",
+   "bytes": 27561,
+   "sha256": "119f402453d4ab759c625a71071895e60bf14245f0ea24d1ab6d4768e9b9ac99",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Close Session.vi",
+   "bytes": 23153,
+   "sha256": "1e824cfef2551ac08b4b12372fda0894919e85285d21a90931dd40d0c70effce",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/MB_Master_Serial.lvclass",
+   "bytes": 65298,
+   "sha256": "8124ff3068704b1bc8a405912e891e3e2d31feefa6db56dd6157be7f6eabb5e4",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Open Serial Session.vi",
+   "bytes": 36211,
+   "sha256": "7b28fc6c7d92edf1a12976c79a168f687d5a77ae60c44c4f42d4d51fecf45879",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Querry.vi",
+   "bytes": 30414,
+   "sha256": "c922288ab3f1fbeda423171b439639bf310b018c85b56ca73e01af088f0a3713",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read ADU.vi",
+   "bytes": 14376,
+   "sha256": "f0c4d21847b26b904a8482e3e4469440483071ff6753c5a2d94c5b1d274e0e2a",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read Mode.vi",
+   "bytes": 13677,
+   "sha256": "a5ace47f1cd1f422be3eba5417f994f93a38714a927ce7cc003c5c2c104de381",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read Serial Config.vi",
+   "bytes": 14562,
+   "sha256": "df51a334538a1804dfa8c3b145ea7e09b42af770543142b9245ae104cdfc0d74",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read Session Valid.vi",
+   "bytes": 13846,
+   "sha256": "7f7d92968b5d44871c926c6025955e2f76ebf0d2c08b0aba8eced71c295ced02",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read Slave ID.vi",
+   "bytes": 23861,
+   "sha256": "c4e91969ed36105d5ea461e2180cd9750322a62b8241f20e13fd6abaf8ba4fc6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read VISA Resource.vi",
+   "bytes": 14042,
+   "sha256": "accf1c7c4b1289b4980682d4ff61bf90a50e5b830fe570ef77bda883ca1af8e9",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Read retries.vi",
+   "bytes": 13684,
+   "sha256": "678ca561f2adb1f29ecb6318d76a88c2084193cf295acc822bbbe39a03f004ed",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Set Slave ID.vi",
+   "bytes": 23464,
+   "sha256": "ee9f53e6abfbcea02ee4d8ae61bf0d13afc98ade52add4828bd882bdf623ad37",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_Serial/Write retries.vi",
+   "bytes": 15293,
+   "sha256": "a954985153dc65d8dc9c40996a3049bc39aab825398261696e885fd22d54b05f",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Close Session.vi",
+   "bytes": 23061,
+   "sha256": "231f4635f9f2b26ef24bf2a64f669589237a03f8fafc7a9e505de25b7710be6d",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Core.vi",
+   "bytes": 39068,
+   "sha256": "05813a2aff26da3be6c4f2554518a298161afd6398896a54eaa8284c44100681",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/MB_Master_TCP.lvclass",
+   "bytes": 72342,
+   "sha256": "8efc3f942c2372751d4807251e6b2d74ece1da79c2fa36ff2bf53a6f389d4dcf",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Open TCP Session.vi",
+   "bytes": 30920,
+   "sha256": "d89772d41e5a8efc841944aad34a06fc93ccca89a7ed72274dc9e38eb059f624",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/QMgr_Construct.vi",
+   "bytes": 9054,
+   "sha256": "ccfc394865cf288419730979dc6e58ebd44e9995d4180f2c4869599acc004aaa",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/QMgr_DeQueue.vi",
+   "bytes": 15024,
+   "sha256": "39c9e3b3937c382af2ab19c1af84ce7958cf54711e6c85cc29ffed47e101c96a",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/QMgr_EnQueue.vi",
+   "bytes": 12376,
+   "sha256": "0a446fe362ccf8b9c8c4c5a38fee2c1533e2ff60059b8bb62ad409bbaf3fa32e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Querry.vi",
+   "bytes": 24262,
+   "sha256": "3f8d60063d62c2bddb52c8915718de2f9ecd08e8e2543d9237fcc8bd23f7ef94",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/RX.vi",
+   "bytes": 21922,
+   "sha256": "551e85baea1bf0c2d2ca88cbc0be99f7a6d64216e52f7180e9847545ad77e392",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Read ADU.vi",
+   "bytes": 13944,
+   "sha256": "6bb72619ec97c8e995dd8b527cd9df83d5386710927970af7b8e161b77d1ce8e",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Read Session Valid.vi",
+   "bytes": 13546,
+   "sha256": "8ec41e5399b29e4dedeca1a3da73b8d365b6723ce221bfc74dd4a7972d784ea6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Read Slave ID.vi",
+   "bytes": 23437,
+   "sha256": "b9cb438e4bd448bfe98e9d7028d35f36d92d608cc8b0730bc10668e9d2067135",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Set Slave ID.vi",
+   "bytes": 23588,
+   "sha256": "07bf715274407195c55cc4e9fb7a8a7a9407fac84e6a632dc00fb3592a73be69",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/TX.vi",
+   "bytes": 24906,
+   "sha256": "c4f4efc55322dea7d84cd937e0b5c3719701d80dad446fe4016998147ea6d648",
+   "via": "extension"
+  },
+  {
+   "path": "MB_Master_TCP/Tester.vi",
+   "bytes": 21298,
+   "sha256": "8462b45a3a7c4f64d14a79b03cc559f42fab604af150a3b98752cc7e9294c226",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Mask Write Holding Register.vi",
+   "bytes": 24005,
+   "sha256": "bb7fdfa96a4fc58d10975189753ce069fefa2e1e8f65b781abaad09da6c06c6c",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Coils.vi",
+   "bytes": 24408,
+   "sha256": "b9bc731a63a89106b78ef1cb847ae27e25bce39756df9a8df49dbd26fae9128b",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Device Identification.vi",
+   "bytes": 24356,
+   "sha256": "bc4c8cc80116e81dfe06f1066a21edd204f20ce8151aee7de760c0cbbc99e955",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Discrete Inputs.vi",
+   "bytes": 24422,
+   "sha256": "9fd130c5ebd1f8cfa0066b6af76f668959c90183e2fdf87a9f9cffb82fec0d56",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Exception Status.vi",
+   "bytes": 23151,
+   "sha256": "9bc869bedcc6239ae5daec918dd0587236bafed8659972b383f21481c6f95d7f",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Holding Registers.vi",
+   "bytes": 24084,
+   "sha256": "fbf0d721badfbf74a3ce594eb8a1331216e8bfa9d9e21f8bee7bf56a7cd06bfb",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read Input Registers.vi",
+   "bytes": 24066,
+   "sha256": "f3d7b1c37edf494343695d4b11876c2dc90cac2e8c2c95b06e08d9c70f487e4c",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Read-Write Holding Registers.vi",
+   "bytes": 25270,
+   "sha256": "9683da115ddf101f3f7f49dd9a7bd1e5969499199026af19fe374a6176382fa6",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Write Multiple Coils.vi",
+   "bytes": 25814,
+   "sha256": "1f9239dc49c6d13d92e9dc36841f3355ac525b8f083e5d002929868402f1d48f",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Write Multiple Holding Registers.vi",
+   "bytes": 24810,
+   "sha256": "e9449d9138ca8244fd0f194a04e3e783b4d415f015ec56ef4cb118bca981c3f1",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Write Single Coil.vi",
+   "bytes": 24179,
+   "sha256": "84642861f807bc0df2908915a9ead3b09d48170130afad6be7dab73db92004ad",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Build_Write Single Holding Register.vi",
+   "bytes": 23839,
+   "sha256": "7f8e00084279f71f937d55dd50731b98d375f1c4e9bb21dac31eb04b4e6b573c",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Interpret_Read Coils.vi",
+   "bytes": 22940,
+   "sha256": "d8fb0cb461de007ebff455cdb9c12b271f4a4e3bd5dca97c38e8e5ed63448a2a",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Interpret_Read Device Identification.vi",
+   "bytes": 24912,
+   "sha256": "6a18165752476425c9a08d80490f81a906467de396f6f90ce0e0831f6bb25ff0",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Interpret_Read Exception Status.vi",
+   "bytes": 20827,
+   "sha256": "d4fa89bd3abd7cd1df63d36424387b2c362f1e5d636c5d4f50d76d3dcbe4abc8",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/Interpret_Read Registers.vi",
+   "bytes": 21628,
+   "sha256": "07594c1ce33ec324758b7fdff3ad1efa27525fa7d6e1e00e7f313658b0b60198",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/MB_DevID Object.ctl",
+   "bytes": 4996,
+   "sha256": "9c84f3a9c632d0246f11afa1cd735c7cef5b659d00b003c53d3386b49c404516",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/MB_PDU_Cluster.ctl",
+   "bytes": 18915,
+   "sha256": "b37b64269f002c4e126ae78e47fe5badc264e0a5b17b7460fd349b7f37e684e4",
+   "via": "extension"
+  },
+  {
+   "path": "MB_PDU/MB_ReadDevID Codes.ctl",
+   "bytes": 4587,
+   "sha256": "c9e16c99c33546c2af98791feed283f3baa6b303d6b0eca4445b4c32bccdc304",
+   "via": "extension"
+  },
+  {
+   "path": "MB_VISA_Lock/Acquire VISA Lock.vi",
+   "bytes": 29497,
+   "sha256": "33a3e0c9296d35c2d398accf46519eef48012f6b96f757e1848be5e25f049b0c",
+   "via": "extension"
+  },
+  {
+   "path": "MB_VISA_Lock/Dispose VISA Lock Ref.vi",
+   "bytes": 28761,
+   "sha256": "38a3dd92c64b6fecf36d7ff1fa02ceb8d38a8a65fdf070be85e00c9fc0c2cae9",
+   "via": "extension"
+  },
+  {
+   "path": "MB_VISA_Lock/MB_VISA_Lock.lvlib",
+   "bytes": 1986,
+   "sha256": "fcfb2796afdc643162654733bcbe652e858cd328197cf79a2bac57bebee48ab0",
+   "via": "extension"
+  },
+  {
+   "path": "MB_VISA_Lock/Obtain VISA Lock Ref.vi",
+   "bytes": 27568,
+   "sha256": "fe6cd4d2c665e31607f120a10b58f9d5a48e452ff313626acb4cd0a3fbceab70",
+   "via": "extension"
+  },
+  {
+   "path": "MB_VISA_Lock/Release VISA Lock.vi",
+   "bytes": 21853,
+   "sha256": "35db166931f33a27c047a4b4f9c94afc514fac4075e11b6b00955eb844cb2e3f",
+   "via": "extension"
+  },
+  {
+   "path": "Tools/Modbus Comm Tester.vi",
+   "bytes": 72478,
+   "sha256": "e5ccdbd8519da75a0ca3f0ad19e4e26818fa39079071b7003d03a03e13e5b860",
+   "via": "extension"
+  },
+  {
+   "path": "Tools/Transaction ID Test.vi",
+   "bytes": 32903,
+   "sha256": "26af125c5bc64d74a0d232e89d4861345b75e04f4514f7d3042e37604e03f7ae",
+   "via": "extension"
+  },
+  {
+   "path": "Documentation/MB_Master - User Guide.pdf",
+   "bytes": 1132242,
+   "sha256": "ab40754857ead78497e1764e164b4fd5f4c94564866ed9fb6b279108fe637a3f",
+   "via": "ref:Documentation/MB_Master.vi"
+  },
+  {
+   "path": "Documentation/MB Master-EULA.txt",
+   "bytes": 1332,
+   "sha256": "cde21c47c8072acb03804dd88319107d9ccc4c64d111209b311f0dc37ac08e4a",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/ReadMe.txt",
+   "bytes": 5370,
+   "sha256": "49679ad1604128b2eeb4026604de9c3585a78dcee00901759452944368401e13",
+   "via": "tree"
+  },
+  {
+   "path": "Examples/Plasmionique-MB Master.bin3",
+   "bytes": 1588,
+   "sha256": "01e0b89a23b79afed29f26e251c43e461a8faf88c364f7a770f13b5fd335f03c",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1322,
+   "sha256": "2ab440ae2e9d084c98e6dcd64bf28f5fbd14c3a2c5e4865a0bc17e2f47b9dbcd",
+   "via": "tree"
+  },
+  {
+   "path": "MB Master.vipb",
+   "bytes": 50946,
+   "sha256": "2cf7da7d6f3a00af47ac8b223ea9deaba2e596fc6e4ce2e59e4f5b7a4374edc3",
+   "via": "tree"
+  },
+  {
+   "path": "Plasmionique-MB Master-errors.txt",
+   "bytes": 1304,
+   "sha256": "50c9de4f4bc95bcd9f3d0b3f5b4c64841324ca7a1e2ce234e3062a1dcecb8de5",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 5669,
+   "sha256": "52553a730135efc88d65ece7b50a0f74fbcd1ee37f3cc0528225ebaf37ed653f",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<resource>\\visarc",
+  "<vilib>\\NI\\Modbus Library\\API\\Slave\\Modbus Slave.lvclass",
+  "<vilib>\\NI\\Modbus Library\\API\\Wrapper\\API Main.lvlib",
+  "<vilib>\\NI\\Modbus Library\\API\\Wrapper\\Create Modbus Instance.vi",
+  "<vilib>\\NI\\Modbus Library\\API\\Wrapper\\Create TCP Slave.vi",
+  "<vilib>\\NI\\Modbus Library\\Data Model\\Device Data Model.lvclass",
+  "<vilib>\\Platform\\browser.llb\\Open Acrobat Document.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Find First Error.vi"
+ ]
+}
