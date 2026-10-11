@@ -1,0 +1,100 @@
+= Lesson 3 – While Loops
+:page-toclevels: 2
+
+CAUTION: {wip}
+
+NOTE: This lesson is optional.
+
+== Optional: Setting up the Hardware 
+
+.Setting up the Pico Hardware
+[%collapsible]
+====
+Wire your Pico Hardware to match the images below
+
+image::pw_001.00_DigitalOutputsWiring.jpg[]
+
+image::pw_002.00_DigitalOutputsWiring.jpg[]
+
+====
+
+.Setting up the Raxda Hardware
+[%collapsible]
+====
+Wire your Radxa Hardware to match the images below
+
+image::rw_001.00_Power.png[]
+
+image::rw_002.00_DigitalOutputsWiring.png[]
+
+image::rw_003.00_DigitalOutputsWiring.png[]
+
+====
+
+
+== Lesson Instructions
+
+The While Loop executes the sub-diagram until a specific condition
+occurs. It will always execute at least one time.
+
+In this case, you want the LED to continually blink on and off until a
+`Stop` button is pressed. You can create this using the previously built
+program with the For Loop.
+
+* Firstly, Right-click on the edge of the For Loop, and select `Replace
+with While Loop`
+
+image::cm_044.00_RightClick-ReplaceWithWhileLoop.png[]
+
+* Now the For Loop has been replaced, the Loop Count is not connected.
+This is not needed for a While Loop and can be deleted.
+
+image::cm_045.00_20ConstantCanBeDeleted.png[]
+
+* To add a `Stop` boolean, switch to the front panel window and right
+click where you want to place the button. The Controls palette will
+appear, select `Boolean` and pick a button. The example uses a `Push
+Button` but any will work.
+
+image::cm_046.00_RightClick-ControlsPalette-Boolean-PushButton.png[]
+
+* Back on the Block Diagram move the new Control Boolean into the While
+Loop and wire it up to the Conditional Terminal in the bottom right
+corner. If the Button on the Front Panel is pressed when the program is
+running then the Loop will end and the `blinking` LED will stop.
+
+image::cm_047.00_WhileLoopWired-BooleanSwitchWiredToStopTerminal.png[]
+
+
+== Exercise – Use DI to stop the loop
+
+== Optional: Setting up the Hardware 
+
+.Setting up the Pico Hardware
+[%collapsible]
+====
+Wire your Pico Hardware to match the images below
+
+image::pw_006.00_DigitalInputsWiring.jpg[]
+
+image::pw_007.00_DigitalInputsWiring.jpg[]
+
+====
+
+.Setting up the Raxda Hardware
+[%collapsible]
+====
+Wire your Radxa Hardware to match the images below
+
+image::rw_001.00_Power.png[]
+
+image::rw_006.00_DigitalInputsWiring.png[]
+
+image::rw_007.00_DigitalInputsWiring.png[]
+
+====
+
+Hint: wiring diagram for DI
+
+image::cm_048.00_HandsOnPi20240_ReadDI.png[]
+

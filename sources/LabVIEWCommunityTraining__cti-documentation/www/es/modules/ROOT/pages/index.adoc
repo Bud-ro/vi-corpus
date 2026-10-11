@@ -1,0 +1,243 @@
+= Instrucciones para tutor
+
+CAUTION: {wip}
+
+== Instalar VirtualBox
+
+Visite el sitio https://www.virtualbox.org/wiki/Downloads[Virtual Box Downloads] y descargue la versión 7.0.X
+
+image::in_001.00_DownoadVirtualBox.png[]
+
+De Click en el botón "Download", ese boton te llevará a la página de descargas.
+
+image::in_001.01_DownoadVirtualBox-DownloadsPage.png[]
+
+ahi, navegar hacia abajo y dar click en "Previous Releases"
+
+image::in_001.02_DownoadVirtualBox-ClickOnPreviousReleases.png[]
+
+Selecciona la version 7.0.X
+
+image::in_001.03_DownoadVirtualBox-SelectVersion7.0.png[]
+
+e instálela en su computadora con las opciones por defecto.
+
+== Importar Máquina Virtual (VM)
+
+Visite https://gcentral.org/cti/[Gcentral/cti] y descargue el archivo OVA, este archivo es la máquina virtual para el CTI (Community Training Initiative)
+
+image::in_001.04_GCentral-CTI.png[]
+
+Ahora vaya a File>>Import Appliance into Virtualbox
+
+image::in_002.00_ImportAppliance.png[]
+
+Encuentre el archivo OVA descargado previamente y Presione "Next".
+
+image::in_003.00_ApplianceToImport.png[]
+
+image::in_004.00_ApplianceSettings.png[]
+
+Presione el boton de 'Finish' y la imagen .OVA se importará y aparecerá como una nueva máquina virtual.
+
+image::in_005.00_ImportingAppliance.png[]
+
+image::in_006.00_Start.png[]
+
+Una vez importada abra la nueva VM (Virtual Machine)
+
+Probablemente necesite dar click en el botón "Show" lleagar a la máquina virtual.
+
+image::in_008_Show.png[]
+
+Nota: Tip, presionandoosla la tecla ctrl derecha liberará el mouse si la Máquina virtual se apodera del cursor.
+
+Ya no se requiere logear como ROOT. El increible equipo detrás de CTI resolvió como evitar la necesidad de tener que usar el usuario ROOT. En vez de eso se utiliza el usuario CTI Student con password = labviewtraining
+____
+[!Precaución]
+Para poder utilizar el hardware del CTI (Raspberry PI PICO) en ocasiones es necesario instalar el VirtualBox x.x.xx Oracle VirtualBox Extension Pack, el cual se encuentra en la misma pagina de https://www.virtualbox.org/wiki/Downloads[Virtual BOX Downloads], descargue el archivo con extension vbox-extpack
+____
+
+image::DownloadExtensionPack.png[image]
+
+image::ExtensionPack.png[image]
+
+image::ExtensionPack1.png[image]
+
+Al finalizar la configuracion de Virtual Box y la importación de la máquina virtual, podrá ejecutar la máquina virtual recien importada haciendo click en el botón 'Start'.
+
+image::OpenVM.png[image]
+
+La máquina virtual deberá arrancar, pero se requiere iniciar como usuario 'root' para poder activar LabVIEW Community, para iniciar como 'root' hay que salir del usuario actual
+
+image::VMLogout.png[image]
+
+image::VMLogoutDialog.png[image]
+
+Haga click en el usuario actual 'LabVIEW Training' y seleccione 'Other'.
+
+image::LabVIEWTrainingUser.png[image]
+
+image::RootUser.png[image]
+
+Usuario: *root*
+
+Password: *labviewtraining*
+
+Deberá ver lo siguiente:
+
+image::VMDesktop.png[image]
+
+== Configurar el Teclado
+
+Para cambiar el teclado a otro idioma, abra el menu de Inicio y seleccione Settings >> Keyboard.
+
+image::KeyboardSetup.png[image]
+
+Selecciona el teclado que le sea de mayor utilidad.
+
+image::KeyboardSelection.png[image]
+
+== Cargar y Activar LabVIEW
+
+Para poder activar la licencia de LabView Community Edition, se requiere una cuenta de NI activa. Si no la tiene, cree una en:
+
+https://www.ni.com/es.html[Página Web de NI]
+
+image::NIAccount1.png[image]
+
+image::NIAccount.png[image]
+
+De regreso en la máquina virtual, al abrir LabVIEW, deberá dar click en el botón 'Activate LabVIEW Community Edition'.
+
+image::ActivateLabVIEW.png[image]
+
+Esto cargará el sitio de activación utilizando Firefox.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/6736731b-9a83-4994-864f-93a8d5d57fd5[cargarlabview1]
+
+Ingrese los detalles de su cuenta de usuario y la licencia de LabView se activará.
+
+Si al intentar activar la licencia de LabVIEW aparece un mensaje como el siguiente:
+
+image::ActivationErrorLinux.png[image]
+
+Debemos verificar que tengamos activa la licencia community de Linux. Para poder hacer esto podemo seguir los siquientes pasos:
+
+. Accedemos a ni.com y hacemos log-in con nuestro usuario y contraseña que se usó para intentar activar LabVIEW Community Edition.
+. En la parte superior derecha pasamos nuestro mouse sobre nuestro usuario y buscamos le opción "Mis Productos".
+. En "Mis Productos" debemos observar nuestras licencias de LabVIEW Community.
+image:NIAccountLabVIEWCommunityLicenses.png[image]
+
+Si la licencia no aparece en "Mis Productos" podemos intentar forzar la obtención de la licencia descargando LabVIEW Community Edition 2022 for Linux.
+
+Para descargar el producto seguimos los siguiente pasos:
+
+. Vamos el Menú Productos>>LabVIEW.
+. Damos clic en Descargar.
+. Seleccionamos LabVIEW 20xx Community para Linux.
+image:LabVIEWCommunityLinuxDownload.png[image]
+
+Si quiere remover una licencia, el archivo .lc se puede encontra en */root/natinst/.config/LabView-2022/*.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/b5e63fa2-f7a7-4595-8769-89753523518a[cargarlabview2]
+
+LabVIEW ahora se cargará normalmente.
+
+== Instalar Materiales del Curso
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/c43c2bb1-4db3-43ac-9227-a373ddbbfdfa[materiales1]
+
+Hemos modificado la ventana de introducción, este enlace le llevará al repositorio de Github de CTI (Community Training Initiative).
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/c8c0c8f8-4b1e-4fde-940b-ab1dbf77d80b[materiales2]
+
+Seleccione el curso que desea dar.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/818632c1-1ee0-46c1-9fd8-11f3638e112b[materiales3]
+
+Descárguelo como un archivo .zip.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/f95e034a-fe80-4985-9d82-32e610ec786e[materiales4]
+
+Haga clic en el símbolo del archivo.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/5e2c6f10-8624-4195-8089-80c953fb947d[materiales5]
+
+Extraiga el archivo en /root/Desktop.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/8104e85e-fde0-429c-a5e0-b954420a4111[materiales6]
+
+Debería de tener un escritorio similar a este:
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/2b3a148a-1ecc-4294-8eb7-36fc246cdbf5[materiales7]
+
+== Instalar Drivers
+
+Abra *../4) LabView Instrument Drivers* en una ventana.
+
+Usando el ícono del Sistema de archivos en el escritorio, navegue hasta */usr/local/natinst/LabVIEW-2022-64/instr.lib*.
+
+Arrastre el directorio HandsOnPi2040 a *../instr.lib*.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/3c332951-463f-4f94-998c-b696ae12383b[drivers1]
+
+Abra LabVIEW y cree un nuevo VI. Verifique que los controladores estén en instr.lib como es de esperarse.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/227b0d93-26f5-49c0-bece-909e368dd3ba[drivers2]
+
+== Hacer que el Emulador corra en Linux
+
+El archivo CTIPicoVISAEmulator.exe debe configurarse para que sea ejecutable.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/2ef86806-dd98-4bed-a29c-9d2225df72c6[emulador]
+
+== Configurar Firmware del RPi Pico
+
+Cada Raspberry Pi Pico necesitará tener instalado el firmware del curso.
+
+Mantenga presionado el botón BOOTSEL en el RPi Pico y conecte el cable USB a la computadora. El RPi Pico actuará como una unidad flash.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/68427376-917b-47a2-92b8-25b419521375[firmware1]
+
+En la máquina virtual Linux, seleccione Devices >> USB >> Raspberry Pi RP2 Boot [0100] (o similar).
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/2019ff3e-9f2d-4058-9577-5022c4eb56f1[firmware2]
+
+Esto montará el disco duro en el escritorio.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/8f175a08-195b-42e5-857a-6f356b3e359f[firmware3]
+
+Luego arrastre y suelte el archivo de firmware del curso en el RPi Pico. Esto instalará el firmware, y el LED del RPi Pico parpadeará una luz verde 6 veces.
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/de761032-adee-4c97-b92a-b2d3f7d92566[firmware4]
+
+== Conectar y Probar el RPi Pico
+
+En la máquina virtual Linux, seleccione Devices >> USB >> Raspberry Pi Pico [0100] (o similar).
+
+image::https://github.com/LabVIEWCommunityTraining/GettingStartedLabVIEW1-Spanish/assets/170447709/8de21e74-d91a-49fd-9eb4-55784eb4c5fc[connectandtest]
+
+Conecte el RPi Pico.
+
+== Hardware
+
+Raspberry Pi Pico o Pico W.
+
+Proveedores de EE. UU. y el Reino Unido: probablemente estandaricemos Pico-W
+
+https://www.pishop.us/product/pico-breadboard-kit/
+
+https://thepihut.com/products/analog-test-board
+
+https://www.waveshare.com/analog-test-board.htm
+
+https://thepihut.com/products/breadboard-kit-for-raspberry-pi-pico
+
+== Software de Soporte
+
+Parte de la idea detrás de este proyecto es que no haya costos respecto al software.
+
+La VM viene precargada con LibreOffice: es el medio preferido para leer los manuales.
+
+La VM también tiene un programa llamado Pinta, un programa de gráficos en capas similar a Paint.net. Los diagramas de cableado están hechos con este programa, https://www.pinta-project.com/[PINTA]
