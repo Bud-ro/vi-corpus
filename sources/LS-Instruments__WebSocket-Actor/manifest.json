@@ -1,0 +1,2196 @@
+{
+ "repo": "LS-Instruments/WebSocket-Actor",
+ "url": "https://github.com/LS-Instruments/WebSocket-Actor",
+ "commit": "8232e150d5b269ec679e21d45b24a5d209eb6dfe",
+ "license": "BSD-3-Clause",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Echo Broadcast With Server Manager.lvlib",
+   "bytes": 2644,
+   "sha256": "d516e1c878dd9a60d198333b31a302fa070403255e77d46595666eb0ecd98285",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Launcher.vi",
+   "bytes": 24120,
+   "sha256": "751377c90cd80da7a0684b34569ce032c33071befb70433bf0d2899c5027bee7",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/Actor Core.vi",
+   "bytes": 24466,
+   "sha256": "a1e33ba998574f805298980cce1e974deba37437274405a1450e4435fb71d3e6",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/Sender Loop.lvclass",
+   "bytes": 33788,
+   "sha256": "5ae7d58cafa88d2e9293f113f5678845da851a01285c00133dfc6126d0ef9793",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/properties/Write Data To Send.vi",
+   "bytes": 13994,
+   "sha256": "a4bf1db060353e2585ba58abe2d768cade4b2c2a840e61be6385582738488f33",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/properties/Write Number of Packets.vi",
+   "bytes": 15939,
+   "sha256": "adbd8356e4cf4424c0feaa38f5f2d3101068535493c04334cd56301014d1fb4b",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/properties/Write Send Period (ms).vi",
+   "bytes": 15934,
+   "sha256": "b0cea17c616569294d71b77e6bcd9a7f115e7aab70b4763db3bdde3dc2822c14",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/Sender Loop/properties/Write WebSocket Service Enqueuer.vi",
+   "bytes": 14472,
+   "sha256": "f3c7bee00c755464d4ed98e5aa91c3eae6fc84708fe30b0426009cc5aed90f2c",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/Client Connection Handler Msg.lvclass",
+   "bytes": 44954,
+   "sha256": "5b620161a56bc331f9f76bd3e677b5a4e9354c15da51c17176d73f955a2e7c93",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Close.vi",
+   "bytes": 15228,
+   "sha256": "e5e8264c5e699af85b4f08fe03333adde7859d224688c3738f90a32c8feaca84",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Connect.vi",
+   "bytes": 19026,
+   "sha256": "35299a796c85e6ac87cfb46e1067f5dc7263054e3c7df6f6e3648c1a4a21bd9f",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Drop.vi",
+   "bytes": 17115,
+   "sha256": "0e61bb781f42b0c779911f0ce22522f107bd69a3c0f3308b645e1dc95bdc8d6d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Message.vi",
+   "bytes": 18778,
+   "sha256": "84be0b8e2dfbdb3c2f46046737364d2f67a370706681993b92c2ada803250d94",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Actor Core.vi",
+   "bytes": 32946,
+   "sha256": "f08a97c0c156d78bbe74f60519745088c9b0f8fe40d256180a40d87c669414df",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Connection Dropped.vi",
+   "bytes": 17850,
+   "sha256": "134b028bccd2ba6f2a27eca8d91c91843e1875a32de6d66e6b42eb4a7518e7d3",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Pre Launch Init.vi",
+   "bytes": 17651,
+   "sha256": "3393e8a23eaf1150333f6f4d279eef4628883145457287416c201450835b30d1",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Send Data to Core.vi",
+   "bytes": 14857,
+   "sha256": "768d1620610cf931c4ebc603c8c0c178e218d909c0e79bf456f05196cc4b1527",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Send Enqueuer to Core.vi",
+   "bytes": 15349,
+   "sha256": "efab32a0e2b8b9101c96e6857b1780ac580c05f9bd29b07bf0f7dc60d0e3c5d8",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Stop Core.vi",
+   "bytes": 16393,
+   "sha256": "fde4b3af44c9dbb3192017259d8f7a2596580a87b06643093ce61fcae7cf203d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/WS Client Subscriber.lvclass",
+   "bytes": 49763,
+   "sha256": "80f062cf383b2b8bda5d244d103b8a6f4d770d923fc63848ba4b57e608bc3e50",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Client Subscriber/Write Keepalive.vi",
+   "bytes": 15419,
+   "sha256": "a1312e265057eb0ef0cee10c25a3edfe9e1adf812fadf3e181eb0aedc4ecc223",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Do.vi",
+   "bytes": 18462,
+   "sha256": "0abd05a5d9faff068748a90a7e233338f5fc8cc145cfd0b28abd6ca8c43e0ed7",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Send Packets Msg.lvclass",
+   "bytes": 60389,
+   "sha256": "556778d8d6f0be4fa178eb219e0109cc8b8b4c7b20f7269a33e086153050fb12",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Send Send Packets.vi",
+   "bytes": 18825,
+   "sha256": "c4d609f0fedccfdc44177f35b3f53f055e927722763fe6ed0c2030a027f006df",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Close.vi",
+   "bytes": 15232,
+   "sha256": "40b4079fa087b1d1b95a9423771379a93ce67794ad1d1f9dfed6f698acf16c1a",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Connect.vi",
+   "bytes": 15246,
+   "sha256": "9a3005e0f33327a9a25e6c7dd08fccddd7cdbd2a1743ad622d8bdb34833afa41",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Drop.vi",
+   "bytes": 17111,
+   "sha256": "9e94c3a4e7605258929cfa99878fa46505c8c3bc046af743e29d349fd4f43651",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Message.vi",
+   "bytes": 17990,
+   "sha256": "fc3c380c4e05191d1911cd1de43a1a242fc9d3c66c0cc442ee10fa373c37cf8a",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/Server Connection Handler Msg.lvclass",
+   "bytes": 33194,
+   "sha256": "e3663f9725592c6f56596af8aa6f75e6246c73129a1c12dad5b700ebd7ef3d53",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Server Enqueuer Msg/Do.vi",
+   "bytes": 20370,
+   "sha256": "9c40b66734434bf47bce0cb49e94d3a2371bc5571a0ac9485b0cbb5dd53e51fc",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Server Enqueuer Msg/WebSocket Server Enqueuer Msg.lvclass",
+   "bytes": 40909,
+   "sha256": "157523cd634c8bb0afef2418cdceaac16722d9a3d28311fef42aa7b10c52d815",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Service Enqueuer Msg/Do.vi",
+   "bytes": 19734,
+   "sha256": "d53d5a0861ed1ac6e0da5aae6f9e3b47e37171bc8e18384e906a2315de18bbbd",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Service Enqueuer Msg/WebSocket Service Enqueuer Msg.lvclass",
+   "bytes": 27639,
+   "sha256": "314508806b1bda8fbe9af2ef022acf18940f8addace03ec7f9a2ab958b4e3e12",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Actor Core.vi",
+   "bytes": 40586,
+   "sha256": "2c6275eda6b85718144042281f5361eff5110bf54e2664cf3396acd64e4750f4",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Configure Services.vi",
+   "bytes": 20510,
+   "sha256": "0ce29cfc29784b1bc5f87524b1a541b44155216f0a1b71898cbbacc2b51e4243",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Connection Dropped.vi",
+   "bytes": 18370,
+   "sha256": "c065b2d8a9c59f3c2551ade3c06b35599bbc7414b4c095ddaeb6c49c921f1488",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Pre Launch Init.vi",
+   "bytes": 17011,
+   "sha256": "cca232bef8d8107d14adc723c3850060075c6a51d79aa9acb46a7ae5da12e5e2",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Send Packets.vi",
+   "bytes": 19416,
+   "sha256": "9317e51950c1e4dc782e1c9fb1d136f0123cd91bf3d77556900d66dcfc8f8210",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/Stop Core.vi",
+   "bytes": 16177,
+   "sha256": "62b5435f2d333e8b51f88a1c4c848e1ebe6219a884ef0f88737c686d6846684e",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/WS Server Subscriber.lvclass",
+   "bytes": 72700,
+   "sha256": "43f147362b31fd10cde5be447de1e0a7621e761700f18070185fc83cc04aa922",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/properties/Read WebSocket Server Enqueuer.vi",
+   "bytes": 13110,
+   "sha256": "bb50bbe9410522a9bd6ebe1d75e4150aed1443cbbcf688dfeabd4260b19db605",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/properties/Read WebSocket Service Enqueuer.vi",
+   "bytes": 13107,
+   "sha256": "9292d7328ad42b5f24ba171f42c9cbfb4f054dada73fd795f7153d22b4b1882b",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Server Enqueuer.vi",
+   "bytes": 14703,
+   "sha256": "6f8eb3be3437602900ffc4132b226767d3b2f54f275fb9b8c91be289a7fa017d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Server Manager Enqueuer.vi",
+   "bytes": 14711,
+   "sha256": "0d1d4f04cc9b0b96902b2d4adc0a0216be97472a2d549cc045c09c0be49a082e",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Service Enqueuer.vi",
+   "bytes": 15036,
+   "sha256": "4610c5574b5ef42a838186fa956cc5fb71f2841ff5b41177507bbd3ac56bc1c3",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/Echo Broadcast Without Server Manager.lvlib",
+   "bytes": 2111,
+   "sha256": "63e3d6b06b8472f102519c718ed88eaf9f12762dcc161be6e42d8cd1028b91c8",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/Launcher.vi",
+   "bytes": 29924,
+   "sha256": "ba8777d55c31f41ed737d0e8df8253f9ea7b505045a2506c6ffd05052f491f28",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client Messages/Client Connection Handler Msg/Client Connection Handler Msg.lvclass",
+   "bytes": 43834,
+   "sha256": "5191ad9ea62dc2ce44cc8e7f8f4e54b59a5f6a2f3c080cdfd6e7f9942bbf8f78",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client Messages/Client Connection Handler Msg/On Close.vi",
+   "bytes": 15428,
+   "sha256": "dd57e31fbc6a228ae27b0ebed215eb4d52f86484d1e809c0de03ffa18d9c3d7b",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client Messages/Client Connection Handler Msg/On Connect.vi",
+   "bytes": 18826,
+   "sha256": "29c20989cb1b7ad5f768bf42df462880169b867b98cc0b0568ef8b08c64613bd",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client Messages/Client Connection Handler Msg/On Drop.vi",
+   "bytes": 15431,
+   "sha256": "591df60e1d3e6e39c1e6a41d88b7a2f5da47c2999c82928320b0b57659511720",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client Messages/Client Connection Handler Msg/On Message.vi",
+   "bytes": 18570,
+   "sha256": "201fb2accc333706baf69556b66d00b926660ee70fa4f7ea6d01e8e789a5778d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/Actor Core.vi",
+   "bytes": 22570,
+   "sha256": "7040b7577a94ac5f619a8c252c57034b6955bb88c8be91f1e0da5007167b9f8e",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/Pre Launch Init.vi",
+   "bytes": 17303,
+   "sha256": "66fb04d5874a6511a4628dc1a4c64d1c56ba73159e11051393fba7dc736ef895",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/Send Data to Core.vi",
+   "bytes": 14517,
+   "sha256": "475de178eab96a9179e93914254eade94dd53e693f2e42af4b9c6e9121c3c8cb",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/Send Enqueuer to Core.vi",
+   "bytes": 15009,
+   "sha256": "fbb05f953f49afa1927fb83a604b7abf8481f49949da421f8827ac5ddef9e899",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/Stop Core.vi",
+   "bytes": 16037,
+   "sha256": "0c5f77a0f4d9e5f8050fed91fc4ba826580540c08ace27ed9bb8669beca8c73c",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Client/WS Client.lvclass",
+   "bytes": 37568,
+   "sha256": "463f4b81cc15ae76f5b8895b2c9191fcd990e43de9681cb4dfa56f9a0381314d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/Server Connection Handler Msg/On Close.vi",
+   "bytes": 15428,
+   "sha256": "5393d5e4ccdb37a8f6b92916b885c45cfa9fbcd44fe97d0fbda4408e6ebaab04",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/Server Connection Handler Msg/On Connect.vi",
+   "bytes": 15442,
+   "sha256": "71e6c7e14189cf57cf1a2d6aef50757aa301672db8997dc0cd3079520a239f29",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/Server Connection Handler Msg/On Drop.vi",
+   "bytes": 15431,
+   "sha256": "a0a7542353007321b0569ec8abd4a026ae0642c483bb2f8ec6d481501cf9a215",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/Server Connection Handler Msg/On Message.vi",
+   "bytes": 17566,
+   "sha256": "efe7579be5100492b504c4a41bcd4b614a4e42a6fdfd665bd72d940ca5a33286",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/Server Connection Handler Msg/Server Connection Handler Msg.lvclass",
+   "bytes": 32089,
+   "sha256": "c40fb96add7c5a08b89fe4dc52f2d80322b772448ad8b05846776d2e36f35885",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/WebSocket Service Enqueuer Msg/Do.vi",
+   "bytes": 19438,
+   "sha256": "0fc0ec3c0ce7c23633dfbb79e245d79bc5cfd7b7534565344b89c820d2f79819",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server Messages/WebSocket Service Enqueuer Msg/WebSocket Service Enqueuer Msg.lvclass",
+   "bytes": 26448,
+   "sha256": "43cd9299201288469bb244de4922d9ca95d80db1ae52ff11a554fe4e12f2a97c",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server/WS Server.lvclass",
+   "bytes": 46267,
+   "sha256": "193a2297da7fc0ea2625c1d60bf4e013a71ccbc2215c378cf74fd68d81d0589a",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server/properties/Read WebSocket Service Enqueuer.vi",
+   "bytes": 12727,
+   "sha256": "22d172a227692d056a630ce6def5d81f47d31d76f34a072924cda9b00798b332",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast Without Server Manager/WS Server/properties/Write WebSocket Service Enqueuer.vi",
+   "bytes": 14328,
+   "sha256": "963170883d4f348be5dc0c130cc022aca507eb77e47be5f96bcf475c6643872e",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/Echo Broadcast with External Client.lvlib",
+   "bytes": 1796,
+   "sha256": "75bd8e3a3b04c2bdc67fad7d558d7b1cd351ecb8cf63d4d5e6cca7c3659252f4",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/Launcher.vi",
+   "bytes": 18852,
+   "sha256": "5abdf4a6b67bc7fd5855a91e5c528bd44a2ccc41a4eea63487357a21560b6203",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/Server Connection Handler Msg/On Close.vi",
+   "bytes": 15228,
+   "sha256": "82c82bd2fd2858e52bec8e224cffcd81da96312a08a72af64422f138e80e8e27",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/Server Connection Handler Msg/On Connect.vi",
+   "bytes": 15242,
+   "sha256": "62fe277bb5d4d9955dd7040e1cfb8eec17a1658d6f0448300d00c745add978d5",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/Server Connection Handler Msg/On Drop.vi",
+   "bytes": 15231,
+   "sha256": "3e1cb2e581abf9bf43fe36da481fc329471c44d6963058a6293f6149b477d269",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/Server Connection Handler Msg/On Message.vi",
+   "bytes": 17394,
+   "sha256": "79575789f0b6cf9a421706f3d03951c077f9740c664181a58841b09fbb5bea87",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/Server Connection Handler Msg/Server Connection Handler Msg.lvclass",
+   "bytes": 32837,
+   "sha256": "b946e8f0cd4d86bdcfa9f83bccfc192f15e37a8b14c05c09f2c4d8b554e2ed87",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/WebSocket Server Enqueuer Msg/Do.vi",
+   "bytes": 20570,
+   "sha256": "fc5d33310b78684a2ef36a4f7a8a04870d349b3ffd45357e30550a49ba6fb7ac",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server Messages/WebSocket Server Enqueuer Msg/WebSocket Server Enqueuer Msg.lvclass",
+   "bytes": 40485,
+   "sha256": "59710e6599349da57e019910eda76559ba3cbb2429c863ce91978847e6f9fddc",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/Actor Core.vi",
+   "bytes": 37982,
+   "sha256": "23c30a04bdf8a507b880cbdc9922c12eaec01fd8638de617baf78d0e316c6760",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/Pre Launch Init.vi",
+   "bytes": 18203,
+   "sha256": "17dc74310b7c7c34d9f3a0ea8388885c725a004189af3ee1a9ad04cf70b98d89",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/Report Server Manager Error.vi",
+   "bytes": 15379,
+   "sha256": "89cc4103bad889430c154335b49eb792156e4f8b5e2d67b0ba48adb104c7a917",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/Stop Core.vi",
+   "bytes": 18521,
+   "sha256": "79c09bf34894ff95358fd36f38a953ba7e7c456c2a2bd7cec9e20e2eadec4ad8",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/WS Server.lvclass",
+   "bytes": 72771,
+   "sha256": "ec5e829a3c79556899a6fb8275e799cdc6a1367f41131fc041439b21407373bf",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/Write Keepalive.vi",
+   "bytes": 15487,
+   "sha256": "91eaa1cac15fabdd663f175753282846f1fedd2317899d309894e955d0dd1e70",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/properties/Read WebSocket Server Enqueuer.vi",
+   "bytes": 13302,
+   "sha256": "59a0ba6d49aa4955784a1ea944b84ad8efa870f0d7bafa4d3e6278e868176daf",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/properties/Write WebSocket Server Enqueuer.vi",
+   "bytes": 15227,
+   "sha256": "27cda443728189acd1d9c70032be35593cb6ee4ae48dbd72daa1373ac649545d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Echo Broadcast with External Client/WS Server/properties/Write WebSocket Server Manager Enqueuer.vi",
+   "bytes": 14891,
+   "sha256": "5f37689a77567b61f6c65c986ee849d7b99afadbd2bfe9a72e78e486c83d68d2",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Launcher.vi",
+   "bytes": 25852,
+   "sha256": "cb6a03861a16cf91a5a181620a2ec0a24bb548b5435e1788d4a7107ead3e2860",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Load Private Key and Certs.vi",
+   "bytes": 14878,
+   "sha256": "31efba29d08d3e3c3a3acf6426db44571a6e15957c92d415732af323b0a586ce",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Secure Echo Broadcast With Server Manager.lvlib",
+   "bytes": 2740,
+   "sha256": "f338794539baf6ca1e228ce05f6a06b35c248d2a4d7c73f06174dc2e94c5e211",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/Actor Core.vi",
+   "bytes": 24822,
+   "sha256": "1db4b53bd9066c4a64954c4f1fe34ccaceb17cea4da2683a556c622f2a702b15",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/Sender Loop.lvclass",
+   "bytes": 33885,
+   "sha256": "037bb51b95be14d076b5ca1288bfacfa5f049270af5bd183dbb96dd0f1e7e3e9",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/properties/Write Data To Send.vi",
+   "bytes": 14002,
+   "sha256": "683e2fe13f70888767dc579522e09ac437b8ada6c0cd672d472fe4cf98fabcab",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/properties/Write Number of Packets.vi",
+   "bytes": 15947,
+   "sha256": "738a915c358d7792e4dd509798f3a1c475dc9192529283619060e7f4999c6363",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/properties/Write Send Period (ms).vi",
+   "bytes": 15942,
+   "sha256": "7d48a66e32f0c1bd8827472e6018e499039cf2abbbfa8786bd85f8c28737864d",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/Sender Loop/properties/Write WebSocket Service Enqueuer.vi",
+   "bytes": 14480,
+   "sha256": "f603b189e27dacd7662c66555762084cd26fd6c499051c74fd11cb41e2270896",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/Client Connection Handler Msg.lvclass",
+   "bytes": 45103,
+   "sha256": "c6ca3bdc92e1d9b06ddad67c3a10179b5eff268c7abf16c988d4a1507321e87c",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Close.vi",
+   "bytes": 15432,
+   "sha256": "f2830b35976c9454bd94a020d07cd57f580cbd7da429e8073cf6c639f06cec30",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Connect.vi",
+   "bytes": 19590,
+   "sha256": "7fb7f45ef7739ace3201a8ba5bdc9c060a0fa5d90ac92a149b5a88a460a8bf83",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Drop.vi",
+   "bytes": 15435,
+   "sha256": "e262c23e7a36b836283f2f2e281d403ca2b7520b8bc2aa663ad9b81b84efce55",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber Messages/Client Connection Handler Msg/On Message.vi",
+   "bytes": 19334,
+   "sha256": "836cd6815f7d9f439224c03792388d17cbd1847c17a8f6e700bc7fc1041b6e51",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Actor Core.vi",
+   "bytes": 35710,
+   "sha256": "452fc5308e4cffca810d14751fd11bde3c6b515d38102546589b156ad26941bc",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Pre Launch Init.vi",
+   "bytes": 17731,
+   "sha256": "a2dbb548e4618353503a4fabc5f99593deae04094b04b7a71158a87b0d24a5c6",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Send Data to Core.vi",
+   "bytes": 14929,
+   "sha256": "45a014b981b8ff7ee7864ad52434973e849d794650a09cc3bc23a0c661d55c00",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Send Enqueuer to Core.vi",
+   "bytes": 15425,
+   "sha256": "8721b58e1672ce5b53d015839ee78e36d6a9e6dce15d4baea0a23474efcf53fc",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Stop Core.vi",
+   "bytes": 16469,
+   "sha256": "32ff417d6bc35a332a484edebd9702a0065e3c12df1994998eb9876128cba41f",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/WS Client Subscriber.lvclass",
+   "bytes": 55185,
+   "sha256": "f19b6d1811ed5d5ff26ba828a628615151d91d887e49bd7bfa78ebcba0a399bf",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Write Certificate.vi",
+   "bytes": 14765,
+   "sha256": "4b46e48620f86e42fff4b6f181a4b293ad8e2a4fbf98615089c2a06d23a3d7ee",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Client Subscriber/Write Keepalive.vi",
+   "bytes": 15495,
+   "sha256": "069d1f513bb6030254155cb5199c01d4f5c48db2d698d57182f6078feddd9c8f",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Do.vi",
+   "bytes": 18854,
+   "sha256": "d6a14560a18b01d5f3b0e724756b771e1e282717786e6394f6cdaf6747264086",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Send Packets Msg.lvclass",
+   "bytes": 60455,
+   "sha256": "b349a16c4e1ea02d9f478bd6e50fb09c4414b56cfcf409656547c52befedb174",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Send Packets Msg/Send Send Packets.vi",
+   "bytes": 19245,
+   "sha256": "d0f092e64f096a407e6d6b1545f30bdfe6fc83fc4ec3db3e38981ed69562aaa9",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Close.vi",
+   "bytes": 15444,
+   "sha256": "3b388f6b7e24a151e1077dc3dfc6f4204804b01ddc2111204c8499c21e3986c5",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Connect.vi",
+   "bytes": 15458,
+   "sha256": "d1d1f0af29aa8885dfe2c6b6b2695a467bfdd4318b47bfbab50bd4cc5ae6e486",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Drop.vi",
+   "bytes": 15447,
+   "sha256": "c401cb3dc908ee38ad4881b21fe9920b33cd98e2bf9a17cc906d51c7cbc81f68",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/On Message.vi",
+   "bytes": 17586,
+   "sha256": "ac73a20c6744b9cf290622e1108c3c16346ab19be08c41ec69d00c7e20ee328b",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/Server Connection Handler Msg/Server Connection Handler Msg.lvclass",
+   "bytes": 33426,
+   "sha256": "3cd09b001d0dee6d8ea7403138459fb20dc3845ddbff98c6dbf3a65ca202b855",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Server Enqueuer Msg/Do.vi",
+   "bytes": 20766,
+   "sha256": "779cbda88b2660570f3d2e312d64cdcacecf78024763b6c6e2c43f850d5ca99b",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Server Enqueuer Msg/WebSocket Server Enqueuer Msg.lvclass",
+   "bytes": 41148,
+   "sha256": "ae8abcd37ccb780eff1188ddcaa239e787f3e61a676f021a98a0d843e5973555",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Service Enqueuer Msg/Do.vi",
+   "bytes": 20126,
+   "sha256": "3e02f6871a2d3cce25f37054a5520878ed468b353a2724b7abc4f7d0a3ea43a5",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber Messages/WebSocket Service Enqueuer Msg/WebSocket Service Enqueuer Msg.lvclass",
+   "bytes": 27775,
+   "sha256": "056bdccf40e3ad47d6aa5370e87f49c4b50c675e5e0996bfef5b5b9b52a126ac",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/Actor Core.vi",
+   "bytes": 42026,
+   "sha256": "b1fc0677eadd88bd7b1f77c4556e1095d0c365d67b55000ecf144e17d711f0b9",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/Configure Services.vi",
+   "bytes": 22970,
+   "sha256": "74d761d25e2875314f12941a291eb33de38b05011fd4880a412dab826df22ad0",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/Pre Launch Init.vi",
+   "bytes": 17035,
+   "sha256": "033063c813952c73b4c1151554877066b72273ffe04af6c11aa591da04872563",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/Send Packets.vi",
+   "bytes": 20160,
+   "sha256": "e8513763df08d3273750f050555bcf0c1cabeadba4664b9c118a69a27543dfa2",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/Stop Core.vi",
+   "bytes": 16205,
+   "sha256": "06e92a904944efdd5196b4e195593457352de2528bc6188a9d2e48a4b976a001",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/WS Server Subscriber.lvclass",
+   "bytes": 71800,
+   "sha256": "c0f797feb487e0f1c6627ccf21726fb09cfd760e3833480c4732297fa8512487",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/properties/Read WebSocket Server Enqueuer.vi",
+   "bytes": 13134,
+   "sha256": "acaa66cdf0bbd06c64036bd42271762afe5cd80be6aeb5f229ecfef079224876",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/properties/Read WebSocket Service Enqueuer.vi",
+   "bytes": 13131,
+   "sha256": "e3024b6434053c0cfedc3be96d458ee1a336c5addf7499eb051415c61234e2d9",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Server Enqueuer.vi",
+   "bytes": 14723,
+   "sha256": "d14d516ca44fa101f5cb09320d8a09c136955d964984030c6c8366f2aaa405d0",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Server Manager Enqueuer.vi",
+   "bytes": 14731,
+   "sha256": "c8d22ec4f05cf48a7c7aa7962164fd946e93fc86aeeb74ea5df4c5e834672f32",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Secure Echo Broadcast With Server Manager/WS Server Subscriber/properties/Write WebSocket Service Enqueuer.vi",
+   "bytes": 15056,
+   "sha256": "ce0d9bb6871380568cf55464e62bba3903e3fef8d22dabd1494261f0415828cb",
+   "via": "extension"
+  },
+  {
+   "path": "Install Error Codes.vi",
+   "bytes": 7915,
+   "sha256": "ba15aaebc07969e2c29936cdda58f0cedd5344da82d1a8c41c0c25c7b20119de",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor.lvlps",
+   "bytes": 83,
+   "sha256": "4ca0c3467c4a79a76bfb4a3f63e686fa74cf73561f9efea40fc1e485cfc9f60d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor.lvproj",
+   "bytes": 8690,
+   "sha256": "cf4bab25132ba49315e02e79dd4fa1506520079db34651c3461bb036f8625aaf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/Do.vi",
+   "bytes": 18926,
+   "sha256": "3f78fec6ed17100e1166ffbf72360c8ebe7053e6bd2cd50ae69e94a1d302561b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/On Close.vi",
+   "bytes": 16244,
+   "sha256": "583dc9fbc75bc650738a363cbd6b00466b60b9a4be2988a84b27e9662790400a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/On Connect.vi",
+   "bytes": 16258,
+   "sha256": "2cc269ec2dd88b49e66df244337071473aebb29e2715cbd072b5dbd6d87c34d3",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/On Drop.vi",
+   "bytes": 16247,
+   "sha256": "4b8545cda473dc60051403665df575d4dfd20734b86c66cbd76253c9252fefd2",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/On Message.vi",
+   "bytes": 16250,
+   "sha256": "1f4fc6c33556c9ecc6ca4e4d4d163d64dad8da4cbcf082c9d31ba43606222eb9",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/Read Attributes.vi",
+   "bytes": 13851,
+   "sha256": "3754fb1202541e91fca008e42b750ae6349be180a1bf7a9faad79af0d040bf9a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/Send WebSocket Data Handler.vi",
+   "bytes": 20195,
+   "sha256": "685a75877d5adf18a8db7c8f355792e1d4c08f89cf8772cd4822be12a5d30306",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/WebSocket Connection Handler Msg.lvclass",
+   "bytes": 96122,
+   "sha256": "b29ef63478883aed1e94ee1fc286dd8c22f19e9954efbaf6c2fe0dd88131e8e2",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Connection Event.ctl",
+   "bytes": 15521,
+   "sha256": "27acbb3e88c0b9b33dd188102a242ec8ef0d76a3ea860ab3121de01491eaeb4d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Connection Enqueuer.vi",
+   "bytes": 14036,
+   "sha256": "1a70fe3c09da37ff979fbee1e759cd6ca5ee9e01ac3fc19354df542612ed4994",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Connection Event.vi",
+   "bytes": 13989,
+   "sha256": "eb05ccbcef2fc3df87935da8464f20914b8e3ff1c1f9bbb7b3887d98a22f7f8a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Data Format.vi",
+   "bytes": 13356,
+   "sha256": "41f4cfaed29254b3ce290e4ff16615d9eabf8bddb66cbbffed04bc31e5598906",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Data.vi",
+   "bytes": 13553,
+   "sha256": "a13ed668aaad1696784af67d2c1eceebac7ce77b3856c2cec0e0950467627ff1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Peer ID.vi",
+   "bytes": 13560,
+   "sha256": "fb9e00c9173a32c6d64c031048e398178427be09c90425401b3c84330dcbf4a9",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/properties/Read Service Name.vi",
+   "bytes": 13121,
+   "sha256": "6bb2567860cced17ea08ff6112e77e837af0cd1e01dfc164d5953075838c5a00",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Connection Handler Msg/typedefs/Message Data.ctl",
+   "bytes": 16605,
+   "sha256": "9ff39f021b3480b4caf720a9889a769de9a27d1b5d6b89627f7f3007ec798d0d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/Read WebSocket Service Name.vi",
+   "bytes": 18551,
+   "sha256": "a91d38c5b9cc298e260951e6c645a03fb167ca8ab0c5d0f30291c187c99fd0ff",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/Response.ctl",
+   "bytes": 12321,
+   "sha256": "256089dfe7a4d81f3bbdf1827e0943a9aaa880c772e28ac894a9652d69072ae3",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/Send WebSocket Server-Service Enqueuer.vi",
+   "bytes": 21158,
+   "sha256": "51974440814b41671d257d5c425420ca07f5463eec810804587f2e87a81e6ab4",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/WebSocket Server-Service Enqueuer Msg.lvclass",
+   "bytes": 69351,
+   "sha256": "c19837cd1be9b8548310eeb23145400425f91d247184834d97516aeedb7e399b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/properties/Read Error .vi",
+   "bytes": 13831,
+   "sha256": "c24bfdb48d92443b63d839b2ce58747c6f9318318f7aaa45f90f20f03c48d7a2",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Abstract Messages/WebSocket Server-Service Enqueuer Msg/properties/Read WebSocket Service Enqueuer.vi",
+   "bytes": 13915,
+   "sha256": "b30a67c8a8d0e4d797d8a420a7f07dc69078151a4f2bf997fedd76a06d5193cc",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat Messages/Report Pong Msg/Do.vi",
+   "bytes": 17478,
+   "sha256": "706b9df25ddff735192d09bc7b97d92dc0c30fc2b64101b4485e485d11028ea0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat Messages/Report Pong Msg/Report Pong Msg.lvclass",
+   "bytes": 55536,
+   "sha256": "3b883a619b91ca100a1013b88b3c8cbfed3c0329e25f1dfd08f029dd9e23d4cc",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat Messages/Report Pong Msg/Send Report Pong.vi",
+   "bytes": 16632,
+   "sha256": "1f7e9d488e33b385bb839b403192a29cfab482ff15d1f64e8997f5d74a2bfc2a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Actor Core.vi",
+   "bytes": 25510,
+   "sha256": "354904c65f38360e08571c2b1ceffc669b83dcb353415223e350fb4fac0ba6fb",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Keepalive Heartbeat.lvclass",
+   "bytes": 49858,
+   "sha256": "923422128f090fabed71d39b16e5235dc6efe6a9c05e86ac6d14c179bc3c3822",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Pre Launch Init.vi",
+   "bytes": 16031,
+   "sha256": "567c8ce40e232bb409879092b3ec9f248e73feb7cf8adde78d01ac50fe056f5d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Report Pong.vi",
+   "bytes": 14599,
+   "sha256": "363cad28d4f45607d2c2da6aed7ae9c121e1fdb3f4708b14934233a37517ddc7",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Stop Core.vi",
+   "bytes": 15489,
+   "sha256": "9e337d2a34f2e362be3a4c555b3a1af807f90beff99fa6087bd71d1eabcd4127",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Keepalive Heartbeat/Write Keepalive.vi",
+   "bytes": 15011,
+   "sha256": "dfa14446e5be7d167f85af70ee551ce9f3d143f5c748ea0856f38357f3c87592",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/Tests/Full LabVIEW Test/WS Test Client Messages/Client Connection Handler Msg/WebSocket Connection Handler Msg.lvclass",
+   "bytes": 9408,
+   "sha256": "8774ddb1d3835c275693a7a842bff433bdd91a96d65463245b45f84937b88783",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/Open Examples.vi",
+   "bytes": 12773,
+   "sha256": "cffa972e6d8b7478882103560259930a911d4eacb77b21a8cfa300e0fb1e67ee",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Client.vi",
+   "bytes": 7524,
+   "sha256": "4fcbb4f081cff7b4baf7eb66f3621e3f996feb5eaf73a76d43cbb4359b280c46",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Connection Handler Msg.vi",
+   "bytes": 7696,
+   "sha256": "48794191717a5f31104eea411957a1c9c72adb46a7bb9f027a3091bf3c23f039",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Server Manager.vi",
+   "bytes": 7380,
+   "sha256": "c2bcd3bf43ae5c18168dd38b23683ddbb4e163d90a53608f4ddea19dc65adecc",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Server-Service Enqueuer Msg.vi",
+   "bytes": 7641,
+   "sha256": "3cb913e0d7dd3f758c39245fc005919d70e6736faa763c8529acad6253ac3fe3",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Server.vi",
+   "bytes": 7524,
+   "sha256": "1f70de57b0fb61c054d0d976ccf25a1f40696e29d956c9cfb431e17427a5c101",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actor Palette/WebSocket Service.vi",
+   "bytes": 7649,
+   "sha256": "3952f2253eea5ea7db5126a4f570c37bfb037a18382ef7f1c2fd4186dd721a82",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Actors.lvlib",
+   "bytes": 18482,
+   "sha256": "614c48a2d2e92a25fa79ee7630be11f1264af64921ac620d2c0f9eff7e0ea50e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/Handle Error.vi",
+   "bytes": 19280,
+   "sha256": "214c9b9c3cf4ddd0e89dc5ac9878493a7c494466093d2582f6d5882e8adcc2a1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/Pre Launch Init.vi",
+   "bytes": 20323,
+   "sha256": "631745b8b69856cf87e7c8bf1409199399f1f19b20c524e39ae98619a08dc859",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/WebSocket Client.lvclass",
+   "bytes": 91318,
+   "sha256": "68c47b761e704c981b885855fbb7c03324d721a03b95e9a31c48243b788ac241",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/Write Certificate.vi",
+   "bytes": 14733,
+   "sha256": "3204ca7a6024138a6f0210741c80881ee9c2e644bc3d501d64bd51a0e2241601",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/Write Load OS trusted CAs.vi",
+   "bytes": 14393,
+   "sha256": "04da3342b765bdae94077cab969e41736b2510a346a30b87dfd151aba3fa0db0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Read Is Client.vi",
+   "bytes": 12430,
+   "sha256": "dba295507d4c435b9d9d53f1144702b3616b76f9be3478e07bd155a5f273f074",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Read Remote Port.vi",
+   "bytes": 12856,
+   "sha256": "3f288d926e69086246140b2f5a9c87ebc2e9d22d274841239344ab6fbd8f14b1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Read Subscriber Enqueuer.vi",
+   "bytes": 12760,
+   "sha256": "23734b46f92083a076de022b135f65f4f90005843dc3feed6b4225b4c9d8c0cd",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Read WS URI.vi",
+   "bytes": 12763,
+   "sha256": "7121e4fd3c18876843952d4adf045d0ad4801f805af737c1eb3f437830419fef",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Write Additional Headers (none).vi",
+   "bytes": 15387,
+   "sha256": "0800d98246f04095a32ced1ee81c27d8aae7ad4edee60c5df61f9fc9cf5c8de0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Write Subscriber Enqueuer.vi",
+   "bytes": 14881,
+   "sha256": "fadf856bca92b160197cdffc41f9f9628afea9cfdee12c593e129b8ca9c7b1f4",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Write Timeout (60000 ms).vi",
+   "bytes": 14996,
+   "sha256": "2bd17264310e6b2a6f3f2ab244653b3b9e0a433403704bab89cf5a1918cc9149",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Client/properties/Write WS URI.vi",
+   "bytes": 15968,
+   "sha256": "fe2b2a8b7696badec724f95e9655b4372cc66b209a46de56bfd39d828bbd5cb4",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/AAAA Msg/AAAA Msg.lvclass",
+   "bytes": 49478,
+   "sha256": "62cd58ac2cf472b4cf706736843b2e3f8983143b5ec3648f1a421d20c4d921cf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/AAAA Msg/Read Attributes.vi",
+   "bytes": 13231,
+   "sha256": "bbbfa6d1727826982122b37c0cdfcb1700c144891fda115b4436e0289f494c2a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/AAAA Msg/Send Template.vi",
+   "bytes": 19953,
+   "sha256": "a2590be48fc3465a97ce9c906d0735a25bdbb4b396e8640ea19cd3846a4ec37b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Drop Connection Msg/Do.vi",
+   "bytes": 17526,
+   "sha256": "8cc35c075e9dbceb49e65f9d1a383c37d8ccfdb8be08f106e5e86724bf370344",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Drop Connection Msg/Drop Connection Msg.lvclass",
+   "bytes": 55502,
+   "sha256": "d6112d0a2ba1df43a6d3faff01e3f901fd7eadcef40a35d3b8a439f96c75c06d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Drop Connection Msg/Send Drop Connection.vi",
+   "bytes": 16784,
+   "sha256": "5bb4ef6ab66bfc3260748f85fc347b049b1aa3a83b324f99fed5c85394176051",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send Ping Msg/Do.vi",
+   "bytes": 17458,
+   "sha256": "ef647b3831285ece89cf9f96562999a286250594730bbd2ea3c8d6be204c5ccf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send Ping Msg/Send Ping Msg.lvclass",
+   "bytes": 55452,
+   "sha256": "18752fed5289f80a1b15a4aae05bbae0cd826060f0d74a76293070775c97775b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send Ping Msg/Send Send Ping.vi",
+   "bytes": 16698,
+   "sha256": "1e7d218819ec4de0051d41aca8abb9f407b5ddeeec69c186b130c701a6ce4a94",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send to Peer Msg/Do.vi",
+   "bytes": 18066,
+   "sha256": "1c4ec2245014cdf6db48bcaf12b92582e3b45977ec9633523c4fe342ec15e7a4",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send to Peer Msg/Send Send to Peer.vi",
+   "bytes": 17885,
+   "sha256": "85b4f6e71ea1561933750a130b151a326ec295c1493efa1a01ca51fcbd573074",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Send to Peer Msg/Send to Peer Msg.lvclass",
+   "bytes": 60565,
+   "sha256": "9a0a549bde11e50c60717dcd76c79f01ca699683fd38ee060efe4250612c4d3f",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Write Connection Status Msg/Do.vi",
+   "bytes": 22298,
+   "sha256": "6c5a59abe7cad53164f6793f4fdf21e82fc34b3b08e06417f936b23929516ac9",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Write Connection Status Msg/Send Write Connection Status.vi",
+   "bytes": 23100,
+   "sha256": "0569a22ac16c5befa01358c4bde5d85a60b70ae151b92d66c8562f6b953a651b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection Messages/Write Connection Status Msg/Write Connection Status Msg.lvclass",
+   "bytes": 48894,
+   "sha256": "4274021021168157fa756a4db2cf4d80d880b52dbd9178500998d55ccb5c1fe2",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Actor Core.vi",
+   "bytes": 47110,
+   "sha256": "9d43ea0633a8ddf33403e163a38fe2dfdc40084cee0c34051672c4d5a46b10c3",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Connection Status.ctl",
+   "bytes": 14850,
+   "sha256": "e6df47e0a545b5f869630df26d4728546fd369d15cc1807e138dc21c706d4933",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Drop Connection.vi",
+   "bytes": 19755,
+   "sha256": "77beccda5880d29d9aff43cb97d4a931b695d39191946a0f815146c5222be041",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Keepalive.ctl",
+   "bytes": 12178,
+   "sha256": "90f6cbbe418fa002b5a9401724843798367a48962d1c33e91a5d8d2ec85d6def",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Send Ping.vi",
+   "bytes": 19573,
+   "sha256": "43b9847c28c90be8462b561f449a77ef15711b87111c825b6dae5d7f7c62edb8",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Send to Peer.vi",
+   "bytes": 20384,
+   "sha256": "37c37b1d9294803db6e140ba3bcf613ea6f8337d214f4cc08693274a9fa20d48",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Start Keepalive HB.vi",
+   "bytes": 19850,
+   "sha256": "de9f42eba9930d486b968afb020a9d0993e53601d97ebd8197c214a1ceedb55b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Stop Core.vi",
+   "bytes": 25169,
+   "sha256": "c6a77f50eeac41cd54dc18ce4ac783e52e164b55c4724e41ba5c70105dfe0d05",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/WebSocket Connection.lvclass",
+   "bytes": 92646,
+   "sha256": "6a2ecd2a18f983f6b5a1458a9cf6a624fcb9d10b6be4c8819d98c36ad7924d03",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/Write Keepalive.vi",
+   "bytes": 15299,
+   "sha256": "cd1700455db390bd81418e1c1948d2a227c633fae56e56909ee3abf4771bb618",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Read Connection Status.vi",
+   "bytes": 13294,
+   "sha256": "fc4522e20667ecf49ec54c389982ef11cf0e7fb66b99b8d69be5f71d2a878c8e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Read Is Client.vi",
+   "bytes": 12098,
+   "sha256": "4928e5d40cee7a90d30ab5492aa5bbeb395a6422ec3121ce9b31c7dfb4c30430",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Read Peer ID.vi",
+   "bytes": 12860,
+   "sha256": "b1334059f4617f38c441838be92f178f7d90704a401fc2b0fa545cba8b9fbb31",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Read Subscriber Enqueuer.vi",
+   "bytes": 13824,
+   "sha256": "1bfd171ee3e212c1fdabb37f823a23e9c0727a2d485e055a69e6894598b21890",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Read Timeout (ms).vi",
+   "bytes": 12945,
+   "sha256": "2cc53ac6536ae3cf9f6fe853d5104e94f7772c238fe413523a6800d9552a53ab",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write Connection Status.vi",
+   "bytes": 16263,
+   "sha256": "aa40b83d619d99e3c00ef34d95c1adbe0680150054ff49cd566f17aa4c81b132",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write Peer ID.vi",
+   "bytes": 14465,
+   "sha256": "7f3629943815c3c8e2b19451a17e472e6c3376b1fd1ee4dcd1ff7426e7a0f042",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write Service Name.vi",
+   "bytes": 14502,
+   "sha256": "92fe74b90fd670c11b5434bfa5c8bea2a843aa2541bc1c6a39e481be04328473",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write Subscriber Enqueuer.vi",
+   "bytes": 14977,
+   "sha256": "07b9f1204d0a36628a36c8d391234e1633db6d328f1e61fc639f78b607c73025",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write Timeout.vi",
+   "bytes": 14569,
+   "sha256": "69bd96fd48f9ec99ecffa5f90ec167aea0670131ce35f60ce3af1dfae7b43c62",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write WebSocket Connection.vi",
+   "bytes": 14430,
+   "sha256": "32c456757fe4ad39ee75a905d40f9baa9dcb3a74c69c07da3f77fa3dbedfffc1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Connection/properties/Write WebSocket Data Handler.vi",
+   "bytes": 15052,
+   "sha256": "67b6ca0e2179137095f095c092922bb20fa0b7243749ba5a64d33ae447fbd1a7",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Launch Server Msg/Do.vi",
+   "bytes": 18726,
+   "sha256": "6012464a5b31474fc6cd092cc76aaa6fc3c7a1fadf1a1fd163c96eaac4e0629a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Launch Server Msg/Launch Server Msg.lvclass",
+   "bytes": 63267,
+   "sha256": "b1dab52c1671d01214439620beea9dc0074c27ac80c3919cf55e91d75872ccee",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Launch Server Msg/Send Launch Server.vi",
+   "bytes": 19782,
+   "sha256": "ecd85f59088710f53d927ea02ad6f7f0b84b376cd4e34507d9b98a107951f32d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Stop Server Msg/Do.vi",
+   "bytes": 18698,
+   "sha256": "616e200e75a7e9c169e225f4f75ed99af175117fdab726d303248a60e86824aa",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Stop Server Msg/Send Stop Server.vi",
+   "bytes": 21428,
+   "sha256": "153419a79480fcd373215e5eb83e59693fbdfda1a8066340af2eafa5b5206e86",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager Messages/Stop Server Msg/Stop Server Msg.lvclass",
+   "bytes": 63249,
+   "sha256": "5b69b44274797bb2981e3bd5d82ee2f4b2cf08255c823c00846b8f00bf7b74f6",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Add Server.vi",
+   "bytes": 17886,
+   "sha256": "95eb63fffddf504ec76f472b1852a81068ceba8c867c6c83b63b18dd4185360b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Create Server ID.vi",
+   "bytes": 13028,
+   "sha256": "3bc28bd23469dc5683bd2fbd19a8e9c49a76077d3e8c54ab2da74fc4ac0780a2",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Get Server Type and Status.vi",
+   "bytes": 19862,
+   "sha256": "f1a366dac3c37fb7e0460b84c1f882101521be7750a7f52e54bc585d9a460548",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Handle Last Ack Core.vi",
+   "bytes": 32848,
+   "sha256": "8c6e9e3c8512eefea4450501bed48c62018c4ea7b9ad3a661f0feda6a932583d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Launch Server.vi",
+   "bytes": 36033,
+   "sha256": "6f01ce4bee4f518e22302229b003f881aab1930814a97044c1a514e2e7e9b028",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Manage Server Attribute.vi",
+   "bytes": 19031,
+   "sha256": "34a19d06bfccc72d6803aaf78216c35140e37fc3f892023679bb01e70f7a64ee",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Pre Launch Init.vi",
+   "bytes": 16507,
+   "sha256": "1976b32e6de0e4898925d0551ba0b0e06acd531116a0a9bb4554e1c35dd799a5",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Stop Server.vi",
+   "bytes": 32095,
+   "sha256": "d0a5002810f4281cec1b4cbc5d86e1251f6e171582febc9505e0ec41c01be6b6",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/WebSocket Server Manager.lvclass",
+   "bytes": 54380,
+   "sha256": "e4553431553e0de95b937dcc679021f5db3a336b7d21d98d31259622d4e38bef",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Write Certificate Chain.vi",
+   "bytes": 14923,
+   "sha256": "4ed21cd3ba34b545f1af910361d60081c4752c359c8533bb217ce1318fb083c0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Write Keepalive.vi",
+   "bytes": 14875,
+   "sha256": "3f300c84fad2fac49a4d17b8ae1e5d7acb17358ec6b7402e8d79413b5774d086",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Write Load OS trusted CAs.vi",
+   "bytes": 14253,
+   "sha256": "bcda2d5cbb2374918e7bc12df09704d21745c6414c3bea53ade85882f5a9a05e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Write Private Key.vi",
+   "bytes": 14605,
+   "sha256": "08197f6c8174b3b063086c768b42f0a696ec2b80eacea29f63b29856abe318cf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Manager/Write Secure.vi",
+   "bytes": 14232,
+   "sha256": "5229e003ab8d9347960437477a91f52e52e0f9dc06faebaea4f92e62696e293a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Client to Service Msg/Add Client to Service Msg.lvclass",
+   "bytes": 59328,
+   "sha256": "3c217992cb4eeb067c40289fea6d0090d65dab60bc73513cb42225cb0ffb43ef",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Client to Service Msg/Do.vi",
+   "bytes": 17894,
+   "sha256": "48d52b8478d272461b42e868b3b4ba04116e46b032b2380ebe4fb76a20871dc5",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Client to Service Msg/Send Add Client to Service.vi",
+   "bytes": 17758,
+   "sha256": "849519d499cbdd779b6881d01adfac27ceed863d244743a651e1618463d9f9e9",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Service Msg/Add Service Msg.lvclass",
+   "bytes": 69723,
+   "sha256": "945cafe82cfaaad47363497fc7026a3b0e483d55bed33edd53dc0e25e1fc9202",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Service Msg/Do.vi",
+   "bytes": 18286,
+   "sha256": "360cfee0062d2d10c8e76a09aa7aca32c95d8389aae09bc528cb982ea3f926d1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Add Service Msg/Send Add Service.vi",
+   "bytes": 18932,
+   "sha256": "ead27652aa6aa0b50d623c3219f1ac1ba0ee756079196d22b8aba4c723b7d14e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write Listener Down Msg/Do.vi",
+   "bytes": 18238,
+   "sha256": "1dd69b4f040c6451ef1879094593ccb2af8f14e5a3fca9de8786561b8e1fd21d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write Listener Down Msg/Send Write Listener Down.vi",
+   "bytes": 17632,
+   "sha256": "a72e8f18e0ace86a09bf8ca8577fd1ff8be5b4fb6a2d139ce4a0a66f64850848",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write Listener Down Msg/Write Listener Down Msg.lvclass",
+   "bytes": 56594,
+   "sha256": "047194ac484781b6da3f9a63a362ecc95248263536c873b33d823a4121b85b30",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write listener ID Msg/Do.vi",
+   "bytes": 18242,
+   "sha256": "b8ebc47baf891dac85030e7c727eaa8bccbfc534532e719bc635d4b40b5342c3",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write listener ID Msg/Send Write listener ID.vi",
+   "bytes": 17586,
+   "sha256": "f030f0577061b429b02c8aeee958566b220c8fc33e98c7e511a20ea238508c0b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server Messages/Write listener ID Msg/Write listener ID Msg.lvclass",
+   "bytes": 57300,
+   "sha256": "9805233676bb93d8e5fb261587a9171446570db542408398f37b9ce0b5a80cdf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Actor Core.vi",
+   "bytes": 40970,
+   "sha256": "aa191ece62337aabf2d65e06b320c51a47bfccaf20c0cadfbf166fdaa780402d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Add Client to Service.vi",
+   "bytes": 24469,
+   "sha256": "4912b3c8bf3fd4b81fdf1ae8294bc6010c205fc5afdcbeaeea5fc1858b388269",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Add Service.vi",
+   "bytes": 37331,
+   "sha256": "e730c480a76de316e9f73ce90d1956b93205beaf7eb4ca1fc12cd9efcc47509d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Attribute to Service Details.vi",
+   "bytes": 14760,
+   "sha256": "cff43acefb321ef8d0f60b28548181b4d2359e8c876e989c178da55894dc1746",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Handle Error.vi",
+   "bytes": 21076,
+   "sha256": "d9d7534a8c76ec94b294989d49be6c6fc496a9a96b8e70657685aac617c36b02",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Handle Last Ack Core.vi",
+   "bytes": 19648,
+   "sha256": "0bb722d46bf913681dba002627e73471ca88ef4c507731da61a10c7e64827074",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Handshake Response Action.ctl",
+   "bytes": 15038,
+   "sha256": "7c4f48d5bc049d4f09c02b38d7f10759b601d7032c7fb4dc12b3fb0fefc88d7f",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Read Subscriber Enqueuer.vi",
+   "bytes": 15804,
+   "sha256": "b4f51375349583a9fbbe6c2f5eb5ebd6cfe219e14c2d906a32446c1b6ad73125",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/ReadHTTPHeader.vi",
+   "bytes": 13086,
+   "sha256": "eafd1b14e7e7521ca5cc19141c12806aa173e263b705a17e3bf268ba40d4550b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Service Details.ctl",
+   "bytes": 15816,
+   "sha256": "32ae5bd79a04ecd9f711309574fe59dc1b9b975c0bfe8efe25611602c4dd23ae",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/SplitHTTPHeaders.vi",
+   "bytes": 17228,
+   "sha256": "a719edc54001a0f5d498ffee8225822863e0b3bdfeabaa9870e7a5623f5eec15",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Stop Core.vi",
+   "bytes": 15453,
+   "sha256": "463cfefdd8a11d98ef2cd75c032888dbccb18455bbfacdb272d6e7df07c38452",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/WebSocket Server.lvclass",
+   "bytes": 104116,
+   "sha256": "65e8fdb3567b08d09ed393add29e6b5700cf045396e890ef173b3373d40b1ea6",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Certificate Chain.vi",
+   "bytes": 15291,
+   "sha256": "aead5a523902ef2d31a5f1519eb28bb3f148ccb4042aefb6eec2bd1b01a63f80",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Keepalive.vi",
+   "bytes": 15611,
+   "sha256": "5d75a80a42a824bfb8d66f82906e47ef4f1cba8991ad9d267ed691de0ba77c71",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Listener Down.vi",
+   "bytes": 15983,
+   "sha256": "f75dc1f10250f6feb86e6991c963195e152bf2bc9cf88edf56412b023013e17e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Load OS trusted CAs.vi",
+   "bytes": 14621,
+   "sha256": "dd56949a68ed4aeb395d882df67ea1e41fa577cd9b302efcc833fed4dc136f36",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Private Key.vi",
+   "bytes": 14981,
+   "sha256": "9eac524d0d480769a85233eba3c51c9e01ec5bbcfee50d9da2e5893a79c36e41",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Secure.vi",
+   "bytes": 14604,
+   "sha256": "3a86b7ca116482975c1ffc98edf3315d99f2dc8e52cf435addcab9756a6ce022",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/Write Subscriber Enqueuer.vi",
+   "bytes": 15105,
+   "sha256": "7f912fcf0e7399bcdea71b8083b3188cfca97e177ae90b64d779b1a613c9cc02",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/properties/Read URI.vi",
+   "bytes": 13008,
+   "sha256": "5fee255d689cc11bfe08eea2cb1c3f2ef898915af299a883dcbd02d84ebb2621",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/properties/Write Handshake timeout (5000 ms).vi",
+   "bytes": 14753,
+   "sha256": "559d14c847b9d88b6ccd54461e083cc85e8dbd8604cec0b36005584881558a12",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/properties/Write Listener Settings.vi",
+   "bytes": 15531,
+   "sha256": "1c9007dfa45e46769111bec37a0fb3e3927391ac739dff0c88a3f2c301adeacc",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/properties/Write URI.vi",
+   "bytes": 14625,
+   "sha256": "0c43e00ff9149fdf834506bbf71311266afc60e1ed493c7559f3ec1a02c3406b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/properties/Write listener ID.vi",
+   "bytes": 15957,
+   "sha256": "b5e77ca490253da941521cef8fd37091132a7b879120d16531c3baf94ecb2c3d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Server/typedefs/Listener Settings.ctl",
+   "bytes": 12442,
+   "sha256": "0c4dd2d1ab26b3feb179c2fe0b83cdc48aff47e8e20a92372f1385d500061f5e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Add Client Msg/Add Client Msg.lvclass",
+   "bytes": 59372,
+   "sha256": "e99a2e3917e73c39a768aac660a963339db5b2f109475c8ba32bb14dda3b0733",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Add Client Msg/Do.vi",
+   "bytes": 17902,
+   "sha256": "019c5bbb67441e27c7a3d92aff02f5aa4ef980b2bdfb02da4ba495e2c96d3d71",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Add Client Msg/Send Add Client.vi",
+   "bytes": 17603,
+   "sha256": "87a75ff4e10e6f96e4324c33c04b983d8ab047e845ec1bde05d929e128903825",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Broadcast Msg/Broadcast Msg.lvclass",
+   "bytes": 56325,
+   "sha256": "18fe91af5bb07037bb70fb034aa3e197ede1f150ee953b693df7a8e89ca340b7",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Broadcast Msg/Do.vi",
+   "bytes": 17602,
+   "sha256": "046a3ad688f2ebc3bb7265fbe27464a272653fe7bd22bb8221f0a0ba907ad43a",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Broadcast Msg/Send Broadcast.vi",
+   "bytes": 16942,
+   "sha256": "44ed02982abd96452bbac03520cf9b7f7063f8d159269dd870b96945b5fd4d05",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Send Msg/Do.vi",
+   "bytes": 17662,
+   "sha256": "1d9be1fc2ac3ee9a976cf02964fb9503bbd5b1b6714f9d42665b580bfaadb2fd",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Send Msg/Send Msg.lvclass",
+   "bytes": 57036,
+   "sha256": "03e4113e07ca4438985b0440b69b0c6799b18aca9b6096630b229f2503c05d6b",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/Send Msg/Send Send.vi",
+   "bytes": 17053,
+   "sha256": "2177b16812362f7db926fa0105fc237250e908fccf52cd67c71eef311d5137b7",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/WebSocket Service Connection Handler Msg/Do.vi",
+   "bytes": 18562,
+   "sha256": "0d01f430081933b30ee58000ec39720015d4cc3eea8d3e3d76562229b6dda7be",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service Messages/WebSocket Service Connection Handler Msg/WebSocket Service Connection Handler Msg.lvclass",
+   "bytes": 13872,
+   "sha256": "d7de39f73981cfe82fe873a598d8773d625952d4eadd4cebf59f1b6a952f9ad1",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Add Client.vi",
+   "bytes": 25482,
+   "sha256": "10204922c157fb2593d5f11a649a1f5d527c22fdbf8742e6141119f872ad1f77",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Broadcast.vi",
+   "bytes": 17889,
+   "sha256": "b9ced9d8394476791127327c58ccb9886b22ab79ddb9a1825447d1f6b6ee9bdf",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Handle Last Ack Core.vi",
+   "bytes": 21700,
+   "sha256": "65de9ed48a2172419ec32293cf9b044f5d9ba3b22df6a80e42a219efe36c2f8e",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Pre Launch Init.vi",
+   "bytes": 14671,
+   "sha256": "f38abc96ec6929de46910505168482db526f3d39d30a63a40c8189c740b74773",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Redirect to Subscriber.vi",
+   "bytes": 25854,
+   "sha256": "78a71f56a9b371c5ef050a4149911867f5e159384bfe847f510413f45ae29242",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Send.vi",
+   "bytes": 17968,
+   "sha256": "d0e02aa349c01bac794050c6ee069326bdb8cfca3e8ad869b2de36d5dba31bdc",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Stop Core.vi",
+   "bytes": 17997,
+   "sha256": "bcba8216f7c6fecec2bb6771090949486a792989313e57d70752c5354a6292c0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/WebSocket Service.lvclass",
+   "bytes": 69534,
+   "sha256": "eca798ef3edfbd8111217ed9c4b49f50d781e8ff27ec299838ff0dc4d2fff9c0",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/Write Keepalive.vi",
+   "bytes": 15255,
+   "sha256": "c28dc60ccb25c06d2de7db6a655cf0242c7b0cc830f16d22d7fdf7c9f48ca662",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Read Service Name.vi",
+   "bytes": 12645,
+   "sha256": "2103de53cad182c3403ebeb21d38f693350ddbcd9b2403fbc7986570c534d113",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write Connection Status.vi",
+   "bytes": 16399,
+   "sha256": "76020d5261f1eb206cfbfe6fdd7182cd777c5db7a40a5443d5de1ec110ad7282",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write Service Name.vi",
+   "bytes": 14246,
+   "sha256": "063685c19c86895660c3bf7097252eb2c295c4c893d50267ddb0549a68db9a4d",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write Subscriber Enqueuer.vi",
+   "bytes": 14757,
+   "sha256": "6b8580d5492220362a60bdb8067fe7aa8678c71823e7f8e171162aaf6d1e79c9",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write WebSocket Data Handler.vi",
+   "bytes": 14852,
+   "sha256": "5aeb8bb647c65d8b8e97f2bac18d852befde16e8b0735787b1f4da723f748aea",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write listener ID.vi",
+   "bytes": 16009,
+   "sha256": "42a90f08174776311a37ee9eab76a3b723c29184cc98cefccecb2c50217fc416",
+   "via": "extension"
+  },
+  {
+   "path": "WebSocket Actor/WebSocket Service/properties/Write timeout ms (wait forever_ -1).vi",
+   "bytes": 14567,
+   "sha256": "e9e7995a1e57084acac691d609166dcd77ff677c9b940d8a64072d9d637cea20",
+   "via": "extension"
+  },
+  {
+   "path": "Examples/Certificates/srv-key.pem",
+   "bytes": 230,
+   "sha256": "8617e55af03fcb767d1c601f226df2379a929891c6472e6b38122e38da61ce40",
+   "via": "ref:Examples/Secure Echo Broadcast With Server Manager/Load Private Key and Certs.vi"
+  },
+  {
+   "path": "Examples/Certificates/chain.pem",
+   "bytes": 1246,
+   "sha256": "fdf533a7b870502f88c67eac88402914e9c3a84fd25fd465ff2f1c3078739c5c",
+   "via": "ref:Examples/Secure Echo Broadcast With Server Manager/Load Private Key and Certs.vi"
+  },
+  {
+   "path": "WebSocket-Actors-errors.txt",
+   "bytes": 1263,
+   "sha256": "eca995ca46dfa797f2c1dc91469e069f1b3825370e811c2688d8095fed352660",
+   "via": "ref:Install Error Codes.vi"
+  },
+  {
+   "path": ".gitattributes",
+   "bytes": 42,
+   "sha256": "4001bb65e545305ea95ef2732cc3ed445be4b59d2231c60d0a4da5ff20a0467f",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 11,
+   "sha256": "8e9c0918cc066f98e3896d68b7babf0251bb5a9808aa892d1d8f54db239319f9",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/Export_to_Markdown.bat",
+   "bytes": 98,
+   "sha256": "32cc63cebd9cd9dc9a30cc3e780d762e270c98a4133fa24b797583072ea03c9a",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/README.md",
+   "bytes": 12335,
+   "sha256": "3e44863e5943fc4069ca5c3fd0474f07657adecc254cffdcb38fe2caccc4bb59",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image1.png",
+   "bytes": 128167,
+   "sha256": "e45f93d3bb30de674c908e240c2019af93222dcf8b4ca71a29287a630e00f7c1",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image10.png",
+   "bytes": 95783,
+   "sha256": "36affee9261ef17f2857404c66014a415fbd97dd0450dbe0d7f6f6a6ae05bf8b",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image2.png",
+   "bytes": 3354,
+   "sha256": "6a6a8e401b73e68891b5083104685476fd2fed5d40edf3123c8a5ba99c3bd4a1",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image3.png",
+   "bytes": 134439,
+   "sha256": "6a49dcd89117d812a434122df659fd7177295c1b63047872f3e455a823c2e501",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image4.png",
+   "bytes": 110361,
+   "sha256": "b571d5d055d9ec2ce8c4cc2240b702e053539e4d26b67eb87ac491cb02a58895",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image5.png",
+   "bytes": 2832,
+   "sha256": "1e94492af80ff65f3c5a54e04138988c939d193ea6f5bd396e532d3d79b87688",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image6.png",
+   "bytes": 120732,
+   "sha256": "bc9bfb34c544b133fdaa9adde25e1a3c9cd80652418deb33bf4793ce4fab987a",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image7.png",
+   "bytes": 61924,
+   "sha256": "bc9b9149a4122816fc26a9a8934eaad92fe8b363eb0bbef51cadd0dd055a4949",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image8.png",
+   "bytes": 57971,
+   "sha256": "10a0a014342418ae3a9b13b1ed66fd57b2f978a13fb2f1eafc30f7ebefc614af",
+   "via": "tree"
+  },
+  {
+   "path": "Documentation/media/image9.png",
+   "bytes": 4253,
+   "sha256": "2738d5ad36322dae220c560b0b390714356050914a1de60808aa693b8026c005",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1481,
+   "sha256": "aa23d1b8f310e6f0b1cb767a96fe522eb1f733dfccbfa966ccdd1f409f1f4034",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 21260,
+   "sha256": "b2b74630f797d0ee48de4156b7dcd1314870e47fd394a54f487713e3f4bc223a",
+   "via": "tree"
+  },
+  {
+   "path": "WebSocket Actor Release Notes.txt",
+   "bytes": 839,
+   "sha256": "eab7fa3ba780e2545436b434f8ef68112e3ce310b408881eaec703e0bf616cea",
+   "via": "tree"
+  },
+  {
+   "path": "WebSocket-Actor.vipb",
+   "bytes": 105564,
+   "sha256": "905cc7496fd5c6535b0f17ae2c70843ca3361986306c1bb08537dfd56698d80a",
+   "via": "tree"
+  },
+  {
+   "path": "media/Keepalive Settings.png",
+   "bytes": 14850,
+   "sha256": "cbdbda88b08dc45f2b5eccfb753fd05376413208a5a8ec53abd5294915a376fc",
+   "via": "tree"
+  },
+  {
+   "path": "media/Server Menager Configuration.png",
+   "bytes": 16017,
+   "sha256": "4cd179bc726d1f0d7528e2c368c51bcaf59a92429cba7ea31fd7f2a0c2ecfb17",
+   "via": "tree"
+  },
+  {
+   "path": "media/WebSocket Connection Handler Msg.png",
+   "bytes": 6736,
+   "sha256": "31c8e94b9402d11465ca96524b43f0efafefc971a6b630e05efda2f09a98590a",
+   "via": "tree"
+  },
+  {
+   "path": "media/WebSocket Server-Service Enqueuer Msg.jpg",
+   "bytes": 11392,
+   "sha256": "2d85fc297ddac30c610f30c922223aa6a191156e4b12e884a6778c487285d4e6",
+   "via": "tree"
+  },
+  {
+   "path": "media/WebSocket Server-Service Enqueuer Msg.png",
+   "bytes": 13074,
+   "sha256": "1deaa0476b2d6ced14e83ff44eee9f0452dabc7a856a26524f9b216d1be7058a",
+   "via": "tree"
+  },
+  {
+   "path": "media/image1.png",
+   "bytes": 128167,
+   "sha256": "e45f93d3bb30de674c908e240c2019af93222dcf8b4ca71a29287a630e00f7c1",
+   "via": "tree"
+  },
+  {
+   "path": "media/image10.png",
+   "bytes": 95783,
+   "sha256": "36affee9261ef17f2857404c66014a415fbd97dd0450dbe0d7f6f6a6ae05bf8b",
+   "via": "tree"
+  },
+  {
+   "path": "media/image2.png",
+   "bytes": 3354,
+   "sha256": "6a6a8e401b73e68891b5083104685476fd2fed5d40edf3123c8a5ba99c3bd4a1",
+   "via": "tree"
+  },
+  {
+   "path": "media/image3.png",
+   "bytes": 134429,
+   "sha256": "b486ddea8da7452451fd9d73f5b3232aad2bb001725fd51b6fae6dc5d09e0af0",
+   "via": "tree"
+  },
+  {
+   "path": "media/image4.png",
+   "bytes": 107700,
+   "sha256": "1da04d5ac5c6263d395abe5b165a57a72284f2604b44e450126d98856345befa",
+   "via": "tree"
+  },
+  {
+   "path": "media/image5.png",
+   "bytes": 19819,
+   "sha256": "9c62b34bd8a809d940fe2f7ad0c5d51e9ddcd27ba6e8c6b676e0b0e02d888863",
+   "via": "tree"
+  },
+  {
+   "path": "media/image6.png",
+   "bytes": 120732,
+   "sha256": "bc9bfb34c544b133fdaa9adde25e1a3c9cd80652418deb33bf4793ce4fab987a",
+   "via": "tree"
+  },
+  {
+   "path": "media/image7.png",
+   "bytes": 61924,
+   "sha256": "bc9b9149a4122816fc26a9a8934eaad92fe8b363eb0bbef51cadd0dd055a4949",
+   "via": "tree"
+  },
+  {
+   "path": "media/image8.png",
+   "bytes": 57971,
+   "sha256": "10a0a014342418ae3a9b13b1ed66fd57b2f978a13fb2f1eafc30f7ebefc614af",
+   "via": "tree"
+  },
+  {
+   "path": "media/image9.png",
+   "bytes": 20980,
+   "sha256": "9acb34d999bbf45cccc8159174dc6a4fd352b96f9377a53cbf9e9770261d2e7a",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<helpdir>\\lvcomm.chm",
+  "<resource>\\AFDebug\\Generate Trace for Message.vi",
+  "<userlib>\\_MGI\\Error Handling\\MGI Append String to Error Source.vi",
+  "<userlib>\\_OpenG.lib\\error\\error.llb\\Clear All Errors__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\error\\error.llb\\openg_error.lvlib",
+  "<userlib>\\_OpenG.lib\\time\\time.llb\\Wait (ms)__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\time\\time.llb\\openg_time.lvlib",
+  "<vilib>\\ActorFramework\\Actor\\Actor Core.vi",
+  "<vilib>\\ActorFramework\\Actor\\Actor.lvclass",
+  "<vilib>\\ActorFramework\\Actor\\Actor.lvclass\\Actor.ctl",
+  "<vilib>\\ActorFramework\\Actor\\Handle Error.vi",
+  "<vilib>\\ActorFramework\\Actor\\Launch Nested Actor.vi",
+  "<vilib>\\ActorFramework\\Actor\\Launch Root Actor.vi",
+  "<vilib>\\ActorFramework\\Actor\\Pre Launch Init.vi",
+  "<vilib>\\ActorFramework\\Actor\\Read Caller Enqueuer.vi",
+  "<vilib>\\ActorFramework\\Actor\\Read Self Enqueuer.vi",
+  "<vilib>\\ActorFramework\\Actor\\Stop Core.vi",
+  "<vilib>\\ActorFramework\\LastAck\\Last Ack.lvclass",
+  "<vilib>\\ActorFramework\\LastAck\\Last Ack.lvclass\\Last Ack.ctl",
+  "<vilib>\\ActorFramework\\LastAck\\Read Actor.vi",
+  "<vilib>\\ActorFramework\\LastAck\\Read Error Report.vi",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Enqueue.vi",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Equals Not A Refnum.vi",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Init from Existing Queue.vi",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Message Enqueuer.lvclass",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Message Enqueuer.lvclass\\Message Enqueuer.ctl",
+  "<vilib>\\ActorFramework\\Message Enqueuer\\Message Priority.ctl",
+  "<vilib>\\ActorFramework\\Message Priority Queue\\Priority Enqueue.vi",
+  "<vilib>\\ActorFramework\\Message\\Message.lvclass",
+  "<vilib>\\ActorFramework\\Report Error Msg\\Report Error Msg.lvclass",
+  "<vilib>\\ActorFramework\\Report Error Msg\\Report Error Msg.lvclass\\Report Error Msg.ctl",
+  "<vilib>\\ActorFramework\\Report Error Msg\\Send Error Report.vi",
+  "<vilib>\\ActorFramework\\Stop Msg\\Send Normal Stop.vi",
+  "<vilib>\\ActorFramework\\Stop Msg\\Stop Msg.lvclass",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\GPower\\Error\\GPError.lvlib",
+  "<vilib>\\GPower\\Error\\Library\\AppendErrors.vi",
+  "<vilib>\\GPower\\Error\\Library\\Append\\AppendMulti.vi",
+  "<vilib>\\GPower\\Error\\Library\\Append\\AppendSingle.vi",
+  "<vilib>\\GPower\\Error\\Library\\FilterCodes.vi",
+  "<vilib>\\GPower\\Error\\Library\\Filter\\FilterSingle.vi",
+  "<vilib>\\GPower\\Error\\Library\\GetCode.vi",
+  "<vilib>\\GPower\\Error\\Library\\SplitAppended.vi",
+  "<vilib>\\GPower\\Error\\Library\\SubVIs\\ExplanationToError.vi",
+  "<vilib>\\GPower\\Error\\Library\\ToWarning.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Close.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Data Format.ctl",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\DecodeCloseReason.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\DoHandshake.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Headers.ctl",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\InitiateClientHandshake.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\LV WebSockets.lvlib",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Parse URI.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Ping.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Pong.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Read.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\StatusCode.ctl",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\TLS\\Secure Client Connection.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\TLS\\Secure Server Connection.vi",
+  "<vilib>\\LS Instruments AG\\LV-WebSockets\\Write.vi",
+  "<vilib>\\MGI\\Monitored Actor\\Monitored Actor\\Monitored Actor\\Monitored Actor.lvclass",
+  "<vilib>\\Platform\\system.llb\\System Exec.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\Synchronize Data Flow.vim",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Error Code Database.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2016\\vi.lib\\ActorFramework\\Actor\\Actor.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2016\\vi.lib\\ActorFramework\\Message\\Message.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2016\\vi.lib\\MGI\\Monitored Actor\\Monitored Actor\\Monitored Actor\\Monitored Actor.lvclass",
+  "C:\\Program Files\\National Instruments\\LabVIEW 2021\\vi.lib\\ActorFramework\\Actor\\Actor.lvclass",
+  "C:\\Program Files\\National Instruments\\LabVIEW 2021\\vi.lib\\ActorFramework\\Message\\Message.lvclass",
+  "C:\\Projects\\Shared Libraries\\WebSocket Actor\\WebSocket Actor\\WebSocket Connection\\WebSocket Connection.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast With Server Manager\\WS Test Client Subscriber\\WS Client Subscriber.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast With Server Manager\\WS Test Server Subscriber\\WS Server Subscriber.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast Without Server Manager\\WS Client Messages\\Client Connection Handler Msg\\Client Connection Handler Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast Without Server Manager\\WS Client\\WS Client.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast Without Server Manager\\WS Test Server Messages\\Server Connection Handler Msg\\Server Connection Handler Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Echo Broadcast Without Server Manager\\WS Test Server\\WS Server.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\Sender Loop\\Sender Loop.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Client Subscriber Messages\\Client Connection Handler Msg\\Client Connection Handler Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Client Subscriber\\WS Client Subscriber.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Server Subscriber Messages\\Send Packets Msg\\Send Packets Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Server Subscriber Messages\\Server Connection Handler Msg\\Server Connection Handler Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Server Subscriber Messages\\WebSocket Server Enqueuer Msg\\WebSocket Server Enqueuer Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Server Subscriber Messages\\WebSocket Service Enqueuer Msg\\WebSocket Service Enqueuer Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\Examples\\Secure Echo Broadcast With Server Manager\\WS Server Subscriber\\WS Server Subscriber.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\Abstract Messages\\WebSocket Connection Handler Msg\\WebSocket Connection Handler Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\Abstract Messages\\WebSocket Server-Service Enqueuer Msg\\WebSocket Server-Service Enqueuer Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\Keepalive Heartbeat Messages\\Report Pong Msg\\Report Pong Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\Keepalive Heartbeat\\Keepalive Heartbeat.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Client\\WebSocket Client.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Connection Messages\\Drop Connection Msg\\Drop Connection Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Connection Messages\\Send Ping Msg\\Send Ping Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Connection Messages\\Send to Peer Msg\\Send to Peer Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Connection\\WebSocket Connection.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Manager Messages\\Launch Server Msg\\Launch Server Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Manager Messages\\Stop Server Msg\\Stop Server Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Manager\\WebSocket Server Manager.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Messages\\Add Client to Service Msg\\Add Client to Service Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Messages\\Add Service Msg\\Add Service Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Messages\\Write Listener Down Msg\\Write Listener Down Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server Messages\\Write listener ID Msg\\Write listener ID Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Server\\WebSocket Server.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Service Messages\\Add Client Msg\\Add Client Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Service Messages\\Broadcast Msg\\Broadcast Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Service Messages\\Send Msg\\Send Msg.lvclass",
+  "C:\\Projects\\WebSocket-Actor\\WebSocket Actor\\WebSocket Service\\WebSocket Service.lvclass"
+ ]
+}
