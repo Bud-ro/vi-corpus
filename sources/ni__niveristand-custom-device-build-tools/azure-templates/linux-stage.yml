@@ -1,0 +1,354 @@
+parameters:
+  - name: stageName
+    type: string
+    default: Linux_Build
+
+  - name: pool
+    type: string
+    default: DevCentral-VeriStand-CustomDevices
+
+  - name: lvVersionsToBuild
+    type: object
+    default:
+      - version: '2027'
+        bitness: '64bit'
+
+  - name: buildSteps
+    type: object
+    default: []
+
+  - name: releaseVersion
+    type: string
+
+  - name: buildOutputLocation
+    type: string
+
+  - name: archiveLocation
+    type: string
+
+  - name: branch
+    type: string
+    default: main
+
+  - name: debugBuild
+    type: string
+    default: no
+
+  - name: repoName
+    type: string
+    default: none
+
+  - name: dependsOn
+    type: object
+    default: []
+
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    dependsOn: ${{ parameters.dependsOn }}
+
+    variables:
+      CD.BuildCounter: "9999"
+
+    jobs:
+      - job: Job_Build_Linux
+
+        pool:
+          name: ${{ parameters.pool }}
+          demands:
+            - agent.os -equals Linux
+
+        displayName: Linux - Build Veristand CD Projects
+        timeoutInMinutes: 120
+
+        steps:
+
+          # ---------------- MOUNT SHARE ----------------
+          - task: Bash@3
+            displayName: Mount Nirvana Share
+            inputs:
+              targetType: inline
+              script: |
+                set -e
+
+                echo "Installing cifs-utils..."
+                if ! command -v mount.cifs &> /dev/null; then
+                  sudo apt-get update
+                  sudo apt-get install -y cifs-utils
+                fi
+
+                sudo mkdir -p /mnt/nirvana
+
+                cat <<EOF > /tmp/smb_creds
+                username=nitestsuite
+                password=n1testsuite
+                domain=amer
+                EOF
+
+                sudo chmod 600 /tmp/smb_creds
+
+                echo "Mounting Nirvana share..."
+                sudo mount -t cifs //nirvana/Measurements/VeriStandAddons /mnt/nirvana \
+                  -o credentials=/tmp/smb_creds,vers=3.0,serverino,noperm
+
+                echo "Verifying mount..."
+                mount | grep nirvana || (echo "Mount failed!" && exit 1)
+
+                # ---------------- CLEAN OLD WORKSPACE ----------------
+                builtFolder="$(Build.SourcesDirectory)/Built"
+                safeCopyFolder="$(Build.ArtifactStagingDirectory)/BuiltBackup"
+
+                rm -rf "$builtFolder"
+                rm -rf "$safeCopyFolder"
+
+                mkdir -p "$safeCopyFolder"
+
+
+          # ---------------- TEMPORARY STEPS ----------------
+          - ${{ each item in parameters.lvVersionsToBuild }}:
+            - task: Bash@3
+              displayName: Temporary steps for (LV ${{ item.version }})
+              condition: succeeded()
+              inputs:
+                targetType: inline
+                script: |
+                  set -e
+
+                  VI_LIB_DIR="/usr/local/natinst/LabVIEW-${{ item.version }}-64/vi.lib"
+
+                  if [ ! -d "$VI_LIB_DIR/NI VeriStand" ]; then
+                    echo "[ERROR] NI VeriStand folder missing!"
+                    exit 1
+                  fi
+
+                  echo "Creating symbolic link..."
+
+                  sudo ln -sfn "$VI_LIB_DIR/NI VeriStand" "$VI_LIB_DIR/NI Veristand"
+
+                  ls -l "$VI_LIB_DIR"
+
+                  sudo chmod -R 777 /usr/local/natinst/LabVIEW-${{ item.version }}-64/
+
+                  echo "Copying dev tool binaries to LabVIEW library directory..."
+
+                  sudo cp -rv /mnt/nirvana/Linux-Temp/dev-tool-binaries/. "$VI_LIB_DIR/NI/"
+
+                  sudo chmod -R 777 /usr/local/natinst/LabVIEW-${{ item.version }}-64/
+
+                  echo "Removing old copy of SourcesDirectory and Copying netcore version from nirvana..."
+                  sudo rm -rf "$(Build.SourcesDirectory)"/*
+                  sudo chmod -R 777 "$(Build.SourcesDirectory)"
+                  
+                  sudo cp -rv /mnt/nirvana/Linux-Temp/NetCoreRepos/${{ parameters.repoName }}/. "$(Build.SourcesDirectory)/"
+                  sudo chmod -R 777 "$(Build.SourcesDirectory)"
+
+                  if [ "${{ parameters.repoName }}" = "niveristand-data-sharing-framework-custom-device" ]; then
+                    echo "[special case] Copying dependencies from Nirvana for ${{ parameters.repoName }}..."
+                    baseDir="/mnt/nirvana/data_sharing_framework_CD/NI/export/main"
+                    latestDir=$(find "$baseDir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | tail -n 1)
+                    sourceDir="$baseDir/$latestDir/${{ item.version }}/x64/Core/Linux_x64"
+                    destDir="$(Build.SourcesDirectory)/Includes"
+
+                    echo "Copying from $sourceDir to $destDir"
+
+                    sudo mkdir -p "$destDir"
+                    sudo cp -rv "$sourceDir"/. "$destDir/"
+                    sudo chmod -R 777 "$destDir"
+                  fi
+
+
+
+          # ---------------- BUILD LOOP ----------------
+          - ${{ each item in parameters.lvVersionsToBuild }}:
+            - ${{ each buildStep in parameters.buildSteps }}:
+
+              - task: Bash@3
+                displayName: >
+                  Build ${{ buildStep.projectLocation }}
+                  (LV ${{ item.version }} ${{ item.bitness }})
+                condition: succeeded()
+                inputs:
+                  targetType: inline
+                  script: |
+                    set -e
+
+                    projectPath="$(Build.SourcesDirectory)/${{ buildStep.projectLocation }}"
+                    echo "Project Path: $projectPath"
+                    sudo chmod -R 777 "$(Build.SourcesDirectory)"
+
+                    labviewConfig="/home/nitest/natinst/.config/LabVIEW-${{ item.version }}/labview.conf"
+
+                    mkdir -p "$(dirname "$labviewConfig")"
+
+                    cat <<'EOF' > "$labviewConfig"
+                    DWarnDialog: False
+                    autoerr: 3
+                    server.tcp.port: 3363
+                    server.tcp.enabled=True
+                    server.tcp.access="+*"
+                    server.vi.access="+*"
+                    NIERAutoSendAndSuppressAllDialogs: True
+                    unattended: True
+                    DotNetCoreAssemblySearchPaths=/usr/local/niveristand2027
+                    EOF
+
+                    sleep 30
+
+                    echo "Starting LabVIEW build..."
+
+                    sudo chmod -R 777 /usr/local/
+
+                    source /etc/os-release
+                    XWFB_CMD="xwfb-run -c weston"
+
+                    if [[ "$ID" == "rhel" && "$VERSION_ID" =~ ^9 ]]; then
+                      echo "RHEL 9 detected. Using headless backend."
+                      XWFB_CMD='xwfb-run -c weston -z "--backend=headless-backend.so --seat=headless"'
+                    else
+                      echo "Using default Weston configuration."
+                    fi
+                    
+                    if eval "$XWFB_CMD -- LabVIEWCLI \
+                      -LabVIEWPath \"/usr/local/natinst/LabVIEW-${{ item.version }}-64/labview\" \
+                      -PortNumber 3363 \
+                      -OperationName \"${{ buildStep.buildOperation }}\" \
+                      -ProjectPath \"$projectPath\" \
+                      -TargetName \"${{ buildStep.target }}\" \
+                      -BuildSpecName \"${{ buildStep.buildSpec }}\""
+                    then
+                      echo "Build succeeded."
+
+                      builtFolder="$(Build.SourcesDirectory)/Built"
+
+                      if [ ! -d "$builtFolder" ]; then
+                        echo "ERROR: Built folder not found. builtFolder=$builtFolder"
+                        echo "Trying for one level down"
+                        builtFolder="$(Build.SourcesDirectory)/Source/Built"
+                        if [ ! -d "$builtFolder" ]; then
+                          echo "ERROR: Built folder still not found. builtFolder=$builtFolder"
+                          exit 1
+                        fi
+                      fi
+
+                      # ---------------- STAGING ----------------
+                      safeCopyFolder="$(Build.ArtifactStagingDirectory)/BuiltBackup"
+                      safeCopy="$safeCopyFolder/${{ item.version }}"
+
+                      echo "Staging output -> $safeCopy"
+
+                      mkdir -p "$safeCopy"
+                      cp -r "$builtFolder"/* "$safeCopy/" || true
+
+                      echo "Staged files:"
+                      ls -l "$safeCopy"
+
+                    else
+                      echo "Build failed."
+                      exit 1
+                    fi
+
+
+          # ---------------- FINAL COPY TO NIRVANA ----------------
+          - task: Bash@3
+            displayName: Publish All Builds to Nirvana
+            condition: succeeded()
+            inputs:
+              targetType: inline
+              script: |
+                set -e
+
+                if [ "${{ parameters.debugBuild }}" = "yes" ]; then
+                  buildType="Debug"
+                else
+                  buildType="Release"
+                fi
+
+                buildTimestamp=$(date +%Y%m%d%H%M%S)
+                echo "Build Timestamp: $buildTimestamp"
+
+                # Set Azure DevOps pipeline variable
+                echo "##vso[task.setvariable variable=buildTimestamp]$buildTimestamp"
+
+                sourceDir="$(Build.ArtifactStagingDirectory)/BuiltBackup"
+                targetDir="/mnt/nirvana/Linux/${{ parameters.repoName }}/${{ parameters.releaseVersion }}/$buildType/$buildTimestamp"
+
+                # Set Azure DevOps pipeline variable
+                echo "##vso[task.setvariable variable=targetDir]$targetDir"
+
+                echo "Publishing builds..."
+                echo "FROM: $sourceDir"
+                echo "TO:   $targetDir"
+
+                sudo mkdir -p "$targetDir"
+                sudo cp -r "$sourceDir/"* "$targetDir/"
+
+                echo "Final Nirvana contents:"
+                ls -R "$targetDir"
+                
+          # -------- COPY DEPENDENCIES FOR ALL BUILD STEPS --------
+          - ${{ each item in parameters.lvVersionsToBuild }}:
+            - ${{ each buildStep in parameters.buildSteps }}:
+              - ${{ if buildStep.copyDependencies }}:
+                - ${{ each dependency in buildStep.copyDependencies }}:
+          
+                  - task: Bash@3
+                    displayName: Copy Dependency - ${{ dependency.source }}
+                    condition: succeeded()
+                    inputs:
+                      targetType: inline
+                      script: |
+                        set -e
+
+                        baseDir="${{ parameters.archiveLocation }}/ni/export/main"
+
+                        selectedDir=""
+          
+                        for dir in $(find "$baseDir" \
+                            -mindepth 1 \
+                            -maxdepth 1 \
+                            -type d \
+                            -printf "%f\n" | sort -r); do
+          
+                          if [ -f "$baseDir/$dir/.finished" ]; then
+                            selectedDir="$dir"
+                            echo "Found .finished in $selectedDir"
+                            break
+                          fi
+          
+                        done
+          
+                        if [ -z "$selectedDir" ]; then
+                          echo "ERROR: No version folder contains .finished"
+                          exit 1
+                        fi
+          
+                        sourceDir="$baseDir/$selectedDir/${{ item.version }}/x64/${{ dependency.source }}"
+                        destDir="$(targetDir)/${{ item.version }}/${{ dependency.destination }}"
+          
+                        echo "Selected Version Folder: $selectedDir"
+                        echo "FROM: $sourceDir"
+                        echo "TO  : $destDir"
+          
+                        if [ ! -d "$sourceDir" ]; then
+                          echo "ERROR: Source directory does not exist"
+                          echo "$sourceDir"
+                          exit 1
+                        fi
+          
+                        sudo mkdir -p "$destDir"
+                        sudo cp -rv "$sourceDir"/. "$destDir/"
+                        sudo chmod -R 777 "$destDir"
+          
+                        echo "Dependency copied successfully."
+          
+
+          # ---------------- CLEANUP ----------------
+          - task: Bash@3
+            displayName: Unmount Nirvana Share
+            condition: always()
+            inputs:
+              targetType: inline
+              script: |
+                echo "Unmounting Nirvana share..."
+                sudo umount /mnt/nirvana || true
+                rm -f /tmp/smb_creds

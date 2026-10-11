@@ -1,0 +1,973 @@
+{
+ "repo": "ni/niveristand-custom-device-build-tools",
+ "url": "https://github.com/ni/niveristand-custom-device-build-tools",
+ "commit": "1ea587b8aae302bf070f4bc5c8308929fdb084ba",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "lv/buildoperations.lvproj",
+   "bytes": 29202,
+   "sha256": "399934c8999a2602bdf52795ef9d6263d9c658837d52855331c6958e349ab0ef",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/DiffVI.lvclass",
+   "bytes": 43163,
+   "sha256": "58a3514a038046e43d58530f49a4d033978537e33412b741af14cc46e13e34c6",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/FixPath.vi",
+   "bytes": 12043,
+   "sha256": "7c1205561e159bc8017049ab976b722abe4e3d4bd897761330018a38d558a932",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/GetHelp.vi",
+   "bytes": 12079,
+   "sha256": "eee4901ee48210982877fc188fe0aa429ac87007ec18090e8ff95ef83b99a03a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/Append Method.ctl",
+   "bytes": 4558,
+   "sha256": "0a49e638e26ac73e5f995ccf70ad17a23c2df5cfd7d37cae8ab00ae67e8920ec",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/ImageMagic Append Wrapper.vi",
+   "bytes": 14413,
+   "sha256": "0600014eb1c608c09ae6cba1f2f48d856a7bcc852f4e6b7a67fba905bbb29221",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/ImageMagic Label Wrapper.vi",
+   "bytes": 16256,
+   "sha256": "ea693f7d17acf10257defe9d1fdb2757370793785ac612d163326bbb970f926a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/Label Position.ctl",
+   "bytes": 4551,
+   "sha256": "6bc11fb5409c033ff44076cc4a337e68f6717e71981fe31f3fd46a9f8cd184bc",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/VIDiffImageMagic.lvlib",
+   "bytes": 1802,
+   "sha256": "7e3f9674ed753acd7fa72ef09381aed3c3e131b5b6416e3622cc8bdddc27e101",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/AddFooterToPNG.vi",
+   "bytes": 20918,
+   "sha256": "08b277e652a0afa40c5d9fa4635396fc5cdec38cd13712a308d980b180eac74a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/AddScreenshots.vi",
+   "bytes": 37594,
+   "sha256": "6f3d40616c5a1b329bf2656d7530a5f249570aa051f7b81cdae8ac7c376433ef",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/AddTitleToPNG.vi",
+   "bytes": 20913,
+   "sha256": "120bb301ee8938027658a5ad2455526be57a1e59c51d9d2a4a61eceb9991c30b",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/CombinePNGsStackedArray.vi",
+   "bytes": 16763,
+   "sha256": "0d3233b474bba6f17d7902d35f6dfe9a40509ce01fd54f01f45c0b72de121320",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/CombinePNGsTwoColumns.vi",
+   "bytes": 23473,
+   "sha256": "b30df8dab241e0a48bdaf4519ae7444b314d40857ac8a20221d3d1a161e4145e",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/CombineVIScreenshots.vi",
+   "bytes": 33508,
+   "sha256": "33e0da1b179d1709896378f6420084008deb8cbf362b8be07716394fec9578fb",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/CreateVIPictures.vi",
+   "bytes": 47752,
+   "sha256": "5068ccea0d1f72136ef6359f0d138e93bf2020f2dde16989781eb0a5b7638669",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/DiffVIs.vi",
+   "bytes": 34395,
+   "sha256": "49ddb23647d20f48a1e346cf0ea048476979eae713724a7e9a04afa76340ff11",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/GetScreenshots.vi",
+   "bytes": 20550,
+   "sha256": "0d07ce6cb1728706f7970179f179d1b7eb53981263d0da39189053f8e7c2a824",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/ParseDiffXMLtoPlainText.vi",
+   "bytes": 24823,
+   "sha256": "9e73001f06becfeffc929a28d52a41480e485d2a9b45dbe3c9752a46f9a3a3bc",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/Screenshot Type.ctl",
+   "bytes": 11952,
+   "sha256": "520cca99ad515caf978b0fe70059215e77a6ac926d24c8abb3335dee9d691c44",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/ScreenshotInfo.ctl",
+   "bytes": 14179,
+   "sha256": "0b0b3264d2f8b8d176388b08ebc8aabb17e9f985a946f08c1e2903113ae2cee6",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/ScreenshotSingleVIs.vi",
+   "bytes": 30079,
+   "sha256": "e7145c1f55b2b2b5bf605275cd4e4f733799c1cbe10583304b92c8741b3bc515",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/TextDiff.vi",
+   "bytes": 36216,
+   "sha256": "7149fb6ae5794712bdaa528ca8eaed3fe0f4abbc29fe6a2ff9923e5c8645c749",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/VIDiffScreenshots.lvlib",
+   "bytes": 26928,
+   "sha256": "7f65d39e20a84177c8afb1bd8f4ac0659b1fede019ea653d17d0e612ba561fa8",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/VIDiff_ImageManipulation.lvlib",
+   "bytes": 1168,
+   "sha256": "02a06f149cf65066c028523b510b6494d8c51a04c82aab2566a477de4d65aba5",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Screenshots/VIScreenshots.ctl",
+   "bytes": 19286,
+   "sha256": "35e8e3722fef0ccd69d79e573f778d97bc12f874b1de9f3e62054d87a6532280",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/Arguments.ctl",
+   "bytes": 13062,
+   "sha256": "952c94fcf121cf550d8ead40b485c067cd4b633aca222d19f3ec260662e7896b",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/CreateDirs.vi",
+   "bytes": 25406,
+   "sha256": "942a282862d8da9c121a15f5e6ef700c49a8b380668b822fa658e569bc60b0ca",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/FilePaths.ctl",
+   "bytes": 12678,
+   "sha256": "14f05a6592f9d6312ed99a63e8199a236ad639faa582dd3cdfc8ca2372b8653a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/InputVIs.ctl",
+   "bytes": 12081,
+   "sha256": "9f5581157676e2ffbb2f53c49cdf244aafbb97019c913f00f2b53b1b2f449923",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/LoadContainer.vi",
+   "bytes": 15697,
+   "sha256": "c782968253ba3ce42f60ac9c4a75066b0da8444a7322602f306ab65c50c482b6",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/OpenVIs.vi",
+   "bytes": 32199,
+   "sha256": "909c2184cef046d035308200ec98a406bb570ca9770c0ea1c4ca696d9663c04d",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/Output Folders.ctl",
+   "bytes": 12979,
+   "sha256": "0f640ddb00cc6de99318c5216193691f2cb49e06793584049b0103f5b1cdd4ed",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/RandomString.vi",
+   "bytes": 13756,
+   "sha256": "a2c67f86cf1467213d0d5c7e38195a32d2e3c468b6dfc460245cd47a1abd6ee1",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/VIDiffUtilities.lvlib",
+   "bytes": 13639,
+   "sha256": "520890ac055db663208ae909237b836238f90a4053d6e29a51e8f943e1b6b827",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/Utilities/WriteLog.vi",
+   "bytes": 14524,
+   "sha256": "45307b596406d9441d89396f1033ea04d086f344d5e3f91c2742a9663adcfd5c",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/ParseArguments.vi",
+   "bytes": 18182,
+   "sha256": "136b29249d8bd43e9b40ffef31d9b08d54a34c2abf5c88298e9911b49c40823e",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/RenderDiff.vi",
+   "bytes": 20330,
+   "sha256": "d52be96ff9b276a3610ab4c1cbd38c49496b8603e81b854bc049ec07fe85e1ff",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/RunOperation.vi",
+   "bytes": 21160,
+   "sha256": "9c3c487004d3f6267cb14e16350a396d88afce0f9c71bca32a8014c9b92dec2d",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/VerifyArguments.vi",
+   "bytes": 17947,
+   "sha256": "692f5a11920a807ce605a1f222a7c541ba05e9ebe626c7d61800caa4361a20da",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteAllBuildSpecs/ExecuteAllBuildSpecs.lvclass",
+   "bytes": 24808,
+   "sha256": "1d6b0f951a5a340e18d49602b7ebac63c34df256e98c2ccaddcbd57614a95259",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteAllBuildSpecs/FindValidBuildSpecs.vi",
+   "bytes": 18399,
+   "sha256": "2f45a3f5bd3972eb98e439a5b5babd962ca7e4d08f616fa410076bcaa975a5e0",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteAllBuildSpecs/HelpMessage.vi",
+   "bytes": 12355,
+   "sha256": "9b813151404655fc31f6d8d221b01d6e27a716608c3c31e29d491c7a16ac4f35",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteBuildSpecAllTargets/ExecuteBuildSpecAllTargets.lvclass",
+   "bytes": 29003,
+   "sha256": "a91883d68a9dc2f9bf2336eb1d35ad3b2daf076a97d6b305b241f138997cc00f",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteBuildSpecAllTargets/FindValidBuildSpecs.vi",
+   "bytes": 19087,
+   "sha256": "2f8f5f9e260dd0c54f658cd7dee4d5468334b7ba08e0ef51ed4d70c47f478107",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteBuildSpecAllTargets/HelpMessage.vi",
+   "bytes": 12523,
+   "sha256": "8c8895068a1268fc452a329d5b117d1ca151e07cbc6d5c57ee78ae60359b881b",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteBuildSpecAllTargets/ParseArgumentsCore.vi",
+   "bytes": 17238,
+   "sha256": "16a55f3ca5c620e8f41acf5b27292c151ff90c762726aaa9195fd7f0c1ef044b",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteBuildSpecAllTargets/VerifyArgumentsCore.vi",
+   "bytes": 16991,
+   "sha256": "1d5731651b66f2d8e526950bae544c50e87b580a9e375b569c59362243175419",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/ExecuteBuildSpec.vi",
+   "bytes": 21324,
+   "sha256": "8f1493584a256cdb60bf5cce5340018f730639a94edbfd7839ae1b90300f29ca",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/ExecuteMultipleBuildSpecs.lvclass",
+   "bytes": 44333,
+   "sha256": "57eff3d429e8206033c51d2f72471b8c88b626698d085c3a1333101e0deba974",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/FindBuildSpecs.vi",
+   "bytes": 19650,
+   "sha256": "d55299dd010d57785628747a6ca62cd24d43d4ad7dbe3c7b7fb0b3c5621ac4f7",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/FindValidBuildSpecs.vi",
+   "bytes": 16735,
+   "sha256": "8ad346d85eef12da2e0a080167045b287973f2c70135c19c310fb4aa1246d1bc",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/GetHelp.vi",
+   "bytes": 12791,
+   "sha256": "1d59df03263a2cd9c31a11c50b6bc7374ee2bc4640a129ba652e0e2121ab0b06",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/HelpMessage.vi",
+   "bytes": 11955,
+   "sha256": "ce3911d7c6bab0839479707373daeb705ef2d986c359f3ac39e833f4316ed802",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/IsOperationSuccessful.vi",
+   "bytes": 15557,
+   "sha256": "4c57a38c119351e69a8c1db7ef8d205ef748cf61a1473111600defc8b69c4432",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/NoItemsFound.vi",
+   "bytes": 16520,
+   "sha256": "cc78ed1c0095cb9b99e49abe63086195940f6d69a25b32c0f9dc0c5e67c985a2",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/ParseArguments.vi",
+   "bytes": 18050,
+   "sha256": "d6d53be1ff1aef7395f56095fcec2692fe944129dfefef304ea4a60c600c41a0",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/ParseArgumentsCore.vi",
+   "bytes": 15234,
+   "sha256": "653190fc18f1206849e00cd833ccf9710f041d91ef8a166ad6e0ca7cb58018c0",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/RunOperation.vi",
+   "bytes": 20792,
+   "sha256": "e24e7b246c922dec685650ca6407775f96156c70cdab080f51ad16e1cda70743",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/SpecInformation.ctl",
+   "bytes": 10240,
+   "sha256": "aebb1aba4b5b06041b57c466e22b2d04a341f32645cacdd31308e5350def6fd0",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/VerifyArguments.vi",
+   "bytes": 17783,
+   "sha256": "6f2df82853a53d64bdea496f86b91bcb809671d27d2afbddad8656ed34ea5b8c",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/ExecuteMultipleBuildSpecs/VerifyArgumentsCore.vi",
+   "bytes": 14959,
+   "sha256": "77a913d9938559484406b7515f9bb37747f4f3dabed60cd4f04457c8b2259e5c",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SecureRunVI/GetHelp.vi",
+   "bytes": 12319,
+   "sha256": "64c10ee13c1064decf986b9837e14f1ab849708a02674d93c09efcbd6478af05",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SecureRunVI/ParseArguments.vi",
+   "bytes": 17898,
+   "sha256": "4ee82d5cd42105fa1b08f4705ad643d0269c5a3f0ff1b99f6ed8ac57632092d7",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SecureRunVI/RunOperation.vi",
+   "bytes": 20944,
+   "sha256": "145a6528557c179e3ef31aa7b0dc99e10c1fab51acb0d419ac99a92fe9b12e85",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SecureRunVI/SecureRunVI.lvclass",
+   "bytes": 30046,
+   "sha256": "018362211a8e183947d75f7ebda08c703b872f74a01c4b6aefcae389090325f4",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SecureRunVI/VerifyArguments.vi",
+   "bytes": 16895,
+   "sha256": "9a687f522f1d530673984bf8a522245bf815a3b3342130ff8a2ce82353118dad",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/GetHelp.vi",
+   "bytes": 12439,
+   "sha256": "1b5b310fb12a66a1e70ce11aa31ce77d94b0d276162339d1324db2d0fc20dac1",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/ParseArguments.vi",
+   "bytes": 19138,
+   "sha256": "29c6a001071fda76c99456d765cb010b1201c2998f138cf1f3bfb8be2171b9a4",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/ReplaceSymbolValue.vi",
+   "bytes": 21798,
+   "sha256": "c4e0eb46d730994488047887680a18ed2eb35289ac235b464c5bf34d1d4e70b4",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/RunOperation.vi",
+   "bytes": 18120,
+   "sha256": "0143bee09ef26b90df9258a09fa07bca9b2f68bca1546ce5ffaa54244d83c6eb",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/SetConditionalSymbol.lvclass",
+   "bytes": 34779,
+   "sha256": "69f6c96f22cfda8d630d4020ba5f27b48351d4aea96b0a1c31688d2192755724",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/ValidateProjectPath.vi",
+   "bytes": 17063,
+   "sha256": "f31de796ed2ce5a330bcd83978bade705d43bc85d1a2c6ee0a8bb231619fc9ac",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/ValidateSymbol.vi",
+   "bytes": 17062,
+   "sha256": "f8385eb66e598ea6e1cf24c9ae13ce758f61bf32f54893e3ed5ba886a06eb97d",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/ValidateValue.vi",
+   "bytes": 17065,
+   "sha256": "8e782570c631467c3844a25ca9ad0ef2387d26d62d3c955becdf13d93459b35b",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/SetConditionalSymbol/VerifyArguments.vi",
+   "bytes": 15975,
+   "sha256": "b9e075583b66c0e012f8c4381ddf1470d2f48b6c28c10071baaeb296e294dcd2",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Blacklist.lvclass",
+   "bytes": 34907,
+   "sha256": "d37cd61a11b4099b0fa0d70e5f8ab063328ff631ed085798f6f0c77963640697",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Check.vi",
+   "bytes": 18761,
+   "sha256": "70f3c25a73ccd9b57125daf41c77080b203d588342251d59e4b3b9bf8cfa5c51",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/CheckCore.vi",
+   "bytes": 17597,
+   "sha256": "f48e5a7449f17605f123448f0c719612cf79ce7622d3cf47ad180c14c5af8a6a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Factory.vi",
+   "bytes": 17491,
+   "sha256": "7bf6752eb9023f0ce1a2e98c4aba8f848e13a2c1bce0bb2e5eb84d5179d2d643",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/FormatErrorMessage.vi",
+   "bytes": 17870,
+   "sha256": "78ad6c9ef762ae3eda5079ba97a76b0d3c291f231dc1ce3a505becff8b555ef5",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Function/CheckCore.vi",
+   "bytes": 19961,
+   "sha256": "371b015247213b964787e9f9ace93e784d4229babf4b94a0b06850dbf3ea334a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Function/Function.lvclass",
+   "bytes": 24494,
+   "sha256": "e791829937e5e787d886ac1318a0aa7e8f9e99b80aad0066acc700ff85550ebd",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Invoke/CheckCore.vi",
+   "bytes": 20309,
+   "sha256": "96df943966d7fd3765ff0d308ebd0194482c76bf95950e1e5f543902368386f4",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Invoke/FindItem.vi",
+   "bytes": 16744,
+   "sha256": "db61f3d19a78eba9ad0ddc665c6326f7c39fee7b704228d87dbad16b59c2cc27",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Invoke/Invoke.lvclass",
+   "bytes": 24538,
+   "sha256": "07bc609eeda64682a662e3ad16b2b4d5dc0ac0f0b5b776e3a4f121bb84dfd31f",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Property/CheckCore.vi",
+   "bytes": 20393,
+   "sha256": "dd3f1d2164564aa92ac87b9e9ab01c31e6a054ac527923b8a3b4b0e1b7095412",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/Property/Property.lvclass",
+   "bytes": 24483,
+   "sha256": "a6a988b17666ed233a89cf2478d596708e53b76dd89b71007073ca555b52091a",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/Blacklist/ReadItems.vi",
+   "bytes": 16301,
+   "sha256": "b6f2db5067fb45137afa50a2598fb2cdab6ed5d28fc1fa40dcbbc968fe1c213d",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/BlacklistClassInfo.ctl",
+   "bytes": 12731,
+   "sha256": "96ab829dcf1b7864f69f2cb301142c36b0ed651b348dd1350eab37999cb84509",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/BuildSecurity.lvlib",
+   "bytes": 15536,
+   "sha256": "6f41db76be665ff6371e78c473696dcfb61e072a2824a8dc5645f816f3ea0007",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/CheckVI.vi",
+   "bytes": 15271,
+   "sha256": "91ff00e91b7a2868afd6e932bf0442a23accd44dbae1845af2383a7502582fc5",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/FormatFailureMessage.vi",
+   "bytes": 13896,
+   "sha256": "bf6c8fdc29535ef655047b1cde0646e3c8f9d5abf5f857bddc53931ccc8ebe68",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/LoadBlacklist.vi",
+   "bytes": 24741,
+   "sha256": "9058b5c55ed9b3abccce4de2dc325b6db55ad719e39950e4dede4df961c2292c",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/ProcessClass.vi",
+   "bytes": 15596,
+   "sha256": "8c992dae8eccca571da5352d9dc23ed409b76d96abc389b4f76e4ae809da3ae4",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/BuildSecurity/RecursiveSecurityCheck.vi",
+   "bytes": 24466,
+   "sha256": "01026dec433bd3c18fb1a3df8c4d7cac1c99bef3848d4d2662ae716daf278e10",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/Utilities/ClearCache.vi",
+   "bytes": 9586,
+   "sha256": "5479e352bf0af33a65772e2cff04032345360794fdfdae5678a947f4fe5708cd",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/All Build Specs.lvproj",
+   "bytes": 17327,
+   "sha256": "f4043bbfc4c2a4fe3494ee0b54c7537fee4470b4df1668d35bdce693a93af46f",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/All Target Build Specs.lvproj",
+   "bytes": 12631,
+   "sha256": "6121296e38a41a716175a17dde1d33bd5f6736e0e01be0df925d18a37b0f9fa4",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/Empty Build Spec.lvproj",
+   "bytes": 3604,
+   "sha256": "5b96afbe06cecf2701fdf8c89dc0f03a5f7d14492f69cda758e65c531e6ac2e0",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/Individual Build Specs.lvproj",
+   "bytes": 23546,
+   "sha256": "930900609637e3d73d4951bb3d9ce009e3fa07a18201fb656fb24652c7661f52",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/Post-Build Action.vi",
+   "bytes": 11613,
+   "sha256": "da6a7d364274cf39ba3bd1f8819da8d9fe77a4c5cb9a9249e6d12b8af00840f1",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/codegenTest/codegen1.vi",
+   "bytes": 5736,
+   "sha256": "e45babf9ecb07131a26de266ecd933662135b25c01f3f5e4962f3f848d6f60d2",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/codegenTest/codegen2.vi",
+   "bytes": 5740,
+   "sha256": "8f34fd4bcd0e1a60472102b56fb7b6e81b3a67ab04b0e768acc1203546771129",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/Source/virtual_instrument.vi",
+   "bytes": 3162,
+   "sha256": "cd930d7a61919bafd144bc37e81fb4c7b9512caabd964d612256927ab59bc345",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/dependency-builder/Dependency.lvlib",
+   "bytes": 1186,
+   "sha256": "4335852024afb5ac11ccf961a12f8672bc3e3f5a39bce6ae905bf7957882f172",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/dependency-builder/Dependency.vi",
+   "bytes": 3806,
+   "sha256": "6a9d21ec904ba088b57ae4dbb8df47a80deb6dccccc64a30428211c2a219de11",
+   "via": "extension"
+  },
+  {
+   "path": "test-build/dependency-builder/DependencyBuilder.lvproj",
+   "bytes": 24471,
+   "sha256": "516674edcf4f3d3551eba6a508ad6e00f1d24d3d55cfcdc2ad5b08156ba52410",
+   "via": "extension"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/convert.exe",
+   "bytes": 9167360,
+   "sha256": "47ac848f7ba3575dabc8aa1b7a759b88cc253432a8c4d37c4e518bfe160b2c49",
+   "via": "ref:lv/operations/DiffVI/Modules/ImageMagic/ImageMagic Append Wrapper.vi"
+  },
+  {
+   "path": "test-build/Source/codegenTest/codegenFile1",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "ref:test-build/Source/Post-Build Action.vi"
+  },
+  {
+   "path": "test-build/Source/codegenTest/codegenFile2",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "ref:test-build/Source/Post-Build Action.vi"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "bytes": 63,
+   "sha256": "3f98dd2ded50b07b05cf2aac7ccf8092eb9d91ef4d4fd8d4e29d2c23f85bb5c4",
+   "via": "tree"
+  },
+  {
+   "path": ".github/PULL_REQUEST_TEMPLATE.md",
+   "bytes": 675,
+   "sha256": "e2d2b97075696446b4447295fd03a5755ea334db61d37765595bd8e8f6297388",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 737,
+   "sha256": "151b2e236ccadb482ef34423571865be9c080c37c15bd4450be1a8756f628c11",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 2182,
+   "sha256": "6c4afaa892ce1679f7d4a736af144a06be52898dcfbd1c1e43a217e68a6bab80",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1071,
+   "sha256": "ef76fcaaf71b6f28897982c3a899070ee009dfef625c17262a0d9f5f32416d8a",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1969,
+   "sha256": "703285fd579190070159975bb3efe59cb85e70ce845655796213f51a650bfca8",
+   "via": "tree"
+  },
+  {
+   "path": "azure-pipelines.yml",
+   "bytes": 5722,
+   "sha256": "a2a62160e4c40da306146be71749e10988b0509a343d4ea0297a4896baf0ded6",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/linux-stage.yml",
+   "bytes": 12696,
+   "sha256": "721e2370e95b48c7e83eb3c01973ba6b3cdc32981e88656d6a82aa73bfacbf71",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/archive-build.ps1",
+   "bytes": 313,
+   "sha256": "f081b5c6ed77451e81428f5a555a7a96d8fc0add46c014daa1fdbf954c50d870",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/build-step-setup.ps1",
+   "bytes": 2215,
+   "sha256": "b4a0c29cf561afbd1e910675962ca90dc62c31db7ed71170ebcb9c3eea575394",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/check-count-size.ps1",
+   "bytes": 4221,
+   "sha256": "359897627a4adcb4a502d6098b57d126f4b09f01e70c8cca0d8b69cc95545a1a",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/define-build-variables.ps1",
+   "bytes": 5146,
+   "sha256": "2a71e01ed84f40b1328bb41c543f734610d4d61792c613c48f5fbc648b470dfe",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/define-essentials.ps1",
+   "bytes": 1127,
+   "sha256": "bc0b30885d2e096f2f88335a4be4b9af2bd39d3c6194dfe3d9867a45fa507177",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/dependency-setup.ps1",
+   "bytes": 2949,
+   "sha256": "32b5c7de0e9a0e0ce566a8607a919b44e70b225e6acd5a82ac2f5dc2dea5442a",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/finalization.ps1",
+   "bytes": 164,
+   "sha256": "d7bc035864f99893af1ef3e952566f53cafdad005e29c25a6f452984b846c2ba",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/packaging/copy-installer.ps1",
+   "bytes": 527,
+   "sha256": "b7d24c40ebe2ebda85f88d01b14c16c6d0b396fd8b4ecb6c630adbed1386b44e",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/packaging/copy-payload.ps1",
+   "bytes": 1358,
+   "sha256": "4497bc2843e53e3ded77fae46948f9a99581fb6974ed76fc675d4fe9fe3e5ae2",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/packaging/manifest-release-tags.ps1",
+   "bytes": 1707,
+   "sha256": "4ffcd6d358946a0db5cf3db01180e456ec8e4b2d3fb024f8d8a046d92c7fab27",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/powershell-scripts/packaging/stage-directories.ps1",
+   "bytes": 1999,
+   "sha256": "9863047e033a0518fada5d61a5cc38bd3620f5252d9589c76c31f4f81fa092b2",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/stages-legacy.yml",
+   "bytes": 13073,
+   "sha256": "03b9fe256249b7c437885a3d92cc809fbe4a51dfeb73cd479727a632160d9fa2",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/stages-temp.yml",
+   "bytes": 13073,
+   "sha256": "013470ba55e49893cbafd2773b9275c9d73f82215d841f75e0f8f710eb0f68b2",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/stages.yml",
+   "bytes": 13124,
+   "sha256": "dabe9578381b72a20eec5f3ead5e5bd50250181815390157686dd316c1514fa8",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/steps-archive.yml",
+   "bytes": 259,
+   "sha256": "c3f06d7ae6b2cc5adc833eaf1cb604534d2b603ea83321f2d29d6130ee7ac905",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/steps-build.yml",
+   "bytes": 4362,
+   "sha256": "e76d02380ddad89680a8a7e99da6e4904350e0cc7eafcf5ddc0ac21e9cd7e1e0",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/steps-diff.yml",
+   "bytes": 2340,
+   "sha256": "774eebe442baaf181c5fe09eb74db151f3e1bde1f4b7db2c653d5d16456d4716",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/steps-packaging.yml",
+   "bytes": 2021,
+   "sha256": "f81e824fd5bec33b38429c76cca74ac0fe716e99ebb61ef37cb1d0ae51dfb72e",
+   "via": "tree"
+  },
+  {
+   "path": "azure-templates/steps-prepare.yml",
+   "bytes": 3060,
+   "sha256": "f667d52e19f045d29c6c4853e41159a50ed8856f57a4075733bea3c3119e98d2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Azure Pipeline YAML.md",
+   "bytes": 5311,
+   "sha256": "d5458708d2849480cc8dee77bcf4cd9cc3d511dc46a50de408b951eae5e09d99",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Azure Templates.md",
+   "bytes": 1983,
+   "sha256": "86a76eaeb75168ff8283de525b44caa5b36c0310049924e52ac0cfb1b239ad20",
+   "via": "tree"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/ImageMagick-6.8.8-7-Q16-x86-windows.txt",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/License.txt",
+   "bytes": 12446,
+   "sha256": "2125b48b2ddbe55ca4e0ecc6295ab4f123d46d71e530790a7f91941b08877b4e",
+   "via": "tree"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/NOTICE.txt",
+   "bytes": 12016,
+   "sha256": "31a1efb3bdb2dad2d2bd0bff08e02250ef4aed31ae18abdc1a3e278e34641153",
+   "via": "tree"
+  },
+  {
+   "path": "lv/operations/DiffVI/Modules/ImageMagic/vcomp100.dll",
+   "bytes": 51024,
+   "sha256": "2011268947625670a758382e811c71b597b615f1763f8d30a5195b80da4644fc",
+   "via": "tree"
+  },
+  {
+   "path": "lv/operations/DiffVI/README.md",
+   "bytes": 1664,
+   "sha256": "17eb5df2292dad9d35a12d8b3817e11e2507549a8a6d7bceacb5d1eaaa869ce3",
+   "via": "tree"
+  },
+  {
+   "path": "resources/LabVIEW.exe.config",
+   "bytes": 8946,
+   "sha256": "77ea2518adf4777df89695d27d019e0fc3882cef8dccd9617f9df126acc23464",
+   "via": "tree"
+  },
+  {
+   "path": "resources/git_utilities.py",
+   "bytes": 712,
+   "sha256": "27075cf264248123ef818ebaa1876794ec21b536697f1c6387e5a12aa6a5bed1",
+   "via": "tree"
+  },
+  {
+   "path": "resources/github_commenter.py",
+   "bytes": 3610,
+   "sha256": "628efc8973c8bf4c8d13eeb52ea7044bb64db485aec365ee93d4edf7237d4a3e",
+   "via": "tree"
+  },
+  {
+   "path": "resources/labview_diff.py",
+   "bytes": 6272,
+   "sha256": "3ce24d4f636e67320e328a68801be544b471b024aad2a1b44a06c52d18346ec4",
+   "via": "tree"
+  },
+  {
+   "path": "resources/post_pictures_to_pull_request.py",
+   "bytes": 3693,
+   "sha256": "803b205b78401417a4caeed175704e2e179bae8eb9af35400e0ecbcf39ee656c",
+   "via": "tree"
+  },
+  {
+   "path": "test-build/control-a",
+   "bytes": 1218,
+   "sha256": "58b273ba7963b682c8a8f705086a965c45ea10edd16ad05e832eca2c3f71976e",
+   "via": "tree"
+  },
+  {
+   "path": "test-build/control-b",
+   "bytes": 777,
+   "sha256": "08d3f4b802fdde196e2c2b84f33e3def2824364df9dd7d2ff080f3f15494f0aa",
+   "via": "tree"
+  },
+  {
+   "path": "test-build/dependency-builder/Readme.md",
+   "bytes": 653,
+   "sha256": "bd7d7c48cc4e1b81566cf4c25b8c24c77374509b231b6ad3fbb267937d74fd63",
+   "via": "tree"
+  },
+  {
+   "path": "test-build/dependency-builder/dependency-builder.bat",
+   "bytes": 20943,
+   "sha256": "a18547299a0733571a5b5733db0cfce7059c0babf13aee1cf94004e1d9e8e167",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass",
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass\\CoreOperation.ctl",
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\Read Logger.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\GetOperationError.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\GetOperationOutput.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\Logger\\LogMessage.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\Logger\\Logger.lvclass",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\OperationErrorType.ctl",
+  "<resource>\\objmgr\\DOMUserDefRef.rc",
+  "<vilib>\\AppBuilder\\AB_API_Simple\\Build (path).vi",
+  "<vilib>\\AppBuilder\\AB_API_Simple\\Build.vi",
+  "<vilib>\\AppBuilder\\AB_API_Simple\\NI_App_Builder_API.lvlib",
+  "<vilib>\\Platform\\system.llb\\System Exec.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Default Value.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Get Key Names.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Not A Config Data Refnum.vi",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\DialogType.ctl",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Compare Two Paths.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\Utility\\traverseref.llb\\TRef TravTarget.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\Traverse for GObjects.vi",
+  "<vilib>\\Utility\\traverseref.llb\\VI Scripting - Traverse.lvlib",
+  "<vilib>\\xml\\Load XML File.vi",
+  "<vilib>\\xml\\NI_XML.lvlib",
+  "<vilib>\\xml\\XPath\\Get All Matched Nodes.vi",
+  "C:\\Program Files (x86)\\National Instruments\\Shared\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass",
+  "C:\\Users\\nitest\\Desktop\\Git 2020\\niveristand-custom-device-build-tools\\lv\\operations\\Utilities\\BuildSecurity\\Blacklist\\Blacklist.lvclass"
+ ]
+}
