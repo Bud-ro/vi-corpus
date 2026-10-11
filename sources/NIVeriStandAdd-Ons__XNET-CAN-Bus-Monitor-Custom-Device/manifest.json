@@ -1,0 +1,259 @@
+{
+ "repo": "NIVeriStandAdd-Ons/XNET-CAN-Bus-Monitor-Custom-Device",
+ "url": "https://github.com/NIVeriStandAdd-Ons/XNET-CAN-Bus-Monitor-Custom-Device",
+ "commit": "841576dd54f9a0034612c1e3f965628f1b83f520",
+ "license": "BSD-2-Clause",
+ "licenseFile": "LICENSE.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/CAN Bus Monitor Custom Device.lvproj",
+   "bytes": 82957,
+   "sha256": "bcf6a5691f81ed7dab7340a201cefb338ca191ace3c25e1a4e6f6e0bce264507",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/CAN Bus Monitor Engine.lvlib",
+   "bytes": 3279,
+   "sha256": "17e040a2fe69fd3f12783af392e36abdecb5c4ea096a0ebc3fcc3e5a8cb5b00b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/Analyze Array.ctl",
+   "bytes": 10086,
+   "sha256": "1f93265fd0d9946db0b8245732112778ad343bb2b8251e3010286af72cf0081c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/CAN IO Mode.ctl",
+   "bytes": 4332,
+   "sha256": "b877d8f141ae551a4ad3fd5672081e1d4f466fc494f89c430bc44e4d2f206896",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/FlexRay Channel.ctl",
+   "bytes": 4484,
+   "sha256": "04732ff09fb939f80158f15901716f890b7e4a95034ea5a776eb31a00867b7a8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/Set Dyn Vars.ctl",
+   "bytes": 4653,
+   "sha256": "2641f45173a04b047ca209525038c9a106fe8c5cad279bac896f2edc9747b1f3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/XNET BM Frame.ctl",
+   "bytes": 7466,
+   "sha256": "0b966e17eeb18da7779b633e5f33c9eb38310a8780bc8544289ed5f03261db72",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Controls/XNET Communication Properties.ctl",
+   "bytes": 6082,
+   "sha256": "c6818ba397b7bfbcba8d4e3623bb758f684400c9419c7c9f1b2ed0b0d9dca1c5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/RT Driver VI.vi",
+   "bytes": 39676,
+   "sha256": "7e975d8f571e96b0a42584e1eb6c6b9adc9c3d39b8f7b3dd5e544992169e5f5f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/BM Global Vars.vi",
+   "bytes": 6846,
+   "sha256": "a6651d60d6dcc5e416e92c087a6b760dec5a2e4b5032d86bfe5faef8e32705f0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Bus Load Calculation.vi",
+   "bytes": 23380,
+   "sha256": "0d0854074ca93111ce3c2ab78425b0f20c754cfbd0cb1db29261fb171924b1ba",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/CAN Rate Calculator.vi",
+   "bytes": 15743,
+   "sha256": "b9966550e86580fd249608cfe0c864168ad47a9477723b005f6046023ed13114",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/CalcBusLoad.vi",
+   "bytes": 30687,
+   "sha256": "19b64530951e6217a4e3cd8e15ef56cec5d604effb2b262637e5b082a1b1efcf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Check Tlg.vi",
+   "bytes": 27789,
+   "sha256": "0d791659e06a406a64e8c3a977cb8084c0449eb9692ae85780669e1dfe35fef5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Convert Xnet CAN to BM Frame.vi",
+   "bytes": 16872,
+   "sha256": "d978e3b1318b6cd27501e761d5a59d57270190a093c9422d7e6c290ad8f97286",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Frame Calc Add.vi",
+   "bytes": 20322,
+   "sha256": "3ebac8cab824b5cda404dfd739a1f2698db47d8e885552f0c445ad7398330d4f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Frame Calc Insert.vi",
+   "bytes": 25081,
+   "sha256": "c46c4c9ddf3bd5bb272061354737d81979ccaddad0729c48c4f50b1a448717f0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/FrameTime.vi",
+   "bytes": 10773,
+   "sha256": "58fb91c212faf22ddc8d271450090cc7a3de6da5a1256552be1ab2430e3e9667",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Full CAN Init.vi",
+   "bytes": 27077,
+   "sha256": "a2c2152db4521e38c5d88082fe66216385b9b479972329803a215de590bdc31b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Init Xnet CAN.vi",
+   "bytes": 22249,
+   "sha256": "324ade51852e4eea7228ffe91f8dc80198ae2cbfc66fa3259a7440e9bb2994e6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Read CAN Xnet.vi",
+   "bytes": 30437,
+   "sha256": "c4f69b1e3929e569fab323a61999ed3182f50d6148b7b909da17588d7a3b3a4c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Set Dyn Vars.vi",
+   "bytes": 32284,
+   "sha256": "c5df13a6702d8c1b30ddef25542a50bed0b1272519c9b2533046cd4123f31e53",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/Store Start Time.vi",
+   "bytes": 8384,
+   "sha256": "51f807af56292050b699a4bf0352727fb3dd136b1472372ff206cbe8078c7ec0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/XNET BM Get Frame Size.vi",
+   "bytes": 12062,
+   "sha256": "13ed76aab76da4306317d94109cc75263f1b4f4095a634f9e090d822460d24e2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/SubVIs/XNET BM Iterate Frame Raw to CAN.vi",
+   "bytes": 42272,
+   "sha256": "9e01c3f2bbb141c7a42dd8478ca93cb0e7f4afbb4a8a5ffc56b2195e1ba6dbfb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/CAN Bus Monitor Shared.lvlib",
+   "bytes": 1272,
+   "sha256": "92b3dbf02eb2b09ed9d4803bcc1278d3d095aa80002d1bdf92ff3f674ca3d0b4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Constants.vi",
+   "bytes": 5809,
+   "sha256": "a2082bece06fb7083bcc2b7947c93c3a2786242b7c7651ccf98379168a7e0c7b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/CAN Bus Monitor System Explorer.lvlib",
+   "bytes": 1467,
+   "sha256": "2c64a9a633183e21883343db66d764b2a7d88140b971b685522c3c04f108238e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Initialization VI.vi",
+   "bytes": 18317,
+   "sha256": "7aff449d216e49f37c888ec5f866083314b7e4bd68d489a591abf3cd006dee19",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Main Page.vi",
+   "bytes": 40425,
+   "sha256": "7bf4c1e53def99abdddc5cd638a2f4f049548bbeacce0ccb2040ba3bfcf4cd35",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utility/Copy .LLB to NI VeriStand dir.vi",
+   "bytes": 19253,
+   "sha256": "52f1f9b54cba52d2e548871c4fef9e67c6277c0be26e0aa3b68480eb3ef18c4b",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 853,
+   "sha256": "354e6a1d0d1a9469b9b478974ebe5b9580688bb92637911c385e66fad9e2240a",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.txt",
+   "bytes": 1307,
+   "sha256": "5e0bc1b4aef316b9713a3a55c56166bec07809767d8258821fa35be83bfbbe85",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1754,
+   "sha256": "56d9a73f98ecca023c2fd03d8e1355d9c937d4b9e44cb5f205a17e73988840e3",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Custom Device CAN Bus Monitor.xml",
+   "bytes": 2577,
+   "sha256": "623bd0c031d47b07a195a9b4a9dc89aa93dda10138b4042035d48973844580ce",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device API.lvlib",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Channel Type.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Channel.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Item Ref.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Get Item Property (String).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Get Item Property (U32).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Add Custom Device Channel.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Custom Device Channel List.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Event Refnum.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Data.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Description.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Property.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Parse Incoming Command Data.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Rename Custom Device Item.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Item Description.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Item Property.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Signal When Ready for Shutdown.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Unset Busy Cursor.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Set Item Property (String).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Set Item Property (U32).vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\Custom Device Utility Library.lvlib",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Print Debug String.vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Report Final Error Status.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\xnet\\xnet.llb\\XNET Clear.vi",
+  "<vilib>\\xnet\\xnet.llb\\XNET Create Session (Frame Input Stream).vi",
+  "<vilib>\\xnet\\xnet.llb\\XNET Create Session.vi",
+  "<vilib>\\xnet\\xnet.llb\\XNET Frame Type CAN.ctl",
+  "<vilib>\\xnet\\xnet.llb\\XNET Read (Frame Raw).vi",
+  "<vilib>\\xnet\\xnet.llb\\XNET Read.vi",
+  "<vilib>\\xnet\\xnet.llb\\XNET Stop.vi",
+  "<vilib>\\xnet\\xnet.llb\\_XNET Convert Time U64 to LV.vi"
+ ]
+}
