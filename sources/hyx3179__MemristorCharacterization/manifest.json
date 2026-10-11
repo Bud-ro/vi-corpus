@@ -1,0 +1,770 @@
+{
+ "repo": "hyx3179/MemristorCharacterization",
+ "url": "https://github.com/hyx3179/MemristorCharacterization",
+ "commit": "4725e484529a42f4b7095c9abce861434b94e27b",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "GUI/导电机制拟合.vi",
+   "bytes": 27256,
+   "sha256": "690900149a8adc31a0a5e8a851f01c585d7d2758a74aed0cef7c5f88c2dd6cc6",
+   "via": "extension"
+  },
+  {
+   "path": "GUI/数据处理.vi",
+   "bytes": 861848,
+   "sha256": "cb4aaf18ed8dd86d4993d8dcdd41d637e5e51365e0f4551f2540abe32fc49f13",
+   "via": "extension"
+  },
+  {
+   "path": "GUI/数据摘要显示.vi",
+   "bytes": 211000,
+   "sha256": "a727e91f8a288bedbed0d26bfee1f5059849eddcd260fa74d328fddd2e1adf78",
+   "via": "extension"
+  },
+  {
+   "path": "GUI/测试.vi",
+   "bytes": 104860,
+   "sha256": "313c5e98bf5c88eb767bf24a81f1fd489a6b462dd7411b3d77d7b8f3c1632679",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/2601B.lvclass",
+   "bytes": 51754,
+   "sha256": "91bdc472917679c0d87a3a5a1f66f683345c6d37699db227de0c1165739d6cff",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/Close.vi",
+   "bytes": 19225,
+   "sha256": "e0a076df9f08962322e6a64a5ea4d088a7557af5c1aea3f8dc8733492e17d358",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/Initialize.vi",
+   "bytes": 22310,
+   "sha256": "ca8f3c77036d2995cc9a09d486862db3ed8e8ed58afe101ec61d6089dd80d4d0",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/Load Script.vi",
+   "bytes": 23911,
+   "sha256": "e6876e9e4bfa29f598b4b1a9fbfecf6da2a2c9a2329f20d0c3ae4c830d589dd2",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/Read Data.vi",
+   "bytes": 31513,
+   "sha256": "d57562d7fbb3621aa4a2452ca88e22411d7511580d1d434d099058baa5cec66c",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/Run Script.vi",
+   "bytes": 23102,
+   "sha256": "dd2ae66901e04e4927164b3e38b9fd2f0b21cb2944a779a645a9b2be67157efd",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/String to 2D DBL.vi",
+   "bytes": 10616,
+   "sha256": "3ea7243d6cae82c143449a05f152af4d407aced472572b67d868a183c2485b1b",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/abort.vi",
+   "bytes": 19117,
+   "sha256": "a6feaee716a6c7f1f1299fc114ae78c2b4c0dfb8a590abec5e60a707063639cb",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/属性/写入2601B.vi",
+   "bytes": 15125,
+   "sha256": "40de64df07f823a371a776626a92f9626dfcd641f7deee261f782a19e45700cb",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/属性/写入Events.vi",
+   "bytes": 15262,
+   "sha256": "f21798c9a571a421dd21bad420e81964ff86938f22eb74a52cf251b5d3bbc663",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/属性/读取2601B.vi",
+   "bytes": 13525,
+   "sha256": "59e3089737dbb8ee57d79013c18a783c8dc4ec9ce5dd9fdbd0f7bfb988315683",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/属性/读取Events.vi",
+   "bytes": 13658,
+   "sha256": "7cf195f5804f7dd6b32b276bae7c4dcd5f5d6b978aecef0917e7bbbcf342e343",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/Close.vi",
+   "bytes": 17857,
+   "sha256": "b5edcfe863218606a2347e2011397ec8d46c2b97e0032f4276b37ee8706307a6",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/Initialize.vi",
+   "bytes": 19158,
+   "sha256": "4839ce19c5b12978c622b4cb261d8f2e896063dcaf4a27e91f7caeaad740083f",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/Load Script.vi",
+   "bytes": 23771,
+   "sha256": "54c73397a0d4e70772001fc1d2a56a7c0bf9d1552cf2d8317ccd7f01c1e9547b",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/Read Data.vi",
+   "bytes": 24057,
+   "sha256": "1673ced10f3a4867fe2bb97ae733cf5670ebb6ae0f1288693ba1a6e19fff2671",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/Run Script.vi",
+   "bytes": 24650,
+   "sha256": "be7dc09be8c8b0348f1c6a9fc5ad27065eb4ba72fd2b6847105f15284b466f35",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/abort.vi",
+   "bytes": 17857,
+   "sha256": "1e43b9cfc9eb4f0bf9e745c06570ed86e20d74ffa70624196bb0bff1abcc14d0",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/2601B/虚拟/虚拟.lvclass",
+   "bytes": 44055,
+   "sha256": "f27cdc8f0149766ea4da142675ec5b0c69fcbda06fca5f9c5781fa7e44865f27",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/控件/队列组.ctl",
+   "bytes": 5779,
+   "sha256": "a0ae21bcf4cd7adb0b4965cbb51df96b5612ae6e3451a92a2b2157d07f9fa497",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据保存/写入数据.vi",
+   "bytes": 23912,
+   "sha256": "a275bcb282311b7a85993cf9a938964c21d872b9e8efbc3238467029b7bed166",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据保存/打包属性.vi",
+   "bytes": 14892,
+   "sha256": "86777e2ca0828492bbe275b8ead41197fb8b96845386d40d65be007f292329e1",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据保存/打开文件.vi",
+   "bytes": 54328,
+   "sha256": "af598d460d84e1696bf95e585b6be30acd0276f617317fcb87e2c254d1280ab2",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据保存/数据库.vi",
+   "bytes": 4478,
+   "sha256": "bfd109d1bb41a295e87021014bfe4c5a71792c48bc413b44d0e169e8627e173f",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/导出扫描测试数据.vi",
+   "bytes": 17852,
+   "sha256": "296deca0d2da12fb2f699d62afd2668dc005cd57037dbdf31026440060f3b916",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/布尔非转非法数字.vi",
+   "bytes": 11296,
+   "sha256": "99278b4a4d6828bc55c1b139abb8400497a2757ffff8a20e1a4c4f8195f10e29",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/扫描方向检查.vi",
+   "bytes": 11192,
+   "sha256": "aeab52e2d39efe72e5f783b9708108bc4d504ccaf6aef2483e78d430b5597fb7",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/扫描测试数据保存.vi",
+   "bytes": 37868,
+   "sha256": "d9b3393adfe0b35120fee039119a5afe4062b3421e572274ff738485e0a5477c",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/电流插值.vi",
+   "bytes": 11480,
+   "sha256": "5185b4b9b7718c40771cf92c3816ae2d6c0fdd90ba7b230742f3d51d38358a35",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/扫描导出/获取扫描电压.vi",
+   "bytes": 12964,
+   "sha256": "b16244543d2d2a68f6d5fcd4b5b70f3d21e7cb7b5693f82abadd4565b0e93853",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/控件/包含删除.ctl",
+   "bytes": 4373,
+   "sha256": "fae919f671a3563b99793f76b4e7492b4840b1f7c23d61fb392ca63f847651fa",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/控件/显示曲线范围.ctl",
+   "bytes": 4381,
+   "sha256": "e91b2bab3d034e0c8117cae4e9bb429baaa4f4a0d19a3c64d8cf1f428c00e6ae",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/控件/测试数据类型.ctl",
+   "bytes": 10869,
+   "sha256": "a61a7e243acbfc8a0e0559dd87692e74074737234900e0b592162d6484b913cb",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/控件/测试类型.ctl",
+   "bytes": 4549,
+   "sha256": "b6eff6fe70fdb33811ee16381f31e07f027abb39cc7199e3b25560c91b20c9af",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/控件/索引簇.ctl",
+   "bytes": 4963,
+   "sha256": "3bf6a69ac6400582abc6e229fb62011e031dc12c8e80e071a8d87cc7ab46c7d9",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/数据分类.vi",
+   "bytes": 15296,
+   "sha256": "5a922c0d094908769541b4213f870085025f77e1cfe7cfc6f2dcc3b15877d326",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/数据摘要提取.vi",
+   "bytes": 13624,
+   "sha256": "2a280a82d3b3ca68b92d13e823854f16f25a1a6fa553dca32b636e3ae1eefdc7",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/数据格式转化.vi",
+   "bytes": 43172,
+   "sha256": "fe1f0abf77a44a3deb22e37cf2443c8c0380095d20fca0b5ce451d2e399613c1",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/测试数据保存.vi",
+   "bytes": 35408,
+   "sha256": "c5ea2026609b503163e11697c8e59bd0eeca1a07bf97c8da2bb12ba1e5f20d89",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/消除电流零偏.vi",
+   "bytes": 19720,
+   "sha256": "988f3301f212b48d2f05e4cc7a6b983379afda7202791b114bae8f2d02645537",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/索引数据/索引数据.vi",
+   "bytes": 27548,
+   "sha256": "71d0f2702de66ce2861346763bd14e54bc78eaa7b137ad278f1365eb6b9771b2",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/索引数据/索引脉冲(保持时间).vi",
+   "bytes": 16262,
+   "sha256": "8401e822fadd826404317b6eb543a6c5e30c49d774800abb8649c93cbd94a553",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/索引数据/读取数据属性.vi",
+   "bytes": 23328,
+   "sha256": "e196743e08510fb7cbb140fdf73d1a72962f745f758d554e179d3e4952d6ad56",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/读取数据/修改属性.vi",
+   "bytes": 13844,
+   "sha256": "42c6b1073972547a3e44103176ac4cade8f379b9c679d226153a8df3af6c420e",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据处理/读取数据/读取数据文件.vi",
+   "bytes": 26464,
+   "sha256": "6795f709d511c2299e6facf789f9aeb0694bc9ff0c63bd85f8cddcdf3250869f",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据库/样品标记/写入.vi",
+   "bytes": 21852,
+   "sha256": "56a75d1253bd7ab6031e0b3a74775d29f0d7ea42351a2cda1e8a8991f6c0f7da",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/数据库/样品标记/读取.vi",
+   "bytes": 16120,
+   "sha256": "59699e676b8b48997c093e4fedf4d8d146efe1d5941fd6e7af4cd9000958f3cf",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/生成任务队列.vi",
+   "bytes": 14136,
+   "sha256": "88f4792330555c4028e13f0eb92e96f02e90a24cc749398d4cb0c054d12588e6",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/禁用控件.vi",
+   "bytes": 15416,
+   "sha256": "32da4b87027914f2ce8d262c31d4c5244a1d7d1d2407c0f669fbffb4af8cf862",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/获取队列引用.vi",
+   "bytes": 12260,
+   "sha256": "f2ddcdba102b84fafa3a13a1cada677b50773fe8b4ed286fe00e978954213eb7",
+   "via": "extension"
+  },
+  {
+   "path": "Lib/输入数据.vi",
+   "bytes": 18204,
+   "sha256": "6f8f174d4612ccf5170fd88caaf42bba16e6b39ccbcf046352255f5529b2d350",
+   "via": "extension"
+  },
+  {
+   "path": "MemristorCharacterization.lvproj",
+   "bytes": 46859,
+   "sha256": "b1dac2cb8aea91738ef4cc2e5c1a62ec1ede70ceb70d3f3e5780c46f03ca26f3",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/初始化.vi",
+   "bytes": 40466,
+   "sha256": "a62c5f667aa630c4520c27f29dc53837fa08f6b0a1f108339215a80ff6594665",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/功能类型选择.ctl",
+   "bytes": 12041,
+   "sha256": "89d3232ea680c42bd9282e7b62ba070d76de15b4152c94242edf9e45458ce59d",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/功能选择.xctl",
+   "bytes": 16608,
+   "sha256": "3105000ef063c8f19872ab7abc6e1dd410be1fc2d3d80f8701f90540453df696",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/外观.vi",
+   "bytes": 66220,
+   "sha256": "f24032b864f6e044d889b72e889a0e0c0f89084b409806ac0a6b1c9ba64e3789",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/任意波形脚本.vi",
+   "bytes": 25808,
+   "sha256": "0d16a385391ccc97dbc7014520107665e878f37df7132c5867549a9c42c171e6",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/保持时间脚本.vi",
+   "bytes": 19776,
+   "sha256": "6561e7e7e57c1b1b9b275b055e097a87307076fe291b36bfea0b3d1351ea0391",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/循环扫描脚本.vi",
+   "bytes": 22628,
+   "sha256": "22f0b8cba3a0da2c25a8e5fca9d148051a53f375fd5168d58eb0d7e286f48af1",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/扫描脚本.vi",
+   "bytes": 22768,
+   "sha256": "5789a3ac95b7a91cb473102d8b989e2fbb474f65492ceecdec126a8c5fc9498a",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/波形描述检查.vi",
+   "bytes": 18256,
+   "sha256": "8a108d02e796808d5188b065b61269752ec769029ccdb4a121f614ca45af927d",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/波形编辑.vi",
+   "bytes": 143144,
+   "sha256": "f2551427557d97fd6a614a99092daed8d719ede6fae9d31b0edda5fa9dd63cd6",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/生成LOG波形.vi",
+   "bytes": 14895,
+   "sha256": "76df5fd9ab9a4a7332e006b7aeaea6aba2ec2041f458b32bb936a5dc998d0d8a",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/生成任意波形.vi",
+   "bytes": 24240,
+   "sha256": "bfbfd7a1724df0019c9c7ab3c6816fea393d6480aafc4511beca19be2f3ae574",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/生成电压序列.vi",
+   "bytes": 14348,
+   "sha256": "e5206b5fe9425970d7c2afdb4ed37eeea62a2da388f23e81558cb31b612047a5",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/生成脉冲波形.vi",
+   "bytes": 21744,
+   "sha256": "4e771e73358d6e4d71a46d6ea38bffe3b29f4b5d6502b1f2caab3c0eea25f927",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/脉冲编辑.vi",
+   "bytes": 154688,
+   "sha256": "4c82d6cca9318755b9894324c0a9d20337e105e3f0232ad350d76cd6c279736d",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/高速脉冲占空比计算.vi",
+   "bytes": 12526,
+   "sha256": "2701bf2fef2ec0cdebabfc99b196b6bde55aa1f6a4c20fdead25f630c74913fd",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/子VI/高速脉冲脚本.vi",
+   "bytes": 25476,
+   "sha256": "ed5b1601d1aa9f918b1f1601be4908cdfaef6693aaf3e304f788f43f868add89",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/属性/测试参数读取.vi",
+   "bytes": 34808,
+   "sha256": "0ff4829484124228145a807b683e1299e0874a58244de9de19dc5fecb80ceb9e",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/控件/保持时间.ctl",
+   "bytes": 16101,
+   "sha256": "6f10ceb7ca8493b41c93d5fdfc7adc2e7c78114683e56bfaab52eb5284135603",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/控件/扫描参数.ctl",
+   "bytes": 12629,
+   "sha256": "f50e6389ed923b9d1f97b7a9239f4a6f9f99672622ac4518a15d2dbb0b0f3afd",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/控件/方向属性.ctl",
+   "bytes": 11253,
+   "sha256": "65876b316717939fb62b505a7b211b43a729c57ee29488461e516525a75c6d6b",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/方法/获取脚本.vi",
+   "bytes": 48820,
+   "sha256": "af4c0efd559828b77be04475dbc474bf4a696df3b99f60ecd09cc272244bbc61",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/状态.ctl",
+   "bytes": 28033,
+   "sha256": "d381c6c40844a40edb5e04f48b83470ec00607d735d0bd583c10518bef33d681",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/功能选择/转换需保存的状态.vi",
+   "bytes": 25192,
+   "sha256": "d6ad0dfd69bd6e49f335825b4e522ade13bc473b35690a6395265bc2e48b9a84",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/初始化.vi",
+   "bytes": 18810,
+   "sha256": "e7b3b6b46784f64e8f2e96b4590e121349dba3492bb28e707aaf42ab721f2b49",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/反初始化.vi",
+   "bytes": 14216,
+   "sha256": "a07650bd73120748946829f217bd998983e878da24acbdbdb9b1d6b57b203f3e",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/外观.vi",
+   "bytes": 63508,
+   "sha256": "cee2763aac3eeceea6d878a52dc7b6ea0a7c7caab90e250b864c7061e8bfe629",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/子VI/任意波形绘制.vi",
+   "bytes": 19876,
+   "sha256": "7cb70b53c80f87e7a2db576055f6c17a2efb458154fc74ea0e6b9bda99bfa7d0",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/子VI/刷新.vi",
+   "bytes": 22156,
+   "sha256": "d9639fdc5bf9af7001cb2c72239324ebfbd2e61de6a33e0117f4181998e05e8e",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/子VI/扫描绘制.vi",
+   "bytes": 21632,
+   "sha256": "0dea9e6c9a85da9b50fd24d3d7e685749dd149c85779b70f08f05cd7e3dc6546",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/子VI/设置曲线属性.vi",
+   "bytes": 17596,
+   "sha256": "d613de60dabd3c20f6b2348bf40bf6857a05bb4efd93432b50ea375782a9480a",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/子VI/高速脉冲绘制.vi",
+   "bytes": 23972,
+   "sha256": "363b5703740b254573d7e3a40fffee0238b93743371dc5bb308ee10f8ef8203b",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/功能写入.vi",
+   "bytes": 25556,
+   "sha256": "f3a548781ccf68a324d5177b6b4aead31e1b85b54a581ab4db37719217866f40",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/历史数据写入.vi",
+   "bytes": 15500,
+   "sha256": "fe50c5d23d11e1e2c0a1e48a4ee8720b00d90f3279c863a39c5bc8e05a92482a",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/历史数据读取.vi",
+   "bytes": 14820,
+   "sha256": "05649150c800cee2cdb785852d4bf58ed5ca6b877508c7d0e5c42db73d23e708",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/数据属性写入.vi",
+   "bytes": 14600,
+   "sha256": "f4e286c236df12d1c50effd76daa50dfd0b665a4461fd3daea23558e4815ed73",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/数据属性读取.vi",
+   "bytes": 14356,
+   "sha256": "9e820f10bd34b82ef3ca25eaec4e0043332f902b69c04f9888c1004ea048092d",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/属性/突变电压读取.vi",
+   "bytes": 14512,
+   "sha256": "dac453d5cf28d7e29257a2827a1649764d943ad025e1e76e33532fe1f3df85f4",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/控件/XY图.ctl",
+   "bytes": 26085,
+   "sha256": "dfa9f6fbd2b31db132e08e9612d0b2cd783256d14992491bc1c82f4307a9e23f",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/控件/映射方式.ctl",
+   "bytes": 4757,
+   "sha256": "b09d00b3ccbbf56109ab34729a5357e254ca7c7a4f9d30207876df13060e397e",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/控件/曲线设置.ctl",
+   "bytes": 5101,
+   "sha256": "0222f30bbc67210dee2ed3e810d7c9b71d17a92e5816a58e00893d090e462034",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/控件/波形数据定义.ctl",
+   "bytes": 12697,
+   "sha256": "a491921b4d0b43dfc1de808b2cea48dc2f83470e5c3d2b74d9d83e38adecc7fa",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/数据.ctl",
+   "bytes": 9821,
+   "sha256": "6763bdfa0ace433ad5050442e6ff17cf34d68fa1ef3188b20f08696d29b014c3",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/数据显示.xctl",
+   "bytes": 4986,
+   "sha256": "e2581b67a634837d1d3ccd0e0865dcd401471878c3a945f38fa32429a9355293",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/方法/新数据.vi",
+   "bytes": 17282,
+   "sha256": "68c7fcce4b27022188a0a39e7e4724322cdee97bc76fdd307ce183a74b57ace4",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/方法/添加数据.vi",
+   "bytes": 14628,
+   "sha256": "4b49bc2284d82935147d16707c1651c92e3a0ad1eb71aadb61e13cabced6fb0f",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/状态.ctl",
+   "bytes": 14309,
+   "sha256": "f31fb5989c6419462c5f082938ca8a2de7d95740fca9929963150fd3b3cfe37a",
+   "via": "extension"
+  },
+  {
+   "path": "Xcontrol/数据显示/转换需保存的状态.vi",
+   "bytes": 14408,
+   "sha256": "881f475a1200df6f4c3eb8b95f1420c13e99990464fd223b422ce0e074298617",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 165,
+   "sha256": "f9f0db3a05b2c4eb621ef4811aa9198c28f8af645fd6e6619b3868f4eeca0111",
+   "via": "tree"
+  },
+  {
+   "path": ".gitmodules",
+   "bytes": 321,
+   "sha256": "009bd2932268264a5a507ac02fdd1721fe50286c22f8bec73a846b2a5a8accd4",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1064,
+   "sha256": "ffe8ca470bc12310262678a8f8b3576aa1639761e004dd498ef811503bfe1824",
+   "via": "tree"
+  },
+  {
+   "path": "Lib/icon.ico",
+   "bytes": 12397,
+   "sha256": "0efac4395f66ef46c00dc7d01f09a1e7301b425954f29a2f2479a3fc0f066ca9",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 415,
+   "sha256": "e8044e9a507dd021271a9fdb2e6557b4dc1a519051ee26384147d00fad692066",
+   "via": "tree"
+  },
+  {
+   "path": "image/IV测试.png",
+   "bytes": 24025,
+   "sha256": "c01b985734e36c0708db990f5fd34a922bfe361fb86e287c86d97279e4074f95",
+   "via": "tree"
+  },
+  {
+   "path": "image/数据处理.png",
+   "bytes": 33325,
+   "sha256": "6d91f94d3f331ae41cccfad3e53c78978117a6e8a22034cb520b7c04ca25d6db",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<helpdir>\\lvexpress.chm",
+  "<resource>\\visarc",
+  "<userlib>\\_OpenG.lib\\lvzip\\lvzip.llb\\ZLIB Deflate__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvzip\\lvzip.llb\\ZLIB Inflate__ogtk.vi",
+  "<vilib>\\AdvancedString\\Path To Command Line String.vi",
+  "<vilib>\\Analysis\\1siggen.llb\\Gaussian White Noise.vi",
+  "<vilib>\\Analysis\\1siggen.llb\\Sine Pattern.vi",
+  "<vilib>\\Analysis\\6fits.llb\\Linear Fit.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\NI_AALPro.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean (DBL).vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean.vi",
+  "<vilib>\\Array\\Helpers\\Sort 1D Array Core.vim",
+  "<vilib>\\Array\\Remove Duplicates From 1D Array.vim",
+  "<vilib>\\Array\\Sort 1D Array.vim",
+  "<vilib>\\Comparison\\Less.vim",
+  "<vilib>\\Comparison\\Less\\Less Comparable\\Less Comparable.lvclass",
+  "<vilib>\\Comparison\\Less\\Less Comparable\\Less Than.vi",
+  "<vilib>\\Comparison\\Less\\Less Functor\\Less Functor.lvclass",
+  "<vilib>\\Comparison\\Less\\Less Functor\\Less Than.vi",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Base64\\Base64 Support.lvlib",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Base64\\Base64 or Base64URL Decode.vi",
+  "<vilib>\\Utility\\Stall Data Flow.vim",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\file.llb\\Read Delimited Spreadsheet (DBL).vi",
+  "<vilib>\\Utility\\file.llb\\Read Delimited Spreadsheet (string).vi",
+  "<vilib>\\Utility\\file.llb\\Read Delimited Spreadsheet.vi",
+  "<vilib>\\Utility\\file.llb\\Write Delimited Spreadsheet (DBL).vi",
+  "<vilib>\\Utility\\file.llb\\Write Delimited Spreadsheet (string).vi",
+  "<vilib>\\Utility\\file.llb\\Write Delimited Spreadsheet.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVAnnotationListTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVRowAndColumnTypeDef.ctl",
+  "<vilib>\\_xctls\\Action.ctl",
+  "<vilib>\\_xctls\\Container State.ctl",
+  "<vilib>\\_xctls\\Version To Dotted String.vi",
+  "<vilib>\\_xctls\\Version.ctl",
+  "<vilib>\\_xctls\\XControlSupport.lvlib",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Connection.lvclass",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Execute SQL (1D String).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Execute SQL (No results).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Execute SQL (Poly).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Open (path).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Open (string).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Open.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Connection\\Prepare.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Bind Blob.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Bind Integer.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Bind Real.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Bind Text.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Bind Timestamp (Real).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Column DBL.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Column I64.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Column String.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Column Timestamp.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Column Type.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Error Message.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Finalize (Property).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Finalize.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\First Step.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Reset.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\SQL Statement.lvclass",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\SQL Statement.lvclass\\SQL Statement.ctl",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQL Statement\\Step.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\SQLite.lvlib",
+  "<vilib>\\drjdpowell\\SQLite Library\\Transaction Helpers\\BEGIN.vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\Transaction Helpers\\COMMIT (ROLLBACK on Error).vi",
+  "<vilib>\\drjdpowell\\SQLite Library\\Transaction Helpers\\Transaction.lvlib",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\File Dialog Source.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\subFile Dialog.vi",
+  "<vilib>\\express\\express input\\FileDialogConfig.llb\\Configure File Dialog.vi",
+  "<vilib>\\express\\express input\\PromptUserBlock.llb\\Ex_Inst_Prompt User for Input.vi",
+  "<vilib>\\express\\express input\\PromptUserConfig.llb\\Configure Prompt User for Input.vi",
+  "<vilib>\\gmath\\NI_Gmath.lvlib",
+  "<vilib>\\gmath\\interp.llb\\Interpolate 1D.vi",
+  "<vilib>\\measure\\NI_MAPro.lvlib",
+  "<vilib>\\measure\\maresamp.llb\\Resample Waveform (continuous).vi",
+  "<vilib>\\measure\\maresamp.llb\\Resample Waveforms (continuous).vi",
+  "D:\\Data",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\2601B.lvclass",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\Close.vi",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\Initialize.vi",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\Load Script.vi",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\Read Data.vi",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\Run Script.vi",
+  "D:\\Workspace\\LabVIEW\\MemristorCharacterization\\Lib\\2601B\\abort.vi"
+ ]
+}
