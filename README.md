@@ -14,6 +14,10 @@ classes and projects resolve as they did upstream. Next to the tree:
   of the tree), files left out for size, and references that point outside the
   repository (`<vilib>` paths and absolute paths).
 
+The repository stops at the 4 GB budget declared in `corpus.json`; sources beyond
+it continue in [vi-corpus-2](https://github.com/Bud-ro/vi-corpus-2) under the
+same layout and rules.
+
 `sources.json` lists every vendored source; `candidates.json` lists public
 repositories that were surveyed but not vendored, with the reason (no license
 file, a non-commercial or non-redistributable license, or NI product content),
