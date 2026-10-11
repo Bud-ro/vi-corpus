@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+  <XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>NI::Routing and Faulting</eng>
+    <loc>NI::Routing and Faulting</loc>
+  </AddMenu>
+  <Version>1.0.0</Version>
+  <Type>Asynchronous</Type>
+  <MaxOccurrence>1</MaxOccurrence>
+  <MainPageGUID>4e591626-626d-4903-9a6e-1f2a7b879f4d</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+      <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+    <SourceDistribution>
+      <Source>
+        <SupportedTarget>Windows</SupportedTarget>
+        <Source>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Engine Windows.llb\RT Driver VI.vi</Path>
+        </Source>
+        <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Routing and Faulting\Routing and Faulting Engine Windows.llb\RT Driver VI.vi</RealTimeSystemDestination>
+      </Source>
+      <Source>
+        <SupportedTarget>Linux_x64</SupportedTarget>
+        <Source>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\Routing and Faulting\Linux_x64\Routing and Faulting Engine Linux64.llb\RT Driver VI.vi</Path>
+        </Source>
+        <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Routing and Faulting\Routing and Faulting Engine Linux64.llb\RT Driver VI.vi</RealTimeSystemDestination>
+      </Source>
+    </SourceDistribution>
+  </CustomDeviceVI>
+  <Dependencies>
+    <Dependency>
+      <SupportedTarget>Linux_x64</SupportedTarget>
+      <Source>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Linux_x64\CDMessaging.lvlibp</Path>
+      </Source>
+      <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Routing and Faulting\CDMessaging.lvlibp</RealTimeSystemDestination>
+    </Dependency>
+  </Dependencies>
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Routing and Faulting</eng>
+        <loc>Routing and Faulting</loc>
+      </Name>
+      <GUID>4e591626-626d-4903-9a6e-1f2a7b879f4d</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\routing and faulting page.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Main Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>fa948ccd-a560-423c-8fe5-1223b7db603f</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Import Configuration RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>2a3edf58-aeb2-4789-ad55-6f00881aaea8</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Export Configuration RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>Import</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\import.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>fa948ccd-a560-423c-8fe5-1223b7db603f</ReferencedGUID>
+          <ButtonText>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Import a configuration for this custom device.</eng>
+            <loc>Import a configuration for this custom device.</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Import</eng>
+            <loc>Import</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Export</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\export.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>2a3edf58-aeb2-4789-ad55-6f00881aaea8</ReferencedGUID>
+          <ButtonText>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Export a configuration for this custom device.</eng>
+            <loc>Export a configuration for this custom device.</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Export</eng>
+            <loc>Export</loc>
+          </Documentation>
+        </Button>
+      </ButtonList>
+      <ActionVIOnLoad>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\ActionVIOnLoad.vi</Path>
+      </ActionVIOnLoad>
+      <ActionVIOnSave>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\ActionVIOnSave.vi</Path>
+      </ActionVIOnSave>
+      <ActionVIOnCompile>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\ActionVIOnCompile.vi</Path>
+      </ActionVIOnCompile>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Endpoint Aliases</eng>
+        <loc>Endpoint Aliases</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>58f3342d-82ee-4932-869a-6f49da3049e5</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\alias page.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Endpoint Aliases Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Routing Channels</eng>
+        <loc>Routing Channels</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>ce8870b5-cb8e-4b52-ac34-5b792fdc2ead</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\routing channels page.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Routing Channels Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>9d78a3ce-be46-43e5-8ab4-80cbc52ef760</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Routing Channel</eng>
+            <loc>Add Routing Channel</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Add Routing Channel RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>Add Routing Channel</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\add routing channel.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>9d78a3ce-be46-43e5-8ab4-80cbc52ef760</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Routing Channel</eng>
+            <loc>Add Routing Channel</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Routing Channel</eng>
+            <loc>Add Routing Channel</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add a routing channel to the custom device.</eng>
+            <loc>Add a routing channel to the custom device.</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Add Routing Channel</eng>
+            <loc>Add Routing Channel</loc>
+          </Documentation>
+        </Button>
+      </ButtonList>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Routing Channel Page</eng>
+        <loc>Routing Channel Page</loc>
+      </Name>
+      <GUID>7ecc8b72-3e89-41fd-aa1c-b993e8fe884f</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\routing channel.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Routing Channel Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>52206594-4993-4e1b-b54c-152b18302012</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Duplicate</eng>
+            <loc>Duplicate</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Duplicate Routing Channel RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>c9380bf5-50bb-4a52-bab6-f0de324be6cc</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Delete</eng>
+            <loc>Delete</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Actions\Delete.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>00e42cae-1847-4da4-b5df-f5afe8e05df6</GUID>
+          <Type>Separator</Type>
+          <Name>
+            <eng>.</eng>
+            <loc>.</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>.</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>e2260547-c427-4583-a6f5-ad52ae12da6a</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Disable</eng>
+            <loc>Disable</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Enable Disable Routing Channel RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>Duplicate Routing Channel</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\duplicate routing channel.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>52206594-4993-4e1b-b54c-152b18302012</ReferencedGUID>
+          <ButtonText>
+            <eng>Duplicate Routing Channel</eng>
+            <loc>Duplicate Routing Channel</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Duplicate Routing Channel</eng>
+            <loc>Duplicate Routing Channel</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Duplicate a routing channel for the custom device.</eng>
+            <loc>Duplicate a routing channel for the custom device.</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Duplicate Routing Channel</eng>
+            <loc>Duplicate Routing Channel</loc>
+          </Documentation>
+        </Button>
+        <Button>
+          <ID>Disable Routing Channel</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\disabled routing channel.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>e2260547-c427-4583-a6f5-ad52ae12da6a</ReferencedGUID>
+          <ButtonText>
+            <eng>Disable Routing Channel</eng>
+            <loc>Disable Routing Channel</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Disable Routing Channel</eng>
+            <loc>Disable Routing Channel</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Disable this routing channel for the custom device.</eng>
+            <loc>Disable this routing channel for the custom device.</loc>
+          </TipStrip>
+          <Documentation>
+            <eng>Disable Routing Channel</eng>
+            <loc>Disable Routing Channel</loc>
+          </Documentation>
+        </Button>
+      </ButtonList>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Routing Channel Page (disabled)</eng>
+        <loc>Routing Channel Page (disabled)</loc>
+      </Name>
+      <GUID>d53b9e39-8c97-48d0-a889-a3e6598ed856</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Glyphs\disabled routing channel.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Routing Channel Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>c9380bf5-50bb-4a52-bab6-f0de324be6cc</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Delete</eng>
+            <loc>Delete</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Actions\Delete.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>00e42cae-1847-4da4-b5df-f5afe8e05df6</GUID>
+          <Type>Separator</Type>
+          <Name>
+            <eng>.</eng>
+            <loc>.</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>.</Path>
+          </Item2Launch>
+        </MenuItem>
+        <MenuItem>
+          <GUID>e2260547-c427-4583-a6f5-ad52ae12da6a</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Enable</eng>
+            <loc>Enable</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Routing and Faulting\Windows\Routing and Faulting Configuration.llb\Enable Disable Routing Channel RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Status</eng>
+        <loc>Status</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>fafe2633-52e8-4be6-bb95-b07e42834d60</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\system variable.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>Absolute</Type>
+          <Path>System UI VIs\Custom Device\Custom Device Section.vi</Path>
+      </Item2Launch>
+      <Help>
+        <Item2Launch>
+          <Type>To Base</Type>
+            <Path>Veristand.chm\Custom_Devices_SE.html</Path>
+        </Item2Launch>
+        <FileType>chm</FileType>
+      </Help>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>
