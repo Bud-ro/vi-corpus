@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Solution Version="1.1">
+
+  <Version Build="0" Major="0" Minor="1" Patch="0"/>
+
+  <Config Name="Debug"/>
+
+  <Config Name="Release"/>
+
+  <Item ID="BC1B3EE6-9972-4D1F-96C5-A0A14A3E" Type="Project" Version="1.1">
+    <Info Path="..\lvproj\PicoG-Exe.lvproj" X64="FALSE">
+      <Config Name="Debug">
+        <Debug Spec="picoG Exe" Target="My Computer"/>
+      </Config>
+      <Config Name="Release"/>
+    </Info>
+  </Item>
+
+  <Item ID="0FCD0492-D44B-4427-926C-259CC809" Type="Project" Version="1.1">
+    <Info Path="..\lvproj\PicoG-Core.lvproj" X64="FALSE">
+      <Config Name="Debug">
+        <Debug Spec="PicoG-Core" Target="My Computer"/>
+      </Config>
+      <Config Name="Release"/>
+    </Info>
+  </Item>
+
+  <Item ID="8B8A356A-E7A2-4753-BB2E-6E2C94F7" Type="Project" Version="1.1">
+    <Info Path="..\lvproj\Platform-RP2040.lvproj" X64="FALSE">
+      <Config Name="Debug">
+        <Debug Spec="RP2040 PPL" Target="My Computer"/>
+      </Config>
+      <Config Name="Release"/>
+    </Info>
+  </Item>
+
+  <Item ID="7F78274A-5620-4DB3-8D5E-D47F8E04" Type="Project" Version="1.1">
+    <Info Path="..\lvproj\PicoG-App.lvproj" X64="FALSE">
+      <Config Name="Debug">
+        <Exclude Spec="PicoG App EXE" Target="My Computer"/>
+        <Debug Spec="PicoG App EXE" Target="My Computer"/>
+        <Debug Spec="PicoG App PPL" Target="My Computer"/>
+      </Config>
+      <Config Name="Release"/>
+    </Info>
+  </Item>
+
+</Solution>
