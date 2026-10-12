@@ -1,0 +1,91 @@
+[
+ {
+  "path": "Source/LabVIEW/CICD/VIs/ni_lib_via_checkstyle-1.0.1.4.vip",
+  "url": "https://raw.githubusercontent.com/ThatsTheEnd/LabviewPipelineSampleProject/82f36ded9d0c5af9b53418e78bb55d1d0160569d/Source/LabVIEW/CICD/VIs/ni_lib_via_checkstyle-1.0.1.4.vip",
+  "bytes": 99957,
+  "sha256": "0c75204ddef3cd8a24869ee43a36be50eb94d6a9e506b3a041a10191fed3a411",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 2476,
+    "crc32": 3116008872,
+    "sha256": "93ffe84f34e7ef2da7f3204f65604d5ba650a9b8425b3c7d0b6ea5d012331570"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 3237172469,
+    "sha256": "a1d71b548453f7a8a8260baba480a1e168c46347202bdad782adc7c648588c51"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/serialize.vi",
+    "bytes": 23049,
+    "crc32": 3179702956,
+    "sha256": "93fd7578f44055fb6205a733843f787e07ef34adeaa6a46002e327c080a8200d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/via xml report.vi",
+    "bytes": 49446,
+    "crc32": 1017678859,
+    "sha256": "f42784b1b152ade678d5ae2bd2525f09105516451c438ce22070cdb50901bb3d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/xml format - error.ctl",
+    "bytes": 12015,
+    "crc32": 891869935,
+    "sha256": "a16c00382d296df018b41a0969d49ebcf83dfbdf8b127e6844ed02d4b33f2394"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/xml format - file.ctl",
+    "bytes": 13234,
+    "crc32": 950951501,
+    "sha256": "401b5724e2c16402db853dda9f17406151ed63abb5854218f1ebc0c644c028fb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/xml format.ctl",
+    "bytes": 11999,
+    "crc32": 551026275,
+    "sha256": "982a92c204aec79459b1a97eb2bd53ca9cc007bd5f9536cbfb3a3f4a29a8d821"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/test/default test config.cfg",
+    "bytes": 20424,
+    "crc32": 3007903472,
+    "sha256": "86135b2c75143a8435a46bad695717f36f69e2c40d7174fea0a2137da32ba994"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/test/run test.vi",
+    "bytes": 24776,
+    "crc32": 1162611203,
+    "sha256": "9153fec5395b652cc80172fb93ae468f123d20205b49ee83e1c2f8fe1e1893db"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/test/test output.xml",
+    "bytes": 773,
+    "crc32": 961595505,
+    "sha256": "5219346a53e4752e8cfb954c7f0b7b227a2c3660f86a82dace477639fa5c69da"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VIA-Checkstyle/test/test.vi",
+    "bytes": 7408,
+    "crc32": 986552349,
+    "sha256": "5828c3af817bd3a8e6533b44dfdfb2808c39b9fda48754ad9e73bfed776fe97e"
+   },
+   {
+    "path": "File Group 1/functions_NI_lib_VIA_Checkstyle.mnu",
+    "bytes": 2828,
+    "crc32": 2780611163,
+    "sha256": "bd333e6ef5883a23469561fac0f247e712d3454a2c13db72b677adb171f10bd1"
+   },
+   {
+    "path": "license",
+    "bytes": 11558,
+    "crc32": 3676067130,
+    "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_via_checkstyle\"\r\nVersion=\"1.0.1.4\"\r\nRelease=\"\"\r\nID=26c0e6ed7a33bb08a61e16fc2f527dd1\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"VI Analyzer Results to Checkstyle XML Format\"\r\n\r\n\r\n[Description]\r\nDescription=\"Formats VI Analyzer results into a Checkstyle-compatible XML format.  This is useful for integrating VI Analyzer tests into a continuous integration environment.  CI plugins that can consume and track Checkstyle results can now also be used with VI Analyzer for static analysis of VI code.\\0A\\0AThe results take into account VI Analyzer test rankings and set Checkstyle severity accordingly (Low = Info, Normal = Warning, High = Error).\"\r\nSummary=\"Converts VI Analyzer results to Checkstyle XML format\"\r\nLicense=\"Apache 2.0\"\r\nCopyright=\"Copyright (c) 2018, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"github.com/LabVIEW-DCAF/VIA-Checkstyle\"\r\nPackager=\"NI Systems Engineering\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"-Fixed bug where special characters were not always properly escaped for XML\\0A-Fixed bug where test ranking was not always reported accurately\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=14.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"2\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=9\r\nFile 0=\"vi.lib/NI/VIA-Checkstyle/serialize.vi\"\r\nFile 1=\"vi.lib/NI/VIA-Checkstyle/via xml report.vi\"\r\nFile 2=\"vi.lib/NI/VIA-Checkstyle/xml format - error.ctl\"\r\nFile 3=\"vi.lib/NI/VIA-Checkstyle/xml format - file.ctl\"\r\nFile 4=\"vi.lib/NI/VIA-Checkstyle/xml format.ctl\"\r\nFile 5=\"vi.lib/NI/VIA-Checkstyle/test/default test config.cfg\"\r\nFile 6=\"vi.lib/NI/VIA-Checkstyle/test/run test.vi\"\r\nFile 7=\"vi.lib/NI/VIA-Checkstyle/test/test output.xml\"\r\nFile 8=\"vi.lib/NI/VIA-Checkstyle/test/test.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons/National Instruments\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_NI_lib_VIA_Checkstyle.mnu\"\r\n"
+  }
+ }
+]
