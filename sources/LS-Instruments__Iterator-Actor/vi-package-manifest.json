@@ -1,0 +1,1535 @@
+[
+ {
+  "path": "VIPM/Iterator Actor.vipc",
+  "url": "https://raw.githubusercontent.com/LS-Instruments/Iterator-Actor/b80f77e092f04d8b1d9eebb9ef846b390d48b4b1/VIPM/Iterator%20Actor.vipc",
+  "bytes": 14455,
+  "sha256": "67739b73e21395d952f9310c96f78609f385fdc60210aba3092a202cdfcadb1f",
+  "members": [
+   {
+    "path": "config.xml",
+    "bytes": 1430,
+    "crc32": 3812088290,
+    "sha256": "5a163080163ba5c5db14731419f1174b0c479c8280ab3444e0ef96c08e9a98c8"
+   },
+   {
+    "path": "vipm_lib_labview_collection_extensions-0.4.1.39.spec",
+    "bytes": 4562,
+    "crc32": 3446757326,
+    "sha256": "f5bfc7cf27e94cb545458d6fcde2a5b12adf35696ce1a19b0ab5ae79e84063b2"
+   },
+   {
+    "path": "ls_instruments_ag_lib_async_methods_actor-0.3.0.4.spec",
+    "bytes": 21507,
+    "crc32": 406055620,
+    "sha256": "8f5e56688e83f0dbd48b20cf6c48ba35648e8242b5949e427a60c41a5cda5318"
+   },
+   {
+    "path": "oglib_time-6.0.1.6.spec",
+    "bytes": 2633,
+    "crc32": 1091815362,
+    "sha256": "87e3aa6d8e3f87accba725e66ce759aee9b3138bdfb8029b577cf112c9dd4b79"
+   },
+   {
+    "path": "oglib_lvdata-6.0.0.45.spec",
+    "bytes": 12349,
+    "crc32": 1780755991,
+    "sha256": "ecfb041ad114e0274a5ead2434984eca5f82eb98d0067202f3292d30a18d7be2"
+   },
+   {
+    "path": "mgi_lib_error_handling-1.1.1.3.spec",
+    "bytes": 2281,
+    "crc32": 603912109,
+    "sha256": "ecafca23770f2b9e3e2c2b8f5d3b8439430486d87fa14425fff4b1ce954a9cbf"
+   },
+   {
+    "path": "oglib_error-6.0.0.26.spec",
+    "bytes": 2961,
+    "crc32": 3899496631,
+    "sha256": "b51fa27e84db39846c0aa3a61ca1ce5958513b28dd512429d960f50f2a4e72b3"
+   },
+   {
+    "path": "vipm_lib_labview_collection_extensions-0.4.1.39.bmp",
+    "bytes": 4230,
+    "crc32": 156296533,
+    "sha256": "0269f3371e03e7502e0dbc18ee2c20bb3677afad7ad7563fdd6cc79185cb53b2"
+   },
+   {
+    "path": "ls_instruments_ag_lib_async_methods_actor-0.3.0.4.bmp",
+    "bytes": 4230,
+    "crc32": 3120880706,
+    "sha256": "33045ab8c65d550b919b54d1b5a60c60979105e8eef8e279dc086a11128de118"
+   },
+   {
+    "path": "oglib_time-6.0.1.6.bmp",
+    "bytes": 4230,
+    "crc32": 1596916657,
+    "sha256": "7b4cf44b8e7706fa0d0371e321969c939064f389718848dda77c936f5d3429fd"
+   },
+   {
+    "path": "oglib_lvdata-6.0.0.45.bmp",
+    "bytes": 4230,
+    "crc32": 2726231968,
+    "sha256": "b139aedb37a75ebbb0917a9267b2b46b55106e49ae9c020647b3f646a45372be"
+   },
+   {
+    "path": "mgi_lib_error_handling-1.1.1.3.bmp",
+    "bytes": 4230,
+    "crc32": 1466508090,
+    "sha256": "ea41af0be94bbf5fe19380a7aff81e51624328a7d780142a2bf0a03516052e02"
+   },
+   {
+    "path": "oglib_error-6.0.0.26.bmp",
+    "bytes": 4230,
+    "crc32": 2774640145,
+    "sha256": "e9d20a4349b5f4b1f72f41a995a40f536e86a7d314058651d81abdaeccb1fc9e"
+   }
+  ],
+  "spec": {
+   "config.xml": "<VI_Package_Configuration File_Type=\"xml\" Version=\"0.6\" Created_Date=\"2024-11-23 17:35:54\" Modified_Date=\"2024-11-23 17:36:51\" Creator=\"AndreaVaccaro(LSInst\" Comments=\"\" ID=\"0bde6f8bb3add6ed29f6cd1ef2d7ed9b\">\r\n  <Target>\r\n    <Name>LabVIEW</Name>\r\n    <Version>23.3 (64-bit)</Version>\r\n    <Package>\r\n      <Name>oglib_error-6.0.0.26</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>mgi_lib_error_handling-1.1.1.3</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>oglib_lvdata-6.0.0.45</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>oglib_time-6.0.1.6</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>ls_instruments_ag_lib_async_methods_actor-0.3.0.4</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>vipm_lib_labview_collection_extensions-0.4.1.39</Name>\r\n      <Included>false</Included>\r\n      <Dependency>false</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n  </Target>\r\n</VI_Package_Configuration>",
+   "vipm_lib_labview_collection_extensions-0.4.1.39.spec": "[Package]\r\nName=\"vipm_lib_labview_collection_extensions\"\r\nVersion=\"0.4.1.39\"\r\nRelease=\"\"\r\nID=df07763541a0368b7ef1463791d42ced\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"Collection Extensions (Sets and Maps) for LabVIEW\"\r\n\r\n\r\n[Description]\r\nDescription=\"A library of extensions to the LabVIEW native map and set VIs and functions. These are mostly VIMs (Malleable VIs).\\0D\\0A\\0D\\0AA map groups key-value pairs in sorted order where all the keys are unique. The key and value can each be any data type. Maps are also known as dictionaries because the key is used to look up a value. Inserting a key-value pair into a map either adds the pair to the map or replaces the existing value of the associated key with the new value in the map, depending on whether the key already exists in the map.\\0D\\0A\\0D\\0AA set groups unique elements of the same data type in sorted order. Inserting a new element modifies the set only if that element does not already exist in the set.\"\r\nSummary=\"Map and Set Extensions for LabVIEW\"\r\nLicense=\"BSD 3-Clause License\"\r\nCopyright=\"Copyright (c) 2021-2022\"\r\nDistribution=\"\"\r\nVendor=\"vipm.io\"\r\nURL=\"https://github.com/vipm-io/labview-collection-extensions\"\r\nPackager=\"See AUTHORS File in repository\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"- Fixed Bug where `value changed?` output of `Insert into Map.vim` was inverted (GitHub Issue #3)\\0A- Added Caraya tests for `Insert into Map.vim`  to verify Fix for #3\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=20.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"2\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5F5F7669706D5F6C765F636F6C6C656374696F6E5F657874\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=26\r\nFile 0=\"vi.lib/VIPM/Collection_Extensions/Map Extension Examples__vipm_lv_collection_ext.vi\"\r\nFile 1=\"vi.lib/VIPM/Collection_Extensions/Set/Convert Array to Set.vim\"\r\nFile 2=\"vi.lib/VIPM/Collection_Extensions/Set/Convert Array to Set__vipm_lv_collection_ext.vim\"\r\nFile 3=\"vi.lib/VIPM/Collection_Extensions/Set/Convert Set to Array__vipm_lv_collection_ext.vim\"\r\nFile 4=\"vi.lib/VIPM/Collection_Extensions/Set/Create Empty Set__vipm_lv_collection_ext.vim\"\r\nFile 5=\"vi.lib/VIPM/Collection_Extensions/Map/Convert Array to Map.vim\"\r\nFile 6=\"vi.lib/VIPM/Collection_Extensions/Map/Convert Array to Map__vipm_lv_collection_ext.vim\"\r\nFile 7=\"vi.lib/VIPM/Collection_Extensions/Map/Convert Map to Array__vipm_lv_collection_ext.vim\"\r\nFile 8=\"vi.lib/VIPM/Collection_Extensions/Map/Create Empty Map__vipm_lv_collection_ext.vim\"\r\nFile 9=\"vi.lib/VIPM/Collection_Extensions/Map/Generic Control Type__vipm_lv_collection_ext.ctl\"\r\nFile 10=\"vi.lib/VIPM/Collection_Extensions/Map/Get Keys from Map__vipm_lv_collection_ext.vim\"\r\nFile 11=\"vi.lib/VIPM/Collection_Extensions/Map/Get Map Default Values__vipm_lv_collection_ext.vim\"\r\nFile 12=\"vi.lib/VIPM/Collection_Extensions/Map/Insert into Map.vim\"\r\nFile 13=\"vi.lib/VIPM/Collection_Extensions/Map/Insert into Map__vipm_lv_collection_ext.vim\"\r\nFile 14=\"vi.lib/VIPM/Collection_Extensions/Map/Look in Map.vim\"\r\nFile 15=\"vi.lib/VIPM/Collection_Extensions/Map/Look in Map__vipm_lv_collection_ext.vim\"\r\nFile 16=\"vi.lib/VIPM/Collection_Extensions/Map/Remove from Map.vim\"\r\nFile 17=\"vi.lib/VIPM/Collection_Extensions/Map/Remove from Map__vipm_lv_collection_ext.vim\"\r\nFile 18=\"vi.lib/VIPM/Collection_Extensions/.dragon/dependencies.toml\"\r\nFile 19=\"vi.lib/VIPM/Collection_Extensions/.dragon/linker.raw.bin\"\r\nFile 20=\"vi.lib/VIPM/Collection_Extensions/.dragon/linker.raw.json\"\r\nFile 21=\"vi.lib/VIPM/Collection_Extensions/.dragon/linker.raw.packages.bin\"\r\nFile 22=\"vi.lib/VIPM/Collection_Extensions/.dragon/linker.raw.packages.json\"\r\nFile 23=\"vi.lib/VIPM/Collection_Extensions/.dragon/package_states.ini\"\r\nFile 24=\"vi.lib/VIPM/Collection_Extensions/.dragon/package_states.toml\"\r\nFile 25=\"vi.lib/VIPM/Collection_Extensions/.dragon/settings.toml\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/Collections\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_vipm_lib_labview_collection_extensions.mnu\"\r\n",
+   "ls_instruments_ag_lib_async_methods_actor-0.3.0.4.spec": "[Package]\r\nName=\"ls_instruments_ag_lib_async_methods_actor\"\r\nVersion=\"0.3.0.4\"\r\nRelease=\"\"\r\nID=873a6e2555ccaf22694ccef80a7a596b\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"Async Methods Actor\"\r\n\r\n\r\n[Description]\r\nDescription=\"An Actor-based library that implements an infrastructure for launching async methods. By making actors inherit from the \"Async Mathods Actor\", it is possible to launch any method without waiting for its conclusion, by sending messages child of the abstract message \"Async Message.lvclass\". This framework is especially useful for tasks that take a long time to execute which implemented as Actor methods would lock the actor until completion. The official way to implement those tasks in the Actor Framework is to code them as helper loops within the \"Actor Core.vi\". This however brings along the overhead of setting up a communication mechanism between Actor methods and the helper loop, thus voiding the advantage of OOP encapsulation. Using this framework you continue to benefit from OOP encapsulation of the Actor Framework for long execution tasks without having to implement ad-hoc data transfer methods between methods and helper loops.\"\r\nSummary=\"A library that extends the Actor Framework to allow for async method execution\"\r\nLicense=\"BSD License 2.0\"\r\nCopyright=\"Copyright (c) 2024, LS Instruments AG\"\r\nDistribution=\"\"\r\nVendor=\"LS Instruments AG\"\r\nURL=\"https://github.com/LS-Instruments/Async-Methods-Actor\"\r\nPackager=\"Andrea Vaccaro\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"- Introduced a \"VI Refnum Lifetime\" enumeration which can take values \"Destroy on Exit\", \" Destroy on Actor Exit \", and �Destroy on Application Exit�. This enumeration dictates the lifetime strategy adopted for the VI Server Refnum of the Async Method. In the first case the \"Async Methods Actor\" destroys the reference as soon as the Async Method exits, in the second case the VI Refnums will be destroyed once the �Async Method Actor� exits, while in the last case, VI Refnums are never destroyed. �Destroy on Exit� is the default option when un-wired. The motivation for this setting is related to the required lifetimes of the refnums (e.g. notifier�s references) created within the Async Method. This lifetime is the same as the VI Refnum lifetime, hence if we want they outlive the execution of the Async Method we have to set it to either �Destroy on Actor Exit� or �Destroy on Application Exit�. This option applies only to Async Methods called with the �Call and Collect� option (Issue # 3)\\0A- Added the functionality of reporting the standard error output of the Async Method to the calling actor (Issue #4)\\0A- Added the ability to to access the error in the Async Method standard output form within the \"Completion Notification Msg\" message. A further abstract subclass called \"Compl Notif with Error Msg\" was introduced whose Do.vi method merges the standard error output of the Async Method executed and that defines a new dynamic dispatch method to be overridden, called \"Actor Core.vi\" to implement a caller Actor method call (Issue #1)\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=23.3\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"oglib_error>=4.2.0.23,oglib_lvdata>=5.0.0.27,vipm_lib_labview_collection_extensions>=0.4.0.38\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=123\r\nFile 0=\"vi.lib/LS Instruments AG/Async Methods Actor/.gitattributes\"\r\nFile 1=\"vi.lib/LS Instruments AG/Async Methods Actor/.gitignore\"\r\nFile 2=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor Release Notes.txt\"\r\nFile 3=\"vi.lib/LS Instruments AG/Async Methods Actor/LICENSE\"\r\nFile 4=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor.lvlib\"\r\nFile 5=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Palette/Async Message.vi\"\r\nFile 6=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Palette/Async Methods Actor.vi\"\r\nFile 7=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Palette/Compl Notif with Error Msg.vi\"\r\nFile 8=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Palette/Completion Notification Msg.vi\"\r\nFile 9=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Palette/Open Example.vi\"\r\nFile 10=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Write Kill Methods On Exit Msg/Do.vi\"\r\nFile 11=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Write Kill Methods On Exit Msg/Send Write Kill Methods On Exit.vi\"\r\nFile 12=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Write Kill Methods On Exit Msg/Write Kill Methods On Exit Msg.lvclass\"\r\nFile 13=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Remove Async Message from Map Msg/Do.vi\"\r\nFile 14=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Remove Async Message from Map Msg/Remove Async Message from Map Msg.lvclass\"\r\nFile 15=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Remove Async Message from Map Msg/Send Remove Async Message from Map.vi\"\r\nFile 16=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Notify Completion Msg/Do.vi\"\r\nFile 17=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Notify Completion Msg/Notify Completion Msg.lvclass\"\r\nFile 18=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Notify Completion Msg/Send Notify Completion.vi\"\r\nFile 19=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Completion Notification Data.ctl\"\r\nFile 20=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Completion Notification Msg.lvclass\"\r\nFile 21=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Read Async Message.vi\"\r\nFile 22=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Read Async Method Error.vi\"\r\nFile 23=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Read Current Execution Count.vi\"\r\nFile 24=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Send Completion Notification.vi\"\r\nFile 25=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Write Async Message.vi\"\r\nFile 26=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Write Async Method Error.vi\"\r\nFile 27=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Completion Notification Msg/Write Current Execution Count.vi\"\r\nFile 28=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Compl Notif with Error Msg/Compl Notif with Error Msg.lvclass\"\r\nFile 29=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Compl Notif with Error Msg/Do Core.vi\"\r\nFile 30=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Compl Notif with Error Msg/Do.vi\"\r\nFile 31=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Compl Notif with Error Msg/Send Compl Notif with Error.vi\"\r\nFile 32=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Async Message.lvclass\"\r\nFile 33=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Do.vi\"\r\nFile 34=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Async Call Method.vi\"\r\nFile 35=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Async Method Error.vi\"\r\nFile 36=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Caller Enqueuer.vi\"\r\nFile 37=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Completion Notification Msg.vi\"\r\nFile 38=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read FQN.vi\"\r\nFile 39=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read GUID.vi\"\r\nFile 40=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Notify Completion.vi\"\r\nFile 41=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read Report Errors.vi\"\r\nFile 42=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Read VI Refnum Lifetime.vi\"\r\nFile 43=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Send Async Message.vi\"\r\nFile 44=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Static Do.vi\"\r\nFile 45=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write Async Call Method.vi\"\r\nFile 46=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write Async Method Error.vi\"\r\nFile 47=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write Caller Enqueuer.vi\"\r\nFile 48=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write Completion Notification Msg.vi\"\r\nFile 49=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write Report Errors.vi\"\r\nFile 50=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Async Message/Write VI Refnum Lifetime.vi\"\r\nFile 51=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Acknowledge Completion Msg/Acknowledge Completion Msg.lvclass\"\r\nFile 52=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Acknowledge Completion Msg/Do.vi\"\r\nFile 53=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor Messages/Acknowledge Completion Msg/Send Acknowledge Completion.vi\"\r\nFile 54=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Acknowledge Completion.vi\"\r\nFile 55=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Acknowledge Execution.vi\"\r\nFile 56=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Add Async Message to Map.vi\"\r\nFile 57=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Add VI Refnum to Destroy.vi\"\r\nFile 58=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Async Call Method.ctl\"\r\nFile 59=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Async Message Execution Status Map.ctl\"\r\nFile 60=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Async Message Execution Status.ctl\"\r\nFile 61=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Async Methods Actor.lvclass\"\r\nFile 62=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Async Methods Running.ctl\"\r\nFile 63=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Call Async Do.vi\"\r\nFile 64=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Get VI FQN.vi\"\r\nFile 65=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Kill Async Methods.vi\"\r\nFile 66=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Notify Completion.vi\"\r\nFile 67=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Pre Launch Init.vi\"\r\nFile 68=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Read Async Methods Running Event Ref.vi\"\r\nFile 69=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Read Async Methods Running.vi\"\r\nFile 70=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Receive Message.vi\"\r\nFile 71=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Remove Async Message from Map.vi\"\r\nFile 72=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Running Methods Communication.ctl\"\r\nFile 73=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Stop Core.vi\"\r\nFile 74=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/VI Refnum Lifetime.ctl\"\r\nFile 75=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/VI Refnums Map Value.ctl\"\r\nFile 76=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/VI Refnums Map.ctl\"\r\nFile 77=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Wait Async Do.vi\"\r\nFile 78=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Write Async Message Execution Status Map.vi\"\r\nFile 79=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Write Kill Methods On Exit.vi\"\r\nFile 80=\"vi.lib/LS Instruments AG/Async Methods Actor/Async Methods Actor/Async Methods Actor/Write Running Methods Communication.vi\"\r\nFile 81=\"help/LS Instruments AG/Async Methods Actor/README.md\"\r\nFile 82=\"help/LS Instruments AG/Async Methods Actor/media/Caller Enqueuer Property.png\"\r\nFile 83=\"help/LS Instruments AG/Async Methods Actor/media/Completion Notification Message Property.png\"\r\nFile 84=\"help/LS Instruments AG/Async Methods Actor/media/Running Methods Communication.png\"\r\nFile 85=\"help/LS Instruments AG/Async Methods Actor/media/Send Async Message.jpg\"\r\nFile 86=\"help/LS Instruments AG/Async Methods Actor/media/Send Async Message.png\"\r\nFile 87=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example.lvlib\"\r\nFile 88=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Example Launcher.vi\"\r\nFile 89=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/VI Refnum Lifetime Test Msg/Do.vi\"\r\nFile 90=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/VI Refnum Lifetime Test Msg/Send VI Refnum Lifetime Test.vi\"\r\nFile 91=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/VI Refnum Lifetime Test Msg/VI Refnum Lifetime Test Msg.lvclass\"\r\nFile 92=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Long Execution Method Msg/Do.vi\"\r\nFile 93=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Long Execution Method Msg/Long Execution Method Msg.lvclass\"\r\nFile 94=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Long Execution Method Msg/Send Long Execution Method.vi\"\r\nFile 95=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Error Reporting Test Msg/Do.vi\"\r\nFile 96=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Error Reporting Test Msg/Error Reporting Test Msg.lvclass\"\r\nFile 97=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Error Reporting Test Msg/Send Error Reporting Test.vi\"\r\nFile 98=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Cancel Long Exec Meth Msg/Cancel Long Exec Meth Msg.lvclass\"\r\nFile 99=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Cancel Long Exec Meth Msg/Do.vi\"\r\nFile 100=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Cancel Long Exec Meth Msg/Send Cancel Long Exec Meth.vi\"\r\nFile 101=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Alternative Long Exec Meth Msg/Alternative Long Execution Method Msg.lvclass\"\r\nFile 102=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Alternative Long Exec Meth Msg/Do.vi\"\r\nFile 103=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Alternative Long Exec Meth Msg/Send Alternative Long Execution Method.vi\"\r\nFile 104=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Ack Completion with Error Msg/Ack Completion with Error Msg.lvclass\"\r\nFile 105=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Ack Completion with Error Msg/Do Core.vi\"\r\nFile 106=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Ack Completion Long Exec Meth Msg/Ack Completion Long Exec Meth Msg.lvclass\"\r\nFile 107=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example Messages/Ack Completion Long Exec Meth Msg/Do.vi\"\r\nFile 108=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Ack Completion Long Exec Meth.vi\"\r\nFile 109=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Ack Completion With Error.vi\"\r\nFile 110=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Actor Core.vi\"\r\nFile 111=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Alternative Long Execution Method.vi\"\r\nFile 112=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Async Methods Actor Example.lvclass\"\r\nFile 113=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Cancel Long Exec Meth.vi\"\r\nFile 114=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Cancel Long Execution Methods.vi\"\r\nFile 115=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Error Reporting Test.vi\"\r\nFile 116=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Handle Error.vi\"\r\nFile 117=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Launcher.vi\"\r\nFile 118=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Long Execution Method.vi\"\r\nFile 119=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Pre Launch Init.vi\"\r\nFile 120=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Read Completion Notification Data.vi\"\r\nFile 121=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/Stop Core.vi\"\r\nFile 122=\"examples/LS Instruments AG/Async Methods Actor/Async Methods Actor Example/Async Methods Actor Example/VI Refnum Lifetime Test.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=2\r\nFile 0=\"_functions_ls_instruments_ag_lib_async_methods_actor_1.mnu\"\r\nFile 1=\"functions_LS_Instruments_AG_lib_Async_Methods_Actor.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"controls_LS_Instruments_AG_lib_Async_Methods_Actor.mnu\"\r\n",
+   "oglib_time-6.0.1.6.spec": "[Package]\r\nName=\"oglib_time\"\r\nVersion=\"6.0.1.6\"\r\nRelease=\"\"\r\nID=f101823622ada23e2ce7fdceaee3a241\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"OpenG Time Library\"\r\n\r\n\r\n[Description]\r\nDescription=\"The OpenG Time Library package contains several routines related to software timing.\"\r\nSummary=\"OpenG Time Library\"\r\nLicense=\"BSD-3-clause\"\r\nCopyright=\"Copyright (c) 2002-2024 Project Contributors (See CONTRIBUTORS.md)\"\r\nDistribution=\"\"\r\nVendor=\"VIPM Community\"\r\nURL=\"https://www.vipm.io/package/oglib_time/\"\r\nPackager=\"VIPM Community\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"- [6.0.1] Hotfix to remove \"__ogtk\" suffix from lvlib name\\0A- Requires LabVIEW 2020 or greater\\0A- Moved library VIs into Library (`openg_time.lvlib`) #10\\0A- Upgraded source code to LV2020 format #7\\0A- Marked all as Separate Compiled Code #9\\0A\\0AKudos to contributors @Bas-vE and @jimkring for their work on this release.\\0A\\0AImportant: Callers of this package will relink automatically to the new Library (openg_time.lvlib) that contains this package. However, if you subsequently downgrade this package to version 5.x or older, your callers will need to be manually relinked to the older version (without the Library namespace).\\0A\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=20.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5F5F6F67746B\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=6\r\nFile 0=\"user.lib/_OpenG.lib/time/time.llb/openg_time.lvlib\"\r\nFile 1=\"user.lib/_OpenG.lib/time/time.llb/Periodic Trigger__ogtk.vi\"\r\nFile 2=\"user.lib/_OpenG.lib/time/time.llb/Tick Count (ms)__ogtk.vi\"\r\nFile 3=\"user.lib/_OpenG.lib/time/time.llb/VI Tree - time__ogtk.vi\"\r\nFile 4=\"user.lib/_OpenG.lib/time/time.llb/Wait (ms)__ogtk.vi\"\r\nFile 5=\"user.lib/_OpenG.lib/time/time.llb/Wait Until Next ms Multiple__ogtk.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_oglib_time.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n",
+   "oglib_lvdata-6.0.0.45.spec": "[Package]\r\nName=\"oglib_lvdata\"\r\nVersion=\"6.0.0.45\"\r\nRelease=\"\"\r\nID=169d5902ad9ceb079ffb22a399bd47a6\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"OpenG Variant Library\"\r\n\r\n\r\n[Description]\r\nDescription=\"The OpenG LabVIEW Data Library contains several routines for operating on Variant Data, Type Descriptors and LVOOP Data. It's commonly used for creating tools that can read or write any kind of data, dynamically, in LabVIEW. Examples are Anything to/from XML/JSON.\"\r\nSummary=\"OpenG Variant Library allows working with dynamic LabVIEW data\"\r\nLicense=\"BSD-3-clause\"\r\nCopyright=\"2002-2024 Project Contributors (See CONTRIBUTORS.md)\"\r\nDistribution=\"\"\r\nVendor=\"VIPM Community\"\r\nURL=\"https://www.vipm.io/package/oglib_lvdata/\"\r\nPackager=\"VIPM Community\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"[6.0.0]\\0A- Requires LV2020 or greater (sources upgraded to LV2020) [Issue #8]\\0A- Basic Support for Maps and Sets (Get and Set Data Name) [Issue #20]\\0A- Move package VIs into an LVLIB [Issue # 15]\\0A- Change all VIs to source-only [Issue #9]\\0A- Support for FIXED-POINT datatype [Issue #6]\\0A- Internalized dependency on OpenG Error (no longer a dependency of built package)\\0A- EXPERIMENTAL: Added VIs for converting LabVIEW Objects to Variant Clusters and back.\\0A- EXPERIMENTAL: Added VI/VIM for adapting data types in a more flexible way.\\0A- EXPERIMENTAL: Added multi-dimentional VArray handling\\0A- EXPERIMENTAL: Added some variant constant types and common comparisons.\\0A- EXPERIMENTAL: Support for converting Map to Variant Array of Clusters and back.\\0A\\0AImportant: Callers of this package will relink automatically to the new Library (openg_variant.lvlib) that contains this package. However, if you subsequently downgrade this package to version 5.x or older, your callers will need to be manually relinked to the older version (without the Library namespace).\\0A\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=20.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"oglib_error>=6.0.0.26\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5F5F6F67746B\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=113\r\nFile 0=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/1D Array of VArrays to MultiD Array__ogtk.vi\"\r\nFile 1=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Adapt To Type (Core)__ogtk.vi\"\r\nFile 2=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Adapt To Type__ogtk.vim\"\r\nFile 3=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Adapt Variant Data To Type__ogtk.vi\"\r\nFile 4=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array Dim(s) from TD__ogtk.vi\"\r\nFile 5=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array of Clusters to VMap__ogtk.vi\"\r\nFile 6=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array of VData to VArray__ogtk.vi\"\r\nFile 7=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array of VData to VCluster__ogtk.vi\"\r\nFile 8=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array Size(s)__ogtk.vi\"\r\nFile 9=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array to Array of VData__ogtk.vi\"\r\nFile 10=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array to Set__ogtk.vi\"\r\nFile 11=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Array to VCluster__ogtk.vi\"\r\nFile 12=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Base Units__ogtk.ctl\"\r\nFile 13=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/ClassLoader__ogtk.lvclass\"\r\nFile 14=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Cluster to Array of VData__ogtk.vi\"\r\nFile 15=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Cluster to LabVIEW Object__ogtk.vi\"\r\nFile 16=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Cluster to VArray__ogtk.vi\"\r\nFile 17=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Compute 1D Index__ogtk.vi\"\r\nFile 18=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/convertClusterToObject__ogtk.vi\"\r\nFile 19=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/convertObjectToCluster__ogtk.vi\"\r\nFile 20=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/createClassDataAndVersionsLUT__ogtk.vi\"\r\nFile 21=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/createClassHierarchyLUT__ogtk.vi\"\r\nFile 22=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/determineClassHierarchy__ogtk.vi\"\r\nFile 23=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/determineClassPrivateDataDefaultValue__ogtk.vi\"\r\nFile 24=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/determineClassVersion__ogtk.vi\"\r\nFile 25=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Empty VArray Constant__ogtk.vi\"\r\nFile 26=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Empty VCluster Constant__ogtk.vi\"\r\nFile 27=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/extractObjectPrivateDataValues__ogtk.vi\"\r\nFile 28=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Array Element Default Data__ogtk.vi\"\r\nFile 29=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Array Element TD__ogtk.vi\"\r\nFile 30=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Array Element TDEnum__ogtk.vi\"\r\nFile 31=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Array TD from Element TD__ogtk.vi\"\r\nFile 32=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Cluster Element by Name__ogtk.vi\"\r\nFile 33=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Cluster Element Names__ogtk.vi\"\r\nFile 34=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Cluster Elements TDs__ogtk.vi\"\r\nFile 35=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Collection Subtype__ogtk.vi\"\r\nFile 36=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Data Name from TD__ogtk.vi\"\r\nFile 37=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Data Name__ogtk.vi\"\r\nFile 38=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Data TD from Datalog Ref__ogtk.vi\"\r\nFile 39=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Default Data from TD__ogtk.vi\"\r\nFile 40=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Default Data from Variant__ogtk.vi\"\r\nFile 41=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Element TD from Array TD__ogtk.vi\"\r\nFile 42=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get GOOP Object Type__ogtk.vi\"\r\nFile 43=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Header from TD__ogtk.vi\"\r\nFile 44=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Last PString__ogtk.vi\"\r\nFile 45=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Physical Units from TD__ogtk.vi\"\r\nFile 46=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Physical Units__ogtk.vi\"\r\nFile 47=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get PString__ogtk.vi\"\r\nFile 48=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Refnum Type Enum from Data__ogtk.vi\"\r\nFile 49=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Refnum Type Enum from TD__ogtk.vi\"\r\nFile 50=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Strings from Enum TD__ogtk.vi\"\r\nFile 51=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Strings from Enum__ogtk.vi\"\r\nFile 52=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get TDEnum from Data__ogtk.vi\"\r\nFile 53=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get TDEnum from TD__ogtk.vi\"\r\nFile 54=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get UTC Offset__ogtk.vi\"\r\nFile 55=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Variant Attributes__ogtk.vi\"\r\nFile 56=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Waveform Type Enum from Data__ogtk.vi\"\r\nFile 57=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Get Waveform Type Enum from TD__ogtk.vi\"\r\nFile 58=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/getClassHierarchy__ogtk.vi\"\r\nFile 59=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/getClassHierarchyVersions__ogtk.vi\"\r\nFile 60=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/getObjectPrivateData__ogtk.vi\"\r\nFile 61=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Hierarchical VArray to MultiD Array__ogtk.vi\"\r\nFile 62=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Index Array__ogtk.vi\"\r\nFile 63=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Is Empty VArray__ogtk.vi\"\r\nFile 64=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Is Empty VCluster__ogtk.vi\"\r\nFile 65=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Is Null VVariant__ogtk.vi\"\r\nFile 66=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/ISO String To Timestamp__ogtk.vi\"\r\nFile 67=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/LabVIEW Object to VCluster__ogtk.vi\"\r\nFile 68=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/limitDecendantsTo1Level__ogtk.vi\"\r\nFile 69=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/loadClass__ogtk.vi\"\r\nFile 70=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/loadInstanceOfEachClassInMemory__ogtk.vi\"\r\nFile 71=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/LVOOP Get Default Object__ogtk.vi\"\r\nFile 72=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/LVOOP Is Default Value__ogtk.vi\"\r\nFile 73=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/LVOOP Is Same Or Descendant Class__ogtk.vi\"\r\nFile 74=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/LVOOP Return Class Name__ogtk.vi\"\r\nFile 75=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Map to VArray of Clusters__ogtk.vi\"\r\nFile 76=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/MatchEnumIndexToString__ogtk.vi\"\r\nFile 77=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Merge Array Sizes__ogtk.vi\"\r\nFile 78=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/MultiD Array to 1D Array of VArrays__ogtk.vi\"\r\nFile 79=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/No of Elements in Cluster__ogtk.vi\"\r\nFile 80=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Null VVariant Constant__ogtk.vi\"\r\nFile 81=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/openg_variant.lvlib\"\r\nFile 82=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Parse String with TDs__ogtk.vi\"\r\nFile 83=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Parse Timezone__ogtk.vi\"\r\nFile 84=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Physical Units__ogtk.ctl\"\r\nFile 85=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Raise Error for Sets Before 2024__ogtk.vi\"\r\nFile 86=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Reflection__ogtk.lvclass\"\r\nFile 87=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/reflectionPool__ogtk.vi\"\r\nFile 88=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/reflectionPoolAction__ogtk.ctl\"\r\nFile 89=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Refnum Code__ogtk.ctl\"\r\nFile 90=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Refnum Subtype Enum__ogtk.ctl\"\r\nFile 91=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Remove Typedefs from Variant__ogtk.vi\"\r\nFile 92=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Replace Array Element__ogtk.vi\"\r\nFile 93=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Reshape 1D Array__ogtk.vi\"\r\nFile 94=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Reshape Array to 1D VArray__ogtk.vi\"\r\nFile 95=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/reverseVersionsArray__ogtk.vi\"\r\nFile 96=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Set Cluster Element by Name__ogtk.vi\"\r\nFile 97=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Set Data Name__ogtk.vi\"\r\nFile 98=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Set Enum String Value__ogtk.vi\"\r\nFile 99=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Set to VArray__ogtk.vi\"\r\nFile 100=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/setObjectPrivateData__ogtk.vi\"\r\nFile 101=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Size of Data from TD__ogtk.vi\"\r\nFile 102=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Split Cluster TD__ogtk.vi\"\r\nFile 103=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Strip Units__ogtk.vi\"\r\nFile 104=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/test_connector_Raise Error for Sets Before 2024__ogtk.vi\"\r\nFile 105=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Type Descriptor Enumeration__ogtk.ctl\"\r\nFile 106=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Type Descriptor Header__ogtk.ctl\"\r\nFile 107=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Type Descriptor__ogtk.ctl\"\r\nFile 108=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Unwrap VVariant__ogtk.vi\"\r\nFile 109=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Variant Constant__ogtk.vi\"\r\nFile 110=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Variant to Header Info__ogtk.vi\"\r\nFile 111=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Waveform Cluster__ogtk.ctl\"\r\nFile 112=\"user.lib/_OpenG.lib/lvdata/lvdata.llb/Waveform Subtype Enum__ogtk.ctl\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"Always\"\r\nNum Files=9\r\nFile 0=\"_functions_oglib_lvdata_1.mnu\"\r\nFile 1=\"_functions_oglib_lvdata_2.mnu\"\r\nFile 2=\"_functions_oglib_lvdata_3.mnu\"\r\nFile 3=\"_functions_oglib_lvdata_4.mnu\"\r\nFile 4=\"_functions_oglib_lvdata_5.mnu\"\r\nFile 5=\"_functions_oglib_lvdata_6.mnu\"\r\nFile 6=\"_functions_oglib_lvdata_7.mnu\"\r\nFile 7=\"_functions_oglib_lvdata_8.mnu\"\r\nFile 8=\"functions_oglib_lvdata.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n",
+   "mgi_lib_error_handling-1.1.1.3.spec": "[Package]\r\nName=\"mgi_lib_error_handling\"\r\nVersion=\"1.1.1.3\"\r\nRelease=\"\"\r\nID=ee6ad4a2ebf84293f0007982f36b9eef\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"MGI Error Handling\"\r\n\r\n\r\n[Description]\r\nDescription=\"This package contains VIs that operate with error cluster data.  MGI code uses standard LabVIEW error clusters so that it integrates smoothly with built-in LabVIEW functions.\\0A\\0A<b>NOTE:  VIPM 2014 or later  is required to install this package.</b>\"\r\nSummary=\"VIs that operate with an error cluster\"\r\nLicense=\"BSD\"\r\nCopyright=\"Copyright (c) 2016, MGI\"\r\nDistribution=\"\"\r\nVendor=\"MGI\"\r\nURL=\"http://www.mooregoodideas.com/goodLabViewStuff.htm\"\r\nPackager=\"Moore Good Ideas, Inc.\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"Improved consistency of MGI prefix usage in the palettes\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=9.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"4D474920\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=7\r\nFile 0=\"user.lib/_MGI/Error Handling/MGI Append String to Error Source.vi\"\r\nFile 1=\"user.lib/_MGI/Error Handling/MGI Clear Error.vi\"\r\nFile 2=\"user.lib/_MGI/Error Handling/MGI Error Message.vi\"\r\nFile 3=\"user.lib/_MGI/Error Handling/MGI Insert Reserved Error.vi\"\r\nFile 4=\"user.lib/_MGI/Error Handling/MGI Suppress Error Code.vi\"\r\nFile 5=\"user.lib/_MGI/Error Handling/MGI Suppress Error Code/MGI Suppress Error Code (Array).vi\"\r\nFile 6=\"user.lib/_MGI/Error Handling/MGI Suppress Error Code/MGI Suppress Error Code (Scalar).vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/MGI\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_mgi_lib_error_handling.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/MGI\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n",
+   "oglib_error-6.0.0.26.spec": "[Package]\r\nName=\"oglib_error\"\r\nVersion=\"6.0.0.26\"\r\nRelease=\"\"\r\nID=15640fcc769c498121492e5cdddb10cd\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"OpenG Error Library\"\r\n\r\n\r\n[Description]\r\nDescription=\"The OpenG Error Library package contains several routines related to error handling.\"\r\nSummary=\"OpenG Error Library\"\r\nLicense=\"BSD-3-Clause\"\r\nCopyright=\"Copyright (c) 2002-2024 Project Contributors (See CONTRIBUTORS.md)\"\r\nDistribution=\"\"\r\nVendor=\"VIPM Community\"\r\nURL=\"https://github.com/vipm-io/OpenG-Error-Library/\"\r\nPackager=\"VIPM Community\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"- Requires LabVIEW 2020 or greater\\0A- Moved library VIs into Library (openg_error.lvlib) #7\\0A- Upgraded source code to LV2020 format #2\\0A- Marked all as Separate Compiled Code #3\\0A- Migrated unit tests to caraya #5\\0A\\0AImportant: Callers of this package will relink automatically to the new Library (openg_variant.lvlib) that contains this package. However, if you subsequently downgrade this package to version 5.x or older, your callers will need to be manually relinked to the older version (without the Library namespace).\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=20.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5F5F6F67746B\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=11\r\nFile 0=\"user.lib/_OpenG.lib/error/error.llb/Build Error Cluster__ogtk.vi\"\r\nFile 1=\"user.lib/_OpenG.lib/error/error.llb/Case (Error IO)__ogtk.vi\"\r\nFile 2=\"user.lib/_OpenG.lib/error/error.llb/Clear All Errors__ogtk.vi\"\r\nFile 3=\"user.lib/_OpenG.lib/error/error.llb/Error Codes Ring Constant__ogtk.vi\"\r\nFile 4=\"user.lib/_OpenG.lib/error/error.llb/Error Constant__ogtk.vi\"\r\nFile 5=\"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes (Array)__ogtk.vi\"\r\nFile 6=\"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes (Scalar)__ogtk.vi\"\r\nFile 7=\"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes__ogtk.vi\"\r\nFile 8=\"user.lib/_OpenG.lib/error/error.llb/Filtered Error Details - Cluster__ogtk.ctl\"\r\nFile 9=\"user.lib/_OpenG.lib/error/error.llb/openg_error.lvlib\"\r\nFile 10=\"user.lib/_OpenG.lib/error/error.llb/VI Tree - error__ogtk.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_oglib_error.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "VIPM/ls_instruments_ag_lib_iterator_actor-1.0.0.6.vip",
+  "url": "https://raw.githubusercontent.com/LS-Instruments/Iterator-Actor/b80f77e092f04d8b1d9eebb9ef846b390d48b4b1/VIPM/ls_instruments_ag_lib_iterator_actor-1.0.0.6.vip",
+  "bytes": 1119693,
+  "sha256": "dd84bb48be0c23dea32bb3ed965f16881f5648b3944c8d44a2d24bb5ca1efc24",
+  "members": [
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1355981205,
+    "sha256": "b031c6fd1ddf816e2e4c9f2951f13166ee0065abbca62e064d0179d07a06b6a2"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor.lvlib",
+    "bytes": 29878,
+    "crc32": 4155575922,
+    "sha256": "e53e2c0bde54bb67d125935c43aa39d3baca8d27915b254ff32b88cf5e3e23fa"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Release Notes.txt",
+    "bytes": 2804,
+    "crc32": 3715266999,
+    "sha256": "05f55ee81b780358451d6de8d9a21d7851224208b0c4c235db4e15a397b4a7a3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Change Settings.png",
+    "bytes": 108598,
+    "crc32": 2936090443,
+    "sha256": "b0f3f188605d90ed0a4d482cd339e6d57edc85e711c826927771eac56ca4cfb0"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Confugure and Launch.png",
+    "bytes": 123443,
+    "crc32": 1524584934,
+    "sha256": "88d0b08edcadcbce5298b6755d4bcab20c8ce3de8144403daa65c228f6d1e5ef"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Start Iterations.png",
+    "bytes": 2392,
+    "crc32": 3656167601,
+    "sha256": "4bc5f6ff7e0f0cd0b2628eec21b7768649a5aee999afcf38aab3bf7b1fe6bb85"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Stop Iterations.png",
+    "bytes": 2467,
+    "crc32": 1454747809,
+    "sha256": "da4acf91a24ad24e54e9e58f2e47030def485f55bb8d938a531fd9edeac3783f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Do.vi",
+    "bytes": 15786,
+    "crc32": 3824537496,
+    "sha256": "7cbd787885b30317885fb17bb92246a60646933fbc9c1ed1e09bd6b6935087de"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Request Iteration Notification Msg.lvclass",
+    "bytes": 34468,
+    "crc32": 2892870392,
+    "sha256": "be9bcfcf6fac7e4418bcfc5996703106ce9a3967ee6461fad3fbb30f5dc0533f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Write Iterator Enqueuer.vi",
+    "bytes": 14495,
+    "crc32": 1508750876,
+    "sha256": "8cd1173f27f5f937afd9aec4de4f6d60aecc183d6eec6d4c0ea903f1363a0773"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Do.vi",
+    "bytes": 17882,
+    "crc32": 3038298823,
+    "sha256": "805f340aca83ba2ddaa01c558b5e0fb2fee66718254c45a83bb7191f3a8c0c75"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Notify Iteration Msg.lvclass",
+    "bytes": 70589,
+    "crc32": 4140819246,
+    "sha256": "5c35ab4cbd6da738c628a9e6eb444ab51b4b5c9edc68b47f5b75589dd5ea4316"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Send Notify Iteration.vi",
+    "bytes": 17921,
+    "crc32": 2102429352,
+    "sha256": "3ed66514805e8edd0ffb0d4ecae3acd0fe568007e2d8c6b4712385098601ea45"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Break Msg.lvclass",
+    "bytes": 67293,
+    "crc32": 2149054365,
+    "sha256": "079b46ec26ed69007cd4e26573f8cb49b011443ccee07da019e5ce3ba35f9a07"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Do.vi",
+    "bytes": 17370,
+    "crc32": 725159857,
+    "sha256": "f828e1a54ea01caf533d616aefbe43d43c94f0c271c3cdd71b1f55634cb713a1"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Send Break.vi",
+    "bytes": 17166,
+    "crc32": 894924140,
+    "sha256": "8c83cbff6c0f9fad37161a386bc80a172334b6ffb57ec74efb915625f81df18a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Abstract Iteration Msg.lvclass",
+    "bytes": 60053,
+    "crc32": 2414405898,
+    "sha256": "247be9527109f4fda04c5aa5d71724719e52d912a3f04c9ba5a1a5a4014d9d53"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do Core.vi",
+    "bytes": 15983,
+    "crc32": 3075252719,
+    "sha256": "21684e326fd908a8638f7c842c4f240be4dd70c9a4854bbb5c2f372eef9f53d4"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do.vi",
+    "bytes": 17062,
+    "crc32": 3219180835,
+    "sha256": "b93c985a276f3c98eb9ef86c4e544235a46c8815dbc005e49a2043e4dc42e4cc"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Send Iteration.vi",
+    "bytes": 20278,
+    "crc32": 255387799,
+    "sha256": "209428ec66f7693082c5ea7ed07bce60b2edcb3e0d9f6772656211417a53c2c2"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Write Message Enqueuer.vi",
+    "bytes": 14422,
+    "crc32": 3623186943,
+    "sha256": "fea957cf6135e53d86b01e39afd20cba2ac9eb8e3f301cc0dcbf1124f53e549d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Break.vi",
+    "bytes": 26293,
+    "crc32": 3706746681,
+    "sha256": "ddf41c23ba39a51a845048e871502723dad7a12a65957ce7a9180da860bb2ec2"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Check Settings.vi",
+    "bytes": 33554,
+    "crc32": 352810945,
+    "sha256": "6b42ba6ea4a22f676a7c4c51aa3b9a09cad180594ecd7c1fef2f3c4e8ff96640"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Conclude.vi",
+    "bytes": 29280,
+    "crc32": 3025327963,
+    "sha256": "d229c2d575b90ce184577dff95f4ef5401241a834fe23d48bdc09908dcff18f3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Discover Message Type.vi",
+    "bytes": 16633,
+    "crc32": 1725332179,
+    "sha256": "30548cfda53deb3aa284e5bf1bc23d09c089c0ea0efa33b5625940e3d8d95e9e"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterate.vi",
+    "bytes": 43255,
+    "crc32": 4208576301,
+    "sha256": "42cd2510d13b42e9feecb065fa3d6d81b4d7bc71770d4c33391a1a0141a4c882"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator NR Actor.lvclass",
+    "bytes": 81023,
+    "crc32": 1200137613,
+    "sha256": "2c4d521be509d89c835bafab6d4015ba5b2b5fb5a38844ec090b52ce618d262b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator.vi",
+    "bytes": 16632,
+    "crc32": 1576871115,
+    "sha256": "a32763f9c2bb389e77885459bddcc7bbba51df2f09eeaaf4c7b19619d1a5b36c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Message Type.ctl",
+    "bytes": 14761,
+    "crc32": 223661245,
+    "sha256": "6e972a6276d7c68c0c95a9b342aefd627732f7e877ed5ff50c4d48e11e7df5b4"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Notify Iteration.vi",
+    "bytes": 14512,
+    "crc32": 408265598,
+    "sha256": "e6c4bcdc127c95501659dfa279b644156fa507550368335cd070252a34f2b7df"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Pre Launch Init.vi",
+    "bytes": 20399,
+    "crc32": 2368052634,
+    "sha256": "39f5c98a97ebe25450e0dfe40200fdab346cbef552cd2caa70aa3023b48bc260"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Prepare.vi",
+    "bytes": 31559,
+    "crc32": 2971101690,
+    "sha256": "cbf1e36343b28c5e8a308e0f1e5acf512243e5163415b86c9821de1ab0be6710"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Send Iteration Message.vi",
+    "bytes": 22818,
+    "crc32": 761567854,
+    "sha256": "9c08b15dacd866d07f734fd288cad72850aa80ee9cc7981f75355f652b730dcd"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Stop Core.vi",
+    "bytes": 15697,
+    "crc32": 4267118309,
+    "sha256": "e8436668428f909e36182d74e33729d970b8ba4934ef1c2a2fca31f487c4f80d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Wait for Iteration Notification.vi",
+    "bytes": 16355,
+    "crc32": 536919867,
+    "sha256": "2cd38f508792e6908b275595d636e83c0e2cdfd60829ec7f6df1799fdb67e81a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Write Auto Iteration Notification.vi",
+    "bytes": 13901,
+    "crc32": 1702183741,
+    "sha256": "1fad66db532976e11c98bf43e4d41aff1edbff7dfeb53e2652f77ba84c2527f3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator NR Actor.vi",
+    "bytes": 7505,
+    "crc32": 1613390378,
+    "sha256": "12886ded6d160bd1e105454befcf286d33e3de3ab69719d89adf814410a9a295"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator Report Iterations End Msg.vi",
+    "bytes": 7814,
+    "crc32": 1457761502,
+    "sha256": "1d9613c79a165942304191dd81e5dab4b921ccf97ff0793627e13095f68b037b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Open Examples.vi",
+    "bytes": 12769,
+    "crc32": 330758288,
+    "sha256": "6a920de73c0245a2823037696a094dc5f322f360172d8055532e6889fbe61060"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do Core.vi",
+    "bytes": 15859,
+    "crc32": 253177423,
+    "sha256": "535ef37d4683c4f300b05158224b93d713164fbf58d3f3825ee401557cd6d00d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do.vi",
+    "bytes": 16610,
+    "crc32": 221931124,
+    "sha256": "46c972c1bd95a42c4a3128b89ff2e3e2785ed504a0e61295a1188142af7b021c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Drop Message Core.vi",
+    "bytes": 13089,
+    "crc32": 489419657,
+    "sha256": "085f78cac152408d90f18b2e13d6ecbadad19f399f81ad99dad39d7243998814"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Iterator Reply Msg.lvclass",
+    "bytes": 64195,
+    "crc32": 3144820175,
+    "sha256": "50ceaffc65f8741fdc55c824da38b1608d3321719b51f74f81c6daac4357e4dd"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Send Message And Wait For Response.vi",
+    "bytes": 20070,
+    "crc32": 4007199690,
+    "sha256": "7bdab20f70866f31ec9908b82c0bbee3b9c6148074ac8ae14813f8c9c450e297"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Do.vi",
+    "bytes": 18202,
+    "crc32": 675606989,
+    "sha256": "ffec2dc295708e228ecf971d11f9e37d9c4c077b2f7c6214e108d94ba9bd2a06"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Send Write Stop Reason.vi",
+    "bytes": 19134,
+    "crc32": 3697153854,
+    "sha256": "e372faeb4c5f417c5cd42fcef47c8a71ff38629aed60e61bf8ffa3175e2a5e73"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Write Stop Reason Msg.lvclass",
+    "bytes": 75589,
+    "crc32": 2664652933,
+    "sha256": "a9f5ee5b7b4e0e3fc14ff1e97f245add6240d046b851e80b80d36d27942a9d86"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Do.vi",
+    "bytes": 19134,
+    "crc32": 1195749969,
+    "sha256": "41be70b8584dc5ef64eb0a297e6cd3fa401633000e7a7df857cb627cbefdd463"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Send Write Settings.vi",
+    "bytes": 22359,
+    "crc32": 4258800674,
+    "sha256": "bd41247bcf211835bf2a1105319480dd53857627b04daf2e43021a01fe0f1b22"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Write Settings Msg.lvclass",
+    "bytes": 93751,
+    "crc32": 1162134783,
+    "sha256": "af255a4835b0dcfb8c91dcca3678e7651dce3081fb9129e59119278d39eccd00"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Do.vi",
+    "bytes": 17602,
+    "crc32": 437223476,
+    "sha256": "5f171b1dcc54e2091cc336e268aa803e60027c68d8cf03f83cf902d34e51b51b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Send Stop Iterations.vi",
+    "bytes": 17340,
+    "crc32": 3321002411,
+    "sha256": "40083eb0f08af1d7a43ff68ce22771ae04026c25c9df506741ad141c643712b8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Stop Iterations Msg.lvclass",
+    "bytes": 67513,
+    "crc32": 45764883,
+    "sha256": "7916844815dab0cf36074b374be21f0328100a2238ff289704e2bb7e4d83716a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Do.vi",
+    "bytes": 17614,
+    "crc32": 3060695654,
+    "sha256": "96d0e554b5506ad390ebcf87e82d8a4f816a90e8a39de5221539ad363b35b245"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Send Start Iterations.vi",
+    "bytes": 17345,
+    "crc32": 1604021450,
+    "sha256": "baaf1dee0f87b5f472a3ce94f000c28f04d54ac085f412b1315cadbf9d2b5bdf"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Start Iterations Msg.lvclass",
+    "bytes": 67529,
+    "crc32": 166439833,
+    "sha256": "d1924f3a34a012519b63338800236971e3d8cea915cd581e1850bb47beb7183b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Do.vi",
+    "bytes": 18334,
+    "crc32": 126247488,
+    "sha256": "2d99be13db20651244ea6e9e845028b289d2a0df6e3eec979b8bebfd54af3f9d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Report Iterations End Msg.lvclass",
+    "bytes": 79744,
+    "crc32": 1532228898,
+    "sha256": "622265529fc48f0d6209d00c7f65a987b27f9cc3baeffb28804c142b01ac85a9"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Send Report Iterations End.vi",
+    "bytes": 18598,
+    "crc32": 2717191272,
+    "sha256": "f69587e91e05a6923a85852892e1ad3d19c3404ba0d7470ff061314300e7a956"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Do.vi",
+    "bytes": 15522,
+    "crc32": 3963737940,
+    "sha256": "3a96fef438c3646b7b00559d8cd5ee58302e704bf81fcdcc9b0793de5fa0a6c8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Iterator Report Iterations End Msg.lvclass",
+    "bytes": 75030,
+    "crc32": 52015724,
+    "sha256": "ab234f526e38efd551af7457bb9bb1915bec74e0084cb1d338c93fe74df69413"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Error 2.vi",
+    "bytes": 12860,
+    "crc32": 3102732878,
+    "sha256": "59b4637e012d9d205eb210b69b6d02f6664533de05582bdf8ee8d32b0b115132"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Stop Reason.vi",
+    "bytes": 13132,
+    "crc32": 3649794442,
+    "sha256": "6c49405b7277048034aa308787428ffab77c7bd22b03808678b944a892082a5c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Send Report Iterations End.vi",
+    "bytes": 31618,
+    "crc32": 2614698663,
+    "sha256": "60dc69136e08c4911eb03f8c41557b013ad68599c3df15caff74a5f84279cbdb"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Do.vi",
+    "bytes": 17514,
+    "crc32": 2609575225,
+    "sha256": "9225827f83047fccccb1c8bfd08fec49997a149848f1079711e0a6a9dc9eea63"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Iterator Msg.lvclass",
+    "bytes": 62834,
+    "crc32": 3538688230,
+    "sha256": "3c4aaaf37e03aa845f3a960ab2a544f8b02d9db03b09b52f7f899c585b9a3067"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Send Iterator.vi",
+    "bytes": 21685,
+    "crc32": 2808761150,
+    "sha256": "c650c8f0eb42647012f0d9bbb7628db3c539e2156b09af62fe002b79a5be2045"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Acknowledge Itetations End Msg.lvclass",
+    "bytes": 68177,
+    "crc32": 2513891909,
+    "sha256": "d8581b97d54fc6fcb466d187ceb62025f1873614a176b3859dc0fe47ce1d7059"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Do.vi",
+    "bytes": 17742,
+    "crc32": 2566220283,
+    "sha256": "716ab5124d28497df8b827ae27b055a37342895362c4611c3825753a8e88fa80"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Send Acknowledge Itetations End.vi",
+    "bytes": 17619,
+    "crc32": 3260495102,
+    "sha256": "4b13f8733e2a8f42dbcc082aca99b9c6fb36533ece9de7fc0f130d2e8e7b9edb"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Abstract Iterator Actor.lvclass",
+    "bytes": 142859,
+    "crc32": 3662625809,
+    "sha256": "ecc36bc5a003f3e51790053e74c2f649e2c09ed078e9c4203486a576af47ddd9"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Acknowledge Itetations End.vi",
+    "bytes": 16246,
+    "crc32": 2286833195,
+    "sha256": "c27231ca877499af9f47272e5aa1042ddc29062a816219e50133d05143abe309"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Active Stop Conditions.ctl",
+    "bytes": 12871,
+    "crc32": 1469630248,
+    "sha256": "59e3e9cf1eb846f89c232bda2792a695b6ffb5ff76acd7f2bb4d6b6858b50b72"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Check Settings.vi",
+    "bytes": 32498,
+    "crc32": 3512299406,
+    "sha256": "320829a175345987b1ee5dca73f865fc4f05eda807ab24a2a159cec09da19ae7"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Conclude.vi",
+    "bytes": 20780,
+    "crc32": 3566272227,
+    "sha256": "2fadafccc5f8e3d38937d4e7fe155f0133e612f640810a63267c9bd8f2667ad5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Get Error.vi",
+    "bytes": 19013,
+    "crc32": 2168108212,
+    "sha256": "8632f6fd35a0c693bf3ef51437d09e545c5f7ace49b95b9354e170e75a7bffb5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterate.vi",
+    "bytes": 20851,
+    "crc32": 409073437,
+    "sha256": "d37545a72adbea0c1c8822f73c165b00b79d30ba9ff8e084db2b305e794a9675"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Errors.ctl",
+    "bytes": 12644,
+    "crc32": 591968143,
+    "sha256": "daa1961750daf5559308759b9633accd87268a83b14d4c36214d83b619f66612"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Settings.ctl",
+    "bytes": 16414,
+    "crc32": 4225640818,
+    "sha256": "b06db83806f4d42eb684ef4957e3e80b4cf129dc31f7caf5e0ac0100bc86fe12"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator.vi",
+    "bytes": 23764,
+    "crc32": 877829110,
+    "sha256": "dc2677e3189628876f41c0c92271691a49ab706edf43239200f124e5457c0697"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Pre Launch Init.vi",
+    "bytes": 16847,
+    "crc32": 475762811,
+    "sha256": "27a53fa692300b6267c0b3888e256daa6a265fd100ec983eed2933f9d43d9af0"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Prepare.vi",
+    "bytes": 21027,
+    "crc32": 1656687834,
+    "sha256": "c2295a578419828dcff192f3ab528f47b2779001bb3f4a48409b8f2ee0d1fd34"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Active Stop Conditions.vi",
+    "bytes": 17247,
+    "crc32": 43525807,
+    "sha256": "febf640eefbf79049c58cda04f056a41d49beafb5769d14f17f5b0f9b9c50745"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Iterating.vi",
+    "bytes": 13818,
+    "crc32": 1144334856,
+    "sha256": "dbbfb67381d5ad3a953e3a94752b2e895fc1abf5089aef42c76f35c3515142f9"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Settings.vi",
+    "bytes": 20353,
+    "crc32": 2347598800,
+    "sha256": "5be300fd24ad0e7acaa30f8cfbfe26a91cee3e619d619a6a251d0dc609824735"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Stop Iterate Notifier.vi",
+    "bytes": 14150,
+    "crc32": 3154120618,
+    "sha256": "b5d0505a1e7a933e0d0c7bf37fbfb0220919342f563c1300401831ddafba6c3c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Report Iterations End.vi",
+    "bytes": 17357,
+    "crc32": 4227767303,
+    "sha256": "99fdf5e64c188d9c5995e72404e3d8f45b9e295266301a14ef559c07c95481ab"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Start Iterations.vi",
+    "bytes": 31640,
+    "crc32": 430113797,
+    "sha256": "47f3edd6b35aa4ec82fa59fd1091ebdfd90e862e1eb5810aa730f6de925a8ddc"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Condition.ctl",
+    "bytes": 12619,
+    "crc32": 2613988267,
+    "sha256": "71c9f85886d2965018f204832ee92989eb8a3ea1331f4eca442ee27686d07178"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Core.vi",
+    "bytes": 16049,
+    "crc32": 3703163090,
+    "sha256": "6a91ffb566cca95f0b66bcf90073edff3a4ba6fd1b8e1095bf50ab7d4a742671"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Iterations.vi",
+    "bytes": 22991,
+    "crc32": 2470806417,
+    "sha256": "4bf84fba0a281f00a68d219135fc2e616f2efda5fbd762a3810cc178e9cc2077"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Reason.ctl",
+    "bytes": 12616,
+    "crc32": 1616748382,
+    "sha256": "ff5e4f3229eddad005183000879ac4aced96bf3b9c075a8e53ba994d975fdca5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Untitled 4.vi",
+    "bytes": 3978,
+    "crc32": 1879672435,
+    "sha256": "cda8d52fee8bf929b26522bf62650a4287291d22de9a206d7fbdfeb022338f71"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Settings.vi",
+    "bytes": 20298,
+    "crc32": 4092761356,
+    "sha256": "92675f29a135d9cda0a60b2fe0a72ac11c21d75d891864be6695a0124fa59ed1"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Stop Reason.vi",
+    "bytes": 17389,
+    "crc32": 409672954,
+    "sha256": "85a5093901f63dbd63523d27099ee67bc0b6702e10d4edf15c212dc5d5977930"
+   },
+   {
+    "path": "File Group 0/project/errors/LS Instruments AG/Iterator Actor/Iterator-Actor-errors.txt",
+    "bytes": 856,
+    "crc32": 2947436836,
+    "sha256": "ecd2bf14d97920310b07e6e34ff8d8aa6ec3ca17978486490458755666741c0e"
+   },
+   {
+    "path": "File Group 0/help/LS Instruments AG/Iterator Actor/README.md",
+    "bytes": 4882,
+    "crc32": 3921974428,
+    "sha256": "d50a298b80eb239083942259d6e979ad9e885fc3471541e998097c93a4b32c3f"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Iterator NR Actor.lvlib",
+    "bytes": 2074,
+    "crc32": 2875278202,
+    "sha256": "3a0e72f133a521a605bad163bcbca99cf62d60f4f5e27af0ae2a64282fa484af"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Launcher.vi",
+    "bytes": 6232,
+    "crc32": 423451957,
+    "sha256": "34def960d75951bea03500cec8c9847395250d7b5a458b020cadc4bece1d3535"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Do.vi",
+    "bytes": 19382,
+    "crc32": 3408816152,
+    "sha256": "2334852cec63c077bad4771f33bd98e13b6186be9231c311e6fd1629459020fe"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Update Error Msg.lvclass",
+    "bytes": 57850,
+    "crc32": 3701960335,
+    "sha256": "d471d2babbf386e53dbea1c365ca61e7cf74ff139b15c55fa98064a8b606bdfa"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Do.vi",
+    "bytes": 17054,
+    "crc32": 2512635877,
+    "sha256": "523edc4eb773c3c444041b2ec9c64c788e44dd75be5f98d3102c6c93b81aac43"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Pre Iteration Msg.lvclass",
+    "bytes": 28752,
+    "crc32": 1797667976,
+    "sha256": "d3e77f48d57d6d399fb55ca4341fba341b3b0bfda06deedc6275517f44701c7a"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Do.vi",
+    "bytes": 17094,
+    "crc32": 1437483135,
+    "sha256": "e1cde5db88337a9ebdef9ff065023160aa4d64075a854e66e99b5a74274300ad"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Post Iteration Msg.lvclass",
+    "bytes": 29589,
+    "crc32": 602450759,
+    "sha256": "6a15a22b0c1597e8e2fc9222d6917db41d0f5be7c2f4220d31a730ae6088f5ae"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Do.vi",
+    "bytes": 17014,
+    "crc32": 1062679679,
+    "sha256": "1edad9f3262bb5afdf4eafdbc9f31d79e26ef4c47ea5c052b3b7c33c52c77395"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Iteration Msg.lvclass",
+    "bytes": 29328,
+    "crc32": 1865606976,
+    "sha256": "913e266d1bd47be80f17e354bcb454acdb947e2d387121fd3661a8b3c073154a"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Actor Core.vi",
+    "bytes": 46810,
+    "crc32": 4027408432,
+    "sha256": "d891fd8383279bad3bacc2fd06505621a397d2e76bd6b7f7b29454ebe9202e14"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Example Actor.lvclass",
+    "bytes": 86133,
+    "crc32": 2118493412,
+    "sha256": "dc70922c89b485e6885000319b5e34a25b126cef74433cc1a5e5be3d36989f00"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Iterate.vi",
+    "bytes": 17999,
+    "crc32": 2924796137,
+    "sha256": "3805128b576304e9fc67e39a3ee7239b5ecfd2bdaf385510b3665debadf4b79b"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Iterator Settings.ctl",
+    "bytes": 11794,
+    "crc32": 877009337,
+    "sha256": "2398dbe83a6bb26cb747c0644460a78e52d309e45f1b86f2a2adda3dc55e25e2"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Post Iterate.vi",
+    "bytes": 16492,
+    "crc32": 2928919812,
+    "sha256": "0720b41d20abe3149e609d65c11fef3f5ceb7bc7a1e830d34e61a7fa5f49f819"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Pre Iterate.vi",
+    "bytes": 16719,
+    "crc32": 1831873929,
+    "sha256": "683f1b54261b8d239185dabe136f77823b42395572e276810d06fb635b978176"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Update Error.vi",
+    "bytes": 16916,
+    "crc32": 2776703052,
+    "sha256": "a2552a3f78102ff5e540d1b2e475263028b8c5812c56be7bc917788a7b3c7eac"
+   },
+   {
+    "path": "File Group 1/functions_LS_Instruments_AG_lib_Iterator_Actor.mnu",
+    "bytes": 3400,
+    "crc32": 4140255420,
+    "sha256": "de8c03457a04b8a9f82fe4631c08c52d2ce290dd451a1481f267b30982ae997e"
+   },
+   {
+    "path": "File Group 2/controls_LS_Instruments_AG_lib_Iterator_Actor.mnu",
+    "bytes": 3116,
+    "crc32": 65266584,
+    "sha256": "8b61a00e9691432c3a54100bba0bc9354aadbd4ce86fe6e5997559ab19fcce4d"
+   },
+   {
+    "path": "license",
+    "bytes": 1521,
+    "crc32": 2617163355,
+    "sha256": "950937dd52ba4520a198c68f3b93e94bcb376131ce94498ea53262c2ab051952"
+   },
+   {
+    "path": "spec",
+    "bytes": 14282,
+    "crc32": 3284975404,
+    "sha256": "22cc8cd01b3bb78e1dc789e98825c931e40c90d4ac24da2fa7061d16f5e9e834"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ls_instruments_ag_lib_iterator_actor\"\r\nVersion=\"1.0.0.6\"\r\nRelease=\"\"\r\nID=e45e39a904c9ccfc7805464e90d83c28\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"Iterator Actor\"\r\n\r\n\r\n[Description]\r\nDescription=\"A library implementing a high-level Actor Framework-based Iterator. The caller Actor can configure the Iterator Actor to iteratively execute one of its methods by creating the corresponding Actor Framework messages.\\0D\\0A\\0D\\0A<b> Main Features</b>\\0D\\0A\\0D\\0A-  Fully Actor Framework Based\\0D\\0A-   Iterate at a certain time period\\0D\\0A-  Waits on iteration completion and reports an error to caller if the corresponding timeout is exceeded\\0D\\0A-  Prepare and Conclude iterations definable\\0D\\0A-  Multiple iterator end condition definable: number of iterations, time elapsed, iteration result\"\r\nSummary=\"A library implementing a high-level Actor Framework-based Iterator. \"\r\nLicense=\"BSD-3-Clause license\"\r\nCopyright=\"Copyright (c) 2024, LS Instruments AG\"\r\nDistribution=\"\"\r\nVendor=\"LS Instruments AG\"\r\nURL=\"https://github.com/LS-Instruments/Iterator-Actor\"\r\nPackager=\"Andrea Vaccaro\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"First release. Visit https://github.com/LS-Instruments/Iterator-Actor to see about features and a library walk-through.\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=23.3\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"ls_instruments_ag_lib_async_methods_actor>=0.3.0.4,mgi_lib_error_handling>=1.1.1.3,oglib_error>=6.0.0.26,oglib_lvdata>=6.0.0.45,oglib_time>=6.0.1.6\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=113\r\nFile 0=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor.lvlib\"\r\nFile 1=\"vi.lib/LS Instruments AG/Iterator Actor/Release Notes.txt\"\r\nFile 2=\"vi.lib/LS Instruments AG/Iterator Actor/media/Change Settings.png\"\r\nFile 3=\"vi.lib/LS Instruments AG/Iterator Actor/media/Confugure and Launch.png\"\r\nFile 4=\"vi.lib/LS Instruments AG/Iterator Actor/media/Start Iterations.png\"\r\nFile 5=\"vi.lib/LS Instruments AG/Iterator Actor/media/Stop Iterations.png\"\r\nFile 6=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Do.vi\"\r\nFile 7=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Request Iteration Notification Msg.lvclass\"\r\nFile 8=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Write Iterator Enqueuer.vi\"\r\nFile 9=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Do.vi\"\r\nFile 10=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Notify Iteration Msg.lvclass\"\r\nFile 11=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Send Notify Iteration.vi\"\r\nFile 12=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Break Msg.lvclass\"\r\nFile 13=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Do.vi\"\r\nFile 14=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Send Break.vi\"\r\nFile 15=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Abstract Iteration Msg.lvclass\"\r\nFile 16=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do Core.vi\"\r\nFile 17=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do.vi\"\r\nFile 18=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Send Iteration.vi\"\r\nFile 19=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Write Message Enqueuer.vi\"\r\nFile 20=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Break.vi\"\r\nFile 21=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Check Settings.vi\"\r\nFile 22=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Conclude.vi\"\r\nFile 23=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Discover Message Type.vi\"\r\nFile 24=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterate.vi\"\r\nFile 25=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator NR Actor.lvclass\"\r\nFile 26=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator.vi\"\r\nFile 27=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Message Type.ctl\"\r\nFile 28=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Notify Iteration.vi\"\r\nFile 29=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Pre Launch Init.vi\"\r\nFile 30=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Prepare.vi\"\r\nFile 31=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Send Iteration Message.vi\"\r\nFile 32=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Stop Core.vi\"\r\nFile 33=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Wait for Iteration Notification.vi\"\r\nFile 34=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Write Auto Iteration Notification.vi\"\r\nFile 35=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator NR Actor.vi\"\r\nFile 36=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator Report Iterations End Msg.vi\"\r\nFile 37=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Open Examples.vi\"\r\nFile 38=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do Core.vi\"\r\nFile 39=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do.vi\"\r\nFile 40=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Drop Message Core.vi\"\r\nFile 41=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Iterator Reply Msg.lvclass\"\r\nFile 42=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Send Message And Wait For Response.vi\"\r\nFile 43=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Do.vi\"\r\nFile 44=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Send Write Stop Reason.vi\"\r\nFile 45=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Write Stop Reason Msg.lvclass\"\r\nFile 46=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Do.vi\"\r\nFile 47=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Send Write Settings.vi\"\r\nFile 48=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Write Settings Msg.lvclass\"\r\nFile 49=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Do.vi\"\r\nFile 50=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Send Stop Iterations.vi\"\r\nFile 51=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Stop Iterations Msg.lvclass\"\r\nFile 52=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Do.vi\"\r\nFile 53=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Send Start Iterations.vi\"\r\nFile 54=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Start Iterations Msg.lvclass\"\r\nFile 55=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Do.vi\"\r\nFile 56=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Report Iterations End Msg.lvclass\"\r\nFile 57=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Send Report Iterations End.vi\"\r\nFile 58=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Do.vi\"\r\nFile 59=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Iterator Report Iterations End Msg.lvclass\"\r\nFile 60=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Error 2.vi\"\r\nFile 61=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Stop Reason.vi\"\r\nFile 62=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Send Report Iterations End.vi\"\r\nFile 63=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Do.vi\"\r\nFile 64=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Iterator Msg.lvclass\"\r\nFile 65=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Send Iterator.vi\"\r\nFile 66=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Acknowledge Itetations End Msg.lvclass\"\r\nFile 67=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Do.vi\"\r\nFile 68=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Send Acknowledge Itetations End.vi\"\r\nFile 69=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Abstract Iterator Actor.lvclass\"\r\nFile 70=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Acknowledge Itetations End.vi\"\r\nFile 71=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Active Stop Conditions.ctl\"\r\nFile 72=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Check Settings.vi\"\r\nFile 73=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Conclude.vi\"\r\nFile 74=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Get Error.vi\"\r\nFile 75=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterate.vi\"\r\nFile 76=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Errors.ctl\"\r\nFile 77=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Settings.ctl\"\r\nFile 78=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator.vi\"\r\nFile 79=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Pre Launch Init.vi\"\r\nFile 80=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Prepare.vi\"\r\nFile 81=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Active Stop Conditions.vi\"\r\nFile 82=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Iterating.vi\"\r\nFile 83=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Settings.vi\"\r\nFile 84=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Stop Iterate Notifier.vi\"\r\nFile 85=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Report Iterations End.vi\"\r\nFile 86=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Start Iterations.vi\"\r\nFile 87=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Condition.ctl\"\r\nFile 88=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Core.vi\"\r\nFile 89=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Iterations.vi\"\r\nFile 90=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Reason.ctl\"\r\nFile 91=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Untitled 4.vi\"\r\nFile 92=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Settings.vi\"\r\nFile 93=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Stop Reason.vi\"\r\nFile 94=\"project/errors/LS Instruments AG/Iterator Actor/Iterator-Actor-errors.txt\"\r\nFile 95=\"help/LS Instruments AG/Iterator Actor/README.md\"\r\nFile 96=\"examples/LS Instruments AG/Iterator Actor/Example Iterator NR Actor.lvlib\"\r\nFile 97=\"examples/LS Instruments AG/Iterator Actor/Launcher.vi\"\r\nFile 98=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Do.vi\"\r\nFile 99=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Update Error Msg.lvclass\"\r\nFile 100=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Do.vi\"\r\nFile 101=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Pre Iteration Msg.lvclass\"\r\nFile 102=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Do.vi\"\r\nFile 103=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Post Iteration Msg.lvclass\"\r\nFile 104=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Do.vi\"\r\nFile 105=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Iteration Msg.lvclass\"\r\nFile 106=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Actor Core.vi\"\r\nFile 107=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Example Actor.lvclass\"\r\nFile 108=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Iterate.vi\"\r\nFile 109=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Iterator Settings.ctl\"\r\nFile 110=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Post Iterate.vi\"\r\nFile 111=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Pre Iterate.vi\"\r\nFile 112=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Update Error.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_LS_Instruments_AG_lib_Iterator_Actor.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"controls_LS_Instruments_AG_lib_Iterator_Actor.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "VIPM/ls_instruments_ag_lib_iterator_actor-1.0.0.7.vip",
+  "url": "https://raw.githubusercontent.com/LS-Instruments/Iterator-Actor/b80f77e092f04d8b1d9eebb9ef846b390d48b4b1/VIPM/ls_instruments_ag_lib_iterator_actor-1.0.0.7.vip",
+  "bytes": 1120128,
+  "sha256": "740e8ed9589188c7ff9e4f7db4f3a0fee1555bef57297baed08012d51a38dbd9",
+  "members": [
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1355981205,
+    "sha256": "b031c6fd1ddf816e2e4c9f2951f13166ee0065abbca62e064d0179d07a06b6a2"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor.lvlib",
+    "bytes": 29878,
+    "crc32": 4155575922,
+    "sha256": "e53e2c0bde54bb67d125935c43aa39d3baca8d27915b254ff32b88cf5e3e23fa"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Release Notes.txt",
+    "bytes": 2804,
+    "crc32": 724762105,
+    "sha256": "029fea2382618d26355d1760159a4884501d496539989722d8ca1af34966762a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Change Settings.png",
+    "bytes": 108598,
+    "crc32": 2936090443,
+    "sha256": "b0f3f188605d90ed0a4d482cd339e6d57edc85e711c826927771eac56ca4cfb0"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Confugure and Launch.png",
+    "bytes": 123443,
+    "crc32": 1524584934,
+    "sha256": "88d0b08edcadcbce5298b6755d4bcab20c8ce3de8144403daa65c228f6d1e5ef"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Start Iterations.png",
+    "bytes": 2392,
+    "crc32": 3656167601,
+    "sha256": "4bc5f6ff7e0f0cd0b2628eec21b7768649a5aee999afcf38aab3bf7b1fe6bb85"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/media/Stop Iterations.png",
+    "bytes": 2467,
+    "crc32": 1454747809,
+    "sha256": "da4acf91a24ad24e54e9e58f2e47030def485f55bb8d938a531fd9edeac3783f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Do.vi",
+    "bytes": 15786,
+    "crc32": 3824537496,
+    "sha256": "7cbd787885b30317885fb17bb92246a60646933fbc9c1ed1e09bd6b6935087de"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Request Iteration Notification Msg.lvclass",
+    "bytes": 34468,
+    "crc32": 2892870392,
+    "sha256": "be9bcfcf6fac7e4418bcfc5996703106ce9a3967ee6461fad3fbb30f5dc0533f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Write Iterator Enqueuer.vi",
+    "bytes": 14495,
+    "crc32": 246841749,
+    "sha256": "85e550980d8c97af6138daf9d869de2b9b1633ed9221e7f3ce8240fb03cbc93f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Do.vi",
+    "bytes": 17882,
+    "crc32": 3802290641,
+    "sha256": "6415b0a6f606dc5b2d9c90cef31bf30c9d4fc46879ebeb935d15279e1bbb9604"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Notify Iteration Msg.lvclass",
+    "bytes": 70554,
+    "crc32": 2075077461,
+    "sha256": "2157068d0f33a31f0f02165ffb3dc6ebf8f21324f4b420ff198d1066ba1d37e3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Send Notify Iteration.vi",
+    "bytes": 17921,
+    "crc32": 2102429352,
+    "sha256": "3ed66514805e8edd0ffb0d4ecae3acd0fe568007e2d8c6b4712385098601ea45"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Break Msg.lvclass",
+    "bytes": 67293,
+    "crc32": 2149054365,
+    "sha256": "079b46ec26ed69007cd4e26573f8cb49b011443ccee07da019e5ce3ba35f9a07"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Do.vi",
+    "bytes": 17370,
+    "crc32": 682403879,
+    "sha256": "a0e2003a00f4ebaede6e1083f5a9392f648bf1d2e761db484dc091391e3c41ad"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Send Break.vi",
+    "bytes": 17166,
+    "crc32": 2910683635,
+    "sha256": "b7da1217ea4b1592502824a5b2598d638ffde0287039a198e157c7d6fc7affe5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Abstract Iteration Msg.lvclass",
+    "bytes": 60053,
+    "crc32": 2414405898,
+    "sha256": "247be9527109f4fda04c5aa5d71724719e52d912a3f04c9ba5a1a5a4014d9d53"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do Core.vi",
+    "bytes": 15983,
+    "crc32": 415660827,
+    "sha256": "3064beca0c365a06c1cf44433ed72343463675b0fbc9c6ec398dea992e4ce44b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do.vi",
+    "bytes": 17062,
+    "crc32": 3939570460,
+    "sha256": "55b17ccbed8943a8ccf3bbc24a4f91782b5c18d876337c850c28832514e9da52"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Send Iteration.vi",
+    "bytes": 20278,
+    "crc32": 4145464942,
+    "sha256": "f6e352bb5e1b02bc97b53b7195e910fb7b69d539846f8d92fdcbb83bf9f4c63f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Write Message Enqueuer.vi",
+    "bytes": 14422,
+    "crc32": 3623186943,
+    "sha256": "fea957cf6135e53d86b01e39afd20cba2ac9eb8e3f301cc0dcbf1124f53e549d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Break.vi",
+    "bytes": 26293,
+    "crc32": 228150192,
+    "sha256": "b1663c9897e911db4b7d6f8e3cf10d9cdbe5d7e0c8da5e4615de85a87ff1d366"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Check Settings.vi",
+    "bytes": 33554,
+    "crc32": 3732644740,
+    "sha256": "d79135c2065c6e441a8d4262ebe941891241a14f7ae7d666525ebf6b8d933784"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Conclude.vi",
+    "bytes": 29280,
+    "crc32": 724353112,
+    "sha256": "2af21f3fa2685162a333e26bc29e77289ad39d44d2dbc3c42cec1199e758cfe9"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Discover Message Type.vi",
+    "bytes": 16633,
+    "crc32": 333313288,
+    "sha256": "11ccf5e92e3520b1a694ba6a98848c7b0955353ddf649e920c8414479ec8defb"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterate.vi",
+    "bytes": 43255,
+    "crc32": 232921383,
+    "sha256": "c79a127fcba376956562bc3ed3ff631c9eacde21a19f612daee090dd29982a30"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator NR Actor.lvclass",
+    "bytes": 81027,
+    "crc32": 1281972508,
+    "sha256": "e033fc6142192a30310b3bfb249026950adaa186cbb16730ddb7cacf3277abb8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator.vi",
+    "bytes": 16632,
+    "crc32": 78197708,
+    "sha256": "48ac00d46d0c7c68147df9484c26d945dde69a6a3b9e82e634175a0463579e95"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Message Type.ctl",
+    "bytes": 14761,
+    "crc32": 223661245,
+    "sha256": "6e972a6276d7c68c0c95a9b342aefd627732f7e877ed5ff50c4d48e11e7df5b4"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Notify Iteration.vi",
+    "bytes": 14512,
+    "crc32": 513037945,
+    "sha256": "5a38cf53568935a72eeb29e4ee5c5c2cd3bfc670c6c7ef65c0410c25e68e56e3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Pre Launch Init.vi",
+    "bytes": 20399,
+    "crc32": 1989077572,
+    "sha256": "f2a29cd369c4e3f588dfd5a917c0a3f9a865cb388d46ba6affbdadab1f0fc02b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Prepare.vi",
+    "bytes": 31559,
+    "crc32": 1479180154,
+    "sha256": "7e7e2f20d0d3a59333105516f6995ad6d7843691804a54a12d46437d0daa3353"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Send Iteration Message.vi",
+    "bytes": 22818,
+    "crc32": 2103436828,
+    "sha256": "857234082b9ba4ec36b07b28c212021f020c026ddcbfc625557dc4db75f24024"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Stop Core.vi",
+    "bytes": 15697,
+    "crc32": 4267118309,
+    "sha256": "e8436668428f909e36182d74e33729d970b8ba4934ef1c2a2fca31f487c4f80d"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Wait for Iteration Notification.vi",
+    "bytes": 16995,
+    "crc32": 2203348139,
+    "sha256": "45c3c6d4c3de7aa534b33dbb75eb633caa46cd386ae28be2dc9570cca49138b3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Write Auto Iteration Notification.vi",
+    "bytes": 13901,
+    "crc32": 1702183741,
+    "sha256": "1fad66db532976e11c98bf43e4d41aff1edbff7dfeb53e2652f77ba84c2527f3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator NR Actor.vi",
+    "bytes": 7505,
+    "crc32": 3928320246,
+    "sha256": "1755d0d13c8ae6b8b9941fe604ec7e017169de7798487c14eb7607e7cdde5c7b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator Report Iterations End Msg.vi",
+    "bytes": 7814,
+    "crc32": 3132034454,
+    "sha256": "7537aaf5788fb1d2513462d5d5a13bef6a27d626af43564866b722900cac3ec8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Open Examples.vi",
+    "bytes": 12769,
+    "crc32": 330758288,
+    "sha256": "6a920de73c0245a2823037696a094dc5f322f360172d8055532e6889fbe61060"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do Core.vi",
+    "bytes": 15859,
+    "crc32": 2998555069,
+    "sha256": "5c79eedfdb01972a849e91ba2776327ef9109589f3a0e043738e379b60f4990a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do.vi",
+    "bytes": 16610,
+    "crc32": 3813012650,
+    "sha256": "1349b3abfef3adfbaa5aef2b5e2a0a45304f1234bdf468bf24b5a36d859669e0"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Drop Message Core.vi",
+    "bytes": 13089,
+    "crc32": 489419657,
+    "sha256": "085f78cac152408d90f18b2e13d6ecbadad19f399f81ad99dad39d7243998814"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Iterator Reply Msg.lvclass",
+    "bytes": 64195,
+    "crc32": 3144820175,
+    "sha256": "50ceaffc65f8741fdc55c824da38b1608d3321719b51f74f81c6daac4357e4dd"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Send Message And Wait For Response.vi",
+    "bytes": 20070,
+    "crc32": 4007199690,
+    "sha256": "7bdab20f70866f31ec9908b82c0bbee3b9c6148074ac8ae14813f8c9c450e297"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Do.vi",
+    "bytes": 18202,
+    "crc32": 2696730949,
+    "sha256": "2979c525534ca1f153ff6938ff216c5ee724cd67fd089a9fb5f40566d63c58a3"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Send Write Stop Reason.vi",
+    "bytes": 19134,
+    "crc32": 3697153854,
+    "sha256": "e372faeb4c5f417c5cd42fcef47c8a71ff38629aed60e61bf8ffa3175e2a5e73"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Write Stop Reason Msg.lvclass",
+    "bytes": 75589,
+    "crc32": 2664652933,
+    "sha256": "a9f5ee5b7b4e0e3fc14ff1e97f245add6240d046b851e80b80d36d27942a9d86"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Do.vi",
+    "bytes": 19134,
+    "crc32": 2572717622,
+    "sha256": "1e44f2b07541cdd14e56ce42f9cac6dccfddecb1177ddc1e0d3986ae8016973e"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Send Write Settings.vi",
+    "bytes": 22359,
+    "crc32": 4097641523,
+    "sha256": "769cc02d7b8eb00b80d3f2e9350f87650e83c0bc80ac3905fce61d07f1f7ea63"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Write Settings Msg.lvclass",
+    "bytes": 93751,
+    "crc32": 1735475150,
+    "sha256": "a789ee36eaa401d8bff9e5693ae1672c249248fef73ae0104407edd2eca04c43"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Do.vi",
+    "bytes": 17602,
+    "crc32": 437223476,
+    "sha256": "5f171b1dcc54e2091cc336e268aa803e60027c68d8cf03f83cf902d34e51b51b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Send Stop Iterations.vi",
+    "bytes": 17340,
+    "crc32": 3321002411,
+    "sha256": "40083eb0f08af1d7a43ff68ce22771ae04026c25c9df506741ad141c643712b8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Stop Iterations Msg.lvclass",
+    "bytes": 67513,
+    "crc32": 45764883,
+    "sha256": "7916844815dab0cf36074b374be21f0328100a2238ff289704e2bb7e4d83716a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Do.vi",
+    "bytes": 17614,
+    "crc32": 3060695654,
+    "sha256": "96d0e554b5506ad390ebcf87e82d8a4f816a90e8a39de5221539ad363b35b245"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Send Start Iterations.vi",
+    "bytes": 17345,
+    "crc32": 1005225760,
+    "sha256": "762eb16b2a9b33412dc565e4a2169015d850f9ad0810e959c7ef9da6031318a8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Start Iterations Msg.lvclass",
+    "bytes": 67529,
+    "crc32": 166439833,
+    "sha256": "d1924f3a34a012519b63338800236971e3d8cea915cd581e1850bb47beb7183b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Do.vi",
+    "bytes": 18334,
+    "crc32": 2975603033,
+    "sha256": "f1cb3a73a59dcfb7eba0326fdf9aeb570dd8016c3c6d7cd6dee72490e3718f55"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Report Iterations End Msg.lvclass",
+    "bytes": 79744,
+    "crc32": 1077464225,
+    "sha256": "be50e6a976d35dc7cdf6e4ebfaea4ea076e4f3ecd9cdf900de7812b773082959"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Send Report Iterations End.vi",
+    "bytes": 18598,
+    "crc32": 2717191272,
+    "sha256": "f69587e91e05a6923a85852892e1ad3d19c3404ba0d7470ff061314300e7a956"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Do.vi",
+    "bytes": 15522,
+    "crc32": 3963737940,
+    "sha256": "3a96fef438c3646b7b00559d8cd5ee58302e704bf81fcdcc9b0793de5fa0a6c8"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Iterator Report Iterations End Msg.lvclass",
+    "bytes": 75030,
+    "crc32": 52015724,
+    "sha256": "ab234f526e38efd551af7457bb9bb1915bec74e0084cb1d338c93fe74df69413"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Error 2.vi",
+    "bytes": 12860,
+    "crc32": 3102732878,
+    "sha256": "59b4637e012d9d205eb210b69b6d02f6664533de05582bdf8ee8d32b0b115132"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Stop Reason.vi",
+    "bytes": 13132,
+    "crc32": 3649794442,
+    "sha256": "6c49405b7277048034aa308787428ffab77c7bd22b03808678b944a892082a5c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Send Report Iterations End.vi",
+    "bytes": 31618,
+    "crc32": 3547735688,
+    "sha256": "ed5f8919242c9297f02e1452803195e7d10fc71a46aa95d0f6f9ce3f5cce5cbc"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Do.vi",
+    "bytes": 17514,
+    "crc32": 488121388,
+    "sha256": "eab93e88b310a44738e06195e9946b7d7d0506e91d6daf757242cd330d4560e6"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Iterator Msg.lvclass",
+    "bytes": 62834,
+    "crc32": 3538688230,
+    "sha256": "3c4aaaf37e03aa845f3a960ab2a544f8b02d9db03b09b52f7f899c585b9a3067"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Send Iterator.vi",
+    "bytes": 21685,
+    "crc32": 3084706754,
+    "sha256": "2e0e927d2f9a3c3eff86cfdf36b7b1218a6ef3e6defded63d4d5c24724c891ed"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Acknowledge Itetations End Msg.lvclass",
+    "bytes": 68177,
+    "crc32": 2513891909,
+    "sha256": "d8581b97d54fc6fcb466d187ceb62025f1873614a176b3859dc0fe47ce1d7059"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Do.vi",
+    "bytes": 17742,
+    "crc32": 4103772207,
+    "sha256": "c373484e361128a58bbfed57bae11d18e51f6adc72369e21b85a18d3ff6ad2e5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Send Acknowledge Itetations End.vi",
+    "bytes": 17619,
+    "crc32": 3260495102,
+    "sha256": "4b13f8733e2a8f42dbcc082aca99b9c6fb36533ece9de7fc0f130d2e8e7b9edb"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Abstract Iterator Actor.lvclass",
+    "bytes": 142859,
+    "crc32": 3571013495,
+    "sha256": "9c2639583f4e3accefa69fd992a95c1aecee7335e86bc6776ff8f9ebb566ffc5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Acknowledge Itetations End.vi",
+    "bytes": 16246,
+    "crc32": 2286833195,
+    "sha256": "c27231ca877499af9f47272e5aa1042ddc29062a816219e50133d05143abe309"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Active Stop Conditions.ctl",
+    "bytes": 12871,
+    "crc32": 1469630248,
+    "sha256": "59e3e9cf1eb846f89c232bda2792a695b6ffb5ff76acd7f2bb4d6b6858b50b72"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Check Settings.vi",
+    "bytes": 32498,
+    "crc32": 3055080996,
+    "sha256": "eaede5d718f0c046a73b25e8d40b289c9994e9dcae6929b10b11a7ee687524cc"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Conclude.vi",
+    "bytes": 20780,
+    "crc32": 1857918068,
+    "sha256": "e83b4e8bce3130c6927a99fae637ab2fea8f81d5bd2f27b9bf77b044d8355abd"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Get Error.vi",
+    "bytes": 19013,
+    "crc32": 2168108212,
+    "sha256": "8632f6fd35a0c693bf3ef51437d09e545c5f7ace49b95b9354e170e75a7bffb5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterate.vi",
+    "bytes": 20851,
+    "crc32": 567016739,
+    "sha256": "02352cf12cf32bccab9c45f9ca2ed0fdd94c85df11e6c82e78b31e2ace56e3b1"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Errors.ctl",
+    "bytes": 12644,
+    "crc32": 591968143,
+    "sha256": "daa1961750daf5559308759b9633accd87268a83b14d4c36214d83b619f66612"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Settings.ctl",
+    "bytes": 16414,
+    "crc32": 2376520052,
+    "sha256": "ec1ed0f6dfd95a34cf1e9f81e4b77c3b944c6e666f313764ae0ca91a0dfb1c39"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator.vi",
+    "bytes": 23764,
+    "crc32": 349533693,
+    "sha256": "be6851166ffd66d5e7489dc21819a1e56bf92786807a98debabba154500580b6"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Pre Launch Init.vi",
+    "bytes": 16847,
+    "crc32": 931710035,
+    "sha256": "206c857368f822cf870cb70e712b56b7314ea8e71576c14e4b27227a419b4c02"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Prepare.vi",
+    "bytes": 21027,
+    "crc32": 407846063,
+    "sha256": "a49a1bb757ab47baacfca4a2d86e6ce35b95f6156a05b6761ae74ee4371d6a5a"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Active Stop Conditions.vi",
+    "bytes": 17247,
+    "crc32": 43525807,
+    "sha256": "febf640eefbf79049c58cda04f056a41d49beafb5769d14f17f5b0f9b9c50745"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Iterating.vi",
+    "bytes": 13818,
+    "crc32": 3205961422,
+    "sha256": "bbef38e42c896b281c522639ffeaac964e78c8f57cfb29876d9eca5ee3b6c3d5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Settings.vi",
+    "bytes": 20353,
+    "crc32": 1829315990,
+    "sha256": "7ba5651fd67bbc012360c824c5d9a8be8ecea4947859febe4ebf926ff169ae31"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Stop Iterate Notifier.vi",
+    "bytes": 14150,
+    "crc32": 3154120618,
+    "sha256": "b5d0505a1e7a933e0d0c7bf37fbfb0220919342f563c1300401831ddafba6c3c"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Report Iterations End.vi",
+    "bytes": 17357,
+    "crc32": 2962171774,
+    "sha256": "7d474b52630b3250fb5b0f45ddfe3a4ec8e0bc8daf582c5dff0e2875c99c515b"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Start Iterations.vi",
+    "bytes": 31640,
+    "crc32": 648478687,
+    "sha256": "6675ddef2d0275f82d90ab1844ea706949f982e213a70383ea491ab8b7910ced"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Condition.ctl",
+    "bytes": 12619,
+    "crc32": 2613988267,
+    "sha256": "71c9f85886d2965018f204832ee92989eb8a3ea1331f4eca442ee27686d07178"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Core.vi",
+    "bytes": 16049,
+    "crc32": 2365711908,
+    "sha256": "c79a2eb56b4f21892041e808419736dd8b590905e9c8abd5817ce1c0d12f945f"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Iterations.vi",
+    "bytes": 22991,
+    "crc32": 2837831792,
+    "sha256": "1e3ce08310beec2e35409c56bbfa6a2b898b94090fde338356f1299e09b3d721"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Reason.ctl",
+    "bytes": 12616,
+    "crc32": 1616748382,
+    "sha256": "ff5e4f3229eddad005183000879ac4aced96bf3b9c075a8e53ba994d975fdca5"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Untitled 4.vi",
+    "bytes": 3978,
+    "crc32": 1879672435,
+    "sha256": "cda8d52fee8bf929b26522bf62650a4287291d22de9a206d7fbdfeb022338f71"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Settings.vi",
+    "bytes": 20298,
+    "crc32": 1529449747,
+    "sha256": "3b23c2382bb46411d852c5b266c052834776899d5f3c9cf170171248ffbea314"
+   },
+   {
+    "path": "File Group 0/vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Stop Reason.vi",
+    "bytes": 17389,
+    "crc32": 3378029128,
+    "sha256": "af9812adf53a09ee3bf96d41a736191c9482f31e1728e2c552eaecf4f807bc6c"
+   },
+   {
+    "path": "File Group 0/project/errors/LS Instruments AG/Iterator Actor/Iterator-Actor-errors.txt",
+    "bytes": 856,
+    "crc32": 2947436836,
+    "sha256": "ecd2bf14d97920310b07e6e34ff8d8aa6ec3ca17978486490458755666741c0e"
+   },
+   {
+    "path": "File Group 0/help/LS Instruments AG/Iterator Actor/README.md",
+    "bytes": 4882,
+    "crc32": 3921974428,
+    "sha256": "d50a298b80eb239083942259d6e979ad9e885fc3471541e998097c93a4b32c3f"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Iterator NR Actor.lvlib",
+    "bytes": 2074,
+    "crc32": 2875278202,
+    "sha256": "3a0e72f133a521a605bad163bcbca99cf62d60f4f5e27af0ae2a64282fa484af"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Launcher.vi",
+    "bytes": 6232,
+    "crc32": 3350848605,
+    "sha256": "7c988271a0914e9bbe4e1387a29635f4faacaee90eb777a876544d60090b5dc2"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Do.vi",
+    "bytes": 19382,
+    "crc32": 4286620624,
+    "sha256": "49fcd00f487a7b8bdeee9d5d9ba615e16188626e33df7e686ca4de6c494ab94a"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Update Error Msg.lvclass",
+    "bytes": 57850,
+    "crc32": 3701960335,
+    "sha256": "d471d2babbf386e53dbea1c365ca61e7cf74ff139b15c55fa98064a8b606bdfa"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Do.vi",
+    "bytes": 17054,
+    "crc32": 2955356978,
+    "sha256": "2c723c8638a3d0f393e9dd4ef38aa81d2c386daa50f705f18ebe8ca58b3e1074"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Pre Iteration Msg.lvclass",
+    "bytes": 28752,
+    "crc32": 1797667976,
+    "sha256": "d3e77f48d57d6d399fb55ca4341fba341b3b0bfda06deedc6275517f44701c7a"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Do.vi",
+    "bytes": 17094,
+    "crc32": 758176737,
+    "sha256": "bbfad56389ef9872d1bea545afc34475bdba40b0772f6caa6b98cf5d68612d5e"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Post Iteration Msg.lvclass",
+    "bytes": 29589,
+    "crc32": 602450759,
+    "sha256": "6a15a22b0c1597e8e2fc9222d6917db41d0f5be7c2f4220d31a730ae6088f5ae"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Do.vi",
+    "bytes": 17014,
+    "crc32": 3780776707,
+    "sha256": "d3cbd411415949cfd04deed98acdd677a411b0025baed625a364f45efa5250be"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Iteration Msg.lvclass",
+    "bytes": 29328,
+    "crc32": 1865606976,
+    "sha256": "913e266d1bd47be80f17e354bcb454acdb947e2d387121fd3661a8b3c073154a"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Actor Core.vi",
+    "bytes": 46810,
+    "crc32": 1065691476,
+    "sha256": "59ba12814775aafb8aafd3f09dd9ca83454db9438edd8da88b212b329d117a6e"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Example Actor.lvclass",
+    "bytes": 86133,
+    "crc32": 4263333702,
+    "sha256": "9d267c3a525ba0952fe61e35a263046b863a36ad6225f85c7935ebfe86088586"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Iterate.vi",
+    "bytes": 17999,
+    "crc32": 780868528,
+    "sha256": "53fec3f79188645f857be32d3ea134998bb39c2e8875f46a040c28f7f5f69c39"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Iterator Settings.ctl",
+    "bytes": 11794,
+    "crc32": 877009337,
+    "sha256": "2398dbe83a6bb26cb747c0644460a78e52d309e45f1b86f2a2adda3dc55e25e2"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Post Iterate.vi",
+    "bytes": 16492,
+    "crc32": 794912496,
+    "sha256": "b6d0e0dae8967de7e783a31f940f447286a5ecd6f68e50d0eadba8f2be53f822"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Pre Iterate.vi",
+    "bytes": 16719,
+    "crc32": 1831873929,
+    "sha256": "683f1b54261b8d239185dabe136f77823b42395572e276810d06fb635b978176"
+   },
+   {
+    "path": "File Group 0/examples/LS Instruments AG/Iterator Actor/Example Actor/Update Error.vi",
+    "bytes": 16916,
+    "crc32": 393612497,
+    "sha256": "82f7d46649eae9904feda248a38ce4c1d5d42c06ea2d99f6a09116535961e718"
+   },
+   {
+    "path": "File Group 1/functions_LS_Instruments_AG_lib_Iterator_Actor.mnu",
+    "bytes": 3400,
+    "crc32": 4140255420,
+    "sha256": "de8c03457a04b8a9f82fe4631c08c52d2ce290dd451a1481f267b30982ae997e"
+   },
+   {
+    "path": "File Group 2/controls_LS_Instruments_AG_lib_Iterator_Actor.mnu",
+    "bytes": 3116,
+    "crc32": 65266584,
+    "sha256": "8b61a00e9691432c3a54100bba0bc9354aadbd4ce86fe6e5997559ab19fcce4d"
+   },
+   {
+    "path": "license",
+    "bytes": 1521,
+    "crc32": 2617163355,
+    "sha256": "950937dd52ba4520a198c68f3b93e94bcb376131ce94498ea53262c2ab051952"
+   },
+   {
+    "path": "spec",
+    "bytes": 14282,
+    "crc32": 1010720319,
+    "sha256": "6527b29b1c276163686f4804b9ed8a0d315a9734e8d695d8006d20a7b3db9fde"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ls_instruments_ag_lib_iterator_actor\"\r\nVersion=\"1.0.0.7\"\r\nRelease=\"\"\r\nID=37bc6ebd69f1f32ddb0dbf7dfd243457\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"Iterator Actor\"\r\n\r\n\r\n[Description]\r\nDescription=\"A library implementing a high-level Actor Framework-based Iterator. The caller Actor can configure the Iterator Actor to iteratively execute one of its methods by creating the corresponding Actor Framework messages.\\0D\\0A\\0D\\0A<b> Main Features</b>\\0D\\0A\\0D\\0A-  Fully Actor Framework Based\\0D\\0A-   Iterate at a certain time period\\0D\\0A-  Waits on iteration completion and reports an error to caller if the corresponding timeout is exceeded\\0D\\0A-  Prepare and Conclude iterations definable\\0D\\0A-  Multiple iterator end condition definable: number of iterations, time elapsed, iteration result\"\r\nSummary=\"A library implementing a high-level Actor Framework-based Iterator. \"\r\nLicense=\"BSD-3-Clause license\"\r\nCopyright=\"Copyright (c) 2024, LS Instruments AG\"\r\nDistribution=\"\"\r\nVendor=\"LS Instruments AG\"\r\nURL=\"https://github.com/LS-Instruments/Iterator-Actor\"\r\nPackager=\"Andrea Vaccaro\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"First release. Visit https://github.com/LS-Instruments/Iterator-Actor to see about features and a library walk-through.\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=23.3\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"ls_instruments_ag_lib_async_methods_actor>=0.3.0.4,mgi_lib_error_handling>=1.1.1.3,oglib_error>=6.0.0.26,oglib_lvdata>=6.0.0.45,oglib_time>=6.0.1.6\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=113\r\nFile 0=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor.lvlib\"\r\nFile 1=\"vi.lib/LS Instruments AG/Iterator Actor/Release Notes.txt\"\r\nFile 2=\"vi.lib/LS Instruments AG/Iterator Actor/media/Change Settings.png\"\r\nFile 3=\"vi.lib/LS Instruments AG/Iterator Actor/media/Confugure and Launch.png\"\r\nFile 4=\"vi.lib/LS Instruments AG/Iterator Actor/media/Start Iterations.png\"\r\nFile 5=\"vi.lib/LS Instruments AG/Iterator Actor/media/Stop Iterations.png\"\r\nFile 6=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Do.vi\"\r\nFile 7=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Request Iteration Notification Msg.lvclass\"\r\nFile 8=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Request Iteration Notification Msg/Write Iterator Enqueuer.vi\"\r\nFile 9=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Do.vi\"\r\nFile 10=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Notify Iteration Msg.lvclass\"\r\nFile 11=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Notify Iteration Msg/Send Notify Iteration.vi\"\r\nFile 12=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Break Msg.lvclass\"\r\nFile 13=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Do.vi\"\r\nFile 14=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Break Msg/Send Break.vi\"\r\nFile 15=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Abstract Iteration Msg.lvclass\"\r\nFile 16=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do Core.vi\"\r\nFile 17=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Do.vi\"\r\nFile 18=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Send Iteration.vi\"\r\nFile 19=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor Messages/Abstract Iteration Msg/Write Message Enqueuer.vi\"\r\nFile 20=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Break.vi\"\r\nFile 21=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Check Settings.vi\"\r\nFile 22=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Conclude.vi\"\r\nFile 23=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Discover Message Type.vi\"\r\nFile 24=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterate.vi\"\r\nFile 25=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator NR Actor.lvclass\"\r\nFile 26=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Iterator.vi\"\r\nFile 27=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Message Type.ctl\"\r\nFile 28=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Notify Iteration.vi\"\r\nFile 29=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Pre Launch Init.vi\"\r\nFile 30=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Prepare.vi\"\r\nFile 31=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Send Iteration Message.vi\"\r\nFile 32=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Stop Core.vi\"\r\nFile 33=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Wait for Iteration Notification.vi\"\r\nFile 34=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator NR Actor/Write Auto Iteration Notification.vi\"\r\nFile 35=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator NR Actor.vi\"\r\nFile 36=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Iterator Report Iterations End Msg.vi\"\r\nFile 37=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Palette/Open Examples.vi\"\r\nFile 38=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do Core.vi\"\r\nFile 39=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Do.vi\"\r\nFile 40=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Drop Message Core.vi\"\r\nFile 41=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Iterator Reply Msg.lvclass\"\r\nFile 42=\"vi.lib/LS Instruments AG/Iterator Actor/Iterator Actor Messages/Iterator Reply Msg/Send Message And Wait For Response.vi\"\r\nFile 43=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Do.vi\"\r\nFile 44=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Send Write Stop Reason.vi\"\r\nFile 45=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Stop Reason Msg/Write Stop Reason Msg.lvclass\"\r\nFile 46=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Do.vi\"\r\nFile 47=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Send Write Settings.vi\"\r\nFile 48=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Write Settings Msg/Write Settings Msg.lvclass\"\r\nFile 49=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Do.vi\"\r\nFile 50=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Send Stop Iterations.vi\"\r\nFile 51=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Stop Iterations Msg/Stop Iterations Msg.lvclass\"\r\nFile 52=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Do.vi\"\r\nFile 53=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Send Start Iterations.vi\"\r\nFile 54=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Start Iterations Msg/Start Iterations Msg.lvclass\"\r\nFile 55=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Do.vi\"\r\nFile 56=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Report Iterations End Msg.lvclass\"\r\nFile 57=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Report Iterations End Msg/Send Report Iterations End.vi\"\r\nFile 58=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Do.vi\"\r\nFile 59=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Iterator Report Iterations End Msg.lvclass\"\r\nFile 60=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Error 2.vi\"\r\nFile 61=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Read Stop Reason.vi\"\r\nFile 62=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Report Iterations End Msg/Send Report Iterations End.vi\"\r\nFile 63=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Do.vi\"\r\nFile 64=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Iterator Msg.lvclass\"\r\nFile 65=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Iterator Msg/Send Iterator.vi\"\r\nFile 66=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Acknowledge Itetations End Msg.lvclass\"\r\nFile 67=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Do.vi\"\r\nFile 68=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor Messages/Acknowledge Itetations End Msg/Send Acknowledge Itetations End.vi\"\r\nFile 69=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Abstract Iterator Actor.lvclass\"\r\nFile 70=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Acknowledge Itetations End.vi\"\r\nFile 71=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Active Stop Conditions.ctl\"\r\nFile 72=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Check Settings.vi\"\r\nFile 73=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Conclude.vi\"\r\nFile 74=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Get Error.vi\"\r\nFile 75=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterate.vi\"\r\nFile 76=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Errors.ctl\"\r\nFile 77=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator Settings.ctl\"\r\nFile 78=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Iterator.vi\"\r\nFile 79=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Pre Launch Init.vi\"\r\nFile 80=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Prepare.vi\"\r\nFile 81=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Active Stop Conditions.vi\"\r\nFile 82=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Iterating.vi\"\r\nFile 83=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Settings.vi\"\r\nFile 84=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Read Stop Iterate Notifier.vi\"\r\nFile 85=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Report Iterations End.vi\"\r\nFile 86=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Start Iterations.vi\"\r\nFile 87=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Condition.ctl\"\r\nFile 88=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Core.vi\"\r\nFile 89=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Iterations.vi\"\r\nFile 90=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Stop Reason.ctl\"\r\nFile 91=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Untitled 4.vi\"\r\nFile 92=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Settings.vi\"\r\nFile 93=\"vi.lib/LS Instruments AG/Iterator Actor/Abstract Iterator Actor/Write Stop Reason.vi\"\r\nFile 94=\"project/errors/LS Instruments AG/Iterator Actor/Iterator-Actor-errors.txt\"\r\nFile 95=\"help/LS Instruments AG/Iterator Actor/README.md\"\r\nFile 96=\"examples/LS Instruments AG/Iterator Actor/Example Iterator NR Actor.lvlib\"\r\nFile 97=\"examples/LS Instruments AG/Iterator Actor/Launcher.vi\"\r\nFile 98=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Do.vi\"\r\nFile 99=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Update Error Msg/Update Error Msg.lvclass\"\r\nFile 100=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Do.vi\"\r\nFile 101=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Pre Iterate Reply Msg/Pre Iteration Msg.lvclass\"\r\nFile 102=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Do.vi\"\r\nFile 103=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Post Iterate Reply Msg/Post Iteration Msg.lvclass\"\r\nFile 104=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Do.vi\"\r\nFile 105=\"examples/LS Instruments AG/Iterator Actor/Example Actor Messages/Iterate Reply Msg/Iteration Msg.lvclass\"\r\nFile 106=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Actor Core.vi\"\r\nFile 107=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Example Actor.lvclass\"\r\nFile 108=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Iterate.vi\"\r\nFile 109=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Iterator Settings.ctl\"\r\nFile 110=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Post Iterate.vi\"\r\nFile 111=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Pre Iterate.vi\"\r\nFile 112=\"examples/LS Instruments AG/Iterator Actor/Example Actor/Update Error.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_LS_Instruments_AG_lib_Iterator_Actor.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"controls_LS_Instruments_AG_lib_Iterator_Actor.mnu\"\r\n"
+  }
+ }
+]
