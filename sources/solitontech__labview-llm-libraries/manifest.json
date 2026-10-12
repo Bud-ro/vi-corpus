@@ -1,0 +1,1948 @@
+{
+ "repo": "solitontech/labview-llm-libraries",
+ "url": "https://github.com/solitontech/labview-llm-libraries",
+ "commit": "56bb86eb43f7f76b7b60c6b2378f03718f077c2e",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "build_support/Post-Install Custom Action.vi",
+   "bytes": 14742,
+   "sha256": "bdf8fe1852eb9f32554bf585a617133401717cd3965c93268d06f8682203724c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/chat_ui_tester.vi",
+   "bytes": 16746,
+   "sha256": "248a65f271d45a34d38885859a8a08dfe346e1013ba25da231d3c07104dfab78",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_data_raw_pipeline.vi",
+   "bytes": 38741,
+   "sha256": "c9ad66382c84a98ee402940384d20e18e9a3ca98d322426bc8ee4cf5a5ce6cdd",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_data_simple_pipeline.vi",
+   "bytes": 239692,
+   "sha256": "5f7649818b7aab5f00361e38d9b989565e065b1e7c82fcc8a658886cd75a7382",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_llm_chatmodel_unit_test_1.vi",
+   "bytes": 40045,
+   "sha256": "23593c9540cff3db6f2c4332b70049347804555881593a5cd61d8fbc04305722",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_llm_embedding_unit_test_1.vi",
+   "bytes": 32073,
+   "sha256": "75e765c1fd10c3a10a7a9f0e976449ebb917810a695ca310a9e486826c160604",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_simple_qa.vi",
+   "bytes": 43925,
+   "sha256": "1af14e54819fa15477d60ad68fa0e4d38a0b40f80d974037e68dd54b58d497a6",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_simple_qa_html_ui.vi",
+   "bytes": 35925,
+   "sha256": "a3f206a1ce38ccba1dc2a36144b519b3b6b9bea26b8a2b1d32931f7e8128522c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_vector_add_vectors.vi",
+   "bytes": 40922,
+   "sha256": "12b955b8f3dcb83ce8ab1c937b5005314bf53ea67e7c17fc7900eb4108f6518f",
+   "via": "extension"
+  },
+  {
+   "path": "examples/example_vector_search_vectors.vi",
+   "bytes": 33253,
+   "sha256": "8d858640193b9778635cd47a791e7e7a0cd674362a5604568d0647707e637653",
+   "via": "extension"
+  },
+  {
+   "path": "labview_llm_libraries.lvproj",
+   "bytes": 12300,
+   "sha256": "2f9495462c2a91434b838e315d15052580981ffd56f29b6bc4404e5c6ae2a985",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/agent_simple_qa.lvclass",
+   "bytes": 65571,
+   "sha256": "b2dec1fe606d111101d77dd2bdfec7af467c5ce80d6b825d4747ab37d86672e9",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/ask_data_core.vi",
+   "bytes": 33609,
+   "sha256": "972e932ebe07447f1b059ec73b10f2175ddd9dbc00df5e446b46dc23712b96c5",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/ask_model_core.vi",
+   "bytes": 22142,
+   "sha256": "027b17012c34475d470c1ddf2c18ad76d1913a2bc38d856210e998da10e636d3",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/clear_conversation_history.vi",
+   "bytes": 19938,
+   "sha256": "bc4f2360702a163aa4595a04bc7a80fa31a1b31ba5d81666e884620502e57ff9",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/destroy.vi",
+   "bytes": 18319,
+   "sha256": "98ca109d6cf0ba699a28e58abe31e195bb5e41aa01942b8a861aaf252b646ec8",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/instantiate_simple_qa.vi",
+   "bytes": 22801,
+   "sha256": "d18c2457b19ac004c2dafd9f3090baa248e11d84396988fa09a13c71f2d89c6e",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/poly/ask_poly.vi",
+   "bytes": 12372,
+   "sha256": "8443ce832674e32735bb8dd5a638f7349d344eadbd1ec0c5691a0b99518cd703",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/poly/ask_your_data.vi",
+   "bytes": 21177,
+   "sha256": "13079d1196711b4d838b5dce7e5d2e15787a1321415beca08e64a0be3973176f",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/poly/ask_your_model.vi",
+   "bytes": 21178,
+   "sha256": "64cbdca3a9311e31132dde9f8d4731bad7e13ce9390e11a05b9dffbb5d452d67",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/prompt_queryformation.vi",
+   "bytes": 20941,
+   "sha256": "ea9e4edbdc77e61f3cc5168a8bd41b605ad8f01ec3038c8eb34be8f803c94ebf",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/prompt_synthesis.vi",
+   "bytes": 26076,
+   "sha256": "3b3bf085dba070f6fbddd590f314249fb5b72dd6878d4fb419a92347c2445126",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read chat_model.vi",
+   "bytes": 17111,
+   "sha256": "406a75db25a6becbb4a00d2383d3ea0a9bddaf001c319c6ddd71d447f67a01b1",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read collection_name.vi",
+   "bytes": 16756,
+   "sha256": "88d25d1596684824d6e52d1f44370fea8ea5002c63bfd659e2f1119a1e54064b",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read conversation.vi",
+   "bytes": 17981,
+   "sha256": "2a07656a01ef955f25ede902696ab12e3441d5c3f221afdabde3c1724932449d",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read embedding_model.vi",
+   "bytes": 17132,
+   "sha256": "364f1cc36cde2aabca2d2b26d58cba6d960a81d37665f431e2a12de01ce44db4",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read k_value.vi",
+   "bytes": 16804,
+   "sha256": "fc1c982d01ac195f1a039038d02b18d129ff7f498264dd8b0912c67a547d64e4",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Read vectorestore.vi",
+   "bytes": 17169,
+   "sha256": "c243c274b8f1070b6f3653b2aa831c6f74061fa0f3a78abec26535825cf7c008",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Write chat_model.vi",
+   "bytes": 18740,
+   "sha256": "501bb3ea70b3adc4f0f266c74099980f9692877a1d418090eaa88a268ec6784d",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Write collection_name.vi",
+   "bytes": 18477,
+   "sha256": "bc372161b911d87dabcacaa5176b0d32eae3516d8eea634c71f8f452a33cb202",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Write embedding_model.vi",
+   "bytes": 18757,
+   "sha256": "7f56e04b79adbafa5a96efed9ef8a898649755b570d9e02cd99fed521ad72bba",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Write k_value.vi",
+   "bytes": 18429,
+   "sha256": "262de13d4875cc614dfba895d481bf4c9637490653a677b6d0c04c5d7617c032",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa/property/Write vectorestore.vi",
+   "bytes": 18794,
+   "sha256": "038b5a4b2f8363cbe1fe53d59b96d5d29ce6c72871dd38a09e1e9dc9f9b8a0e0",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa_dynamicdata/agent_simple_qa_dynamic.lvclass",
+   "bytes": 26749,
+   "sha256": "076231053a2e533f9a345585f80339fd40a6770beed03c40f81dc4873a5e4200",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_simple_qa_dynamicdata/instantiate_simple_qa_dynamic.vi",
+   "bytes": 57525,
+   "sha256": "812206a25cba6946c63c9ee9301f5edb9faa1b6642ac48b23844c3d31749017f",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_template_creation_tools/Create Simple QA Agent State Machine.vi",
+   "bytes": 28224,
+   "sha256": "460dd15be0a87e036464776ac509b8015ba35f13678dc6e764aba56e36f00f49",
+   "via": "extension"
+  },
+  {
+   "path": "src/agent/agent_template_creation_tools/_simple_qa_agent_sm_template/simple_qa_agent_sm_template.vi",
+   "bytes": 119791,
+   "sha256": "1b308e57de29b5dfeddc7d87b818c0ebbcc26d9687b10fd0ddce345678dac5d8",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/abstract_data_base/abstract_data_base.lvclass",
+   "bytes": 8314,
+   "sha256": "c121368f9698c991c44dfc50323374141f057e562ed67b51a89098cdd92f35fc",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_document/create_document.vi",
+   "bytes": 21655,
+   "sha256": "a5436483fd0402d1f5bf6cdf5c2f1ec41f6d6dbcb2a93166c23702db1cc7d700",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_document/data_document.lvclass",
+   "bytes": 31847,
+   "sha256": "dbf0f8fe6f1552125ace0e78c9ee34722f8989e8d634c54f1a203bdf090894cc",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_document/property/Read id.vi",
+   "bytes": 16359,
+   "sha256": "5785747aea88f6d45e7de7479e65e1ee30142f0b6cd8d49bfc6397ea77307ec9",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_document/property/Read metadatas.vi",
+   "bytes": 17398,
+   "sha256": "69c90b86885ded1861f905debb19345d73cc6ab0aa258c95cf49ee38bcba4533",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_document/property/Read text.vi",
+   "bytes": 16357,
+   "sha256": "0c28553a10abd1c956b0aad3bf98df55d63294b439f4d284b30229ded92971ec",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/create_node.vi",
+   "bytes": 22719,
+   "sha256": "d2a461390f55b678c4b8f64f0bbbacf26e052920d8d24fdcf6cd0cfc3d67223d",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/data_node.lvclass",
+   "bytes": 36491,
+   "sha256": "363376c8bc1dbae8a6af3a89318a3f69c90677d07587928c443096cbf243866c",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Read id.vi",
+   "bytes": 16371,
+   "sha256": "4fd8a096ca8511199475e2b0e94dcb52c7b3b2bcd73f3a6fd316334768e0aafe",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Read metadatas.vi",
+   "bytes": 17414,
+   "sha256": "9b7b3ca0e8ed2d0bde0f7e70a4d76ebd4d24134c0fec423b494c78351b36e335",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Read text.vi",
+   "bytes": 16377,
+   "sha256": "c56a6c839c8020945b79e4bc8349d849588f52219eef39b4f25932a5b8d7b492",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Read vector.vi",
+   "bytes": 16827,
+   "sha256": "70df2c16cb842925529016ae1932178023433ca67cb87ce4021ffeb45bfda6b5",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Write metadatas.vi",
+   "bytes": 19547,
+   "sha256": "13ad917ea1e1df67e8c7474c60cb9d423867793aac681ddce87d2a83f32bf1fe",
+   "via": "extension"
+  },
+  {
+   "path": "src/data/data_node/property/Write vector.vi",
+   "bytes": 18964,
+   "sha256": "b292332d3b4327d1f12d36ae700b6e651dd99303c754dc6be2d2d063058a5df2",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/abstract_datadestination_base/abstract_datadestination_base.lvclass",
+   "bytes": 26254,
+   "sha256": "e27990a9f9c12080f1f0104f4f88f52c58021c0dc89a9aabde78cb59fd0dbbce",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/abstract_datadestination_base/destroy.vi",
+   "bytes": 18087,
+   "sha256": "820544ad5d080c381b5d4e2dc0acc615a706c36df7089edccbb4d021718bbb77",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/abstract_datadestination_base/store_data.vi",
+   "bytes": 158334,
+   "sha256": "f162852d92b8f01082d755809e6969f7e74eada4708e10153a876571f82a510c",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/abstract_datadestination_base/store_documents.vi",
+   "bytes": 19439,
+   "sha256": "bd79713e2e5761edea57f47963680f215bc289bec32c6c7c300d5758cb566175",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/abstract_datadestination_base/store_nodes.vi",
+   "bytes": 19367,
+   "sha256": "d20a57c99884b12e7dca9b554679c1e1777f5121283099661cdc86216ece6214",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/destination_vectorstore/destination_vectorstore.lvclass",
+   "bytes": 29753,
+   "sha256": "9975ebda8f043b411dd8418f91910afd3f759325f0c577ab15095b171aed8283",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/destination_vectorstore/instantiate_vectorstore_destinationconnector.vi",
+   "bytes": 20356,
+   "sha256": "792610267f94066d66d5b4fe3ccffe9a4ed9312543a5c5114b32d45758aa6c58",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/destination_vectorstore/store_documents.vi",
+   "bytes": 33839,
+   "sha256": "11cb64effda9e9944be5eb909821556d5c8a5a04c202beb45e126a437939b9e2",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_destination/destination_vectorstore/store_nodes.vi",
+   "bytes": 34775,
+   "sha256": "db9bcd89d4b40960c4942f35d10d39fe19195714763fd3e578862b59cbfd9c23",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_pipeline/data_simple_pipeline/data_simple_pipeline.lvclass",
+   "bytes": 34113,
+   "sha256": "d797e3e8fa590238656a2c072348b37408e3040f2019a6c9b904a42e1a3dad18",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_pipeline/data_simple_pipeline/destroy.vi",
+   "bytes": 18335,
+   "sha256": "ebb4135d051e0a3d01656e1d19ef32ee188f338ea2dda764427e09bbef7bd871",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_pipeline/data_simple_pipeline/instantiate_data_pipeline.vi",
+   "bytes": 24833,
+   "sha256": "08be31108c0705010b481c8dc2c01a15426bef3eab13856859c0b174500bdf11",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_pipeline/data_simple_pipeline/run_pipeline.vi",
+   "bytes": 32308,
+   "sha256": "afbad69c89086a9b6476e9661aba3c7ab56f598b877122e5723543ff673ec2d4",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/abstract_dataprocessing_base/abstract_dataprocessing_base.lvclass",
+   "bytes": 25429,
+   "sha256": "90f4eec3a4cb1163393e66c05c8fbe3bc8eb5d091716010d4411802ce9376922",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/abstract_dataprocessing_base/destroy.vi",
+   "bytes": 17535,
+   "sha256": "e6dc112bf6b59738bf9e8bed0c5a741eca9ffea4568f938b1a8b7bfca89be93c",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/abstract_dataprocessing_base/process_data.vi",
+   "bytes": 160332,
+   "sha256": "53b6a5b015fc476cd5ee038d7d4bd5112545377136ab65fa4993c5b1ce9831ed",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/abstract_dataprocessing_base/process_document.vi",
+   "bytes": 20564,
+   "sha256": "ffca654d92efd06ac878d44c8acb2ce6796605fa933ef913737ee886c35a9bb2",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/abstract_dataprocessing_base/process_nodes.vi",
+   "bytes": 19725,
+   "sha256": "e4c5112f3705c2bd23647b225713f37cef48bd2d61615e8f912a140296ee378a",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/chunk_character_splitter/chunk_character_splitter.lvclass",
+   "bytes": 28640,
+   "sha256": "56b4fb2db7f1fc3fc85717f4ba9b4e470fdade9e23581008fa9da8cf712b2e79",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/chunk_character_splitter/instantiate_character_splliter.vi",
+   "bytes": 19106,
+   "sha256": "7b80ddd42163355a862c15a43fe7ae5fffeeadf9b98c759048402d166c7f30c5",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/chunk_character_splitter/process_document.vi",
+   "bytes": 27712,
+   "sha256": "bdab1ce2af186d6c3a3b0d15d8efe523d9e9697edec209cb1ef80517b215e7df",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/chunk_character_splitter/process_nodes.vi",
+   "bytes": 26753,
+   "sha256": "b60eb9d5ac79692fa8136f6668c41adb75298376c8fabcc33b70a454eddfa6bf",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/chunk_character_splitter/utils/split_text_to_nodes.vi",
+   "bytes": 20207,
+   "sha256": "e4017e61c08c6528173859a88a47c97ab04ac713adc9b1fd19654e81e1f08198",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/embed_nodes/embed_nodes.lvclass",
+   "bytes": 16155,
+   "sha256": "19f7a79e966911fcc5c3b5bd2467b6cb8e26f43a86297e4e9a1f81ef6bd4f27b",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/embed_nodes/instantiate_embed_nodes.vi",
+   "bytes": 19007,
+   "sha256": "f9dad175b411c1d3cc3a75c4257f94fa4fc4fd2107f955f80894bf9dbd1a1def",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/embed_nodes/process_document.vi",
+   "bytes": 35028,
+   "sha256": "21c7a1daa93c91a7960ae3454929a90529f54eb8420f46e0f5b7ac2e46956c73",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_processor/embed_nodes/process_nodes.vi",
+   "bytes": 30733,
+   "sha256": "386e00a733311b65a0c90044b3287067ffc56d3589bf90d6fbdc748ad5c8653d",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/abstract_datasource_base/abstract_datasource_base.lvclass",
+   "bytes": 23126,
+   "sha256": "c75ba1e653661591a4a7ff45f489681040d3d072152102dc1a35d87548255196",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/abstract_datasource_base/destroy.vi",
+   "bytes": 17651,
+   "sha256": "eededc72487c0db2cfbfb113cb2b891f6fb60f7457517677fcd0cbb2e8a082dc",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/abstract_datasource_base/load_data.vi",
+   "bytes": 19609,
+   "sha256": "4ed5304969ba539542b8c8ed304451fce60496a4e3a8213a37d462b53b5771f4",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_pdf/datasource_pdf.lvclass",
+   "bytes": 17300,
+   "sha256": "4f5cc0fccf06bd044d270c0450e30ea7702cba59c3656c7649988f47cde81a3e",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_pdf/destroy.vi",
+   "bytes": 19371,
+   "sha256": "6783b630dcf0a351bbc9f11cb3e9d3b6535108530db289eee85ddaeee5f2ce76",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_pdf/instantiate_pdf_datasource.vi",
+   "bytes": 20566,
+   "sha256": "d9776045f06e80106b1c2b5d08a5dfe6bce93d01b424d6c2767ee425657239fa",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_pdf/load_data.vi",
+   "bytes": 63937,
+   "sha256": "b568850af21da70aca034fe2ad749cd808ff2d332121e2947e788341412d1d49",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_text_file/datasource_text_file.lvclass",
+   "bytes": 15960,
+   "sha256": "78f0c6de735d24324469a4f8b856351799680bd3c0e65298392b3b923a47ebbb",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_text_file/instantiate_text_files_source.vi",
+   "bytes": 19909,
+   "sha256": "86f30f95efdbc40bef2b531b9d24ca0ed9f606ad3c6ecd5da0e4c035e3dfe250",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_text_file/instantiate_text_folder_source.vi",
+   "bytes": 26418,
+   "sha256": "6464264dc97710d5b4b4cd9644f99cad85118bb2c733fa5040a4e2a0e0753ef5",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_text_file/load_data.vi",
+   "bytes": 23881,
+   "sha256": "ad1db16deb20722e8a6329626c6f66ec4283f4fbf6313fb4db7b3a728819d426",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_webpage/datasource_webpage.lvclass",
+   "bytes": 17595,
+   "sha256": "4db94210de48a8a9160e6e6200a3eb6e24a828d13bb41965fb1003343ccbc30b",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_webpage/instantiate_webpage_datasource.vi",
+   "bytes": 20382,
+   "sha256": "3f21fd246285c2a1ddec55d235fc8e9067a02cce83cd1aa77af0eaed88b7ce21",
+   "via": "extension"
+  },
+  {
+   "path": "src/data_source/datasource_webpage/load_data.vi",
+   "bytes": 26409,
+   "sha256": "9fbff3397542ae3f861c8714518739c4204871874767042a1b7d24faa2334a48",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/abstract_llm_base.lvclass",
+   "bytes": 54331,
+   "sha256": "996ee6b30a28560411cb45315320dae7533305f7d83d98ba15f7ce335df11527",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/destroy.vi",
+   "bytes": 17999,
+   "sha256": "a0bc839b070c88496823cf17527085e969ff2f81c7cb5fb913c7825fbc71fab4",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read frequency_penalty.vi",
+   "bytes": 16518,
+   "sha256": "790244ab30e69dffa86647652a1d85ca4fb2acaa54c7f7ca29e7d2c1dec0e44b",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read max_tokens.vi",
+   "bytes": 16503,
+   "sha256": "fe81c25eae8ccb4d6ad8f232e25f4f8875ae6904392553759b4b37f29beee10c",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read presence_penalty.vi",
+   "bytes": 16517,
+   "sha256": "1ae1466a95ef7b6dc397e3dfe41900b0b5d6f328d9e7e0affdc864e07434f7ba",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read show_progress_bar.vi",
+   "bytes": 16490,
+   "sha256": "146426667b549766d23212d98162f7d1b97b86be6bc759016c91674df67b0604",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read temperature.vi",
+   "bytes": 16520,
+   "sha256": "8db381cfb5421d6c4f017e6e647b988d45c9f0fca00531d1c873bea14cfb8398",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Read top_p.vi",
+   "bytes": 16514,
+   "sha256": "45f428c09c785aa0b1b64b9f2b54bc0faa811cf27daa197871891344f312861a",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write frequency_penalty.vi",
+   "bytes": 18139,
+   "sha256": "107901c765cfec241f1522d0139f0ee28c07a8d5b46573a250780485127f9f31",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write max_tokens.vi",
+   "bytes": 18128,
+   "sha256": "0a4d2bbc0ec9cfccab311bd1ed8f1096a4f962b4d630acdefe010f5cf366ce38",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write presence_penalty.vi",
+   "bytes": 18138,
+   "sha256": "1389cef86f3f9a9d3f08108984f9e8ccca54ed52c31ab96f9fdd8af8c1cab15e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write show_progress_bar.vi",
+   "bytes": 18119,
+   "sha256": "d82e53ac934ba3c7fed56354b353b1f0ff7656152245a1c15e3fbf7e07367fba",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write temperature.vi",
+   "bytes": 18141,
+   "sha256": "c8c5de39cc8b959e7d07fab1f9cadc1e9778d2cf174097d47ff10a53e86859c8",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_base/property/Write top_p.vi",
+   "bytes": 18131,
+   "sha256": "d19df27d3e40818d29d11c6e4b1a9466f1eda6f6f2dc2c02c1fa48053167e0d5",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_chatcompletion/abstract_llm_chatcompletion.lvclass",
+   "bytes": 28456,
+   "sha256": "071232e103bb9cd04a23a7a6b89b70821038cdbae82641730cba3fc6adbb2396",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_chatcompletion/run_chatcompletion.vi",
+   "bytes": 27934,
+   "sha256": "fc73ec5da4e3f38de39a0086eb61c84851f406fb08730d9f2033a3070c25de18",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_chatcompletion/run_chatcompletion_core.vi",
+   "bytes": 20003,
+   "sha256": "d13695d36e12a824955f3598c673aeb35fec68cab905ba5c8cfc2f11936f0314",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_embedding/abstract_llm_embedding.lvclass",
+   "bytes": 17220,
+   "sha256": "8e277d2539f3ccaa2d1c892c842042c946d06b903957c3726166cd55a3692127",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_embedding/run_embedding.vi",
+   "bytes": 29385,
+   "sha256": "f748417ab088666bc09f298ff4df3b53825cff4ca085ff922b25311e9e425fd2",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_llm_embedding/run_embedding_core.vi",
+   "bytes": 20674,
+   "sha256": "851a9916cb2ba8127553f6de90d92e5321c51ce5fa4d5a0b6f1e338280fbd051",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_message_base/abstract_message_base.lvclass",
+   "bytes": 36100,
+   "sha256": "61f6bf1d6f69ea8e438eaf4f420358eb612014a535a8df6bc012c18b143b338a",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/abstract_message_base/get_message_type.vi",
+   "bytes": 18464,
+   "sha256": "0532376f09b955c129e7a4bbe3ee8a5bde5f632f95baa9f864046af27e01b6dd",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/instantiate_chat_model.vi",
+   "bytes": 14330,
+   "sha256": "5e4c6c6de41d03185aada4099c713a9d5f3c7be1d55a43082beb3d8514ed775e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/instantiate_embedding_model.vi",
+   "bytes": 16203,
+   "sha256": "402bb2ce1115dedf9165737d6e16a4d83db4d7904cff7e636caec6b67cde9ec6",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm-models.lvproj",
+   "bytes": 4164,
+   "sha256": "c2821fd4c8e9a2f6c2dc009a8c20bdff7d6e49f6aa741585cc974c8e9d7c8bae",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/Instantiate_llm_anthropic.vi",
+   "bytes": 25173,
+   "sha256": "492b1ff6116175420746ee61a982daca1376e1e0126940f6f733393272ded213",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/create_full_endpoint.vi",
+   "bytes": 19532,
+   "sha256": "4c36bab1dd18af2d9e40fcb5ce9be15d33b899fb9d407b885f9b76a45f194abb",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/create_full_request_data.vi",
+   "bytes": 40476,
+   "sha256": "ec81ace630101c6470978befa1163081c6707bd4106e6ef5423633f06dc0087f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/llm_anthropic_chatmodels.lvclass",
+   "bytes": 57174,
+   "sha256": "24e901fe991a89a47f633381969549231331a679178dc9c6cff087139ed603c2",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Read Anthropic_URL.vi",
+   "bytes": 16370,
+   "sha256": "3e18db256b395d184f0b725ef918b27fea0346e7120732796f4f1b1ff747425f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Read Anthropic_key.vi",
+   "bytes": 19514,
+   "sha256": "43013283f3bf25e24b5b1191a9f0c0f60133c90d498d78cab5b5ef60a3a72f76",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Read model_name.vi",
+   "bytes": 16931,
+   "sha256": "d49a2c37f036a330ab46cf7602758190c8fa91f3caaf7ec595376ba23a5fc5db",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Write Anthropic_URL.vi",
+   "bytes": 18099,
+   "sha256": "b3d077ee12905d54fa1a6cb586a46ec048008557b95d134720c9d344399dbf5d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Write Anthropic_key.vi",
+   "bytes": 18083,
+   "sha256": "f38724bc198ce9f00ab910719640ba0d141c4756d63d7cda71bd12cc94a2e1b1",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/property/Write model_name.vi",
+   "bytes": 18648,
+   "sha256": "adb7d6946bbfde1ef267c3bd6eb31c0ff94495208c8b547482949da020270a57",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/run_chatcompletion_core.vi",
+   "bytes": 38055,
+   "sha256": "79a2d3a21dd00977e42347a0112050e92977e3121ad482d48e41c27423102854",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/utils/Extract Anthropic Response.vi",
+   "bytes": 20050,
+   "sha256": "692bd4bd17e4915f46d6419a1fe255650ad1c9ad15fd846b83bc6e85ad1dec0c",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/utils/anthropic_chatmodel_request_data.ctl",
+   "bytes": 14769,
+   "sha256": "9c6adb419f14b7888d089ba6a1cc82de7cd0228bff4b75931a9d112b44c44258",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_anthropic_chatmodels/utils/text_message_to_anthropic_message.vi",
+   "bytes": 18669,
+   "sha256": "51ef20489b0caf1109e7371d10458420c1373dbb146813bb509e0416bf5c6b09",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_azureopenai_chatmodels/Instantiate_llm_azureopenai.vi",
+   "bytes": 30291,
+   "sha256": "f7301cabbb9b164931a51e3436e1c75463b1fa964ca0a8d8eaaf39b44dd11722",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_azureopenai_chatmodels/create_full_endpoint.vi",
+   "bytes": 22024,
+   "sha256": "747160db7581d122bcad112f4b7219cc2e00c11e000021960ff8d929fac817bd",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_azureopenai_chatmodels/create_full_request_data.vi",
+   "bytes": 38452,
+   "sha256": "bf5170df47bdc7bc64499625207bbde9bab165a11eac2acd3962e9dfab68fdc5",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_azureopenai_chatmodels/create_full_token.vi",
+   "bytes": 21333,
+   "sha256": "f5be0dadf072c3caabadd1eef69ccbb039b30c72914b610950f20136eace2565",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_azureopenai_chatmodels/llm_azureopenai_chatmodels.lvclass",
+   "bytes": 41573,
+   "sha256": "9a2da99c8ad9d282b1068ff11ce2b5dce598ef9b51be51934b3af266088ed0d1",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/Instantiate_llm_gemini.vi",
+   "bytes": 24614,
+   "sha256": "5b4e345de8d504dce4490e7e147db4c2c853709693df92b24c28408364e73266",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/create_full_endpoint.vi",
+   "bytes": 19668,
+   "sha256": "106564fcd919a69643fe6eeea36f592a507063a678ec1806889533497adb2798",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/create_full_request_data.vi",
+   "bytes": 44216,
+   "sha256": "3c03449ef8f98d24e219974dc8a7e7c705113e4336e2089ca76f27ab0d6023a0",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/llm_gemini_chatmodels.lvclass",
+   "bytes": 70859,
+   "sha256": "8afc6416ace9f1b40d0702b12027bfb02f5c2eb6872eafb5d3dc0ce307ef7008",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Read Gemini_URL.vi",
+   "bytes": 16391,
+   "sha256": "4106954b16e3485ab015e386c6ccab7d2a7b4513062bed4d162564166caee3dd",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Read Gemini_api_key.vi",
+   "bytes": 16399,
+   "sha256": "5ae17cb9dc72a1f4b8e3e507de900621177aba713cae1f8f3ec950d1c4c77132",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Read model_name.vi",
+   "bytes": 16759,
+   "sha256": "4d2437b98d902237559ba3288842dae1d0fe5ae3ce2e15a83c9f631c08832ef4",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Write Gemini_URL.vi",
+   "bytes": 18116,
+   "sha256": "aa5c6479f26be0a3fc84b49a93abc0babf4c199732de314d55b867e13c044ccc",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Write Gemini_api_key.vi",
+   "bytes": 18120,
+   "sha256": "68db36a1d8b4bc8264a7d0c89ca7a9b1c23e4e4fff84a9484ee1a5285a630b93",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/property/Write model_name.vi",
+   "bytes": 18484,
+   "sha256": "eaba6aba0c75bdd12b940ebbb353fcdc53db01372473c2bccac0cb4c4469f513",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/run_chatcompletion_core.vi",
+   "bytes": 36127,
+   "sha256": "3f0a92d4e644c8434ed142d1462f172454806de5cbfc2311644d6a5b36231b74",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/utils/Extract Gemini Response.vi",
+   "bytes": 20815,
+   "sha256": "e2e571782e3b645b52be594e6d5bbf292bb76db58eea376799f8dee7defdfd40",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/utils/gemini_chatmodel_request_data.ctl",
+   "bytes": 14638,
+   "sha256": "17c1cee1c83defa3d6f73cb8ab93ca38031cc885edb2556a0d41816851c2d0e5",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/utils/image_encode_base64.vi",
+   "bytes": 25619,
+   "sha256": "ce6f718d5ba97d0ff00e82b1e0811907e04064308175e97774b0abd5b42ced63",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/utils/image_message_to_gemini_message.vi",
+   "bytes": 31535,
+   "sha256": "7f46da9f6143af96d701daa081128a78eefb3eb65ede3eba3abc105dd8eec766",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_chatmodels/utils/text_message_to_gemini_message.vi",
+   "bytes": 23910,
+   "sha256": "4a970e11e005cf3bbba6101d430e04ad1e63546586738af0bed41b75260be641",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/Instantiate_llm_openai_embed.vi",
+   "bytes": 20584,
+   "sha256": "34069a5c12d7664e2582b4d00b05401991caa9ceb12f42840dde30b5668fb292",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/create_full_endpoint.vi",
+   "bytes": 19644,
+   "sha256": "45ef9ec578818285d62a48b46abc63533f9f3b264575babed21115e2661b269d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/create_full_request_data.vi",
+   "bytes": 33372,
+   "sha256": "2e41ba2b20db08a05c2f2a44957179608540f103c454f8df08b52ef661cc1a6d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/destroy.vi",
+   "bytes": 19095,
+   "sha256": "754a7c4d6e9f0e32a5f235630aa8922876e26c3a38fb73e1ec0d2908e0594c0e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/llm_gemini_embedding.lvclass",
+   "bytes": 33875,
+   "sha256": "e1f15eae05bf0375df3c7f0cd5cbada03723fc030466daaf6a1398d64946d45f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/run_embedding_core.vi",
+   "bytes": 35654,
+   "sha256": "f316621ba633298780804167d8ad2d10a750252cbebaebd32ed4848da1e7b8cd",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/utils/extract_gemini_embeddings.vi",
+   "bytes": 28753,
+   "sha256": "9cbbaf55c9bd24f40dd2ca47e5c28d21e6d9a4cea280f8f39f9e4257de464d0a",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_gemini_embedding/utils/request_Data.ctl",
+   "bytes": 13549,
+   "sha256": "3441d2e6fa7d4d1ec9f4043a026a91c5e63d6560b68a0b80f142f6110d697f5f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/Instantiate_llm_ollama.vi",
+   "bytes": 27414,
+   "sha256": "e9e91f9718d5f5a8ae01c39bce23558212aa80a6f2d88f2e0defef40fafe8c02",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/create_full_endpoint.vi",
+   "bytes": 19472,
+   "sha256": "ce753237c2748ded64c4e39ede980267decc794c19e349a8075a5a668f73202f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/create_full_request_data.vi",
+   "bytes": 41128,
+   "sha256": "a316c1fb6751b67f7f5732d8e73b8a150729c483d6fc389d7852a9aabd9ab260",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/llm_ollama_chatmodels.lvclass",
+   "bytes": 56819,
+   "sha256": "52417f7dc2acd8af4164dc53f4177369fe2ad16e619402d67df0ce5dfebb1d14",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/property/Read Ollama_URL.vi",
+   "bytes": 16319,
+   "sha256": "7cd423a74fe60762716735c8a7a8d3e275403b5b580cf7f0cb23e97f107c3e8d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/property/Read model_name.vi",
+   "bytes": 16799,
+   "sha256": "f703c326e8db006bd0d20ba4a6826b143b1382a17887f08da5d8fcd8683f6567",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/property/Write Ollama_URL.vi",
+   "bytes": 18044,
+   "sha256": "06aa21beeb39205bbd28bf615d954aaae2fa413b93c0784b030a04cabf4de6f6",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/property/Write model_name.vi",
+   "bytes": 18528,
+   "sha256": "2b2b6768c6a823d28d5a054afb04bbe285c0e15f6065ba4c08f284edfda8dffe",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/property/Write seed.vi",
+   "bytes": 17978,
+   "sha256": "bf17b5b7d99c1069df7632c12b9defb321200f02f319b93de952df75fb9336d0",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/run_chatcompletion_core.vi",
+   "bytes": 35995,
+   "sha256": "2c8073c446cb1e8ab77fe968d399c23d42a11f5d5dc523ec1b8113870014e977",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/utils/Extract Ollama Response.vi",
+   "bytes": 20035,
+   "sha256": "4285d09c9cfeba79f0ef62e20c8df6c8e23184ac5c468425e8ceb481a094b4f7",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/utils/ollama_chatmodel_request_data.ctl",
+   "bytes": 15306,
+   "sha256": "4b2da714a78dc43dccb7044b567bde9d64348b2f53d894f9dc23199cdea2b9db",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/utils/ollama_options.ctl",
+   "bytes": 13311,
+   "sha256": "8596dca35a6967cabe4916f74165493cb50d1847a3357b8e37915192bfc38cd5",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_chatmodels/utils/text_message_to_ollama_message.vi",
+   "bytes": 17678,
+   "sha256": "36706d88e628bdeedec474d3b33b3cc175db72ff308c2c36aad3c7a404b130d4",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/Instantiate_llm_ollama_embed.vi",
+   "bytes": 20256,
+   "sha256": "1e000bc008e39ae5ddecbadb16d313e2351fa05154d58b25529e94adc63109f1",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/create_full_endpoint.vi",
+   "bytes": 19408,
+   "sha256": "d7d929f74bdeba45a3b940e0ce78706301cf5674ceca55e1bae09e78fc125b2e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/create_full_request_data.vi",
+   "bytes": 30800,
+   "sha256": "8c3865d7ea175176455afede842b53449027cf9217131a28513814e609ee9c40",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/destroy.vi",
+   "bytes": 19063,
+   "sha256": "31d01f6f1a1b38a3d23197f4963be8b30cd72db53f486facb8e0a7830e940e01",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/llm_ollama_embedding.lvclass",
+   "bytes": 46542,
+   "sha256": "e435494e933584b88a7850b8e56a174a8462826e7467529d3c83ac33b0806aab",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/run_embedding_core.vi",
+   "bytes": 35262,
+   "sha256": "297e42295b71e94793d4fb98c58134a07ab6f714694322e1d86bd0992394daa7",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/utils/extract_ollama_embeddings.vi",
+   "bytes": 23981,
+   "sha256": "2abcdd410bcb307e910504b64d19f86deecba85c5c45713d48b21f6029ef34b2",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_ollama_embedding/utils/request_Data.ctl",
+   "bytes": 12513,
+   "sha256": "8b4d38decd8402a29cea7f41287e25a87d2bedfecc5d9b646fe5350777c97ada",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/Instantiate_llm_openai.vi",
+   "bytes": 26622,
+   "sha256": "dd65d5f66d11627d7ee584cfcfe6a4b2849dec07093db8ca4507298533b3617b",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/create_full_endpoint.vi",
+   "bytes": 19456,
+   "sha256": "17d452db95252ec184e5ba158dbb3b441b1aa46a8e81226b8f4d14920b60e309",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/create_full_request_data.vi",
+   "bytes": 44440,
+   "sha256": "d4ed10be36dbe351522804800984100180df40f6d8810fa036898d1fa2d2e0af",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/create_full_token.vi",
+   "bytes": 21201,
+   "sha256": "466db3af2ca9f5dea66edaa233270264e10a8d433aa25c57a71da60a646a90aa",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/llm_openai_chatmodels.lvclass",
+   "bytes": 58742,
+   "sha256": "e613eab6c69b4a8fcb2d642701dbefeb1b158cafce61d8c3a70f24d5c42670e6",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Read OpenAI_URL.vi",
+   "bytes": 16275,
+   "sha256": "8cca5773efb59a6ff0177fad301c120d2a18993da3d5264eedc9af711932afff",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Read OpenAI_key.vi",
+   "bytes": 16275,
+   "sha256": "5199420b7b0b8fb02e88a47ac1d89937e548fd405289df1a5eb00dadbe4a6d4e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Read model_name.vi",
+   "bytes": 16751,
+   "sha256": "63877523d56ebdfeae844dfc1f42e839248177e19f71e3e59d5989b1dda812d8",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Write OpenAI_URL.vi",
+   "bytes": 18000,
+   "sha256": "1bd47e78302b485d994d442b064815873bb93349c311d7e481a7525453696cd6",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Write OpenAI_key.vi",
+   "bytes": 17996,
+   "sha256": "b5f64b8a72192a2bbec99ee4d066822f44d4c16282aa677c79e5553c5c070814",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/property/Write model_name.vi",
+   "bytes": 18492,
+   "sha256": "2bf33eba43e8dfa485c16916f503c7e8a178683bf1eedc56626af9e5df5b028e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/run_chatcompletion_core.vi",
+   "bytes": 37991,
+   "sha256": "e40101185cee8388f26b0895d3bf492a965d0a2f382eaa797a2c6cc0663cee16",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/utils/Extract OpenAI Response.vi",
+   "bytes": 20295,
+   "sha256": "9f464c88abbed98de7e2d9879da99c505499b43e40167f03aba4ffe23667c7f1",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/utils/image_message_to_openai_message.vi",
+   "bytes": 26623,
+   "sha256": "11bcf00af2e59bca1e081e13afe498dc5fad958b564c35962f988f8d04dcd13d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/utils/image_to_openai_img_format.vi",
+   "bytes": 24226,
+   "sha256": "8c0c3e7c917c0f726bf9e744eb33c4057a0c5cb1415e6534a7bd8175010001f3",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/utils/openai_chatmodel_request_data.ctl",
+   "bytes": 13730,
+   "sha256": "3184a91dc8af06cbea19478740d90eb3eb659b0069d428a9f77bd7c0d319513b",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_chatmodels/utils/text_message_to_openai_message.vi",
+   "bytes": 18630,
+   "sha256": "f35f5837088eb87f8149b730fa39867982fda25ae0ec70cedeac58773bf2c6fc",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/Instantiate_llm_openai_embed.vi",
+   "bytes": 20560,
+   "sha256": "eb8c78bc4bb3fa9f9641dcbe54edc60b2391a19bb2c756ff747441a0ce9d3b63",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/create_full_endpoint.vi",
+   "bytes": 19448,
+   "sha256": "7ba46537df0a2d8d22b164b8d4f33a523550846e58621998659ae36a35d72708",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/create_full_request_data.vi",
+   "bytes": 30644,
+   "sha256": "4fc534ef2a526a85465e2b3a794ae136c57c03d91819e20e5f204a671c0d3922",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/create_full_token.vi",
+   "bytes": 21017,
+   "sha256": "d5738e2203a94ad4b7ab8f4ddf13d93797736ddc63dfaec98a8461d2a349f770",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/destroy.vi",
+   "bytes": 19095,
+   "sha256": "feb6964ccf70fdcf4a2379b062b8678163282da9150df952a0cb629f5da625be",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/llm_openai_embedding.lvclass",
+   "bytes": 36083,
+   "sha256": "e5d8cde488ef1cb46331c58fea619d640daebf832b68e9c04113cdd53f50df63",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/run_embedding_core.vi",
+   "bytes": 47294,
+   "sha256": "a273015dd4f8a70fad57b29e1b22efb83b87f29dd2455c70aba57a8bd26427dd",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/utils/extract_openai_embeddings.vi",
+   "bytes": 24553,
+   "sha256": "eb4466078d0cf14882198e92641766e055497fa55a9539e06c84dbb578c12d2f",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/llm_openai_embedding/utils/request_Data.ctl",
+   "bytes": 12537,
+   "sha256": "70752c396b748cb6b9a623ae2e1f981c953765ac4f263f40040be6fddb85a2bc",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/Read message.vi",
+   "bytes": 18016,
+   "sha256": "6400a9d3fa37d0060a804b306ed841440a243aae6666416ca58a87fc082dff9e",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/Write message.vi",
+   "bytes": 19677,
+   "sha256": "592ccd2ff096065b83fe296d2c9a04e4746253c503732465ab1f7d2371358dc0",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/create_image_message.vi",
+   "bytes": 25356,
+   "sha256": "2fc3d3ef9e8fbad5bc7af198bb3c030feda93d2fc4e34d63b8722ac7dd09cb3d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/get_message_type.vi",
+   "bytes": 19844,
+   "sha256": "c7981239e08ea696153d1810422b4a485aba728ef95c4b171260aa163b1d83e6",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/message.ctl",
+   "bytes": 13792,
+   "sha256": "14d4d45563c6302efa2cd0c9e3c2f7393fe021fe248d4ac20aa58b04cde00858",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_image/message_image.lvclass",
+   "bytes": 36831,
+   "sha256": "dada6df4618cad5f53f2c69d53e59de5e01837aabfc05a959a1e74604ce22856",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_polymorphic.vi",
+   "bytes": 17279,
+   "sha256": "d0102b6dfb7ddb622a1eb461514b3f400f73bc94511e99d6e589080b95a4428c",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/Read message.vi",
+   "bytes": 17440,
+   "sha256": "a30dade31df13e04533c71ada51fad29ae52e158c09e35dd6d784ab1dc3d7809",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/Write message.vi",
+   "bytes": 19097,
+   "sha256": "af8d01f7f5787052f762d6925099a7646721c20ad3b611abf30d7204134143d9",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/create_error_message.vi",
+   "bytes": 23212,
+   "sha256": "f755e951fa89fbd557fc9be02d17f10c360a2946e9edd063aae36c2df9957d7a",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/create_text_message.vi",
+   "bytes": 22903,
+   "sha256": "1aa3a85defa6ed06dbc66093098d76f977f1d2bdaecec93a68fe5b6912ccca30",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/get_message_type.vi",
+   "bytes": 19792,
+   "sha256": "07fe3ba20d6c43f3dd50367db551f636273e455d84137808fee1e7f2e7924637",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/get_text_message_value.vi",
+   "bytes": 20034,
+   "sha256": "221e3793c0b4f927b32b2a598c503dacec92e2ad76f626c7a328dbcfbc2f64db",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/message.ctl",
+   "bytes": 13128,
+   "sha256": "f515ab9ce2fe027a169f62d0806a79a6027d48335411fb1ed14b7d4d6ddd9caa",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_text/message_text.lvclass",
+   "bytes": 33705,
+   "sha256": "98a5d4bae42f725a19aff2f54f76d882dcc5197e2f8beaab49946e15ccc0a7f5",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/create_vector_message.vi",
+   "bytes": 20889,
+   "sha256": "f3f697ab57a186fe777da3b3e70870741df668fc90c19287ef2a6e206754163a",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/embedding.ctl",
+   "bytes": 6006,
+   "sha256": "f7a631a211a4084a928ef67ab480863c4df77d1deb7926d317e42ff684ef0bbe",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/get_vector_message_value.vi",
+   "bytes": 20760,
+   "sha256": "ed70a9edd02ea41f8ead89921762e21ecff7edd378d4f83ce2d61d6736d9f471",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/message_vectors.lvclass",
+   "bytes": 32556,
+   "sha256": "22e8f86ff2af8fb9571b484cbac01db0bee799fe445def27d63ee657ab5d1125",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/property/Read embedding_data.vi",
+   "bytes": 18043,
+   "sha256": "606978c7b91debf1a317653e5bf36f0aa7adc8f4817262ca035731363fb84d9d",
+   "via": "extension"
+  },
+  {
+   "path": "src/models/message_vectors/property/Write embedding_data.vi",
+   "bytes": 20160,
+   "sha256": "6924166173c53cca2f7612d211df503ba3db661709ea11b0235087927eb815ed",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/apis/destroy.vi",
+   "bytes": 16243,
+   "sha256": "689f671f03e776242bf278838115020b436a0ffa964e44b3fde5f72f4a267709",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/apis/get_web_events.vi",
+   "bytes": 20410,
+   "sha256": "629eab46cb9200028c0e350dce7f118d8e58377be9ec08632dc3260b97ee9b33",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/apis/initiate.vi",
+   "bytes": 20772,
+   "sha256": "f399854a47fdec9f22cb8f8dcb5581aeee4ff69ec123413eb0fa765aba207286",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/apis/print_llm_response.vi",
+   "bytes": 23158,
+   "sha256": "fc37d17e0635012a3a876c75a2607bf129c3be5fad05620af083c2fe634acafd",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/simple_html_chat_ui.lvclass",
+   "bytes": 50369,
+   "sha256": "ea7bb70cc8ecede7bdd682a9191c4e5e7965b5752a63193efad5279ef702ba69",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/subvis/Initiate_Handshake.vi",
+   "bytes": 15306,
+   "sha256": "950c24bf165722f27ad798ac48e21b9a60838c9a31d4d8ac23201231c9a9c2f1",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/subvis/get_paths.vi",
+   "bytes": 16481,
+   "sha256": "41ccb3fb31626d4a8594d74bfbb1c2c375586702ad0408f6711d9e929089244b",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/typedefs/app_events.ctl",
+   "bytes": 5659,
+   "sha256": "ff5314f00c6dae4a6b7e782575eccf2131708fbb794c8216ae47edff203725c7",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/typedefs/data_cluster.ctl",
+   "bytes": 10717,
+   "sha256": "99643c1f9996e4f1018da85d35c50662ac5191e6191408e8a9a9a7a97fd24afd",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/typedefs/queue_data.ctl",
+   "bytes": 16119,
+   "sha256": "5736eacfe4fda392eadebd2b1437d3b572c35765337a6dc7ed93083e43bd8496",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/typedefs/web_events.ctl",
+   "bytes": 10551,
+   "sha256": "7919b296fe5c15f21aad8bbf0f2c2ec32720083fbfc2c6e5ecd69f16c6541ba1",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/ui/View.vi",
+   "bytes": 54584,
+   "sha256": "c2e4c9690e47247e119b56f8e6d30aed4586558d89d4e919bb1c385f6c10fc43",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/utils/create_corewebview2.vi",
+   "bytes": 24099,
+   "sha256": "0867d8388d56cc296a43220fc6379dbeb180074135cd87037bed83a804621ee0",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/utils/create_corewebview_env.vi",
+   "bytes": 24450,
+   "sha256": "8029aaa121599071bda0c8ca3991e264a6f910bb00083f227e1f6df3821ec882",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/env_variables/env_variables.lvlib",
+   "bytes": 1516,
+   "sha256": "7493649ce78041d92eee3a69e093c0f799f6a9c20d8060371b2fe8e55e322745",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/env_variables/get_env_variable.vi",
+   "bytes": 18944,
+   "sha256": "570049b706525ae0a96bc168340abd688afc7ee62303df87f9dfe990bc7d7e33",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/env_variables/set_env_variable.vi",
+   "bytes": 22452,
+   "sha256": "143b6ae5434a2d26f0eda3d7519003b6496e898587c6ababe777edb3855ceb44",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/env_variables/sub_vis/base64_fast_decode.vi",
+   "bytes": 29738,
+   "sha256": "48c08c8d9e5d84b711a199d9700105492f8ef9545082c281e8a72237b74abdf9",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/env_variables/sub_vis/base64_fast_encode.vi",
+   "bytes": 30266,
+   "sha256": "8a12991a13027881b03673da16447fe61b973f7964b8dc014206f7b672f48335",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/pdf_utility/pdf_to_image.vi",
+   "bytes": 25188,
+   "sha256": "055b3ba3afee09ce9737051ec3a9d387d2fee6f091c75109a79c6e6a2ac95b5f",
+   "via": "extension"
+  },
+  {
+   "path": "src/utilities/pdf_utility/pdf_utility.lvlib",
+   "bytes": 1253,
+   "sha256": "6d823f5d1b6e3d3f766d36f858456d7ed3c01691f1698cbe04400db070abfae1",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/abstract_vector_base.lvclass",
+   "bytes": 50087,
+   "sha256": "1b1c76c0b70a07340632c8d6959f3048dbf9ae09f5392efb554359fdddb4212f",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/add_vectors.vi",
+   "bytes": 20863,
+   "sha256": "e949ccacc51b8834b31d5ce03721b364541e745b79f31f41ae667bf2caf1803f",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/create_collection.vi",
+   "bytes": 18977,
+   "sha256": "556242a1379e45b780c26c1c8dd74910493534f981b2483c1f6c60cccbf95992",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/delete_collection.vi",
+   "bytes": 17845,
+   "sha256": "260b2f05cfdf429a46e20632fe3015daa7763cc16ff51fcef810ce97109dd308",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/destroy.vi",
+   "bytes": 17903,
+   "sha256": "5f4ef1e264f82fef416a600c019795c57eaac7ae2c9169f1122689f652480b1d",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/get_all_collections.vi",
+   "bytes": 18599,
+   "sha256": "9a108cb683118c623813a8edbb402b5e7a858048575c13a298b55f58e1034532",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/is_collection_exist.vi",
+   "bytes": 146779,
+   "sha256": "24e1a981e582a38b42394393158a509711dd2dda72666864becb649cc1d2b2d3",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/query_vectorsearch.vi",
+   "bytes": 22042,
+   "sha256": "5e44c6096c839b1a593c91385e2829e1e630234c7454b1302079f086dd1a3525",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/re_create_new_collection.vi",
+   "bytes": 23884,
+   "sha256": "d32ea20c793a08c3df856fb18321c2b1154fbbe79386f93ec792ef1326dad462",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/retrieve_vector.vi",
+   "bytes": 21035,
+   "sha256": "8a2e7e91565bcdb6a5b91bcc37b95750d07e0ce606854bcc60370e51fb31d433",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/retrieve_vectors.vi",
+   "bytes": 21476,
+   "sha256": "b8351c339cf49fd4bdab6563013322b42b817a9efdc986a36603c40df39b08af",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/search result.ctl",
+   "bytes": 14598,
+   "sha256": "871441de35318dc5b490fb6607fcc06af0b5c55f0fbd27cb130f1cc89ec2b4a6",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/abstract_vector_base/vector.ctl",
+   "bytes": 17327,
+   "sha256": "cdb447bc63f5ce98ecac2e90961224cc6db5dea9ca8a26976bf49aa54a48820d",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/add_vectors.vi",
+   "bytes": 32235,
+   "sha256": "5a8253e919cbadd2309b963de0472badd47a5f01f3c70ed8dab8f82261361f85",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/create_collection.vi",
+   "bytes": 23973,
+   "sha256": "f298bd7f9e9fb518e7f9c5aa6271c10f249b3af37fc7bb339a2b01c2d779f33c",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/delete_collection.vi",
+   "bytes": 21149,
+   "sha256": "ae64c4b70b7bfa6857483f97fc385870d75b8dd3bda2af46678d492037d3cf40",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/destroy.vi",
+   "bytes": 20715,
+   "sha256": "9ed8378b463cd46065037913dc661b8b75202854822d1cd0f6edd03c39e8f1e0",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/get_all_collections.vi",
+   "bytes": 21775,
+   "sha256": "e02837d935a5baa529ea30b656b44806a4b268eb7fe0826a421f805cf322b984",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/instantiate_qdrant_vector.vi",
+   "bytes": 20669,
+   "sha256": "ef83d340c6be33c47774947281b9c7fd98ceeac188d7cdf33d10843371cafe79",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/query_vectorsearch.vi",
+   "bytes": 35590,
+   "sha256": "7a12e4d38e9ef9ed3440e14a6e0453e0b6a645f70e407996ae818d1fcdd93b27",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/retrieve_vector.vi",
+   "bytes": 23923,
+   "sha256": "d5bd68045a32d657d4f28d0a2a17f6c7f278cd83bb378c8911400868765d076e",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/retrieve_vectors.vi",
+   "bytes": 27868,
+   "sha256": "e9138203c3503587bd26e5fd9e847938c19c008fb30ed97e525ff82b3dac05e6",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/create_http_communication.vi",
+   "bytes": 20513,
+   "sha256": "973f7fc5ff06a61466212f5ffa81b60646a7f2562e8e4bc06392bd7f5235457e",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/parse_general_response.vi",
+   "bytes": 20258,
+   "sha256": "a7c3dff465b1d0a954dd26a7a0619b6643d69e583f56d1ff95594f5000af9f39",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/parse_get_all_collection_response.vi",
+   "bytes": 21445,
+   "sha256": "203e9d7ea4fcbcbe3f592c4f7ca38aa856e8da2cafb3d296663c16150811a6b1",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/parse_retrieve_arrayof_point_response.vi",
+   "bytes": 26125,
+   "sha256": "397989f94c0ec53d63f4653d800eb3fd3af90f7e69015a14b94ed1a4023d70a4",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/parse_retrieve_point_response.vi",
+   "bytes": 24353,
+   "sha256": "5e2abf398d4e48fea1d20b540d9d343dc6d995550ad7e33a3e27bd7e1af0d158",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/utils/parse_search_points_response.vi",
+   "bytes": 22560,
+   "sha256": "2fb53c9a4b692f5fe47d6b6726547627314dc1a992907c602d0dc4c2ff5419d6",
+   "via": "extension"
+  },
+  {
+   "path": "src/vectorstore/vector_qdrant/vector_qdrant.lvclass",
+   "bytes": 44284,
+   "sha256": "b54dcd62fd1dcbb23c416687445bf9c652d2fd8ab47f534b7427a6d8642c2058",
+   "via": "extension"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/public/index.html",
+   "bytes": 7113,
+   "sha256": "b3e2e79ae663dd901d3c589180c8b60b50fe3898574438f1200f842af5840c93",
+   "via": "ref:src/user_interfaces/simple_html_chat_ui/subvis/get_paths.vi"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/assembly_support/Microsoft.Web.WebView2.Core.dll",
+   "bytes": 577616,
+   "sha256": "ad8b552faf2b32aa82ed30956efece57bf8bb1f283fd6ca6a3643f5608766a2e",
+   "via": "ref:src/user_interfaces/simple_html_chat_ui/ui/View.vi"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/assembly_support/Microsoft.Web.WebView2.WinForms.dll",
+   "bytes": 38472,
+   "sha256": "60e79c795aa4e4a5d9fd3aea494a40f946fc98d48a5ee65d05cdcd3ab958e39b",
+   "via": "ref:src/user_interfaces/simple_html_chat_ui/ui/View.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 483,
+   "sha256": "10917b4f37c8d1b87321b80b1d9d85710f5a2fd272e3fb500f5348517e340e64",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1072,
+   "sha256": "da6c26b92615826f169abf15d024119f76602c6957f29e99f948f5f9d2a3090e",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 3720,
+   "sha256": "e39fa048467d61d0751f6b8e2c0e039e98162e96c8194aae9f6969ffc893cb55",
+   "via": "tree"
+  },
+  {
+   "path": "build_specs/LabVIEW_LLM_Libraries.vipb",
+   "bytes": 184085,
+   "sha256": "23bfc9bba6883e3ed67e5a72499c78d31ec9d06de5618e1c35513e1b511e0ae1",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/assembly_support/x64/WebView2Loader.dll",
+   "bytes": 162384,
+   "sha256": "96690e989a8eee97d93da058a91ea2a98f715dedd15e3b255852bc1724ca2bb0",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/assembly_support/x86/WebView2Loader.dll",
+   "bytes": 117328,
+   "sha256": "93894609e3365b62fbb4d5b4219b4199a271888160669c33dbaadbbaf5aff087",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/index.js",
+   "bytes": 3591,
+   "sha256": "1002555f620dc728c78b871679fe62645ac0f225a79fa28ecab186e01d31c729",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/package-lock.json",
+   "bytes": 29732,
+   "sha256": "bce61cf9f300b14d582dfc57087c5b8d2e62674040cdf0b3a6bef679d61cfbdf",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/package.json",
+   "bytes": 74,
+   "sha256": "21bc8df7265b0007cf28e8a7429f7f545484e2b23c445b89dff7eb960f04f5e2",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/public/assets/icons/botIcon.svg",
+   "bytes": 1872,
+   "sha256": "6d236bf15f6670286d7a0b7a89034165ec80d65e95c4ab30e7ceef74124a4982",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/scripts/app/sessionInfo.js",
+   "bytes": 2532,
+   "sha256": "baf1ba86071586b28882015e278db1aeef9e948bf7e0f8a443898602c40e2dae",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/scripts/app/webSocket.js",
+   "bytes": 9405,
+   "sha256": "00ca29fa15b7458554c591a10de3dd0f6e08c804f22291018dd2f50461f26980",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/scripts/libs/jquery-3.7.1.min.js",
+   "bytes": 87533,
+   "sha256": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/scripts/libs/marked.min.js",
+   "bytes": 39903,
+   "sha256": "3e7e7d7feb3e5d58cb6c804f68ab5c24cc7e5eb6270fd6e5cbb9124739217d0c",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/.gitignore",
+   "bytes": 13,
+   "sha256": "f1a9a09b226cf8e98a4286200c5d9ebd5c28924707ac3317947f8ecf06ab167b",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/README.md",
+   "bytes": 1360,
+   "sha256": "e4436811cb7b1cf121d18cead112a9647fac4ff35d3fed60895b04560649e05d",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/package-lock.json",
+   "bytes": 871,
+   "sha256": "9ef829fd1acc744dc7a7058674fc84c8f244a3ae75e8061df725b2fe409ba85f",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/package.json",
+   "bytes": 265,
+   "sha256": "39d3cc851d4c708a4bcab5e59f2ff0294729e074f209ce1277964ef3366fcec9",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/server.js",
+   "bytes": 4078,
+   "sha256": "e370dcb62ead2e52efa6d07d94e5578edced5605c08931d435f0e1709ca83f2b",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/server/start_server.bat",
+   "bytes": 286,
+   "sha256": "c36f11a49eda2740ed7ab9a3d4fe7c8082a431db5fb2ec32d19ff863a7785ca2",
+   "via": "tree"
+  },
+  {
+   "path": "src/user_interfaces/simple_html_chat_ui/web_files/styles/style.css",
+   "bytes": 15975,
+   "sha256": "05a2e6f2ed74d78c192e463bd7b9786f00b67ac1c5b4ed369a46e5284c522c9c",
+   "via": "tree"
+  },
+  {
+   "path": "src/utilities/env_variables/README.md",
+   "bytes": 808,
+   "sha256": "d96507f125b62aa8b1f768bdd368fd863e768c59e9e992e1540e5d2ad0db7845",
+   "via": "tree"
+  },
+  {
+   "path": "src/utilities/pdf_utility/assembly_support/eppdftoimage.xml",
+   "bytes": 9029,
+   "sha256": "72506281559a02cbdf961780dd7fa2c435ce0fafd81c87f8f3a340362e07da68",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<vilib>\\AdvancedString\\1D String Array to Delimited String.vi",
+  "<vilib>\\Array\\Helpers\\Search Unsorted 1D Array Core.vim",
+  "<vilib>\\Array\\Search Unsorted 1D Array.vim",
+  "<vilib>\\Comparison\\Equal\\Equal Comparable\\Equal Comparable.lvclass",
+  "<vilib>\\Comparison\\Equal\\Equal Comparable\\Equals.vi",
+  "<vilib>\\Comparison\\Equal\\Equal Functor\\Equal Functor.lvclass",
+  "<vilib>\\Comparison\\Equal\\Equal Functor\\Equals.vi",
+  "<vilib>\\Comparison\\Equals.vim",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\Sockets\\VISA TCP Listener\\New VISA TCP Listener.vi",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\Sockets\\VISA TCP Listener\\VISA TCP Listener.lvclass",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\WebSockets\\WebSocket Server\\New Server from Socket.vi",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\WebSockets\\WebSocket Server\\WebSocket Server.lvclass",
+  "<vilib>\\NI\\Progress Bar\\API\\Close Progress Bar.vi",
+  "<vilib>\\NI\\Progress Bar\\API\\Launch Progress Bar.vi",
+  "<vilib>\\NI\\Progress Bar\\API\\Set All.vi",
+  "<vilib>\\NI\\Progress Bar\\API\\Set Title Text.vi",
+  "<vilib>\\NI\\Progress Bar\\API\\Update Progress Bar.vi",
+  "<vilib>\\NI\\Progress Bar\\Controls\\Progress Bar Properties.ctl",
+  "<vilib>\\NI\\Progress Bar\\Controls\\Update Bar Actions.ctl",
+  "<vilib>\\NI\\Progress Bar\\Progress Bar.lvlib",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Path.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Create Directory Recursive.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Recursive File List.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\addons\\Tools\\Unicode\\Convert LV Text to UTF-8.vi",
+  "<vilib>\\addons\\Tools\\Unicode\\UTF8 Tools.lvlib",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Add State(s) to Queue__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Append Error Details__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Conditional State String__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Parse State Queue_2024__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Periodic State String__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Periodic Trigger__ogtk__JKI-SM__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Select State(s)__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Select State(s)_err__jki_lib_state_machine.vi",
+  "<vilib>\\httpClient\\AddHeader.vi",
+  "<vilib>\\httpClient\\Base64Encode.vi",
+  "<vilib>\\httpClient\\ClientHandle.ctl",
+  "<vilib>\\httpClient\\CloseHandle.vi",
+  "<vilib>\\httpClient\\DELETE.vi",
+  "<vilib>\\httpClient\\GET.vi",
+  "<vilib>\\httpClient\\LabVIEWHTTPClient.lvlib",
+  "<vilib>\\httpClient\\OpenHandle.vi",
+  "<vilib>\\httpClient\\POST.vi",
+  "<vilib>\\httpClient\\POSTBuffer.vi",
+  "<vilib>\\httpClient\\PUT.vi",
+  "<vilib>\\httpClient\\PUTBuffer.vi",
+  "<vilib>\\string\\Create NI GUID.vi",
+  "C:\\Users\\venkatesh.chandragir\\Downloads\\labview-llm-libraries-users-nigharikkha-vlm_support\\src\\models\\abstract_llm_base\\abstract_llm_base.lvclass",
+  "C:\\Users\\venkatesh.chandragir\\Downloads\\labview-llm-libraries-users-nigharikkha-vlm_support\\src\\models\\abstract_message_base\\abstract_message_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\agent\\agent_simple_qa\\agent_simple_qa.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data\\abstract_data_base\\abstract_data_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data_destination\\abstract_datadestination_base\\abstract_datadestination_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data_processor\\abstract_dataprocessing_base\\abstract_dataprocessing_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data_source\\abstract_datasource_base\\abstract_datasource_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data_source\\abstract_datasource_base\\destroy.vi",
+  "D:\\Personal\\LabVIEW LLMs\\src\\data_source\\abstract_datasource_base\\load_data.vi",
+  "D:\\Personal\\LabVIEW LLMs\\src\\models\\abstract_llm_base\\abstract_llm_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\models\\abstract_message_base\\abstract_message_base.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\models\\llm_openai_chatmodels\\llm_openai_chatmodels.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\models\\message_text\\message_text.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\models\\message_vectors\\message_vectors.lvclass",
+  "D:\\Personal\\LabVIEW LLMs\\src\\tools\\pdf_utility\\assembly_support\\PDF_Utility.dll",
+  "D:\\Personal\\LabVIEW LLMs\\src\\user_interfaces\\simple_html_chat_ui\\assembly_support\\Microsoft.Web.WebView2.Core.dll",
+  "D:\\Personal\\LabVIEW LLMs\\src\\user_interfaces\\simple_html_chat_ui\\assembly_support\\Microsoft.Web.WebView2.WinForms.dll",
+  "D:\\Personal\\LabVIEW LLMs\\src\\vectorstore\\abstract_vector_base\\abstract_vector_base.lvclass",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_destination\\abstract_datadestination_base\\store_documents.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_destination\\abstract_datadestination_base\\store_nodes.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_processor\\abstract_dataprocessing_base\\process_data.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_processor\\abstract_dataprocessing_base\\process_document.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_processor\\abstract_dataprocessing_base\\process_nodes.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\data_source\\abstract_datasource_base\\load_data.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\abstract_llm_base\\destroy.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\abstract_llm_chatcompletion\\run_chatcompletion.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\abstract_llm_embedding\\run_embedding.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\abstract_message_base\\get_message_type.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\llm_openai_chatmodels\\create_full_endpoint.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\llm_openai_chatmodels\\create_full_request_data.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\models\\llm_openai_chatmodels\\create_full_token.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\add_vectors.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\create_collection.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\delete_collection.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\destroy.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\get_all_collections.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\query_vectorsearch.vi",
+  "D:\\petwork\\labview-llm-libraries\\src\\vectorstore\\abstract_vector_base\\retrieve_vector.vi"
+ ]
+}

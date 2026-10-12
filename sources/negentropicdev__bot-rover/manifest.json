@@ -1,0 +1,971 @@
+{
+ "repo": "negentropicdev/bot-rover",
+ "url": "https://github.com/negentropicdev/bot-rover",
+ "commit": "3650c374044763fdfa8fd227a672dab23d587289",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "PC Remote/PC Remote.lvlib",
+   "bytes": 1192,
+   "sha256": "661598a5db3f79bd0d095dbeb74222c90ecf8735caaa4fdec26dcad8cd082d33",
+   "via": "extension"
+  },
+  {
+   "path": "Rover.lvproj",
+   "bytes": 11186,
+   "sha256": "a232b958bf41373f4f30a6e965965d4df2c82eb4a54937a882ed32cef86f3ac2",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT.vi",
+   "bytes": 16994,
+   "sha256": "f7fd3e258ef785ee1b85f19c88ac7038a6745444d235845fda70d96376274593",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Cleanup.vi",
+   "bytes": 26831,
+   "sha256": "7f140a9487e17c22a22bc6a5667e2e89ba1efa30cd79e2c9d5414e597963cd1e",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Control JSON.ctl",
+   "bytes": 13429,
+   "sha256": "cb657224420f6f60ce180e90cad2e6d99b8a334ff9be73aeef968434987e5bfa",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Ctor.vi",
+   "bytes": 34856,
+   "sha256": "f3570e4b4e8ece2dcbceb13cdf37a4c7129211c0452babc23cbdbc43c0151959",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Handle Message.vi",
+   "bytes": 31990,
+   "sha256": "b484acade3c9ece0d4ca60db080e899e1e3634d3d9cbbdee845952e3c0e1c9e2",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/LabBOT.lvclass",
+   "bytes": 95850,
+   "sha256": "de8f4fe91b2eda2c43d5b8ca60691fcffb3e1b7f56c97df501350e9555301b06",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Run.vi",
+   "bytes": 37867,
+   "sha256": "6dbca7a4659ac82eac3822c2b02256d11eeb4018dcdec769ddf6d5ea288019a4",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Server Loop.vi",
+   "bytes": 52907,
+   "sha256": "6c2c4de01cb1de65fab182152598076f74383b16c6cafb2de7d8034d496f6283",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/LabBOT/Stop.vi",
+   "bytes": 22392,
+   "sha256": "f601b16773731e71e5a420604c51b05bc62182b2f48a682b354e9724a77b3af7",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover.lvlib",
+   "bytes": 1400,
+   "sha256": "9f1dd7f329aa745c2180eb599398fbd139de966f7ed81ae1923ee962af99f6f1",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Byte Array to Single Array.vi",
+   "bytes": 20566,
+   "sha256": "91fa571314e8aedb692b5850e53b34e9b36892e791ffe1602d7dad8b18f05155",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Cleanup.vi",
+   "bytes": 45003,
+   "sha256": "45677ed69f6b4fb23f6ad3e4f533e7dd7ef173f6f5998eb927306fc0c0e8368f",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Config Odometry.vi",
+   "bytes": 35327,
+   "sha256": "7f364ae73eb44ab35411ba87bbff52cc9257b82aabff0a18888b9ce1ce78b46a",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Ctor.vi",
+   "bytes": 46232,
+   "sha256": "af5530a47fd1d33c35c5eea47b99740dced8657d996f09598c0e2ccd33eb9188",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Drive.vi",
+   "bytes": 32565,
+   "sha256": "4d3488779aeb43df2bc75ac8e7b8f9d9ae97d8068d08fb335331dbcf6f04c4a8",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Flags.ctl",
+   "bytes": 10414,
+   "sha256": "98951a2b506b56ad31ee3657a2c2c9cab028264a6e80d113c7668163d35cb9bd",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Get Output.vi",
+   "bytes": 30366,
+   "sha256": "fae8d6cc839e17e089fbc3f4348a6dae2c3a957864180783d3ceea698e0dbf99",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Get Pose.vi",
+   "bytes": 36956,
+   "sha256": "fd54993c62fb3b8ad9975e6d57da7c6d7521bd3b5bcbcbab1bbb2d264f0a6a66",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/I2C Register.ctl",
+   "bytes": 12889,
+   "sha256": "f270e42755ba98f9657c3575273f6c936d4e098d37d8371bd56756e56a6b3257",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/I2C_Test.vi",
+   "bytes": 32000,
+   "sha256": "628cf421c1792a255914dd06886b9b68bab4faca32e11276c5cd5968c3913b09",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Outputs.ctl",
+   "bytes": 10088,
+   "sha256": "e753cf29e2f187837869c98a7bb485cb0c40f1b17240f92a5b3b52c8ff5e36ce",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/PID Tuning.ctl",
+   "bytes": 10187,
+   "sha256": "9b07d97b8b0b9c5d62b0e3cc8c172d1706cd658d9339c9df202167870da52393",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Pose.ctl",
+   "bytes": 10177,
+   "sha256": "e322b5185da26ef6b0106570e7c9d0f5e46ad07fb87d27f51319636054fd862d",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Register SGL.vi",
+   "bytes": 19224,
+   "sha256": "3e5ebeb75ee38a95db99e7d1505f6f82d3f0346e3082d7cb06048824ac79cd0f",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Rover.lvclass",
+   "bytes": 109914,
+   "sha256": "268c6819ca149f22e48f9d1512f0bc56a271c96801745c9e027133456379edaa",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/SGL Array Registers.vi",
+   "bytes": 22675,
+   "sha256": "2807d6f7a7c18a95c873cc8c41d40b7a8ab6fbaa856a6f4a6ecf894be98fe530",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Send Flags.vi",
+   "bytes": 26854,
+   "sha256": "6736f100b99a4be4bd4667e716da314c6bdb7c46debf08b26a9514079f45808b",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Set PID Tuning.vi",
+   "bytes": 27214,
+   "sha256": "15f149c7681fb1e557543d1cc533fb29fc2f8810e9fe1e3a96ccb1a65077e5b6",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Set Wheel Width.vi",
+   "bytes": 15575,
+   "sha256": "00eec9b4a18b5969415ecc934763cdd2d756d426981a50fc919348953729e6fe",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Test Pose.vi",
+   "bytes": 38225,
+   "sha256": "4d30bc17b978bab190ad9b35e19ace817a2bd8999cbc55b42d9cd57b32ac96b3",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Test Prop.vi",
+   "bytes": 19217,
+   "sha256": "fbad3a0b43ef884fdd49a97f1d1cc9e27d7baf06da4eefbed28eadc392e0ab41",
+   "via": "extension"
+  },
+  {
+   "path": "Rover/Rover/Test Write Width.vi",
+   "bytes": 27344,
+   "sha256": "9250ea827f14891e801208ed50614f489466d5024205c6f713669e617f934537",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 150,
+   "sha256": "8f7268d22d6bf29ff0f07a2cd256d4de1c13fae0e746b5f8f6527e55fef3b294",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1064,
+   "sha256": "667f40b51905c011cda5dc7dd28c0e32049e9946e8439cd523d5099e19d1dc24",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 90,
+   "sha256": "5073c07a0e2c9941168f479f8f2414b5b6f4c5add1422427771b1b5078941a91",
+   "via": "tree"
+  },
+  {
+   "path": "avr/.vscode/c_cpp_properties.json",
+   "bytes": 495,
+   "sha256": "0fc13b0234d7c3f6b5ab5b1969b6d2ceae0dfec0fe1077f00ff0aabdb2f740ea",
+   "via": "tree"
+  },
+  {
+   "path": "avr/.vscode/tasks.json",
+   "bytes": 976,
+   "sha256": "6facc324701043925710b38d76f7dac848b775668cbfdafcb41f79f3f3bc6017",
+   "via": "tree"
+  },
+  {
+   "path": "avr/Makefile",
+   "bytes": 122,
+   "sha256": "bf66780a976a8ad3ec43d12ae3232b17f6f10a6fc780746c1967832fc2559aa8",
+   "via": "tree"
+  },
+  {
+   "path": "avr/README",
+   "bytes": 1301,
+   "sha256": "a3de97df7c13d3a41b360ae38444a82a606141b7f4eb2a6b464c94473b1d4e0a",
+   "via": "tree"
+  },
+  {
+   "path": "avr/avr.mk",
+   "bytes": 2174,
+   "sha256": "3c8d9272ff7d708f39212ed45dfd29e29b3a32546c23ac0f016531de4568d0a9",
+   "via": "tree"
+  },
+  {
+   "path": "avr/commands.mk",
+   "bytes": 2686,
+   "sha256": "85bbb8fc3465bf84528e94ae519af5985f366ef913c9a5ffe3c3eee231d1b70f",
+   "via": "tree"
+  },
+  {
+   "path": "avr/common.mk",
+   "bytes": 1671,
+   "sha256": "641cb6bf1f2bbaf9598f12474402fb041ebb0a57c63ed0a0be188e7fa142ee1c",
+   "via": "tree"
+  },
+  {
+   "path": "avr/dirs.mk",
+   "bytes": 785,
+   "sha256": "db4364548a8ce2c427b42c0ba3cd7f258a01d6c340362816b53ac0f19a90e92e",
+   "via": "tree"
+  },
+  {
+   "path": "avr/flags.mk",
+   "bytes": 797,
+   "sha256": "7698606eb0273bd0bf5033610e6c70ea3801eb3f5f650d3c9e95d24d54cf0c04",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/base/encoder.h",
+   "bytes": 217,
+   "sha256": "81c4d50d1b0f5dbdc5bc03f07ddb269f6c4bad7cb250689821739dbee073efef",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/base/odometry.h",
+   "bytes": 969,
+   "sha256": "86f3dcd7c15c8ccf0c0706fc5de6506c497a3cf6093bf2765030f2f74d66f01c",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/base/pid.h",
+   "bytes": 795,
+   "sha256": "c791e1298d618506319249c7653891f5569f2de74eb69351d23c57d18c03eedd",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/base/wheel.h",
+   "bytes": 550,
+   "sha256": "72c9c999409289390a58c8aa1da02074b953487c3156cbce0c537594084c5c51",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/device/dht.h",
+   "bytes": 650,
+   "sha256": "b4223457fbfdee08137f57071886d82c1d2c1dd261fdab501eb9770f73ee0bdc",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/device/hcsr04.h",
+   "bytes": 505,
+   "sha256": "740a09d8383951cc50d004d1922c75806a2ebf8b07c00371c2d4ed9fb4f70dfc",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/system/avr_i2c.h",
+   "bytes": 7445,
+   "sha256": "ee9b478e57be1b14e69839f574b49953b9bcddc9a83b4e2369992769f0978591",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/system/avr_i2c_registers.h",
+   "bytes": 1021,
+   "sha256": "9efd674651973517ed9445b48952b83767371f11bf38bcd6271f13d01c0c511d",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/system/avr_serial.h",
+   "bytes": 202,
+   "sha256": "69653580e039517e2598495edd38715ae90e49cef6bf76fa6e8ef2fced2d8c37",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/system/avr_timer.h",
+   "bytes": 154,
+   "sha256": "f68821cbe4667a5f9a927e230ca3dcee190e17e4587eae4a0c0f63a4029306e7",
+   "via": "tree"
+  },
+  {
+   "path": "avr/include/system/circularbuffer.h",
+   "bytes": 401,
+   "sha256": "b7b5d10285d5a919dfa7af3d934213d96456a1b2c6ba384b223ad8a7b35cc1fd",
+   "via": "tree"
+  },
+  {
+   "path": "avr/rules.mk",
+   "bytes": 854,
+   "sha256": "e312da3fd3d7e78864e8d1eb727e5d8198185d6f1feb7750ae393999c2c9b844",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/Makefile",
+   "bytes": 21,
+   "sha256": "37ff4a8fd791de12f3ff7f9aa573c448280bef7757974b899139c60d9ae14a5a",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/base/Makefile",
+   "bytes": 82,
+   "sha256": "dad1dcfaca1fd0b42ad14f9ae479f980e651687a33766f9fc0c728f35b925373",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/base/encoder.cpp",
+   "bytes": 1025,
+   "sha256": "fc138903571e24af505dddfa71234ec9ee0633f63d32294582e9927724f2959f",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/base/odometry.cpp",
+   "bytes": 2296,
+   "sha256": "943fdd88962c0571c5bfa6d8379c2e6b73172e53aeccafaf903a429cdec3f847",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/base/pid.cpp",
+   "bytes": 2939,
+   "sha256": "bea262fece88453a446bd7acb67b02584aca643c046f948073ace6ffa0a2417b",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/base/wheel.cpp",
+   "bytes": 1297,
+   "sha256": "ed447c42ad252fa6ec4c1a8fc52a2887f98fd092468aa39a4b14a99e98560de5",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/device/Makefile",
+   "bytes": 45,
+   "sha256": "0da6e35e2555cb88916625006f6bb39307fd4081502eefaefc0b5ee38f3f615f",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/device/dht.cpp",
+   "bytes": 3307,
+   "sha256": "cbbb2478ea33e13b88d4b78170c8ee5b38e92cab97f50a5a00e89a8253dc9a1f",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/device/hcsr04.cpp",
+   "bytes": 856,
+   "sha256": "5beadfd017e3a2793911507247b5267a5e55ef998045ee73ac4ce33137d2f6aa",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/Makefile",
+   "bytes": 451,
+   "sha256": "9978041955e65c7d3f81f9ec4b3364cfe369e322b9894f75f6e75c5a183fbce8",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/blink.cpp",
+   "bytes": 538,
+   "sha256": "d706b347ba4cf7b86f4962ed428e99c433a7f34612ed5e666b0879c8fd6bb25c",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/enc_test.cpp",
+   "bytes": 1608,
+   "sha256": "434821ab4f537ea7931a1a5d8ef85cdb37d8516566a5d38ce46519681b9d9729",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/i2ctest.cpp",
+   "bytes": 1623,
+   "sha256": "463da23de7b9f1ad9c91dcaa1b079ea60e7274667c945a433ca1df820aeaee98",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/joyrover.cpp",
+   "bytes": 9817,
+   "sha256": "d685678cc3b9775bb52b44f0f80263ca8020784c314ef838fc63e916805667d5",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/odom_test.cpp",
+   "bytes": 1857,
+   "sha256": "7b29a60f9dbd4654741f592daad9391bd95385ea16358ce9a496a0364fc92d25",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/pid_test.cpp",
+   "bytes": 2764,
+   "sha256": "6c723d21149658464c7e70147bcce2b0410caf453425e8603d037b09ab6d7d19",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/pidtest.cpp",
+   "bytes": 12397,
+   "sha256": "720d5dc48a5ca6e4ff46465dd78ab45aa543f67a47233754fda2c4a748fa6421",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/rover.cpp",
+   "bytes": 3501,
+   "sha256": "c6a4cd53c49e4ac67208c11d7d2d4de67e4f3064bb571ae1383bd5ad9e3c6f39",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/sertest.cpp",
+   "bytes": 854,
+   "sha256": "4b66ce14885ef3945f578057672c88905176c4847c85d12a794c0f29cc95beb4",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/sonar.cpp",
+   "bytes": 4274,
+   "sha256": "d04c9a62c0540b95bba5b15b57605f9f5f88e62caab7238cdb64fa3fa45025df",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/sonartest.cpp",
+   "bytes": 1731,
+   "sha256": "5710afedca010d8770267788f5a17508de90fd62a689a7cf96240cbc2875e393",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/firmware/testdrive.cpp",
+   "bytes": 2802,
+   "sha256": "298f10c774e5b1b5a27f8f42488b7dc7a1608e5e7669cfa581399644693f0128",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/Makefile",
+   "bytes": 122,
+   "sha256": "37fdcb02a8284a3622feb2a78abbf8215b45d47cd29e8d03d58fe0ff189c5a8d",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/avr_i2c.cpp",
+   "bytes": 13214,
+   "sha256": "1b2bff3356a504b170de1f6d02b78188f6ff500c4ca3566f8ee914da50b5eeea",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/avr_i2c_registers.cpp",
+   "bytes": 1626,
+   "sha256": "fa20cd686142f7058d1c15a467c1d21512aa4e8f9fa267c02b2b3bf84b205e67",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/avr_serial.cpp",
+   "bytes": 2258,
+   "sha256": "d94ce52a9628782664d97bd236fc1dc0d74891384a05555d9122536d111084c7",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/avr_timer.cpp",
+   "bytes": 2720,
+   "sha256": "44c77cd5b453429aa2140dfa8b80ef0678dce66546c4402bd3ce297bf45edd8e",
+   "via": "tree"
+  },
+  {
+   "path": "avr/src/system/circularbuffer.cpp",
+   "bytes": 580,
+   "sha256": "02099270db620de35ff9268aa95db6b15603483efe6e5eb5b8b4b378f7b3121a",
+   "via": "tree"
+  },
+  {
+   "path": "web/.env",
+   "bytes": 1669,
+   "sha256": "5b7042f5f601978ed9fe0df53f72948cec7b771fb0d61dfff2caf4b6304154d5",
+   "via": "tree"
+  },
+  {
+   "path": "web/.env.test",
+   "bytes": 162,
+   "sha256": "4c9127ab0e7e4d87f1d2d13fe36d356c3ae80098d30cf4d574302aeeba26bd22",
+   "via": "tree"
+  },
+  {
+   "path": "web/.gitignore",
+   "bytes": 436,
+   "sha256": "1bb82066162f0a6cf32f851f6d6e71a0b107bdbe69e99b4a5aafdbe935dfc3bf",
+   "via": "tree"
+  },
+  {
+   "path": "web/LICENSE",
+   "bytes": 1055,
+   "sha256": "3f5373062162d7506a9c13569a6a68e5adf66af2b736dcc77cdb35f2f9c5d8b9",
+   "via": "tree"
+  },
+  {
+   "path": "web/assets/css/app.css",
+   "bytes": 64,
+   "sha256": "9087e9da2ca450676a4dc45671608b666b4d7b2714a1f693d36bd47b5f4f7287",
+   "via": "tree"
+  },
+  {
+   "path": "web/assets/js/app.js",
+   "bytes": 531,
+   "sha256": "12bec5cc4c472788287292a4010d282e3161c931da00ee765f60e691b70e9e49",
+   "via": "tree"
+  },
+  {
+   "path": "web/assets/js/app.vue",
+   "bytes": 6723,
+   "sha256": "965cb8049dcc21b4e7fe6cc68d9ddb5d52e50483131fed17fc4aaf3469309d52",
+   "via": "tree"
+  },
+  {
+   "path": "web/bin/console",
+   "bytes": 1293,
+   "sha256": "69f36c81d722ce3d4f0ab818fa5a994e5d0ee00c823d491d292a9f13728d009d",
+   "via": "tree"
+  },
+  {
+   "path": "web/bin/phpunit",
+   "bytes": 426,
+   "sha256": "816c9b330316f430a6caf661021663ede69db2d655cb9ccd4206e231ea0a37e0",
+   "via": "tree"
+  },
+  {
+   "path": "web/c.bat",
+   "bytes": 19,
+   "sha256": "3183fa2b52ac48a8fa3865b218b2977f3c6841fb1afdfb43cf24c08a3a867223",
+   "via": "tree"
+  },
+  {
+   "path": "web/composer.json",
+   "bytes": 3096,
+   "sha256": "f983d4e41eb4a97a3d07569756f55c86dbcdd22d286e3fffe17d32209f5a70b8",
+   "via": "tree"
+  },
+  {
+   "path": "web/composer.lock",
+   "bytes": 291112,
+   "sha256": "ebeed6beaebb534fa0a8934b7809760845bd9f940c182c2479e05ccfd232b68f",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/bundles.php",
+   "bytes": 981,
+   "sha256": "bea7cfbcb4b5fd62de5951a67500d839d930c46eb9a44359e70a9af6a4d7ba2f",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/assets.yaml",
+   "bytes": 101,
+   "sha256": "b222c82f22afc9c9bf9de52655734f5e6d17c56a82db98ebc53d74de76228a15",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/cache.yaml",
+   "bytes": 687,
+   "sha256": "d1492304df82d45ca2624ce41714925835f3ee163bead6b586b54224bb685fcf",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/dev/debug.yaml",
+   "bytes": 235,
+   "sha256": "bf1693a98e50c731340d80be9d74b8304c0e50e618ac6786b9b86f6034d3a582",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/dev/monolog.yaml",
+   "bytes": 606,
+   "sha256": "799355ee2dfb60e1b1cd94d2b1b0ffa3a7b530e0b012ab4b4f56a48a1f4e5ce4",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/dev/web_profiler.yaml",
+   "bytes": 116,
+   "sha256": "8d9edf2471f2eaafbd202f8f8b7d44a689c1ae8f59796c6872efb5c62227a689",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/doctrine.yaml",
+   "bytes": 601,
+   "sha256": "9c3ad3ce99347762691f8586477efcd5e38ee7028cece895cb62d63fbfd2ab28",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/doctrine_migrations.yaml",
+   "bytes": 241,
+   "sha256": "d397e2eaab31cc2863e6868f7bee92c0c1c62cb5e2ccd35b65d0d176c5827ad1",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/framework.yaml",
+   "bytes": 526,
+   "sha256": "79aca4108ec9e37f15f21b0c7d86f2339e764154a6c583a0e0b162c77526d631",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/mailer.yaml",
+   "bytes": 56,
+   "sha256": "fcb973d7195053db112d67218570b9529472ce8b9b43bd55350e5555d9ba5f35",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/notifier.yaml",
+   "bytes": 523,
+   "sha256": "f7996c9e5a0d8919f9b491a1025abd530644ce05978e045b284bcde2b15f1cbb",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/prod/deprecations.yaml",
+   "bytes": 315,
+   "sha256": "53e29a144fd78f7d364d4a572d81246c5ed4d9dd851410a90275f0f3a5f88b5a",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/prod/doctrine.yaml",
+   "bytes": 545,
+   "sha256": "ef81a3907a33918b52166360da74bd86d38754793090114ebbef615d5a314036",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/prod/monolog.yaml",
+   "bytes": 521,
+   "sha256": "c74a60ba5bbcdb0c37ceda827ee25fe78d1c97ab0419f367adc1b2f4deb6de62",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/prod/routing.yaml",
+   "bytes": 57,
+   "sha256": "b3669c92f164c5ea93d5b29e06149245f02a9b33cfa2c46a143d1261075f4263",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/prod/webpack_encore.yaml",
+   "bytes": 154,
+   "sha256": "87dfdd23ceaa014a2a8e1fcc999bf8ce2db063c00c87537ae1f57cadff26a0e3",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/routing.yaml",
+   "bytes": 254,
+   "sha256": "8f09abe3cdf7f329a7a0fc3e13710df02b2d34cb031a276b6dd3dd3cca8e925e",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/security.yaml",
+   "bytes": 881,
+   "sha256": "90982d40013a791b3ed1aaa204dbe820236d4abd9ef1dfcee4b134d8fd441420",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/sensio_framework_extra.yaml",
+   "bytes": 63,
+   "sha256": "8c54a5491f07fc96f802e5860ad2c7079f0f70407231b9d030541399ce438af3",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/framework.yaml",
+   "bytes": 85,
+   "sha256": "94a6a5133ee3df43e6b50a7a96be223b990d180aae79d5f275fae757c6521473",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/monolog.yaml",
+   "bytes": 337,
+   "sha256": "36fb55ba7d8bbcac64e5b68727e73c1f46d30a19f01710d1cd9143f1069fe9d6",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/twig.yaml",
+   "bytes": 33,
+   "sha256": "7338845543461e726f830205c5940c75859bb071b2a664b9d6416f0fe7080059",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/validator.yaml",
+   "bytes": 67,
+   "sha256": "519187585ccdab46bf7add947375951e5d1703604f797ba75957c19ea03f79c2",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/web_profiler.yaml",
+   "bytes": 109,
+   "sha256": "7acd155dca6745b49a7651d72bcae084fc9bc4c3457720ea305d73efb9067ee5",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/test/webpack_encore.yaml",
+   "bytes": 41,
+   "sha256": "e0723439df4aebc561d8035d8c96bfa0ce16350541d4a9c997542a8667659b4e",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/translation.yaml",
+   "bytes": 144,
+   "sha256": "598fb0d02b248491b5a06b20a3166e57413fe36e5c152a9ee3fd182209123ad7",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/twig.yaml",
+   "bytes": 57,
+   "sha256": "8458e04112f5e6d45c6c2aeb61475d1f9ac22b086a78a2ffcd1a22eeff0e6947",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/validator.yaml",
+   "bytes": 263,
+   "sha256": "9738f2676dda405e3740b5b33f14bef8f5b17400bae42db1a2c72c9287875f14",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/packages/webpack_encore.yaml",
+   "bytes": 1083,
+   "sha256": "c83734c83b083cb8527920940eb061e62545e1f4e2a96b3aa411560f0a428d5d",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/routes.yaml",
+   "bytes": 78,
+   "sha256": "98a19f8c846a3e9bb40447f9635e8b52d4128fa323d9e34fe153a3d4155658d9",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/routes/annotations.yaml",
+   "bytes": 135,
+   "sha256": "db71454a47e7ac888114051210daaae0ad107494644de19f513fcc5740fb3eb6",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/routes/dev/framework.yaml",
+   "bytes": 98,
+   "sha256": "f83b22d40fee6e72d4e72292caf511c1f7b05cb6eaceeae03c1e4c5169d775ca",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/routes/dev/web_profiler.yaml",
+   "bytes": 224,
+   "sha256": "cb037d1a03398a33f94952cc18b2d6b9a57c1bb53141536f8af2826ecf56cfc0",
+   "via": "tree"
+  },
+  {
+   "path": "web/config/services.yaml",
+   "bytes": 1353,
+   "sha256": "b7f9b7ced3bec4ee462a08de9c76d4e134350fb2a4cb4447f577740cc44db2f4",
+   "via": "tree"
+  },
+  {
+   "path": "web/migrations/.gitignore",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "web/migrations/Version20200727030711.php",
+   "bytes": 926,
+   "sha256": "e3f252a1a1ab2606a89508169a1637e77731fa362aa752bcbe9a998f708fc922",
+   "via": "tree"
+  },
+  {
+   "path": "web/migrations/Version20200727045615.php",
+   "bytes": 763,
+   "sha256": "2f533eb76a33cc68c169f67322db7a10d8206b343abb57782b54f40113e000cd",
+   "via": "tree"
+  },
+  {
+   "path": "web/migrations/Version20200727050405.php",
+   "bytes": 762,
+   "sha256": "34841848919463df68e94e84825d8f96ae720e643d40a555847eee319ee2b8e6",
+   "via": "tree"
+  },
+  {
+   "path": "web/package-lock.json",
+   "bytes": 433736,
+   "sha256": "a06d60b3019a1c9b702bb6cdc2c4630e8e4f20be0c689711a9a3ad290531e6f8",
+   "via": "tree"
+  },
+  {
+   "path": "web/package.json",
+   "bytes": 581,
+   "sha256": "f0bb97e60eab467164db4a0f068a6c3d9099fecac8cfd3714e0523e7031b06c2",
+   "via": "tree"
+  },
+  {
+   "path": "web/phpunit.xml.dist",
+   "bytes": 1065,
+   "sha256": "3ec6cac8733b1f365f37563e3947e6bf5acf9275e0be988fb4cdb272c25d75f4",
+   "via": "tree"
+  },
+  {
+   "path": "web/public/index.php",
+   "bytes": 839,
+   "sha256": "efbf2e34dee906ed2f21f11a75b62a9669f0adf3d2fc9e07d2005fe024687202",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Controller/.gitignore",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Controller/HomeController.php",
+   "bytes": 407,
+   "sha256": "66c49f74fdfaadf8d6057d6f680fb46181cf4c1cfa2a1cc37d381221425107f1",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Controller/Pilot/PilotController.php",
+   "bytes": 2108,
+   "sha256": "a113c44863be25a30b9806918f0702c09dd78bd8c65f4203d1685321f3e786e1",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Entity/.gitignore",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Entity/Pilot.php",
+   "bytes": 1797,
+   "sha256": "d09464b046183bc0b76eac2fcf07e59e57fa393ca51c4f83d2c0f3481407fdca",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Kernel.php",
+   "bytes": 1447,
+   "sha256": "64d9eafef5c473cb9dadd04cf0881e51370d7d91333cd7c5901db04fe8d77f63",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Repository/.gitignore",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Repository/PilotRepository.php",
+   "bytes": 1346,
+   "sha256": "1284ffc0a24be7dddb87cd3109e213521a08ea1f46928d40ba1044c320efc14d",
+   "via": "tree"
+  },
+  {
+   "path": "web/src/Service/PilotService.php",
+   "bytes": 1209,
+   "sha256": "e3fab8a3e561ae51eb54676f47bb21a9ace36be2efdf80ee58cf52e198ba1a59",
+   "via": "tree"
+  },
+  {
+   "path": "web/symfony.lock",
+   "bytes": 13928,
+   "sha256": "1a9a6c44882f19aba14e6e80bce75cc173ebc071cce2be1f612e7b6a0b1fbb28",
+   "via": "tree"
+  },
+  {
+   "path": "web/templates/base.html.twig",
+   "bytes": 265,
+   "sha256": "6d5cf1342780dc0bf7ee2f18547965600d31876426221ee28081ed68a9ab3ea3",
+   "via": "tree"
+  },
+  {
+   "path": "web/templates/home/index.html.twig",
+   "bytes": 229,
+   "sha256": "d4bcfeb59c2fe1f524e4f27c6897e409bb40f0a6ce3b0ae1819d83aa5b7fd29f",
+   "via": "tree"
+  },
+  {
+   "path": "web/tests/bootstrap.php",
+   "bytes": 320,
+   "sha256": "8789f0f52073c49282b549815c4fc014c7459d5ca3db89d8fe085ade6d93925a",
+   "via": "tree"
+  },
+  {
+   "path": "web/translations/.gitignore",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "web/webpack.config.js",
+   "bytes": 2557,
+   "sha256": "10fcbddfaa30e47e3e9fc0b7f92b3738ab74514f11fc31f6f8efa2cc6ea0e199",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\Instr\\_visa.llb\\VISA Find Search Mode.ctl",
+  "<vilib>\\MakerHub\\LINX\\LMH-LINX.lvlib",
+  "<vilib>\\MakerHub\\LINX\\Private\\Device\\Device.lvlib",
+  "<vilib>\\MakerHub\\LINX\\Private\\Device\\Peripheral\\I2C\\I2C Write.vi",
+  "<vilib>\\MakerHub\\LINX\\Private\\Device\\Type Defs\\Channels.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Device\\Type Defs\\LINX Device Config.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Device\\Type Defs\\TCP Config.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Local IO\\Handle Errors.vi",
+  "<vilib>\\MakerHub\\LINX\\Private\\Local IO\\LinxI2cWrite.vi",
+  "<vilib>\\MakerHub\\LINX\\Private\\Type Defs\\Interface.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Type Defs\\LINX Ref.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Type Defs\\Platform.ctl",
+  "<vilib>\\MakerHub\\LINX\\Private\\Utilties\\Generate Error.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Close.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Open.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Peripherals\\I2C\\I2C Close.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Peripherals\\I2C\\I2C Open.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Peripherals\\I2C\\I2C Read.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Peripherals\\I2C\\I2C Write.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Utilities\\Check Channel.vi",
+  "<vilib>\\MakerHub\\LINX\\Public\\Utilities\\Open Local.vi",
+  "<vilib>\\MakerHub\\LINX\\Resources\\liblinxdevice.dll",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\Sockets\\Socket\\Socket.lvclass",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\Sockets\\VISA TCP Listener\\New VISA TCP Listener.vi",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\Sockets\\VISA TCP Listener\\VISA TCP Listener.lvclass",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\WebSockets\\WebSocket Server\\New Server from Socket.vi",
+  "<vilib>\\MediaMongrels Ltd\\WebSockets\\WebSockets\\WebSocket Server\\WebSocket Server.lvclass",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi"
+ ]
+}

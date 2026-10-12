@@ -1,0 +1,902 @@
+{
+ "repo": "LabVIEW-DCAF/PIDModule",
+ "url": "https://github.com/LabVIEW-DCAF/PIDModule",
+ "commit": "ccd3ac288814e020c8222a964c14dbd32fe673d0",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/PID Module.lvproj",
+   "bytes": 20096,
+   "sha256": "5f9a7019ec974e4f45c82f727210e951bd2c75ce29c360bd8e56d33d6492622f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Add Channel to Objects.vi",
+   "bytes": 51926,
+   "sha256": "10e0e333298e7304ac76a780b1a51e2d9450b9249a20b9dfedda946fd920b5b3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Add New Line.vi",
+   "bytes": 32496,
+   "sha256": "1e95b333a7a2dd0ea1d49d631e2383ce526bf51b27018b0ae0caa731f558e6cb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Channel Name.vi",
+   "bytes": 45012,
+   "sha256": "7b33f4c8661a0195b7415e41140cffb01f2fde9f11c12033148a8e82dbd41ea7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change D.vi",
+   "bytes": 41153,
+   "sha256": "58c444911355ddcb42751eb5fc1968ff616c354179ddab52a8cf3112b88ca886",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Data Type.vi",
+   "bytes": 43285,
+   "sha256": "c8ed2417688804ccf6485a99464abd6e61e7acc3d3ab9428849f8164850496bc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Direction.vi",
+   "bytes": 47725,
+   "sha256": "45466ae3b03897e6ee6b79478ce7eae706a0085978157b292c134e7160bd3768",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change High.vi",
+   "bytes": 41160,
+   "sha256": "35d98170e7425e3e5bf648a0df5ffa14491deb425f58d4ac4eff9632fa9e73b4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change I.vi",
+   "bytes": 41153,
+   "sha256": "a99a6f46ae880301d159e6eaf55aea3b5fc5a2bf86ccc4b0617ee7a923213e3b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Low.vi",
+   "bytes": 41155,
+   "sha256": "423b40c580c9bfb956a6b15f161fb93ce556faa9af420870b75ebbc8cb55b41f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Output.vi",
+   "bytes": 41166,
+   "sha256": "77793fac289b56a19bbc13ab153dc77b80d53c5d6893dced9f3aadf09c018cda",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change P.vi",
+   "bytes": 41153,
+   "sha256": "746b06450f231fd7b2c1793119ba9e73107a71f17a8c207d88f5fd7bb823a5e1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Setpoint.vi",
+   "bytes": 41164,
+   "sha256": "4a3724634d5b0b2346c53401519c4fc48f5e20ec5b53acef0b396cb3f7b85578",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Tag.vi",
+   "bytes": 41155,
+   "sha256": "9e738e6cd3db6ed2afcfc04cc3808bc6ae6476442c57c73b2b1ab8615f378c94",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Callback Change Variable.vi",
+   "bytes": 41156,
+   "sha256": "d57e64645a563e8032f557b80b58ba5a9ac1689e6f620c229b7eb457d2dd4fea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Connect Channels.vi",
+   "bytes": 37996,
+   "sha256": "3783c8ba0918d87369b3900f964f2a31679d11ce825048f074e6661c6085156a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Define Columns.vi",
+   "bytes": 54598,
+   "sha256": "3d2e0004ef6e75b854e38506a5d00d5f4f3006b6850d68a3bdd7001008ee1412",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Disconnect Channels.vi",
+   "bytes": 33859,
+   "sha256": "924f82ff0149aa7dad59287ced874752cad08e817b2c9829cae5ec1c52df81c3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Edit Line.vi",
+   "bytes": 46333,
+   "sha256": "26cb9e6c66e1227196d3a1a299c65b7a2c642d50e5cbbc3ba5db0591b455ba52",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Export.vi",
+   "bytes": 32598,
+   "sha256": "5a2176a41cc07af33caf490a5b0a35f2de0d5255a2f8ab41cf622375ec35ad61",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/From CSV File.vi",
+   "bytes": 66525,
+   "sha256": "846c049f9b05bf32b10ed515492890055450baef66304f2c035ab7bb1c980fa0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Get Object Refs from Node.vi",
+   "bytes": 37393,
+   "sha256": "9454a7551ced9bcb21c958617fd36fda5b2db90869f07d93646fa79d0ed89e47",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/GetText.vi",
+   "bytes": 23399,
+   "sha256": "1f8ef921c8109dd6f05d6b9207977d5e7c02bbea666cef80aa88e02919f53993",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Import.vi",
+   "bytes": 34534,
+   "sha256": "5e3dad9543aa343020adf098aba656d667d2a7f73ac3d345d5bbf713d9c3bd60",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Line Configuration Dialog.vi",
+   "bytes": 59053,
+   "sha256": "7665a0fea012fc9d6e3fed26158daa557ff50d6db9d1c647bb4b1209a2cd0473",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Local Error Handler.vi",
+   "bytes": 24703,
+   "sha256": "b2dee5c3492e58ebbb02fc4fcc64c206e88a2da28964c9c8745be25a5ceacadf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Main Editor UI.vi",
+   "bytes": 96114,
+   "sha256": "ec725e943830a45b3b8626f85d2e0ac3a00a9f63072ce7b25bf821f168434b9f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Map Tags to Channels.vi",
+   "bytes": 42768,
+   "sha256": "ffc53b9aea0ad667554a8b58da69155f76e136b444adad2563f7701818bca03e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Map.ctl",
+   "bytes": 5840,
+   "sha256": "4b5b1af801355db38321b78653accd7f94c6eb1a180b9cf0a30332cd3e7a100e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Mappings.ctl",
+   "bytes": 22301,
+   "sha256": "660ff76f176aacaffa685dec21d3cde15651406673e41a702c5baa7decc09ea8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Node Change Event.vi",
+   "bytes": 36845,
+   "sha256": "2390f7d14db713f2cda85e423a0b97ef4540fad9e4fd7f8c721c34388c643cdb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Objects to Configurations.vi",
+   "bytes": 35305,
+   "sha256": "36f341f0c332293ab428099a87ad2d3ec35470ff9e924fbcce18c5878ffd232f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/PID Module editor node.lvclass",
+   "bytes": 118595,
+   "sha256": "a573dd4461e89803914d9991f76de0c6532f347a93b89edfc6871c342693c37b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Permissions Enum.ctl",
+   "bytes": 4645,
+   "sha256": "e188b946d5bbcac7111e149371f814a616dc222c9ee1fe162f9e786e4a9f19ca",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Read configuration.vi",
+   "bytes": 21462,
+   "sha256": "853df87412ca6b11dd13cc64a1081798afd568cc96546a290203e449f486d652",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/RefreshUI Event.vi",
+   "bytes": 41175,
+   "sha256": "295fd4cc69b55e427d3ec56b53e0b05eb0f88d246afc9c92214498007f9c2bc4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Register For Events.vi",
+   "bytes": 39327,
+   "sha256": "9c9f4d702ee9931d4645f6a3d105ea367641ea8d0282d72a5c4257f80be8f5fa",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Remove Line.vi",
+   "bytes": 38667,
+   "sha256": "cbf01e79322ede1f5e3a8c6fe31070e9bc3ba8dbadda5535b5eb7a834119f5ec",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Replace Default with Tag.vi",
+   "bytes": 39128,
+   "sha256": "a40c0946381356bc3f5efdcf8e65cc7ed16ac0adf7fbded6fee343ad7129847f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/To CSV File.vi",
+   "bytes": 65359,
+   "sha256": "c8e5b0addb5a78572e31249376ecdfd600f9a0d144069a5cd13489167c5bd050",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/ToTable.vi",
+   "bytes": 44699,
+   "sha256": "69b0842fe9637b0538d7eac238b5c2908f632372bba1acf5e4033cba13b263e1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/UIRef.vi",
+   "bytes": 21505,
+   "sha256": "06d5948e72d000b52e85d6e14bce6847ecb94291cf9ddaca940cc93b734319fd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Write configuration.vi",
+   "bytes": 23779,
+   "sha256": "f8bdff2ac9e7ac39f49df8c9a63e0d8a9b29505cc4d2cd6400f121762ebcdab3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/generate default line.vi",
+   "bytes": 38873,
+   "sha256": "d6d0e602941e332209e7100e2d3b1a89ecf871aecd896d11ea8bc59b05846dc4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/validate line configuration.vi",
+   "bytes": 33127,
+   "sha256": "eb9ca6959d3733363bea7fea4f69847d93347507c0b6061fd5b688ef572088ee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Add Line.vi",
+   "bytes": 32800,
+   "sha256": "bcf1bf89db0f6fa687070efe1457e6cb215798a4dbb60678db3027b27e7c9fa0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Check If Line Exists.vi",
+   "bytes": 28100,
+   "sha256": "7942de6f0e1af5481945a5d148a4460ee3bfed07bfeb28bb0a89028e8b1d7d37",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Create Default Line.vi",
+   "bytes": 43247,
+   "sha256": "70ad5337751fc19226525c4308511988ab9ea4a8bee54c8064918a6d8c343c7a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Delete Line.vi",
+   "bytes": 32795,
+   "sha256": "d870dfab4cbf908e8d68594e970c10adc2080f9a8c41c802b58b32666faea82e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Get Channels from Line.vi",
+   "bytes": 20722,
+   "sha256": "20e4cdd8fd9194b1e7d211179623e91dfd63f888dc2617194150e611532c384f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Get Line Name.vi",
+   "bytes": 22113,
+   "sha256": "453fefebee13ddf1b424fe9e9fbc4fa633065912d7d8b5c76bed407e4ec40fc9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Get PID String.vi",
+   "bytes": 26794,
+   "sha256": "2b17568af2114598c0e7dd173d94ddeab8d9246e4212a0c768668ba9a9cada05",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Get Supported Targets.vi",
+   "bytes": 21717,
+   "sha256": "fea83de9278283857e9d49de1dd628806e07f254328144a0e9847e327627e6ff",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Line.ctl",
+   "bytes": 14141,
+   "sha256": "e8aed24c943ecd49c72de9f2b715b109cf26311d8b98159d0d2c1577644b1c95",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/PID Gains.ctl",
+   "bytes": 5782,
+   "sha256": "a1cc3787a1464913f4df75c2181eb4b8a6df306493430dfbb759b620ecf6f4ff",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/PID Module configuration.lvclass",
+   "bytes": 106122,
+   "sha256": "4e8a92653916d2ca8dfd84071fe40f3e093f2d74bf4a5aa8d156f2a89ec033bd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/PID Parameters.ctl",
+   "bytes": 5799,
+   "sha256": "3ff53dcf025540879721150e0a4ab7665564f092f4a0991201163de0bf4d78bc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/PID Range.ctl",
+   "bytes": 5514,
+   "sha256": "a0717a77202783f526472670f83dcc6112726bd71aac5ec59fad294422d5c829",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Read Lines.vi",
+   "bytes": 18434,
+   "sha256": "726b35f23d6f9447940d1ff04d1b6cd1411f26f27088882963e8bf27b319bcc6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Replace Line.vi",
+   "bytes": 40448,
+   "sha256": "cbff69500b1436a94cb4c0e660efb9adbb32dcb9aebcef4093e8ae3da93eb235",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/String Parameters.ctl",
+   "bytes": 5146,
+   "sha256": "01af16aea93ccb313d31c2f30ccac564f9fc73bdf82ddc7368818e5c0d9bd057",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Unflatten Gains.vi",
+   "bytes": 23275,
+   "sha256": "ded73df010cc5e8949754b1de28eb909cc29738d6c4f6836474988d0a9f3fa8e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Unflatten Range.vi",
+   "bytes": 21427,
+   "sha256": "6b5f2d63e949f61592b7bdea5fd34221b9f080a3ba628c6bec4e46482d42bcea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Write Default Value.vi",
+   "bytes": 33983,
+   "sha256": "4ffc59cd6709202c5f7b2eb2237a9c0d6c8b7923ea2f3ff9c33599240c7b2471",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Write Lines.vi",
+   "bytes": 24731,
+   "sha256": "2ac7bf45294264c0458a05bf7fce08cef78ad5f0b14b3d0efda327e88fd7a24d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/classification to module permissions.vi",
+   "bytes": 17424,
+   "sha256": "2f3c793276bd0d67ad64121fa6c774b559c6db3138737c2787cfe9c5ac19b98c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/current version.vi",
+   "bytes": 12347,
+   "sha256": "99917b1c31350ad34976f63ef046702fb1d37afd28d443d009a4bb44778c7681",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/execution class name.vi",
+   "bytes": 25200,
+   "sha256": "1830326858183585d8aef8267587a573846f9ad83cfea8eb641650eb3f50e1ae",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/from string 1.0.vi",
+   "bytes": 40739,
+   "sha256": "d064d5b152e88a5d9f3c4eff8eac50748e1781cfa9468e4d384e698441f24dc6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/from string 2.0.vi",
+   "bytes": 67275,
+   "sha256": "e49c441489e7bf6420c867c1529372c0677465678fec9a33c625c581fbf1ac59",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/from string array.vi",
+   "bytes": 42093,
+   "sha256": "832bfdfcc6dfa519fdf3089ff837409b8537a275a4a5635f60127f6606f9d668",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/from string.vi",
+   "bytes": 32887,
+   "sha256": "4b8e8264c86c6e03c78280ca0e61ec8baf833ca1aa3dfe2991532297196e4012",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/get channels.vi",
+   "bytes": 30076,
+   "sha256": "cb8481f5e0dee131849c99329bdbdc53efe259fcdceccc3fd2b869cb056ca749",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/get supported types.vi",
+   "bytes": 21699,
+   "sha256": "68a95d347aeba690aa166650d31fa2b515ba512bf2caa0e2e2f818bf0ce27a7b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/instance count allowed.vi",
+   "bytes": 18870,
+   "sha256": "4cb9131840b74647762e0ebd9eb3300944bf103fe7ee169280d1a22ccb8dd541",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/module permission to classification.vi",
+   "bytes": 17127,
+   "sha256": "47633d800ac02148e25fec05285c3a299a83847c122b87934b3b7841f911ea0e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/permissions.ctl",
+   "bytes": 12404,
+   "sha256": "b6617a92c08ffe30c898983f8a852d6c802b333a599e8d4fc4b0cd114cfadbdb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/to string 2.0.vi",
+   "bytes": 51065,
+   "sha256": "e8f871e524402bfb1ab2adf13649e5cb6c1780a1408ee787ceddcc4dc62d74db",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/to string array.vi",
+   "bytes": 42795,
+   "sha256": "e6bcac41647e91345c884ac52b1999a808b9524dcabff84f4fd2325126bc7cf7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/to string.vi",
+   "bytes": 27605,
+   "sha256": "c5fcfa63964e71f8354029a8194533d4b25a0f3cbe41ba0307919e7abc75cf00",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/validate.vi",
+   "bytes": 26552,
+   "sha256": "7818bb8eb83969d418aabbfc1b3657189137413ca852ec25e7127be95e39bd9e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Create Mapping.vi",
+   "bytes": 70914,
+   "sha256": "5b69927afd6d950fbc77e354ccc196380fb8f4dc6fb9905370eb00e7af1aca9f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Mapping.ctl",
+   "bytes": 11900,
+   "sha256": "f8b336ffe12f0b9fd83cc7a1be0412cc9fdac146343d83a9571056fe9b019e68",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Ouputs to Tag Bus.vi",
+   "bytes": 29601,
+   "sha256": "de1eea7a07733e05ea5f9dfc43747bb3a6e65110ff08a887d26983c6091a6ae9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/PID Module runtime.lvclass",
+   "bytes": 48279,
+   "sha256": "1b19189b1e2952c5740180097b6cf5806d73ddca662e0d6e2addd1b398f05476",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/PID Parameters.ctl",
+   "bytes": 11139,
+   "sha256": "49303656f5f485cf4985fd0452b57dea1918abb7ebae99c03d3c981c2509ff80",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/TagBust to Parameters.vi",
+   "bytes": 44409,
+   "sha256": "99362eb0ef590f47ef4a451625fa91887f548fbfb83f9cb7e61fbe9141a015bf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/classify error.vi",
+   "bytes": 32686,
+   "sha256": "143371cad9f388d9c99a34cb076a3987769bb93f50e83762f07d5fdfd84e6310",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/close.vi",
+   "bytes": 20521,
+   "sha256": "cc900cbb8b7c6fb66478f5984b37268e36768e7a0f8c17b557318d5c89efb460",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/init.vi",
+   "bytes": 72348,
+   "sha256": "2f2dde430566dd21de82eb58274c377ebef0372e6faf8051813e8e657475beca",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/input.vi",
+   "bytes": 36545,
+   "sha256": "4fac25aec9000f60ef86a468472d296433f49f661e388b1bbbff4c98bf34db80",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/output.vi",
+   "bytes": 36302,
+   "sha256": "a0c4be0d0afc741df7398161cdb3bf2fb08a1ee28f03c232a3d7f2a67aa4b81a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/process.vi",
+   "bytes": 55407,
+   "sha256": "1bdce45e77b698d9fa5b0e2439be62054ea8579188beb6c3276066022e5d8829",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Add Remove Test.lvtest",
+   "bytes": 2540,
+   "sha256": "4ac12b9241106af790137378f1e4c854a5c96763f3d52b8a54049caed272db36",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Add Remove Test.vi",
+   "bytes": 36455,
+   "sha256": "44bc47a844e821790c170cbe3cab91a2d2ffb61c1d28c0289a354db06c0ef4cd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Create Test Configuration.vi",
+   "bytes": 37113,
+   "sha256": "9937ad7cd89aa5b8915b4bda24b2ce08613a5f550c9c3d46094241b444792692",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Duplicate Name Error Test.lvtest",
+   "bytes": 2754,
+   "sha256": "039266bbe22ba8fce107b0f8784a8f42ac34c2cde804e90cbabad7f094f163e9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Duplicate Name Error Test.vi",
+   "bytes": 44705,
+   "sha256": "8d7631d167e607e50b7c40276407afa1e01a6dd9408da8b8248cd2c7630bbfad",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Get Tags Data.vi",
+   "bytes": 22929,
+   "sha256": "366ef5b01242efb677b701925e5e68e7f3f6418d0805e770b981289807462b43",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/PID Module tests.lvlib",
+   "bytes": 26987,
+   "sha256": "f36048ea76c55668d7fe86a9d0c229e2314bcfbd92011a61b993f0432492ab6b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Runtime Test.vi",
+   "bytes": 60288,
+   "sha256": "b23a3b36a02dc358a0bde3f701f7936553ac2de3f22f53b314103e78a086ede0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/To and From Array Test.lvtest",
+   "bytes": 2548,
+   "sha256": "64d7bac779b83af006ffc571d9e4ca708eb233e4acaebdb62578bb9cefc78064",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/To and From Array Test.vi",
+   "bytes": 39662,
+   "sha256": "a2445de37e2cb023f7302d0ca1e447a3618957ceaf2cd367ed7b0d1bb3936917",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/To and From CSV Test.lvtest",
+   "bytes": 2642,
+   "sha256": "a1d99d44e54673ece164630db469eb82d0d847f2b8692a8cb43fc9195eb8e39b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/To and From CSV Test.vi",
+   "bytes": 59120,
+   "sha256": "41ef03b9e740990c88839f297d7292f72e5ef4b0460a58275269ccbaef3285ff",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/ToTable Test.vi",
+   "bytes": 36108,
+   "sha256": "2146d2d98ecf39638ed26e9a75eac4bc70c9b41cfa5858cb8d22121758e74ebf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/V1 from String test.vi",
+   "bytes": 43055,
+   "sha256": "9273a09454ad24fad71c4a27766033745385b7d2b1bab0d1704494924104af3b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/config crosslink test.lvtest",
+   "bytes": 2682,
+   "sha256": "56859b47836d471c5be291c56e08e310106c87d45e2cdfd0606373bbdd765e1c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/config crosslink test.vi",
+   "bytes": 17809,
+   "sha256": "e45425d2be82176def4a7ce5d0d91d6c0197109c910faf1948a804e2d8a2f3fe",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/get channels test.lvtest",
+   "bytes": 2432,
+   "sha256": "1781beaca2271a5c5b1a365cef92ab60f7225a69bf76482be1ce7a9b2407e50c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/get channels test.vi",
+   "bytes": 28449,
+   "sha256": "42fe6ac3011aba73228e651f9c71baa2d028b13f4800e31f563f2f5b4c128f88",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/init runtime test.lvtest",
+   "bytes": 2562,
+   "sha256": "6a3b05a47435bfc4899104f3a010c0345a87fd1eb9c552e9771fa9024ccc30cf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/init runtime test.vi",
+   "bytes": 51869,
+   "sha256": "2b0aabc11ca8aa28fa58c1ce9c5a94235a22e951726d71e049d21c1033669c7b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/modify channel test.lvtest",
+   "bytes": 2412,
+   "sha256": "9c4915ee4bf465d1ce830412e7fc11d82e7e1d55b4178ea63e16ad120e756a75",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/modify channel test.vi",
+   "bytes": 29387,
+   "sha256": "56fdba3335f8b71f71380e87e3fc9e6e7e091f7bad892722e3da9e850d7444d1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/runtime to editor crosslink test.vi",
+   "bytes": 16528,
+   "sha256": "d6f4d6db29c3e5dfdf8b14111e58b92b4a05d36b48b58bed367f6613cb47da58",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/serialization tests.lvtest",
+   "bytes": 3292,
+   "sha256": "d71bf7b072ed4238c251ba554762e6e76fff9c9e57fa566ed71468a366b85869",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/serialization tests.vi",
+   "bytes": 30023,
+   "sha256": "67315a8c82da483d086e6e5b76007275f564899a87a2e76a9f1dadb020d2eb04",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Test CSV.csv",
+   "bytes": 653,
+   "sha256": "00dde82e27fdd695b31ad352bbb6283d28bdea288a6e4eb01a724ac8e3cea173",
+   "via": "ref:Source/testing/To and From CSV Test.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 142,
+   "sha256": "4cbc1aac331e192d82f117c08c12d573bcb5f0b92e7e2f6dc41491e0a544c153",
+   "via": "tree"
+  },
+  {
+   "path": "Autobuild.csv",
+   "bytes": 53,
+   "sha256": "1e46681ed8f36bc5975f9602e647bfa309e91bd7bb14e447d81254bb990436c6",
+   "via": "tree"
+  },
+  {
+   "path": "Jenkinsfile",
+   "bytes": 463,
+   "sha256": "41c72eea8ecaaa143e2264634a8a9fd8264f476e4ad8a1be782d813a11f52b5a",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.txt",
+   "bytes": 10805,
+   "sha256": "172fc8b22b68814d4b0af4cb57d19f4ac3d937f8ee1fa242f84263685ec7b2c0",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 630,
+   "sha256": "9ccb67ada31b93e32e2ec4126a21d574f133df65bfbcb5b8f9969a0d9baba558",
+   "via": "tree"
+  },
+  {
+   "path": "Source/DCAF PID.vipb",
+   "bytes": 16574,
+   "sha256": "345ee59977ce83dcae4cd878f8415d2a65a543f4f2ebd49b3d8a3471d33f101e",
+   "via": "tree"
+  },
+  {
+   "path": "version.txt",
+   "bytes": 4,
+   "sha256": "7931aa2a1bed855457d1ddf6bc06ab4406a9fba0579045a4d6ff78f9c07c440f",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<vilib>\\NI\\AMC\\AMC.lvlib",
+  "<vilib>\\NI\\AMC\\Message Queue.ctl",
+  "<vilib>\\NI\\AMC\\Message.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Controls\\EventCluster.ctl",
+  "<vilib>\\NI\\Configuration Framework\\NISE_CEF_TreeControl.lvlib",
+  "<vilib>\\NI\\Configuration Framework\\Node\\CacheState.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NISE_CEF_Node.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NodeChangeEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NodeRef.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\RefreshUIEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\StopEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\UserEventRef.ctl",
+  "<vilib>\\NI\\Configuration Framework\\error generator\\NISE_error generator.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass\\NISE_CEF_serializable configuration.ctl",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\Read UID.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\enumerate subitems.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\initialize.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\parse version string.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\unwrap data.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\wrap data.vi",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Add.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Configure.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\DCAF UI Elements.lvlib",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Export.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Import.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Remove.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Utilities\\Align Front Panel.vi",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Utilities\\Open VI as Dialog.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\Engine Parent Editor Node.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\read engine configuration.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\write engine configuration.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\Read Lines From File.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\Read display name.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\locate engine.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\module editor node.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Available Tag Menu\\channel action event.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Available Tag Menu\\dialog output action.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column Descriptor.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column Type.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Enum\\string to enum.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Helpers\\format mapping column info.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Listbox\\Create.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Listbox\\Multi Column Listbox.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Mapping Column\\Define Mapping Column.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Mapping Column\\Mapping Column.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\String Column\\Define String Column.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\String Column\\String Column.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager.lvlib",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Call Back Ref Type Def.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Cell Change.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Menu Select.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Table Events.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Table Manager.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\object ref.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\references.ctl",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\add and map fixed channel mapping.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\delete mapping by channel.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\engine configuration.lvclass",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\engine configuration.lvclass\\engine configuration.ctl",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\find tag mapped to channel.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\get full tag list.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\unique channel identifier.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\Read channel classification.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass\\TBM channel.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\Write channel classification.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\channel classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\create new channel.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\data tables.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\sort channels.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\FindDuplicate.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\TBM module configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\throw configuration load error.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\TBM configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\Target Types.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\list all targets.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\TBM module execution interface.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\determine execution settings.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\error classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\execution settings.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary table pair.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\data dictionary.lvclass",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\data dictionary.lvclass\\data dictionary.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\locate tag.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\look up tag by type.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\lookup polymorphs\\locate double.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search for tag.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search\\find data index.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search\\search string list.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\tag not found.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\read many\\read Doubles.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\read one\\read Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\write many\\write Doubles.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\write one\\write Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.ctl",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.lvlib",
+  "<vilib>\\NI\\Tag Bus\\table\\read data element.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\read multiple elements.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\write data element.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\write multiple elements.vi",
+  "<vilib>\\NI\\Tag Bus\\tag bus.lvlib",
+  "<vilib>\\NI\\Tag Bus\\tag\\Data Type.ctl",
+  "<vilib>\\NI\\Tag Bus\\tag\\default value polymorphs\\read default value Double.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\default value polymorphs\\write default value Double.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\find tag.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\list all types.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read default value.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read tag name.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass\\tag descriptor.ctl",
+  "<vilib>\\NI\\Tag Bus\\tag\\write data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\write default value.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\write tag name.vi",
+  "<vilib>\\NI\\Tools\\Keyed Array\\KeyedArray.ctl",
+  "<vilib>\\NI\\Tools\\Keyed Array\\Tools_KeyedArray.lvlib",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\file.llb\\Write Spreadsheet String.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Recursive File List.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVPositionTypeDef.ctl",
+  "<vilib>\\addons\\control\\pid\\NI_PID_pid.lvlib",
+  "<vilib>\\addons\\control\\pid\\pid.llb\\PID (DBL Array).vi",
+  "<vilib>\\addons\\control\\pid\\pid.llb\\PID.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\File Dialog Source.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\subFile Dialog.vi",
+  "<vilib>\\express\\express input\\FileDialogConfig.llb\\Configure File Dialog.vi"
+ ]
+}

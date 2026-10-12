@@ -1,0 +1,32 @@
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+Describe 'Watcher Telemetry - Handoff Snapshot' {
+  It 'emits a watcher-telemetry.json with required fields' {
+    $resultsRoot = Join-Path $TestDrive 'results'
+    New-Item -ItemType Directory -Force -Path $resultsRoot | Out-Null
+
+    pwsh -File tools/Print-AgentHandoff.ps1 -ApplyToggles -ResultsRoot $resultsRoot | Out-Null
+    $LASTEXITCODE | Should -Be 0
+
+    $path = Join-Path $resultsRoot '_agent/handoff/watcher-telemetry.json'
+    Test-Path -LiteralPath $path | Should -BeTrue
+
+    $json = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json -ErrorAction Stop
+    $json | Should -Not -BeNullOrEmpty
+    $json.schema | Should -Be 'agent-handoff/watcher-telemetry-v1'
+    $json.state | Should -Not -BeNullOrEmpty
+    $json.alive | Should -BeOfType ([bool])
+    $json.verifiedProcess | Should -BeOfType ([bool])
+    $json.heartbeatFresh | Should -BeOfType ([bool])
+    $json.needsTrim | Should -BeOfType ([bool])
+    $json.events | Should -Not -BeNullOrEmpty
+    $json.planeTransitions | Should -Not -BeNullOrEmpty
+    $json.planeTransitions.schema | Should -Be 'agent-handoff/plane-transition-v1'
+    $json.planeTransitions.status | Should -Not -BeNullOrEmpty
+    $json.events.schema | Should -Be 'comparevi/runtime-event/v1'
+    $json.events.path | Should -Not -BeNullOrEmpty
+    $json.events.present | Should -BeOfType ([bool])
+    ([int]$json.events.count -ge 0) | Should -BeTrue
+  }
+}

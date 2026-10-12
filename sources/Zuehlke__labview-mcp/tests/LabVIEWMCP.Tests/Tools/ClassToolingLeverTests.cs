@@ -1,0 +1,1267 @@
+﻿using System.Xml.Linq;
+using System.Text.Json.Nodes;
+using LabVIEWMcp.Infra;
+using LabVIEWMcp.Tools;
+using Xunit;
+
+namespace LabVIEWMcp.Tests.Tools;
+
+/// <summary>
+/// The five tools built on 2026-09-02 out of a measured HAL-class run, offline.
+///
+/// Everything here is a property that must hold by CONSTRUCTION, because none of it can be checked
+/// by running the tool in the session that writes it: a build takes the lvai_* tools away until the
+/// client restarts. So the checks are on the parts that need no LabVIEW - the verdict a `.ctl`
+/// earns, the literal a compound type gets, the AIXML a method suite is authored as, and every
+/// argument refusal that is supposed to cost a message rather than a half-edited class.
+/// </summary>
+public sealed class ClassToolingLeverTests
+{
+    // ================================================================== lvai_describe_ctl
+
+    /// <summary>An extracted `.ctl` as pylabview renders it, with just the attributes we read.</summary>
+    private static XElement Ctl(string typeDefVi = "0", string strict = "0",
+                                string privateData = "0", string instrument = "Control",
+                                string wrappedType = "Refnum", string? label = "DAQmx Task Name")
+    {
+        var descriptor = new XElement("TypeDesc",
+            new XAttribute("Type", wrappedType),
+            new XAttribute("RefType", "UsrDefndTag"),
+            new XAttribute("TypeName", "NIDAQ"));
+        if (label is not null) descriptor.Add(new XAttribute("Label", label));
+
+        return new XElement("RSRC",
+            new XElement("LVSR",
+                new XElement("Section",
+                    new XElement("Execution",
+                        new XAttribute("TypeDefVI", typeDefVi),
+                        new XAttribute("StrictTypeDefVI", strict)),
+                    new XElement("Execution2",
+                        new XAttribute("IsPrivateDataForUDClass", privateData)),
+                    new XElement("Instrument", new XAttribute("Type", instrument)))),
+            new XElement("VCTP",
+                new XElement("Section",
+                    descriptor,
+                    new XElement("TopLevel",
+                        new XElement("TypeDesc",
+                            new XAttribute("Index", "1"),
+                            new XAttribute("FlatTypeID", "0"))))));
+    }
+
+    [Fact]
+    public void NIsOwnDaqmxTaskControlIsNotATypedefAndIsRefusedAsABindingSource()
+    {
+        // THE MEASUREMENT THIS TOOL EXISTS FOR, 2026-09-02. Two Replace calls answered
+        // `error out = 0`, installed the right types, and bound NOTHING, because
+        // `DAQmx Task Name NI_Silver.ctl` and `errclust.llb\Error Cluster.ctl` are both
+        // TypeDefVI="0". Success and failure are indistinguishable from the calling side.
+        var answer = CtlTools.Describe(Ctl(), @"C:\ctl\DAQmx Task Name NI_Silver.ctl");
+
+        Assert.Equal(0, answer["controlVIType"]!.GetValue<int>());
+        Assert.Equal("not a typedef", answer["controlVITypeName"]!.GetValue<string>());
+        Assert.False(answer["isTypedef"]!.GetValue<bool>());
+        Assert.False(answer["bindable"]!.GetValue<bool>());
+        Assert.Contains("not a typedef", answer["whyNotBindable"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void APlainTypedefIsBindable()
+    {
+        var answer = CtlTools.Describe(Ctl(typeDefVi: "1"), @"C:\ctl\Borkenkaefer.ctl");
+
+        Assert.Equal(1, answer["controlVIType"]!.GetValue<int>());
+        Assert.True(answer["isTypedef"]!.GetValue<bool>());
+        Assert.False(answer["isStrictTypedef"]!.GetValue<bool>());
+        Assert.True(answer["bindable"]!.GetValue<bool>());
+        Assert.Null(answer["whyNotBindable"]);
+    }
+
+    [Fact]
+    public void AStrictTypedefReportsAsStrictAndStillBinds()
+    {
+        var answer = CtlTools.Describe(Ctl(typeDefVi: "1", strict: "1"), @"C:\ctl\PFColorctl.ctl");
+
+        Assert.Equal(2, answer["controlVIType"]!.GetValue<int>());
+        Assert.True(answer["isStrictTypedef"]!.GetValue<bool>());
+        Assert.True(answer["bindable"]!.GetValue<bool>());
+    }
+
+    [Fact]
+    public void APrivateDataControlWinsOverTheOtherTwoFlagsAndIsRefused()
+    {
+        // A private data control carries StrictTypeDefVI as well, so a rule that checked the
+        // typedef flags first would call it a strict typedef and send the caller to Replace -
+        // which answers Error 1073 on one. The order of the checks IS the correctness here.
+        var answer = CtlTools.Describe(Ctl(typeDefVi: "1", strict: "1", privateData: "1"),
+                                       @"C:\cls\Netzteil.ctl");
+
+        Assert.Equal(3, answer["controlVIType"]!.GetValue<int>());
+        Assert.Equal("class private data", answer["controlVITypeName"]!.GetValue<string>());
+        Assert.True(answer["isClassPrivateData"]!.GetValue<bool>());
+        Assert.False(answer["bindable"]!.GetValue<bool>());
+        Assert.Contains("1073", answer["whyNotBindable"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void AViIsReportedAsNotAControlRatherThanAsABadTypedef()
+    {
+        var answer = CtlTools.Describe(Ctl(instrument: "VI"), @"C:\vi\Something.vi");
+
+        Assert.False(answer["isControl"]!.GetValue<bool>());
+        Assert.False(answer["bindable"]!.GetValue<bool>());
+        Assert.Contains("not a control", answer["whyNotBindable"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void TheWrappedTypeAndItsDistinguishingAttributesAreReported()
+    {
+        // `Type="Refnum"` alone does not say WHICH refnum, and the DAQmx task identity lives in
+        // RefType/Ident/TypeName. A caller authoring a constant for this terminal needs them.
+        var answer = CtlTools.Describe(Ctl(), @"C:\ctl\Task.ctl");
+
+        Assert.Equal("Refnum", answer["wrappedType"]!.GetValue<string>());
+        Assert.Equal("DAQmx Task Name", answer["controlLabel"]!.GetValue<string>());
+        Assert.Contains("TypeName=NIDAQ", answer["wrappedTypeDetail"]!.GetValue<string>());
+    }
+
+    // ================================================================== lvai_bind_class_fields
+
+    /// <summary>
+    /// A private data cluster as pylabview renders it: field 1 bound, the others bare.
+    ///
+    /// <paramref name="wrapped"/> is the shape of a REAL class private data control, measured
+    /// 2026-09-03 by unwrapping `NI.LVClass.FlattenedPrivateDataCTL` out of a class built by
+    /// `lvai_create_class`: `VCTP/TopLevel` index 1 resolves to a `Type="TypeDef"` wrapper whose
+    /// single INLINE child is the cluster labelled `Cluster of class private data`. The false
+    /// shape - index 1 being the field cluster directly - is what an EXPORTED `.ctl` looks like,
+    /// and testing only that is how the parser shipped broken.
+    /// </summary>
+    private static XElement PrivateData(bool wrapped = false)
+    {
+        var document = PrivateDataUnwrapped();
+        if (!wrapped) return document;
+
+        var section = document.Element("VCTP")!.Element("Section")!;
+        var cluster = section.Elements("TypeDesc").First();
+        cluster.Remove();
+        section.AddFirst(new XElement("TypeDesc",
+            new XAttribute("Type", "TypeDef"),
+            new XElement("TypeDesc",
+                new XAttribute("Type", "Cluster"),
+                new XAttribute("Label", "Cluster of class private data"),
+                cluster.Elements("TypeDesc"))));
+        return document;
+    }
+
+    private static XElement PrivateDataUnwrapped() =>
+        new("RSRC",
+            new XElement("VCTP",
+                new XElement("Section",
+                    // FlatTypeID 0: the cluster itself, referenced from TopLevel index 1.
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "Cluster"),
+                        new XElement("TypeDesc", new XAttribute("TypeID", "1")),
+                        new XElement("TypeDesc", new XAttribute("TypeID", "2")),
+                        new XElement("TypeDesc", new XAttribute("TypeID", "3"))),
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "String"),
+                        new XAttribute("Label", "Physical Channel")),
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "TypeDef"),
+                        new XAttribute("Label", "Task Reference"),
+                        new XElement("Label", "NI_Silver.lvlib"),
+                        new XElement("Label", "DAQmx Task Name NI_Silver.ctl")),
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "NumFloat64"),
+                        new XAttribute("Label", "Sample Rate")),
+                    new XElement("TopLevel",
+                        new XElement("TypeDesc",
+                            new XAttribute("Index", "1"),
+                            new XAttribute("FlatTypeID", "0"))))));
+
+    // ---------------------------------------------- the wrapper, and the 2026-09-03 parser defect
+
+    [Fact]
+    public void ARealClassPrivateDataControlIsReadThroughItsTypeDefWrapper()
+    {
+        // THE DEFECT THIS TEST EXISTS FOR. The parser stopped at TopLevel index 1, which in a real
+        // class control is the TypeDef wrapper - so every binding was refused with a field list of
+        // one entry, `Cluster of class private data`, which reads like a name-matching problem and
+        // is not one. It cost the 2026-09-03 run 153 s for 3.3 s of LabVIEW.
+        var fields = ClassBindTools.PrivateDataFields.Parse(PrivateData(wrapped: true));
+
+        Assert.Null(fields.Unavailable);
+        Assert.Equal(["Physical Channel", "Task Reference", "Sample Rate"], fields.Labels);
+        Assert.DoesNotContain(ClassBindTools.PrivateDataFields.FieldClusterLabel, fields.Labels);
+    }
+
+    [Fact]
+    public void TheWrapperAndTheExportedFormReadIdentically()
+    {
+        // An exported `.ctl` has no wrapper and index 1 IS the field cluster. Both forms must give
+        // the same answer, because the tool reads the class file and verifies against the export.
+        var wrapped = ClassBindTools.PrivateDataFields.Parse(PrivateData(wrapped: true));
+        var plain = ClassBindTools.PrivateDataFields.Parse(PrivateData());
+
+        Assert.Equal(plain.Labels, wrapped.Labels);
+        Assert.Equal(plain.BoundTypedefs, wrapped.BoundTypedefs);
+    }
+
+    [Fact]
+    public void AClassWhoseONLYFieldIsAClusterIsNotDescendedInto()
+    {
+        // THE TRAP IN THE FIX ITSELF. Descending "while there is a single child that is a Cluster"
+        // looks equivalent to descending through TypeDef and is not: this class has one field, an
+        // error cluster, and the shape-based rule would report `status`, `code` and `source` as the
+        // class's three fields. The descent is through TypeDef and nothing else for this reason.
+        var document = new XElement("RSRC",
+            new XElement("VCTP",
+                new XElement("Section",
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "TypeDef"),
+                        new XElement("TypeDesc",
+                            new XAttribute("Type", "Cluster"),
+                            new XAttribute("Label", "Cluster of class private data"),
+                            new XElement("TypeDesc",
+                                new XAttribute("Type", "Cluster"),
+                                new XAttribute("Label", "Error Cluster"),
+                                new XElement("TypeDesc", new XAttribute("Type", "Boolean"),
+                                             new XAttribute("Label", "status")),
+                                new XElement("TypeDesc", new XAttribute("Type", "NumInt32"),
+                                             new XAttribute("Label", "code")),
+                                new XElement("TypeDesc", new XAttribute("Type", "String"),
+                                             new XAttribute("Label", "source"))))),
+                    new XElement("TopLevel",
+                        new XElement("TypeDesc",
+                            new XAttribute("Index", "1"),
+                            new XAttribute("FlatTypeID", "0"))))));
+
+        var fields = ClassBindTools.PrivateDataFields.Parse(document);
+
+        Assert.Equal(["Error Cluster"], fields.Labels);
+    }
+
+    // ------------------------------------- the bound shape, and the 2026-09-03 positional defect
+
+    /// <summary>
+    /// A class in which a bind has SUCCEEDED, measured 2026-09-03 by unwrapping the real file.
+    /// Binding re-emits the type pool: `TopLevel` index 1 becomes the newly bound typedef and the
+    /// class's own cluster moves to index 2.
+    ///
+    /// <code>
+    /// TopLevel[1] -> flat 0  TypeDef ['NI_XNodeSupport.lvlib','XNodeErrorCluster.ctl'], 3 children
+    /// TopLevel[2] -> flat 1  TypeDef ['AnalogInput.lvclass','AnalogInput.ctl'],         5 children
+    /// </code>
+    /// </summary>
+    private static XElement PrivateDataAfterABind() =>
+        new("RSRC",
+            new XElement("VCTP",
+                new XElement("Section",
+                    // flat 0 - the typedef that was just bound onto a field. Index 1 now.
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "TypeDef"),
+                        new XElement("TypeDesc",
+                            new XAttribute("Type", "Cluster"),
+                            new XAttribute("Label", "Error Cluster"),
+                            new XElement("TypeDesc", new XAttribute("Type", "Boolean"),
+                                         new XAttribute("Label", "status")),
+                            new XElement("TypeDesc", new XAttribute("Type", "NumInt32"),
+                                         new XAttribute("Label", "code")),
+                            new XElement("TypeDesc", new XAttribute("Type", "String"),
+                                         new XAttribute("Label", "source"))),
+                        new XElement("Label", new XAttribute("Text", "NI_XNodeSupport.lvlib")),
+                        new XElement("Label", new XAttribute("Text", "XNodeErrorCluster.ctl"))),
+                    // flat 1 - the class's own private data. Index 2 now.
+                    new XElement("TypeDesc",
+                        new XAttribute("Type", "TypeDef"),
+                        new XElement("TypeDesc",
+                            new XAttribute("Type", "Cluster"),
+                            new XAttribute("Label", "Cluster of class private data"),
+                            new XElement("TypeDesc", new XAttribute("Type", "Refnum"),
+                                         new XAttribute("Label", "Task Reference")),
+                            // A BOUND field is a TypeID REFERENCE to the flat typedef, not an
+                            // inline copy of it - measured. That is where both the field's name
+                            // (on the typedef's inner cluster) and the .ctl's name (in the
+                            // typedef's Label children) live. The inline shape is the easy one to
+                            // write and does not occur; writing it is how this fixture missed a
+                            // real defect for the fourth time.
+                            new XElement("TypeDesc", new XAttribute("TypeID", "0")),
+                            new XElement("TypeDesc", new XAttribute("Type", "String"),
+                                         new XAttribute("Label", "Physical Channel")),
+                            new XElement("TypeDesc", new XAttribute("Type", "NumFloat64"),
+                                         new XAttribute("Label", "Sample Rate")),
+                            new XElement("TypeDesc", new XAttribute("Type", "NumInt32"),
+                                         new XAttribute("Label", "Samples Per Channel"))),
+                        new XElement("Label", new XAttribute("Text", "AnalogInput.lvclass")),
+                        new XElement("Label", new XAttribute("Text", "AnalogInput.ctl"))),
+                    new XElement("TopLevel",
+                        new XElement("TypeDesc",
+                            new XAttribute("Index", "1"), new XAttribute("FlatTypeID", "0")),
+                        new XElement("TypeDesc",
+                            new XAttribute("Index", "2"), new XAttribute("FlatTypeID", "1"))))));
+
+    [Fact]
+    public void ASUCCESSFULBindDoesNotMakeTheReaderPointAtTheBoundTypedef()
+    {
+        // THE DEFECT THIS TEST EXISTS FOR, and it is the sharpest of the three this parser has had:
+        // the tool was correct ONLY UNTIL IT WORKED. Every bind had failed until 2026-09-03, so
+        // TopLevel index 1 kept agreeing with the right answer by accident. The first successful
+        // bind moved the class's cluster to index 2, and both lvai_bind_class_fields and
+        // lvai_describe_class then reported the class as having three fields: status, code, source.
+        var fields = ClassBindTools.PrivateDataFields.Parse(
+            PrivateDataAfterABind(), "AnalogInput.ctl");
+
+        Assert.Null(fields.Unavailable);
+        Assert.Equal(["Task Reference", "Error Cluster", "Physical Channel",
+                      "Sample Rate", "Samples Per Channel"], fields.Labels);
+        Assert.DoesNotContain("status", fields.Labels);
+    }
+
+    [Fact]
+    public void TheClassOwnCtlLabelIsPreferredOverEveryOtherAnchor()
+    {
+        // The `.ctl` name is the only anchor that is both exact and language-independent. Given it,
+        // the reader must not depend on TopLevel order OR on the English cluster label.
+        var fields = ClassBindTools.PrivateDataFields.Parse(
+            PrivateDataAfterABind(), "AnalogInput.ctl");
+
+        Assert.Equal(5, fields.Labels.Count);
+        // Field 1 is itself a bound typedef and must be reported as one.
+        Assert.Contains(1, fields.BoundTypedefs);
+
+        // AND ITS NAME, which is the assertion this test was missing. The flag alone passed while
+        // the name came back as the empty string, because pylabview writes it in a `Text`
+        // ATTRIBUTE and the shipped reader took the element's text. Measured 2026-09-03 on a bind
+        // that was complete in the file: `isTypedef: true`, `typedef: ""`. Asserting the flag and
+        // not the value is how a fixture that was RIGHT still failed to catch a real defect.
+        Assert.Equal("XNodeErrorCluster.ctl", fields.TypedefName(1));
+    }
+
+    [Fact]
+    public void WithoutTheCtlNameTheClusterLabelStillFindsIt()
+    {
+        // A caller that does not know the class name - or a localised file where the .ctl label
+        // does not match - falls back to the cluster's own label rather than to a position.
+        var fields = ClassBindTools.PrivateDataFields.Parse(PrivateDataAfterABind());
+
+        Assert.Equal(5, fields.Labels.Count);
+        Assert.Equal("Task Reference", fields.Labels[0]);
+    }
+
+    [Fact]
+    public void ThePrivateDataFieldsAreReadInFieldOrderWithTheirLabels()
+    {
+        var fields = ClassBindTools.PrivateDataFields.Parse(PrivateData());
+
+        Assert.Null(fields.Unavailable);
+        Assert.Equal(["Physical Channel", "Task Reference", "Sample Rate"], fields.Labels);
+    }
+
+    [Fact]
+    public void AlreadyBoundFieldsAreRecognisedAndNameTheirCtl()
+    {
+        // This is what turns "the helper said error 0" into "the file says it bound". Only field 1
+        // is a TypeDef, and its .ctl name is the LAST Label child - the first names the library.
+        var fields = ClassBindTools.PrivateDataFields.Parse(PrivateData());
+
+        Assert.Equal([1], fields.BoundTypedefs);
+        Assert.Equal("DAQmx Task Name NI_Silver.ctl", fields.TypedefName(1));
+        Assert.Null(fields.TypedefName(0));
+        Assert.Null(fields.TypedefName(99));   // out of range must not throw
+    }
+
+    [Theory]
+    [InlineData("not json at all")]
+    [InlineData("{\"field\":\"x\"}")]                                  // an object, not an array
+    [InlineData("[{\"field\":\"Task Reference\"}]")]                   // no ctlPath
+    [InlineData("[{\"ctlPath\":\"C:\\\\x.ctl\"}]")]                    // neither field nor index
+    public void AMalformedBindingIsRefusedBeforeAnythingIsTouched(string json) =>
+        // pylv_apply refuses a bad operation before the extract for the same reason: a typo should
+        // cost a message, never a half-edited class.
+        Assert.Throws<ArgumentException>(() => ClassBindTools.BindingRequest.ParseAll(json));
+
+    [Fact]
+    public void TwoBindingsForTheSameFieldAreRefused()
+    {
+        var json = """
+            [{"field":"Task Reference","ctlPath":"C:\\a.ctl"},
+             {"field":"Task Reference","ctlPath":"C:\\b.ctl"}]
+            """;
+        var bad = Assert.Throws<ArgumentException>(
+            () => ClassBindTools.BindingRequest.ParseAll(json));
+        Assert.Contains("same field", bad.Message);
+    }
+
+    [Fact]
+    public void AFieldMayBeNamedOrNumbered()
+    {
+        var parsed = ClassBindTools.BindingRequest.ParseAll("""
+            [{"field":"Task Reference","ctlPath":"C:\\a.ctl"},
+             {"fieldIndex":2,"ctlPath":"C:\\b.ctl"}]
+            """);
+
+        Assert.Equal("Task Reference", parsed[0].Field);
+        Assert.Null(parsed[0].FieldIndex);
+        Assert.Equal(2, parsed[1].FieldIndex);
+    }
+
+    // ================================================================== lvai_add_class_method
+
+    [Fact]
+    public void AMethodWithNoClassTerminalsIsRefusedWithTheReasonSpelledOut()
+    {
+        // Without classTerminals the VI is not a class method at all - it would be made a member
+        // with a `path` pane, which links, compiles and is useless.
+        var bad = Assert.Throws<ArgumentException>(() => ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\cls\\Initialize.vi"}]"""));
+        Assert.Contains("classTerminals", bad.Message);
+    }
+
+    [Fact]
+    public void TheViPathIsDerivedFromTheAixmlWhenOnlyOneIsGiven()
+    {
+        var parsed = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"aixml":"C:\\x\\Initialize.xml","classTerminals":["obj in","obj out"]}]""");
+
+        Assert.Equal(@"C:\x\Initialize.vi", parsed[0].Vi);
+        Assert.Equal(@"C:\x\Initialize.xml", parsed[0].Aixml);
+    }
+
+    [Fact]
+    public void DispatchTerminalsMayBeNamesOrIndicesButNamesAreNotNumbers()
+    {
+        var byName = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\a.vi","classTerminals":["obj in"],"dispatchTerminals":["obj in"]}]""");
+        Assert.Equal(["obj in"], byName[0].DispatchTerminals);
+        Assert.Null(byName[0].DispatchTerminalIndices);
+
+        var byIndex = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\a.vi","classTerminals":["obj in"],"dispatchTerminalIndices":[11,3]}]""");
+        Assert.Equal([11, 3], byIndex[0].DispatchTerminalIndices);
+
+        // A name in the numeric field is the likely slip, and it must not be silently dropped.
+        Assert.Throws<ArgumentException>(() => ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\a.vi","classTerminals":["obj in"],"dispatchTerminalIndices":["obj in"]}]"""));
+    }
+
+    [Fact]
+    public void AStaticMemberIsExpressedByNamingNoDispatchTerminals()
+    {
+        // Not every member dispatches - an LUnit test method is a static one - so "no dispatch
+        // terminals" has to be a legal request rather than an omission.
+        var parsed = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\a.vi","classTerminals":["obj in","obj out"]}]""");
+
+        Assert.Null(parsed[0].DispatchTerminals);
+        Assert.Null(parsed[0].DispatchTerminalIndices);
+    }
+
+    [Fact]
+    public void AStaticMemberSENDSNoDispatchInputAtAll()
+    {
+        // THE PARSE TEST ABOVE PASSED WHILE THE FEATURE DID NOT WORK. `dispatchTerminals` being
+        // legally absent is settled there; what was broken is one line further on, where the empty
+        // list was still joined into an input. The runner refuses an empty VALUE - names and values
+        // are paired by position and an empty one does not survive the split - so a static member
+        // answered `badArguments ... has an empty value` and stopped at `member`, with the pane
+        // already rebuilt. Measured 2026-09-07 on an interface member of NI's own `Pry.vi` shape.
+        var method = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\cls\\Pry.vi","classTerminals":["obj in","obj out"]}]""")[0];
+
+        var inputs = ClassMethodTools.HelperInputs(method, @"C:\cls\Pry.vi", @"C:\cls\A.lvclass", null);
+
+        Assert.False(inputs.ContainsKey("dispatch terminal indices"));
+        Assert.DoesNotContain(inputs, pair => pair.Value!.GetValue<string>().Length == 0);
+    }
+
+    [Fact]
+    public void ADispatchingMemberStillSendsItsIndices()
+    {
+        var method = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\cls\\Describe.vi","classTerminals":["obj in"]}]""")[0];
+
+        var inputs = ClassMethodTools.HelperInputs(method, @"C:\cls\Describe.vi",
+                                                   @"C:\cls\A.lvclass", [11, 3]);
+
+        Assert.Equal("11|3", inputs["dispatch terminal indices"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void ATerminalMayCarryAClassOtherThanTheMethodsOwn()
+    {
+        // NI's own interface shape: `Lever.lvclass:Pry.vi` has a `Pryable in`. Before this the tool
+        // retyped every terminal to lvclassPath, so that VI needed a hand-built helper.
+        var method = ClassMethodTools.MethodRequest.ParseAll(
+            """
+            [{"vi":"C:\\IVehicle\\Report Engine Power.vi",
+              "classTerminals":["IVehicle in",
+                                {"terminal":"Engine in","class":"C:\\Engine\\Engine.lvclass"}]}]
+            """)[0];
+
+        Assert.Null(method.ClassTerminals[0].ClassPath);
+        Assert.Equal(@"C:\Engine\Engine.lvclass", method.ClassTerminals[1].ClassPath);
+
+        var inputs = ClassMethodTools.HelperInputs(method, @"C:\IVehicle\Report Engine Power.vi",
+                                                   @"C:\IVehicle\IVehicle.lvclass", null);
+
+        // One path per name, in the same order - the helper indexes the two arrays together.
+        Assert.Equal("IVehicle in|Engine in", inputs["class terminal names"]!.GetValue<string>());
+        Assert.Equal(@"C:\IVehicle\IVehicle.lvclass|C:\Engine\Engine.lvclass",
+                     inputs["terminal class paths"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void AClassTerminalObjectWithoutATerminalNameIsRefused()
+    {
+        var bad = Assert.Throws<ArgumentException>(() => ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\a.vi","classTerminals":[{"class":"C:\\Engine\\Engine.lvclass"}]}]"""));
+        Assert.Contains("terminal", bad.Message);
+    }
+
+    [Fact]
+    public void ACachedHelperOlderThanItsSourceIsRebuilt()
+    {
+        // The helper VI is generated once and reused. An edit to the AIXML would otherwise keep
+        // running the previously built VI - silently, because a control that is not there is not an
+        // error: it simply keeps its default and every stage still answers 0. Found twice, most
+        // recently 2026-09-07 when a per-terminal class path was added to lvai_add_class_method.xml.
+        var aixml = Path.GetTempFileName();
+        var helper = Path.GetTempFileName();
+        try
+        {
+            File.SetLastWriteTimeUtc(aixml, new DateTime(2026, 9, 7, 12, 0, 0, DateTimeKind.Utc));
+            File.SetLastWriteTimeUtc(helper, new DateTime(2026, 9, 7, 13, 0, 0, DateTimeKind.Utc));
+            Assert.False(HelperCache.NeedsRebuild(aixml, helper));
+
+            File.SetLastWriteTimeUtc(aixml, new DateTime(2026, 9, 7, 14, 0, 0, DateTimeKind.Utc));
+            Assert.True(HelperCache.NeedsRebuild(aixml, helper));
+
+            File.Delete(helper);
+            Assert.True(HelperCache.NeedsRebuild(aixml, helper));
+        }
+        finally
+        {
+            File.Delete(aixml);
+            if (File.Exists(helper)) File.Delete(helper);
+        }
+    }
+
+    [Fact]
+    public void TheVerifyFailureDetailIsAFreshNodeAndNotTheEvidenceItself()
+    {
+        // The evidence object is already attached to the method's `steps`, and System.Text.Json
+        // refuses a node that has a parent. Passing it on as the failure detail threw
+        // `InvalidOperationException: The node already has a parent` - so the ONE branch that
+        // reports a repair which never reached disk produced an exception instead of a report.
+        var steps = new JsonArray();
+        var evidence = new JsonObject
+        {
+            ["ran"] = true,
+            ["classTypedTerminals"] = 1,
+            ["pathStandInsLeft"] = 2,
+        };
+        steps.Add(new JsonObject { ["step"] = "verify", ["answer"] = evidence });
+
+        var detail = ClassMethodTools.VerifyFailureDetail(evidence, expected: 1);
+
+        Assert.Null(detail.Parent);
+        Assert.Equal(2, detail["pathStandInsLeft"]!.GetValue<int>());
+        Assert.Contains("stand-in", detail["hint"]!.GetValue<string>());
+
+        // The whole point: it can now be attached somewhere else without throwing.
+        var results = new JsonArray();
+        results.Add(new JsonObject { ["detail"] = detail });
+    }
+
+    [Fact]
+    public void AVerifyThatCouldNotRunSaysSoRatherThanBlamingTheFile()
+    {
+        var detail = ClassMethodTools.VerifyFailureDetail(
+            new JsonObject { ["ran"] = false, ["classTypedTerminals"] = -1, ["pathStandInsLeft"] = -1 },
+            expected: 2);
+
+        Assert.Contains("could not run", detail["hint"]!.GetValue<string>());
+    }
+
+    [Fact]
+    public void TwoMethodsCannotNameTheSameVi()
+    {
+        var bad = Assert.Throws<ArgumentException>(() => ClassMethodTools.MethodRequest.ParseAll(
+            """
+            [{"vi":"C:\\a.vi","classTerminals":["obj in"]},
+             {"vi":"C:\\a.vi","classTerminals":["obj in"]}]
+            """));
+        Assert.Contains("same .vi", bad.Message);
+    }
+
+    // ================================================================== lvai_generate_method_test
+
+    private static MethodTestTools.MethodCase ErrorCase(
+        int slot, string method, int code,
+        params MethodTestTools.RequiredInput[] required) =>
+        new(slot, $"{method} reports {code}", method, $@"C:\cls\{method}.vi",
+            null, null, null, null, null, null, code, @"C:\cls\Daq.lvclass", required);
+
+    private static MethodTestTools.MethodCase WireCase(int slot, string method, string field) =>
+        new(slot, $"{field} survives {method}", method, $@"C:\cls\{method}.vi",
+            field, $@"C:\cls\Write {field}.vi", field, $@"C:\cls\Read {field}.vi",
+            "double", "10.0", null, @"C:\cls\Daq.lvclass", []);
+
+    private static XElement Suite(params MethodTestTools.MethodCase[] cases) =>
+        XElement.Parse(MethodTestTools.MethodTestAixml(@"C:\cls\Test Daq Methods.vi", "Daq", cases));
+
+    [Fact]
+    public void AMethodSocketCarriesTheClassSlotsAndARealErrorPair()
+    {
+        var xml = XElement.Parse(MethodTestTools.MethodSocketAixml("LVMCP Mth1.vi"));
+
+        var slots = xml.Elements()
+            .Where(e => e.Attribute("conIdx") is not null)
+            .ToDictionary(e => (string)e.Attribute("_name")!, e => (string)e.Attribute("conIdx")!);
+
+        // 11 in and 3 out are NI's accessor slots, which is where the real method's wires are, so
+        // {LV.SubVI} Replace lands them on the same terminals.
+        Assert.Equal("11", slots["obj in"]);
+        Assert.Equal("3", slots["obj out"]);
+
+        // The class terminals are paths because AIXML refuses UDClassInst; the ERROR pair is real,
+        // because it is what the error-code assertion reads.
+        Assert.Equal("path", (string?)xml.Elements()
+            .First(e => (string?)e.Attribute("_name") == "obj in").Attribute("type"));
+        Assert.Equal("cluster{bool.status,int32.code,string.source}", (string?)xml.Elements()
+            .First(e => (string?)e.Attribute("_name") == "error out").Attribute("type"));
+    }
+
+    [Fact]
+    public void TheMethodsOwnErrorIsFedAConstantAndNeverTheCarayaChain()
+    {
+        // THE PROPERTY THAT MAKES THE SUITE HONEST. A method under test is expected to fail with no
+        // hardware. Chaining its error into Caraya's chain would fail every assertion after it and
+        // report failures the test itself caused.
+        var xml = Suite(ErrorCase(1, "Initialize", -200099));
+
+        var call = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("Mth1"));
+        var errorIn = ((string)call.Attribute("inputs")!)
+            .Split(',').First(p => p.StartsWith("error in", StringComparison.Ordinal));
+
+        // It must come from a Constant, not from the Define Test node's error out.
+        var sourceUid = errorIn.Split(':')[1].Split('.')[0];
+        var source = xml.Elements().First(e => (string?)e.Attribute("uid") == sourceUid);
+        Assert.Equal("Constant", source.Name.LocalName);
+        Assert.Equal("cluster{bool.status,int32.code,string.source}",
+                     (string?)source.Attribute("type"));
+    }
+
+    [Fact]
+    public void AnErrorCodeCaseUnbundlesTheCodeAndComparesItToTheExpectedConstant()
+    {
+        var xml = Suite(ErrorCase(1, "Initialize", -200099));
+
+        var unbundle = xml.Elements("Node")
+            .Single(e => (string?)e.Attribute("_name") == "Unbundle By Name");
+        Assert.Equal("code", (string?)unbundle.Attribute("fields"));
+
+        // The expected value is a constant carrying exactly the number asked for - a digit lost
+        // here is a test that passes against the wrong code.
+        Assert.Contains(xml.Elements("Constant"),
+            c => (string?)c.Attribute("type") == "int32"
+                 && (string?)c.Attribute("value") == "-200099");
+    }
+
+    [Fact]
+    public void AWireSurvivalCaseReadsTheFieldBackOffTheObjectTheMethodReturned()
+    {
+        // The whole point of the shape: reading it off the object that went IN would pass even if
+        // the method dropped the wire and rebuilt it.
+        var xml = Suite(WireCase(1, "Start", "Timeout"));
+
+        var method = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("Mth1"));
+        var read = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("MthR1"));
+
+        var methodUid = (string)method.Attribute("uid")!;
+        Assert.Contains($"obj in:{methodUid}.obj out", (string)read.Attribute("inputs")!);
+    }
+
+    [Fact]
+    public void TheWrittenConstantIsAlsoTheExpectedValue()
+    {
+        // Reused rather than restated, so the two cannot drift apart - the same rule the accessor
+        // round-trip generator follows.
+        var xml = Suite(WireCase(1, "Start", "Timeout"));
+
+        var write = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("MthW1"));
+        var writtenUid = ((string)write.Attribute("inputs")!)
+            .Split(',').First(p => p.StartsWith("value:", StringComparison.Ordinal))
+            .Split(':')[1].Split('.')[0];
+
+        var assertion = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("Assert Equal"));
+        Assert.Contains($"Expected:{writtenUid}.value", (string)assertion.Attribute("inputs")!);
+    }
+
+    [Fact]
+    public void EveryCaseGetsItsOwnSocketsAndItsOwnClassConstant()
+    {
+        // lvai_swap_subvis matches BY NAME, so two cases sharing a socket would be
+        // indistinguishable and the wrong method would land in the wrong case with no error.
+        var xml = Suite(ErrorCase(1, "Initialize", -200099), WireCase(2, "Start", "Timeout"));
+
+        var targets = xml.Elements("Call")
+            .Select(e => (string)e.Attribute("target")!)
+            .Where(t => t.StartsWith("LVMCP", StringComparison.Ordinal))
+            .ToList();
+        Assert.Equal(targets.Count, targets.Distinct().Count());
+
+        var seeds = xml.Elements("Constant")
+            .Where(c => ((string?)c.Attribute("_name"))?.StartsWith("Seed") is true)
+            .Select(c => (string)c.Attribute("_name")!)
+            .ToList();
+        Assert.Equal(["Seed1", "Seed2"], seeds);
+        Assert.All(xml.Elements("Constant")
+                      .Where(c => ((string?)c.Attribute("_name"))?.StartsWith("Seed") is true),
+                   // The seed is authored as a PATH and found later by its label - AIXML's _name
+                   // becomes the block diagram label, which is the only handle the swap has.
+                   c => Assert.Equal("path", (string?)c.Attribute("type")));
+    }
+
+    [Fact]
+    public void ACaseCarryingBothShapesProducesTwoAssertions()
+    {
+        var both = new MethodTestTools.MethodCase(
+            1, "Close clears the task and reports invalid task", "Close", @"C:\cls\Close.vi",
+            "Timeout", @"C:\cls\Write Timeout.vi", "Timeout", @"C:\cls\Read Timeout.vi",
+            "double", "10.0", -200088, @"C:\cls\Daq.lvclass", []);
+
+        var xml = Suite(both);
+        var assertions = xml.Elements("Call")
+            .Count(e => ((string?)e.Attribute("target"))!.Contains("Assert Equal"));
+        Assert.Equal(2, assertions);
+    }
+
+    [Fact]
+    public void TheAssertionsAreMergedIntoOneErrorOut()
+    {
+        var xml = Suite(ErrorCase(1, "Initialize", -200099), ErrorCase(2, "Close", -200088));
+
+        // n assertions need n-1 merges, and the indicator must hang off the last of them.
+        Assert.Single(xml.Elements("Node"), e => (string?)e.Attribute("_name") == "Merge Errors");
+        var errorOut = xml.Elements("Indicator")
+            .Single(e => (string?)e.Attribute("_name") == "error out");
+        var merge = xml.Elements("Node").Single(e => (string?)e.Attribute("_name") == "Merge Errors");
+        Assert.Contains($"{(string)merge.Attribute("uid")!}.error out",
+                        (string)errorOut.Attribute("inputs")!);
+    }
+
+    [Fact]
+    public void TheSuiteNameIsTheTestVisOwnNameNotTheClasss()
+    {
+        // Caraya writes this string into the report as <testsuite name="…">. Deriving it from the
+        // class made every suite of one class report under the same name - measured 2026-08-29.
+        var xml = Suite(ErrorCase(1, "Initialize", -200099));
+
+        Assert.Contains(xml.Elements("Constant"),
+            c => (string?)c.Attribute("_name") == "Label (VI Title)"
+                 && (string?)c.Attribute("value") == "Test Daq Methods");
+    }
+
+    // ------------------------------------------- required inputs, the 2026-09-03 executability bug
+
+    [Fact]
+    public void ARequiredInputIsWiredFromAConstantOnBothSocketAndCall()
+    {
+        // THE DEFECT THIS TEST EXISTS FOR. The generated call left `Physical Channel:` empty, the
+        // suite came out `7101, not in an executable state`, and the tool still answered ok: true.
+        var required = new MethodTestTools.RequiredInput(
+            "Physical Channel", "string", "Dev1/ai0", 10, FromCaller: true);
+        var xml = Suite(ErrorCase(1, "Initialize", -200099, required));
+
+        var call = xml.Elements("Call")
+            .First(e => ((string?)e.Attribute("target"))!.Contains("Mth1"));
+        var inputs = (string)call.Attribute("inputs")!;
+        var wired = inputs.Split(',')
+            .First(p => p.StartsWith("Physical Channel:", StringComparison.Ordinal));
+
+        // It must be fed by a real net, not left as `Physical Channel:`.
+        var sourceUid = wired.Split(':')[1].Split('.')[0];
+        Assert.NotEqual("", sourceUid);
+        var source = xml.Elements().First(e => (string?)e.Attribute("uid") == sourceUid);
+        Assert.Equal("Constant", source.Name.LocalName);
+        Assert.Equal("Dev1/ai0", (string?)source.Attribute("value"));
+    }
+
+    [Fact]
+    public void TheSocketDeclaresEveryRequiredInputAsRequired()
+    {
+        // Without the terminal on the SOCKET there is nothing for the call to wire to - and AIXML
+        // enforces `required` against what the callee declares, so a socket that omits it is
+        // exactly why validation passed on an unrunnable suite.
+        var required = new MethodTestTools.RequiredInput(
+            "Physical Channel", "string", "Dev1/ai0", 10, FromCaller: true);
+        var xml = XElement.Parse(MethodTestTools.MethodSocketAixml("LVMCP Mth1.vi", [required]));
+
+        var terminal = xml.Elements("Control")
+            .Single(e => (string?)e.Attribute("_name") == "Physical Channel");
+        Assert.Equal("required", (string?)terminal.Attribute("connection"));
+        Assert.Equal("string", (string?)terminal.Attribute("type"));
+        Assert.Equal("10", (string?)terminal.Attribute("conIdx"));
+    }
+
+    [Fact]
+    public void ARequiredInputNeverLandsOnASlotTheClassOrErrorTerminalsHold()
+    {
+        // 11 and 3 are the class terminals and the error pair sits at the pane's two bottom slots.
+        // A required input landing on one of those would move a wire the swap depends on.
+        var slots = MethodTestTools.FreeSocketSlots();
+
+        Assert.DoesNotContain(11, slots);
+        Assert.DoesNotContain(3, slots);
+        Assert.NotEmpty(slots);
+    }
+
+    [Theory]
+    [InlineData("ref{GenClassTag.Task.NIDAQ}", false)]   // a DAQmx task handle
+    [InlineData("tag{14}", false)]                       // an IO name control
+    [InlineData("variant", false)]
+    [InlineData("{LV.VI}", false)]
+    [InlineData("string", true)]
+    [InlineData("double", true)]
+    [InlineData("cluster{bool.status,int32.code,string.source}", true)]
+    public void OnlyATypeWithAMEANINGFULDefaultMayBeGuessed(string type, bool honest) =>
+        // A refnum's "empty" literal asserts nothing, and inventing one is how a green test comes
+        // to pin nothing at all. Those are refused by name so the caller supplies a real value.
+        Assert.Equal(honest, MethodTestTools.HasHonestDefault(type));
+
+    [Fact]
+    public void ACaseMayCarryExplicitInputsForAnyTerminal()
+    {
+        var parsed = MethodTestTools.MethodCaseRequest.ParseAll("""
+            [{"method":"Initialize","expectErrorCode":-200099,
+              "inputs":{"Physical Channel":"Dev1/ai0","task in":""}}]
+            """);
+
+        Assert.Equal("Dev1/ai0", parsed[0].Inputs!["Physical Channel"]);
+        Assert.Equal("", parsed[0].Inputs!["task in"]);
+    }
+
+    [Theory]
+    [InlineData("[]")]                                                     // nothing to test
+    [InlineData("""[{"method":"Start"}]""")]                               // asserts nothing
+    [InlineData("""[{"method":"Start","writeField":"Timeout"}]""")]        // field with no value
+    [InlineData("""[{"expectErrorCode":-1}]""")]                           // no method
+    public void ACaseThatAssertsNothingIsRefused(string json) =>
+        Assert.Throws<ArgumentException>(() => MethodTestTools.MethodCaseRequest.ParseAll(json));
+
+    [Fact]
+    public void ReadFieldDefaultsToTheFieldThatWasWritten()
+    {
+        var parsed = MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Start","writeField":"Timeout","value":"10.0"}]""");
+
+        Assert.Equal("Timeout", parsed[0].WriteField);
+        Assert.Null(parsed[0].ReadField);      // resolved to WriteField by the caller, not here
+        Assert.Equal("10.0", parsed[0].Value);
+    }
+
+    // ---------- re-running over a member that already exists ----------
+
+    /// <summary>
+    /// The item shape of a REAL `.lvclass`, taken verbatim off `Bicycle.lvclass` rather than
+    /// invented - two tabs of indent, the members' URLs relative with a `../` because they sit in
+    /// a subfolder, and the parent link carried as an `Item Type="Parent"` among them.
+    ///
+    /// Written out here because the fixture is the thing that keeps being wrong in this repository:
+    /// a plausible one made <see cref="ClassMethodTools.IsAlreadyMember"/> answerable by a naive
+    /// URL match, which the real file's `../Describe.vi` would then have missed.
+    /// </summary>
+    private const string RealClassFile = """
+        <?xml version='1.0' encoding='UTF-8'?>
+        <Project Type="Class" LVVersion="26008000">
+        	<Item Name="Parent Libraries" Type="Parent Libraries">
+        		<Item Name="IVehicle.lvclass" Type="Parent" URL="../../IVehicle/IVehicle.lvclass"/>
+        	</Item>
+        	<Item Name="Bicycle.ctl" Type="Class Private Data" URL="Bicycle.ctl">
+        	</Item>
+        	<Item Name="Describe.vi" Type="VI" URL="../Describe.vi">
+        	</Item>
+        	<Item Name="Read Manufacturer.vi" Type="VI" URL="../Read Manufacturer.vi">
+        	</Item>
+        </Project>
+        """;
+
+    [Fact]
+    public void AMemberTheClassFileListsIsRecognised()
+    {
+        var dir = Directory.CreateTempSubdirectory().FullName;
+        var lvclass = Path.Combine(dir, "Bicycle.lvclass");
+        File.WriteAllText(lvclass, RealClassFile);
+
+        // A member whose URL is relative with `../` - the shape a real class in a subfolder has.
+        Assert.True(ClassMethodTools.IsAlreadyMember(lvclass, Path.Combine(dir, "Describe.vi")));
+        Assert.True(ClassMethodTools.IsAlreadyMember(lvclass,
+                                                     Path.Combine(dir, "Read Manufacturer.vi")));
+
+        // And one it does not list. THIS is the case that must stay false, because it is what
+        // separates a benign re-add from a wrong `Name` input - both answer Error 1004.
+        Assert.False(ClassMethodTools.IsAlreadyMember(lvclass, Path.Combine(dir, "Nope.vi")));
+
+        Directory.Delete(dir, true);
+    }
+
+    /// <summary>
+    /// A missing or unreadable class file must answer false rather than throw: the gate exists to
+    /// widen tolerance, so failing closed is the safe direction.
+    /// </summary>
+    [Fact]
+    public void AnUnreadableClassFileIsNotTakenAsMembership() =>
+        Assert.False(ClassMethodTools.IsAlreadyMember(
+            Path.Combine(Path.GetTempPath(), "no such class here.lvclass"), @"C:\x\A.vi"));
+
+    /// <summary>
+    /// MEASURED 2026-09-07, AND IT CORRECTED THE FIRST ATTEMPT AT THIS FIX. A plain re-run over an
+    /// existing member answers <c>1004</c>, not <c>56002</c> - so a filter written for 56002 alone
+    /// left the common case exactly as broken as before, with `wire rule`, `save vi` and
+    /// `save class` all inheriting the error and the retype discarded.
+    ///
+    /// The flag is what lets the helper tolerate 1004 without masking the OTHER thing 1004 means
+    /// (a full path where a bare name belongs), so it has to reach the helper on every call.
+    /// </summary>
+    [Fact]
+    public void TheMemberExistsFlagIsAlwaysSent()
+    {
+        var method = ClassMethodTools.MethodRequest.ParseAll(
+            """[{"vi":"C:\\cls\\Describe.vi","classTerminals":["obj in"]}]""")[0];
+
+        var fresh = ClassMethodTools.HelperInputs(method, @"C:\cls\Describe.vi",
+                                                  @"C:\cls\A.lvclass", [11]);
+        var again = ClassMethodTools.HelperInputs(method, @"C:\cls\Describe.vi",
+                                                  @"C:\cls\A.lvclass", [11], memberExists: true);
+
+        Assert.Equal("0", fresh["member exists"]!.GetValue<string>());
+        Assert.Equal("1", again["member exists"]!.GetValue<string>());
+
+        // The runner pairs names with values by line and refuses an empty value, so "0" rather
+        // than "" is load-bearing - an empty one stops the call at `member` with the pane rebuilt.
+        Assert.DoesNotContain(fresh, pair => pair.Value!.GetValue<string>().Length == 0);
+    }
+
+    /// <summary>
+    /// The helper's own AIXML must actually carry the control the flag is sent to. A name mismatch
+    /// here is silent - the runner sets nothing, the control keeps its default of "", the filter
+    /// never fires, and the only symptom is the defect coming back.
+    /// </summary>
+    [Fact]
+    public void TheHelperDeclaresTheMemberExistsControlAndFiltersBothCodes()
+    {
+        var helper = FindRepoFile("scripts/" + ClassMethodTools.HelperFileName);
+        Assert.NotNull(helper);
+        var aixml = File.ReadAllText(helper!);
+
+        Assert.Contains("_name=\"member exists\"", aixml, StringComparison.Ordinal);
+        Assert.Contains("value=\"56002\"", aixml, StringComparison.Ordinal);
+        Assert.Contains("value=\"1004\"", aixml, StringComparison.Ordinal);
+        Assert.Contains("_name=\"member already existed\"", aixml, StringComparison.Ordinal);
+
+        // Both codes must be OR-ed and then AND-ed with the flag. An OR alone would tolerate a
+        // wrong-Name 1004 on a class that does not list the VI at all.
+        Assert.Contains("_name=\"Or\"", aixml, StringComparison.Ordinal);
+        Assert.Contains("_name=\"And\"", aixml, StringComparison.Ordinal);
+    }
+
+    private static string? FindRepoFile(string relative)
+    {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        while (dir is not null)
+        {
+            var candidate = Path.Combine(dir.FullName, relative.Replace('/', Path.DirectorySeparatorChar));
+            if (File.Exists(candidate)) return candidate;
+            dir = dir.Parent;
+        }
+        return null;
+    }
+
+    // ---------- asserting a method's ordinary OUTPUT ----------
+
+    private static MethodTestTools.MethodCase OutputCase(
+        int slot, string method, string terminal, string type, string expected) =>
+        new(slot, $"{method} returns {terminal}", method, $@"C:\cls\{method}.vi",
+            null, null, null, null, null, null, null, @"C:\cls\Daq.lvclass", [],
+            ExpectOutput: terminal, ExpectValue: expected, OutputType: type, OutputConIdx: 2);
+
+    /// <summary>
+    /// THE GAP THIS CLOSES. Until 2026-09-07 the tool had `expectErrorCode` and `writeField`, so a
+    /// method whose whole job is to RETURN something — a `Describe.vi`, a formatter, any getter
+    /// that is not an accessor — could not be tested at all. Measured cost: a cold build's test
+    /// phase went 634 s -> 890 s because four such tests were hand-authored instead.
+    /// </summary>
+    [Fact]
+    public void AnOutputCaseAssertsTheMethodsOwnTerminal()
+    {
+        var xml = Suite(OutputCase(1, "Describe", "description", "string", "Bicycle - two wheels."));
+
+        // The Call must ASK for the terminal, or there is nothing to assert against.
+        var call = xml.Elements("Call").Single(c => (string?)c.Attribute("target") == "LVMCP Mth1.vi");
+        Assert.Contains("description:", (string)call.Attribute("outputs")!, StringComparison.Ordinal);
+
+        // And the expectation must be a constant of the terminal's own type, not a string dump.
+        var expected = xml.Elements("Constant")
+            .Single(c => ((string?)c.Attribute("_name"))?.StartsWith("expected description",
+                                                                     StringComparison.Ordinal) == true);
+        Assert.Equal("string", (string)expected.Attribute("type")!);
+        Assert.Equal("Bicycle - two wheels.", (string)expected.Attribute("value")!);
+    }
+
+    /// <summary>
+    /// The socket has to carry the terminal under the SAME NAME as the real method, because
+    /// `{LV.SubVI}` `Replace` re-attaches wires by name. A socket without it gives the assertion
+    /// nothing to read; a socket with a differently spelled one leaves the real terminal unwired
+    /// and the suite goes green having asserted a default. That is the failure mode
+    /// `lvai_swap_subvis` was measured producing on 2026-09-07.
+    /// </summary>
+    [Fact]
+    public void TheSocketCarriesTheAssertedOutputUnderItsRealName()
+    {
+        var xml = XElement.Parse(MethodTestTools.MethodSocketAixml(
+            "LVMCP Mth1.vi", null, ("description", "string", 2)));
+
+        var indicator = xml.Elements("Indicator")
+            .Single(e => (string?)e.Attribute("_name") == "description");
+
+        Assert.Equal("string", (string)indicator.Attribute("type")!);
+        Assert.Equal("2", (string)indicator.Attribute("conIdx")!);
+
+        // An output edge, never a left-edge input slot - the pane defect that shipped twice.
+        Assert.DoesNotContain(2, MethodTestTools.FreeSocketSlots());
+        Assert.Contains(2, MethodTestTools.FreeOutputSlots());
+    }
+
+    /// <summary>
+    /// THE SOCKET MUST NOT BE SEEDED WITH THE EXPECTED VALUE. It is replaced before anything runs,
+    /// so seeding it would make a socket that never got swapped pass the assertion anyway - the
+    /// exact shape of "a green run that tested nothing" this repository keeps meeting.
+    /// </summary>
+    [Fact]
+    public void TheSocketsStandInValueIsTheTypesDefaultAndNotTheExpectation()
+    {
+        var xml = XElement.Parse(MethodTestTools.MethodSocketAixml(
+            "LVMCP Mth1.vi", null, ("description", "string", 2)));
+
+        foreach (var element in xml.Elements())
+            Assert.NotEqual("Bicycle - two wheels.", (string?)element.Attribute("value"));
+    }
+
+    [Fact]
+    public void AnOutputCaseNeedsBothHalves()
+    {
+        // expectOutput with nothing to compare against.
+        Assert.Throws<ArgumentException>(() => MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Describe","expectOutput":"description"}]"""));
+
+        // expectValue with no terminal named.
+        Assert.Throws<ArgumentException>(() => MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Describe","expectValue":"x"}]"""));
+    }
+
+    /// <summary>
+    /// An EMPTY expected value is legal and must survive the parse: an interface declaration body
+    /// returning `""` is the normal case, and refusing it would push the caller into asserting
+    /// something it does not mean.
+    /// </summary>
+    [Fact]
+    public void AnEmptyExpectedValueIsLegal()
+    {
+        var parsed = MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Describe","expectOutput":"description","expectValue":""}]""");
+
+        Assert.Equal("description", parsed[0].ExpectOutput);
+        Assert.Equal("", parsed[0].ExpectValue);
+    }
+
+    [Fact]
+    public void AnOutputCaseGetsADefaultLabelNamingTheTerminal()
+    {
+        var xml = Suite(OutputCase(1, "Describe", "description", "string", "x"));
+
+        Assert.Contains(xml.Elements("Constant"),
+            c => (string?)c.Attribute("value") == "Describe returns description (description)");
+    }
+
+    /// <summary>All three assertion shapes may sit in one case, and each gets its own Caraya
+    /// assertion - the error code, the returned value and the surviving field.</summary>
+    [Fact]
+    public void TheThreeAssertionShapesCoexist()
+    {
+        var both = new MethodTestTools.MethodCase(
+            1, "Start does everything", "Start", @"C:\cls\Start.vi",
+            "Timeout", @"C:\cls\Write Timeout.vi", "Timeout", @"C:\cls\Read Timeout.vi",
+            "double", "10.0", -200099, @"C:\cls\Daq.lvclass", [],
+            ExpectOutput: "status text", ExpectValue: "running", OutputType: "string",
+            OutputConIdx: 2);
+
+        var xml = Suite(both);
+        var asserts = xml.Elements("Call")
+            .Count(c => ((string?)c.Attribute("target"))?.Contains("Assert", StringComparison.Ordinal) == true);
+
+        Assert.Equal(3, asserts);
+    }
+
+    // ---------- expectFieldValue, and the silence that hid its absence ----------
+
+    /// <summary>
+    /// AN UNKNOWN CASE KEY IS REFUSED BY NAME. It used to be dropped in silence, and on a case
+    /// carrying another assertion nothing downstream noticed. Measured 2026-09-15: two test agents
+    /// independently reached for <c>expectFieldValue</c> before it existed, had it discarded, and
+    /// got <c>ok: true</c> for a suite whose assertion asserted the OPPOSITE of the one asked for -
+    /// <c>writeField</c>+<c>value</c> pins that the field SURVIVED, and the method under test was a
+    /// Zero whose whole job is to overwrite it. The suite pinned <c>12.5 == 0</c>.
+    /// </summary>
+    [Theory]
+    [InlineData("""[{"method":"Zero","writeField":"Reading","value":"12.5","expectFeildValue":"0"}]""")]
+    [InlineData("""[{"method":"Start","writeField":"Timeout","value":"10.0","expect_value":"3"}]""")]
+    [InlineData("""[{"method":"Start","expectErrorCode":-1,"notAKey":"x"}]""")]
+    public void AnUnknownCaseKeyIsRefused(string json)
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => MethodTestTools.MethodCaseRequest.ParseAll(json));
+
+        // Named, not merely rejected - and the accepted set is listed, because the whole cost of
+        // the original defect was that the author never learned the key had not been understood.
+        Assert.Contains("expectFieldValue", refusal.Message, StringComparison.Ordinal);
+        Assert.Contains("Accepted:", refusal.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// A RECOGNISED KEY WITH THE WRONG VALUE KIND IS THE SAME SILENCE. The parser read a number and
+    /// dropped anything else, so a QUOTED error code vanished - and every other value in a case is
+    /// a string, so quoting it is the natural mistake.
+    /// </summary>
+    [Fact]
+    public void AQuotedExpectErrorCodeIsRefusedRatherThanDiscarded()
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => MethodTestTools.MethodCaseRequest.ParseAll(
+                """[{"method":"Start","expectErrorCode":"-200099","writeField":"T","value":"1"}]"""));
+
+        Assert.Contains("expectErrorCode", refusal.Message, StringComparison.Ordinal);
+        Assert.Contains("NUMBER", refusal.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>The shape needs a field to seed and read back, and that is <c>writeField</c>.</summary>
+    [Fact]
+    public void ExpectFieldValueWithoutAWriteFieldIsRefused()
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => MethodTestTools.MethodCaseRequest.ParseAll(
+                """[{"method":"Zero","expectFieldValue":"0","expectErrorCode":0}]"""));
+
+        Assert.Contains("writeField", refusal.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ExpectFieldValueIsCarriedAndDoesNotDisturbTheSeed()
+    {
+        var parsed = MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Zero","writeField":"Reading","value":"12.5","expectFieldValue":"0"}]""");
+
+        Assert.Equal("Reading", parsed[0].WriteField);
+        Assert.Equal("12.5", parsed[0].Value);            // still the SEED
+        Assert.Equal("0", parsed[0].ExpectFieldValue);    // the assertion is the other one
+    }
+
+    /// <summary>
+    /// THE CONTROL. A guard buys safety cheaply by making the default path stricter than it was, so
+    /// this asserts the ordinary wire-survival case is untouched: no expectFieldValue, and the
+    /// expected value is still the written one.
+    /// </summary>
+    [Fact]
+    public void AnOrdinaryWireSurvivalCaseIsUnchanged()
+    {
+        var parsed = MethodTestTools.MethodCaseRequest.ParseAll(
+            """[{"method":"Start","writeField":"Timeout","readField":"Timeout","value":"10.0","type":"double","label":"Timeout survives Start"}]""");
+
+        Assert.Null(parsed[0].ExpectFieldValue);
+        Assert.Equal("10.0", parsed[0].Value);
+        Assert.Equal("Timeout", parsed[0].ReadField);
+        Assert.Equal("double", parsed[0].Type);
+        Assert.Equal("Timeout survives Start", parsed[0].Label);
+    }
+
+    // ---------- the wrong value KIND on a recognised key ----------
+
+    /// <summary>
+    /// A LIST WHERE A STRING BELONGS USED TO SURFACE A .NET INTERNAL. Measured 2026-09-15:
+    /// <c>"writeField":["Last Count","Pulses Per Revolution"]</c> - the spelling an author reaches
+    /// for on finding that a case cannot seed two fields - answered
+    /// <c>InvalidOperationException: The node must be of type 'JsonValue'</c>, with no case index,
+    /// no key name and no accepted shape. The unknown-KEY guard added the day before could not see
+    /// it, because <c>writeField</c> is a perfectly good key.
+    /// </summary>
+    [Theory]
+    [InlineData("""[{"method":"Read Speed","writeField":["Last Count","PPR"],"value":"12.5"}]""", "writeField")]
+    [InlineData("""[{"method":"Start","writeField":"T","value":{"a":"1"}}]""", "value")]
+    [InlineData("""[{"method":"Start","expectErrorCode":0,"inputs":"Tag"}]""", "inputs")]
+    public void ARecognisedKeyWithTheWrongValueKindIsRefusedByName(string json, string key)
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => MethodTestTools.MethodCaseRequest.ParseAll(json));
+
+        Assert.Contains(key, refusal.Message, StringComparison.Ordinal);
+        Assert.Contains("casesJson[0]", refusal.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// A list is refused with the reason rather than only the kind - a case IS one assertion, and
+    /// an author who wanted two fields needs to know no spelling gets them, not to try another.
+    /// </summary>
+    [Fact]
+    public void TheRefusalForAListSaysACaseDescribesOneAssertion()
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => MethodTestTools.MethodCaseRequest.ParseAll(
+                """[{"method":"Read Speed","writeField":["A","B"],"value":"1"}]"""));
+
+        Assert.Contains("ONE assertion", refusal.Message, StringComparison.Ordinal);
+        Assert.Contains("lvai_swap_subvis", refusal.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// THE CONTROL for the kind guard. A guard that refuses everything is no guard, and every one
+    /// of these shapes is ordinary.
+    /// </summary>
+    [Theory]
+    [InlineData("""[{"method":"Zero","writeField":"Reading","value":"12.5","expectFieldValue":"0"}]""")]
+    [InlineData("""[{"method":"Start","expectErrorCode":-200099,"inputs":{"Channel":"Dev1/ai0"}}]""")]
+    [InlineData("""[{"method":"Describe","expectOutput":"description","expectValue":""}]""")]
+    public void OrdinaryCasesStillParse(string json)
+        => Assert.NotEmpty(MethodTestTools.MethodCaseRequest.ParseAll(json));
+
+    // ---------- a method name carrying its own extension ----------
+
+    /// <summary>
+    /// Measured 2026-09-15: <c>"method":"Read Tag.vi"</c> was answered with
+    /// <c>'Read Tag.vi' has no .vi beside the class - expected 'Read Tag.vi.vi'</c> plus advice to
+    /// add the method - the filesystem blamed for the argument, and the one remedy that cannot
+    /// help offered for a method already on disk.
+    /// </summary>
+    [Fact]
+    public void AMethodNameCarryingItsOwnExtensionIsRecognised()
+    {
+        var folder = Path.Combine(Path.GetTempPath(), "lvmcp-ext-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(folder);
+        try
+        {
+            File.WriteAllText(Path.Combine(folder, "Read Tag.vi"), "");
+
+            Assert.True(MethodTestTools.NameCarriesExtension(folder, "Read Tag.vi"));
+            // The plain name is what the tool wants, and it is not the fault being reported.
+            Assert.False(MethodTestTools.NameCarriesExtension(folder, "Read Tag"));
+            // THE CONTROL: a member that genuinely is not there keeps the ordinary refusal, which
+            // is the one that tells the author to add it.
+            Assert.False(MethodTestTools.NameCarriesExtension(folder, "Absent.vi"));
+        }
+        finally { Directory.Delete(folder, recursive: true); }
+    }
+}

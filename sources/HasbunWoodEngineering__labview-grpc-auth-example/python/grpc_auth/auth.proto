@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService {
+  rpc StartLogin (StartLoginRequest) returns (StartLoginResponse);
+  rpc SubscribeLogin (SubscribeLoginRequest) returns (stream SubscribeLoginResponse);
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+message StartLoginRequest {
+  string client_label = 1;
+}
+
+message StartLoginResponse {
+  bool ok = 1;
+  string error = 2;
+  string session_id = 3;
+  string login_url = 4;
+  int64 expires_at = 5;
+}
+
+message SubscribeLoginRequest {
+  string session_id = 1;
+}
+
+enum LoginStatus {
+  LOGIN_STATUS_PENDING = 0;
+  LOGIN_STATUS_READY = 1;
+  LOGIN_STATUS_EXPIRED = 2;
+  LOGIN_STATUS_USED = 3;
+  LOGIN_STATUS_INVALID = 4;
+}
+
+message SubscribeLoginResponse {
+  bool ok = 1;
+  string error = 2;
+  LoginStatus status = 3;
+  string access_token = 4;
+  int64 access_expires_at = 5;
+  string username = 6;
+}
+
+message RefreshTokenRequest {
+  string access_token = 1;
+}
+
+message RefreshTokenResponse {
+  bool ok = 1;
+  string error = 2;
+  string access_token = 3;
+  int64 access_expires_at = 4;
+}
+
+message LogoutRequest {
+  string access_token = 1;
+}
+
+message LogoutResponse {
+  bool ok = 1;
+  string error = 2;
+}
+
+message ValidateTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string error = 2;
+  string user_id = 3;
+  repeated string groups = 4;
+}

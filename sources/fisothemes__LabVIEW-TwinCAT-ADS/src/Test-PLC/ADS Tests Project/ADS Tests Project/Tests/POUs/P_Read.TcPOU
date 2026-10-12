@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="P_Read" Id="{a1c0d52e-73fc-4198-9423-98c7245cf4d6}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM P_Read
+VAR
+	bBoolean 		: BOOL 						:= TRUE;
+	t_Bool 			: T_Bool 					:= TRUE;
+	            	        					
+	nByte 			: BYTE 						:= 32;
+	nWord 			: WORD 						:= 31_234;
+	nDword 			: DWORD 					:= 400_001;
+	nLword 			: LWORD						:= 1_872_635_651_236;
+	nSint 			: SINT 						:= -58;
+	nUsint 			: USINT 					:= 254;
+	nInt 			: INT						:= -32_688;
+	nUint 			: UINT 						:= 65_456;
+	nDint 			: DINT						:= -321_000_865;
+	t_Dint 			: T_Dint 					:= -1_000_000_234;
+	nUdint 			: UDINT						:= 4_268_999_001;
+	nLint 			: LINT 						:= -18_000_100_020_003;
+	nUlint 			: ULINT 					:= 45_000_100_020_003;
+	
+	nIntSubRange 	: INT(-4000..4000) 			:= -3996;
+	
+	fReal 			: REAL						:= -3.14;
+	fLreal 			: LREAL						:= 44E2;
+	t_Lreal 		: T_Lreal					:= 1.2E-2;
+	
+	sCleanString 	: STRING 					:= 'Hello World!';
+	sDirtyString 	: STRING 					:= sCleanString;
+	wsCleanString 	: WSTRING 					:= "Hello World!";
+	wsDirtyString 	: WSTRING 					:= wsCleanString;
+	t_String 		: T_String 					:= sCleanString;
+	t_Wstring 		: T_Wstring 				:= wsCleanString;
+	                                        	
+	tTime 			: TIME 						:= T#4000MS;
+	tLtime			: LTIME 					:= LTIME#12NS;
+	dtDateTime 		: DT 						:= DT#2020-2-7-12:55:01;
+	daDate 			: DATE 						:= DATE#2021-6-17;
+	todTimeOfDay 	: TOD 						:= TOD#13:43:59.432;
+	                                        	
+	eEnum 			: E_Enum 					:= E_Enum.Member1;
+	t_Enum 			: T_Enum					:= E_Enum.Member1;
+	                                        	
+	stSimple 		: ST_Simple 				:= (bMember := TRUE, dtMember := DT#2020-2-7-12:55:01, nMember := 448);
+	stPacked 		: ST_Packed 				:= (bMember := TRUE, dtMember := DT#2023-3-10-15:30:01, fMember := 1.444);
+	stComplex 		: ST_Complex 				:= (bMember := TRUE, eMember := E_Enum.Member2, stSimpleMember := stSimple, stPackedMember := stPacked, arrfMember := [1.23, 3.33, 1.11]);
+	t_SimpleStruct 	: T_SimpleStruct			:= stSimple;
+	
+	fbSimple 		: FB_Simple(TRUE, -57, 'Simple Test.');
+	fbPacked 		: FB_Packed 				:= (bMember := TRUE, nMember := 12, sMember := 'Packed Test.');
+	fbComplex		: FB_Complex;
+	t_PackedFb 		: T_PackedFb 				:= fbPacked;
+	
+	arrnInt 		: ARRAY[1..2] OF INT 		:= [-99, 99];
+	arrfReal 		: ARRAY[1..3, 0..2] OF REAL := [2(10), 2(20), 2(30), 3(40)];
+	ararfReal 		: ARRAY[0..2] OF ARRAY[0..2] OF REAL := [[3(10)], [3(20)], [3(30)]];
+	arrarfReal 		: ARRAY[0..1, 0..2] OF ARRAY[0..2] OF LREAL := [3([3(11.5)]), 3([3(22.6)])];
+	arrstComplex 	: ARRAY[0..1, 0..1] OF ST_Complex := [2(stComplex), 2(stComplex)];
+	arfbSimple		: ARRAY[1..3] OF FB_Simple[(TRUE, -57, 'A Simple Array Test.')];
+	arrfbComplex	: ARRAY[0..2, 1..2] OF FB_Complex;
+	
+	refBool 		: REFERENCE TO BOOL 		REF= bBoolean;
+	refDint 		: REFERENCE TO DINT 		REF= nDint;
+	refString 		: REFERENCE TO STRING 		REF= sCleanString;
+	refWstring 		: REFERENCE TO WSTRING 		REF= wsCleanString;
+	refTime 		: REFERENCE TO TIME 		REF= tTime;
+	refDateTime 	: REFERENCE TO DT 			REF= dtDateTime;
+	refDate 		: REFERENCE TO DATE 		REF= daDate;
+	refTimeOfDay 	: REFERENCE TO TOD 			REF= todTimeOfDay;
+	refEnum 		: REFERENCE TO E_Enum;
+	refStruct 		: REFERENCE TO ST_Complex 	REF= stComplex;
+	refFuncBlock 	: REFERENCE TO FB_Complex	REF= fbComplex;
+	refArray 		: REFERENCE TO ARRAY[1..3, 0..2] OF REAL REF= arrfReal;
+	refarrstComplex : REFERENCE TO ARRAY[0..1, 0..1] OF ST_Complex REF= arrstComplex;
+	refarfbSimple	: REFERENCE TO ARRAY[1..3] OF FB_Simple[(TRUE, -57, 'A Simple Array Test.')] REF= arfbSimple;
+	
+	pBool 			: POINTER TO BOOL 			:= ADR(bBoolean);
+	pDint 			: POINTER TO DINT 			:= ADR(nDint);
+	pString 		: POINTER TO STRING 		:= ADR(sCleanString);
+	pWstring 		: POINTER TO WSTRING 		:= ADR(wsCleanString);
+	pTime 			: POINTER TO TIME 			:= ADR(tTime);
+	pDateTime 		: POINTER TO DT 			:= ADR(dtDateTime);
+	pDate 			: POINTER TO DATE 			:= ADR(daDate);
+	pTimeOfDay 		: POINTER TO TOD 			:= ADR(todTimeOfDay);
+	pEnum 			: POINTER TO E_Enum			:= ADR(eEnum);
+	pStruct 		: POINTER TO ST_Complex 	:= ADR(stComplex);
+	pFuncBlock 		: POINTER TO FB_Complex		:= ADR(fbComplex);
+	pArray 			: POINTER TO ARRAY[1..3, 0..2] OF REAL := ADR(arrfReal);
+	parrstComplex 	: POINTER TO ARRAY[0..1, 0..1] OF ST_Complex := ADR(arrstComplex);
+	parrfbComplex	: POINTER TO ARRAY[0..2, 1..2] OF FB_Complex := ADR(arrfbComplex);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[sDirtyString := 'Ahh!';
+wsDirtyString := "Ahh!";
+refEnum REF= eEnum; // This is here because the compiler does not like initialising references to enums.
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Generate Recovery Codes" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Generate Recovery Codes</h1>
+  <p class="subtitle">This will invalidate your existing recovery codes.</p>
+
+  <div class="card">
+    <form method="post" action="{% url 'mfa_generate_recovery_codes' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button type="submit">Generate</button>
+        <a class="btn ghost" href="{% url 'mfa_index' %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

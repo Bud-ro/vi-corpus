@@ -1,0 +1,311 @@
+#!/usr/bin/env node
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+export const INPUT_SCHEMA = 'priority/agent-cost-private-account-balance@v1';
+export const REPORT_SCHEMA = 'priority/agent-cost-account-balance@v1';
+export const DEFAULT_OUTPUT_DIRECTORY = path.join('tests', 'results', '_agent', 'cost', 'account-balances');
+
+const CONFIDENCE_LEVELS = new Set(['low', 'medium', 'high']);
+
+function normalizeText(value) {
+  if (value == null) {
+    return '';
+  }
+  return String(value).trim();
+}
+
+function normalizeDateTime(value) {
+  const text = normalizeText(value);
+  if (!text) {
+    return '';
+  }
+  const parsed = Date.parse(text);
+  return Number.isFinite(parsed) ? text : '';
+}
+
+function normalizeDate(value) {
+  const text = normalizeText(value);
+  if (!text) {
+    return '';
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+    return text;
+  }
+  const parsed = Date.parse(text);
+  return Number.isFinite(parsed) ? new Date(parsed).toISOString().slice(0, 10) : '';
+}
+
+function toUtcMidnightDateTime(value) {
+  const text = normalizeDate(value);
+  if (!text) {
+    return '';
+  }
+  return `${text}T00:00:00.000Z`;
+}
+
+function normalizeConfidence(value) {
+  const text = normalizeText(value).toLowerCase();
+  return CONFIDENCE_LEVELS.has(text) ? text : '';
+}
+
+function toNonNegativeInteger(value) {
+  if (value == null || value === '') {
+    return null;
+  }
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
+function deriveBalanceTotals(payload) {
+  let total = toNonNegativeInteger(payload?.balances?.totalCredits ?? payload?.credits?.total ?? payload?.totalCredits);
+  let used = toNonNegativeInteger(payload?.balances?.usedCredits ?? payload?.credits?.used ?? payload?.usedCredits);
+  let remaining = toNonNegativeInteger(payload?.balances?.remainingCredits ?? payload?.credits?.remaining ?? payload?.remainingCredits);
+
+  if (total == null && used != null && remaining != null) {
+    total = used + remaining;
+  }
+  if (used == null && total != null && remaining != null) {
+    used = total - remaining;
+  }
+  if (remaining == null && total != null && used != null) {
+    remaining = total - used;
+  }
+
+  if ([total, used, remaining].some((value) => value == null)) {
+    throw new Error('Account balance state must provide enough credits data to derive total, used, and remaining credits.');
+  }
+
+  if (total !== used + remaining) {
+    throw new Error('Account balance credits are inconsistent: total must equal used + remaining.');
+  }
+
+  return { total, used, remaining };
+}
+
+function deriveCycleDaysRemaining(payload, snapshotAt, renewsAt) {
+  const explicit = toNonNegativeInteger(payload?.cycle?.daysRemaining ?? payload?.daysRemaining);
+  if (explicit != null) {
+    return explicit;
+  }
+
+  const snapshotDate = normalizeDate(snapshotAt);
+  const renewalDate = normalizeDate(renewsAt);
+  if (!snapshotDate || !renewalDate) {
+    return null;
+  }
+
+  const snapshotTime = Date.parse(`${snapshotDate}T00:00:00.000Z`);
+  const renewalTime = Date.parse(`${renewalDate}T00:00:00.000Z`);
+  if (!Number.isFinite(snapshotTime) || !Number.isFinite(renewalTime) || renewalTime < snapshotTime) {
+    return null;
+  }
+
+  return Math.round((renewalTime - snapshotTime) / 86400000);
+}
+
+function validateInputPayload(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new Error('Account balance payload must be a JSON object.');
+  }
+
+  if (normalizeText(payload.schema) && normalizeText(payload.schema) !== INPUT_SCHEMA) {
+    throw new Error(`Account balance payload schema must remain ${INPUT_SCHEMA}.`);
+  }
+
+  if (!normalizeText(payload.snapshotAt)) {
+    throw new Error('Account balance payload must include snapshotAt.');
+  }
+
+  const renewsAt = normalizeDate(payload?.plan?.renewsAt ?? payload?.renewsAt);
+  if (!renewsAt) {
+    throw new Error('Account balance payload must include plan.renewsAt.');
+  }
+
+  if (
+    !normalizeText(payload.sourcePathEvidence) &&
+    !normalizeText(payload.sourcePath) &&
+    !normalizeText(payload?.provenance?.sourcePathEvidence) &&
+    !normalizeText(payload?.provenance?.sourcePath)
+  ) {
+    throw new Error('Account balance payload must include sourcePathEvidence.');
+  }
+}
+
+function readSnapshot(filePath) {
+  const resolved = path.resolve(filePath);
+  const payload = JSON.parse(fs.readFileSync(resolved, 'utf8'));
+  return { resolved, payload };
+}
+
+export function parseArgs(argv = process.argv) {
+  const args = argv.slice(2);
+  const options = {
+    snapshotPath: null,
+    outputPath: null,
+    help: false
+  };
+
+  for (let index = 0; index < args.length; index += 1) {
+    const token = args[index];
+    const next = args[index + 1];
+    if (token === '-h' || token === '--help') {
+      options.help = true;
+      continue;
+    }
+    if (token === '--snapshot' || token === '--output') {
+      if (!next || next.startsWith('-')) {
+        throw new Error(`Missing value for ${token}.`);
+      }
+      index += 1;
+      if (token === '--snapshot') {
+        options.snapshotPath = next;
+      } else {
+        options.outputPath = next;
+      }
+      continue;
+    }
+    throw new Error(`Unknown option: ${token}`);
+  }
+
+  if (!options.help && !normalizeText(options.snapshotPath)) {
+    throw new Error('Missing required option: --snapshot <path>.');
+  }
+
+  return options;
+}
+
+export function buildNormalizedAccountBalanceReceiptFromSnapshot(snapshotPayload, options = {}) {
+  validateInputPayload(snapshotPayload);
+
+  const snapshotAt = normalizeDateTime(snapshotPayload.snapshotAt);
+  if (!snapshotAt) {
+    throw new Error('Account balance payload snapshotAt must be a valid date-time.');
+  }
+
+  const capturedAt = normalizeDateTime(snapshotPayload.capturedAt) || snapshotAt;
+  const effectiveAt = normalizeDateTime(snapshotPayload.effectiveAt) || snapshotAt;
+
+  const renewsAt = normalizeDate(snapshotPayload?.plan?.renewsAt ?? snapshotPayload?.renewsAt);
+  if (!renewsAt) {
+    throw new Error('Account balance payload plan.renewsAt must be a valid date.');
+  }
+
+  const renewalCycleBoundaryAt = toUtcMidnightDateTime(renewsAt);
+  if (!renewalCycleBoundaryAt) {
+    throw new Error('Account balance payload plan.renewsAt must resolve to a cycle boundary.');
+  }
+
+  const credits = deriveBalanceTotals(snapshotPayload);
+  const cycleDaysRemaining = deriveCycleDaysRemaining(snapshotPayload, snapshotAt, renewsAt);
+  if (cycleDaysRemaining == null) {
+    throw new Error('Account balance payload must include cycle.daysRemaining or enough dates to derive it.');
+  }
+
+  const confidence = normalizeConfidence(snapshotPayload?.provenance?.confidence ?? snapshotPayload.confidence) || 'high';
+  const sourceSchema = normalizeText(snapshotPayload?.sourceSchema ?? snapshotPayload?.provenance?.sourceSchema) || INPUT_SCHEMA;
+  const sourceKind = normalizeText(snapshotPayload?.sourceKind ?? snapshotPayload?.provenance?.sourceKind) || 'operator-account-state';
+  const sourcePathEvidence =
+    normalizeText(snapshotPayload.sourcePathEvidence) ||
+    normalizeText(snapshotPayload.sourcePath) ||
+    normalizeText(snapshotPayload?.provenance?.sourcePathEvidence) ||
+    normalizeText(snapshotPayload?.provenance?.sourcePath);
+  const operatorNote =
+    normalizeText(snapshotPayload.operatorNote) ||
+    normalizeText(snapshotPayload?.provenance?.operatorNote) ||
+    'Normalized from a local private account balance snapshot.';
+  const generatedAt = normalizeDateTime(options.generatedAt) || new Date().toISOString();
+
+  return {
+    schema: REPORT_SCHEMA,
+    generatedAt,
+    effectiveAt,
+    snapshotAt,
+    capturedAt,
+    renewalCycleBoundaryAt,
+    plan: {
+      name: normalizeText(snapshotPayload?.plan?.name) || 'business',
+      renewsAt,
+      daysRemaining: cycleDaysRemaining
+    },
+    balances: {
+      totalCredits: credits.total,
+      usedCredits: credits.used,
+      remainingCredits: credits.remaining
+    },
+    sourceSchema,
+    sourceKind,
+    sourcePathEvidence,
+    confidence,
+    operatorNote
+  };
+}
+
+function deriveDefaultOutputPath(report) {
+  const effectiveDate = normalizeDate(report?.effectiveAt) || normalizeDate(report?.capturedAt) || normalizeDate(report?.snapshotAt);
+  if (!effectiveDate) {
+    throw new Error('Normalized account balance receipts must include an effectiveAt, capturedAt, or snapshotAt date.');
+  }
+  return path.join(DEFAULT_OUTPUT_DIRECTORY, `account-balance-${effectiveDate}.json`);
+}
+
+export function runAgentCostAccountBalanceNormalize(options) {
+  const snapshot = readSnapshot(options.snapshotPath);
+  const payload = {
+    ...snapshot.payload,
+    sourcePathEvidence:
+      normalizeText(snapshot.payload?.sourcePathEvidence) ||
+      normalizeText(snapshot.payload?.sourcePath) ||
+      normalizeText(snapshot.payload?.provenance?.sourcePathEvidence) ||
+      normalizeText(snapshot.payload?.provenance?.sourcePath) ||
+      snapshot.resolved
+  };
+  const report = buildNormalizedAccountBalanceReceiptFromSnapshot(payload, {
+    generatedAt: options.generatedAt
+  });
+  const defaultOutputPath = deriveDefaultOutputPath(report);
+  const outputPath = path.resolve(options.outputPath || defaultOutputPath);
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  return {
+    snapshotPath: snapshot.resolved,
+    outputPath,
+    report
+  };
+}
+
+function printUsage() {
+  console.log('Usage: node tools/priority/agent-cost-account-balance-normalize.mjs [options]');
+  console.log('');
+  console.log('Options:');
+  console.log(`  --snapshot <path>   Local private account balance snapshot JSON (${INPUT_SCHEMA}) (required).`);
+  console.log(
+    '  --output <path>     Optional account-balance receipt output override (defaults to tests/results/_agent/cost/account-balances/account-balance-<YYYY-MM-DD>.json).'
+  );
+  console.log('  -h, --help          Show help and exit.');
+}
+
+export async function main(argv = process.argv) {
+  try {
+    const options = parseArgs(argv);
+    if (options.help) {
+      printUsage();
+      return 0;
+    }
+    const result = runAgentCostAccountBalanceNormalize(options);
+    console.log(`[agent-cost-account-balance-normalize] wrote ${result.outputPath}`);
+    return 0;
+  } catch (error) {
+    console.error(error?.message || String(error));
+    return 1;
+  }
+}
+
+const entrypointPath = process.argv[1] ? path.resolve(process.argv[1]) : null;
+const modulePath = path.resolve(fileURLToPath(import.meta.url));
+if (entrypointPath && modulePath === entrypointPath) {
+  const exitCode = await main(process.argv);
+  process.exit(exitCode);
+}

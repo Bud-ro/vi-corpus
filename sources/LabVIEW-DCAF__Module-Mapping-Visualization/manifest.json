@@ -1,0 +1,125 @@
+{
+ "repo": "LabVIEW-DCAF/Module-Mapping-Visualization",
+ "url": "https://github.com/LabVIEW-DCAF/Module-Mapping-Visualization",
+ "commit": "39cd682b0395c3b6ef601e1f4d22cd8c363b3f37",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Mapping Viewer/Channel to Port Pair.ctl",
+   "bytes": 4377,
+   "sha256": "fc18bcde62355b37a33d149157c89343f07b82d8f9fa738548d4a5e6c88dcb4f",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/Create One Column Table HTML From Channel List.vi",
+   "bytes": 22146,
+   "sha256": "ecf63fc56bd071c77a5aa06c2a06d16460e5ed8a82ca16d51efd49c08540f323",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/Create Two Column Table HTML From Channel List.vi",
+   "bytes": 29566,
+   "sha256": "ad87c3d23e06f53d5ee03261cc6ed09f979bc29a463c56eb4e91f3a58e749a5b",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/Generate GraphViz Mapping File.vi",
+   "bytes": 44922,
+   "sha256": "0e3dfb2a9491a2804d687f6697140d05e71b9a5c3288f6bc44c5156eea5ce772",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/GraphViz Generator UI Wrapper.vi",
+   "bytes": 34997,
+   "sha256": "b092a66118fd5834fe494c569ddf715cabe9830f3cd3a2da1e132bc3e0e77027",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/Mapping Viewer.lvproj",
+   "bytes": 13974,
+   "sha256": "c997607601ebbe53f656d05bea0e75efe2c94119d5ce040451498e6f849fdf9d",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/Read Formatted Default Value.vi",
+   "bytes": 16096,
+   "sha256": "15616d3e027d5f81e65592e0bb0de259cca8c1bfcec920aa02082f6c44401730",
+   "via": "extension"
+  },
+  {
+   "path": "Select Target and Engine Dialog.vi",
+   "bytes": 34715,
+   "sha256": "200b83da122b79d2b16cd914e777907d72547199a2a5806c7ad36306d3122d5b",
+   "via": "extension"
+  },
+  {
+   "path": "Tools Menu.vi",
+   "bytes": 8458,
+   "sha256": "9a756f641266e018ec4d1efbde7acb1a410ad5a37b94f6b3ff4a72824d1a2643",
+   "via": "extension"
+  },
+  {
+   "path": "Mapping Viewer/GraphViz.txt",
+   "bytes": 4708,
+   "sha256": "42e3b2010dbe207d4819b9490bf01b5b6e030989afa5dfbad2e7b478da50501b",
+   "via": "ref:Mapping Viewer/GraphViz Generator UI Wrapper.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 142,
+   "sha256": "4cbc1aac331e192d82f117c08c12d573bcb5f0b92e7e2f6dc41491e0a544c153",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.txt",
+   "bytes": 10805,
+   "sha256": "172fc8b22b68814d4b0af4cb57d19f4ac3d937f8ee1fa242f84263685ec7b2c0",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 835,
+   "sha256": "f41cf6aa66524f702d20a9888ea88c9fa86e5a883660e6d2635c2d114d61cebb",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\get alias.vi",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\NISE_CEF_TreeSerializer.lvlib",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\base format to strings.vi",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\flat hierarchy.ctl",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\full hierarchy.ctl",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\get file data.vi",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\hierarchy element.ctl",
+  "<vilib>\\NI\\Configuration Framework\\tree serializer\\instance data.ctl",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\engine configuration.lvclass",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\get mapped channels.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\read raw tag data.vi",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Configuration Editor\\Classes\\Engine Mappings\\Engine Mappings.lvclass",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Configuration Editor\\Classes\\Engine Mappings\\get datasets from modules.vi",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Framework Configuration Classes\\flattened data interface\\PL_Serialization Interface.lvlib",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Framework Configuration Classes\\flattened data interface\\get target by ID.vi",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Framework Configuration Classes\\flattened data interface\\load target hierarchy.vi",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Framework Configuration Classes\\platypus configuration\\PLConfigurationSerializer.lvlib",
+  "<vilib>\\NI\\Tag Bus Data Framework\\Framework Configuration Classes\\platypus configuration\\engines cluster.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\channel classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\filter channels by classification.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\TBM module configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus\\tag\\classify type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\find tag.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read raw default value.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read tag name.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass\\tag descriptor.ctl",
+  "<vilib>\\Platform\\system.llb\\System Exec.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "C:\\Program Files (x86)\\Graphviz2.38\\bin"
+ ]
+}

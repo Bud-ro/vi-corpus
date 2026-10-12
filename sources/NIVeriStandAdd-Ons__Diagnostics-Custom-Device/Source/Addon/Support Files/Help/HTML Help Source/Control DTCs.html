@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<title>Control DTCs</title>
+		<link rel="STYLESHEET" type="text/css" href="css/VSsystemexplorer.css">
+		<script src="common.js" type="text/javascript"></script><script src="js/expandable_tree.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="css/expandable_tree.css">
+		<script src="launchhelp.js" type="text/javascript"></script><script src="js/dynamicjumps.js" type="text/javascript"></script>
+	</head>
+<body>
+	<noscript>
+		<p class="Body">JavaScript is disabled. <a href="veristandmerge.chm::/JavaScript_Disabled.html">Details</a></p>
+		<hr width="100%" noshade>
+	</noscript>
+<h1>Control DTCs</h1>
+<p class="Body">Modifies Diagnostic Trouble Code (DTC) generation behavior.</p>
+<h2>What do you want to do?</h2>
+<h3>Edit</h3>
+<p class="Body">To edit a item, right-click the object in the configuration tree and select <strong>Edit</strong> from the shortcut menu.</p>
+<h3>Delete multiple items</h3>
+<p class="Body">To delete multiple items, right-click the object in the configuration tree and select <strong>Delete Multiple Items</strong> from the shortcut menu.</p>
+<h2>Settings</h2>
+<h3>UDS Specific</h3>
+<p><strong>Type</strong> specifies the control mode:</p>
+<ul>
+<li>1 = On 
+<li>2 = Off
+</ul>
+<h3>KWP2000 Specific</h3>
+<p><strong>Group of DTCs</strong> specifies the group of Diagnostic Trouble Codes to be cleared.</p>
+<ul>
+<li>0x0000 (0) = All powertrain DTCs 
+<li>0x4000 (16384) = All chassis DTCs 
+<li>0x8000 (32768) = All body DTCs 
+<li>0xC000 (49152) = All network-related DTCs 
+<li>0xFF00 (65280) = All DTCs 
+</ul>
+<h3>GMLAN Specific</h3>
+<p>Not Supported.</p>
+</body>
+</html>

@@ -1,0 +1,1334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://labview-community-ci-cd.github.io/compare-vi-cli-action/schemas/monitoring-work-injection-report-v1.schema.json",
+  "title": "Monitoring Work Injection Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generatedAt",
+    "repository",
+    "event",
+    "policy",
+    "inputs",
+    "evidence",
+    "selectedRule",
+    "portfolioRouting",
+    "freshness",
+    "replay",
+    "decisionLedger",
+    "summary",
+    "helperCallsExecuted"
+  ],
+  "properties": {
+    "schema": {
+      "const": "priority/monitoring-work-injection-report@v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event": {
+      "$ref": "#/$defs/event"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "requireQueueEmpty",
+        "freshness",
+        "ruleIds"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requireQueueEmpty": {
+          "type": "boolean"
+        },
+        "freshness": {
+          "$ref": "#/$defs/freshnessPolicy"
+        },
+        "ruleIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queueEmptyReportPath",
+        "monitoringModePath",
+        "governorPortfolioSummaryPath",
+        "hostSignalPath",
+        "wakeAdjudicationPath",
+        "wakeWorkSynthesisPath",
+        "wakeInvestmentAccountingPath"
+      ],
+      "properties": {
+        "queueEmptyReportPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "monitoringModePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "governorPortfolioSummaryPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hostSignalPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wakeAdjudicationPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wakeWorkSynthesisPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wakeInvestmentAccountingPath": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queueEmpty",
+        "monitoringMode",
+        "governorPortfolio",
+        "hostSignal",
+        "wake"
+      ],
+      "properties": {
+        "queueEmpty": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/queueEmpty"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "monitoringMode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/monitoringMode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "governorPortfolio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/governorPortfolio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hostSignal": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/hostSignal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wake": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/wakeEvidence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "selectedRule": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/selectedRule"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "portfolioRouting": {
+      "$ref": "#/$defs/portfolioRouting"
+    },
+    "freshness": {
+      "$ref": "#/$defs/freshnessReport"
+    },
+    "replay": {
+      "$ref": "#/$defs/replay"
+    },
+    "decisionLedger": {
+      "$ref": "#/$defs/decisionLedger"
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "helperCallsExecuted": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "fingerprint",
+        "dedupeMarker",
+        "triggerId",
+        "terminalStatus",
+        "issueNumber"
+      ],
+      "properties": {
+        "category": {
+          "const": "monitoring-work-injection"
+        },
+        "fingerprint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dedupeMarker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "triggerId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "terminalStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issueNumber": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "queueEmpty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "reason",
+        "openIssueCount"
+      ],
+      "properties": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "openIssueCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "monitoringMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "futureAgentAction",
+        "wakeConditionCount"
+      ],
+      "properties": {
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "futureAgentAction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wakeConditionCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "hostSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "provider",
+        "daemonFingerprint"
+      ],
+      "properties": {
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "daemonFingerprint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "governorPortfolio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "governorMode",
+        "currentOwnerRepository",
+        "nextOwnerRepository",
+        "nextAction",
+        "ownerDecisionSource",
+        "templateMonitoringStatus",
+        "supportedProofStatus",
+        "repoGraphStatus",
+        "workerPoolAuthoritySource",
+        "workerPoolTargetSlotCount",
+        "workerPoolOccupiedSlotCount",
+        "workerPoolAvailableSlotCount",
+        "workerPoolReleasedLaneCount",
+        "workerPoolUtilizationRatio",
+        "workerPoolReleasedCapitalAvailable",
+        "workerPoolIdleWorkerCapacityAvailable",
+        "workerPoolUnderfilled",
+        "workerPoolThroughputStatus",
+        "workerPoolThroughputPressureReasons",
+        "workerPoolQueueThroughputMode",
+        "portfolioWakeConditionCount",
+        "triggeredWakeConditions"
+      ],
+      "properties": {
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "governorMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currentOwnerRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextOwnerRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextAction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectedIssueNumber": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "brokerSelectedIssueUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectedIssueTitle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerProviderId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSlotId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectionSource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ownerDecisionSource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "templateMonitoringStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supportedProofStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repoGraphStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolAuthoritySource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolTargetSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolOccupiedSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolAvailableSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolReleasedLaneCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolUtilizationRatio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolReleasedCapitalAvailable": {
+          "type": "boolean"
+        },
+        "workerPoolIdleWorkerCapacityAvailable": {
+          "type": "boolean"
+        },
+        "workerPoolUnderfilled": {
+          "type": "boolean"
+        },
+        "workerPoolThroughputStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolThroughputPressureReasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workerPoolQueueThroughputMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "portfolioWakeConditionCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "triggeredWakeConditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "portfolioRouting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "available",
+        "status",
+        "reason",
+        "governorMode",
+        "currentOwnerRepository",
+        "nextOwnerRepository",
+        "nextAction",
+        "ownerDecisionSource",
+        "workerPoolAuthoritySource",
+        "workerPoolTargetSlotCount",
+        "workerPoolOccupiedSlotCount",
+        "workerPoolAvailableSlotCount",
+        "workerPoolReleasedLaneCount",
+        "workerPoolUtilizationRatio",
+        "workerPoolReleasedCapitalAvailable",
+        "workerPoolIdleWorkerCapacityAvailable",
+        "workerPoolUnderfilled",
+        "workerPoolThroughputStatus",
+        "workerPoolThroughputPressureReasons",
+        "workerPoolQueueThroughputMode",
+        "contradiction",
+        "contradictionFields",
+        "allowInjection"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "governorMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currentOwnerRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextOwnerRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextAction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectedIssueNumber": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "brokerSelectedIssueUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectedIssueTitle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerProviderId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSlotId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "brokerSelectionSource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ownerDecisionSource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolAuthoritySource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolTargetSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolOccupiedSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolAvailableSlotCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolReleasedLaneCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolUtilizationRatio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "workerPoolReleasedCapitalAvailable": {
+          "type": "boolean"
+        },
+        "workerPoolIdleWorkerCapacityAvailable": {
+          "type": "boolean"
+        },
+        "workerPoolUnderfilled": {
+          "type": "boolean"
+        },
+        "workerPoolThroughputStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "workerPoolThroughputPressureReasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workerPoolQueueThroughputMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contradiction": {
+          "type": "boolean"
+        },
+        "contradictionFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowInjection": {
+          "type": "boolean"
+        }
+      }
+    },
+    "wakeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "decision",
+        "status",
+        "nextAction",
+        "recommendedOwnerRepository",
+        "suppressIssueInjection",
+        "suppressTemplateIssueInjection",
+        "suppressDownstreamIssueInjection",
+        "accountingBucket",
+        "accountingStatus",
+        "paybackStatus",
+        "authorityTier",
+        "authorityBlockedLowerTier",
+        "authorityContradictionFields",
+        "authorityRepository",
+        "authorityBranch",
+        "authoritySource"
+      ],
+      "properties": {
+        "classification": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextAction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "recommendedOwnerRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "suppressIssueInjection": {
+          "type": "boolean"
+        },
+        "suppressTemplateIssueInjection": {
+          "type": "boolean"
+        },
+        "suppressDownstreamIssueInjection": {
+          "type": "boolean"
+        },
+        "accountingBucket": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accountingStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paybackStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorityTier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorityBlockedLowerTier": {
+          "type": "boolean"
+        },
+        "authorityContradictionFields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "authorityRepository": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorityBranch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authoritySource": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "selectedRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "requireMonitoringMode",
+        "issueTitle",
+        "dedupeMarker",
+        "resolvedDedupeMarker",
+        "labels",
+        "conditions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requireMonitoringMode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issueTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dedupeMarker": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolvedDedupeMarker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hostSignalStatus",
+            "wakeClassification",
+            "wakeDecision",
+            "wakeStatus",
+            "recommendedOwnerRepository",
+            "wakeAccountingBucket",
+            "wakeAccountingStatus"
+          ],
+          "properties": {
+            "hostSignalStatus": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wakeClassification": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wakeDecision": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wakeStatus": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "recommendedOwnerRepository": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wakeAccountingBucket": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wakeAccountingStatus": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "decisionLedger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "appended",
+        "source",
+        "sequence",
+        "decisionDigest",
+        "fingerprint",
+        "error"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "appended": {
+          "type": "boolean"
+        },
+        "source": {
+          "const": "monitoring-work-injection"
+        },
+        "sequence": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "decisionDigest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fingerprint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "freshnessPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hostSignalMaxAgeMinutes",
+        "wakeAdjudicationMaxAgeMinutes",
+        "wakeWorkSynthesisMaxAgeMinutes",
+        "wakeInvestmentAccountingMaxAgeMinutes"
+      ],
+      "properties": {
+        "hostSignalMaxAgeMinutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "wakeAdjudicationMaxAgeMinutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "wakeWorkSynthesisMaxAgeMinutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "wakeInvestmentAccountingMaxAgeMinutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "freshnessSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "required",
+        "available",
+        "generatedAt",
+        "ageMinutes",
+        "maxAgeMinutes",
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "generatedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ageMinutes": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "maxAgeMinutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "missing",
+            "invalid-timestamp",
+            "not-required",
+            "not-configured"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "freshnessReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requiredSources",
+        "blockingSources",
+        "status",
+        "sources"
+      ],
+      "properties": {
+        "requiredSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "hostSignal",
+              "wakeAdjudication",
+              "wakeWorkSynthesis",
+              "wakeInvestmentAccounting"
+            ]
+          }
+        },
+        "blockingSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "hostSignal",
+              "wakeAdjudication",
+              "wakeWorkSynthesis",
+              "wakeInvestmentAccounting"
+            ]
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "blocked"
+          ]
+        },
+        "sources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hostSignal",
+            "wakeAdjudication",
+            "wakeWorkSynthesis",
+            "wakeInvestmentAccounting"
+          ],
+          "properties": {
+            "hostSignal": {
+              "$ref": "#/$defs/freshnessSource"
+            },
+            "wakeAdjudication": {
+              "$ref": "#/$defs/freshnessSource"
+            },
+            "wakeWorkSynthesis": {
+              "$ref": "#/$defs/freshnessSource"
+            },
+            "wakeInvestmentAccounting": {
+              "$ref": "#/$defs/freshnessSource"
+            }
+          }
+        }
+      }
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "available",
+        "matchedEntryCount",
+        "matchedBy",
+        "latestMatchingSequence",
+        "latestMatchingStatus",
+        "latestMatchingIssueNumber",
+        "latestMatchingIssueUrl",
+        "latestMatchingDecisionDigest",
+        "latestMatchingAuthorityReplayKey",
+        "authorityCompatible",
+        "authorityMismatchReason",
+        "suppressionApplied",
+        "reusedExistingIssue",
+        "ambiguous",
+        "error"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "matchedEntryCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "matchedBy": {
+          "type": "string",
+          "enum": [
+            "none",
+            "fingerprint",
+            "dedupe-marker",
+            "fingerprint+dedupe-marker"
+          ]
+        },
+        "latestMatchingSequence": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "latestMatchingStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "latestMatchingIssueNumber": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "latestMatchingIssueUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "latestMatchingDecisionDigest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "latestMatchingAuthorityReplayKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorityCompatible": {
+          "type": "boolean"
+        },
+        "authorityMismatchReason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "suppressionApplied": {
+          "type": "boolean"
+        },
+        "reusedExistingIssue": {
+          "type": "boolean"
+        },
+        "ambiguous": {
+          "type": "boolean"
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "injected",
+        "reason",
+        "issueNumber",
+        "issueUrl",
+        "triggerId"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "no-trigger",
+            "existing-issue",
+            "would-create-issue",
+            "created-issue",
+            "suppressed-wake",
+            "monitoring-only",
+            "external-route",
+            "policy-blocked"
+          ]
+        },
+        "injected": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issueNumber": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "issueUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "triggerId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

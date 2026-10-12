@@ -1,0 +1,640 @@
+{
+ "repo": "LabVIEW-DCAF/Scaling",
+ "url": "https://github.com/LabVIEW-DCAF/Scaling",
+ "commit": "6300b5af23a92dca010d971a519562298aaf83de",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/Scaling.aliases",
+   "bytes": 43,
+   "sha256": "3a195b1a91b4b59ae92b8249170e4b7d4145dad0e0df3b4a5663b90a8c9a4aed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Scaling.lvlps",
+   "bytes": 84,
+   "sha256": "ef12aba64e8244011008644369fd21e010c128b2a5c7b297352ff9608ab5277b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Scaling.lvproj",
+   "bytes": 15966,
+   "sha256": "24eaded34a1caa44bdee5fb1a0f31896084957f09598ec48da738bb7e05cbb9b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/Scaling editor node.lvclass",
+   "bytes": 95118,
+   "sha256": "fa5078f4f29f13674172d1a55509f5d16a5a820bf39bbad4cd8e1f8600d65d7f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/accessors/Read active scale index .vi",
+   "bytes": 17712,
+   "sha256": "85a0bcda16de810d40f62d7520e2620bfebb86eb51d78d33ca7015eb59149993",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/accessors/Read configuration.vi",
+   "bytes": 19750,
+   "sha256": "cd8cbf88f9055cb7044f012702b2c9353e9e8be85f58b2d08ae822cd316ee60f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/accessors/Write active scale index .vi",
+   "bytes": 19329,
+   "sha256": "042b45de828d7f0afa5c36c0bb89a1b985768291cb5a0dd8ac4f1a9f42e6bef4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/accessors/Write configuration.vi",
+   "bytes": 21367,
+   "sha256": "60e7b1449809820e3dd896d2d9b203c80b620cfc79659b38d1f6200cc8efb38c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/configuration UI.vi",
+   "bytes": 69840,
+   "sha256": "8ce3d1da4a1d56a62132c6315909d381094550884b8dfee7485282b943cb6de1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/controls/permissions.ctl",
+   "bytes": 11684,
+   "sha256": "cd10d6d465e0398e92cee8f0adbfab0a2340733ff55be30b8f93a4d8264acf2b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/controls/table line.ctl",
+   "bytes": 18511,
+   "sha256": "933b779e00eb340d9bb4473a48dbdf4bd39ea259baf53f8fb67dc6f9c8c8df89",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/controls/table reference.ctl",
+   "bytes": 18480,
+   "sha256": "710b8ee58bacd5c72c82a33a61f71301b2e9487aa1447b8f02578866ad4661ba",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/core override/GetText.vi",
+   "bytes": 19251,
+   "sha256": "88af4420e83850bf644fbbf83b0e7b7c6d5d112bb331b0e9e188dd8579b64e5f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/core override/ToTable.vi",
+   "bytes": 30655,
+   "sha256": "b7eea73117bcabdaf828a4e15e8142a923521f62dbb2b333d11e0b3f83615597",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/core override/UIRef.vi",
+   "bytes": 23285,
+   "sha256": "6b0a48c897aecd1fec076405ae6dae0ece1a41ca50d59ba2b6378fe0aa5808ef",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Add Mapping.vi",
+   "bytes": 27727,
+   "sha256": "6848e0ce56fdb51e50af1ad685d21d7e916dd34e60e91b826e2cb6d51d671af8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Add Scale.vi",
+   "bytes": 24993,
+   "sha256": "eb9a3c36d3ae937021212130741d9d1861f19dd34f6e466ab05a883a6abc630a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Define Display Columns.vi",
+   "bytes": 39042,
+   "sha256": "d8ffa569a51bfdd430aeda761cb699bcd18a29756a434b3e3345936b8609cf0a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Delete Mapping.vi",
+   "bytes": 28078,
+   "sha256": "69c1b0a99da216e8c0193c525513bd7236a1e60e955c23581369537b08dab0d1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Delete Scale.vi",
+   "bytes": 29196,
+   "sha256": "fb2933efe4d6d6682df67569fac345274da735947923bfdf3b46444c9c007af7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Get Active Scale.vi",
+   "bytes": 21552,
+   "sha256": "45777aa927bb06a6a62689947bd130a23cf12f741effd632ead3178fe552e34d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Get Scale Names.vi",
+   "bytes": 25363,
+   "sha256": "be73b092e1066daaba4494f368d21f215faea4e40fbe96f3bef28e4377c4cb16",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Get Scale UI State.vi",
+   "bytes": 26858,
+   "sha256": "ce7044709689fb6be8cbe2317fa0c511c10d24d9463401d8e958e6f65577ddde",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Refresh UI Event.vi",
+   "bytes": 35496,
+   "sha256": "ee4ffe2a5a2b8dbcd03b7768afa9ddefa0e09e7b3ae5eb2ad14f290c52a3d282",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Set Active Scale.vi",
+   "bytes": 21132,
+   "sha256": "a6cdc7496f232de5b476464dd43d3bf8dfca296ab27fe09d826d7c7b1584c95d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/Set Scale Name.vi",
+   "bytes": 21386,
+   "sha256": "e4eb980b1cc5f59d8c8199750f043ee506336be255ffe4e127643ebd518d39c6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/init UI.vi",
+   "bytes": 42963,
+   "sha256": "80916bf6a9035f23e9e4f81e53e46d33cb577a36f0eaea7160efd14dc4aeb71c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/init subpanel.vi",
+   "bytes": 35869,
+   "sha256": "96508cdef57c0675cc2f4d0bc20ba72f0962465a3030d50b0a250c866355a9fa",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/local error handler.vi",
+   "bytes": 19067,
+   "sha256": "9032b6a02c7bf8787943674dc3eac8c19c056dc782cf9c9f7c7d8ce1fd6debc7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/subVI/register events.vi",
+   "bytes": 32675,
+   "sha256": "3adf32002236ff743883996159db872e5ac2d196b50adc82b502d83e9771734b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/table callbacks/Change Input DT.vi",
+   "bytes": 34323,
+   "sha256": "3f9f18c9c48382bef387319def119836fc8b5472cddf25b5c01467b3d478ed1f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/table callbacks/Change Input Tag.vi",
+   "bytes": 26912,
+   "sha256": "9c096094dfaa557e6ab3fc396e6f5eca1e3c8b8d347b170b3a67f59a5d850a7a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/table callbacks/Change Output DT.vi",
+   "bytes": 33664,
+   "sha256": "47f04fcf841a46d9e381a49a6bb6ded1aa4ffef7f3433f47e87cd0587c4c221a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/table callbacks/Change Output Tag.vi",
+   "bytes": 26909,
+   "sha256": "7e962c172a7886ff7ace1c4962d1aa4a6d9cf71ff848ca6deec5f2f3c5dd8bc3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/to override/Scale UIRef.vi",
+   "bytes": 26119,
+   "sha256": "06f160139a2e2a51f4dc3590d0a4e04b6ccb049b301f5fa25f105b32512586df",
+   "via": "extension"
+  },
+  {
+   "path": "Source/editor node/to override/Scaling Configuration.vi",
+   "bytes": 26601,
+   "sha256": "b0829ab46e2beb27a4193578b9491e0a39f4676e8f2da9b76a5faa3cf42320a9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/Scaling configuration.lvclass",
+   "bytes": 93079,
+   "sha256": "8b3e17991eb7ef186f8893344b642a27a36e6edf591df90e8b4e0603b9393c66",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/accessors/Get Supported Targets.vi",
+   "bytes": 23633,
+   "sha256": "61a573be8134a9ced22a737391dc14ea0538739ef92853c63dab308d8dbe67ea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/accessors/Read scale names.vi",
+   "bytes": 21884,
+   "sha256": "18d8d27fa8e64cb32efa30d21d5c8f02b04941a769e34c175b6f839f77bcba0b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/accessors/execution class name.vi",
+   "bytes": 27672,
+   "sha256": "24e62595007a874381daae4768cb1256c519051099134698371fd665f04ee7ab",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/accessors/get supported types.vi",
+   "bytes": 18855,
+   "sha256": "5f091875cf57f8e5830d1c313ec9ccd43b290a65e0544e6ace1ca8adb2c12baf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/accessors/instance count allowed.vi",
+   "bytes": 20938,
+   "sha256": "55c9b54c4e31c8a246c10f6e33aa16265ab7890d7ecd28eb3b029adabddd71cc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/add channel to configuration.vi",
+   "bytes": 31628,
+   "sha256": "a13ca7947e4f91bf91c61dd1804ca24e233c26e1b7f2dd773ad32196bc7bef64",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/apply channel changes.vi",
+   "bytes": 28141,
+   "sha256": "f7a2ba24558fdeef3e4fb21aa4bd4a1c3b08fa20366f7cc3b8c1b9331cadb1c4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/delete channel from configuration.vi",
+   "bytes": 32017,
+   "sha256": "db2691f841516c8a3313ff4bd0105d8ecd100354d6dbc722575ba1d5e9a90243",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/get channels from scale.vi",
+   "bytes": 17531,
+   "sha256": "4f6669d536cc9f6712cdd957aa60a56b3c8be2dc78b736e632225258dbc83b6a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/get channels.vi",
+   "bytes": 25280,
+   "sha256": "850d355a4d9279dbe86f23aede6452e7a11c6cbc7f101707770e211b127751e3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/rename channel.vi",
+   "bytes": 28926,
+   "sha256": "5d0a48ef48dd420794509f3a2ae5ff0f78a3ae8cecc9c1c417e17bad264d9fe4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/channels/set channel.vi",
+   "bytes": 31227,
+   "sha256": "65f31b524c69c8a2dc4fdecba48573fa731f8ee4552356f765f24f30c86d2b2b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/controls/scale data types.ctl",
+   "bytes": 12625,
+   "sha256": "0f0fb98ee961ba539ae1c9b4c7f29df7d962dca8b630ab9030c7d6058eb0011a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/core overrides/create default alias.vi",
+   "bytes": 27956,
+   "sha256": "dcac307c6fdec986e5f9cdd47edd8b4ec6534ae98d82927bb4f414147c1aa4d3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/core overrides/from string.vi",
+   "bytes": 27423,
+   "sha256": "6faf6b082daf316e5e167486c0d4bdb6af1e3fdddc42110bb7f54fd71d894358",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/core overrides/serialization formats/current version.vi",
+   "bytes": 12663,
+   "sha256": "e587344d1fc3a5609972f44b48034adeba5f1a99eb5522614e7b561c456e4259",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/core overrides/to string.vi",
+   "bytes": 23841,
+   "sha256": "dad56ceb1206b95937056126157c9ade6bd58e1f9bbc5fc9dc6e041be158be67",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/core overrides/validate.vi",
+   "bytes": 27696,
+   "sha256": "7964f8a8ab69e36141e248bd49f1278ff1c090bfea82cfc419fc6c0ad5147e93",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Add Mapping.vi",
+   "bytes": 26863,
+   "sha256": "1743f03fcc596f39fc267eac2e57291f024a45a6c0bf77535ff232a556318a3f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Add Scale.vi",
+   "bytes": 28141,
+   "sha256": "b1229a9092d50994507e260e10d24f6610aeaa704d4be3a61904764be769da66",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Delete Mapping.vi",
+   "bytes": 28810,
+   "sha256": "d32ab3dbda14d5bb2132177088b0f8a8150f4b0bf64b224321c195cc24abd62e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Delete Scale Wrapper.vi",
+   "bytes": 26432,
+   "sha256": "b12934c11003cae5ac5a5e9d698d0669b33ecba1b934fa96d2a001bfd314f913",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Delete Scale.vi",
+   "bytes": 22280,
+   "sha256": "1c9ae95d827d271733ce9344a9ac5e4e7b516c9ff0a8a53df81c2173912c3982",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Export All Mappings.vi",
+   "bytes": 21719,
+   "sha256": "6830320feb126da2a204474e60976d85314997ca4e02d39f11017e1e8aa7749e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Get Scale Mappings.vi",
+   "bytes": 21434,
+   "sha256": "28f322bd4a701e8832e5609daf3e18d526251e7758dc2642091cec3ef5613ce5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Set Input Channel.vi",
+   "bytes": 35881,
+   "sha256": "20fde70337153bf1fc38306bb0aa150a72b5dbc0769007700d8497eba64ca97d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Set Input DT.vi",
+   "bytes": 33196,
+   "sha256": "81f5e3acb32b115fbbffd82b677cf6ca6cc51ca113314eb692e751d4557af646",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Set Output Channel.vi",
+   "bytes": 35886,
+   "sha256": "fa348e70ae795c5b52f629157063398437a22a26f47df9a879c0b0ae8c8be3c9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Set Output DT.vi",
+   "bytes": 33193,
+   "sha256": "24904bfd5db81e515bc1b01609a5ed9beaf66cf049803f3f93d7cac394acaaf1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/Set Scale Name.vi",
+   "bytes": 25730,
+   "sha256": "f55cd6dd49a918d4db8f81d08cd8890251e607303031545f81611a22f1ff714a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/configuration/subVI/get unique channel name.vi",
+   "bytes": 18299,
+   "sha256": "ff3b13dc02dc1cb355665b11e6a70e2d0b8cb05be4bbad58e6ae88c16db2a25a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Read input channels.vi",
+   "bytes": 19239,
+   "sha256": "3971377eb8dc1b2e07788de4a38c1114fa288d23eb86fcbadeb859bf4704188f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Read output channels.vi",
+   "bytes": 19244,
+   "sha256": "079b573d053d658e4356c9ecab2c5b74c71075492cc737722721aae3cdb2e289",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/Scaling runtime.lvclass",
+   "bytes": 35831,
+   "sha256": "c491a30381addab95b02bf4d89c9e5f2f2c6412fb99bfde1931676f020a1f584",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/classify error.vi",
+   "bytes": 32114,
+   "sha256": "18a343aaaf009d99aaea9d8267091e35d9a5b3abdc809b6ded03b3af38597f30",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/close.vi",
+   "bytes": 23157,
+   "sha256": "102fee5e140d4820d833f9ceccbe6534d30d6e20ffeca1e74ea524bb1b889625",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/init mappings.vi",
+   "bytes": 53065,
+   "sha256": "84f69d3966e42b6b43a9ded6ec2f2094e4312a0b42c5ce69df0ad648bd141ea6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/module/execution/init.vi",
+   "bytes": 60280,
+   "sha256": "22f500b7cf75ad652866f365ff786513770425ea31849ff600d56b4ecf92d864",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/Scaling tests.lvlib",
+   "bytes": 26669,
+   "sha256": "eff61efeeb84147ad0d46a41a0488063073bfa8af5d9c75d1a4dd402f01ea707",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/channel operation tests.vi",
+   "bytes": 11623,
+   "sha256": "3dc0e0d56cdf96ac96189ae4e2b737fff3e4d67eaaa57fe6f3074edaceab770e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/create default channels.vi",
+   "bytes": 17815,
+   "sha256": "4de02650119cfe54c356abb6c0c067c5d8d3b00103605ac67d727ac08e827656",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/example test.vi",
+   "bytes": 50452,
+   "sha256": "c7e86bcfe2a1407ad294007dda565d4517d6998909be2e7ebe63374c5fdb8c72",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/init runtime test.vi",
+   "bytes": 23725,
+   "sha256": "3ef6bd31c6ad3ce55231fc0436bfa682da6f914fb6c27ff2f30caadebf5e02e5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/modify channel test.vi",
+   "bytes": 17255,
+   "sha256": "7acbcaf2ea318d1591d0cc14354d28e24cab8b73de64a3512a1439385d3bb16b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/rename channel test.vi",
+   "bytes": 14135,
+   "sha256": "2a433f1ce5d0321ea65db4c96da8e61c248b2fc5e3b7f0a276d2ebc994dec659",
+   "via": "extension"
+  },
+  {
+   "path": "Source/testing/serialization tests.vi",
+   "bytes": 19827,
+   "sha256": "237019161e23b2b173af9dfada673b466f721fc9fc18a947a0040b5194e5afbd",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 15,
+   "sha256": "05128fafe26a6d41023c61f88a3d75f21bd76f988ece2de66f92eaee7977668a",
+   "via": "tree"
+  },
+  {
+   "path": "Autobuild.csv",
+   "bytes": 55,
+   "sha256": "26a41bd1757251bca898e2491ecd7ea0b8ccbf4b8ba071397dd6a686bfc56350",
+   "via": "tree"
+  },
+  {
+   "path": "Jenkinsfile",
+   "bytes": 462,
+   "sha256": "ccd3dc17a920d8f67422186451d33e952c60bfdc1719cfc5d06cde890d4fa932",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.txt",
+   "bytes": 11357,
+   "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 9,
+   "sha256": "e4df91c34da0b3d6b6f9734baa4e5b9b6a17f422c7a52c8a53a70c9ff62d49fe",
+   "via": "tree"
+  },
+  {
+   "path": "Source/DCAF Scale.vipb",
+   "bytes": 17742,
+   "sha256": "2875dd4b28bc7703b66da3f423741de26cf7c0770c3e4c531b40b3bc9eeecd7d",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\NI\\AMC\\AMC.lvlib",
+  "<vilib>\\NI\\AMC\\Message Queue.ctl",
+  "<vilib>\\NI\\AMC\\Message.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Controls\\EventCluster.ctl",
+  "<vilib>\\NI\\Configuration Framework\\NISE_CEF_TreeControl.lvlib",
+  "<vilib>\\NI\\Configuration Framework\\Node\\CacheState.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NISE_CEF_Node.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NodeChangeEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\NodeRef.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\RefreshUIEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\StopEvent.ctl",
+  "<vilib>\\NI\\Configuration Framework\\Node\\UserEventRef.ctl",
+  "<vilib>\\NI\\Configuration Framework\\error generator\\NISE_error generator.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\NISE_CEF_serializable configuration.lvclass\\NISE_CEF_serializable configuration.ctl",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\Read UID.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\create GUID.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\initialize.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\parse version string.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\unwrap data.vi",
+  "<vilib>\\NI\\Configuration Framework\\serializable configuration\\wrap data.vi",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Add.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\DCAF UI Elements.lvlib",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Controls\\Remove.ctl",
+  "<vilib>\\NI\\DCAF UI Toolkit\\Utilities\\Align Front Panel.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\Engine Parent Editor Node.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\read engine configuration.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Engine Parent\\write engine configuration.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\locate engine.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Configuration Editor\\Classes\\Module editor node\\module editor node.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Available Tag Menu\\channel action event.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Available Tag Menu\\dialog output action.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column Descriptor.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column Type.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Column\\Column.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Enum\\string to enum.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Listbox\\Multi Column Listbox.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Mapping Column\\Define Mapping Column.vi",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Mapping Column\\Mapping Column.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager.lvlib",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Call Back Ref Type Def.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Cell Change.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\Table Manager.lvclass",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\object ref.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\Table API\\Table Manager\\references.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\editor node\\channel action event.ctl",
+  "<vilib>\\NI\\DCAF\\Tag Editor Core\\control module\\editor node\\dialog output action.ctl",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\delete mapping by channel.vi",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\engine configuration.lvclass",
+  "<vilib>\\NI\\Module Execution Interface\\Engine Configuration\\find tag mapped to channel.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\TBM channel.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\channel classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\create new channel.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\data tables.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\channel\\sort channels.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\TBM module configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\module configuration\\throw configuration load error.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\TBM configuration.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\Target Types.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\root configuration\\list all targets.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\TBM module execution interface.lvclass",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\determine execution settings.vi",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\error classification.ctl",
+  "<vilib>\\NI\\Tag Bus Module Framework\\runtime\\execution settings.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary table pair.ctl",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\data dictionary.lvclass",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\locate tag.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\look up tag by type.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\lookup polymorphs\\locate double.vi",
+  "<vilib>\\NI\\Tag Bus\\dictionary\\search for tag.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\read one\\read Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data polymorphs\\write one\\write Double.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.ctl",
+  "<vilib>\\NI\\Tag Bus\\table\\data table.lvlib",
+  "<vilib>\\NI\\Tag Bus\\table\\read data element.vi",
+  "<vilib>\\NI\\Tag Bus\\table\\write data element.vi",
+  "<vilib>\\NI\\Tag Bus\\tag bus.lvlib",
+  "<vilib>\\NI\\Tag Bus\\tag\\Data Type.ctl",
+  "<vilib>\\NI\\Tag Bus\\tag\\find tag by name.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\list all types.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\read tag name.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass",
+  "<vilib>\\NI\\Tag Bus\\tag\\tag descriptor.lvclass\\tag descriptor.ctl",
+  "<vilib>\\NI\\Tag Bus\\tag\\write data type.vi",
+  "<vilib>\\NI\\Tag Bus\\tag\\write tag name.vi",
+  "<vilib>\\NI\\Tools\\Keyed Array\\KeyedArray.ctl",
+  "<vilib>\\NI\\Tools\\Keyed Array\\Tools_KeyedArray.lvlib",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVPositionTypeDef.ctl"
+ ]
+}

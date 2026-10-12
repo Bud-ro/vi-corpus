@@ -1,0 +1,736 @@
+{
+ "repo": "NIVeriStandAdd-Ons/Shared-Variable-Custom-Device",
+ "url": "https://github.com/NIVeriStandAdd-Ons/Shared-Variable-Custom-Device",
+ "commit": "bb5431a5fbe21c979b48c4c942f76cae0cc89a83",
+ "license": "BSD-2-Clause",
+ "licenseFile": "LICENSE.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/Configuration/Initialization/Load Shared Variable File.vi",
+   "bytes": 49757,
+   "sha256": "931cc3d0af75b1e5ee53733c336b6f3b41824a58441e3124b82a10233a11ae3e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Initialization/Shared Variable Initialization VI.vi",
+   "bytes": 21985,
+   "sha256": "bb835005457ac629e3d71cab5b93701ab25337712f6cf77c88ca3e5dc9beece5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Boolean Page.vi",
+   "bytes": 33056,
+   "sha256": "30b6ace5d231f597249c0bad8272e6c452de59f26560bde383c239a280699681",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Connection Status Page.vi",
+   "bytes": 29758,
+   "sha256": "48ab306fbc8f1c72ed814d70987b78a8b30dce046684324c7f4b7daab3b00fd4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Double Page.vi",
+   "bytes": 36107,
+   "sha256": "5bee4956b39f79f1e4b6676293bf15576939b95044851d75d5d11a7f9e71eabd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Error Code Page.vi",
+   "bytes": 29743,
+   "sha256": "caf0c3e59b09b6ee681a812e62d4289338808cf1658c950d78ed2a215e2cd7a0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Read Page.vi",
+   "bytes": 29725,
+   "sha256": "f886787143a606a8c689f016993b16028efc4d593298b9e317006a90cb7c62b4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Shared Variable Main Page.vi",
+   "bytes": 36065,
+   "sha256": "aa93673dffaf6e1a00d8e45615bbcc0442ee5d19a8d8f983a7b248f390b433a9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Status Page.vi",
+   "bytes": 29739,
+   "sha256": "25c60a6b73504c43152b11a4e1d15973791a5f90f28f914a98b3f916aedfc568",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/String Page.vi",
+   "bytes": 33071,
+   "sha256": "c54b1453c835c01e149a1f5300ce7a2f5b837d958839941907e679ac183f2f5d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Pages/Write Page.vi",
+   "bytes": 29734,
+   "sha256": "4997f7edbdb8e69b83cafd20669077af97ee843ed0b1e54cc0829a1aa7e16b6f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Add Read Section.vi",
+   "bytes": 16080,
+   "sha256": "afaf75c1daf132d96e0ae8538ab642eb04a38ecfb2aa301fedfe0184209d33b6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Add Write Section.vi",
+   "bytes": 16077,
+   "sha256": "bd4b9a9dc68d877b4b5723fe3b5fae371f3ff470e2bc384b9c774f12a2964e3a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Build Tree Metadata.vi",
+   "bytes": 31447,
+   "sha256": "ea9a1b445ae9153155bf57c513ac1ff220eb279848f393e2509791359bc847fd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Check List.vi",
+   "bytes": 24890,
+   "sha256": "b5f203bf5d5156e7ccc2fc7b2196aab78987bd843a8a62e208eebb81a436c6b8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Existing Channel Data.ctl",
+   "bytes": 11162,
+   "sha256": "6d96ed95ceaea5f56c68450327d9078830de2f90f6d152e8bfa062c7c008b401",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Get Channel Glyph Index.vi",
+   "bytes": 12659,
+   "sha256": "af64733b8a77d94c2a61d3c54e460292e0d441a47cb0aab56bba8516feb290ce",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Get Child Tag.vi",
+   "bytes": 12017,
+   "sha256": "9d8ba0c3940dd96404723ed7f8fcdbf9e286dc337872701451b4b6a2f59447ec",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Initialize Tree List.vi",
+   "bytes": 19908,
+   "sha256": "8854e3beea898f81033537f73e422fe4866d2a206570dfc86237ee8528419372",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Initialize Tree Symbols.vi",
+   "bytes": 21247,
+   "sha256": "e9be8d74a67c4bdb5e73f6a99a1ec62d082e6e7ef5214ce74daa0ca8264bd8d9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/List Cluster.ctl",
+   "bytes": 9681,
+   "sha256": "d32e4218a368086c79ee35b9ef5b4b4ae8794e1e555955483b5835525735cd91",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Populate Existing Channels.vi",
+   "bytes": 22198,
+   "sha256": "7e938d38380b194e8accb47ef33f47f6af3ec0c9b6c4facb37e230361e4df28c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Shared Variable Selection RTM.vi",
+   "bytes": 55925,
+   "sha256": "aac188577ad3624f273464caa5a5f8bde19620d0e849f2be8d014b459f5e42f5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Shared Variable/Get Shared Variables.vi",
+   "bytes": 93320,
+   "sha256": "cc01a593ab4f00ad5af8a1fcceb7b8c1bcf45391cd0fa0428921d9289a38dc76",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Shared Variable/Shared Variable Data.ctl",
+   "bytes": 11185,
+   "sha256": "ab0fbfba086d76e7f8c04f99a71be21e0247e32f0be3e25c5809db29541b61d9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Tree Data.ctl",
+   "bytes": 10410,
+   "sha256": "4306d8e5b624ff419ad28c300aed15b8fc9b49cb80593148070c5ccc68969ade",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/RTMs/Tree/Get Tag Info.vi",
+   "bytes": 17244,
+   "sha256": "68cfa8b068ef4d12e49e19347c777d99c3eb149fcff747945cef370afdab576d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Support/Get Shared Variable Channel Info.vi",
+   "bytes": 29080,
+   "sha256": "61ca48e8b00dabed9cd7eada3999e01ef9ca70ae6b37757829f236bca5acd4ad",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Support/Get Shared Variable IP Info.vi",
+   "bytes": 29467,
+   "sha256": "03c68886596c1fba499d9a0551c4ee414a248e351a564a322771a61c0bc84b18",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Configuration/Support/Shared Variable Info.ctl",
+   "bytes": 11205,
+   "sha256": "2e8eecc935627988720d14a17b6274d28746ad32662d0ad33ab0c4231b829902",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Aync Communication.vi",
+   "bytes": 47990,
+   "sha256": "c1414e6bd3ca007d9e8776b445f84b83d04707f5b0b25fa5a315dfd6e5755375",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Configure RT FIFO Read.vi",
+   "bytes": 16294,
+   "sha256": "d677b40519d1fd346fc75eb983e30ec993853a4cdc45b62615df43dc975061ce",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Configure RT FIFO Write.vi",
+   "bytes": 16291,
+   "sha256": "bd32f2a1d8c66bf1bb2a96a59b4e26eede937f00f5a61d152a8729e70e46a117",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Input Data Control.ctl",
+   "bytes": 14583,
+   "sha256": "7ca9c17a87dedab153180b00bcd22d790ee67810aefe9d48311c50967c980418",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Launch Async Loop.vi",
+   "bytes": 20709,
+   "sha256": "a9306549771b916a96f58d17873d47f7593f28e3463e48cea9dcbdb70c5c619f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Print Channel Values.vi",
+   "bytes": 15256,
+   "sha256": "876a9463dc3b6b46af392eb99d75472f7b423ca8bb412036d5defc2af263edb2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Async/Print Error.vi",
+   "bytes": 14007,
+   "sha256": "e696ec9010d1a01c8f5c508a72c322c09987d2eec96d8e78275fbcad52f17e46",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Print Channel Values.vi",
+   "bytes": 15256,
+   "sha256": "876a9463dc3b6b46af392eb99d75472f7b423ca8bb412036d5defc2af263edb2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Print Error.vi",
+   "bytes": 13967,
+   "sha256": "5f64a4b6946d6ca4953f8b7cf848f4f28bb23cb54424175e93eb6e033a6446bb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Print NIVS Debug String.vi",
+   "bytes": 26611,
+   "sha256": "d0c3737723e8b59784bf41024935aa9784d353fb290ef193320f701c28a81314",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Async Loop Connected.vi",
+   "bytes": 13265,
+   "sha256": "64938aee6bd01c50efcca3189c52825fd30684a3d64a37c74f1e280e950b4741",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Async Loop Disconnected.vi",
+   "bytes": 13284,
+   "sha256": "6a5242b95d0a446ea2e823ceb0d4c2b1ef431350a0acf431d0689a5ccfbab5cb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Async Loop Started.vi",
+   "bytes": 13271,
+   "sha256": "c02e1dc866959ea871314cc22d8d385f0e673eb50f03f14d1467ad0a87cbca65",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Async Loop Stopped.vi",
+   "bytes": 13267,
+   "sha256": "e2ad75648b7da3830d1efc5dca0f602aa9a9723407e22b09ad9cbfe06e4b503a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Closed.vi",
+   "bytes": 13215,
+   "sha256": "5e03859548b5a0510dc2fa471dfa71e3e43b4ac0841abbc58a439d5db1cdb0cd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Initialized.vi",
+   "bytes": 13240,
+   "sha256": "e91334e1e43ecfb34868fd5c73ac7a4385ea8f8d89e6ec2f98553b00fb10b593",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Printing/Printing - Custom Device Started.vi",
+   "bytes": 13224,
+   "sha256": "07a4447a6d8a57389c57e007ab7b8e13d37d50d6b158d35f2ff746b2e7a45ebb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable RT Driver VI.vi",
+   "bytes": 47600,
+   "sha256": "89bd4605c839fd7da9672be866614fb6c74a9b450045fb2301bb1e77dc0c87e9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Close Shared Variables.vi",
+   "bytes": 24578,
+   "sha256": "7b5a60e6783c3bf2794541d86857d987b3e964aa48c1fc5f9a6ffb647e4b7c5d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Evaluate Boolean Shared Variable.vi",
+   "bytes": 29376,
+   "sha256": "7b6a4dfeefedad18f34dcd5d4759fc0824deb586b6364cf5145adab9c5718535",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Evaluate Num Shared Variable.vi",
+   "bytes": 28624,
+   "sha256": "8519ba1a587c0d3f1abdd5bb5d823f1be19e360adaf7c8885623213a5214b508",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Evaluate String Shared Variable.vi",
+   "bytes": 29375,
+   "sha256": "6e8cd7d8f69bd8ce4c1b9195443afb2009b9edfa36bddaf1fb4391d36e2fe693",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Initialize Shared Variables.vi",
+   "bytes": 41259,
+   "sha256": "d07661e3a5fc086426caf40d94d0e49a2d1c9a5f9e8a73d48ddc7c668e1d3091",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Read Shared Variables.vi",
+   "bytes": 27253,
+   "sha256": "91a4099b0ddf500ba645397d9417645cc53129fe5fdb26a0f58674a322b1762b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Shared Variable Access.ctl",
+   "bytes": 4411,
+   "sha256": "b3d5a047e87ce29947cdcaedee1c77c1d09e13e03b6965c980ac69fefaf6eaf1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Shared Variable Cluster.ctl",
+   "bytes": 11356,
+   "sha256": "007b3768bd09e56248440807a62e62ca2baa2d41df907bbe10eece461840a5d5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Shared Variable/Write Shared Variables.vi",
+   "bytes": 27682,
+   "sha256": "e776bcf62450ccf9da88c0317951ef1baf934ca22418468ceb540115ecd6e0d4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Build Shared Variable Arrays.vi",
+   "bytes": 15992,
+   "sha256": "3dfd1ef74ce5c38fdbc32633a7f56a6f7354fe6b8b69898e10e71354b44dabb5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Channel Information Control.ctl",
+   "bytes": 12032,
+   "sha256": "cc391348f6f031d33dd9e2c74fb613cb747c852de2ce038717c33d61e12ee7d4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Configure Input Channels.vi",
+   "bytes": 21392,
+   "sha256": "298a458c65dff93adb650d828e3de2600f153be4f04ca5f8c5d49cec4e72dfd1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Configure Output Channels.vi",
+   "bytes": 21401,
+   "sha256": "e75107d8d83882a7a9ea892c3b5156b8bbddb4b75f013dc8387dc3587c57a99e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Get Output Values.vi",
+   "bytes": 23589,
+   "sha256": "9b74763970a5edd9be956e15c8b436500f4ee5a5567cd0e6aacadd21a18cc7cc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Get Read Write Channels.vi",
+   "bytes": 30415,
+   "sha256": "c4938696a13e3a87043cda8f62f40f965d63a41842612d14d7f8d86abfd21b9f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Get Status Channels.vi",
+   "bytes": 17327,
+   "sha256": "a2c04a07f65a1fb4f0353dc71b7b250318ce6a6c6b227ff0844ad4a200255bed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/HW Inline Ctrl.ctl",
+   "bytes": 15235,
+   "sha256": "0942612ed4bc11e9e0011f328c1231523b6423a5e6cbb9d0da2df72f0ddf7d78",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Initialize Shared Variable Channel Data.vi",
+   "bytes": 15431,
+   "sha256": "7970b146bca8c1345a4895041bbc31bf0ef1ca0931bd625cca58dfd9c3b2dbcc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Read Channels.vi",
+   "bytes": 25017,
+   "sha256": "25a83aafffa6000881e97c3a9ab0951f13e211bcc4c26e61900b88d33f520eff",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Stop FGV.vi",
+   "bytes": 12296,
+   "sha256": "d6e5dea0a2a52b70286d5fdcc279a8dab918cbaea111e1d921f592ffa1060ac1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Support/Write Channels.vi",
+   "bytes": 24634,
+   "sha256": "33f9d2b8e2afd75d634a5c9c0758e1701d6e87fccc8fe9d30caf08888172114d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared Variable Custom Device Project.lvproj",
+   "bytes": 13913,
+   "sha256": "5370e050924869927fbbcb1a47b0d754ff8672f5e0f8c542b825e4e09eb26e20",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared Variable Custom Device.lvlib",
+   "bytes": 11612,
+   "sha256": "66aa6e4960d056c68084f1297137e7459e6eac7d42d38f24c58f9318b0fe44ed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Build PSP URL.vi",
+   "bytes": 15077,
+   "sha256": "182bfb1fad8fc4e29e8a3eaa8f3a9050b31f75f89c432184e40ab276f392af87",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Get Channel Type.vi",
+   "bytes": 17865,
+   "sha256": "9f75a2e804ebe98c4c2dcfefaada5b7b10419c41a496e51e9a33d3dc1e8cc988",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Get Sh Var Name.vi",
+   "bytes": 15620,
+   "sha256": "9fd6fd94e0a21bc9a75ac1df2e410abcd5a61855547535fcec697d20334f8a76",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Get URL.vi",
+   "bytes": 15596,
+   "sha256": "d695a852f5dfd808858e804e2867c730ce9bda97eb7d52f423517a0ac30e4cfd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Set Channel Type.vi",
+   "bytes": 16853,
+   "sha256": "ea64fe65d3d2094e5ed73671368c4fe686592de6c8803d30518bedd284ac08d1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Set Sh Var Name.vi",
+   "bytes": 15756,
+   "sha256": "7d0d93b6434dd632d1eff700ba1ac9fcd1d628cb41366ec246240cbea55fb147",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel Properties/Channel Properties - Set URL.vi",
+   "bytes": 15708,
+   "sha256": "deabbc1cfc98c84cc8342688016d891195236b3486aaffaaa94ffe616583c0e4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Device Properties/Device Properties - Get IP Address.vi",
+   "bytes": 16782,
+   "sha256": "94d55826dea130f12e1e690b79bc1e2897706a73999671a177e086f7462c01c0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Device Properties/Device Properties - Get Timeout.vi",
+   "bytes": 20063,
+   "sha256": "243f7ba8bb250f09c615de20d395d34d4358b37cc88bd3e12157fd5c923ad9ea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Device Properties/Device Properties - Set IP Address.vi",
+   "bytes": 16810,
+   "sha256": "1b756b9aa24578c02a7c3d1f6792663850ae3f49b497d8eb876f853276bc95f2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Device Properties/Device Properties - Set Timeout.vi",
+   "bytes": 20035,
+   "sha256": "6129fea89770bfd73b80159a8ccc933cc8bc8a18f820b5d085377218560a453b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Get Custom Device Session IP Address.vi",
+   "bytes": 18168,
+   "sha256": "2dd682b14c0e47cec844b8d89261b36248a042a93dbd2c5e562e095c12907765",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Shared Variable GUID Lookup.vi",
+   "bytes": 5675,
+   "sha256": "4674fce029421725d8947e9a23754f19e44de090ac8cfe3e84777b10c784a74f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Shared Variable Globals.vi",
+   "bytes": 7139,
+   "sha256": "21661f078abd706f0d55887e308225eb95af4afc205da27ffd62f0456b37dc5b",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/Localhost/Create Variable File.vi",
+   "bytes": 25628,
+   "sha256": "9c9d7881a9134f22cc2fc8208947499d886dfddb10cbca9e6ab0914bcee0419d",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/Localhost/Shared Variable Test Library.lvlib",
+   "bytes": 4773,
+   "sha256": "d5388e7aad7f358d4bdc5dfab3ea2c7de9813e0626da301460c6caae899010f7",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/Localhost/Shared Variable Test local.lvproj",
+   "bytes": 6396,
+   "sha256": "e27f32019ec8c88c3d791ece3ba560a06be9bf8f53da48e89675bc6e7be50826",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/Localhost/Shared Variable Test.vi",
+   "bytes": 25096,
+   "sha256": "c57b549b91ec13c1ef1aefdf8ad6a98ab9363f4bd7168443bb379f003f667e5c",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/cRIO/Create Variable File.vi",
+   "bytes": 25644,
+   "sha256": "36da5f003d2f8b0592f94d2e9f6b50387df7e36bb5539e0da0d8d5001efc93b0",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/cRIO/Shared Variable Test Library cRIO.lvlib",
+   "bytes": 4773,
+   "sha256": "d5388e7aad7f358d4bdc5dfab3ea2c7de9813e0626da301460c6caae899010f7",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/cRIO/Shared Variable Test cRIO.lvproj",
+   "bytes": 35913,
+   "sha256": "a6059922e0acce2a4aedff381a1c5e178454f3e3893343c35037b58ae4947ea0",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/cRIO/Shared Variable Test.vi",
+   "bytes": 26052,
+   "sha256": "bb80cc2de5550481badef8ec7e759a7718bbbf0e3a119a2ba822bed6ff6ff34d",
+   "via": "extension"
+  },
+  {
+   "path": "Testing/cRIO/Test read variables.vi",
+   "bytes": 36191,
+   "sha256": "c274f6f8cff34d0666d0e11e0094e8a1f95589f895f4320f28e55e9cb9779ecc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Glyphs/dbl.png",
+   "bytes": 189,
+   "sha256": "d586490fa67eda1b41808fda84352f8f8c2aa9bd3a60d8f6cc238227a4e4d8d5",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/string.png",
+   "bytes": 207,
+   "sha256": "57b14e6e90e82e7fcb6a4bb3086159f4f9176bb30639d4478810e6293e1da494",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/Boolean2.png",
+   "bytes": 188,
+   "sha256": "5b7742bcb63cebfe4a63ed73602d73644f3e6bb12a5db13328cd9a997ee1d159",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/read2.png",
+   "bytes": 254,
+   "sha256": "40fd998a84e31c1f23e777b3fb428a2b4e8510d4865d2ca66f66eb155e456c6b",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/write.png",
+   "bytes": 257,
+   "sha256": "9d94551375d4751217f97802b5a67ff2be696a0c6d7de155edc884fbed45e93c",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/default folder.png",
+   "bytes": 639,
+   "sha256": "2077b932ad1a95c89262f7958133ebfefc4d32145b0240699dfe0e19e8d89ee3",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": "Source/Glyphs/target.png",
+   "bytes": 288,
+   "sha256": "a2b6ce5e7fea2ac3cda19919906699bb91f2d97fe5df22c31815eda5725dfadb",
+   "via": "ref:Source/Shared/Shared Variable Globals.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 853,
+   "sha256": "354e6a1d0d1a9469b9b478974ebe5b9580688bb92637911c385e66fad9e2240a",
+   "via": "tree"
+  },
+  {
+   "path": "Autobuild.csv",
+   "bytes": 148,
+   "sha256": "a682160dbb7278b95387878aeb1777906837cce5823a6a11a3592c04e6d4ec26",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.txt",
+   "bytes": 1307,
+   "sha256": "5e0bc1b4aef316b9713a3a55c56166bec07809767d8258821fa35be83bfbbe85",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1221,
+   "sha256": "d1348a21ead3ec9603b1b3044fee8424cec27dd14916ee71f2df5ae23ed2037f",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Custom Device Shared Variable.xml",
+   "bytes": 6240,
+   "sha256": "c3c504e0b68022908b664dd5a858729bd275b896c40d210fde70aacee0f03539",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Custom Device.xsd",
+   "bytes": 20634,
+   "sha256": "bb9f480a03cde2549266f776c6c00ddf478984af96ef591e9a8b5f66acb2c377",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Glyphs/NetworkVariable.png",
+   "bytes": 621,
+   "sha256": "e3a68d8efa6fe5c24ad91790327f8557bda607ac0bb0944f9463caaaba5ee311",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Glyphs/status2.png",
+   "bytes": 241,
+   "sha256": "3d40b06dcb6815ca32dfb2029eb2cbd4629929d90b1bfe5247c0bbe879721106",
+   "via": "tree"
+  },
+  {
+   "path": "Testing/Localhost/example.txt",
+   "bytes": 413,
+   "sha256": "b1bdbb7b1c5bad34e27fd814aea523a34785a2af264c4acb971271fdeb0b9e46",
+   "via": "tree"
+  },
+  {
+   "path": "Testing/cRIO/example cRIO.txt",
+   "bytes": 443,
+   "sha256": "d16abf3bd2f7cf4710fecd12bd12ffbedcac1523b1f12ad0b3260d80d503659d",
+   "via": "tree"
+  },
+  {
+   "path": "Testing/cRIO/example cRIO1.txt",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<resource>\\objmgr\\ni.var.rc",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Valid Path - Traditional__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Valid Path__ogtk.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Block Data Reference.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device API.lvlib",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Channel Type.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Channel.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Custom Device Item Ref.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Data Access Type.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Data Reference.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\Get Item Property (I32).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Get Item Property (String).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Get Item Property (Variant).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Global Data Refs.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Hardware Interface Driver VI Operation.ctl",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Add Custom Device Channel.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Add Custom Device Section.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Channel Block Data References.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Channel Values by Block Data Reference.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Custom Device Channel Data.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Event Refnum.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Data.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Description.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Get Item Property.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Parse Incoming Command Data.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Rename Custom Device Item.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Channel Values by Block Data Reference.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Custom Device Channel Units.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Item Description.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Set Item Property.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Signal When Ready for Shutdown.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\NI VeriStand - Unset Busy Cursor.vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Set Item Property (I32).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Set Item Property (String).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\Set Item Property (Variant).vi",
+  "<vilib>\\NI Veristand\\Custom Device API\\data\\NIVeriStand_DataServices.dll",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\Custom Device Utility Library.lvlib",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get All Channels.vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Report Final Error Status.vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for Item by GUID.vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for Item.vi",
+  "<vilib>\\NI Veristand\\Custom Device Tools\\Custom Device Utility Library\\Search Direction.ctl",
+  "<vilib>\\Utility\\VariantDataType\\GetTypeInfo.vi",
+  "<vilib>\\Utility\\VariantDataType\\Type.ctl",
+  "<vilib>\\Utility\\VariantDataType\\VariantType.lvlib",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\picture\\png.llb\\Read PNG File.vi",
+  "C:\\Users\\lsarcion\\Documents\\1. Documents\\3. Custom Device Development\\Shared Variable\\source\\Shared Variable"
+ ]
+}

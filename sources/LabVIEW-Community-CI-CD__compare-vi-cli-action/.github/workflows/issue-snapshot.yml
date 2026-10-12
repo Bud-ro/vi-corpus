@@ -1,0 +1,33 @@
+name: Standing Priority — Snapshot on Issue Events
+
+on:
+  issues:
+    types: [edited, labeled, unlabeled, reopened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Sync standing-priority snapshot
+        env:
+          AGENT_PRIORITY_UPSTREAM_REPOSITORY: LabVIEW-Community-CI-CD/compare-vi-cli-action
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          npm ci --ignore-scripts
+          node tools/npm/run-script.mjs priority:sync:lane
+      - name: Upload snapshot
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: standing-priority-snapshot-${{ github.run_id }}
+          path: |
+            tests/results/_agent/issue/*.json
+            tests/results/_agent/issue/*.digest

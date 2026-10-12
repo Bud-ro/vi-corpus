@@ -1,0 +1,676 @@
+{
+  "schema": "project-portfolio-config@v1",
+  "owner": "LabVIEW-Community-CI-CD",
+  "number": 2,
+  "title": "compare-vi-cli-action Portfolio",
+  "shortDescription": "Portfolio dashboard for compare-vi-cli-action programs and privileged approval work.",
+  "readme": "# compare-vi-cli-action Portfolio\n\nThis project is a dashboard layer over the repository's existing issue-and-policy system.\n\nSource of truth remains:\n\n- issue bodies and checklists\n- labels, especially `standing-priority`\n- `tools/policy/*.json`\n- `tools/priority/*`\n\nProject fields are for portfolio visibility only.\n\n`Portfolio Track` distinguishes the broad operating lane for each item:\n\n- `Diagnostics`\n- `Approvals`\n- `Agent UX`\n- `Corpus & Facade`",
+  "public": false,
+  "allowAdditionalItems": true,
+  "repositories": [
+    "LabVIEW-Community-CI-CD/compare-vi-cli-action",
+    "LabVIEW-Community-CI-CD/compare-vi-cli-action-fork",
+    "LabVIEW-Community-CI-CD/comparevi-history",
+    "LabVIEW-Community-CI-CD/labview-icon-editor-demo",
+    "svelderrainruiz/labview-icon-editor-demo"
+  ],
+  "fieldCatalog": {
+    "status": {
+      "name": "Status",
+      "options": [
+        "Todo",
+        "In Progress",
+        "Done"
+      ]
+    },
+    "program": {
+      "name": "Program",
+      "options": [
+        "Multi-Mode Diagnostics",
+        "Approval Control Plane",
+        "Shared Infra"
+      ]
+    },
+    "phase": {
+      "name": "Phase",
+      "options": [
+        "Policy",
+        "Signals",
+        "Shadow Mode",
+        "Helper Workflow",
+        "Apply Mode",
+        "Sustain"
+      ]
+    },
+    "environmentClass": {
+      "name": "Environment Class",
+      "options": [
+        "Validation",
+        "Diagnostics",
+        "Cross-Repo",
+        "Infra"
+      ]
+    },
+    "blockingSignal": {
+      "name": "Blocking Signal",
+      "options": [
+        "None",
+        "CI",
+        "Review",
+        "Policy",
+        "Docker",
+        "Scope"
+      ]
+    },
+    "evidenceState": {
+      "name": "Evidence State",
+      "options": [
+        "None",
+        "Partial",
+        "Ready",
+        "Proven"
+      ]
+    },
+    "portfolioTrack": {
+      "name": "Portfolio Track",
+      "options": [
+        "Diagnostics",
+        "Approvals",
+        "Agent UX",
+        "Corpus & Facade"
+      ]
+    }
+  },
+  "items": [
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/853",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "CI",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/854",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "CI",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/855",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/856",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/858",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/859",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/860",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Validation",
+      "blockingSignal": "Docker",
+      "evidenceState": "None",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/861",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Policy",
+      "environmentClass": "Validation",
+      "blockingSignal": "Policy",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/862",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Policy",
+      "environmentClass": "Validation",
+      "blockingSignal": "Policy",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/863",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Signals",
+      "environmentClass": "Validation",
+      "blockingSignal": "Review",
+      "evidenceState": "None",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/864",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Signals",
+      "environmentClass": "Validation",
+      "blockingSignal": "Policy",
+      "evidenceState": "None",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/865",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Shadow Mode",
+      "environmentClass": "Validation",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/866",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Helper Workflow",
+      "environmentClass": "Validation",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/867",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Apply Mode",
+      "environmentClass": "Validation",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/875",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Policy",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/876",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Docker",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/883",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Policy",
+      "environmentClass": "Validation",
+      "blockingSignal": "Policy",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/892",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Validation",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Diagnostics"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/894",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Docker",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/895",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/896",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/897",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/903",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Policy",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/904",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Policy",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/906",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/907",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/911",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/913",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/915",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/930",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/931",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/932",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/934",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/946",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/947",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/948",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/949",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Apply Mode",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/951",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/953",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/954",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Policy",
+      "environmentClass": "Infra",
+      "blockingSignal": "Review",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/956",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Signals",
+      "environmentClass": "Infra",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/958",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/959",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Signals",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/960",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Signals",
+      "environmentClass": "Infra",
+      "blockingSignal": "CI",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/963",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/964",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Review",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/966",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Ready",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/967",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/969",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Helper Workflow",
+      "environmentClass": "Infra",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/970",
+      "status": "Done",
+      "program": "Approval Control Plane",
+      "phase": "Policy",
+      "environmentClass": "Infra",
+      "blockingSignal": "Review",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Approvals"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action-fork/issues/1",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Diagnostics",
+      "blockingSignal": "None",
+      "evidenceState": "Proven",
+      "portfolioTrack": "Agent UX"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/14",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Docker",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/15",
+      "status": "Done",
+      "program": "Multi-Mode Diagnostics",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/23",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/24",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Helper Workflow",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "Partial",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/25",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Sustain",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/comparevi-history/issues/26",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Apply Mode",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/LabVIEW-Community-CI-CD/labview-icon-editor-demo/issues/4",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Apply Mode",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    },
+    {
+      "url": "https://github.com/svelderrainruiz/labview-icon-editor-demo/issues/5",
+      "status": "Done",
+      "program": "Shared Infra",
+      "phase": "Apply Mode",
+      "environmentClass": "Cross-Repo",
+      "blockingSignal": "Scope",
+      "evidenceState": "None",
+      "portfolioTrack": "Corpus & Facade"
+    }
+  ]
+}

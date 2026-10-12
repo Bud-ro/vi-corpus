@@ -1,0 +1,195 @@
+name: Command dispatcher
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  dispatch:
+    if: github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ github.repository }}
+      COMMENT_BODY: ${{ github.event.comment.body }}
+      AUTHOR_ASSOC: ${{ github.event.comment.author_association }}
+      PR_NUMBER: ${{ github.event.issue.number }}
+      XCLI_PAT: ${{ secrets.XCLI_PAT }}
+    steps:
+      - name: Validate permissions
+        shell: bash
+        run: |
+          case "$AUTHOR_ASSOC" in
+            OWNER|MEMBER|COLLABORATOR) echo "Authorized commenter: $AUTHOR_ASSOC" ;;
+            *) echo "Not authorized ($AUTHOR_ASSOC). Skipping."; exit 0 ;;
+          esac
+
+      - name: Select auth token (PAT or GITHUB_TOKEN)
+        id: auth
+        shell: bash
+        run: |
+          if [ -n "$XCLI_PAT" ]; then echo "token=$XCLI_PAT" >> "$GITHUB_OUTPUT"; else echo "token=$GITHUB_TOKEN" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Runner health (notice-only)
+        if: ${{ vars.RUNNER_HEALTH != '0' }}
+        shell: pwsh
+        run: pwsh -File tools/Collect-RunnerHealth.ps1 -AppendSummary -EmitJson
+
+      - name: Normalize command
+        id: cmd
+        uses: ./.github/actions/normalize-command
+        with:
+          body: ${{ github.event.comment.body }}
+
+      - name: Resolve target ref (PR head when same-repo, else main)
+        id: ref
+        shell: bash
+        env:
+          AUTH: ${{ steps.auth.outputs.token }}
+        run: |
+          pr="$PR_NUMBER"
+          resp=$(curl -s -H "Authorization: Bearer $AUTH" -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/$REPO/pulls/$pr")
+          echo "$resp" > pr.json
+          head_ref=$(python3 -c "import json; j=json.load(open('pr.json')); print(j.get('head',{}).get('ref',''))")
+          head_repo=$(python3 -c "import json; j=json.load(open('pr.json')); print(j.get('head',{}).get('repo',{}).get('full_name',''))")
+          if [ -n "$head_ref" ] && [ "$head_repo" = "$REPO" ]; then
+            echo "target_ref=$head_ref" >> "$GITHUB_OUTPUT"
+            echo "fork=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "target_ref=main" >> "$GITHUB_OUTPUT"
+            echo "fork=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Guard PR state (open)
+        id: guard
+        if: always()
+        shell: bash
+        env:
+          AUTH: ${{ steps.auth.outputs.token }}
+        run: |
+          pr="$PR_NUMBER"
+          resp=$(curl -s -H "Authorization: Bearer $AUTH" -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/$REPO/pulls/$pr")
+          state=$(echo "$resp" | jq -r '.state // ""')
+          merged=$(echo "$resp" | jq -r '.merged // false')
+          if [ "$state" = "open" ] && [ "$merged" != "true" ]; then allowed=true; else allowed=false; fi
+          echo "allowed=$allowed" >> "$GITHUB_OUTPUT"
+          if [ "$allowed" != "true" ]; then
+            echo "::notice::PR #$PR_NUMBER is not open; skipping command dispatch."
+          fi
+
+      - name: Parse orchestrated options from comment
+        id: orch
+        if: steps.cmd.outputs.target == 'orchestrated'
+        uses: ./.github/actions/parse-orchestrated
+        with:
+          body: ${{ github.event.comment.body }}
+
+      - name: Dispatch orchestrated workflow
+        if: steps.cmd.outputs.target == 'orchestrated' && steps.guard.outputs.allowed == 'true'
+        shell: bash
+        env:
+          TARGET_REF: ${{ steps.ref.outputs.target_ref }}
+          STRATEGY: ${{ steps.orch.outputs.strategy }}
+          INCLUDE: ${{ steps.orch.outputs.include_integration }}
+          SAMPLE: ${{ steps.orch.outputs.sample_id }}
+          AUTH: ${{ steps.auth.outputs.token }}
+        run: |
+          printf '{"ref":"%s","inputs":{"include_integration":"%s","strategy":"%s","sample_id":"%s"}}' \
+            "$TARGET_REF" "$INCLUDE" "$STRATEGY" "$SAMPLE" > payload.json
+          cat payload.json
+          curl -s -X POST \
+           -H "Authorization: Bearer $AUTH" \
+           -H "Accept: application/vnd.github+json" \
+           "https://api.github.com/repos/$REPO/actions/workflows/ci-orchestrated.yml/dispatches" \
+           -d @payload.json | cat
+
+      - name: Parse smoke options from comment
+        id: parse
+        if: steps.cmd.outputs.target == 'smoke'
+        shell: bash
+        env:
+          RAW_BODY: ${{ github.event.comment.body }}
+        run: |
+          base=""; head=""; lvpath=""; lvargs=""; fail=""; prnum=""; workdir=""
+          tail=$(printf "%s" "$RAW_BODY" | sed -n 's#^/run[[:space:]]\+smoke[[:space:]]\?##Ip')
+          read -r -a arr <<< "$tail"
+          for tok in "${arr[@]}"; do
+            case "$tok" in
+              base=*) base="${tok#base=}" ;;
+              head=*) head="${tok#head=}" ;;
+              lvComparePath=*|cli=*|lvpath=*) lvpath="${tok#*=}" ;;
+              lvCompareArgs+=*|args+=*) v="${tok#*=}"; lvargs="$lvargs ${v}" ;;
+              lvCompareArgs=*|args=*) lvargs="${tok#*=}" ;;
+              fail_on_diff=*|fail=*|fail-on-diff=*) fail="${tok#*=}" ;;
+              pr=*|pr_number=*) prnum="${tok#*=}" ;;
+              working_directory=*|working-directory=*|wd=*|cwd=*) workdir="${tok#*=}" ;;
+            esac
+          done
+          lvargs="${lvargs# }"
+          {
+            echo "base=$base"
+            echo "head=$head"
+            echo "lvComparePath=$lvpath"
+            echo "lvCompareArgs=$lvargs"
+            echo "fail_on_diff=$fail"
+            echo "pr_number=$prnum"
+            echo "working_directory=$workdir"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch unit tests
+        if: steps.cmd.outputs.target == 'unit' && steps.guard.outputs.allowed == 'true'
+        shell: bash
+        run: |
+          curl -s -X POST \
+           -H "Authorization: Bearer $XCLI_PAT" \
+           -H "Accept: application/vnd.github+json" \
+           "https://api.github.com/repos/$REPO/actions/workflows/test-pester.yml/dispatches" \
+           -d '{"ref":"'"${{ steps.ref.outputs.target_ref }}"'","inputs":{"include_integration":"false"}}' | cat
+
+      - name: Dispatch mock tests
+        if: steps.cmd.outputs.target == 'mock' && steps.guard.outputs.allowed == 'true'
+        shell: bash
+        run: |
+          curl -s -X POST \
+           -H "Authorization: Bearer $XCLI_PAT" \
+           -H "Accept: application/vnd.github+json" \
+           "https://api.github.com/repos/$REPO/actions/workflows/test-mock.yml/dispatches" \
+           -d '{"ref":"'"${{ steps.ref.outputs.target_ref }}"'"}' | cat
+
+      - name: Dispatch smoke tests
+        if: steps.cmd.outputs.target == 'smoke' && steps.guard.outputs.allowed == 'true'
+        shell: bash
+        env:
+          TARGET_REF: ${{ steps.ref.outputs.target_ref }}
+          IN_BASE: ${{ steps.parse.outputs.base }}
+          IN_HEAD: ${{ steps.parse.outputs.head }}
+          IN_LVPATH: ${{ steps.parse.outputs.lvComparePath }}
+          IN_ARGS: ${{ steps.parse.outputs.lvCompareArgs }}
+          IN_FAIL: ${{ steps.parse.outputs.fail_on_diff }}
+          IN_PR: ${{ steps.parse.outputs.pr_number }}
+          IN_WD: ${{ steps.parse.outputs.working_directory }}
+          FALLBACK_PR: ${{ github.event.issue.number }}
+        run: |
+          python3 -c "import json,os; payload={'ref':os.environ['TARGET_REF'],'inputs':{'base':os.environ.get('IN_BASE','') or '','head':os.environ.get('IN_HEAD','') or '','lvComparePath':os.environ.get('IN_LVPATH','') or '','lvCompareArgs':os.environ.get('IN_ARGS','') or '','fail_on_diff':os.environ.get('IN_FAIL','') or '','working_directory':os.environ.get('IN_WD','') or '','pr_number':(os.environ.get('IN_PR') or os.environ.get('FALLBACK_PR') or '')}}; open('payload.json','w',encoding='utf-8').write(json.dumps(payload))"
+          cat payload.json
+          curl -s -X POST \
+           -H "Authorization: Bearer $XCLI_PAT" \
+           -H "Accept: application/vnd.github+json" \
+           "https://api.github.com/repos/$REPO/actions/workflows/smoke.yml/dispatches" \
+           -d @payload.json | cat
+
+      - name: Dispatch pester-selfhosted tests
+        if: steps.cmd.outputs.target == 'pester-selfhosted'
+        shell: bash
+        run: |
+          curl -s -X POST \
+           -H "Authorization: Bearer $XCLI_PAT" \
+           -H "Accept: application/vnd.github+json" \
+           "https://api.github.com/repos/$REPO/actions/workflows/pester-selfhosted.yml/dispatches" \
+           -d '{"ref":"'"${{ steps.ref.outputs.target_ref }}"'","inputs":{"include_integration":"true"}}' | cat
+
+

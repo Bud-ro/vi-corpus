@@ -1,0 +1,919 @@
+{
+ "repo": "ni/niveristand-synchronization-custom-device",
+ "url": "https://github.com/ni/niveristand-synchronization-custom-device",
+ "commit": "818882418c858b06b33a163acb42ecd02b2a7da4",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "Source/Engine/Calculate Scan Start and Frequency.vi",
+   "bytes": 14738,
+   "sha256": "02bed6f87a35b9cce3826a857ec7350b98a4eeecb6d4177e01dbc64d98e36940",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Clear Connections.vi",
+   "bytes": 46497,
+   "sha256": "8e4e749a4eb954a83ea4d35489ef67c423d9ee69a42905c4d6490e2727370cb8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Conditionally Increment Data At Index.vi",
+   "bytes": 9429,
+   "sha256": "1797572822fcf8ec4706e2933273a5dfe7873a0836cf8a448e63ef39d95226fc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Create Connections.vi",
+   "bytes": 48422,
+   "sha256": "b38b1c253db16cdb3cffec309d066ec19aea6e29d6734b1e0600d062416bc749",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Enhance niSync Error.vi",
+   "bytes": 15268,
+   "sha256": "13468e0c067ca497e50852aae87ed25bcab72fc27d5cad7355033f5cfdde9f81",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Fix EtherCAT Error.vi",
+   "bytes": 15058,
+   "sha256": "27ece628aab5a3e890d71063abbccf7915035b4e6be9349ee0cb54dde81f8a35",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Get Module Type.vi",
+   "bytes": 18143,
+   "sha256": "6e8417cbdd7de3677975f1899c04ec49f8959fb2cd8a4aca7ab7436e669b7634",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/NI Synchronization Engine.lvlib",
+   "bytes": 3390,
+   "sha256": "c6ff27376afacf16ab38a50f88c9a69b27a8d8bd809a992c89a99b4ae7950a96",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Print Error.vi",
+   "bytes": 23235,
+   "sha256": "8511162bdbad26fdf3f12d1f766f8622a564af4b20347dc625e2a060487658b9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Print NIVS Debug String.vi",
+   "bytes": 20555,
+   "sha256": "328a23385f15ee0117fbc845e35b878a2f2e506af004ffc8cecb029519643980",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/RT Data Cluster.ctl",
+   "bytes": 23540,
+   "sha256": "a2c183b6cb334b60d6f5ee33e9de4927f342c6a95665ec07cc83a3b5f09e1702",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/RT Driver VI.vi",
+   "bytes": 18040,
+   "sha256": "c1e0df73019c0e17e084839961afac68e1f47d38009c1dc976b56ef3b7efa484",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/RT Finialize.vi",
+   "bytes": 27864,
+   "sha256": "2402c157b654680241ca4ca840231ef292e601e839f14da5abfaf88c33068bd7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/RT Init.vi",
+   "bytes": 42143,
+   "sha256": "4ff7667e567b8f26d854795678c0d2d6db8b683846dff4c4588a633a3b416573",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Read Time Sync.vi",
+   "bytes": 32722,
+   "sha256": "7d79bb8ca04ee4685a0544981ca1efc426ecdc832759c686f900e89aed0fba35",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Route Pin To String.vi",
+   "bytes": 13127,
+   "sha256": "a13d4a6989070dff25616d05fa363b5e32d180ae565b47ec6d92962424cebe31",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Set Timekeeper CLK10 Input.vi",
+   "bytes": 19806,
+   "sha256": "f7a4787f246615cc60615160a7640e3277d51450b214fa299f31f5313f45db39",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Set Timekeeper Card.vi",
+   "bytes": 36975,
+   "sha256": "c14b11d4c29d1ecc9748035b1997c35952f9ee956464365d59ee6cb57dd0a072",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Set Up Clock Discipline.vi",
+   "bytes": 46499,
+   "sha256": "15adb8230904e5a97c21de3bc4c7c734fbe4afdde42f8bb3e03e79dcd9c90bd9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Set Up TimeKeeper.vi",
+   "bytes": 45177,
+   "sha256": "94038996209cbf6ae005bc1e41e14d70e3d98e7688d112ca4a07368a8f2c4ae9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Tear Down Clock Discipline.vi",
+   "bytes": 39250,
+   "sha256": "47196909d87cbfa4be0f2e770ff2990568ce2204a9f0e5d04e3da57740982004",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Template RT VI.vit",
+   "bytes": 28951,
+   "sha256": "b741d2248f33e76ca3f17039970c724b855606654a1146095c635091ab7a58a6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Timekeeper Route Pin.ctl",
+   "bytes": 9765,
+   "sha256": "a5d10631a5ab6f181d95cc723596c1c8536fbb01439cc0d9f2252a3a6ab461fd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/Write Output FIFO.vi",
+   "bytes": 38693,
+   "sha256": "233d0eb07abc11e0431a8689f734c8094548dd94698ce9131e57e36bddbc9d3c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/mdevClkDisc.llb",
+   "bytes": 2679061,
+   "sha256": "7b150d122317c2229fc04d644a3e7971627ac47181551408cda5914d28541414",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Engine/timekeeper type.ctl",
+   "bytes": 9724,
+   "sha256": "4aed6fa7c6dc70a4f6ef30d757b487ca7d8b663a18350b929ddaece5d5ef3b68",
+   "via": "extension"
+  },
+  {
+   "path": "Source/NI Synchronization Custom Device.lvproj",
+   "bytes": 86543,
+   "sha256": "917977c409054d05a0673a5003045fabe91deb938f9d728a2d7910c711b35ce7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Channel.ctl",
+   "bytes": 5656,
+   "sha256": "d2a5cdce6f2451bbcfe6c277152bd44a32027a0c1b4665eae45d7775192a9475",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Compiled Data.ctl",
+   "bytes": 18810,
+   "sha256": "6fa403b0811b3496991ffcb535dc0be4fa72917e1adafe42df81880dc9f5e488",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Connection Settings.ctl",
+   "bytes": 8048,
+   "sha256": "e651f09a9332e94bd14387cff7733ebfb35fbb782952f55f5e9c564d6add4a04",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Constants.vi",
+   "bytes": 13421,
+   "sha256": "e83e43cea26c3392bb32f304ef48ca533dbcb924bad4312b71dbbdda84baeb80",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/External Pin.ctl",
+   "bytes": 9621,
+   "sha256": "86d3b7e8ad63ee7b94c22152cd7feef74e1b49e7c45f7c61091d0bc67a8ed43f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/IRIG Type.ctl",
+   "bytes": 4538,
+   "sha256": "54cc3542cd0ee3bd27ea2a95be27a17a3c047b0bcce5d89454a96cf18c821ecc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Mode.ctl",
+   "bytes": 9705,
+   "sha256": "0b7ed73d56d7c1c3de9f7688aa30ee5de2745a7566ce9b3122760a4d127b9883",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/NI Synchronization Shared.lvlib",
+   "bytes": 2003,
+   "sha256": "362fa7661dedf7bafce87c49695b3c0720041f1813a50e0057abceaa21a84099",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Route.ctl",
+   "bytes": 10286,
+   "sha256": "7894749681e193129a9e9344abc265eb7b6e6b8f1c4c2de0d0164bc9f5c82cd6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Routes.ctl",
+   "bytes": 11215,
+   "sha256": "d6a1dce53b7a5ff6ffcd4f6561f271fa9446910fa3acad2a60d74cab983d293d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Time Ref Settings.ctl",
+   "bytes": 12854,
+   "sha256": "bda6f3083a5f49fa8f1f8d917493eb05a216f1af71c9a3d1758fa8340a351d32",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Shared/Time Reference.ctl",
+   "bytes": 4687,
+   "sha256": "f482e95006b3d32b4a13c7c9736bbc5335954f4c23d3cfe503fd40690263ce8a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/ActionVIOnCompile.vi",
+   "bytes": 30573,
+   "sha256": "1b744a31f4e556d5a4607dcec698069b6a7c18cfa830ec50583527f1e19ee2f4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/ActionVIOnDownload.vi",
+   "bytes": 29218,
+   "sha256": "90ae54900d8a856c684e5bc5bad9393299382d41f7e0887710b23e94caa3d806",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Auto Select Connections.vi",
+   "bytes": 19363,
+   "sha256": "ad2bd7daa5797dfa38ccd44eeaaeb6019e40211e06481fe0d624f6cd58fcfd46",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Check Chassis Master.vi",
+   "bytes": 17772,
+   "sha256": "295d5737dfd201117c959c29725b2228799206d00d4f7daecef8c73d2c262528",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Connection Selection.ctl",
+   "bytes": 9673,
+   "sha256": "43d6d3ade9f5014d14652f31760d74acf67f130eb15a6f125eb72891c30049f5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Create Chans.vi",
+   "bytes": 22628,
+   "sha256": "04c7bd1bc1fe7e38206099ea629969cf6854a12a4505a63ec22664c32e81b6d6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/EnableDisable Control.vi",
+   "bytes": 5217,
+   "sha256": "54877cd8a4a7c38cc6808eaaf05d97ed60cbf72a25e3e04472a628b57bab4b00",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Error Check Chassis Master.vi",
+   "bytes": 22882,
+   "sha256": "b748025cc5f543326c0af400e18ca262a0c8f7d1122dfd7dba0c127980be6b7c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Channel FIFO locations.vi",
+   "bytes": 23422,
+   "sha256": "7a89bf8e9336cc897c8cba514f4fab6340958e44767e919cd85e8d0846a822f5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Connection Description Text and Pins Tab.vi",
+   "bytes": 14924,
+   "sha256": "f86573ce369715c45bb88415b4c33619ada49770523c796d00e48da13eb48cb8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Connection Properties.vi",
+   "bytes": 25733,
+   "sha256": "3cdc228abd9a1e53bf7e432bb73bfae281a9fbad01629041ad54b1f4dd177b09",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Connection Settings.vi",
+   "bytes": 22231,
+   "sha256": "7136b49c33c2ec1457f3d992f983910c4e0cbdec655812dd25faeb042e33e4ce",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Custom Route Properties.vi",
+   "bytes": 21203,
+   "sha256": "10f73acd8b590517b9c91fbe9b20413b94e07988a527f6dc7e8fcd57adacafea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get PPS Terminal Default.vi",
+   "bytes": 11292,
+   "sha256": "f906597f2c063621c46c7eddf0a5d31c82f26e4c105575161a6e6dd6b37b6ef9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Time Ref Properties.vi",
+   "bytes": 26887,
+   "sha256": "ceb64f170e3788661aaac142985e35db6a204aad7dddce8097f5fbc6879ab146",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Get Time Ref Tab.vi",
+   "bytes": 13728,
+   "sha256": "ed82bbf86ed8677b204ed24af05002b049fd8be12e39808645edf24ded88dc78",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Init Main Page Connections GUI.vi",
+   "bytes": 22838,
+   "sha256": "66a885b2d23366208c68c85287bd47c663a09ad2debd1cc0c1791485397873d2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Main Page.vi",
+   "bytes": 69305,
+   "sha256": "a8b68ec60e9a5bef9bb019aa18aca7953cbb06d6ec20ef0e61754f45979ccd44",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/NI Synchronization System Explorer.lvlib",
+   "bytes": 3943,
+   "sha256": "26a3adfb4594368d34978bc958d6d4475b94408e07f9109c086f63d45c80b708",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Pins Tab.ctl",
+   "bytes": 5141,
+   "sha256": "6f3f0f58ad46251f23a418f49b31cc32060bec01b9fbfc7f4d7c4621c6103048",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Prevent and Clear Backplane Time Ref Selection.vi",
+   "bytes": 16974,
+   "sha256": "aad6fdc32d50876fdd76d647f0c804870a49824b2aafcc65cca46d9f8eb1b638",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/SE Initialization VI.vi",
+   "bytes": 14000,
+   "sha256": "6010f1845ff4ec0f1967c41291b3cd0b964897315c779fca11d5af002d8ddb33",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Set Connection Properties.vi",
+   "bytes": 22549,
+   "sha256": "983364527b8dcc9ce2287195579c6a7b7fcbfc3452f13101f86392af3171845b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Set Custom Route Properties.vi",
+   "bytes": 19635,
+   "sha256": "122a2ddc00082a202907c55f9b0c67ec2d5bfa78f7e613f76232d6b32d730077",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Setup Connection GUI.vi",
+   "bytes": 20404,
+   "sha256": "7803e25a45060a26fefaa6e69157840ae9f222873de196f6ac90f242d6997bd9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/Time Ref Tab.ctl",
+   "bytes": 5173,
+   "sha256": "10e02a3b02933dfb70fc6319e4acb2fae9303cb472400eba59f3514c69ba3d65",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/niSync Initialize Advanced.vi",
+   "bytes": 11198,
+   "sha256": "37e8e5b4b2cf6718b8b01b560de8f9ea85734e4efdaf61c04b2cd9df5e07a1da",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/sub_EnableDisable Control.vi",
+   "bytes": 17785,
+   "sha256": "139d451c27e0433be7f4700006231e7f85a562f3226b90b0d4ed87fc98b46b20",
+   "via": "extension"
+  },
+  {
+   "path": "Source/System Explorer/sub_EnableDisable Controls.vi",
+   "bytes": 18498,
+   "sha256": "c4d14bb60a0d07e4f6a121d03125c1f8732a55306ffa6fe748c35a4a5e5c4d20",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Common System Tests.lvclass",
+   "bytes": 27026,
+   "sha256": "91ffcf1859cb47da12054b0b4fcb9c88f081d1e00c95d74f3571fad77f95e6ef",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/setUp.vi",
+   "bytes": 9925,
+   "sha256": "75a8d2c6b9d1773cb5a102fba7c70864e8e658ad9fe05ac46acee7280df7d9f8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/tearDown.vi",
+   "bytes": 8148,
+   "sha256": "35c123ceb6a2ad57a6bf23c8da210d231bc9eb2731f319e70aeae32d767bf001",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/test 1588 Deployment.vi",
+   "bytes": 11668,
+   "sha256": "3fe607fdfab17992ea2195f9f2c2a306c5fd4e337729cb259b74153818a24810",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/test Free Running Deployment.vi",
+   "bytes": 11688,
+   "sha256": "80aa162c90e8835f3dcde86ecf490afcd6efac5e569edd4b3cf0773b7f704199",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/test IRIG Deployment.vi",
+   "bytes": 11572,
+   "sha256": "c176ad2f763655ffd8992ec606dca0203944e62b75a0ec2d970cbccd222bb82f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/test PXI Chassis Clock Deployment.vi",
+   "bytes": 11697,
+   "sha256": "41f197b7cbfed9e0b57cf11367deb53bb90752090f57c703ddec485de9124b2c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/test device name mismatch error.vi",
+   "bytes": 13611,
+   "sha256": "ea8e7e26c052ce47436527c87e3ca32c8dc099c36518fcdf3a891eb61f8f5fbc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/testExample.vit",
+   "bytes": 11724,
+   "sha256": "1653beb7d5517b71a53094bc3301d65003fd627118a54e18588062adaa760871",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/Linux x64 System Tests.lvclass",
+   "bytes": 21843,
+   "sha256": "8edda1fe10024743b112ce2ee6ec2c28add2970060e9b5d5912e3e25003c3419",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/setUp.vi",
+   "bytes": 9941,
+   "sha256": "5a5231b05a2f9b9856288948991272a0a540509a2fe0b072c2b33a62328935e0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/tearDown.vi",
+   "bytes": 8164,
+   "sha256": "8ca999135cbd31e231015bba26c250e59679b6ec4e6fc517976f91bb5cc56b26",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/test 802_1AS Deployment.vi",
+   "bytes": 11703,
+   "sha256": "930fae2d38f859cb20421d272b7e067a2253931bfefef5e072a31b03fd69bab4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/testExample.vit",
+   "bytes": 11752,
+   "sha256": "730e50d593a986c80520cf5fcd47292d602da2479a86fb88811ef85dff7aa40d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/PharLap System Tests.lvclass",
+   "bytes": 22967,
+   "sha256": "4c81238c2bbb18ddf1e1c0a5a44b20ff6cc75ee96c6a1cd6d4dbd15d0fc4cae0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/setUp.vi",
+   "bytes": 9933,
+   "sha256": "e5466a563e548b34dfadf986c1016f0cee1418e5d9a93ed87003b7e5183a5020",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/tearDown.vi",
+   "bytes": 8156,
+   "sha256": "17b4301621f3c9598318e82c97b604e61385ee82fe7623267e2d2392035f2cb1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/test GPS Deployment.vi",
+   "bytes": 10743,
+   "sha256": "7f8819b22dde809f525b3a5018035cc82c5d1c91cebecaf15163adae90b29940",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/test PPS Deployment.vi",
+   "bytes": 11599,
+   "sha256": "484294e397348ab48bf10e45e3299d74a957225d3b5402c7d2491461efd374f2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/testExample.vit",
+   "bytes": 10796,
+   "sha256": "d0e7a7de04d2683b8673f12e74fca00f372b1940734f139aa6f76df0e152e354",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/NI Synchronization Unit Tests.lvclass",
+   "bytes": 23065,
+   "sha256": "c377f523064bd37587366a386b8427f2ebc7eecd64f0351929e2bc2a812ca559",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/setUp.vi",
+   "bytes": 10001,
+   "sha256": "8a9e100cdfd3b7e7425d09d66fdde1af1aad35faeb03f4b3c90fd66dc0644f89",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/tearDown.vi",
+   "bytes": 8620,
+   "sha256": "4b1623d08fcf32a094cfc27e1b643fa8d4c44a893adc21da7d55becffd98202a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/test Connector Pane.vi",
+   "bytes": 10719,
+   "sha256": "7d6d5fcb10a9edacda7b66f815301716a9b75a79c017640cc96baaa835a28e11",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/test Source Separated.vi",
+   "bytes": 10749,
+   "sha256": "103a7c2d8f734b5482aeea949868edfd53ceabe738acca0e5694da61886dbb98",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/Unit/testExample.vit",
+   "bytes": 9452,
+   "sha256": "96986ead3bd11cf3bd20a1d315d48392cb3c0d3745f64d77731af8016d57f057",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utility/Copy Builds To NIVS Dir.vi",
+   "bytes": 15339,
+   "sha256": "9fa1632d6c15edb6ca366d91d33bc502b5a2f050afe3e3ab57737d01bd22f697",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utility/Create Stub Files.vi",
+   "bytes": 15337,
+   "sha256": "be75e5eda945a2c6fe1917b4e24b8110fa7b05b5aa5da9207fdbf61c3773f636",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utility/Pre-Build Action.vi",
+   "bytes": 8012,
+   "sha256": "b7c6f955183c35f7c80f5b90021d74e41dd929f415b892018aab5cd88e2beedf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/1588.nivssdf",
+   "bytes": 47799,
+   "sha256": "9f8e379bb2705fb289a63cff16fc549b02a8efa61507031f6875eb85b0c8c822",
+   "via": "ref:Source/Tests/System/Common System Tests/test 1588 Deployment.vi"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/IRIG.nivssdf",
+   "bytes": 47453,
+   "sha256": "ef1293a65994d07835e7bb204cf6f906c82c5c47a8c5a4d2ea8b815e141ba322",
+   "via": "ref:Source/Tests/System/Common System Tests/test IRIG Deployment.vi"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/PXI Chassis Clock.nivssdf",
+   "bytes": 47825,
+   "sha256": "a24b89e6c719437b6fad38c42dbfde049f7205fa72fe9e4e0ae6963b02b7ee42",
+   "via": "ref:Source/Tests/System/Common System Tests/test PXI Chassis Clock Deployment.vi"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/syncDeviceNameMismatch.nivssdf",
+   "bytes": 47498,
+   "sha256": "bda7b134d07c465be74277c1cb023f8334ef7a10c87a279109ad807876e60264",
+   "via": "ref:Source/Tests/System/Common System Tests/test device name mismatch error.vi"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/syncDeviceNameMismatch-config.ini",
+   "bytes": 65,
+   "sha256": "32a3962fdc97d83c5e1ece76c8d242d56cf22363df11e264cbce831382e31bd8",
+   "via": "ref:Source/Tests/System/Common System Tests/test device name mismatch error.vi"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/Assets/802_1AS.nivssdf",
+   "bytes": 47805,
+   "sha256": "8e42b2583e7a0a999ea8449a2fe0f5f0e7cbf53f970324fc65c64a1ee7215a5b",
+   "via": "ref:Source/Tests/System/Linux x64 System Tests/test 802_1AS Deployment.vi"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/Assets/GPS.nivssdf",
+   "bytes": 47450,
+   "sha256": "3df7262742bd7abdcb0b802318e73b6280ca8071121457469131113f7ca39d49",
+   "via": "ref:Source/Tests/System/PharLap System Tests/test GPS Deployment.vi"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/Assets/PPS.nivssdf",
+   "bytes": 47451,
+   "sha256": "6fa51a93cfd24d5606f78ecf54aa0a72d9bd9191ca8369533fbe4d378ebb45d5",
+   "via": "ref:Source/Tests/System/PharLap System Tests/test PPS Deployment.vi"
+  },
+  {
+   "path": ".gitattributes",
+   "bytes": 483,
+   "sha256": "dcc4e04a9952ff446b9d78c624d80379b0f20f5817a89b9b2b1ab8b55b82fd52",
+   "via": "tree"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "bytes": 65,
+   "sha256": "b6bdeeed6c0c8e20827b2145fb7623138895046cc86fbd7908e29b6d776a80ec",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "bytes": 637,
+   "sha256": "5088f7541aacfa80dc898f70ef8497b852cd9d4eeddb832cb461c0386421e0ca",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "bytes": 604,
+   "sha256": "72a5f467b083c24507b1e848bbb958800f783fe1d313a8ca017f2a2673acad47",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/support_request_template.md",
+   "bytes": 696,
+   "sha256": "f8ffbdf146555ca5838487041d4ef501bfab171113a775171daaa058df06949f",
+   "via": "tree"
+  },
+  {
+   "path": ".github/PULL_REQUEST_TEMPLATE.md",
+   "bytes": 683,
+   "sha256": "e251dc6ebebc74b11db185e249cf1b44c66dfff7b40de754830e27556d28522f",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 880,
+   "sha256": "e92c5bf3c9c46d310cc00b023f29d3183b287c9e16b46081b424f23ad21c25de",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 3017,
+   "sha256": "e1301592581157e8b2722464a108dbeeb90bf83b1a70991e3a6f865f5f6f50d2",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1071,
+   "sha256": "ef76fcaaf71b6f28897982c3a899070ee009dfef625c17262a0d9f5f32416d8a",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2858,
+   "sha256": "31970de5667281b5a1d3cea0907b6d44727aa050b6149f1b3e698e44a249e43e",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/Free Running.nivssdf",
+   "bytes": 47815,
+   "sha256": "6d4878880f65ff051a50e21f5ee81794d663d942aeb038e9c87ee0d7a725b1f6",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/Assets/config.ini",
+   "bytes": 171,
+   "sha256": "6d903d565326c9a36881d137513a400e60d44bcbecf9e664315d0af99416e4bb",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/gateway.ini",
+   "bytes": 104,
+   "sha256": "413be0cf63fffb0dca729d46d828f74ea279c010901164e3926b498045845299",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Common System Tests/targets.ini",
+   "bytes": 124,
+   "sha256": "ae4efe88f11de5dd4c83fbff0ebb6048e58334d1671c9af400b41d1598aed85e",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/Assets/config.ini",
+   "bytes": 171,
+   "sha256": "6d903d565326c9a36881d137513a400e60d44bcbecf9e664315d0af99416e4bb",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/gateway.ini",
+   "bytes": 104,
+   "sha256": "413be0cf63fffb0dca729d46d828f74ea279c010901164e3926b498045845299",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/Linux x64 System Tests/targets.ini",
+   "bytes": 96,
+   "sha256": "5494b3ddaa293f371f345ea6861b0ec2aff62f89913108d5db8defa09d9795e6",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/Assets/Free Running.nivssdf",
+   "bytes": 47468,
+   "sha256": "2d846bebf52026f5f6849f964e4611e7a60da3c01a7cd074a685dd8dffb7b43d",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/Assets/config.ini",
+   "bytes": 171,
+   "sha256": "6d903d565326c9a36881d137513a400e60d44bcbecf9e664315d0af99416e4bb",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Tests/System/PharLap System Tests/targets.ini",
+   "bytes": 90,
+   "sha256": "36a4700906bfb57beaa5a6c57ce0f3321453a104169c4ffdd15b4205bbabb789",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Timing and Sync - NI Synchronization.xml",
+   "bytes": 3757,
+   "sha256": "868f4f98df66f10cb83fd6e1b0a8b0be91eba57160b27c6f5fba02b3b6c4f3aa",
+   "via": "tree"
+  },
+  {
+   "path": "azure-pipelines.yml",
+   "bytes": 1521,
+   "sha256": "59847ea50d99e96aae9857650f75b3e8896307e323a1d4d80906077cd4495f57",
+   "via": "tree"
+  },
+  {
+   "path": "control",
+   "bytes": 4771,
+   "sha256": "537be0518d13804a79abb49e4755adc24fda2d3d94dbacce519f527784a16d1f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Hardware Support and Requirements.md",
+   "bytes": 2139,
+   "sha256": "5089dbcb5dd5c1e5568b16aec84ead8eadfc9723394db3c4f2643a163b4d5312",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/Add Module.png",
+   "bytes": 50818,
+   "sha256": "ac6da7aec0da618de526d5e194d47f2e944357d26af844fd98eca9e1cb246aa4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/CLK 10 IN.png",
+   "bytes": 417500,
+   "sha256": "42009727b8ff6d50b9d35a033993113d6707f147377e8e3c12e79d4a281baff4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/CLK OUT.png",
+   "bytes": 374805,
+   "sha256": "149ea6b4da6f4a55563f50c63efd4216da7dc259cbc3478fd7f85ce6e76a4dd4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/Clock Discipline.png",
+   "bytes": 42605,
+   "sha256": "d5bd4191804591f8fdfc8a2d0c431e033b2895554b5857537b1cd1a1fe723899",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/Custom Connections.png",
+   "bytes": 44123,
+   "sha256": "aacc7cd56c0f8163369fde2ed2cfe81c19578a0c1d391166cd4fbcb2ae07ade8",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/Module Designation.png",
+   "bytes": 2619,
+   "sha256": "a27a3d39d19e38d6ba1852b717f38392c33c819c102cf097e1cd812f02e3a5e1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/Support/Timing Master.png",
+   "bytes": 58005,
+   "sha256": "4210cfbbcc12ddd8f4ab7b9c9bb4e8c47a00735862e4e937d8614531dae24921",
+   "via": "tree"
+  },
+  {
+   "path": "docs/User Guide.md",
+   "bytes": 5943,
+   "sha256": "d357ec2f23da464d84d9d5828b05c35e0bedbb4a09d9ba6791b79d69693b9053",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<instrlib>\\niSync\\niSync.llb\\niSync Clear Clock.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Close.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Connect Clock Terminals.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Create Clock (Frequency).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Create Clock.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Disconnect Clock Terminals.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Get Time.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync IVI Error Converter.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Initialize (Default).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Initialize.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (1588 Ordinary Clock).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (802.1AS).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (Free Running).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (GPS).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (IRIG).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference (PPS).vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Set Time Reference.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Start 1588.vi",
+  "<instrlib>\\niSync\\niSync.llb\\niSync Stop 1588.vi",
+  "<resource>\\objmgr\\timeSync.rc",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device API.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Channel Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Channel.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Item Ref.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Boolean).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Double).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (I32).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (String).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (U16).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Variant).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Add Custom Device Channel.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Add Custom Device Section.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Custom Device Channel Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Event Refnum.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Path.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Property.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Reference by Name.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Item Reference to Pointer.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Parse Incoming Command Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Remove Error.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Rename Custom Device Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Report Error.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item Property.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Timing and Sync Custom Device Is RTSI 0 Capable Flag.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Signal When Ready for Shutdown.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Unset Busy Cursor.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Boolean).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Double).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (I32).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (String).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (U16).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Variant).vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\Custom Device Utility Library.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get Channel FIFO Buffer Index.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get Item Ref by Relative Path.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get Target Ref.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Report Final Error Status.vi",
+  "<vilib>\\NI\\VeriStand Custom Device Testing Tools\\VeriStandTestUtilities\\AssertConnectorPanesMatchExpected.vi",
+  "<vilib>\\NI\\VeriStand Custom Device Testing Tools\\VeriStandTestUtilities\\AssertSourceSeparatedFromCompiledCode.vi",
+  "<vilib>\\NI\\VeriStand Custom Device Testing Tools\\VeriStandTestUtilities\\VeriStandTestUtilities.lvlib",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Create Directory Recursive.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\WebDAVClient\\Advanced\\SessionHandle.ctl",
+  "<vilib>\\WebDAVClient\\NI_WebDAV.lvlib",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\WaitOnTestComplete.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\skip.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "C:\\ni-rt\\system\\ni-timesync\\ni-timesync-nisync.ini"
+ ]
+}

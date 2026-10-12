@@ -1,0 +1,803 @@
+#Requires -Version 7.0
+[CmdletBinding()]
+param(
+  [string]$BaseRemote = 'upstream',
+  [string]$HeadRemote = 'origin',
+  [string]$Branch = 'develop',
+  [string]$ParityReportPath,
+  [switch]$KeepCurrentBranch,
+  [ValidateRange(1, 20)]
+  [int]$MaxAttempts = 3,
+  [ValidateRange(1, 120)]
+  [int]$RetryDelaySeconds = 4,
+  [ValidateRange(5, 600)]
+  [int]$LockWaitSeconds = 120,
+  [ValidateRange(1, 30)]
+  [int]$RemoteHeadPollAttempts = 8,
+  [ValidateRange(1, 30)]
+  [int]$RemoteHeadPollDelaySeconds = 2
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+function Invoke-Git {
+  param(
+    [Parameter(Mandatory)][string[]]$Arguments,
+    [switch]$IgnoreExitCode
+  )
+
+  $displayArguments = @($Arguments | ForEach-Object { Get-SafeRemoteLocation -Location ([string]$_) })
+  Write-Host ("[sync] git {0}" -f ($displayArguments -join ' '))
+  $raw = & git @Arguments 2>&1
+  $exitCode = $LASTEXITCODE
+  $lines = @($raw | ForEach-Object { [string]$_ })
+  $text = ($lines -join "`n").Trim()
+  if (-not $IgnoreExitCode -and $exitCode -ne 0) {
+    if ($text) {
+      throw ("git command failed (exit={0}): git {1}`n{2}" -f $exitCode, ($Arguments -join ' '), $text)
+    }
+    throw ("git command failed (exit={0}): git {1}" -f $exitCode, ($Arguments -join ' '))
+  }
+  return [pscustomobject]@{
+    ExitCode = [int]$exitCode
+    Lines = $lines
+    Text = $text
+  }
+}
+
+function Invoke-Node {
+  param(
+    [Parameter(Mandatory)][string[]]$Arguments
+  )
+
+  Write-Host ("[sync] node {0}" -f ($Arguments -join ' '))
+  & node @Arguments
+  if ($LASTEXITCODE -ne 0) {
+    throw ("node command failed (exit={0}): node {1}" -f $LASTEXITCODE, ($Arguments -join ' '))
+  }
+}
+
+function Acquire-LockStream {
+  param(
+    [Parameter(Mandatory)][string]$LockPath,
+    [ValidateRange(5, 600)][int]$WaitSeconds
+  )
+
+  $lockDir = Split-Path -Parent $LockPath
+  if ($lockDir -and -not (Test-Path -LiteralPath $lockDir -PathType Container)) {
+    New-Item -ItemType Directory -Path $lockDir -Force | Out-Null
+  }
+
+  $deadline = (Get-Date).ToUniversalTime().AddSeconds($WaitSeconds)
+  do {
+    try {
+      return [System.IO.File]::Open(
+        $LockPath,
+        [System.IO.FileMode]::OpenOrCreate,
+        [System.IO.FileAccess]::ReadWrite,
+        [System.IO.FileShare]::None
+      )
+    } catch [System.IO.IOException] {
+      Start-Sleep -Seconds 2
+    }
+  } while ((Get-Date).ToUniversalTime() -lt $deadline)
+
+  throw ("Timed out waiting for sync lock: {0}" -f $LockPath)
+}
+
+function Get-GitValue {
+  param([Parameter(Mandatory)][string[]]$Arguments)
+  $result = Invoke-Git -Arguments $Arguments
+  if (-not $result.Text) { return '' }
+  return ([string]$result.Lines[0]).Trim()
+}
+
+function Get-GitOptionalValue {
+  param([Parameter(Mandatory)][string[]]$Arguments)
+  $result = Invoke-Git -Arguments $Arguments -IgnoreExitCode
+  if ($result.ExitCode -ne 0 -or -not $result.Text) {
+    return ''
+  }
+  return ([string]$result.Lines[0]).Trim()
+}
+
+function Resolve-GitAdminPath {
+  param(
+    [Parameter(Mandatory)][string[]]$Arguments,
+    [Parameter(Mandatory)][string]$BasePath
+  )
+
+  $value = Get-GitValue -Arguments $Arguments
+  if ([string]::IsNullOrWhiteSpace($value)) {
+    throw ("git {0} returned an empty path." -f ($Arguments -join ' '))
+  }
+
+  if ([System.IO.Path]::IsPathRooted($value)) {
+    return [System.IO.Path]::GetFullPath($value)
+  }
+
+  return [System.IO.Path]::GetFullPath((Join-Path $BasePath $value))
+}
+
+function Get-RemoteHeadSha {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName
+  )
+
+  $result = Invoke-Git -Arguments @('ls-remote', '--heads', $Remote, $BranchName) -IgnoreExitCode
+  if ($result.ExitCode -ne 0) {
+    throw ("Failed to resolve {0}/{1} via ls-remote." -f $Remote, $BranchName)
+  }
+
+  $line = ($result.Lines | Select-Object -First 1)
+  if (-not $line) { return '' }
+  $parts = ([string]$line).Split("`t", [System.StringSplitOptions]::RemoveEmptyEntries)
+  if ($parts.Count -lt 1) { return '' }
+  return $parts[0].Trim()
+}
+
+function Wait-ForRemoteHead {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName,
+    [Parameter(Mandatory)][string]$ExpectedSha,
+    [ValidateRange(1, 60)][int]$Attempts,
+    [ValidateRange(1, 60)][int]$DelaySeconds
+  )
+
+  for ($poll = 1; $poll -le $Attempts; $poll++) {
+    $remoteHead = Get-RemoteHeadSha -Remote $Remote -BranchName $BranchName
+    if ($remoteHead -eq $ExpectedSha) {
+      return $true
+    }
+    if ($poll -lt $Attempts) {
+      Start-Sleep -Seconds $DelaySeconds
+    }
+  }
+
+  return $false
+}
+
+function Refresh-RemoteTrackingRef {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName,
+    [Parameter(Mandatory)][string]$ExpectedSha
+  )
+
+  $trackingRef = 'refs/remotes/{0}/{1}' -f $Remote, $BranchName
+  $refSpec = '+refs/heads/{0}:{1}' -f $BranchName, $trackingRef
+  Invoke-Git -Arguments @('fetch', '--no-tags', $Remote, $refSpec) | Out-Null
+  $resolvedSha = Get-GitValue -Arguments @('rev-parse', '--verify', $trackingRef)
+  if ($resolvedSha -ne $ExpectedSha) {
+    throw ("Remote tracking ref {0} resolved to {1} after refresh; expected {2}." -f $trackingRef, $resolvedSha, $ExpectedSha)
+  }
+
+  Write-Host ("[sync] Refreshed local tracking ref {0} -> {1}" -f $trackingRef, $ExpectedSha)
+}
+
+function Refresh-ObservedRemoteTrackingRef {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName
+  )
+
+  $trackingRef = 'refs/remotes/{0}/{1}' -f $Remote, $BranchName
+  $refSpec = '+refs/heads/{0}:{1}' -f $BranchName, $trackingRef
+  Invoke-Git -Arguments @('fetch', '--no-tags', $Remote, $refSpec) | Out-Null
+  $resolvedSha = Get-GitValue -Arguments @('rev-parse', '--verify', $trackingRef)
+  if ([string]::IsNullOrWhiteSpace($resolvedSha)) {
+    throw ("Remote tracking ref {0} is unavailable after refresh." -f $trackingRef)
+  }
+
+  Write-Host ("[sync] Refreshed observed tracking ref {0} -> {1}" -f $trackingRef, $resolvedSha)
+  return $resolvedSha
+}
+
+function Test-NonRetryableSyncFailure {
+  param([Parameter(Mandatory)][string]$Message)
+
+  if ($Message -match '(?i)not possible to fast-forward') { return $true }
+  if ($Message -match '(?i)refusing to merge unrelated histories') { return $true }
+  if ($Message -match '(?i)CONFLICT') { return $true }
+  if ($Message -match '(?i)diverged-fork-plane') { return $true }
+  if ($Message -match '(?i)diverged-fork-plane-remediation') { return $true }
+  if ($Message -match '(?i)diverged-fork-plane-transport-failure') { return $true }
+  if ($Message -match '(?i)pull-request-draft-remediation') { return $true }
+  return $false
+}
+
+function Test-GitPushNonFastForwardFailure {
+  param([Parameter(Mandatory)][string]$Message)
+
+  if ($Message -match '(?i)non-fast-forward') { return $true }
+  if ($Message -match '(?i)tip of your current branch is behind') { return $true }
+  if ($Message -match '(?i)fetch first') { return $true }
+  return $false
+}
+
+function Test-GitHubSshAuthFailure {
+  param([Parameter(Mandatory)][string]$Message)
+
+  if ($Message -match '(?i)Permission denied \(publickey\)') { return $true }
+  if ($Message -match '(?i)Could not read from remote repository') { return $true }
+  return $false
+}
+
+function Test-GitHubProtectedBranchFailure {
+  param([Parameter(Mandatory)][string]$Message)
+
+  if ($Message -match '(?i)GH013') { return $true }
+  if ($Message -match '(?i)Repository rule violations found') { return $true }
+  if ($Message -match '(?i)Changes must be made through a pull request') { return $true }
+  if ($Message -match '(?i)Changes must be made through the merge queue') { return $true }
+  return $false
+}
+
+function Get-ProtectedBranchSyncReason {
+  param([Parameter(Mandatory)][string]$Message)
+
+  if ($Message -match '(?i)GH013') {
+    return 'protected-branch-gh013'
+  }
+
+  return 'protected-branch'
+}
+
+function Get-SafeRemoteLocation {
+  param([string]$Location)
+
+  if ([string]::IsNullOrWhiteSpace($Location)) {
+    return $Location
+  }
+
+  return ($Location -replace '^(https?://)([^/@]+@)', '$1')
+}
+
+function Invoke-PushWithTransportFallback {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName,
+    [string]$SourceRef,
+    [string]$TargetBranch
+  )
+
+  $resolvedSourceRef = if ([string]::IsNullOrWhiteSpace($SourceRef)) { $BranchName } else { $SourceRef }
+  $resolvedTargetBranch = if ([string]::IsNullOrWhiteSpace($TargetBranch)) { $BranchName } else { $TargetBranch }
+  $pushRefSpec = '{0}:{1}' -f $resolvedSourceRef, $resolvedTargetBranch
+
+  try {
+    Invoke-Git -Arguments @('push', $Remote, $pushRefSpec) | Out-Null
+    return [ordered]@{
+      target = $Remote
+      usedFallback = $false
+      sourceRef = $resolvedSourceRef
+      targetBranch = $resolvedTargetBranch
+    }
+  }
+  catch {
+    $message = $_.Exception.Message
+    $fetchUrl = Get-GitOptionalValue -Arguments @('remote', 'get-url', $Remote)
+    $pushUrl = Get-GitOptionalValue -Arguments @('remote', 'get-url', '--push', $Remote)
+    $canFallback = (
+      (Test-GitHubSshAuthFailure -Message $message) -and
+      -not [string]::IsNullOrWhiteSpace($fetchUrl) -and
+      $fetchUrl -ne $pushUrl
+    )
+    if (-not $canFallback) {
+      throw
+    }
+
+    Write-Warning ("[sync] Push via remote '{0}' failed with SSH auth; retrying against fetch URL {1}" -f $Remote, (Get-SafeRemoteLocation -Location $fetchUrl))
+    Invoke-Git -Arguments @(
+      '-c', 'credential.interactive=never',
+      '-c', 'core.askpass=',
+      'push', $fetchUrl, $pushRefSpec
+    ) | Out-Null
+    return [ordered]@{
+      target = Get-SafeRemoteLocation -Location $fetchUrl
+      usedFallback = $true
+      primaryRemote = $Remote
+      primaryPushUrl = Get-SafeRemoteLocation -Location $pushUrl
+      sourceRef = $resolvedSourceRef
+      targetBranch = $resolvedTargetBranch
+    }
+  }
+}
+
+function Remove-RemoteBranchWithTransportFallback {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName
+  )
+
+  $deleteRefSpec = ":refs/heads/{0}" -f $BranchName
+  try {
+    Invoke-Git -Arguments @('push', $Remote, $deleteRefSpec) | Out-Null
+    return
+  }
+  catch {
+    $message = $_.Exception.Message
+    $fetchUrl = Get-GitOptionalValue -Arguments @('remote', 'get-url', $Remote)
+    $pushUrl = Get-GitOptionalValue -Arguments @('remote', 'get-url', '--push', $Remote)
+    $canFallback = (
+      (Test-GitHubSshAuthFailure -Message $message) -and
+      -not [string]::IsNullOrWhiteSpace($fetchUrl) -and
+      $fetchUrl -ne $pushUrl
+    )
+    if (-not $canFallback) {
+      throw
+    }
+
+    Write-Warning ("[sync] Remote branch delete via '{0}' failed with SSH auth; retrying against fetch URL {1}" -f $Remote, (Get-SafeRemoteLocation -Location $fetchUrl))
+    Invoke-Git -Arguments @(
+      '-c', 'credential.interactive=never',
+      '-c', 'core.askpass=',
+      'push', $fetchUrl, $deleteRefSpec
+    ) | Out-Null
+  }
+}
+
+function Get-ProtectedSyncBranchName {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName
+  )
+
+  $sanitizedRemote = $Remote.ToLowerInvariant() -replace '[^a-z0-9._-]', '-'
+  $sanitizedBranch = $BranchName.ToLowerInvariant() -replace '[^a-z0-9._/-]', '-'
+  $sanitizedBranch = $sanitizedBranch -replace '/', '-'
+  return "sync/$sanitizedRemote-$sanitizedBranch"
+}
+
+function Get-DivergedDevelopRemediationBranchName {
+  param(
+    [Parameter(Mandatory)][string]$Remote,
+    [Parameter(Mandatory)][string]$BranchName
+  )
+
+  $sanitizedRemote = $Remote.ToLowerInvariant() -replace '[^a-z0-9._-]', '-'
+  $sanitizedBranch = $BranchName.ToLowerInvariant() -replace '[^a-z0-9._/-]', '-'
+  $sanitizedBranch = $sanitizedBranch -replace '/', '-'
+  return "sync/$sanitizedRemote-$sanitizedBranch-parity"
+}
+
+function Test-DraftSafeParityRemediation {
+  param(
+    [hashtable]$ParityRemediation,
+    [string]$ExpectedHeadRefName,
+    [string]$ExpectedBaseRefName
+  )
+
+  if (-not $ParityRemediation) {
+    return $false
+  }
+
+  $parityPullRequest = $ParityRemediation['pullRequest']
+  $parityDraftState = $ParityRemediation['draftState']
+  $parityAutoMerge = $ParityRemediation['autoMerge']
+  $draftSafeStatus = $parityDraftState -and @('already-draft', 'marked-draft') -contains $parityDraftState['status']
+  $autoMergeSafeStatus = $parityAutoMerge -and @('already-disabled', 'disabled') -contains $parityAutoMerge['status']
+  $expectedHeadRef = [string]$ExpectedHeadRefName
+  $expectedBaseRef = [string]$ExpectedBaseRefName
+  $headMatches = $parityPullRequest -and [string]$parityPullRequest['headRefName'] -eq $expectedHeadRef
+  $baseMatches = $parityPullRequest -and [string]$parityPullRequest['baseRefName'] -eq $expectedBaseRef
+
+  return [bool](
+    $parityPullRequest -and
+    $parityPullRequest['number'] -and
+    [string]$parityPullRequest['state'] -eq 'OPEN' -and
+    $parityPullRequest['isDraft'] -eq $true -and
+    $headMatches -and
+    $baseMatches -and
+    $draftSafeStatus -and
+    $autoMergeSafeStatus
+  )
+}
+
+function Test-TransportOnlyParityRemediationFailure {
+  param([hashtable]$ParityRemediation)
+
+  if (-not $ParityRemediation) {
+    return $false
+  }
+
+  $parityPush = $ParityRemediation['push']
+  if (-not $parityPush) {
+    return $false
+  }
+
+  $status = [string]$parityPush['status']
+  if ($status -eq 'transport-failed') {
+    return $true
+  }
+
+  return [bool](
+    $parityPush['retryable'] -eq $true -and
+    $parityPush['retryExhausted'] -eq $true
+  )
+}
+
+function Write-SyncParityReport {
+  param(
+    [Parameter(Mandatory)][string]$RepoRoot,
+    [Parameter(Mandatory)][string]$ParityReportPath,
+    [Parameter(Mandatory)][string]$BaseRef,
+    [Parameter(Mandatory)][string]$HeadRef,
+    [Parameter(Mandatory)][hashtable]$AdminPaths,
+    [string]$SyncMode = 'direct-push',
+    [string]$SyncReason = 'direct-push',
+    [hashtable]$PushTransport,
+    [hashtable]$ProtectedSync,
+    [string]$ProtectedSyncReportPath,
+    [hashtable]$ParityRemediation,
+    [string]$ParityRemediationReportPath,
+    [string]$FailureMessage
+  )
+
+  Invoke-Node -Arguments @(
+    'tools/priority/report-origin-upstream-parity.mjs',
+    '--base-ref',
+    $BaseRef,
+    '--head-ref',
+    $HeadRef,
+    '--output-path',
+    $ParityReportPath
+  ) | Out-Null
+
+  if (-not (Test-Path -LiteralPath $ParityReportPath -PathType Leaf)) {
+    throw ("Parity report not found: {0}" -f $ParityReportPath)
+  }
+
+  $parityReport = Get-Content -LiteralPath $ParityReportPath -Raw | ConvertFrom-Json -AsHashtable
+  $planeTransition = $parityReport['planeTransition']
+  if (-not $planeTransition) {
+    throw ("Parity report missing planeTransition metadata: {0}" -f $ParityReportPath)
+  }
+  foreach ($requiredKey in @('from', 'to', 'action', 'via')) {
+    if ([string]::IsNullOrWhiteSpace([string]$planeTransition[$requiredKey])) {
+      throw ("Parity report planeTransition metadata is incomplete ({0} missing) in {1}" -f $requiredKey, $ParityReportPath)
+    }
+  }
+
+  $parityReport['adminPaths'] = $AdminPaths
+  if ($PushTransport) {
+    $parityReport['pushTransport'] = $PushTransport
+  }
+
+  $tipDiff = $parityReport['tipDiff']
+  if (-not $tipDiff) {
+    throw ("Parity report missing tipDiff metadata: {0}" -f $ParityReportPath)
+  }
+  $tipDiffCount = [int](($tipDiff)['fileCount'])
+  $syncResult = [ordered]@{
+    mode = $SyncMode
+    reason = $SyncReason
+    parityConverged = ($tipDiffCount -eq 0)
+    planeTransition = $planeTransition
+  }
+  if (-not [string]::IsNullOrWhiteSpace($FailureMessage)) {
+    $syncResult['failureMessage'] = $FailureMessage
+  }
+  if ($ProtectedSyncReportPath) {
+    $syncResult['reportPath'] = $ProtectedSyncReportPath
+  } elseif ($ParityRemediation -and $ParityRemediationReportPath) {
+    $syncResult['reportPath'] = $ParityRemediationReportPath
+  }
+  if ($ProtectedSync) {
+    if (-not $ProtectedSync['planeTransition']) {
+      throw ("Protected sync report missing planeTransition metadata: {0}" -f $ProtectedSyncReportPath)
+    }
+    $syncResult['protectedSync'] = $ProtectedSync
+  }
+  if ($ParityRemediation) {
+    if (-not $ParityRemediation['planeTransition']) {
+      throw ("Parity remediation report missing planeTransition metadata: {0}" -f $ParityRemediationReportPath)
+    }
+    $syncResult['parityRemediation'] = $ParityRemediation
+  }
+
+  $parityReport['syncResult'] = $syncResult
+  ($parityReport | ConvertTo-Json -Depth 20) + "`n" | Set-Content -LiteralPath $ParityReportPath -Encoding utf8
+  return $parityReport
+}
+
+$repoRoot = Get-GitValue -Arguments @('rev-parse', '--show-toplevel')
+if ([string]::IsNullOrWhiteSpace($repoRoot)) {
+  throw 'Unable to resolve git repository root.'
+}
+
+$baseRef = '{0}/{1}' -f $BaseRemote, $Branch
+$headRef = '{0}/{1}' -f $HeadRemote, $Branch
+$parityReportPath = if ([string]::IsNullOrWhiteSpace($ParityReportPath)) {
+  Join-Path $repoRoot ("tests/results/_agent/issue/{0}-upstream-parity.json" -f $HeadRemote)
+} else {
+  if ([System.IO.Path]::IsPathRooted($ParityReportPath)) {
+    $ParityReportPath
+  } else {
+    Join-Path $repoRoot $ParityReportPath
+  }
+}
+$lockName = ('priority-sync-{0}-{1}-{2}.lock' -f $BaseRemote, $HeadRemote, $Branch) -replace '[^A-Za-z0-9._-]', '_'
+$lockPath = ''
+$lockStream = $null
+$restoreBranch = $false
+$startingBranch = ''
+$pushedLocation = $false
+$gitDir = ''
+$gitCommonDir = ''
+$gitConfigPath = ''
+$adminPaths = $null
+$pushTransport = $null
+$syncMode = 'direct-push'
+$syncReason = 'direct-push'
+$protectedSync = $null
+$protectedSyncReportPath = ''
+$parityRemediation = $null
+$parityRemediationReportPath = ''
+
+Push-Location -LiteralPath $repoRoot
+$pushedLocation = $true
+try {
+  $gitDir = Resolve-GitAdminPath -Arguments @('rev-parse', '--git-dir') -BasePath $repoRoot
+  $gitCommonDir = Resolve-GitAdminPath -Arguments @('rev-parse', '--git-common-dir') -BasePath $repoRoot
+  $gitConfigPath = Resolve-GitAdminPath -Arguments @('rev-parse', '--git-path', 'config') -BasePath $repoRoot
+  $lockPath = Join-Path $gitCommonDir $lockName
+  $adminPaths = [ordered]@{
+    gitDir = $gitDir
+    gitCommonDir = $gitCommonDir
+    gitConfigPath = $gitConfigPath
+    lockPath = $lockPath
+  }
+
+  $startingBranch = Get-GitValue -Arguments @('branch', '--show-current')
+  $restoreBranch = (
+    -not $KeepCurrentBranch -and
+    -not [string]::IsNullOrWhiteSpace($startingBranch) -and
+    $startingBranch -ne 'HEAD' -and
+    $startingBranch -ne $Branch
+  )
+
+  $lockStream = Acquire-LockStream -LockPath $lockPath -WaitSeconds $LockWaitSeconds
+  Write-Host ("[sync] Acquired lock: {0}" -f $lockPath)
+
+  Invoke-Git -Arguments @('fetch', '--all', '--prune') | Out-Null
+  if ($startingBranch -ne $Branch) {
+    Invoke-Git -Arguments @('checkout', $Branch) | Out-Null
+  }
+
+  $syncSucceeded = $false
+  for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
+    $attemptPushTransport = $null
+    $attemptSyncMode = 'direct-push'
+    $attemptSyncReason = 'direct-push'
+    $attemptProtectedSync = $null
+    $attemptProtectedSyncReportPath = ''
+    $attemptParityRemediation = $null
+    $attemptParityRemediationReportPath = ''
+    try {
+      Write-Host ("[sync] Attempt {0}/{1}: pull+push {2}" -f $attempt, $MaxAttempts, $Branch)
+
+      # Sequential by design: pull must complete before push starts.
+      Invoke-Git -Arguments @('pull', '--ff-only', $BaseRemote, $Branch) | Out-Null
+      try {
+        $attemptPushTransport = Invoke-PushWithTransportFallback -Remote $HeadRemote -BranchName $Branch
+      }
+      catch {
+        $message = $_.Exception.Message
+        if (Test-GitPushNonFastForwardFailure -Message $message) {
+          $attemptSyncReason = 'diverged-fork-plane'
+          Refresh-ObservedRemoteTrackingRef -Remote $HeadRemote -BranchName $Branch | Out-Null
+          $attemptParityReport = Write-SyncParityReport `
+            -RepoRoot $repoRoot `
+            -ParityReportPath $parityReportPath `
+            -BaseRef $baseRef `
+            -HeadRef $headRef `
+            -AdminPaths $adminPaths `
+            -SyncMode $attemptSyncMode `
+            -SyncReason $attemptSyncReason `
+            -FailureMessage $message
+          $attemptTipDiffCount = [int]((($attemptParityReport['tipDiff']))['fileCount'])
+          if ($attemptTipDiffCount -eq 0) {
+            $attemptSyncReason = 'remote-already-converged'
+            Write-Host ("[sync] Remote already converged for {0}/{1} after non-fast-forward rejection" -f $HeadRemote, $Branch)
+          } elseif ($HeadRemote -eq 'origin') {
+            $localHead = Get-GitValue -Arguments @('rev-parse', 'HEAD')
+            $syncBranch = Get-DivergedDevelopRemediationBranchName -Remote $HeadRemote -BranchName $Branch
+            Write-Warning ("[sync] Diverged fork plane detected for {0}/{1}; staging deterministic parity remediation (sync branch {2})" -f $HeadRemote, $Branch, $syncBranch)
+            $attemptParityRemediationReportPath = Join-Path $repoRoot ("tests/results/_agent/issue/{0}-diverged-develop-remediation.json" -f $HeadRemote)
+            if (Test-Path -LiteralPath $attemptParityRemediationReportPath -PathType Leaf) {
+              Remove-Item -LiteralPath $attemptParityRemediationReportPath -Force
+            }
+            try {
+              Invoke-Node -Arguments @(
+                'tools/priority/diverged-develop-remediation-pr.mjs',
+                '--target-remote',
+                $HeadRemote,
+                '--base-remote',
+                $BaseRemote,
+                '--branch',
+                $Branch,
+                '--sync-branch',
+                $syncBranch,
+                '--reason',
+                $attemptSyncReason,
+                '--local-head',
+                $localHead,
+                '--report-path',
+                $attemptParityRemediationReportPath
+              )
+            }
+            catch {
+              $helperMessage = $_.Exception.Message
+              if (Test-Path -LiteralPath $attemptParityRemediationReportPath -PathType Leaf) {
+                try {
+                  $attemptParityRemediation = Get-Content -LiteralPath $attemptParityRemediationReportPath -Raw | ConvertFrom-Json -AsHashtable
+                } catch {
+                  $attemptParityRemediation = $null
+                }
+              }
+              if ($attemptParityRemediation -and -not [string]::IsNullOrWhiteSpace([string]$attemptParityRemediation['syncMethod'])) {
+                $attemptSyncMode = [string]($attemptParityRemediation['syncMethod'] ?? 'pull-request-draft')
+              }
+              if (Test-DraftSafeParityRemediation -ParityRemediation $attemptParityRemediation -ExpectedHeadRefName $syncBranch -ExpectedBaseRefName $Branch) {
+                $attemptSyncMode = [string]($attemptParityRemediation['syncMethod'] ?? 'pull-request-draft')
+                Write-Warning ("[sync] Remediation PR already staged for {0}/{1}; reusing persisted report after helper finalization failure: {2}" -f $HeadRemote, $Branch, $helperMessage)
+              } else {
+                $raceParityReport = Write-SyncParityReport `
+                  -RepoRoot $repoRoot `
+                  -ParityReportPath $parityReportPath `
+                  -BaseRef $baseRef `
+                  -HeadRef $headRef `
+                  -AdminPaths $adminPaths `
+                  -SyncMode $attemptSyncMode `
+                  -SyncReason $attemptSyncReason `
+                  -ParityRemediation $attemptParityRemediation `
+                  -ParityRemediationReportPath $attemptParityRemediationReportPath `
+                  -FailureMessage $helperMessage
+                $raceTipDiffCount = [int]((($raceParityReport['tipDiff']))['fileCount'])
+                if ($raceTipDiffCount -eq 0) {
+                  $attemptSyncReason = 'remote-already-converged'
+                  Write-Host ("[sync] Remote already converged for {0}/{1} before remediation staging completed" -f $HeadRemote, $Branch)
+                } else {
+                  if (Test-TransportOnlyParityRemediationFailure -ParityRemediation $attemptParityRemediation) {
+                    throw ("diverged-fork-plane-transport-failure: remediation branch publication failed for {0}/{1}. See {2}" -f $HeadRemote, $Branch, $attemptParityRemediationReportPath)
+                  }
+                  throw ("diverged-fork-plane-remediation: unable to stage remediation for {0}/{1}. {2}" -f $HeadRemote, $Branch, $helperMessage)
+                }
+              }
+            }
+            if ($attemptSyncReason -ne 'remote-already-converged') {
+              if (-not $attemptParityRemediation) {
+                if (-not (Test-Path -LiteralPath $attemptParityRemediationReportPath -PathType Leaf)) {
+                  throw ("diverged-fork-plane-remediation: remediation report not found: {0}" -f $attemptParityRemediationReportPath)
+                }
+                $attemptParityRemediation = Get-Content -LiteralPath $attemptParityRemediationReportPath -Raw | ConvertFrom-Json -AsHashtable
+              }
+              if (-not (Test-DraftSafeParityRemediation -ParityRemediation $attemptParityRemediation -ExpectedHeadRefName $syncBranch -ExpectedBaseRefName $Branch)) {
+                throw ("diverged-fork-plane-remediation: remediation report is not draft-safe for {0}/{1}. See {2}" -f $HeadRemote, $Branch, $attemptParityRemediationReportPath)
+              }
+              $attemptSyncMode = [string]($attemptParityRemediation['syncMethod'] ?? 'pull-request-draft')
+            }
+          } else {
+            throw ("diverged-fork-plane: direct push to {0}/{1} cannot fast-forward (tipDiff.fileCount={2}). See {3}" -f $HeadRemote, $Branch, $attemptTipDiffCount, $parityReportPath)
+          }
+        } elseif (-not (Test-GitHubProtectedBranchFailure -Message $message)) {
+          throw
+        } else {
+          $attemptSyncReason = Get-ProtectedBranchSyncReason -Message $message
+          $localHead = Get-GitValue -Arguments @('rev-parse', 'HEAD')
+          $syncBranch = Get-ProtectedSyncBranchName -Remote $HeadRemote -BranchName $Branch
+          Write-Warning ("[sync] Protected branch rejected direct push to {0}/{1}; routing through protected sync helper (sync branch {2})" -f $HeadRemote, $Branch, $syncBranch)
+          $attemptPushTransport = Invoke-PushWithTransportFallback -Remote $HeadRemote -BranchName $syncBranch -SourceRef 'HEAD' -TargetBranch $syncBranch
+          $attemptProtectedSyncReportPath = Join-Path $repoRoot ("tests/results/_agent/issue/{0}-protected-develop-sync.json" -f $HeadRemote)
+          Invoke-Node -Arguments @(
+            'tools/priority/protected-develop-sync-pr.mjs',
+            '--target-remote',
+            $HeadRemote,
+            '--base-remote',
+            $BaseRemote,
+            '--branch',
+            $Branch,
+            '--sync-branch',
+            $syncBranch,
+            '--reason',
+            $attemptSyncReason,
+            '--local-head',
+            $localHead,
+            '--report-path',
+            $attemptProtectedSyncReportPath
+          )
+          if (-not (Test-Path -LiteralPath $attemptProtectedSyncReportPath -PathType Leaf)) {
+            throw ("Protected sync report not found: {0}" -f $attemptProtectedSyncReportPath)
+          }
+          $attemptProtectedSync = Get-Content -LiteralPath $attemptProtectedSyncReportPath -Raw | ConvertFrom-Json -AsHashtable
+          $attemptSyncMode = [string]($attemptProtectedSync['syncMethod'] ?? 'protected-pr')
+          if ($attemptSyncMode -eq 'fork-sync') {
+            Remove-RemoteBranchWithTransportFallback -Remote $HeadRemote -BranchName $syncBranch
+            $attemptPushTransport = $null
+          }
+        }
+      }
+
+      $localHead = Get-GitValue -Arguments @('rev-parse', 'HEAD')
+      if ([string]::IsNullOrWhiteSpace($localHead)) {
+        throw 'Unable to resolve local HEAD after push.'
+      }
+
+      if (($attemptSyncMode -eq 'direct-push' -and $attemptPushTransport) -or $attemptSyncMode -eq 'fork-sync') {
+        $converged = Wait-ForRemoteHead -Remote $HeadRemote -BranchName $Branch -ExpectedSha $localHead -Attempts $RemoteHeadPollAttempts -DelaySeconds $RemoteHeadPollDelaySeconds
+        if (-not $converged) {
+          throw ("Push completed but remote head did not converge to local HEAD ({0}) within {1} poll(s)." -f $localHead, $RemoteHeadPollAttempts)
+        }
+        Refresh-RemoteTrackingRef -Remote $HeadRemote -BranchName $Branch -ExpectedSha $localHead
+      }
+
+      $pushTransport = $attemptPushTransport
+      $syncMode = $attemptSyncMode
+      $syncReason = $attemptSyncReason
+      $protectedSync = $attemptProtectedSync
+      $protectedSyncReportPath = $attemptProtectedSyncReportPath
+      $parityRemediation = $attemptParityRemediation
+      $parityRemediationReportPath = $attemptParityRemediationReportPath
+      $syncSucceeded = $true
+      break
+    }
+    catch {
+      $message = $_.Exception.Message
+      $nonRetryable = Test-NonRetryableSyncFailure -Message $message
+      if ($nonRetryable -or $attempt -ge $MaxAttempts) {
+        throw
+      }
+
+      Write-Warning ("[sync] Attempt {0}/{1} failed; retrying in {2}s. {3}" -f $attempt, $MaxAttempts, $RetryDelaySeconds, $message)
+      Invoke-Git -Arguments @('fetch', '--all', '--prune') | Out-Null
+      Start-Sleep -Seconds $RetryDelaySeconds
+    }
+  }
+
+  if (-not $syncSucceeded) {
+    throw ("Sync failed after {0} attempt(s)." -f $MaxAttempts)
+  }
+
+  $parityReport = Write-SyncParityReport `
+    -RepoRoot $repoRoot `
+    -ParityReportPath $parityReportPath `
+    -BaseRef $baseRef `
+    -HeadRef $headRef `
+    -AdminPaths $adminPaths `
+    -SyncMode $syncMode `
+    -SyncReason $syncReason `
+    -PushTransport $pushTransport `
+    -ProtectedSync $protectedSync `
+    -ProtectedSyncReportPath $protectedSyncReportPath `
+    -ParityRemediation $parityRemediation `
+    -ParityRemediationReportPath $parityRemediationReportPath
+  $tipDiffCount = [int]((($parityReport['tipDiff']))['fileCount'])
+  if ($tipDiffCount -ne 0 -and @('protected-pr', 'pull-request-draft') -notcontains $syncMode) {
+    throw ("Origin/upstream parity failed: tipDiff.fileCount={0} (expected 0)." -f $tipDiffCount)
+  }
+  if ($tipDiffCount -ne 0 -and $syncMode -eq 'pull-request-draft') {
+    throw ("pull-request-draft-remediation: draft parity remediation staged for {0}/{1}; parity remains pending with tipDiff.fileCount={2}. See {3}" -f $HeadRemote, $Branch, $tipDiffCount, $parityReportPath)
+  }
+  if ($tipDiffCount -ne 0 -and $syncMode -eq 'protected-pr') {
+    Write-Host ("[sync] Sync staged via PR-based path; parity remains pending with tipDiff.fileCount={0}" -f $tipDiffCount)
+  } else {
+    Write-Host ("[sync] Parity OK for {0} vs {1}" -f $baseRef, $headRef)
+  }
+}
+finally {
+  if ($lockStream) {
+    $lockStream.Dispose()
+  }
+
+  if ($restoreBranch) {
+    Invoke-Git -Arguments @('checkout', $startingBranch) | Out-Null
+  }
+
+  if ($pushedLocation) {
+    Pop-Location
+  }
+}

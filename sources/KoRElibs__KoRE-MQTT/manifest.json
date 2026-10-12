@@ -1,0 +1,734 @@
+{
+ "repo": "KoRElibs/KoRE-MQTT",
+ "url": "https://github.com/KoRElibs/KoRE-MQTT",
+ "commit": "1d53edad6af733208b6e3237ed60d9850e5e3076",
+ "license": "EUPL-1.2",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "KoRE-MQTT.lvproj",
+   "bytes": 25879,
+   "sha256": "f1e5ca10ab096b3262113f44af1aa8b69e430c2c69c9a61b5e586198bed4740b",
+   "via": "extension"
+  },
+  {
+   "path": "devtools/Add Licence Information.vi",
+   "bytes": 21247,
+   "sha256": "8ffc0a7c79f57f45b5182a9d1ce671ef809c0cab74424a7aef5f2c9f01a3b70c",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - Hello Properties.vi",
+   "bytes": 27562,
+   "sha256": "a96eb2f9b99a3d7db0bce76899da46c55674b751555e62f43d499a88f1399f8a",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - Hello World.vi",
+   "bytes": 15797,
+   "sha256": "08955fb5143d1fda64d7455ce8cc0a84a4fe3a18f7bf6d75ee776700e0b9d822",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - Interactive MQTT Client.vi",
+   "bytes": 83969,
+   "sha256": "169ed664be59455717b440dbe9adcad49fcc4e363e8a21856897913274e57923",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - MQTT performance test.vi",
+   "bytes": 34311,
+   "sha256": "8b48f834d1773549aa3c214d4eadb220d87bb3ac0b8a249d3d7b771dfd65c9b5",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - Publish to localhost.vi",
+   "bytes": 16422,
+   "sha256": "d228f8860fd7fd5c0cb59c610cd287529a6dd00f4c6e779b0b770cdda7234240",
+   "via": "extension"
+  },
+  {
+   "path": "examples/Example - Simple MQTT client.vi",
+   "bytes": 48508,
+   "sha256": "ef23c50921f36a75954e6a6e099709b0014cb9595805c7be58c83d505e67e390",
+   "via": "extension"
+  },
+  {
+   "path": "examples/subvis/Exec Every X ms.vi",
+   "bytes": 20299,
+   "sha256": "5f5987371d32640f1f0fde933cf2b9a666350e97c230a65a68fdcb2fb3ab83ca",
+   "via": "extension"
+  },
+  {
+   "path": "examples/subvis/HMI State Machine.vi",
+   "bytes": 16685,
+   "sha256": "4e1b42a2d261bb921fcb06f84210f873a214e2ce03dfd3eaad96b71e2a26f0db",
+   "via": "extension"
+  },
+  {
+   "path": "examples/subvis/HMI-States.ctl",
+   "bytes": 3867,
+   "sha256": "2aada91f6d24e201c30d5b3867fa307d4708d095bf0623455ad06f0ae7d9e0ce",
+   "via": "extension"
+  },
+  {
+   "path": "examples/subvis/Insert Into TreeView.vi",
+   "bytes": 74892,
+   "sha256": "33ece199824da4393d9ee63fa46ada4ab626d2696b42101e8ec5a452bf4ae0e3",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT.lvlib",
+   "bytes": 12022,
+   "sha256": "6e00862a43b20c3bd5400340ed1a977bd2fc4d843691b1da6730c34815ddf7ee",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Connect - Handle CONNACK properties.vi",
+   "bytes": 28260,
+   "sha256": "e99c3979f4138b53cc3daa734c7b098932bc2b2d79699dadd1935e0bf9455e6c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Connect - Init.vi",
+   "bytes": 36415,
+   "sha256": "a4b164501b02f41fb02719a7180b4b27fc1e928d5b09661f8d81fd35979a5533",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Connect - Post Connect Reconnect.vi",
+   "bytes": 28493,
+   "sha256": "64928426130878d5d94ea34e9e241c1668a33cbd45083562923bccff89eb7bcc",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Decode Byte.vi",
+   "bytes": 33475,
+   "sha256": "6fd0aeb0a9321a15ca27c272c1c0041a16aadcaa161546e6368e707db8e6e4a2",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Decode String.vi",
+   "bytes": 19161,
+   "sha256": "372c6287c7405d003f935212d114f01ec1fe6b4b75a398159ec403acae0c1d3d",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Decode U16.vi",
+   "bytes": 10490,
+   "sha256": "be637414751b4647845c8f635ede5f1b6f9295d9cfcaf01ca2a71c59177b62fd",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Decode U32.vi",
+   "bytes": 26902,
+   "sha256": "0115ed1a9080eb55559a51cf2df2b669c71ea37ac3b2b65223513d80c53973c9",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Decode Varint.vi",
+   "bytes": 14837,
+   "sha256": "dae6e4ee363786e2b9f54d9ebd25fb64500e6376fa6ac8b93222b7624fb3fa48",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Encode String.vi",
+   "bytes": 26533,
+   "sha256": "97a30efc1c7653828aefb69ac5b4458778bd18c48b273902d767af0c73fd245c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Encode U16.vi",
+   "bytes": 9922,
+   "sha256": "44214f04b3062244fadc2d0d4879452405ff0504d1650b1be2ba9e2654ec6a06",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Encode U8.vi",
+   "bytes": 9757,
+   "sha256": "24116172b57305581d52f4ba9c0c9551cebc4967be80d56065faf3202a4b0931",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data - Encode Varint.vi",
+   "bytes": 17837,
+   "sha256": "4ad595bffe3ddf88cf779b92dd58c9c6b5f61794b2ed503bb18170faca0bff3f",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data Stream - Decode HEADER.vi",
+   "bytes": 20012,
+   "sha256": "c3b6d6ee69b32e00c030e8723d07179c7ee4d782209ee04cb9542ebf509e8d76",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data Stream - Decode Varint.vi",
+   "bytes": 19000,
+   "sha256": "68e97afdf6359f41af333ddadd8011da869945628f4c82735a73e4479b1eb42c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Data Stream - Write Packet.vi",
+   "bytes": 19455,
+   "sha256": "ed784111fcbabd4d16134a04190048fe9c478e15dcd59c90c0997bea9a43772d",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Packet - Receive.vi",
+   "bytes": 38313,
+   "sha256": "55da7802eaa8f18867ce513ac8b4407c27b15331b078bad96c7d8011ac51d8bf",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Packet - Send.vi",
+   "bytes": 25790,
+   "sha256": "28c9fec2a135bdce91ed4d7c9608ef11fb0dbacdbd8adde0f43b828a2291b5e2",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Properties - Decode.vi",
+   "bytes": 29900,
+   "sha256": "35e92bcd68bd7a5e12c9fc9cd7a1660f2a8aa7f7f568c826d48e82d366b8cf1c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Properties - Encode.vi",
+   "bytes": 26864,
+   "sha256": "e0c8667ca9e2e1a2b21c740835014c36116121a7e760a031c14f6b06b326b9b6",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT QoS - Confirm Reception.vi",
+   "bytes": 40636,
+   "sha256": "67ab4a0ae7625677bdbff46400d6cd01e23c57b3a174ead758d163c7179605f0",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT QoS - Expect Reception.vi",
+   "bytes": 40127,
+   "sha256": "521366962f02b2716d310e1995a179735d4db0ccffb7fd00f4b43162eba442de",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT QoS - Handler.vi",
+   "bytes": 10226,
+   "sha256": "8612623f651d7538aef0389948f586317612b33bc3a34a804cd39825780349f7",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Reason DISCONNECT.vi",
+   "bytes": 9886,
+   "sha256": "3ee3b5fc353346f86a0dfe7c9827d6f3851a1230180dd3dc102906954680de4e",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Reason HANDLER.vi",
+   "bytes": 25143,
+   "sha256": "bedfc34b6da84830cb07d68d327dca45a1ec165ef67cb370c480f20db8cffe47",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Reason PUBACK.ctl",
+   "bytes": 4383,
+   "sha256": "3f7437787b37558e27d3d1704a2204ac0545471b5ab3226d6ffd73ebf3cf62b6",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Reason TEXT.vi",
+   "bytes": 18864,
+   "sha256": "6f5c520e19fd880aca11ad3e7236244f6d720de681a1afdc6527dfa991c16b5b",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Close.vi",
+   "bytes": 28800,
+   "sha256": "5f843c6fa51348c0a0e2c3c5350ec73aefae841fb767e1d141905c40af5275bc",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Create.vi",
+   "bytes": 32929,
+   "sha256": "4b7c9b3e68599ee4b2d5720f867d8e40c8e05b88c33ea1cca7d524e33949be9c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Get Data.vi",
+   "bytes": 36675,
+   "sha256": "164ad74eb18cca8cc19894d6819c4a823bf1d9116613d1333d4751dc4df20329",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Get Maximum QoS.vi",
+   "bytes": 25574,
+   "sha256": "0c8566bc5137942bb857ce1ac5ba468f816378eaad8921c42be7d721b2056d22",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Get Next Packet ID.vi",
+   "bytes": 22089,
+   "sha256": "9d2547d3b17c0e0d60e927b8e9f218eb2e44d0d617752e60d3d2bcea25093bd6",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Get Server Maximum Packet Size.vi",
+   "bytes": 29889,
+   "sha256": "915c6c3840d48aafdd3284767cc3ec695314c8e8227b81b3ca03f136c166fa7c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Get TCP Info.vi",
+   "bytes": 27319,
+   "sha256": "31413708ad654eedba4c4c9eedd09764776cdff03b709b2a5e271d3e805fb5f0",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Keep Alive.vi",
+   "bytes": 28641,
+   "sha256": "928bf512eceb407e3fb31b724721db3fa68de4f661bfae0c0557eff0c0bd8789",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Lock.vi",
+   "bytes": 26747,
+   "sha256": "a4b493fb8514d7537888677b7e3e98fa2a97b5bfd763b737c87c3d52f9f40812",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Reset Keep Alive Timer.vi",
+   "bytes": 26693,
+   "sha256": "622b0424ea3490086b16f89807e3d38590b0e083efb7aed09bb5d0e963874113",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Set Data.vi",
+   "bytes": 37387,
+   "sha256": "562a6ee05725f6ceda6978b8523a4966cb6eb2ec878c2689a5d56b612cd55f04",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Session - Unlock.vi",
+   "bytes": 26725,
+   "sha256": "31aec123d59eef059345cae932af0bb2cd6bee612c548b9bf2cce531f320af2e",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT String - Validate UTF-8.vi",
+   "bytes": 11600,
+   "sha256": "e8def5091b8a62a74ccbd61d6c504111efaf7ba9247706b094dc9ef160248048",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Subscriptions - Handle Suback.vi",
+   "bytes": 26466,
+   "sha256": "26838bde6c1f10e21a65a1f2ef9dac2a7277d6a7ca559efd6fca1ed5e4e31a6b",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Subscriptions - Handle Subscribe.vi",
+   "bytes": 29733,
+   "sha256": "1e00b94c558829f032a7b687720dc5f392305c2101ed5a8a70049e753f02ca5c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Subscriptions - Handle Unsuback.vi",
+   "bytes": 28140,
+   "sha256": "757983af4a0977b3c0070b0d8a1b566b0a7811b2a1575aa3dcd3b403e34d855a",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/MQTT Subscriptions - Handle Unsubscribe.vi",
+   "bytes": 28587,
+   "sha256": "90343ffcf561f33b1c5b700c9c01a9f8ebab10ee5721b396f7e3d0ed4a9fc694",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/Strings - Create Pseudo Random String.vi",
+   "bytes": 21913,
+   "sha256": "469ef8b9dbe83f897e37d4ae4a2e549e226897cf5b3d2bbfce97bbd32e9d1f64",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/Tests - Test UTF-8 validation.vi",
+   "bytes": 12153,
+   "sha256": "9c92e6e842516c3e06721cfbae9305318921841f7660e39120459f93a3a8f703",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Client Session - Data Value Reference.ctl",
+   "bytes": 12307,
+   "sha256": "75c70154e5b7b5ec680c3ddf4fafb4f5bff9d703668f9d810ea61314a6a9eca0",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Packet - Fixed Header.ctl",
+   "bytes": 9031,
+   "sha256": "54975e26cecaebce31bbabb87cdead3419a12402a4b4390f60355592e5caf3ab",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Packet - Type.ctl",
+   "bytes": 8419,
+   "sha256": "0fb8309066556548b90b5e05e570cf3141ccddca89416eebd690333eee8cf4c3",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT QoS - In-flight Data.ctl",
+   "bytes": 5254,
+   "sha256": "b9105744bd8e7986aff333a4324d215c54067d785f59e83eebd257f07a106582",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Reason - Disconnect Type (DEVELOPER).vi",
+   "bytes": 13781,
+   "sha256": "d09bfb4281d509daaed81bc1e8077567e7f11e5ceeff125937f1b10c0a2da7c7",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Reason - Disconnect Type.ctl",
+   "bytes": 5214,
+   "sha256": "dc4625489036e285150d122518d8a9cec0373c473d769651f96024a35f725647",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Private/TypeDefs/MQTT Subscription - Info.ctl",
+   "bytes": 5245,
+   "sha256": "1e973b8fd1639391ee8987659b1a216fa917c5852aead709c42eb2ad3437637c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Close.vi",
+   "bytes": 34295,
+   "sha256": "3360e7d2eb6a7459cde42477392367b7ed56dd011722482456548ad17550302f",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Configure Auth.vi",
+   "bytes": 25388,
+   "sha256": "1d635d66a62c58653a75a026b2367a0d775aea6e6894986788542ec69a243995",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Configure TLS.vi",
+   "bytes": 34395,
+   "sha256": "af4acfd577a2854a55e59e4abf65b0555d3dd7f56cee45ba1fb54d9ce34ff54b",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Configure Will.vi",
+   "bytes": 27540,
+   "sha256": "5e911ee12885638a81f6b789210fb53082f9f88c58346385e54e09f8cabb8115",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Connect.vi",
+   "bytes": 72417,
+   "sha256": "74af2da900c0a7b83c7f993b3ae932a3c8afb7e7b80e3d5f2dfaf154a9944fad",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Create.vi",
+   "bytes": 37684,
+   "sha256": "482b1f536475b9669a7a43efaabe4e01fdf4c55bb410f5ea9f04272ca0aa1de7",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Disconnect.vi",
+   "bytes": 33760,
+   "sha256": "789408c841ce77a7a4fc6e9e0fd995c6a4018233befb078f35eb26390fa54d12",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Get Subscriptions.vi",
+   "bytes": 22147,
+   "sha256": "3d8fb0d0b64d5cc32ab6d280a91a3eb100ec1ffd8a047880f1a99732aa5d1cf1",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Publish.vi",
+   "bytes": 39637,
+   "sha256": "440ff940ade9e6fbdc0296ee85af9e179bd572a878882c233e31b9f2dc2e2d92",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Read.vi",
+   "bytes": 86358,
+   "sha256": "c75ef124c114fbcfcdf637fa3b50c10b56185e9ef2de26287d5034e0a2536e7e",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Subscribe.vi",
+   "bytes": 48195,
+   "sha256": "bc2ab2730982c43dbae73269922f041b8e53880e8ac705f5c3b2dab311588f82",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Client - Unsubscribe.vi",
+   "bytes": 42969,
+   "sha256": "6416e58414e002c8c1479df99c6e59450ee21eae52ff6060d1b4b1241bca7f6f",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Properties - Add Property.vi",
+   "bytes": 29026,
+   "sha256": "8002de71708cf5078674a7d80b9f3d1ae4f6f84c42c18808c93d38a426d1e38c",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Properties - Get.vi",
+   "bytes": 13001,
+   "sha256": "543b1cdba3e491ecbf51b729fccbc574f6e249052e7e11595b16aade294dbc6f",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/MQTT Properties - Set.vi",
+   "bytes": 12489,
+   "sha256": "64271101e04d2eec2a27abd45af8d032df817bc0e357a31a6cbf117f9055252e",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Client Session - Data.ctl",
+   "bytes": 18495,
+   "sha256": "2246f0858a62bad48b2f02e2be3b5121c011ca4dca9fe40aeadc49aea1d573f4",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Client Session.ctl",
+   "bytes": 20604,
+   "sha256": "859bbf9f7c0f1577e35fc285b49c54f745015813b66ff73e9ee65c7042f163d9",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Client Warning Message.ctl",
+   "bytes": 4272,
+   "sha256": "4a61ede296f26f6a42535def2e85aaf7587429ae2cb4aae83358d1f40357d2a2",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property (Developer Helper).vi",
+   "bytes": 41884,
+   "sha256": "e8c7e7fefb81fa66dea1318b1646cd65cec831cf109f40c6fe563648878593fa",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - AUTH.ctl",
+   "bytes": 4673,
+   "sha256": "0cebd2d4b54fc999750ad4da395ed45517395bc98686da9e3d19161905a6aac4",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - CONNACK.ctl",
+   "bytes": 4904,
+   "sha256": "a23c79c59c246c0aa9a8f07f2c79a58e9b8708c93c763f48616804a3f959c983",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - CONNECT.ctl",
+   "bytes": 4792,
+   "sha256": "c5ace41fd1e162b4464e4459eeee61ea9db695b02c21307962e96ebb851ee801",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - DISCONNECT.ctl",
+   "bytes": 4703,
+   "sha256": "a53ccf8b8092d06bf4e5133c51f20201c2ca5017976439930cbfe1c68d88b224",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - GENERIC.ctl",
+   "bytes": 5308,
+   "sha256": "b202ed7dbc96e2eb899652f3e3a5b4e2a60cf8ed23731f1601e27a7217357d78",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - PUBACK.ctl",
+   "bytes": 4647,
+   "sha256": "b87e1f81fb1f9858c51d84208e88c257cb4f2f876f12885334b7cac34a78cbe6",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - PUBCOMP.ctl",
+   "bytes": 4648,
+   "sha256": "12782db54d35f4a5f53fc656d2f397d9c172297c29b8b8050498b45eb9e04e03",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - PUBLISH.ctl",
+   "bytes": 4772,
+   "sha256": "bcba02ec3d4fe48836e1fd6e7c6915430ff453b8cde128082536e4ea8bcba90d",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - PUBREC.ctl",
+   "bytes": 4647,
+   "sha256": "a5c4fdda953bf5d950f1095660f49eeb8560cb6443cb4c4f2608629590a67624",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - PUBREL.ctl",
+   "bytes": 4643,
+   "sha256": "bff7ea3fda90664d47a6ebb84865adb8790449fedc9a49035f2b173e0e7db84b",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - SUBACK.ctl",
+   "bytes": 4647,
+   "sha256": "b6bd19c37b23fa044dc587f1bafe734467975cef386fa12f3fc62515b1d9bd90",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - SUBSCRIBE.ctl",
+   "bytes": 4666,
+   "sha256": "9238c370ea14e6549f4714e0c5989542fcc67f67bce92a4e896702dce9706c7a",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - UNSUBACK.ctl",
+   "bytes": 4649,
+   "sha256": "864e58c673367d87f75f191083f318a7ecc600e7fb54d1b6ccd05d6497baea67",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - UNSUBSCRIBE.ctl",
+   "bytes": 4636,
+   "sha256": "15daf630379dc0fa24fa9eb17341f40710f47d7f28db1c8cdf8eb4513f744313",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property - Will.ctl",
+   "bytes": 4741,
+   "sha256": "a77aaafab80ae3f99fdbab33597648d940476c3aa896b46aad4fdfcb1951d7e4",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Property Type.ctl",
+   "bytes": 4559,
+   "sha256": "7ecc8bc21795845ae490ddd92d6014ea840909b0a06ab041f836d5692c264058",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT QoS Level.ctl",
+   "bytes": 8263,
+   "sha256": "0006a69f54ad1d192929ab720602c481a25876146be1f65ce45281543f8c3a58",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Version.ctl",
+   "bytes": 4217,
+   "sha256": "8931b854914c1ebd0fc755f01dab498436544cd74ae227e0de227fe566111bc7",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/TypeDefs/MQTT Will Message.ctl",
+   "bytes": 4978,
+   "sha256": "e18871eb80938e420c0277e34400d47eb0a27507f74b65c8a47a5bf321c23bad",
+   "via": "extension"
+  },
+  {
+   "path": "src/KoRE-MQTT/Public/mqtt-user-property.ctl",
+   "bytes": 4399,
+   "sha256": "f06c266d57dbdea4c424338d68425ffd743b8c61898dbb9020a32673aaa4cb0b",
+   "via": "extension"
+  },
+  {
+   "path": "examples/exampledata/mosquitto.org.crt",
+   "bytes": 1452,
+   "sha256": "45612492b0690dc1f16b97c2df2d1649fababcc1bf52ca0c12935dbda00ad7e6",
+   "via": "ref:examples/Example - Interactive MQTT Client.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 150,
+   "sha256": "8f7268d22d6bf29ff0f07a2cd256d4de1c13fae0e746b5f8f6527e55fef3b294",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 992,
+   "sha256": "319a9b8db8bcc58f1f415a3a26b79ed975798ee6670a5e15b3264336405cc491",
+   "via": "tree"
+  },
+  {
+   "path": "FEATURES.md",
+   "bytes": 49843,
+   "sha256": "33bf80066119b0573503f8315cdff1497df6453ca6350ef6d2fb7a7a5fe5bc57",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 13827,
+   "sha256": "6fc9e709ccbfe0d77fbffa2427a983282be2eb88e47b1cdb49f21a83b4d1e665",
+   "via": "tree"
+  },
+  {
+   "path": "NOTICE.md",
+   "bytes": 328,
+   "sha256": "70063a1185f7464769823905336c3b4c5eefd0833fff4cb802a95f1b9293b1fa",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2549,
+   "sha256": "fc8ae2d31426b2ec46c44a92b690918eaea2775d258235f07fdd6b48bbee2130",
+   "via": "tree"
+  },
+  {
+   "path": "VI_LICENSE_SNIPPET.txt",
+   "bytes": 369,
+   "sha256": "26a03e96b661d543906760c767de2f0b5c2ad780e40736fc44e8be8baf1ad0cc",
+   "via": "tree"
+  },
+  {
+   "path": "devtools/VI-Analyzer-Config.viancfg",
+   "bytes": 39553,
+   "sha256": "65b7832c56cd49d44363a5702a2594cce1764794ebd8833d0f2e30e0b1501d58",
+   "via": "tree"
+  },
+  {
+   "path": "devtools/VI-Analyzer-Custom-Dict.txt",
+   "bytes": 94,
+   "sha256": "a3a0c124483e1ee12dc947e5d50f7c29c5b8b8777d7679c8b363c4c5d78f24ec",
+   "via": "tree"
+  },
+  {
+   "path": "devtools/VI-Analyzer-Custom-Dict.txt.bak",
+   "bytes": 47,
+   "sha256": "afe26f94667bb4eec35effd8e9eb5c5c9fc130f05a5cb0ec727a8e002baec90a",
+   "via": "tree"
+  },
+  {
+   "path": "devtools/documentation-howto.txt",
+   "bytes": 2548,
+   "sha256": "a0fd10ed772fb078c123d61ed7d1e7da41314773b0fddb1b10dd448f46dee0e2",
+   "via": "tree"
+  },
+  {
+   "path": "examples/exampledata/HelloWorldExample.png",
+   "bytes": 247671,
+   "sha256": "14abd14c6c5e1f5041a22692cdc2133c227b4368536c3fd430d724c6ffc51ef2",
+   "via": "tree"
+  },
+  {
+   "path": "examples/exampledata/InteractiveClientExample.png",
+   "bytes": 441173,
+   "sha256": "a78930a0fada02268e31795aea1fed0706b5fe0888cb83bb51fa6aa7f33174e9",
+   "via": "tree"
+  },
+  {
+   "path": "examples/exampledata/logo.ico",
+   "bytes": 162457,
+   "sha256": "42673d50f10ea19369e66923970373b6768f1bb45851b70b480ea527e0a0573f",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\AdvancedString\\Delimited String to 1D String Array.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVRowAndColumnUnsignedTypeDef.ctl",
+  "<vilib>\\Utility\\semaphor.llb\\Acquire Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Obtain Semaphore Reference.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Release Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Semaphore RefNum"
+ ]
+}

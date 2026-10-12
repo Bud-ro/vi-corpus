@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>RefMem PtByPt</eng>
+    <loc>RefMem PtByPt</loc>
+  </AddMenu>
+  <Version>2.1</Version>
+  <Type>Inline HW Interface</Type>
+  <MaxOccurrence>2474</MaxOccurrence>
+  <MainPageGUID>7909965F-057A-768C-4F90-62AAAF60C660</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\RefMem PtByPt Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>PharlapWindows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Engine.llb\RefMem PtByPt RT Driver VI (Inline).vi</Path>
+				</Source>
+				<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\RefMem PtByPt\RefMem PtByPt Engine.llb\RefMem PtByPt RT Driver VI (Inline).vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>RefMem PtByPt</eng>
+        <loc>RefMem PtByPt</loc>
+      </Name>
+      <GUID>7909965F-057A-768C-4F90-62AAAF60C660</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\RefMem PtByPt Main Page.vi</Path>
+      </Item2Launch>
+		<ActionVIOnDownload>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\CheckAddsOnDeploy.vi</Path>
+		</ActionVIOnDownload>
+    </Page>
+<Page>
+      <Name>
+        <eng>Data Channel</eng>
+        <loc>Data Channel</loc>
+      </Name>
+      <GUID>9326A373-E05B-AEFA-6A61-3C021DFF52FF</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\Data Channel.vi</Path>
+      </Item2Launch>
+    </Page>
+<Page>
+      <Name>
+        <eng>Data Folder</eng>
+        <loc>Data Folder</loc>
+      </Name>
+      <GUID>2F571347-8FFC-7952-DED1-8B6F86A612BB</GUID>
+      <Glyph>
+			<Type>To Application Data Dir</Type>
+			<Path>System Explorer\Glyphs\default fpga category.png</Path>
+		</Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\Data Folder.vi</Path>
+      </Item2Launch>
+    </Page>
+	
+    <Page>
+      <Name>
+        <eng>Channel (delete protected)</eng>
+        <loc>Channel (delete protected)</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>C857B30F-F7F9-BC70-992A-D64B2B0468D2</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\default fpga channel.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>Absolute</Type>
+        <Path>System UI VIs\Custom Device\Custom Device Channel.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+      </RunTimeMenu>
+      <Help>
+        <Item2Launch>
+          <Type>To Base</Type>
+          <Path>Veristand.chm\Custom_Devices_SE.html</Path>
+        </Item2Launch>
+        <FileType>chm</FileType>
+      </Help>
+    </Page>
+    <Page>
+      <Name>
+        <eng>Status Section</eng>
+        <loc>Status Section</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>F16F71FA-3FA0-97FC-1B57-1BD394F34D00</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\default fpga category.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\RefMem PtByPt\RefMem PtByPt Configuration.llb\Status Section.vi</Path>
+      </Item2Launch>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>

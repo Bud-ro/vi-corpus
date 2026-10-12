@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>Lambda Genesys2 DC Power Supply</eng>
+		<loc>Lambda Genesys2 DC Power Supply</loc>
+	</AddMenu>
+	<Version>2.0.0.0</Version>
+	<Type>Asynchronous</Type>
+	<MaxOccurrence>8675</MaxOccurrence>
+	<MainPageGUID>C8CE8B52-CCC1-F264-708D-A9045A5A9F85</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Execution>default</Execution>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\Lambda Genesys2\Lambda Genesys2 Configuration.llb\Lambda Genesys Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<SourceDistribution>
+			<Source>
+				<SupportedTarget>PharlapWindows</SupportedTarget>
+				<Source>
+					<Type>To Common Doc Dir</Type>
+					<Path>Custom Devices\Lambda Genesys2\Lambda Genesys2 Engine.llb\Lambda Genesys Engine.vi</Path>
+				</Source>
+				<RealTimeSystemDestination>C:\ni-rt\NIVeriStand\Custom Devices\Lambda Genesys2\Lambda Genesys2 Engine.llb\Lambda Genesys Engine.vi</RealTimeSystemDestination>
+			</Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>Lambda Genesys2 DC Power Supply</eng>
+				<loc>Lambda Genesys2 DC Power Supply</loc>
+			</Name>
+			<GUID>C8CE8B52-CCC1-F264-708D-A9045A5A9F85</GUID>
+			<Glyph>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\Lambda Genesys2\Glyph\Lambda.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\Lambda Genesys2\Lambda Genesys2 Configuration.llb\Lambda Genesys Main Page.vi</Path>
+			</Item2Launch>
+			<RunTimeMenu />
+			<Help>
+				<Item2Launch>
+					<Type>To Base</Type>
+					<Path>Veristand.chm\Custom_Devices_SE.html</Path>
+				</Item2Launch>
+				<FileType>chm</FileType>
+			</Help>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<dummy />
+	</CustomXML>
+</CustomDevice>

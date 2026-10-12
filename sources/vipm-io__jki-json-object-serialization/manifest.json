@@ -1,0 +1,737 @@
+{
+ "repo": "vipm-io/jki-json-object-serialization",
+ "url": "https://github.com/vipm-io/jki-json-object-serialization",
+ "commit": "5d1292e6efa4864dc6769b69bfc2707487fd29b4",
+ "license": "BSD-2-Clause",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "JSON Object Serialization.lvproj",
+   "bytes": 37785,
+   "sha256": "6102e90f364be8350310d071f73c274119b0919be846196e3aa3328fe2666f80",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Adapt Class To Class.vi",
+   "bytes": 14944,
+   "sha256": "cd7a73aaf91ca7532db942b3b798b4f1f2bf0f88783af3e99322b71b23c03906",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Adapt Class To Cluster.vi",
+   "bytes": 22614,
+   "sha256": "96248c9db1902faaa2db567cc16d51d9ab4124f31bc0bf8a08b5d1bb40bff103",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Adapt Cluster to Class.vi",
+   "bytes": 20382,
+   "sha256": "00809e0e34af8be18d823076e4b004973c18da87fac084a6a8df7cfdb46529f0",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class1/Class1.lvclass",
+   "bytes": 41075,
+   "sha256": "a3034f25462f04226630126d4ba8218736b4ebad8f685dd08c5cb9ac6522883d",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class1/Read myClass3Array.vi",
+   "bytes": 16902,
+   "sha256": "976f602b780511af119caedaca22e90d0e826ec8b38948dba71db41077f21cc5",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class1/Read someNumber.vi",
+   "bytes": 16427,
+   "sha256": "bda21e7723d0ab80bb80c380ab7e35dbeb78cb95bef73a369d0cb393a8a62fc1",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class1/Write myClass3Array.vi",
+   "bytes": 16735,
+   "sha256": "7eda4696feb97777a6a379c66599af4a1b9c61853f9beff460647affab2703ab",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class1/Write someNumber.vi",
+   "bytes": 16256,
+   "sha256": "2afb43f2c5a1962f60a4df61ca3cc384bb26692bba8ba7a892ad6ee1899588fd",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class2/Class2.lvclass",
+   "bytes": 32359,
+   "sha256": "bb5e7baaa0373b30bb3aee34d89bb6f51e106102c2356a693adc815f11cb56a8",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class2/Read anotherNumber.vi",
+   "bytes": 16334,
+   "sha256": "eac902638e02578f459dff5097f0beca031f5c4c4f88d6fd8ea9da8313cde54f",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class2/Read myBool.vi",
+   "bytes": 16259,
+   "sha256": "f44b31aa743cebbe98a309ec753111946750f8d8d8d8f119d89eb284fa14bb2e",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class2/Write anotherNumber.vi",
+   "bytes": 16183,
+   "sha256": "a9888a0b017a5051c61bb444766c01fc2bdd9975c598a199e9f6851b755748ef",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class2/Write myBool.vi",
+   "bytes": 16088,
+   "sha256": "d62d5d21b6772c2c10acf79839f305147b722af8fb7cd8085dfdb29a2e613b90",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class3/Class3.lvclass",
+   "bytes": 25032,
+   "sha256": "fe4a1137f4a59b33660fe6caecd9954aa70d341c4e8a9714336c0d46d3d93b23",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class3/Read myNum.vi",
+   "bytes": 15854,
+   "sha256": "28e122b57fc8e687b63ec1e66741716e130391b020b9e2d04db7b571b195f366",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class3/Write myNum.vi",
+   "bytes": 16247,
+   "sha256": "1a37c71286a5d8bb36ec22457bebb84876bea7e31699f125cd22da1b60433760",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class4/Class4.lvclass",
+   "bytes": 31151,
+   "sha256": "a1eb3fe0c86421193b6dadc9c3ea29c7490ff5b9c53b0811e1b706a7de139f69",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class4/ReadAll.vi",
+   "bytes": 15507,
+   "sha256": "167969a2db3eeb34e8dd4081705ba886a4ba2b453098b3386012e3e70bfed005",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Class4/WriteAll.vi",
+   "bytes": 15744,
+   "sha256": "f79babd06792e2e136636dc4dc9a84ef4c796150ecc51f9282acff1994c2bbf7",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Deserialize JSON to LabVIEW Object Base Class.vi",
+   "bytes": 12829,
+   "sha256": "c014acb9be7b2b04b8ee35a9e61b22e79efb79ddbc1254a7cac620a9a4963ccb",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Deserialize JSON to LabVIEW Object.vi",
+   "bytes": 12502,
+   "sha256": "7752b53f8bfacd27ac0d2fad9e660fdfeccb19772c8e2f16b5d6572d78f28907",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/ExampleCluster.ctl",
+   "bytes": 6479,
+   "sha256": "e17d1ba358caa2ac8a818595c6c9c174aae110909ba91e5056795b947a46824d",
+   "via": "extension"
+  },
+  {
+   "path": "source/examples/Serialize LabVIEW Object to JSON.vi",
+   "bytes": 12272,
+   "sha256": "9537d8a62544ec0f93386fd44d62925c770b366eae20b3d9ba1cd8ab1f430dde",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Deserializer/Adapt To Type.vi",
+   "bytes": 34021,
+   "sha256": "e6818aa1e53244b009c1bd28a61cb420624c5869a53d41c97aba1515caa25c6c",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Deserializer/Deserializer.lvclass",
+   "bytes": 70417,
+   "sha256": "cd45acb8cf06b582245f60cea1298b31e7304113821ee05f5fb714d8b1b127a0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Flatten To JSON String.vi",
+   "bytes": 27270,
+   "sha256": "1828bcb3b84137eac44f67b9322e6b06e02cc5b9003ba7dcbcfd5f7e96a1e0ab",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/JKI JSON Object Serialization.lvlib",
+   "bytes": 2099,
+   "sha256": "b8bcfce97631fd4524862e7e9cf0c7811d03b4c0ccf43e0b0166fd5fbf66548d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Serializer/Flatten To String.vi",
+   "bytes": 31013,
+   "sha256": "351131a5645ea36acbdbc0b6b305eb298416c5f764d891ef0ddec50aa07de463",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Serializer/Serializer.lvclass",
+   "bytes": 46250,
+   "sha256": "c2538f3412107ce29181fb3cbb6c72e180d40949974453c5e6e098c919811e5c",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/Adapt To Type.vi",
+   "bytes": 26057,
+   "sha256": "bcbe2bb056664b669d4d967597973e983c3cbb7de521b188f7ef8cc11fe2209f",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/Assert Equal JSON.vi",
+   "bytes": 12389,
+   "sha256": "5dee73e95cc73add46c6925c735956cc4e41c7b233ab6271d2fb00285539af93",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ClassLoader/ClassLoader.lvclass",
+   "bytes": 42616,
+   "sha256": "e0058aaea4230dfc86d5cedba8d12997a2bb8802de86446a661cf04cc597673e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ClassLoader/loadClass.vi",
+   "bytes": 32273,
+   "sha256": "060f2d33682045e36a19c51d617a3190d08a9d2104402e1ea16ab1b341631747",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ClassLoader/loadInstanceOfEachClassInMemory.vi",
+   "bytes": 19891,
+   "sha256": "094da7edcf4533595f9886573bb9bb5cdbfbb934efa50cc04b5c8419e6b9bd34",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Common/String Ends With.vi",
+   "bytes": 12940,
+   "sha256": "79aa9c5471050f4026fbcdf4790cf7303a74cf2943f2b5f516bda3b1d5573f7b",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/OOP_Utility.lvlib",
+   "bytes": 2418,
+   "sha256": "f9f414c972264fc92c68b8c5f41164b2f3238c1681efa0e1eac91fd8ab67f4f4",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/OOP_Utility.lvproj",
+   "bytes": 7722,
+   "sha256": "de41567b2806b673546b0f1b4962f308b89e84b1ec8ec376798c4a95ebee0205",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/Assert No Duplicate Named Private Data Elements.vi",
+   "bytes": 250939,
+   "sha256": "c5889510ccad5e4966983b4d02643cfcdb7d25913a22d672c90baedde87e55b2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/Assert Scalar Type.vim",
+   "bytes": 29631,
+   "sha256": "1b64a741d7d80c53c70a915b60c34f638df98f060c9c79715d7646b1749ea331",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/Get Class Version from Type Descriptor.vi",
+   "bytes": 24650,
+   "sha256": "5bea07a82f6d9a249d2935d60aa4650cfcc3d2a7d42e989e5705977155b4e6d0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/Reflection.lvclass",
+   "bytes": 66512,
+   "sha256": "d13ebc8ef061d0c21e34556ca69eb98fdd9bba7fa53c1eef2be1cc4bb6a4c4d9",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/Reverse Map.vim",
+   "bytes": 178572,
+   "sha256": "fdb2dfcfe9f10e9100549e84e80ea97a5655a546e3f23af098ab273e479f9f4e",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/createClassDataAndVersionsLUT.vi",
+   "bytes": 25765,
+   "sha256": "c94a968f8eff107111239f0a712ab6fdaf316bbf211ffc11043f430cc79d4f5c",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/createClassHierarchyLUT.vi",
+   "bytes": 22835,
+   "sha256": "8eeb7c3232e02f802b944c68f290d9f666e2dc4e89e6c5200552267e4824affc",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/determineClassHierarchy.vi",
+   "bytes": 20579,
+   "sha256": "0d8e11b3f20a8eaa94c303f73520eac8c5aa90ebf0aa9888b857be5cb2a91ad5",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/determineClassPrivateDataDefaultValue.vi",
+   "bytes": 18573,
+   "sha256": "732762fb87f2597375088bf39af52262aa03f9e9a5591b2b3c9f8b638f7a4055",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/determineClassVersion.vi",
+   "bytes": 19793,
+   "sha256": "bebc21c7d624009f10b83942f1eda00fd309df8698cbf356b441f305099bf6f0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/extractObjectPrivateDataValues.vi",
+   "bytes": 24130,
+   "sha256": "ebc23d3699a8ce046490c7045be2a54410f04ab638ab8308c5cfc620fcc7e8a0",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/getAllClasses.vi",
+   "bytes": 19777,
+   "sha256": "145be28c9a35970066fd4c76b46c1f1974478c11f307773b5cdba9a0d076fe02",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/getClassHierarchy.vi",
+   "bytes": 33985,
+   "sha256": "c9074486f76a11f6df805413cbfe378941609f697d47c2f0864e49b3a700e7f8",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/getClassHierarchyVersions.vi",
+   "bytes": 33425,
+   "sha256": "d64f56e4082b3ae606cb2454e7e4b688d9585587bacabddb9009a4b73f7d67c8",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/getObjectPrivateData.vi",
+   "bytes": 25664,
+   "sha256": "7e98780adbc26e068b33d8fdf62bf9c446714738afd1ea887b47dd00bc4af9c2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/limitDecendantsTo1Level.vi",
+   "bytes": 27219,
+   "sha256": "c97e4d24fb6d3037e7f9957d36b6919581c40a1665ecd7ae83f880f0c5863589",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/reflectionPool.vi",
+   "bytes": 33870,
+   "sha256": "6849816ecfbb798c1f2ec44a5dddb605eb79e50e84c273acbf958a8540d52893",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/reflectionPoolAction.ctl",
+   "bytes": 12565,
+   "sha256": "44a28e9891418da05e7ad0e606646ed38efd249c1c824472e7b5d4cd8564f7ca",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/Reflection/setObjectPrivateData.vi",
+   "bytes": 38924,
+   "sha256": "e76ce2b7d9bf62600d9cd342a540016662600e963b4234696915f3ef8608bb8f",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/A/A.lvclass",
+   "bytes": 8900,
+   "sha256": "5f445ffa47831b25f112a9bd04916c00c1737a2625366e166e15cb96495944a1",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/B/B.lvclass",
+   "bytes": 9949,
+   "sha256": "017ff93123c29698db60c993246f4a2d1ec5c780c91dc92032a4b470f0fbfa36",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/B1/B1.lvclass",
+   "bytes": 9156,
+   "sha256": "8748790bf152a352484471b941750ed66b1a4123cf976e1db8442db628234053",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/B2/B2.lvclass",
+   "bytes": 11985,
+   "sha256": "6aa166d6517e811d4eca09a536c83e9e317594a410880240a3c8fc24e8f970f2",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/C/C.lvclass",
+   "bytes": 9161,
+   "sha256": "ae884982b397aeb4e56b67c8520e19d82f141a7be3905f3310a47d48c4a6914c",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/D/D.lvclass",
+   "bytes": 9323,
+   "sha256": "f27778b76db1c3e1f8593d9b9a3d3dfa34e5bf22c042ea3011d6555db3ccbc79",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/D1/D1.lvclass",
+   "bytes": 9136,
+   "sha256": "7f354422c23ba165b5be32eaba6283457bcbc84cc3634f583465d2ba84d1c5f5",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/D2/D2.lvclass",
+   "bytes": 9173,
+   "sha256": "3087ea7959defe2bb896f784fd457db28ee831cb6634dea2686be3616f207d63",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/ReflectionExample.lvproj",
+   "bytes": 6121,
+   "sha256": "c8e68a292bd71d85d2225b062432be09487a9442ef0814f18a72e1ae19597f79",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/ReflectionExample/reflectionExample.vi",
+   "bytes": 21513,
+   "sha256": "64b1ed80222f8aa842613d532da57b533d5ee85ec1d4c5e62def1847f976680d",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/convertClusterToObject.vi",
+   "bytes": 18022,
+   "sha256": "69be801812206cf5c328083400ec5380db2dfb9e7ac94b05fd5699f1194f8063",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Support/OOP_Utility/convertObjectToCluster.vi",
+   "bytes": 24210,
+   "sha256": "45100402774a46232f2f2ab07ad4a494a4a15fd6f1817dc1849a782f39399eb3",
+   "via": "extension"
+  },
+  {
+   "path": "source/library/Unflatten From JSON String.vi",
+   "bytes": 23962,
+   "sha256": "67f422a8028fb5f864234cdc515b52e49ecf9d1ade777b88c733fc3feee7f12e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/TEST - JKI JSON Object Serialization.lvlib",
+   "bytes": 2101,
+   "sha256": "5281f60da6532f017b34a51a854af739acb9d03baa65cc8b8f1828351a9ce1a7",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test - Child Class Serialization.vi",
+   "bytes": 14068,
+   "sha256": "96777d84bba1495a1c831dd82a2ee460e86076faf41b2ce59448772dfa9448b9",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test - Class to Cluster Round Trip.vi",
+   "bytes": 11214,
+   "sha256": "f8b0b306e107fd5635d8329d6c8fbceb597a4f734365c02c948d37fc1c382ac4",
+   "via": "extension"
+  },
+  {
+   "path": "tests/Test - Class to Cluster.vi",
+   "bytes": 9439,
+   "sha256": "ceb7ebe92157f4172a73b041352a99cc0c6f23d4a0f80eaab33f8ec955e2161b",
+   "via": "extension"
+  },
+  {
+   "path": "tests/error 1403/TEST - Error 1403 on Cluster of Array.vi",
+   "bytes": 12069,
+   "sha256": "c7b9e8dfad890f4f9b1d51294b29c452b0ed42b2d03fd8c1dd8e2300904d6ba2",
+   "via": "extension"
+  },
+  {
+   "path": "tests/error 1403/array-in-a-cluster.lvclass",
+   "bytes": 17926,
+   "sha256": "e074da90bf05a22e8b8c6ac52b29686a047c8f990c220d303fd259328974a22d",
+   "via": "extension"
+  },
+  {
+   "path": "tests/error 1403/create.vi",
+   "bytes": 13146,
+   "sha256": "819dd92838ca956d2fc75b287f88b28cff0281c52a8ffe82384b94bcbe206942",
+   "via": "extension"
+  },
+  {
+   "path": "tests/error 1403/get-data.vi",
+   "bytes": 13140,
+   "sha256": "1e9606ccb8f11131ede6b7604c622cc2bbeb77f6777cb3eef093dc96629c9e11",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Child/Child.lvclass",
+   "bytes": 14147,
+   "sha256": "6ca372e9a4dcc5d10d885a212104652d818a64f193299d43c0f59bdc99eb9e73",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Child/Read Child Data.vi",
+   "bytes": 13035,
+   "sha256": "641ebe5ee481f071ac6574cbd5bc0658b5ab6d469385d6e1dba8718dcfe5d118",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Child/Write Child Data.vi",
+   "bytes": 14644,
+   "sha256": "ebbce7a8ed40f33e87ca9bdd42236721c22de6bad5e535fb3eb9cc5fbd1d9886",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Parent/Parent.lvclass",
+   "bytes": 13319,
+   "sha256": "c4386ab8e12a09f5f651e60067d028e93336c41892194db0fb1f79b6cedde8a4",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Parent/Read Parent Data.vi",
+   "bytes": 13112,
+   "sha256": "264d72a8f31b379ab0f7485d3e56348d905e5d593f490553bbfc089b6fb94c02",
+   "via": "extension"
+  },
+  {
+   "path": "tests/support/Parent/Write Parent Data.vi",
+   "bytes": 14713,
+   "sha256": "0eb58c1bb4ea0c1657459113df7fea10ad7e28694bd525ab16dc4ba0c83ff767",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/Test - system-serialization.vi",
+   "bytes": 31359,
+   "sha256": "8a0c3e0670868c6f2f2e0eaa95b271819eb216e829851952afc75ff25aad3494",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/channel-child/channel-child.lvclass",
+   "bytes": 55513,
+   "sha256": "aec28dd545d0cb0ab2a2568c3825d2823355f5f7a909d802456415fa055d839f",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-channel-child/create-child.vi",
+   "bytes": 19212,
+   "sha256": "e56fcc194831f1d67de06a58bd069600fc25d5ab40c8e6043144de04abcc52c8",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-channel/create.vi",
+   "bytes": 17958,
+   "sha256": "950c64303d98e5a291e8204ce3413d25972f348f880b6ba875b90cde20b06f96",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-channel/name.get.vi",
+   "bytes": 15080,
+   "sha256": "0d28f94c02d74d517a3102b71076467f0ebe8f8eee2929f61612d98370196734",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-channel/test-channel.lvclass",
+   "bytes": 53079,
+   "sha256": "1eec693708fe26d64e1874c16c3846e61d8b3c21e6cddb3d42815b8b5b8e6c2e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-device/create.vi",
+   "bytes": 21470,
+   "sha256": "1b16ae9ef3990647df08d101e9ee89f2586f2713f6e30542a7a0eec00236e8c0",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-device/name.get.vi",
+   "bytes": 15104,
+   "sha256": "01fe190a88f3898eba6c07e578d2745bbcac0734f6cb2d41b57e694c8e84284f",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-device/test-device.lvclass",
+   "bytes": 49578,
+   "sha256": "fa1c781fbacc89e5daef862dc439a85ef339f9a8d6bdb7127ad2b524a25d221c",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group-legacy/create.vi",
+   "bytes": 24562,
+   "sha256": "153560469e901700504182d4fbbeb75707de4b42fd6b73616f1313f7d3ff7a4e",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group-legacy/flatten.vi",
+   "bytes": 18047,
+   "sha256": "34715e082d99f53860966d9f92f0c13cc3434a6a63cc0ff71d518f305cbbccf2",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group-legacy/name.get.vi",
+   "bytes": 15180,
+   "sha256": "84badd114e99bedc214967f3c0a62cb75c62176915e7480b6e07d10d40c39f92",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group-legacy/test-group-legacy.lvclass",
+   "bytes": 72152,
+   "sha256": "94663c5cc12a92e879a8f6be9288d8683a4eb62a040b409abbb08ce84f25e846",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group/create.vi",
+   "bytes": 21210,
+   "sha256": "9c540a1ce78dd89ac0974376b547daf244609aeffbd98bc7a8c8891c69d20a04",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group/flatten.vi",
+   "bytes": 18023,
+   "sha256": "70748c77374497362bf772446d0bd115e878cc00b7d5afbc6d51955b365d30b2",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group/name.get.vi",
+   "bytes": 15124,
+   "sha256": "d86c8d6ce33aff3d15ca71b25ead1cab9de5b998dc52b0edfd3505fe80e71654",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-group/test-group.lvclass",
+   "bytes": 70745,
+   "sha256": "a8c2acdb7e70429946dcf5054a5cff67cd12c72c6b54d30897c4f1faec0def7a",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-serialization.lvproj",
+   "bytes": 22817,
+   "sha256": "e21d48c1e0dc8a8ff7cc6e670a80c11004a16decc58181413ab335cd650a7374",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-system/create.vi",
+   "bytes": 21146,
+   "sha256": "24516ecc503a33bdf5726fe3363684231f61677e2b2bcdd7e55cca035a6a33c5",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-system/flatten.vi",
+   "bytes": 17323,
+   "sha256": "0436ce5b64b91fdc8ad2f52cff6cf63a03b1774babf6d68e9ef0b760eacfa850",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-system/test-system.lvclass",
+   "bytes": 55774,
+   "sha256": "6b0ba96740469831bfa4c3494fd7a80f8029e3f73c36f58aeb33ae736cc54cb0",
+   "via": "extension"
+  },
+  {
+   "path": "tests/system-serialization/test-system/unflatten.vi",
+   "bytes": 18297,
+   "sha256": "6e425d93d2bf6b7c03945e7910c1d8ae2318694dc5330e6b98f937e935d7223e",
+   "via": "extension"
+  },
+  {
+   "path": ".github/workflows/ci-vipc.yml",
+   "bytes": 232,
+   "sha256": "9d2f0a819f1d85c3f0ba618884d0a5508f914dc229d858598dbb2deef26c39bb",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "bytes": 305,
+   "sha256": "32a6023262f62626b870c26ce0901d2d299b5c0062659bf4a18c236a141b90f1",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 171,
+   "sha256": "a390f5129d9e7e47ecbb99f36382821587a1082fd087158be610e7cd8f7d5cda",
+   "via": "tree"
+  },
+  {
+   "path": ".lvversion",
+   "bytes": 4,
+   "sha256": "585348dbd28810f9a34f57be46f000c5f9effab894d074713d93fe7ccfeb3b76",
+   "via": "tree"
+  },
+  {
+   "path": "JSON Object Serialization.dragon",
+   "bytes": 175,
+   "sha256": "a6a84833436864d7e87df612be1cf572efba28676295b26af3960299b3cb21c1",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1350,
+   "sha256": "28987ce29d8cab9eb625abc3c8fb7d1e2091183584bc49be6d61b59ca21a2f8b",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2341,
+   "sha256": "83753b98278283d8749390f8d92b051a57333ad1aa33adcf1da5f0104479fe88",
+   "via": "tree"
+  },
+  {
+   "path": "source/.vipb",
+   "bytes": 27359,
+   "sha256": "a7d9fbc4ecf676df916fc16acd46d12924437781de02360d37440620e1a15880",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Array of VData to VArray__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Array of VData to VCluster__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Array to Array of VData__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Array to VCluster__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Cluster to Array of VData__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Get Cluster Element Names__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Get Cluster Element by Name__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Set Cluster Element by Name__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Set Data Name__ogtk.vi",
+  "<vilib>\\AdvancedString\\1D String Array to Delimited String.vi",
+  "<vilib>\\AdvancedString\\Normalize End Of Line.vi",
+  "<vilib>\\Utility\\Data Type\\Get Type Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Default Value By Name.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\TypeAssert\\Assert Array Dimension Count.vim",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVMapReplaceAction.ctl",
+  "<vilib>\\VIPM\\Collection_Extensions\\Map\\Convert Map to Array__vipm_lv_collection_ext.vim",
+  "<vilib>\\VIPM\\Collection_Extensions\\Map\\Create Empty Map__vipm_lv_collection_ext.vim",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert Equal Value_Variant.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert Not Error.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert True.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Define Test.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Test.lvclass",
+  "<vilib>\\addons\\_JKI.lib\\Serialization\\JSON\\Deserializer\\JSON Deserializer\\JSON Deserializer.lvclass",
+  "<vilib>\\addons\\_JKI.lib\\Serialization\\JSON\\JKI JSON Serialization.lvlib",
+  "<vilib>\\addons\\_JKI.lib\\Serialization\\JSON\\Library\\Timestamp Options.ctl",
+  "<vilib>\\addons\\_JKI.lib\\Serialization\\JSON\\Serializer\\JSON Serializer\\JSON Serializer.lvclass",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "C:\\code\\JKI-JSON-Object-Serialization\\JSON Object Serialization\\Tests\\system-serialization\\test-channel\\test-channel.lvclass",
+  "C:\\code\\sandbox\\serialization\\test-channel\\test-channel.lvclass",
+  "C:\\projects\\JKI-JSON-Object-Serialization\\source\\examples\\Class1\\Class1.lvclass",
+  "C:\\projects\\JKI-JSON-Object-Serialization\\tests\\support\\Parent\\Parent.lvclass",
+  "Y:\\repos\\JKI-JSON-Object-Serialization\\support\\OOP_Utility\\Reflection\\Assert Scalar Type.vim",
+  "Y:\\repos\\JKI-JSON-Object-Serialization\\support\\OOP_Utility\\Reflection\\Reverse Map.vim"
+ ]
+}

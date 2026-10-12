@@ -1,0 +1,109 @@
+# Rich Text for WebVIs
+
+Rich text editing on the web turns out to be pretty diverse with lots of options available. The goal of this document is to give a few attributes of rich text editors to consider when choosing one for a project.
+
+## Considerations
+
+Doing some limited exploration I put together some attributes of editors I think are important to consider.
+
+This is **not an endorsement of any specific rich text editor**, is not a comprehensive review of editors available, and likely does not cover all the features you may need. This may be a good starting point for things to consider when choosing a rich text editor for your project and may give some good starting examples.
+
+### Editor use cases
+
+From the rich text editors I have looked at it seemed that the feature set and complexity of a text editor can be used to place it into one or more categories of use cases.
+
+I made up the following use cases to help me sort through the JS libraries available so be aware that the definitions are loose and may not be used elsewhere.
+
+1. **Comment editor**. Usually inline in a page with other content and not the primary content on a page. 
+
+   Limited / simple formatting options including text formatting and maybe other common content like images. Good for text layout in paragraphs but may not have other layout features like tables or lists. May not not be highly pluggable or configurable.
+
+2. **Blog editor**. Inline in a page and may fill a majority of the page view.
+
+    In addition to text editing, may have features like image resizing and positioning as well as support for tables and lists but with limited configurability. May have plugins for other content types to be placed in document or to change the editing experience.
+
+3. **Document editor**. The primary content on the page and comparable to the feature set of a word processor.
+
+    Even more configurable than the blog level and may support sophisticated layouts like nested / mixed tables and lists, different views such as print vs web layout, advanced plugins, and powerful inline widgets / configuration dialogs.
+
+4. **Framework platform**.
+
+    A set of tools that can be used to build up the above editors. May not provide an out of the box editor experience but can be used as the components to build up very specialized application specific text editors.
+
+### Edit time text representation
+
+It seems like there are two major models for the edit time representation for rich text editors.
+
+1. An **operational transform / model** representation. This approach separates the in memory representation of the rich text from what is presented in the HTML visuals of the page. A `contenteditable` field may be used to capture input and display output but the value is saved in JavaScript memory and is separate from the HTML visual in the page.
+
+   This approach is the most "modern" and enables sophisticated editing experiences and a high degree of control of the editor environment. It can also include advanced control of the undo / redo stack and control of how changes are made for real-time saving or multi-user collaborative editing experiences.
+
+2. The classic **`contenteditable`** representation. This approach builds on the browser's built-in rich text editing features and usually involves careful manipulation of an HTML element's value in the page. The value of the HTML element in the page is usually the primary representation.
+
+   Unfortunately, the `contenteditable` feature does not make it easy to plugin a sophisticated editing experience and has been plagued with cross-browser consistency issues. Modern rich text editors generally avoid using the `contenteditable` feature directly to represent the value of the rich text content and instead keep a separate representation of the value in JavaScript memory.
+
+### Persistence representation
+
+The save format for the output of the JavaScript library. The value that may be sent to a server, etc.
+
+1. **Standalone HTML**. The generated HTML can be used standalone or with a simple additional stylesheet that is maintainable without the full library.
+
+2. **Library-coupled HTML**. The generated HTML is very dependent on the JS library and the library must be used to render correctly or the HTML is highly dependent on the library's associated CSS stylesheet to render correctly.
+
+3. **Abstract format**. The save format is not HTML and requires the library to visualize the rich text and / or needs a transformation from the abstract format to an HTML representation.
+
+### Maintenance
+
+A really rough measure of how well a library is maintained **according to my opinion**. Some things to consider:
+- Does the library have regular releases?
+
+   A stable library that's been around for a while may have infrequent major releases but hopefully address security issues and bugs.
+- Are the developers responsive to issues / pull requests?
+- Is there a roadmap for the project?
+- How long has the project been around?
+
+## Interesting libraries
+
+The rich text libraries I landed on and think are interesting enough to create examples. There are undoubtedly many more interesting libraries and this is not an exhaustive or thorough survey.
+
+| Name              | Comment editor | Blog editor | Document editor | Edit Representation   | Standalone HTML | Library-coupled HTML | Abstract format | Maintenance <br> 🟢🟡🔴 |
+| :---------------: | :------------: | :---------: | :-------------: | :-------------------: | :-------------: | :------------------: | :-------------: | :---: |
+| CKEditor 4        |                | X           | X               | `contenteditable`     | X               |                      |                 | 🟡/🔴 |
+| Quill             | X              | X           |                 | Operational Transform |                 | X                    | X               | 🟡 |
+| Basecamp Trix     | X              |             |                 | Model                 | X               |                      |                 | 🟢 |
+
+Additional notes (as of December 2019):
+
+- CKEditor 4 (started Mar 2011): CKEditor 4 has been superseded by CKEditor 5 but technically the company claims ["Long Term Support" until 2023](https://support.ckeditor.com/hc/en-us/articles/115005281629-How-long-will-CKEditor-4-be-supported-). CKEditor 4 is pretty heavyweight so I decided not to mark it as a good comment editor. CKEditor 4 has a large footprint of about 3 MB build output and about 500 separate files. Had to ignore about 1000 localization files so that it can be included reliably in a Library Component without causing instability due to the number of files.
+
+- Quill (started July 2012): Heavily used in open source projects and rich feature set. Also has an in progress major 2.0 refactor going on but progress seems to have slowed. Also responsiveness to issues in the current stable releases has slowed and [raised some concerns](https://github.com/quilljs/quill/issues/2619) about the liveness of the project.
+
+   Quill uses a JSON representation of the rich text content called [delta](https://quilljs.com/docs/delta/) instead of HTML. Seems like users [attempt to access the internal HTML representation from Quill](https://github.com/quilljs/quill/issues/903) but it appears to be very heavily coupled to the stylesheet (for example has an unconventional representation of nested lists and lots of classes). This example does not try to access the internal HTML representation and instead demonstrates creating a Quill control and indicator.
+
+- Basecamp Trix (started Feb 2014): Been around for a while with a pretty stable / minimal feature set. Regular bug fix releases and responsive to issues. Included in Rails 6 as the rich text editor for the [Action Text](https://edgeguides.rubyonrails.org/action_text_overview.html) feature. It's very lightweight and has a clean HTML representation. This example disables the image / attachment feature because it takes a fair bit of integration code and ends up highly coupled to the library stylesheets.
+
+## Honorable Mentions
+
+Libraries that are interesting but have some issue or behavior that prevents them from being a full example.
+
+| Name              | Comment editor | Blog editor | Document editor | Edit Representation   | Standalone HTML | Library-coupled HTML | Abstract format | Maintenance <br> 🟢🟡🔴 |
+| :---------------: | :------------: | :---------: | :-------------: | :-------------------: | :-------------: | :------------------: | :-------------: | :---: |
+| CKEditor 5        | X              | X           | X               | Operational Transform | ?               |                      |                 | 🟢 |
+| Prose Mirror      | n/a            | n/a         | n/a             | Operational Transform | ?               |                      |                 | 🟢 |
+| Microsoft Rooster | n/a            | n/a         | n/a             | `contenteditable`     | X               |                      |                 | 🟢/🟡 |
+
+Additional Notes (as of December 2019):
+
+- CKEditor 5 (started Jun 2014) is a pretty darn flexible and powerful library. It runs the gamut of the editor types, is operational transform based, and has different save formats. Unfortunately the license makes it incompatible with the goals of these examples but you may want to try it in your own project. See the [CKEditor 5 example](Archived/CKEditor5/) for more details.
+
+- ProseMirror (started Sep 2016) is a framework platform that seems to be the goto for using as the basis of new application specific rich text editors. It will be interesting to see if good standalone editors built on top of ProseMirror start to emerge over time. Framework is too high-level to provide an example at this time.
+
+- Microsoft Rooster (started Jul 2017): Pretty new library and while open source is light on documentation / polish of a open source project intended for wide usage. Unfortunately does not include a toolbar UI out of the box so is more of a framework platform for building an editor. Also the generated HTML is standalone but very verbose using lots of inline style attributes for setting font, etc. See the [Rooster example](Archived/Rooster/) for example integration code.
+
+## Resources
+
+Some lists of rich text editors I've looked through:
+
+- [html-editors](https://gist.github.com/manigandham/65543a0bc2bf7006a487)
+- [awesome-wysiwyg](https://github.com/JefMari/awesome-wysiwyg)
+- [Open source collaborative text editors](https://juretriglav.si/open-source-collaborative-text-editors/)

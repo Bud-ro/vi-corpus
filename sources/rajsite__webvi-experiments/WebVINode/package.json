@@ -1,0 +1,20 @@
+{
+    "name": "@webvi-node/dev",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "npm run start-express",
+        "start-cli": "cd \"Builds/CLIExample_Default Web Server\" && webvi",
+        "start-express": "cd \"Builds/ExpressExample_Default Web Server\" && webvi",
+        "start-electron": "electron .",
+        "start-robot": "cd \"Builds/RobotExample_Default Web Server\" && webvi",
+        "setup-local-dev": "node tools/setup-local-dev.js"
+    },
+    "workspaces": [
+        "packages/@webvi-node/*",
+        "examples/*"
+    ],
+    "engines": {
+        "npm": "7.x"
+    }
+}

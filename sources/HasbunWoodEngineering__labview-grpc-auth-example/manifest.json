@@ -1,0 +1,806 @@
+{
+ "repo": "HasbunWoodEngineering/labview-grpc-auth-example",
+ "url": "https://github.com/HasbunWoodEngineering/labview-grpc-auth-example",
+ "commit": "ad41100ca42b5f1889df08fdda596e59b6eb5abf",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "labview/App with Authentication.lvproj",
+   "bytes": 8215,
+   "sha256": "c4f624a6807a74f9954f73963e5e263b777ac64a08361bf7021cc35ae6a2cc13",
+   "via": "extension"
+  },
+  {
+   "path": "labview/Main.vi",
+   "bytes": 324952,
+   "sha256": "e32b2a5d68ad4d09991a47c2162b666590bbd2da8b472ce8a23c1804fe499870",
+   "via": "extension"
+  },
+  {
+   "path": "labview/Support/Clear Cache.vi",
+   "bytes": 14031,
+   "sha256": "702f0c65654033ffff07c4117de4d0263783c9da1788e51cec58f43d6ec15bf7",
+   "via": "extension"
+  },
+  {
+   "path": "labview/Support/Convert gRPC UTC Timestamp to String.vi",
+   "bytes": 9204,
+   "sha256": "acaa733b6f8088d422a805610444a8119e998efd78ef1cc901d4086c941ac116",
+   "via": "extension"
+  },
+  {
+   "path": "labview/Type Definitions/Loop Data--cluster.ctl",
+   "bytes": 10539,
+   "sha256": "407a1af899c5320c30beeaa06109153987b4a64753470b3a75e05b06fc5679c1",
+   "via": "extension"
+  },
+  {
+   "path": "labview/Type Definitions/States--enum.ctl",
+   "bytes": 8533,
+   "sha256": "63cb9e3978b91f634c40d0eed4d342faf0d7ff2257281c822eab05a7011f7686",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/Client API/Create Client.vi",
+   "bytes": 15709,
+   "sha256": "c53379adf7522a054c5697a36a259523743c814790e6bdb063ad99f1e782c76a",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/Client API/Destroy Client.vi",
+   "bytes": 13918,
+   "sha256": "bdf85caedbbd87fa4373e9a0b258eb12fa58cf8d09f276fb8aaa9a049cec2de9",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_LogoutRequest.vi",
+   "bytes": 16120,
+   "sha256": "2000e9277b372e71dca2da905f23002e20104842b79dd4960d54bf2400ed4d9d",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_LogoutResponse.vi",
+   "bytes": 16513,
+   "sha256": "fa3b6214b3628fd8e0ba5cc7f744e2f3e788406421cff03d2067a3e018b82498",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_RefreshTokenRequest.vi",
+   "bytes": 16178,
+   "sha256": "1fd603acf9ff5b732564aa29e1ecccd87534b4ae2b80efbdaba894114982de4b",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_RefreshTokenResponse.vi",
+   "bytes": 17159,
+   "sha256": "48fc5cf27d6d2334dfa61b6bc49484189eac1d734eea08258b57e21530d4043b",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_StartLoginRequest.vi",
+   "bytes": 16156,
+   "sha256": "bc27e8b280da25be2e23822c635d7881fe553659f6c110994305ad91e61d82e6",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_StartLoginResponse.vi",
+   "bytes": 17317,
+   "sha256": "a36e8e235a03a7fe8c4f3a6c6aa7ea3722ee1a6f5c9f0acf1d14f9db4652018c",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_SubscribeLoginRequest.vi",
+   "bytes": 16196,
+   "sha256": "3c377edf71fb28ebda8e18d685e0e2b7497dd3a913ecda5b0a7e127f314181d8",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_SubscribeLoginResponse.vi",
+   "bytes": 18213,
+   "sha256": "4fdcbf8662dbda8b127a80016d7e152d5d19b9f1b4c07b4e187737cc9203c545",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_ValidateTokenRequest.vi",
+   "bytes": 16187,
+   "sha256": "6fc0af4972a6c0b56c05a345d6cf05f6ad63d34d553e7eb293987bd5b2115b4b",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/FlatToRichauth_ValidateTokenResponse.vi",
+   "bytes": 17516,
+   "sha256": "6325b186f84a7a70dadaa90906b72e4fca0b95573812d322172c35e5ebc7cfd7",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/Get Value for auth_LoginStatus.vi",
+   "bytes": 15854,
+   "sha256": "da79358a307633978a039cca3952a2c6d3ae3e1b18f772dd409f943013da80f0",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/Get Value for auth_LoginStatus_Flat.vi",
+   "bytes": 15867,
+   "sha256": "f452dcd5edca2da6a760a2ebea910c30ac409a96b1f51a17284e7849919800d5",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/Get auth_LoginStatus for Value.vi",
+   "bytes": 15834,
+   "sha256": "6a7d23ea51a293f61ee0cb2211826aa9f866592c2dddc485cb5e93e0f0fefe40",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/Get auth_LoginStatus_Flat for Value.vi",
+   "bytes": 15843,
+   "sha256": "0c97a5ebd35011a7628db3a62627a928122651c6f3aabe3ee4f76197468f3ee6",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/Register gRPC Messages.vi",
+   "bytes": 20830,
+   "sha256": "5670dfbf33c201765ab07008d7215baba7264ffe9c9a0114072bf8591d04fd67",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_LogoutRequest.vi",
+   "bytes": 16120,
+   "sha256": "cc091e09ea78c94eb0586a5a1b9eee3bd566dadbb363ceb0702f3a115090c36a",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_LogoutResponse.vi",
+   "bytes": 16513,
+   "sha256": "de229202f43aed9a4c6fc4aca7b0d2616b0d0de9228b229c72d42bca0fa6d2af",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_RefreshTokenRequest.vi",
+   "bytes": 16178,
+   "sha256": "8b71c1de0f62680cc8bd29007a2f5e5e14036a826de171b321476f61f916ca3a",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_RefreshTokenResponse.vi",
+   "bytes": 17159,
+   "sha256": "2d8bdb0e45d76eea723be0632439420fae7c961ae8040d7244d7d719265b50da",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_StartLoginRequest.vi",
+   "bytes": 16156,
+   "sha256": "bac05233f3a36de7a4be90cc389fb6712d347a6f1d619333c700497be9b97085",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_StartLoginResponse.vi",
+   "bytes": 17313,
+   "sha256": "94b5911932d88863835bfe19eae6ae57c95dcabdfaf09663f368100707aab08f",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_SubscribeLoginRequest.vi",
+   "bytes": 16196,
+   "sha256": "180a0c55621a7a37bd25c603dbc610c0c359b5bc615f210aefc2a6c9cc60f808",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_SubscribeLoginResponse.vi",
+   "bytes": 18213,
+   "sha256": "237c6f26fb150987a4d7e4fe054b6a6e05795cd5125295cfcc67b00c03bc218d",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_ValidateTokenRequest.vi",
+   "bytes": 16187,
+   "sha256": "15791bd50fe4b2877e647e39f8dc8126cfd024003f8dd9a8bcf5ca4b07eab007",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/RichToFlatauth_ValidateTokenResponse.vi",
+   "bytes": 17512,
+   "sha256": "f292c4eba32b6624da7c8ef616c094fef877a246479ce50ffa7b6aaf3eb1c80a",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LoginStatus.ctl",
+   "bytes": 11901,
+   "sha256": "2c13d61f7d8ae9d44f18dd523acd213bc740e5bfd1c9d5c1ab73bf2fb866f991",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LoginStatus_Flat.ctl",
+   "bytes": 11914,
+   "sha256": "93783af1f189cd55615facb7b4ed82037aa932185e50fc19aa7bf02e1acb56a3",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LogoutRequest.ctl",
+   "bytes": 12107,
+   "sha256": "c0f4fa3d7f49f16ef6fd7ff398b03b4a7854d51621bef82fbef4112210e93d97",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LogoutRequest_Flat.ctl",
+   "bytes": 12120,
+   "sha256": "ea4eb7ce1ded9024411c42b859a0e7dc1ad5b02d59e1ea148bd1be2be191bab0",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LogoutResponse.ctl",
+   "bytes": 12636,
+   "sha256": "6ee216deeb04f74b59ddd503c3155d072ae85921799ec969b79ef54c43b2232f",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_LogoutResponse_Flat.ctl",
+   "bytes": 12657,
+   "sha256": "1c8de948bade466acf81fa53c105c0737f48f576007b79d040158c6e2716e297",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_RefreshTokenRequest.ctl",
+   "bytes": 12121,
+   "sha256": "b84615b67c77cf6ff130e5a0bb4357ec9b832d64ce5f5e69caf931d5cf6580c7",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_RefreshTokenRequest_Flat.ctl",
+   "bytes": 12138,
+   "sha256": "2cf0f35082fe8736e3213167b579680975248eb5d9795ba26b30d981901b6d65",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_RefreshTokenResponse.ctl",
+   "bytes": 13098,
+   "sha256": "f16050f116f55585de6e067d6393d54c2293183d10e5b2bbd388d311d88d400d",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_RefreshTokenResponse_Flat.ctl",
+   "bytes": 13115,
+   "sha256": "308310ca8e954ea48b086b3764c9ff8af8f508b7d2a9b055aae04c223afb91d9",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_StartLoginRequest.ctl",
+   "bytes": 12115,
+   "sha256": "15f854ea3abef2361a4d55881add901036202cba47959160cd799fcb196c7495",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_StartLoginRequest_Flat.ctl",
+   "bytes": 12132,
+   "sha256": "af3655845f7b484558610e132096586023bdd6b94bd2a798de03fac708a9ac62",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_StartLoginResponse.ctl",
+   "bytes": 13184,
+   "sha256": "4248706a21a11e7793ce367b80eb03901ebc476bd7ab51439697fb6c0fddf24d",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_StartLoginResponse_Flat.ctl",
+   "bytes": 13197,
+   "sha256": "10ec9858c0abeb923a27f265fc46ab6f059f30410639e7cb3fe81bdc7cae54b4",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_SubscribeLoginRequest.ctl",
+   "bytes": 12131,
+   "sha256": "533b6f88aca38c0d62c4123e816b410cfa7aaa5f96f69df06f527d8b46cd3e33",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_SubscribeLoginRequest_Flat.ctl",
+   "bytes": 12140,
+   "sha256": "3dabd2978f79d06a611e2c2eee09525f1f9ade19cc2c7b839db42ee29895662f",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_SubscribeLoginResponse.ctl",
+   "bytes": 13932,
+   "sha256": "67ebdf07db1f06a3026b0bf83dab7ed807b7210028e461445f688fc7b6d47f65",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_SubscribeLoginResponse_Flat.ctl",
+   "bytes": 13949,
+   "sha256": "243655f8f93655c5be1861934c5184d75bccc0bb60158b134b5bc8a447093852",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_ValidateTokenRequest.ctl",
+   "bytes": 12122,
+   "sha256": "1e8524e881d74ec414ff43b80308fc78704b346fead37ff4af7f6cd3507f4f9a",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_ValidateTokenRequest_Flat.ctl",
+   "bytes": 12139,
+   "sha256": "ce014357e91ce320a4aed031598aa49bc253399d1c9e26ab5f950b87d4e6d450",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_ValidateTokenResponse.ctl",
+   "bytes": 13591,
+   "sha256": "3584c1f4d59f1437acbe908c853e5b747e5eae1f229aff71fe00977d97cafcca",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Messages/auth_ValidateTokenResponse_Flat.ctl",
+   "bytes": 13604,
+   "sha256": "3bb8f78282cbf9dc18bbdc6b18b84bdf70bd5c5929b758fc229070ee2150b5d8",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/AuthService Logout.vi",
+   "bytes": 67334,
+   "sha256": "c9fb39dc4a3e4c0fabcf7a27c0bea7269935eb7776d8c448fe8f8d22df3f4a44",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/AuthService RefreshToken.vi",
+   "bytes": 68356,
+   "sha256": "2833ab962aa844e42ab175cb0df77b23f6f88d66a5ac565e90fba82a1998db30",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/AuthService StartLogin.vi",
+   "bytes": 68642,
+   "sha256": "cb958b6212ce7dd301116cef9b9ba1016ac3680972d2ef784e081b3dd7a6c1e6",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/AuthService SubscribeLogin Read.vi",
+   "bytes": 59883,
+   "sha256": "afa39847520b0b3e83c08e24f077658bb08d8d026302d2d0fc8c1ea302707d69",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/AuthService ValidateToken.vi",
+   "bytes": 70053,
+   "sha256": "ff59571758d181c9b8c2c73125c103a7337d5bfb599d043ca86c7bda72210193",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/Begin AuthService SubscribeLogin.vi",
+   "bytes": 48984,
+   "sha256": "81c336b92e59aa8007c1caafd4ae6f2ccce475e921a51bd9b0aab90bdd73b2e0",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/RPC Service/AuthService/End AuthService SubscribeLogin.vi",
+   "bytes": 19202,
+   "sha256": "ff54d508ff30b7e6ba476572fc5d85e4101788962d224cf6d1042733eb1633ee",
+   "via": "extension"
+  },
+  {
+   "path": "labview/grpc-auth_client/grpc-auth_client.lvlib",
+   "bytes": 36457,
+   "sha256": "bad78e2ced9416cb105ed8dd8560c3c3f012ef913cf3e27e6f5a74319be82c24",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 4911,
+   "sha256": "325e9409fc4cacde209f1656bc7fa7ae186b5609f70e73c868f6446cc5c112a9",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1078,
+   "sha256": "d06307b92a24f78fdadfcce9eae659fb8550f9f33167be40e865a18a3ec6b777",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 8757,
+   "sha256": "6cb6d7c420f16ca819cebc9666ebac66185077348d16bc94becf4753b0ccbf92",
+   "via": "tree"
+  },
+  {
+   "path": "THIRD_PARTY_LICENSES",
+   "bytes": 4500,
+   "sha256": "b643a45ae28e7e3e9b2bcf2f711070ab07d91de57720474ffc30549d2df05cfb",
+   "via": "tree"
+  },
+  {
+   "path": "python/.dockerignore",
+   "bytes": 230,
+   "sha256": "37686e8b12cd9c837cb9b4a278053d9cdd96cd536a4c63f5d1e960acbf6b8523",
+   "via": "tree"
+  },
+  {
+   "path": "python/.env.example",
+   "bytes": 561,
+   "sha256": "10323f38503edcb38b5993afc0fa2b976c1f9e8b43707cd31ec1ecc6f7f4ebb4",
+   "via": "tree"
+  },
+  {
+   "path": "python/Dockerfile",
+   "bytes": 785,
+   "sha256": "b008d3bc019856f57d79555fb8c049715645106da727e8fdcf8c81b086a315b3",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/__init__.py",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/asgi.py",
+   "bytes": 274,
+   "sha256": "c37c71aebec60c8d444a644d8b2d11712f381f4df4f50c21d1af836dc2d12acd",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/mfa_adapter.py",
+   "bytes": 2528,
+   "sha256": "c27ba27191fa5653a4ec8125a78918aa874120a865be2767a0794815e474908e",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/middleware.py",
+   "bytes": 560,
+   "sha256": "b21c6f842b6c2935d9a1854cd64335f4860b97149d23e028ef9cff45fabc75dd",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/settings.py",
+   "bytes": 5914,
+   "sha256": "34a017f5513b0f78588158eeae329db7084ec20b28a9af019d45a99a71c1b93d",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/urls.py",
+   "bytes": 923,
+   "sha256": "a65264dd6c5cd2902cbb157cf67bfec51139c1f1471127cbd395ff1604b4f31e",
+   "via": "tree"
+  },
+  {
+   "path": "python/auth_service/wsgi.py",
+   "bytes": 266,
+   "sha256": "0be27546fa74800a4ff07911faa0655cae4c4e3b617c9feff7f49a80dabbfb2b",
+   "via": "tree"
+  },
+  {
+   "path": "python/docker-compose.yml",
+   "bytes": 579,
+   "sha256": "2b9ee9a7ba2c65c58442a444aa96daf7785e01cb89e070a716b2ab0d4ddf083d",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/__init__.py",
+   "bytes": 478,
+   "sha256": "2f759407745d26efb1900689d5db9d0e8b6eeee502d1fccf2fa368d80a669538",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/admin.py",
+   "bytes": 361,
+   "sha256": "d41fdc77c200dc068f9065d1ccc137e04a2888a7432d81fec4164082d222394e",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/apps.py",
+   "bytes": 223,
+   "sha256": "78a61c39396bdd8ce53229bd5674944dd89e84ea85c649081538fb135b843834",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/auth.proto",
+   "bytes": 1499,
+   "sha256": "5cc4a437c90e994eb1430876c885e410b29d02337b9f10762baad3a990393be3",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/auth_pb2.py",
+   "bytes": 4490,
+   "sha256": "ffc574a83ba0dbab9d07d894c1ffd35d1405444435cffe8f23887eda23489d0a",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/auth_pb2_grpc.py",
+   "bytes": 10114,
+   "sha256": "f17a314a9719d3803c06838d52888d39955b5a60be227a11c1b9da4a803386f8",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/management/commands/cleanup_device_links.py",
+   "bytes": 1766,
+   "sha256": "673d5f28a6af577cc6c82fff319dc0b3d530f243b761739eb33cc01335806976",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/management/commands/rungrpc.py",
+   "bytes": 1238,
+   "sha256": "135cb86743fbe54ffa9c507b396ee84bbf2312f058004875305016826467f965",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/migrations/0001_initial.py",
+   "bytes": 2242,
+   "sha256": "ac77d56a1d5c743348745759698caf1464844124cf6f8719f77703a1591ab9f3",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/migrations/__init__.py",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/models.py",
+   "bytes": 2125,
+   "sha256": "0c023b2112ef590e2a98451f3b2c39e87d879a719c0e134ecec68c3e8de37e42",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/services.py",
+   "bytes": 7743,
+   "sha256": "9573816f9f80fcf8ecf12fb29f3049cb59af0d5f7ce21d46a4bb68a2aeccf72a",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/signals.py",
+   "bytes": 643,
+   "sha256": "2621725adea11c1b9148749487c6da9bd7cadf5fbda67421fe0929c831ebfea1",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/templates/grpc_auth/complete.html",
+   "bytes": 2320,
+   "sha256": "d606e11473affb4997d4f787646efd42cf4fc3780ff3a4ad6e935f45810da377",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/tokens.py",
+   "bytes": 3551,
+   "sha256": "1541a351a842105b64206c2beb1d9d3144b1950b817d4b4f0ba3f5737c99ab49",
+   "via": "tree"
+  },
+  {
+   "path": "python/grpc_auth/views.py",
+   "bytes": 2294,
+   "sha256": "783b6b7b8fd770799f6ab61d54b9f8be2bd871419bb97aeba2151f6866633a72",
+   "via": "tree"
+  },
+  {
+   "path": "python/manage.py",
+   "bytes": 645,
+   "sha256": "aab638e467e348cd890d51d427386b5b332de90c4381aab04cce881c6290a434",
+   "via": "tree"
+  },
+  {
+   "path": "python/requirements.txt",
+   "bytes": 220,
+   "sha256": "bc25b0c1b56b16735c7b907f49ad4e31844ed363c17353e8ef1a6b04a57804b5",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Bold.woff2",
+   "bytes": 94588,
+   "sha256": "c503cc5ec5f8b2c7666b7ecda1adf44bd45f2e6579b2eba0fc292150416588a2",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-BoldItalic.woff2",
+   "bytes": 98152,
+   "sha256": "3a013466c0eee979fb9d42c2d7a8887cd3645dc8b897cfc5b71781cf982efc5a",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-ExtraBold.woff2",
+   "bytes": 93692,
+   "sha256": "88097a36a292c145a14394f1fd5133f76b9a3d6fdb133834b2c94a3db61dd39a",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-ExtraBoldItalic.woff2",
+   "bytes": 96864,
+   "sha256": "67718afd5e93925277efb878127107f0ff668059ef5fd799fb31ed12aaae7a96",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-ExtraLight.woff2",
+   "bytes": 92712,
+   "sha256": "e7964fc553a794d00167f168dc174fdd19b083c30ad213bfc2e6a95876912a44",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-ExtraLightItalic.woff2",
+   "bytes": 95816,
+   "sha256": "c43d0dd87523c65879334d43651d3fb1815ca1d18d27507356e6704322d63b79",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Italic.woff2",
+   "bytes": 95864,
+   "sha256": "cb6a1b246318ed3885d7dffa14a2609297fe80e9b8e500bea33b52fa312a36a4",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Light.woff2",
+   "bytes": 93856,
+   "sha256": "43eb798d59b557c3d87c1402ce684b3fda1ad66bf7ec8021b0a43dc31ad9c572",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-LightItalic.woff2",
+   "bytes": 97280,
+   "sha256": "49c50b344b458c1322d859f4f0d9db7f770533c1dbdab31defa0987c29925b9b",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Medium.woff2",
+   "bytes": 93824,
+   "sha256": "086c48dfbea9ddaff1320f7e09399b8e2924e88ce67453721255db3bdbb5a353",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-MediumItalic.woff2",
+   "bytes": 97808,
+   "sha256": "1c9b7a62ee6c3f77c82982a3d0ab7ead8805f5e67ccfc1942037fc65f398f22b",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Regular.woff2",
+   "bytes": 92164,
+   "sha256": "a9cb1cd82332b23a47e3a1239d25d13c86d16c4220695e34b243effa999f45f2",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-SemiBold.woff2",
+   "bytes": 94472,
+   "sha256": "918edad542a1da608fd2ba8daebaff9ac802309103fe760eed465b8b4e47faf1",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-SemiBoldItalic.woff2",
+   "bytes": 98124,
+   "sha256": "07daacf7fc1956b5b68d902ab4763a062b196a3665d713e54bff066c667c0674",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-Thin.woff2",
+   "bytes": 90612,
+   "sha256": "01c7c4cd01380e75fb1b5ff9900508afcd89a83d0b0e6f70e96ede53183ab53a",
+   "via": "tree"
+  },
+  {
+   "path": "python/static/fonts/JetBrainsMono-ThinItalic.woff2",
+   "bytes": 94316,
+   "sha256": "c261d07880deb91518e190c19816ddc93a69bf4539b8486cad316b6ed59a065d",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/account/base.html",
+   "bytes": 5209,
+   "sha256": "204c411f5f98e8a88d9d808d08abdc9dd39937d75980d731f902b72e0927a4b5",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/account/email.html",
+   "bytes": 1952,
+   "sha256": "8c41a22fdda62c73f02f2655e592cd09066d7daee6ae95704256a27ad4b054a3",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/account/login.html",
+   "bytes": 1139,
+   "sha256": "c54df7bb8175d6087278b8983adc03aa1dfe2f0ad9b468aed41bcc9e2a2a8fb5",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/account/password_change.html",
+   "bytes": 926,
+   "sha256": "5884824874ae89410a8f8c798b77be0b570fa4bbddc787c50c681ee2edad542a",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/account/user_actions.html",
+   "bytes": 502,
+   "sha256": "34b7af375369182d949d397b6c08aa289e0cec1e4a84c58198a5fd0ade190d68",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/authenticate.html",
+   "bytes": 1283,
+   "sha256": "c1803dabb88b4619bac070d6c0d3d9ee3ec3b4d566befdc50b6e67344c84b012",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/base.html",
+   "bytes": 109,
+   "sha256": "89490c218092f32b07438f8bb81f14f8d150b3d20c897e7d9903e3d2bf76f6dc",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/index.html",
+   "bytes": 1882,
+   "sha256": "5efb9456c1852a4349e15632e5324c840629a9fe5f80107c79fee66dce8a365a",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/recovery_codes/generate.html",
+   "bytes": 606,
+   "sha256": "ceb76cdb02241e791cbc4e1b962888c959ec852019251fb655acef49a198d040",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/recovery_codes/index.html",
+   "bytes": 819,
+   "sha256": "1d2de7821b0627505a4c5ef0808f222cedc7fd22296050de13168d1b74507f4a",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/totp/activate_form.html",
+   "bytes": 1054,
+   "sha256": "1f5f4c8599d4c8584a90ca84351bf8dae23e206053deb112a13d1bd56ca0e9ee",
+   "via": "tree"
+  },
+  {
+   "path": "python/templates/mfa/totp/deactivate_form.html",
+   "bytes": 627,
+   "sha256": "ffae38343937c0d62cead21f5f0ecd84e66966c4b79a8e1dcb57edbffee858eb",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<vilib>\\Array\\Helpers\\Search Unsorted 1D Array Core.vim",
+  "<vilib>\\Array\\Search Unsorted 1D Array.vim",
+  "<vilib>\\Comparison\\Equal\\Equal Comparable\\Equal Comparable.lvclass",
+  "<vilib>\\Comparison\\Equal\\Equal Comparable\\Equals.vi",
+  "<vilib>\\Comparison\\Equal\\Equal Functor\\Equal Functor.lvclass",
+  "<vilib>\\Comparison\\Equal\\Equal Functor\\Equals.vi",
+  "<vilib>\\Comparison\\Equals.vim",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVPointTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVRectTypeDef.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Client Begin Server Streaming Call.vim",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Client Complete Streaming Call.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Client Read From Stream.vim",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Client Unary Call.vim",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Close Client.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Client API\\Create Client.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\CompleteMetadataRegistration.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Server\\Get Server DLL Path.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Server\\Register Enum Metadata.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\Server\\Register Message Metadata.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\typeDefs\\Enum Metadata.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\typeDefs\\Message Element Metadata.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\typeDefs\\Message Element Type.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Server API\\typeDefs\\Message Metadata.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Any.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Get LV Enum Value from Proto Value.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Get Proto Enum Value from LV Value.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Is Feature Enabled.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\TranslateGrpcError.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\Wait On Occurrence.vi",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\Shared\\grpcId.ctl",
+  "<vilib>\\gRPC\\LabVIEW gRPC Library\\grpc-lvsupport-release.lvlib",
+  "<vilib>\\gRPC\\gRPC Server and Client Template [2]\\Oneof Template\\FlatToRich.vim",
+  "<vilib>\\sklein\\WebView2\\Webview2 Lib\\WebView2 Control Object\\Create.vi",
+  "<vilib>\\sklein\\WebView2\\Webview2 Lib\\WebView2 Control Object\\Dispose.vi",
+  "<vilib>\\sklein\\WebView2\\Webview2 Lib\\WebView2 Control Object\\Init Core.vi",
+  "<vilib>\\sklein\\WebView2\\Webview2 Lib\\WebView2 Control Object\\WebView2 Control.lvclass",
+  "<vilib>\\sklein\\WebView2\\Webview2 Lib\\WebView2 Control Object\\Write URL.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\sklein\\WebView2\\Libs\\Microsoft.Web.WebView2.Core.dll",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\sklein\\WebView2\\Libs\\Microsoft.Web.WebView2.WinForms.dll",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Messages\\Get Value for package_template_enum.vi",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Messages\\Get package_template_enum for Value.vi",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Service\\Begin ServerStreamTemplate.vi",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Service\\End ServerStreamTemplate.vi",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Service\\ReadStream ServerStreamTemplate.vi",
+  "C:\\Users\\juanj\\Documents\\hasbun_wood_engineering\\github\\auth-toolkit\\labview\\grpc-auth_client\\RPC Service\\Unary UnaryTemplate.vi"
+ ]
+}

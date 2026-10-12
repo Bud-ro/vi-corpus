@@ -1,0 +1,2921 @@
+[
+ {
+  "path": "Builds/ni_lib_veristand_development_tools-1.0.0.10.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Builds/ni_lib_veristand_development_tools-1.0.0.10.vip",
+  "bytes": 10741,
+  "sha256": "2d4ea09a4f2f534f12d7efeb7631a59c79727e84e1de4895b5a5e76ff2e6cbf2",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 2751,
+    "crc32": 3283909253,
+    "sha256": "29283896c8b0336657396debe8f9894d573d594bc14c62f0004808839857f0a9"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1347172920,
+    "sha256": "b8ddd1423bbb4fdfff162c4ef9312cd85966761c85fdfd964cb5349b63d8b01b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NI VeriStand Development Tools/VSDEVPlaceholder.ctl",
+    "bytes": 4513,
+    "crc32": 1524392576,
+    "sha256": "b5729b7b94d18a2c0ca8609867916ed1aeb18ae0fa48ca601ff5d8242683adfc"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NI VeriStand Development Tools/VSDEVPlaceholder.vi",
+    "bytes": 4764,
+    "crc32": 1471134111,
+    "sha256": "22e92f91ae801804bf8b8bf434001bad7622339a5755ff5c7b91d46bdc10e1be"
+   },
+   {
+    "path": "File Group 1/functions_ni_lib_VeriStand_Development_Tools.mnu",
+    "bytes": 2546,
+    "crc32": 4253368660,
+    "sha256": "ec8b15787d879b1c5028cbd3ed99642c7d76634c5c1b2e87743e9e1575c7a863"
+   },
+   {
+    "path": "File Group 2/dir.mnu",
+    "bytes": 5042,
+    "crc32": 488960779,
+    "sha256": "dc0b84cdc9aa91733670826dbd811006a43b553dcd2d85d3ee56ce0998838747"
+   },
+   {
+    "path": "File Group 3/controls_ni_lib_VeriStand_Development_Tools.mnu",
+    "bytes": 2546,
+    "crc32": 3157757559,
+    "sha256": "03a0c89581c470c73e837569c0760e7c69e5106701a25cee3921337cb30afbde"
+   },
+   {
+    "path": "File Group 4/dir.mnu",
+    "bytes": 5042,
+    "crc32": 3369389779,
+    "sha256": "46ab6f6cd731fc39acf05b70be6fb9e5a4b546bc2f6557aa0ffe1f221879c721"
+   },
+   {
+    "path": "license",
+    "bytes": 572,
+    "crc32": 1327275127,
+    "sha256": "960220622ea927cd544e4ef27806f0ca5d71586a5e2f4de48b695b1e8a6d5fef"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_veristand_development_tools\"\r\nVersion=\"1.0.0.10\"\r\nRelease=\"\"\r\nID=7c84f2b59e96ed447357f6f1e973352d\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Development Tools\"\r\n\r\n\r\n[Description]\r\nDescription=\"This package installs a collection of APIs and utilities that aid in VeriStand development.\\0A\\0A<b>Requirements</b>\\0ANI VeriStand\\0A\\0ATo provide feedback and submit and track issues, please use the Github page at:\\0A\\0Ahttps://github.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools\"\r\nSummary=\"This package installs a collection of APIs and utilities that aid in VeriStand development.\"\r\nLicense=\"Apache 2.0\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"https://github.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools\"\r\nPackager=\"NI Systems Engineering\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"Initial Release\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"ni_lib_advanced_sysdef_api>=1.0.0.4,ni_lib_compiled_html_menu_tool>=1.0.0.12,ni_lib_custom_device_xml_editor>=1.0.0.9,ni_lib_nivs_inline_async_api>=1.0.0.31,ni_lib_veristand_custom_device_import_and_export_tool>=1.0.0.6,ni_lib_veristand_error_api>=1.0.0.3,ni_tmpl_veristand_custom_device>=1.0.0.20,ni_tmpl_veristand_inline_async_custom_device>=1.0.0.26\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"5\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5653444556\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=2\r\nFile 0=\"vi.lib/NI/NI VeriStand Development Tools/VSDEVPlaceholder.ctl\"\r\nFile 1=\"vi.lib/NI/NI VeriStand Development Tools/VSDEVPlaceholder.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/VeriStand Development Tools\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_ni_lib_VeriStand_Development_Tools.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/VeriStand Development Tools\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n\r\n\r\n[File Group 3]\r\nTarget Dir=\"<menus>/Controls/VeriStand Development Tools\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"controls_ni_lib_VeriStand_Development_Tools.mnu\"\r\n\r\n\r\n[File Group 4]\r\nTarget Dir=\"<menus>/Controls/VeriStand Development Tools\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Builds/ni_lib_veristand_development_tools-1.0.0.9.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Builds/ni_lib_veristand_development_tools-1.0.0.9.vip",
+  "bytes": 10158,
+  "sha256": "01e2a181b0be8201c7bb1d74832e0f551b47f9e4f91b16c3028f3988ffcf0cfb",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 2307,
+    "crc32": 1174280883,
+    "sha256": "e608029e02b27b0f5278913d207519d489ca11a630e8ca85fe167c2527d9906c"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1347172920,
+    "sha256": "b8ddd1423bbb4fdfff162c4ef9312cd85966761c85fdfd964cb5349b63d8b01b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VeriStand Development Tools/Placeholder.ctl",
+    "bytes": 4464,
+    "crc32": 33147043,
+    "sha256": "41f8aee794e6080480301c8edddd950d73f728cab83c10f95c02905e0aee4224"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/VeriStand Development Tools/Placeholder.vi",
+    "bytes": 4759,
+    "crc32": 1878532083,
+    "sha256": "ce7a477691ae7f84e9b989d1ee0d1bef3800779ae392935086ac1c20bd493afc"
+   },
+   {
+    "path": "File Group 1/functions_NI_lib_VeriStand_Development_Tools.mnu",
+    "bytes": 2513,
+    "crc32": 530890787,
+    "sha256": "c6cd179eff6f81d165013a51ead1d95c1b33ecf4e49c8eff30a252ea21beb267"
+   },
+   {
+    "path": "File Group 2/dir.mnu",
+    "bytes": 5042,
+    "crc32": 488960779,
+    "sha256": "dc0b84cdc9aa91733670826dbd811006a43b553dcd2d85d3ee56ce0998838747"
+   },
+   {
+    "path": "File Group 3/controls_NI_lib_VeriStand_Development_Tools.mnu",
+    "bytes": 2513,
+    "crc32": 175601778,
+    "sha256": "cbca3d1cce16768af87a85590bb2ecf80f195efac1965fd80c51174368e1f454"
+   },
+   {
+    "path": "File Group 4/dir.mnu",
+    "bytes": 5042,
+    "crc32": 3369389779,
+    "sha256": "46ab6f6cd731fc39acf05b70be6fb9e5a4b546bc2f6557aa0ffe1f221879c721"
+   },
+   {
+    "path": "license",
+    "bytes": 0,
+    "crc32": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_veristand_development_tools\"\r\nVersion=\"1.0.0.9\"\r\nRelease=\"\"\r\nID=b82846305d28946801e0dcdae007c2de\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"VeriStand Development Tools\"\r\n\r\n\r\n[Description]\r\nDescription=\"This package installs a collection of APIs and utilities that aid in VeriStand development.\"\r\nSummary=\"\"\r\nLicense=\"Apache 2.0\"\r\nCopyright=\"Copyright (c) 2017, NI\"\r\nDistribution=\"\"\r\nVendor=\"NI\"\r\nURL=\"\"\r\nPackager=\"Tanner Blair\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"ni_lib_advanced_sysdef_api>=1.0.0.2,ni_lib_compiled_html_menu_tool>=1.0.0.4,ni_lib_custom_device_xml_editor>=1.0.0.7,ni_lib_nivs_inline_async_api>=1.0.0.29,ni_lib_veristand_custom_device_import_and_export_tool>=1.0.0.4,ni_lib_veristand_error_api>=1.0.0.1,ni_tmpl_veristand_custom_device>=1.0.0.20,ni_tmpl_veristand_inline_async_custom_device>=1.0.0.26\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"5\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=2\r\nFile 0=\"vi.lib/NI/VeriStand Development Tools/Placeholder.ctl\"\r\nFile 1=\"vi.lib/NI/VeriStand Development Tools/Placeholder.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/VeriStand Development Tools\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_NI_lib_VeriStand_Development_Tools.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/VeriStand Development Tools\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n\r\n\r\n[File Group 3]\r\nTarget Dir=\"<menus>/Controls/VeriStand Development Tools\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"controls_NI_lib_VeriStand_Development_Tools.mnu\"\r\n\r\n\r\n[File Group 4]\r\nTarget Dir=\"<menus>/Controls/VeriStand Development Tools\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.14.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.14.vip",
+  "bytes": 790053,
+  "sha256": "642fee8ac81e5ca235931961c865099ddc53c0ac2f088935defbd5149522a8ca",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6475,
+    "crc32": 3198098129,
+    "sha256": "cbccb5c380e6d3a4715269fff984c8040b43e02db4dde9e1034baada06e0e492"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1935872367,
+    "sha256": "6db12f62adea875c668fe3b081320cfb016cd8829b0f3c684b178c1804905aa8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib",
+    "bytes": 6908,
+    "crc32": 1252186028,
+    "sha256": "0202ab2cd8c200b572c94eccc443fcb536b25a5c2a5d443e2fa6f38c5bb9bbd7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 30632,
+    "crc32": 876415592,
+    "sha256": "1130387bf14fcc8f950a7456877fe0ab7ef195100b895a1eba1d25b2ef77fd85"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 26224,
+    "crc32": 3561387940,
+    "sha256": "b78f05d4a88b131e88e8ab8fea46777177f94b8a1d57ddc434b8b8b17407320a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 27608,
+    "crc32": 1236902084,
+    "sha256": "7dae9e130e91000142bb5b90991a2c2cdaaf617efda83439153eaefaadf41e72"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 29897,
+    "crc32": 3462490498,
+    "sha256": "a4966cee097a3302a371dcd853190f30e764db10670444788ff812f922969696"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 39864,
+    "crc32": 3228641585,
+    "sha256": "16993b804cbe5095e721cb4c495209f51f68449f16269debe50a43c8121905cb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 23367,
+    "crc32": 1446737237,
+    "sha256": "97a1a9b7b3b02b84dd6ca5671998d6eda7b433e1df4eda52aadbcaaa288381f5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 29018,
+    "crc32": 921969924,
+    "sha256": "07ed96c6bde22a8bfd44f31d065c4b80033ce85a96c9dd938f8773dcf6658823"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 23287,
+    "crc32": 2129102925,
+    "sha256": "ec2c8d51b1e78db2d33836e7d29a5d6eb271649ff6b876f5d350bc259dbbf60a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 15785,
+    "crc32": 632027505,
+    "sha256": "8c3ab5de4a2edecf67831a8c47f536bb2df1dac5973fc10cda05103d776f5c0f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi",
+    "bytes": 38689,
+    "crc32": 133918527,
+    "sha256": "42175d036ac747f46aecf9a20b6a61ff878959f9522cbb11aef5dbf4f592137a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi",
+    "bytes": 46753,
+    "crc32": 4043491663,
+    "sha256": "dd32a425767e1fd24883e91376c06a9c2c5f4f9140abf8e5a219a1c8655a6468"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 5066,
+    "crc32": 543963610,
+    "sha256": "19fcebeeea98a6a9ce439054f5d0c24adbcebf69aa2ceaa5d6a42628d585e956"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 6031,
+    "crc32": 1266712613,
+    "sha256": "6a30778f75d1858dacaf9054e7fbcb033e0c719d512bf56c4f319debe6648d2e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 12574,
+    "crc32": 3730205497,
+    "sha256": "26597ad2b7c8f791b06b143a69d8ceace3adbeeb57d5191f6c4afe4f50d13699"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 11585,
+    "crc32": 1729203077,
+    "sha256": "961ca1c7a3779b4b87bad026753986d4ac62efdf5307f89f82aece83d0fb7b53"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 9222,
+    "crc32": 4089039494,
+    "sha256": "97a7297e576022268d8fa59650776915ffcad50e78f45b8db2a08e2bf11ebe95"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 5606,
+    "crc32": 744602062,
+    "sha256": "e7c3cdf7243f720d903b88e1042317446ffcd425bfd167350a216a92b03cfb74"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 4206,
+    "crc32": 2855446108,
+    "sha256": "b52d1deb6e64071dc716e630fba54d556b464842917aa50944df98f9613467ba"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 38483,
+    "crc32": 422475727,
+    "sha256": "79361770d653b223f3bc850436712ea47f4ab6d86ee52559d6042b37c634ecf7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 30820,
+    "crc32": 1557762094,
+    "sha256": "628795c81a7e62d4381a51c5c626b5a690278ea0709696f14c813927882939ea"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 14875,
+    "crc32": 2240725575,
+    "sha256": "bdcc11680c3df48a56a3632082e7c3b347906574c324aa24e0b444398cfe4ca9"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 15369,
+    "crc32": 381077010,
+    "sha256": "7e5f46c91f017cd3182ee1685a788865d181a57c14e86dee1b515b5a3a758c9b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 14775,
+    "crc32": 3534091676,
+    "sha256": "e2fd902c63a5929e09fc5cd1e0924a5931e1ad652e6053d573a07131fb61ba5d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 18165,
+    "crc32": 298307279,
+    "sha256": "2af2104bd14a2ca908c453a6afb4f6e2c1b67ff361431197f67b5a0d8e87f797"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 15309,
+    "crc32": 2195779896,
+    "sha256": "cf232d60ac3c120020d21603416724229abaf67662e11043a42718e60ac2b609"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 14755,
+    "crc32": 3301758458,
+    "sha256": "c68b90651c0fefb975ab5cb391c80dfd53670fd4d0c59347f2ec6e0819387b9a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 14704,
+    "crc32": 2753874617,
+    "sha256": "8495f5e7dc6a5a7cbccdbc49add000b536a9b1e3d2fded82f45ba24cb2da6252"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 15152,
+    "crc32": 2364772239,
+    "sha256": "ea2bc1e0654000cc50f98927f0b9325d11d368d2d2b79066a2609ff4dc1a98cb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 15660,
+    "crc32": 2029769406,
+    "sha256": "f8898ca5f4c0fffac9e2ef84224cfe2c51321964d8322c41bad6ad8d40297782"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 14818,
+    "crc32": 623544078,
+    "sha256": "8a4ab9e775433f651ed50a77a76aec82dbaf590a32777f55e8128b00a3583c08"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 14747,
+    "crc32": 4292466032,
+    "sha256": "934c49eb239cdf093fbe17ac09620defeaf42bff6a9fb909077d8c03700fd304"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 15317,
+    "crc32": 2806809478,
+    "sha256": "18adbb7b52cfddfdebe0ba89262f8a792b41359cc4da32cc2e659503fd446686"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 14743,
+    "crc32": 1003601283,
+    "sha256": "f84328ce44261b5865409ef8e86cf6b878dfd6690051fcc2dbc5bc8cec86edf7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 14615,
+    "crc32": 3381241156,
+    "sha256": "84d92919c3de7828f9d9f5c1718b181b6db68740b4c18bfc489f83592bc329a7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 14199,
+    "crc32": 3963744705,
+    "sha256": "22347325e1a06a049f621fc8dc33573d07e7542334f0ccb4a0252a2f4f5b27cd"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 14513,
+    "crc32": 1313620010,
+    "sha256": "4878b62a651f7682826c33b788202d1185fa2c1633b7aaf7c6cc84d02eb28d8d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 14079,
+    "crc32": 1015441763,
+    "sha256": "a232cf62c0c740021b0686953b5f304a93f80ad22d71edfb9965bed20334729f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 18349,
+    "crc32": 797839710,
+    "sha256": "dade356491047ad32f8dfa29ab8a5b63edad574b6b0af990b1d6a7901db9d0be"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 14465,
+    "crc32": 1973594166,
+    "sha256": "4b899dfc3106f37d28d9cd8c71c66660d1655e572e673d3af50984de5a5c5309"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 14023,
+    "crc32": 4092081831,
+    "sha256": "00cd9f14570c47dbd3346db51a9becf9bdd08265c1b22ba2c2458bd5429013a2"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 14156,
+    "crc32": 2023784540,
+    "sha256": "06b9e96e30be031ee451108bd242b0a53c5f3a92121aa14fdba141b12d154c7e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 14272,
+    "crc32": 3106438746,
+    "sha256": "b33a9f3600f979df74a665790cd5543bc37a5010bf6cd66d6cc2ce5ba7576936"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 14844,
+    "crc32": 4294313539,
+    "sha256": "ea55b8ec2c9a9fbe483ef8da058854c27319631d178a0c264423245eb55179c2"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 14206,
+    "crc32": 355929722,
+    "sha256": "2d31d61c343540ae298ec46699fd2384e03b02053ddec151be33188767cf2586"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 14027,
+    "crc32": 3672347558,
+    "sha256": "45384b961182ba755eb388a271cec24a66a3dfbebd41b4d537b76b6b17ae3737"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 14461,
+    "crc32": 593622170,
+    "sha256": "fbd723c3f303af372cbf75f3119deb277688935397bf3e3a1ff88bad76975ce8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 14035,
+    "crc32": 3406665070,
+    "sha256": "db83cf59bb565105e1495d46f41b60dce48b2a841f6617bd2e5fd32aebc5f10e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 14103,
+    "crc32": 549332413,
+    "sha256": "6edfa74952dae5c0393ee5b55397f8d6eb8a63c2c2740ff9298c497d96c89792"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 15094,
+    "crc32": 3218017223,
+    "sha256": "e19ca626508aa7bae4fdac593b74f8b32a3234e72064d2b783a66ad7ed433d8e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 16259,
+    "crc32": 2203667352,
+    "sha256": "609ea8f6d92e7316b06b588a31db6a11e852996fa2512a85e5d7cd40a829efac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 15594,
+    "crc32": 3954188318,
+    "sha256": "632487777264677e8d277740a817ed249b7500a4a50c40163b6120c599b86537"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 14768,
+    "crc32": 2110351594,
+    "sha256": "49a3f1ccd6c41d5115b679de13434dbd85c36fd712c57238bfcd8c191e7c82ab"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 41507,
+    "crc32": 3336776358,
+    "sha256": "eda709115eb69219605548ad49bd01be6302dd01c30af0b70f86ef209125ca0b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 47515,
+    "crc32": 4065412278,
+    "sha256": "eeb0563d2686c258843e540d5faad79b255e8f3436ee3c5fbb9c0ac84aa6f74a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 48952,
+    "crc32": 3514694455,
+    "sha256": "7eacd417996a80c2a3dbc00969c1ecb9b3ac68822621d00efbe55a1d4e790277"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 51273,
+    "crc32": 326836488,
+    "sha256": "986fa2f570dc3ff45ecf92231e7b2e80476a2b2e630181f0afef34877233293c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 58049,
+    "crc32": 2702941390,
+    "sha256": "6b43d1f7a12d390bb77cc9e0f4fd9707bfbd8a4a0e9007f658ede6dda27ea785"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.14\"\r\nRelease=\"\"\r\nID=581b0158e96181feb91aeb0a3d593d59\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand SysDef Utilities\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2016, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"Daniel Eaton\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"1\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=61\r\nFile 0=\"vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 60=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.15.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.15.vip",
+  "bytes": 790120,
+  "sha256": "842fc6c9ed849c5b321e596fdec7909e67736d68f065fc4b9ddf7ca40b5fa445",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6471,
+    "crc32": 3434306152,
+    "sha256": "a70096fb8058095f5c32382ab209ab01ff00165e55b3e28358e6f59930abdca3"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1935872367,
+    "sha256": "6db12f62adea875c668fe3b081320cfb016cd8829b0f3c684b178c1804905aa8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib",
+    "bytes": 6908,
+    "crc32": 1252186028,
+    "sha256": "0202ab2cd8c200b572c94eccc443fcb536b25a5c2a5d443e2fa6f38c5bb9bbd7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 30632,
+    "crc32": 876415592,
+    "sha256": "1130387bf14fcc8f950a7456877fe0ab7ef195100b895a1eba1d25b2ef77fd85"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 26224,
+    "crc32": 3561387940,
+    "sha256": "b78f05d4a88b131e88e8ab8fea46777177f94b8a1d57ddc434b8b8b17407320a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 27608,
+    "crc32": 1236902084,
+    "sha256": "7dae9e130e91000142bb5b90991a2c2cdaaf617efda83439153eaefaadf41e72"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 29897,
+    "crc32": 3462490498,
+    "sha256": "a4966cee097a3302a371dcd853190f30e764db10670444788ff812f922969696"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 39864,
+    "crc32": 3228641585,
+    "sha256": "16993b804cbe5095e721cb4c495209f51f68449f16269debe50a43c8121905cb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 23367,
+    "crc32": 1446737237,
+    "sha256": "97a1a9b7b3b02b84dd6ca5671998d6eda7b433e1df4eda52aadbcaaa288381f5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 29018,
+    "crc32": 921969924,
+    "sha256": "07ed96c6bde22a8bfd44f31d065c4b80033ce85a96c9dd938f8773dcf6658823"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 23287,
+    "crc32": 2129102925,
+    "sha256": "ec2c8d51b1e78db2d33836e7d29a5d6eb271649ff6b876f5d350bc259dbbf60a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 15785,
+    "crc32": 632027505,
+    "sha256": "8c3ab5de4a2edecf67831a8c47f536bb2df1dac5973fc10cda05103d776f5c0f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi",
+    "bytes": 38689,
+    "crc32": 133918527,
+    "sha256": "42175d036ac747f46aecf9a20b6a61ff878959f9522cbb11aef5dbf4f592137a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi",
+    "bytes": 46753,
+    "crc32": 4043491663,
+    "sha256": "dd32a425767e1fd24883e91376c06a9c2c5f4f9140abf8e5a219a1c8655a6468"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 5066,
+    "crc32": 543963610,
+    "sha256": "19fcebeeea98a6a9ce439054f5d0c24adbcebf69aa2ceaa5d6a42628d585e956"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 6031,
+    "crc32": 1266712613,
+    "sha256": "6a30778f75d1858dacaf9054e7fbcb033e0c719d512bf56c4f319debe6648d2e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 12574,
+    "crc32": 3730205497,
+    "sha256": "26597ad2b7c8f791b06b143a69d8ceace3adbeeb57d5191f6c4afe4f50d13699"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 11585,
+    "crc32": 1729203077,
+    "sha256": "961ca1c7a3779b4b87bad026753986d4ac62efdf5307f89f82aece83d0fb7b53"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 9222,
+    "crc32": 4089039494,
+    "sha256": "97a7297e576022268d8fa59650776915ffcad50e78f45b8db2a08e2bf11ebe95"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 5606,
+    "crc32": 744602062,
+    "sha256": "e7c3cdf7243f720d903b88e1042317446ffcd425bfd167350a216a92b03cfb74"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 4206,
+    "crc32": 2855446108,
+    "sha256": "b52d1deb6e64071dc716e630fba54d556b464842917aa50944df98f9613467ba"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 38483,
+    "crc32": 422475727,
+    "sha256": "79361770d653b223f3bc850436712ea47f4ab6d86ee52559d6042b37c634ecf7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 30820,
+    "crc32": 1557762094,
+    "sha256": "628795c81a7e62d4381a51c5c626b5a690278ea0709696f14c813927882939ea"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 14879,
+    "crc32": 2564559149,
+    "sha256": "8a62554c475876cc23924e08c77c2f104c744edc3024a729fba57b0efc2a2272"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 15369,
+    "crc32": 636525673,
+    "sha256": "c7084f2346245d66eaf44885c9343d89c40db325a832871b4030e738a1c32498"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 14779,
+    "crc32": 435259204,
+    "sha256": "caa6a511269f84bd816fca0d16a0e8f101ec1753c0f165b90a24b96b840cd958"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 18169,
+    "crc32": 4233819004,
+    "sha256": "0b8bd891d648067f05a7ae1357b72394a99a1b7249e6ac9bb06bd2914a18a37a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 15313,
+    "crc32": 3620800413,
+    "sha256": "d482ba74057492624cc803e6fb7885bc7da45d637bff936bf821022307f6b279"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 14755,
+    "crc32": 4267858865,
+    "sha256": "1adaaf5fc3bc4cc04ebad6349143a4ae14de078cfdfff4fa293fa176465f9e26"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 14708,
+    "crc32": 1259814578,
+    "sha256": "aebf18e743b163bec8e38782699a7ad8bd85f67dfa0c01261b870390eb49b599"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 15156,
+    "crc32": 944014809,
+    "sha256": "659c8f7a9680c63ab94293f3afce56ba67778964fe9ce9707c60c8e9b02a6ab3"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 15660,
+    "crc32": 399147536,
+    "sha256": "0bf963a6e02dfb08d9c8e89d2714a6d7fec546d8cb7f7e5dfcf117d3dac1889c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 14818,
+    "crc32": 2507114857,
+    "sha256": "f49b8a6c35fba80376ef145b5baec7faf9797b53aead9d8ec5ece12a34382b5b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 14751,
+    "crc32": 857965325,
+    "sha256": "8031b531efb074c86b4616a5a95e0b6ce50aed3a6383dbad107dfaffadb14027"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 15317,
+    "crc32": 1333009877,
+    "sha256": "6e630725f4f96cd5749aebcc14545b8d307ad0d9cf110b95a32cc7de8d82f81f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 14747,
+    "crc32": 4038120216,
+    "sha256": "d3dc9567bc885dfba6aeac54a8098a0335d7e581f07c3f9862a6e512d153559e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 14619,
+    "crc32": 613308640,
+    "sha256": "56f359d19a793dae711f38658e83128a5e2ba603eb9e2443b44d92b1a75e0d5f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 14203,
+    "crc32": 3198905156,
+    "sha256": "21d4cae63281017bbc7e3b0df9460095a6f46e498cfb731f527587cfa1afa50b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 14517,
+    "crc32": 4280277889,
+    "sha256": "48f78806c1a6a2e139dea79ff0ec6d87b1b6af0d956a3624321e13587be49c54"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 14083,
+    "crc32": 2820843036,
+    "sha256": "b016b5edbf79d0ac33fbecb07e8111da05bb204a11ed001d9982210430e67bb4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 18353,
+    "crc32": 3577496079,
+    "sha256": "4eba032d8fcd4842f83057fcb409ebe70ffc7146e0e16686cafb51fb077d0ad8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 14469,
+    "crc32": 1869361412,
+    "sha256": "fcfdbf4ee82a835dfa23f7c3a2a6092279901809bd64daf920a477536e3a7f2c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 14023,
+    "crc32": 1090960111,
+    "sha256": "3efd75c5cccdb03d196b746162a6b5b523727e200f6adfdfae19512d48da2a07"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 14160,
+    "crc32": 1910508961,
+    "sha256": "cf9bfc48dc1fc3128788fc6e06ee189941e80fdc44b08d1460201793288e8dd6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 14276,
+    "crc32": 857845724,
+    "sha256": "84e4c0a04775495f9ebffff398cf90d9702432f9d491b0fe106aaa5f97b15078"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 14848,
+    "crc32": 2599500985,
+    "sha256": "303151f163eefc511bcafbaf100d120fd265a5db3cbf5c9d116f1847085df57a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 14210,
+    "crc32": 1605856931,
+    "sha256": "86dc5f75059fe852ef27a763822ce61018d477d1f6ba581ef8dc71a7ef60e7c4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 14031,
+    "crc32": 2132781349,
+    "sha256": "dca8c6f583120a058bd6ab627815c02c24a3560040a31256add3d56484f051d1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 14465,
+    "crc32": 1394767269,
+    "sha256": "04778f0e3e40ea946dec076b16496b776d272d554d31d16493b12ede91470560"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 14039,
+    "crc32": 3741769608,
+    "sha256": "df9908d010f84f5108c2ccc7ddcc126c0631215d5a5032157797f12c99fb5e7a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 14107,
+    "crc32": 2159421862,
+    "sha256": "49a9e5707b29d85de3a775eabf71b4efd1ecee40937c5dc84a449e7c139955ac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 15094,
+    "crc32": 3218017223,
+    "sha256": "e19ca626508aa7bae4fdac593b74f8b32a3234e72064d2b783a66ad7ed433d8e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 16259,
+    "crc32": 2203667352,
+    "sha256": "609ea8f6d92e7316b06b588a31db6a11e852996fa2512a85e5d7cd40a829efac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 15594,
+    "crc32": 3954188318,
+    "sha256": "632487777264677e8d277740a817ed249b7500a4a50c40163b6120c599b86537"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 14768,
+    "crc32": 2110351594,
+    "sha256": "49a3f1ccd6c41d5115b679de13434dbd85c36fd712c57238bfcd8c191e7c82ab"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 41507,
+    "crc32": 3336776358,
+    "sha256": "eda709115eb69219605548ad49bd01be6302dd01c30af0b70f86ef209125ca0b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 47515,
+    "crc32": 4065412278,
+    "sha256": "eeb0563d2686c258843e540d5faad79b255e8f3436ee3c5fbb9c0ac84aa6f74a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 48952,
+    "crc32": 3514694455,
+    "sha256": "7eacd417996a80c2a3dbc00969c1ecb9b3ac68822621d00efbe55a1d4e790277"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 51273,
+    "crc32": 326836488,
+    "sha256": "986fa2f570dc3ff45ecf92231e7b2e80476a2b2e630181f0afef34877233293c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 58049,
+    "crc32": 2702941390,
+    "sha256": "6b43d1f7a12d390bb77cc9e0f4fd9707bfbd8a4a0e9007f658ede6dda27ea785"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.15\"\r\nRelease=\"\"\r\nID=6682d49bba362645934ea257eb526953\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand SysDef Utilities\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"lucamach\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"1\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=61\r\nFile 0=\"vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 60=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.16.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.16.vip",
+  "bytes": 807206,
+  "sha256": "3c6476a686d262e3dbd505490f328ef4f4bfa821c4eadc6f72a03984b3336d85",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6498,
+    "crc32": 3576775588,
+    "sha256": "6577becc801fc560ab3de82a7c30fccabb67ef619ed5f61355e9d9aa247d65fd"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1935872367,
+    "sha256": "6db12f62adea875c668fe3b081320cfb016cd8829b0f3c684b178c1804905aa8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib",
+    "bytes": 6908,
+    "crc32": 1252186028,
+    "sha256": "0202ab2cd8c200b572c94eccc443fcb536b25a5c2a5d443e2fa6f38c5bb9bbd7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 30632,
+    "crc32": 876415592,
+    "sha256": "1130387bf14fcc8f950a7456877fe0ab7ef195100b895a1eba1d25b2ef77fd85"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 26224,
+    "crc32": 3561387940,
+    "sha256": "b78f05d4a88b131e88e8ab8fea46777177f94b8a1d57ddc434b8b8b17407320a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 27608,
+    "crc32": 1236902084,
+    "sha256": "7dae9e130e91000142bb5b90991a2c2cdaaf617efda83439153eaefaadf41e72"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 29897,
+    "crc32": 3462490498,
+    "sha256": "a4966cee097a3302a371dcd853190f30e764db10670444788ff812f922969696"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 39864,
+    "crc32": 3228641585,
+    "sha256": "16993b804cbe5095e721cb4c495209f51f68449f16269debe50a43c8121905cb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 23367,
+    "crc32": 1446737237,
+    "sha256": "97a1a9b7b3b02b84dd6ca5671998d6eda7b433e1df4eda52aadbcaaa288381f5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 29018,
+    "crc32": 921969924,
+    "sha256": "07ed96c6bde22a8bfd44f31d065c4b80033ce85a96c9dd938f8773dcf6658823"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 23287,
+    "crc32": 2129102925,
+    "sha256": "ec2c8d51b1e78db2d33836e7d29a5d6eb271649ff6b876f5d350bc259dbbf60a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 15785,
+    "crc32": 632027505,
+    "sha256": "8c3ab5de4a2edecf67831a8c47f536bb2df1dac5973fc10cda05103d776f5c0f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi",
+    "bytes": 38689,
+    "crc32": 133918527,
+    "sha256": "42175d036ac747f46aecf9a20b6a61ff878959f9522cbb11aef5dbf4f592137a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi",
+    "bytes": 46753,
+    "crc32": 4043491663,
+    "sha256": "dd32a425767e1fd24883e91376c06a9c2c5f4f9140abf8e5a219a1c8655a6468"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 5066,
+    "crc32": 543963610,
+    "sha256": "19fcebeeea98a6a9ce439054f5d0c24adbcebf69aa2ceaa5d6a42628d585e956"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 6031,
+    "crc32": 1266712613,
+    "sha256": "6a30778f75d1858dacaf9054e7fbcb033e0c719d512bf56c4f319debe6648d2e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 12574,
+    "crc32": 3730205497,
+    "sha256": "26597ad2b7c8f791b06b143a69d8ceace3adbeeb57d5191f6c4afe4f50d13699"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 11585,
+    "crc32": 1729203077,
+    "sha256": "961ca1c7a3779b4b87bad026753986d4ac62efdf5307f89f82aece83d0fb7b53"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 9222,
+    "crc32": 4089039494,
+    "sha256": "97a7297e576022268d8fa59650776915ffcad50e78f45b8db2a08e2bf11ebe95"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 5606,
+    "crc32": 744602062,
+    "sha256": "e7c3cdf7243f720d903b88e1042317446ffcd425bfd167350a216a92b03cfb74"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 4206,
+    "crc32": 2855446108,
+    "sha256": "b52d1deb6e64071dc716e630fba54d556b464842917aa50944df98f9613467ba"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 38483,
+    "crc32": 422475727,
+    "sha256": "79361770d653b223f3bc850436712ea47f4ab6d86ee52559d6042b37c634ecf7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 30820,
+    "crc32": 1557762094,
+    "sha256": "628795c81a7e62d4381a51c5c626b5a690278ea0709696f14c813927882939ea"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 14879,
+    "crc32": 2564559149,
+    "sha256": "8a62554c475876cc23924e08c77c2f104c744edc3024a729fba57b0efc2a2272"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 15369,
+    "crc32": 636525673,
+    "sha256": "c7084f2346245d66eaf44885c9343d89c40db325a832871b4030e738a1c32498"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 14779,
+    "crc32": 435259204,
+    "sha256": "caa6a511269f84bd816fca0d16a0e8f101ec1753c0f165b90a24b96b840cd958"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 18169,
+    "crc32": 4233819004,
+    "sha256": "0b8bd891d648067f05a7ae1357b72394a99a1b7249e6ac9bb06bd2914a18a37a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 15313,
+    "crc32": 3620800413,
+    "sha256": "d482ba74057492624cc803e6fb7885bc7da45d637bff936bf821022307f6b279"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 14755,
+    "crc32": 4267858865,
+    "sha256": "1adaaf5fc3bc4cc04ebad6349143a4ae14de078cfdfff4fa293fa176465f9e26"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 14708,
+    "crc32": 1259814578,
+    "sha256": "aebf18e743b163bec8e38782699a7ad8bd85f67dfa0c01261b870390eb49b599"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 15156,
+    "crc32": 944014809,
+    "sha256": "659c8f7a9680c63ab94293f3afce56ba67778964fe9ce9707c60c8e9b02a6ab3"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 15660,
+    "crc32": 399147536,
+    "sha256": "0bf963a6e02dfb08d9c8e89d2714a6d7fec546d8cb7f7e5dfcf117d3dac1889c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 14818,
+    "crc32": 2507114857,
+    "sha256": "f49b8a6c35fba80376ef145b5baec7faf9797b53aead9d8ec5ece12a34382b5b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 14751,
+    "crc32": 857965325,
+    "sha256": "8031b531efb074c86b4616a5a95e0b6ce50aed3a6383dbad107dfaffadb14027"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 15317,
+    "crc32": 1333009877,
+    "sha256": "6e630725f4f96cd5749aebcc14545b8d307ad0d9cf110b95a32cc7de8d82f81f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 14747,
+    "crc32": 4038120216,
+    "sha256": "d3dc9567bc885dfba6aeac54a8098a0335d7e581f07c3f9862a6e512d153559e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 14619,
+    "crc32": 613308640,
+    "sha256": "56f359d19a793dae711f38658e83128a5e2ba603eb9e2443b44d92b1a75e0d5f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 14203,
+    "crc32": 3198905156,
+    "sha256": "21d4cae63281017bbc7e3b0df9460095a6f46e498cfb731f527587cfa1afa50b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 14517,
+    "crc32": 4280277889,
+    "sha256": "48f78806c1a6a2e139dea79ff0ec6d87b1b6af0d956a3624321e13587be49c54"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 14083,
+    "crc32": 2820843036,
+    "sha256": "b016b5edbf79d0ac33fbecb07e8111da05bb204a11ed001d9982210430e67bb4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 18353,
+    "crc32": 3577496079,
+    "sha256": "4eba032d8fcd4842f83057fcb409ebe70ffc7146e0e16686cafb51fb077d0ad8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 14469,
+    "crc32": 1869361412,
+    "sha256": "fcfdbf4ee82a835dfa23f7c3a2a6092279901809bd64daf920a477536e3a7f2c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 14023,
+    "crc32": 1090960111,
+    "sha256": "3efd75c5cccdb03d196b746162a6b5b523727e200f6adfdfae19512d48da2a07"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 14160,
+    "crc32": 1910508961,
+    "sha256": "cf9bfc48dc1fc3128788fc6e06ee189941e80fdc44b08d1460201793288e8dd6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 14276,
+    "crc32": 857845724,
+    "sha256": "84e4c0a04775495f9ebffff398cf90d9702432f9d491b0fe106aaa5f97b15078"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 14848,
+    "crc32": 2599500985,
+    "sha256": "303151f163eefc511bcafbaf100d120fd265a5db3cbf5c9d116f1847085df57a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 14210,
+    "crc32": 1605856931,
+    "sha256": "86dc5f75059fe852ef27a763822ce61018d477d1f6ba581ef8dc71a7ef60e7c4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 14031,
+    "crc32": 2132781349,
+    "sha256": "dca8c6f583120a058bd6ab627815c02c24a3560040a31256add3d56484f051d1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 14465,
+    "crc32": 1394767269,
+    "sha256": "04778f0e3e40ea946dec076b16496b776d272d554d31d16493b12ede91470560"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 14039,
+    "crc32": 3741769608,
+    "sha256": "df9908d010f84f5108c2ccc7ddcc126c0631215d5a5032157797f12c99fb5e7a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 14107,
+    "crc32": 2159421862,
+    "sha256": "49a9e5707b29d85de3a775eabf71b4efd1ecee40937c5dc84a449e7c139955ac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 15094,
+    "crc32": 3218017223,
+    "sha256": "e19ca626508aa7bae4fdac593b74f8b32a3234e72064d2b783a66ad7ed433d8e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 16259,
+    "crc32": 2203667352,
+    "sha256": "609ea8f6d92e7316b06b588a31db6a11e852996fa2512a85e5d7cd40a829efac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 15594,
+    "crc32": 3954188318,
+    "sha256": "632487777264677e8d277740a817ed249b7500a4a50c40163b6120c599b86537"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 14768,
+    "crc32": 2110351594,
+    "sha256": "49a3f1ccd6c41d5115b679de13434dbd85c36fd712c57238bfcd8c191e7c82ab"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 41531,
+    "crc32": 191492377,
+    "sha256": "f38b87d96333b5eb624397fd23bd1c4ca15c5a28af7947ada1828376a30536a7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 70939,
+    "crc32": 1360778025,
+    "sha256": "a96bd1e0a9f6eb50b71ecb118c863be677315784da5ced69bf8951b63e6247c5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 48980,
+    "crc32": 1696839700,
+    "sha256": "d783b3922618643e52fe72977fdae6b969a4e71a77a4103bf947df5573b6e1d6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 51273,
+    "crc32": 326836488,
+    "sha256": "986fa2f570dc3ff45ecf92231e7b2e80476a2b2e630181f0afef34877233293c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 58049,
+    "crc32": 2702941390,
+    "sha256": "6b43d1f7a12d390bb77cc9e0f4fd9707bfbd8a4a0e9007f658ede6dda27ea785"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.16\"\r\nRelease=\"\"\r\nID=d51dd1105e77b438b9daf99df2a02002\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Import/Export Custom Device Configuration Utility\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"SE\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"1\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=61\r\nFile 0=\"vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 60=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.17.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.17.vip",
+  "bytes": 808309,
+  "sha256": "6d59fed38fa15522fd968002532c8350c15fb3e27ce5256bda8f07d69b887fea",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6498,
+    "crc32": 3516065482,
+    "sha256": "1a7a9ec6c48d8bb32e603169499f3b4a55047994df87414c240c894ea0490a77"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 1935872367,
+    "sha256": "6db12f62adea875c668fe3b081320cfb016cd8829b0f3c684b178c1804905aa8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib",
+    "bytes": 6908,
+    "crc32": 1252186028,
+    "sha256": "0202ab2cd8c200b572c94eccc443fcb536b25a5c2a5d443e2fa6f38c5bb9bbd7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 30632,
+    "crc32": 876415592,
+    "sha256": "1130387bf14fcc8f950a7456877fe0ab7ef195100b895a1eba1d25b2ef77fd85"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 26224,
+    "crc32": 3561387940,
+    "sha256": "b78f05d4a88b131e88e8ab8fea46777177f94b8a1d57ddc434b8b8b17407320a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 27608,
+    "crc32": 1236902084,
+    "sha256": "7dae9e130e91000142bb5b90991a2c2cdaaf617efda83439153eaefaadf41e72"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 29897,
+    "crc32": 3462490498,
+    "sha256": "a4966cee097a3302a371dcd853190f30e764db10670444788ff812f922969696"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 39864,
+    "crc32": 3228641585,
+    "sha256": "16993b804cbe5095e721cb4c495209f51f68449f16269debe50a43c8121905cb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 23367,
+    "crc32": 1446737237,
+    "sha256": "97a1a9b7b3b02b84dd6ca5671998d6eda7b433e1df4eda52aadbcaaa288381f5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 29018,
+    "crc32": 921969924,
+    "sha256": "07ed96c6bde22a8bfd44f31d065c4b80033ce85a96c9dd938f8773dcf6658823"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 23287,
+    "crc32": 2129102925,
+    "sha256": "ec2c8d51b1e78db2d33836e7d29a5d6eb271649ff6b876f5d350bc259dbbf60a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 15785,
+    "crc32": 632027505,
+    "sha256": "8c3ab5de4a2edecf67831a8c47f536bb2df1dac5973fc10cda05103d776f5c0f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi",
+    "bytes": 39349,
+    "crc32": 1446129077,
+    "sha256": "663dfaf3eb2a368b949a81c2dcc1df4334c51d39aea3dcb42c2252f5a52c8664"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi",
+    "bytes": 47113,
+    "crc32": 1993514028,
+    "sha256": "dd99be6ac868bc380c0a9d061bb0f0b16adddbcacf2959772a692c4467ffc382"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 5066,
+    "crc32": 543963610,
+    "sha256": "19fcebeeea98a6a9ce439054f5d0c24adbcebf69aa2ceaa5d6a42628d585e956"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 6031,
+    "crc32": 1266712613,
+    "sha256": "6a30778f75d1858dacaf9054e7fbcb033e0c719d512bf56c4f319debe6648d2e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 12574,
+    "crc32": 3730205497,
+    "sha256": "26597ad2b7c8f791b06b143a69d8ceace3adbeeb57d5191f6c4afe4f50d13699"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 11585,
+    "crc32": 1729203077,
+    "sha256": "961ca1c7a3779b4b87bad026753986d4ac62efdf5307f89f82aece83d0fb7b53"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 9222,
+    "crc32": 4089039494,
+    "sha256": "97a7297e576022268d8fa59650776915ffcad50e78f45b8db2a08e2bf11ebe95"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 5606,
+    "crc32": 744602062,
+    "sha256": "e7c3cdf7243f720d903b88e1042317446ffcd425bfd167350a216a92b03cfb74"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 4206,
+    "crc32": 2855446108,
+    "sha256": "b52d1deb6e64071dc716e630fba54d556b464842917aa50944df98f9613467ba"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 38591,
+    "crc32": 86420064,
+    "sha256": "8a1aee126ea816ec607ecb7e855d1e8e99c0910d362f4d303c6e2009b006566a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 30820,
+    "crc32": 1557762094,
+    "sha256": "628795c81a7e62d4381a51c5c626b5a690278ea0709696f14c813927882939ea"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 14879,
+    "crc32": 2564559149,
+    "sha256": "8a62554c475876cc23924e08c77c2f104c744edc3024a729fba57b0efc2a2272"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 15369,
+    "crc32": 636525673,
+    "sha256": "c7084f2346245d66eaf44885c9343d89c40db325a832871b4030e738a1c32498"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 14779,
+    "crc32": 435259204,
+    "sha256": "caa6a511269f84bd816fca0d16a0e8f101ec1753c0f165b90a24b96b840cd958"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 18169,
+    "crc32": 4233819004,
+    "sha256": "0b8bd891d648067f05a7ae1357b72394a99a1b7249e6ac9bb06bd2914a18a37a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 15313,
+    "crc32": 3620800413,
+    "sha256": "d482ba74057492624cc803e6fb7885bc7da45d637bff936bf821022307f6b279"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 14755,
+    "crc32": 4267858865,
+    "sha256": "1adaaf5fc3bc4cc04ebad6349143a4ae14de078cfdfff4fa293fa176465f9e26"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 14708,
+    "crc32": 1259814578,
+    "sha256": "aebf18e743b163bec8e38782699a7ad8bd85f67dfa0c01261b870390eb49b599"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 15156,
+    "crc32": 944014809,
+    "sha256": "659c8f7a9680c63ab94293f3afce56ba67778964fe9ce9707c60c8e9b02a6ab3"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 15660,
+    "crc32": 399147536,
+    "sha256": "0bf963a6e02dfb08d9c8e89d2714a6d7fec546d8cb7f7e5dfcf117d3dac1889c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 14818,
+    "crc32": 2507114857,
+    "sha256": "f49b8a6c35fba80376ef145b5baec7faf9797b53aead9d8ec5ece12a34382b5b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 14751,
+    "crc32": 857965325,
+    "sha256": "8031b531efb074c86b4616a5a95e0b6ce50aed3a6383dbad107dfaffadb14027"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 15317,
+    "crc32": 1333009877,
+    "sha256": "6e630725f4f96cd5749aebcc14545b8d307ad0d9cf110b95a32cc7de8d82f81f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 14747,
+    "crc32": 4038120216,
+    "sha256": "d3dc9567bc885dfba6aeac54a8098a0335d7e581f07c3f9862a6e512d153559e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 14619,
+    "crc32": 613308640,
+    "sha256": "56f359d19a793dae711f38658e83128a5e2ba603eb9e2443b44d92b1a75e0d5f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 14203,
+    "crc32": 3198905156,
+    "sha256": "21d4cae63281017bbc7e3b0df9460095a6f46e498cfb731f527587cfa1afa50b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 14517,
+    "crc32": 4280277889,
+    "sha256": "48f78806c1a6a2e139dea79ff0ec6d87b1b6af0d956a3624321e13587be49c54"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 14083,
+    "crc32": 2820843036,
+    "sha256": "b016b5edbf79d0ac33fbecb07e8111da05bb204a11ed001d9982210430e67bb4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 18353,
+    "crc32": 3577496079,
+    "sha256": "4eba032d8fcd4842f83057fcb409ebe70ffc7146e0e16686cafb51fb077d0ad8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 14469,
+    "crc32": 1869361412,
+    "sha256": "fcfdbf4ee82a835dfa23f7c3a2a6092279901809bd64daf920a477536e3a7f2c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 14023,
+    "crc32": 1090960111,
+    "sha256": "3efd75c5cccdb03d196b746162a6b5b523727e200f6adfdfae19512d48da2a07"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 14160,
+    "crc32": 1910508961,
+    "sha256": "cf9bfc48dc1fc3128788fc6e06ee189941e80fdc44b08d1460201793288e8dd6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 14276,
+    "crc32": 857845724,
+    "sha256": "84e4c0a04775495f9ebffff398cf90d9702432f9d491b0fe106aaa5f97b15078"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 14848,
+    "crc32": 2599500985,
+    "sha256": "303151f163eefc511bcafbaf100d120fd265a5db3cbf5c9d116f1847085df57a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 14210,
+    "crc32": 1605856931,
+    "sha256": "86dc5f75059fe852ef27a763822ce61018d477d1f6ba581ef8dc71a7ef60e7c4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 14031,
+    "crc32": 2132781349,
+    "sha256": "dca8c6f583120a058bd6ab627815c02c24a3560040a31256add3d56484f051d1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 14465,
+    "crc32": 1394767269,
+    "sha256": "04778f0e3e40ea946dec076b16496b776d272d554d31d16493b12ede91470560"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 14039,
+    "crc32": 3741769608,
+    "sha256": "df9908d010f84f5108c2ccc7ddcc126c0631215d5a5032157797f12c99fb5e7a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 14107,
+    "crc32": 2159421862,
+    "sha256": "49a9e5707b29d85de3a775eabf71b4efd1ecee40937c5dc84a449e7c139955ac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 15094,
+    "crc32": 3218017223,
+    "sha256": "e19ca626508aa7bae4fdac593b74f8b32a3234e72064d2b783a66ad7ed433d8e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 16259,
+    "crc32": 2203667352,
+    "sha256": "609ea8f6d92e7316b06b588a31db6a11e852996fa2512a85e5d7cd40a829efac"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 15594,
+    "crc32": 3954188318,
+    "sha256": "632487777264677e8d277740a817ed249b7500a4a50c40163b6120c599b86537"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 14768,
+    "crc32": 2110351594,
+    "sha256": "49a3f1ccd6c41d5115b679de13434dbd85c36fd712c57238bfcd8c191e7c82ab"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 41667,
+    "crc32": 1661926218,
+    "sha256": "74873ef0221bcae0b64cd2baf437a1a69cb868c84ea5d8f05306b8ed4d12b559"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 71159,
+    "crc32": 2572855669,
+    "sha256": "05d8700846b760f23fe20dadda1e92635fba7fd4a1b78105095b8debe6fb4c5e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 48952,
+    "crc32": 3514694455,
+    "sha256": "7eacd417996a80c2a3dbc00969c1ecb9b3ac68822621d00efbe55a1d4e790277"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 51273,
+    "crc32": 326836488,
+    "sha256": "986fa2f570dc3ff45ecf92231e7b2e80476a2b2e630181f0afef34877233293c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 58049,
+    "crc32": 2702941390,
+    "sha256": "6b43d1f7a12d390bb77cc9e0f4fd9707bfbd8a4a0e9007f658ede6dda27ea785"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.17\"\r\nRelease=\"\"\r\nID=9f2754dd45913389ace624d6a35c93b7\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Import/Export Custom Device Configuration Utility\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"SE\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"1\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=61\r\nFile 0=\"vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 60=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.18.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.18.vip",
+  "bytes": 887904,
+  "sha256": "cd6c4aee8bb19584cfd499ab2a4e338293630808b4c16298ceb45bd7c3f12ca8",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6749,
+    "crc32": 2025871977,
+    "sha256": "06164aae8bb8985253f3f994d57e7089ad581b33feb8e92070553e8e5e49d4ae"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 3869401104,
+    "sha256": "c9185dc8f31fbaf5982819f47f61efc5f680de52a16618adde47fce8e6ed88bd"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib",
+    "bytes": 21516,
+    "crc32": 1222427320,
+    "sha256": "ad96c381fbf17a3f4db94c967e6c9212d6759a99db663eb827801398996aa1fc"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 34480,
+    "crc32": 3590427580,
+    "sha256": "1b66d3aa65ae23b6ac1ac47c521bcb58716a1cde008e385efea71482d18e4021"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 30072,
+    "crc32": 1182937988,
+    "sha256": "1be2bb08b7d416999b5c1c1e1b76d1ae8c38c3db48e9b27489a42af67ff2403a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 31456,
+    "crc32": 2700144298,
+    "sha256": "5c2ee3cb1092f5be8e65397f9fb187771d00d1b2cd3d54adfca6793a561e16fe"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 33745,
+    "crc32": 1350226175,
+    "sha256": "972f34fc46a4f08524ed7e958e820757fe46464dac483925ccc37c0a0e3a4596"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 43712,
+    "crc32": 1107700691,
+    "sha256": "9ea9009646564cdc0cc73a1823c41e411e5614e30115f52df0cbe565b5aa60de"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 27215,
+    "crc32": 4144863550,
+    "sha256": "8ad252402209ec66fa71f1789b7270ac8d8ad781a88c467c25dd4b4619d6a2a4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 32866,
+    "crc32": 894351554,
+    "sha256": "048d54c58555b22266d8103c81f70a77e775139475c7fb090e50a7908cd9f883"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 27135,
+    "crc32": 3179860555,
+    "sha256": "81a5bd32fc300f21be9a9143f8bf4e2ccddb1c9ec2f8848c8a823769c67ce63d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 19633,
+    "crc32": 1809423633,
+    "sha256": "e93c04cc6529d91353012a1795ee3777d7c24f337443f9c6cfd9bd98ecee036e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi",
+    "bytes": 43197,
+    "crc32": 892002248,
+    "sha256": "e97c7cd2fcd1567f44fb77c06c6b7a38d647fd5a7f59750a0d5233435547af10"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi",
+    "bytes": 50961,
+    "crc32": 1746091090,
+    "sha256": "fcf972fd98b21f9010ae3a217b1321cf4c1b0d5da652d4077c31ca8d814a83b3"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 12426,
+    "crc32": 900664341,
+    "sha256": "b0b317ba5b99e837058e15507254b758b8975486f375701ddd6cb3377d0278ae"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 13391,
+    "crc32": 3624216244,
+    "sha256": "37a0fb3fed8cda62f9ec99d9929e57da041288eece86cb1473878d3001df5233"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 19934,
+    "crc32": 1718679634,
+    "sha256": "e3c1f0f7127fe077e45c1c08572badaf937045584205f0a7fa60eaf391cad70f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 18945,
+    "crc32": 2270203956,
+    "sha256": "b185e68557bd6cb4af7a6c30309eedbcbdce6bdbeaff88a7acd9ab5818c75f7f"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 16582,
+    "crc32": 958372239,
+    "sha256": "52a79382ab5c12e8abe0d9ff385d25f762ce89cfb502d17ecf489027ab893737"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 12966,
+    "crc32": 1807858374,
+    "sha256": "3f4d6dafec536e638f11108ec62583b8c54e43ed51f31cf39b2fcc7b3a8a9e01"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 11566,
+    "crc32": 2676010850,
+    "sha256": "df3c9f1aff4d338239aafb54c39dae0c93659f6568a2800a71bcfc3207860464"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 42439,
+    "crc32": 1647758450,
+    "sha256": "fb8e7e18ac86dc3e38f407e76db3f7ab7e0bbe5d6a532b756803261a683b5790"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 36820,
+    "crc32": 726052351,
+    "sha256": "a616bc01edfe0b07ed4763c9f8b27978d0a0a0a6e27765e6a7dca696e07d0899"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 22239,
+    "crc32": 2632807512,
+    "sha256": "50783c42da65f104acdc54977696bdaad8d048bb55e3fd877c1752f8c8e317b8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 22729,
+    "crc32": 402950984,
+    "sha256": "b97c2ce75a8fc6565cd7499c8898b89720a3e316198920736f04eb97726cf1dd"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 22139,
+    "crc32": 356156223,
+    "sha256": "7685dec1e159c80ffcf361857e7d9f5efb1c424926f2be1e4fc36721cb89be56"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 25529,
+    "crc32": 3791599814,
+    "sha256": "3d6328cec235586a50e27002d9d69b5a961deb8b34a2de81862c92f955d4af01"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 22673,
+    "crc32": 1272716556,
+    "sha256": "a4a6b550aeecfba8b5a689ab7cb037706d84a1bfb4c2b231a9f41a44e27ccb61"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 22115,
+    "crc32": 183745554,
+    "sha256": "b0bc85c44222b69946ddd9c80d86de8ed79ada5a6e35d34f5be88664ff01bfad"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 22064,
+    "crc32": 488749949,
+    "sha256": "ee8dc0b12a11fa84020d14759cf713165fa2df63b7b64af85e675447e364aec4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 22516,
+    "crc32": 3903043055,
+    "sha256": "77f880556d72f64f7c7eba45705134b4485320fb3398e4e20a13e539776ff4dc"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 23020,
+    "crc32": 2278251128,
+    "sha256": "5af7a79d578cbbd05012a540d3277920f87c168721fdf1ae8141afcd6e2177bb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 22178,
+    "crc32": 3313476155,
+    "sha256": "253e2d925fc6f9ee51b2e52e1d22d1aa677945518b5c7dc57a23c78d9253fe6c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 22111,
+    "crc32": 1843955642,
+    "sha256": "219ae081272bd3ace4b120d312af595f2aef64da367d8c71c213ee6b312d5715"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 22673,
+    "crc32": 2330214066,
+    "sha256": "dc5a8c16dcb0746794e9dabab948531de53f1d1866ca135dfcf45fca8eda4989"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 22107,
+    "crc32": 3918158199,
+    "sha256": "15630ed4a8d10eaf5abc99ff32f64dd49380df8037a76d117efd5d45f2fb39c7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 21979,
+    "crc32": 1367628108,
+    "sha256": "2bae69d6308257fcd6173547a1b9499c1ed699e0a2f7e9ed3ec5abd4eb6703bf"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 21563,
+    "crc32": 3937095142,
+    "sha256": "50fe553fcdab084727a5ad5f47846f40f8e49aaed8194298c6c91c7d82a7cc27"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 21877,
+    "crc32": 569985380,
+    "sha256": "8438902fcc24e0e9ea4f53eda019e16cf61b41b7fdb741cb869e463be5eb3caf"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 21443,
+    "crc32": 989291882,
+    "sha256": "4b0488289a38b69d0077408f84e08de4162606147c148620b8f63deda5b79313"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 25713,
+    "crc32": 456425770,
+    "sha256": "65694059619a09316022370b1fbeb24f7aa00082be14350aba7d6db0ada7d8ce"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 21829,
+    "crc32": 1333385011,
+    "sha256": "290c541713f9fcae0273746c33f9394d329b177747fb306fcbd018146810ae11"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 21383,
+    "crc32": 1671523436,
+    "sha256": "33e9cb9fb7f1fbfd7e2cf96e5ee13b26da3cd43860e06de8fc6bd3d55c5db3fd"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 21520,
+    "crc32": 2094993402,
+    "sha256": "0d6b972d451afe8d5e46083134101a5a07b4fea277c74ff26accb22c99f09a17"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 21636,
+    "crc32": 281233692,
+    "sha256": "b1fbeeca2016e170f53623e3fc3b22727e7b9917a44ba49a435ed1d3426108b6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 22208,
+    "crc32": 433774062,
+    "sha256": "674b2be2498b1a90f01cb6b1de6593d01ce542f86b404b243ff66dcc5d956990"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 21570,
+    "crc32": 1236863811,
+    "sha256": "9ee2c9155ba0a2aeeed1aa36882c9ca80b5586853978d958b7961f3e2cb5ddc3"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 21391,
+    "crc32": 2815020152,
+    "sha256": "5f0b43b4477e2b82bdb8510d25e9127b2813e2e444271fe2a3b5536bfe75d472"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 21825,
+    "crc32": 919753655,
+    "sha256": "90cc2e6959faae05a4f9c8bb001c356480500757542b5f9a0e131eb1a5a09977"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 21399,
+    "crc32": 3063568763,
+    "sha256": "f1e59561353a4b7a38b62a286a9ca3b6a181e6880921f211419c42231a118132"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 21463,
+    "crc32": 2449836093,
+    "sha256": "131799c8d5cbedcc70ccf5e6d1924a7885b78d413ab5bfc190579f71f75a445d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 22454,
+    "crc32": 3740258944,
+    "sha256": "7d2587dc01b102ff5886d953e21cf492c9bd7aa1735b8db821fa3d08e7baca88"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 23619,
+    "crc32": 932166578,
+    "sha256": "e3501980feb8d92c2b0e5a2c6505ddb4c3d165eef1ea70d1cf21e39a7afd1fa8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 22954,
+    "crc32": 3804364182,
+    "sha256": "8f8e227292e34ac34e9933cedb5ec115599cc5ef4055b23a57c81ad1adef8c9d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 22128,
+    "crc32": 470850524,
+    "sha256": "768ebe309ad2a3bbb6c173113c0814df488f307bc606ebb6ed8a848385345717"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 45515,
+    "crc32": 1166807103,
+    "sha256": "979f27e1ad2ea8ce7e92a8c5b6c7b506ab0b08b0f58a379ca80fc5143c3b1739"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 75007,
+    "crc32": 2689237006,
+    "sha256": "35e29f8801b5bda3455eb9f1016d5800d4894919256f7e4f132bd0263dcb8ba7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 52800,
+    "crc32": 3287880631,
+    "sha256": "217f251f7a6a4648503540ae74d0f6d3077fe9d9d2e74b95e1a6ea1b2121a40a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 55121,
+    "crc32": 1533341737,
+    "sha256": "a932531a6566428359e503d29a8595567d8a80b361aa5b53f37ec8007f4e1ad7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 61897,
+    "crc32": 828350226,
+    "sha256": "8277b5d89b9aed254be1866de13ba4b0367b1634bc08d57f63c9548c9fd19a7e"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_1.mnu",
+    "bytes": 2547,
+    "crc32": 1294799778,
+    "sha256": "f5d39bfd214f629a8b7f1af1be692de86e69691b44cd149212ea43c1082b9fb8"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_2.mnu",
+    "bytes": 2986,
+    "crc32": 1253534948,
+    "sha256": "2e862f3d3ac0bf6a14db2d572b27230280fe46e27a2266d522f26595b6620e23"
+   },
+   {
+    "path": "File Group 1/functions_NI_lib_NIVS_SysDef_Utilities.mnu",
+    "bytes": 3158,
+    "crc32": 1840940284,
+    "sha256": "e31ba9c4be5d3594429a8674531d758866c4a9cb2f2f261d2feaaa3c9d453971"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.18\"\r\nRelease=\"\"\r\nID=89698d31156f46df788f388dd57012fc\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Import/Export Custom Device Configuration Utility\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"SE\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"2\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=61\r\nFile 0=\"vi.lib/NI/NIVS System Definition Utilities/System Definition Utilities.lvlib\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleLoad.vi\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/SysDef.SimpleSave.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 60=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=3\r\nFile 0=\"_functions_ni_lib_nivs_sysdef_utilities_1.mnu\"\r\nFile 1=\"_functions_ni_lib_nivs_sysdef_utilities_2.mnu\"\r\nFile 2=\"functions_NI_lib_NIVS_SysDef_Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.19.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.19.vip",
+  "bytes": 889365,
+  "sha256": "fdf2766b07e1f28e79a7fdd466aa5c27bb8830b379321d88baf765ad1b83cb7f",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6819,
+    "crc32": 1709878527,
+    "sha256": "b735f6701ae6c80cbbcdc85d898b7d29a8e44f0613d852d66542e77a36d2806c"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 3869401104,
+    "sha256": "c9185dc8f31fbaf5982819f47f61efc5f680de52a16618adde47fce8e6ed88bd"
+   },
+   {
+    "path": "File Group 0/Import - Export Custom Device Configuration Utility.lvproj",
+    "bytes": 3215,
+    "crc32": 153423767,
+    "sha256": "2516cd09b18481eac1cdd3c80b1b3ceb05af77ded403111bb979dbda29f8bf21"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import - Export CD Config Utility.lvlib",
+    "bytes": 21504,
+    "crc32": 3975951671,
+    "sha256": "0626df815524ea9e43fd8d46c6b89bff65ac2e4a1578084e05714c1e294b0b39"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 34488,
+    "crc32": 2544464888,
+    "sha256": "4d4188e321d304230862fefdc84e87f8dee9d1e953a2347330b155d7809167d4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 30080,
+    "crc32": 1865851700,
+    "sha256": "71e18cf2b19fa2e627c911a8bcbbfc092da33980e3cf9aa9c9acca7c0b1d0617"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 31464,
+    "crc32": 2215129292,
+    "sha256": "a15b8547a3026724f08be6749ea90950f2b49e7949f12090cdb5a3e7ef27678e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 33753,
+    "crc32": 2825278396,
+    "sha256": "61468cea39d78414b38388178c24f408ce169b11cf15de2c51c508e429622853"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 43724,
+    "crc32": 82973241,
+    "sha256": "ca7d00f50e4dc376c3bb7358cb5e072006a9af30ce49c46d88d1490848928bed"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 27215,
+    "crc32": 2488060157,
+    "sha256": "33f43fc59852ee739331d9a2244818115ae08e66876aba69ff21654c1c4d4b63"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 32874,
+    "crc32": 307931411,
+    "sha256": "9460934743618faf2e191858679267df473e9852a0fefaa0cca2b97267af7bda"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 27135,
+    "crc32": 3624118643,
+    "sha256": "9ce763e82bc1430068e1d47a53aa2716407347c524df9f6d07303824d80d797b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 19625,
+    "crc32": 851134322,
+    "sha256": "9deedd3ec61064aa54a7dc50420eac14480fe7656d6128dd346a78485dd74c0a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/ExportCDConfig.vi",
+    "bytes": 51130,
+    "crc32": 4013703569,
+    "sha256": "2f646fb2ea6b3d2612346eb732374bdc96f80b8a14690ec20d682867ccf7d19c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/ImportCDConfig.vi",
+    "bytes": 43202,
+    "crc32": 3022704017,
+    "sha256": "d59d48074bf3b2a91881afca9305296dc0e59aba1136c31c53ab0231d7be6340"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 12438,
+    "crc32": 2067094482,
+    "sha256": "9b0c2f554cf0bf48ee22bd715c28acfd18bcf01c688b9e7fcc3098cdd7a89f96"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 13403,
+    "crc32": 4203943137,
+    "sha256": "2302f05a9f2010fac4285c764e00567fe1ed4a59a7eaf389ad9585d2863a7596"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 19946,
+    "crc32": 1880540918,
+    "sha256": "1ac73f6f2edf0a4ea0f4d75f94d6c28e7045be920ec35cf43a01a9c459bccbf8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 18957,
+    "crc32": 2124853796,
+    "sha256": "776a8a1f348e7f5d16e9058354fe96d54386380cd2785706da69c4f30e6fc775"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 16594,
+    "crc32": 4016873568,
+    "sha256": "319c6d143cf7a691dd662cba9b0236cc1341dc8081848e86f12df0ba30610188"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 12978,
+    "crc32": 267153985,
+    "sha256": "710cf69fca7ab2ce93e1bc8502fcc177f26c14abb9ac22e332a25ea3d953235a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 11574,
+    "crc32": 1453620445,
+    "sha256": "d1f1626b82a32d2617d563babd6fc7175fe694ac4bbbf80e2946ad33aea8dc89"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 42435,
+    "crc32": 1815080423,
+    "sha256": "665d02735b0eb24405fb7123746aeb0235f44d8b2486447c88a02b7ea1c3221e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 46680,
+    "crc32": 3424786919,
+    "sha256": "c43413ce2958e8e5c0daac6f1f2fd2113986e9d31a362b90fbb494e16e49f27c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 22235,
+    "crc32": 3413175650,
+    "sha256": "94e1581773d88688b9ac29cb62ba691a823d74a8a8ffd509aecc8476758ea297"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 22725,
+    "crc32": 182309089,
+    "sha256": "8f79c39cf3d90c6ec31928746b5aa12be60fcb72df42bca597373df7335f0a7c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 22135,
+    "crc32": 2246889058,
+    "sha256": "99fa54f0c1ca418b9030479521d92faaee16bb60810eb2e57b9befd283c0b0e1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 25541,
+    "crc32": 1522268255,
+    "sha256": "dc6961d89f1215676f4e1e20d138fe6ea4c053f86579dd858d488a06394370fb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 22669,
+    "crc32": 248111902,
+    "sha256": "f7f2962b666035f6578975449daed587ffb779e66493043392b50afd49d36ec5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 22111,
+    "crc32": 224753910,
+    "sha256": "c50d8ea3d4038aaa7c537b3e470a8c22f9d477e67b5a4a433ee0ab0cc1a5a29d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 22064,
+    "crc32": 1759623556,
+    "sha256": "c4f6996dddf3ac9a023ae23a4f21c661c394f10aae37cc7382d1a34c11e2a939"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 22512,
+    "crc32": 338479291,
+    "sha256": "4ceae4c8e13db569c3717c49618709dd44ae73697ce79a4289a880abe8204972"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 23016,
+    "crc32": 3359616431,
+    "sha256": "a96ca009f4dcda4672a2fe2b6e524ac0fe47c01b958df571162e8603977a357a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 22174,
+    "crc32": 648847156,
+    "sha256": "529e3bb05aeaae38275f2e81062b02daebb088792eec3802e030f7133bd79c1d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 22107,
+    "crc32": 1403300295,
+    "sha256": "15241ac5518e6577f14d1ba61e4041b80737580e0efd984dc6dbefdb80ee2e2a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 22673,
+    "crc32": 2789538628,
+    "sha256": "a5f0cef2c0a3f406f141ad950d660dbd3f7a3a76e670ba01d5646893c03a1264"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 22103,
+    "crc32": 2749268001,
+    "sha256": "7cb0f071428e29819c7297ad95fae9b33aca058ed05efe630c85d39432446a93"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 21975,
+    "crc32": 2956681950,
+    "sha256": "b144ddb96a6e95366f8fc9ba3d12e7315bd371bb30a8034a25be038ec9613f69"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 21559,
+    "crc32": 703381362,
+    "sha256": "56affb4bdc744eaf1ae969b290942eebb63a1a743311e427cf63296a6e4d75c2"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 21873,
+    "crc32": 3599651294,
+    "sha256": "f8c6813f2408f724058248a0569de57b64ee3da4450bd4a485826d52db3983c7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 21439,
+    "crc32": 897081649,
+    "sha256": "863f085d86fd43394569ea31bd2a620491ee4637c39bc58f1ef37f2454d07ef6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 25725,
+    "crc32": 4146295735,
+    "sha256": "bb06814c3e6f820c2bf4d184fa608b7768a92db21839b4668b2c91bc66bdb94c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 21825,
+    "crc32": 513045279,
+    "sha256": "1ff9d26bdc156e4ec3ad103791b2d19d9727fa0d4d3092d35a7ad1388d5c7251"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 21379,
+    "crc32": 2057328517,
+    "sha256": "d947b23428bfd43ef4d24afebc1179a7239d1eaa13a7f4c0b22d5f59b6bee109"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 21516,
+    "crc32": 3654888383,
+    "sha256": "7fa0cef3c275dd899557a501bb61454e3b98709c9e66c5dbfa1b80b6160990b7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 21632,
+    "crc32": 107978112,
+    "sha256": "e916f56c9605b938e6786bbcbd337a2324cfc0761698ab20005f1c621f1d7016"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 22204,
+    "crc32": 4137015405,
+    "sha256": "dec4c826c0fa20ace021406a73dd320eabacb5f1d80343c75cdfb08446a34ccc"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 21566,
+    "crc32": 2107964328,
+    "sha256": "2cd765cdb515064e4660ee1d50439f5d8cf2cc9db4f00e8597464f92cac4a1bb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 21387,
+    "crc32": 2796675416,
+    "sha256": "1db27932ee8efa9377f2d0e36d5d8d8f4cb0ca26ce352807004c083d1dfcc134"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 21821,
+    "crc32": 892671686,
+    "sha256": "b0bec58bab23de3111ae97a2dd8fdc4077199bb88e1c43413ec365a818b596a6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 21395,
+    "crc32": 1695238934,
+    "sha256": "8995ca6bc6a44ec24ce16e58379d481ef63f734f125977f5de672749e6f9672a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 21463,
+    "crc32": 534472704,
+    "sha256": "92b6dd35d829c44e3f64568e7898a4f1dcaf9a8f4618ce0809985c70b9c79fe6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 22462,
+    "crc32": 1986630290,
+    "sha256": "9ec7756c2119f95a1537c2234e972d20a77e6a40233094d57a80fb06b2114c25"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 23627,
+    "crc32": 1292064024,
+    "sha256": "576646d2e9bfbe9d0312e17cc975c5b001066ccc6646f0614ae0d057b8bc6add"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 22962,
+    "crc32": 553213080,
+    "sha256": "cb3c96d71bf4bfef647465587c22a7a162bb697b45474fd618d15bf6b16c6538"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 22136,
+    "crc32": 1834517808,
+    "sha256": "2a4f5c64edbf11643025ef114bbdbe70278da4d9939a426bcd024c14e1af2eb1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 45535,
+    "crc32": 1170856847,
+    "sha256": "0c63e8a6c07322cc2710a3cbc06b269181c21d6b218d17571ea41353627dd479"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 75043,
+    "crc32": 435230461,
+    "sha256": "f9f6271da17baad4869f944f8348d4d78cf9c871e24820a124d1d754f5421739"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 52812,
+    "crc32": 2142636586,
+    "sha256": "ccae7acf66c5d89b5741fdab3f01c5487427c664f4eb2dfad229cd325d919c39"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 55121,
+    "crc32": 3155656086,
+    "sha256": "b023aee949194ff1af5ac1a78ff4fbc779bdada4a4fb83f3958c64def75f4f6c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 62037,
+    "crc32": 3847400516,
+    "sha256": "21aa4498a2a4e46711e216f108c7c0508f4310fd0512cccee38fd9400d701e0c"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_1.mnu",
+    "bytes": 2423,
+    "crc32": 821851667,
+    "sha256": "515cfe4f608a951ab6ac658191872e60c7ea3791083e98b80d95aacd0be01c28"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_2.mnu",
+    "bytes": 2986,
+    "crc32": 1253534948,
+    "sha256": "2e862f3d3ac0bf6a14db2d572b27230280fe46e27a2266d522f26595b6620e23"
+   },
+   {
+    "path": "File Group 1/functions_NI_lib_NIVS_SysDef_Utilities.mnu",
+    "bytes": 3158,
+    "crc32": 1401503835,
+    "sha256": "60ec1048c6f16006c4d5ae12089bc714ce2fff6e69d393a7e74c83b197731885"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.19\"\r\nRelease=\"\"\r\nID=f0af78620deaf7b3a2dd648751b049b2\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Import/Export Custom Device Configuration Utility\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"SE\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"2\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=62\r\nFile 0=\"Import - Export Custom Device Configuration Utility.lvproj\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/Import - Export CD Config Utility.lvlib\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/ExportCDConfig.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/ImportCDConfig.vi\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 60=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 61=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=3\r\nFile 0=\"_functions_ni_lib_nivs_sysdef_utilities_1.mnu\"\r\nFile 1=\"_functions_ni_lib_nivs_sysdef_utilities_2.mnu\"\r\nFile 2=\"functions_NI_lib_NIVS_SysDef_Utilities.mnu\"\r\n"
+  }
+ },
+ {
+  "path": "Source/Import-Export Utility/Import-Export Custom Device Configuration Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.20.vip",
+  "url": "https://raw.githubusercontent.com/NIVeriStandAdd-Ons/VeriStand-Development-Tools/bde0c6eda7681f84b12294e7ae78908e21ebe2b7/Source/Import-Export%20Utility/Import-Export%20Custom%20Device%20Configuration%20Utility/Built/ni_lib_nivs_sysdef_utilities-1.0.0.20.vip",
+  "bytes": 889434,
+  "sha256": "c73cdb10d8de8d3a65efeeec72953ca736ed939b72af4365d5235e5e6e4985af",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 6819,
+    "crc32": 2968590432,
+    "sha256": "3bb1d9c1aca28fcbade29c32c01c2f4f27bbbf6deabd7c46d61fd9336889d66f"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 3869401104,
+    "sha256": "c9185dc8f31fbaf5982819f47f61efc5f680de52a16618adde47fce8e6ed88bd"
+   },
+   {
+    "path": "File Group 0/Import - Export Custom Device Configuration Utility.lvproj",
+    "bytes": 3215,
+    "crc32": 153423767,
+    "sha256": "2516cd09b18481eac1cdd3c80b1b3ceb05af77ded403111bb979dbda29f8bf21"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import - Export CD Config Utility.lvlib",
+    "bytes": 21504,
+    "crc32": 3975951671,
+    "sha256": "0626df815524ea9e43fd8d46c6b89bff65ac2e4a1578084e05714c1e294b0b39"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu",
+    "bytes": 2101,
+    "crc32": 133999148,
+    "sha256": "328e8b9df58c5251edafb5cfe3a4fdb6de5b8a3c0f852c8bd9ad443a6f8ada24"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi",
+    "bytes": 34488,
+    "crc32": 2544464888,
+    "sha256": "4d4188e321d304230862fefdc84e87f8dee9d1e953a2347330b155d7809167d4"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi",
+    "bytes": 30080,
+    "crc32": 1865851700,
+    "sha256": "71e18cf2b19fa2e627c911a8bcbbfc092da33980e3cf9aa9c9acca7c0b1d0617"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi",
+    "bytes": 31464,
+    "crc32": 2215129292,
+    "sha256": "a15b8547a3026724f08be6749ea90950f2b49e7949f12090cdb5a3e7ef27678e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi",
+    "bytes": 33753,
+    "crc32": 2825278396,
+    "sha256": "61468cea39d78414b38388178c24f408ce169b11cf15de2c51c508e429622853"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi",
+    "bytes": 43724,
+    "crc32": 82973241,
+    "sha256": "ca7d00f50e4dc376c3bb7358cb5e072006a9af30ce49c46d88d1490848928bed"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi",
+    "bytes": 27215,
+    "crc32": 2488060157,
+    "sha256": "33f43fc59852ee739331d9a2244818115ae08e66876aba69ff21654c1c4d4b63"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi",
+    "bytes": 32874,
+    "crc32": 307931411,
+    "sha256": "9460934743618faf2e191858679267df473e9852a0fefaa0cca2b97267af7bda"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi",
+    "bytes": 27135,
+    "crc32": 3624118643,
+    "sha256": "9ce763e82bc1430068e1d47a53aa2716407347c524df9f6d07303824d80d797b"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi",
+    "bytes": 19625,
+    "crc32": 851134322,
+    "sha256": "9deedd3ec61064aa54a7dc50420eac14480fe7656d6128dd346a78485dd74c0a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu",
+    "bytes": 1782,
+    "crc32": 2966898283,
+    "sha256": "274209243f03b5c3b4a73eff8f2eb84232cb87d2fb47e2ad879c4264a7caa902"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/ExportCDConfig.vi",
+    "bytes": 51130,
+    "crc32": 4013703569,
+    "sha256": "2f646fb2ea6b3d2612346eb732374bdc96f80b8a14690ec20d682867ccf7d19c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/Import Export/ImportCDConfig.vi",
+    "bytes": 43202,
+    "crc32": 3022704017,
+    "sha256": "d59d48074bf3b2a91881afca9305296dc0e59aba1136c31c53ab0231d7be6340"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl",
+    "bytes": 12438,
+    "crc32": 2067094482,
+    "sha256": "9b0c2f554cf0bf48ee22bd715c28acfd18bcf01c688b9e7fcc3098cdd7a89f96"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl",
+    "bytes": 13403,
+    "crc32": 4203943137,
+    "sha256": "2302f05a9f2010fac4285c764e00567fe1ed4a59a7eaf389ad9585d2863a7596"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl",
+    "bytes": 19946,
+    "crc32": 1880540918,
+    "sha256": "1ac73f6f2edf0a4ea0f4d75f94d6c28e7045be920ec35cf43a01a9c459bccbf8"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl",
+    "bytes": 18957,
+    "crc32": 2124853796,
+    "sha256": "776a8a1f348e7f5d16e9058354fe96d54386380cd2785706da69c4f30e6fc775"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl",
+    "bytes": 16594,
+    "crc32": 4016873568,
+    "sha256": "319c6d143cf7a691dd662cba9b0236cc1341dc8081848e86f12df0ba30610188"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl",
+    "bytes": 12978,
+    "crc32": 267153985,
+    "sha256": "710cf69fca7ab2ce93e1bc8502fcc177f26c14abb9ac22e332a25ea3d953235a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi",
+    "bytes": 11574,
+    "crc32": 1453620445,
+    "sha256": "d1f1626b82a32d2617d563babd6fc7175fe694ac4bbbf80e2946ad33aea8dc89"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi",
+    "bytes": 42435,
+    "crc32": 1815080423,
+    "sha256": "665d02735b0eb24405fb7123746aeb0235f44d8b2486447c88a02b7ea1c3221e"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi",
+    "bytes": 46680,
+    "crc32": 3424786919,
+    "sha256": "c43413ce2958e8e5c0daac6f1f2fd2113986e9d31a362b90fbb494e16e49f27c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi",
+    "bytes": 22235,
+    "crc32": 3413175650,
+    "sha256": "94e1581773d88688b9ac29cb62ba691a823d74a8a8ffd509aecc8476758ea297"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi",
+    "bytes": 22725,
+    "crc32": 182309089,
+    "sha256": "8f79c39cf3d90c6ec31928746b5aa12be60fcb72df42bca597373df7335f0a7c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi",
+    "bytes": 22135,
+    "crc32": 2246889058,
+    "sha256": "99fa54f0c1ca418b9030479521d92faaee16bb60810eb2e57b9befd283c0b0e1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi",
+    "bytes": 25541,
+    "crc32": 1522268255,
+    "sha256": "dc6961d89f1215676f4e1e20d138fe6ea4c053f86579dd858d488a06394370fb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi",
+    "bytes": 22669,
+    "crc32": 248111902,
+    "sha256": "f7f2962b666035f6578975449daed587ffb779e66493043392b50afd49d36ec5"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi",
+    "bytes": 22111,
+    "crc32": 224753910,
+    "sha256": "c50d8ea3d4038aaa7c537b3e470a8c22f9d477e67b5a4a433ee0ab0cc1a5a29d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi",
+    "bytes": 22064,
+    "crc32": 1759623556,
+    "sha256": "c4f6996dddf3ac9a023ae23a4f21c661c394f10aae37cc7382d1a34c11e2a939"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi",
+    "bytes": 22512,
+    "crc32": 338479291,
+    "sha256": "4ceae4c8e13db569c3717c49618709dd44ae73697ce79a4289a880abe8204972"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi",
+    "bytes": 23016,
+    "crc32": 3359616431,
+    "sha256": "a96ca009f4dcda4672a2fe2b6e524ac0fe47c01b958df571162e8603977a357a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi",
+    "bytes": 22174,
+    "crc32": 648847156,
+    "sha256": "529e3bb05aeaae38275f2e81062b02daebb088792eec3802e030f7133bd79c1d"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi",
+    "bytes": 22107,
+    "crc32": 1403300295,
+    "sha256": "15241ac5518e6577f14d1ba61e4041b80737580e0efd984dc6dbefdb80ee2e2a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi",
+    "bytes": 22673,
+    "crc32": 2789538628,
+    "sha256": "a5f0cef2c0a3f406f141ad950d660dbd3f7a3a76e670ba01d5646893c03a1264"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi",
+    "bytes": 22103,
+    "crc32": 2749268001,
+    "sha256": "7cb0f071428e29819c7297ad95fae9b33aca058ed05efe630c85d39432446a93"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi",
+    "bytes": 21975,
+    "crc32": 2956681950,
+    "sha256": "b144ddb96a6e95366f8fc9ba3d12e7315bd371bb30a8034a25be038ec9613f69"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi",
+    "bytes": 21559,
+    "crc32": 703381362,
+    "sha256": "56affb4bdc744eaf1ae969b290942eebb63a1a743311e427cf63296a6e4d75c2"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi",
+    "bytes": 21873,
+    "crc32": 3599651294,
+    "sha256": "f8c6813f2408f724058248a0569de57b64ee3da4450bd4a485826d52db3983c7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi",
+    "bytes": 21439,
+    "crc32": 897081649,
+    "sha256": "863f085d86fd43394569ea31bd2a620491ee4637c39bc58f1ef37f2454d07ef6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi",
+    "bytes": 25725,
+    "crc32": 4146295735,
+    "sha256": "bb06814c3e6f820c2bf4d184fa608b7768a92db21839b4668b2c91bc66bdb94c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi",
+    "bytes": 21825,
+    "crc32": 513045279,
+    "sha256": "1ff9d26bdc156e4ec3ad103791b2d19d9727fa0d4d3092d35a7ad1388d5c7251"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi",
+    "bytes": 21379,
+    "crc32": 2057328517,
+    "sha256": "d947b23428bfd43ef4d24afebc1179a7239d1eaa13a7f4c0b22d5f59b6bee109"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi",
+    "bytes": 21516,
+    "crc32": 3654888383,
+    "sha256": "7fa0cef3c275dd899557a501bb61454e3b98709c9e66c5dbfa1b80b6160990b7"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi",
+    "bytes": 21632,
+    "crc32": 107978112,
+    "sha256": "e916f56c9605b938e6786bbcbd337a2324cfc0761698ab20005f1c621f1d7016"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi",
+    "bytes": 22204,
+    "crc32": 4137015405,
+    "sha256": "dec4c826c0fa20ace021406a73dd320eabacb5f1d80343c75cdfb08446a34ccc"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi",
+    "bytes": 21566,
+    "crc32": 2107964328,
+    "sha256": "2cd765cdb515064e4660ee1d50439f5d8cf2cc9db4f00e8597464f92cac4a1bb"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi",
+    "bytes": 21387,
+    "crc32": 2796675416,
+    "sha256": "1db27932ee8efa9377f2d0e36d5d8d8f4cb0ca26ce352807004c083d1dfcc134"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi",
+    "bytes": 21821,
+    "crc32": 892671686,
+    "sha256": "b0bec58bab23de3111ae97a2dd8fdc4077199bb88e1c43413ec365a818b596a6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi",
+    "bytes": 21395,
+    "crc32": 1695238934,
+    "sha256": "8995ca6bc6a44ec24ce16e58379d481ef63f734f125977f5de672749e6f9672a"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi",
+    "bytes": 21463,
+    "crc32": 534472704,
+    "sha256": "92b6dd35d829c44e3f64568e7898a4f1dcaf9a8f4618ce0809985c70b9c79fe6"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi",
+    "bytes": 22462,
+    "crc32": 1986630290,
+    "sha256": "9ec7756c2119f95a1537c2234e972d20a77e6a40233094d57a80fb06b2114c25"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi",
+    "bytes": 23627,
+    "crc32": 1292064024,
+    "sha256": "576646d2e9bfbe9d0312e17cc975c5b001066ccc6646f0614ae0d057b8bc6add"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi",
+    "bytes": 22962,
+    "crc32": 553213080,
+    "sha256": "cb3c96d71bf4bfef647465587c22a7a162bb697b45474fd618d15bf6b16c6538"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi",
+    "bytes": 22136,
+    "crc32": 1834517808,
+    "sha256": "2a4f5c64edbf11643025ef114bbdbe70278da4d9939a426bcd024c14e1af2eb1"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi",
+    "bytes": 45535,
+    "crc32": 1170856847,
+    "sha256": "0c63e8a6c07322cc2710a3cbc06b269181c21d6b218d17571ea41353627dd479"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi",
+    "bytes": 75043,
+    "crc32": 435230461,
+    "sha256": "f9f6271da17baad4869f944f8348d4d78cf9c871e24820a124d1d754f5421739"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi",
+    "bytes": 52812,
+    "crc32": 2142636586,
+    "sha256": "ccae7acf66c5d89b5741fdab3f01c5487427c664f4eb2dfad229cd325d919c39"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi",
+    "bytes": 55121,
+    "crc32": 3155656086,
+    "sha256": "b023aee949194ff1af5ac1a78ff4fbc779bdada4a4fb83f3958c64def75f4f6c"
+   },
+   {
+    "path": "File Group 0/vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi",
+    "bytes": 62037,
+    "crc32": 3847400516,
+    "sha256": "21aa4498a2a4e46711e216f108c7c0508f4310fd0512cccee38fd9400d701e0c"
+   },
+   {
+    "path": "File Group 0/vi.lib/addons/NIVS SysDef Utilities.mnu",
+    "bytes": 1947,
+    "crc32": 2941927613,
+    "sha256": "890969a4b7400b085709c7f00d4d75f89a3d24922bbc0a49ec22ea8f2ab6cc5c"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_1.mnu",
+    "bytes": 2669,
+    "crc32": 4211548820,
+    "sha256": "7efff9dcfc85bab5c696895b97e70a0365d5fc7b8ed6c37931cd9bbe68f055bb"
+   },
+   {
+    "path": "File Group 1/_functions_ni_lib_nivs_sysdef_utilities_2.mnu",
+    "bytes": 2986,
+    "crc32": 1253534948,
+    "sha256": "2e862f3d3ac0bf6a14db2d572b27230280fe46e27a2266d522f26595b6620e23"
+   },
+   {
+    "path": "File Group 1/functions_NI_lib_NIVS_SysDef_Utilities.mnu",
+    "bytes": 3158,
+    "crc32": 1401503835,
+    "sha256": "60ec1048c6f16006c4d5ae12089bc714ce2fff6e69d393a7e74c83b197731885"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"ni_lib_nivs_sysdef_utilities\"\r\nVersion=\"1.0.0.20\"\r\nRelease=\"\"\r\nID=d8377423a25e14f34041b1cfad733f46\r\nFile Format=\"vip\"\r\nFormat Version=\"2014\"\r\nDisplay Name=\"NI VeriStand Import/Export Custom Device Configuration Utility\"\r\n\r\n\r\n[Description]\r\nDescription=\"\"\r\nSummary=\"\"\r\nLicense=\"\"\r\nCopyright=\"Copyright (c) 2017, National Instruments\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"\"\r\nPackager=\"SE\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=15.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"2\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=62\r\nFile 0=\"Import - Export Custom Device Configuration Utility.lvproj\"\r\nFile 1=\"vi.lib/NI/NIVS System Definition Utilities/Import - Export CD Config Utility.lvlib\"\r\nFile 2=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/dir.mnu\"\r\nFile 3=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateChannel.vi\"\r\nFile 4=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateDescription.vi\"\r\nFile 5=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateSection.vi\"\r\nFile 6=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.CreateWaveform.vi\"\r\nFile 7=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Node.Info.vi\"\r\nFile 8=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Get.vi\"\r\nFile 9=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Remove.vi\"\r\nFile 10=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Property.Set.vi\"\r\nFile 11=\"vi.lib/NI/NIVS System Definition Utilities/SysDef API/SysDef.Search.vi\"\r\nFile 12=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/dir.mnu\"\r\nFile 13=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/ExportCDConfig.vi\"\r\nFile 14=\"vi.lib/NI/NIVS System Definition Utilities/Import Export/ImportCDConfig.vi\"\r\nFile 15=\"vi.lib/NI/NIVS System Definition Utilities/_Types/File.DataType.ctl\"\r\nFile 16=\"vi.lib/NI/NIVS System Definition Utilities/_Types/Property.DependentFile.ctl\"\r\nFile 17=\"vi.lib/NI/NIVS System Definition Utilities/_Types/SysDef.Export.ctl\"\r\nFile 18=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.ctl\"\r\nFile 19=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Info.ctl\"\r\nFile 20=\"vi.lib/NI/NIVS System Definition Utilities/_Types/TreeItem.Property.ctl\"\r\nFile 21=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Globals.vi\"\r\nFile 22=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.LoadFile.vi\"\r\nFile 23=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Node.Info.Get.vi\"\r\nFile 24=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Boolean.vi\"\r\nFile 25=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.Array.vi\"\r\nFile 26=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DBL.vi\"\r\nFile 27=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.DependentFile.vi\"\r\nFile 28=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.Array.vi\"\r\nFile 29=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.I32.vi\"\r\nFile 30=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Node.vi\"\r\nFile 31=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Path.vi\"\r\nFile 32=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.Array.vi\"\r\nFile 33=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.String.vi\"\r\nFile 34=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U16.vi\"\r\nFile 35=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.Array.vi\"\r\nFile 36=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.U32.vi\"\r\nFile 37=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Get.Variant.vi\"\r\nFile 38=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Boolean.vi\"\r\nFile 39=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.Array.vi\"\r\nFile 40=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DBL.vi\"\r\nFile 41=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.DependentFile.vi\"\r\nFile 42=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.Array.vi\"\r\nFile 43=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.I32.vi\"\r\nFile 44=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Node.vi\"\r\nFile 45=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Path.vi\"\r\nFile 46=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.Array.vi\"\r\nFile 47=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.String.vi\"\r\nFile 48=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U16.vi\"\r\nFile 49=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.Array.vi\"\r\nFile 50=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.U32.vi\"\r\nFile 51=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Property.Set.Variant.vi\"\r\nFile 52=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUID.vi\"\r\nFile 53=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.GUIDs.vi\"\r\nFile 54=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Name.vi\"\r\nFile 55=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/SysDef.Search.Target.vi\"\r\nFile 56=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleExport.vi\"\r\nFile 57=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/Sysdef.SimpleImport.vi\"\r\nFile 58=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Get.vi\"\r\nFile 59=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Get.vi\"\r\nFile 60=\"vi.lib/NI/NIVS System Definition Utilities/_SubVIs/TreeItem.Property.Set.vi\"\r\nFile 61=\"vi.lib/addons/NIVS SysDef Utilities.mnu\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<vi.lib>/addons\"\r\nReplace Mode=\"Always\"\r\nNum Files=3\r\nFile 0=\"_functions_ni_lib_nivs_sysdef_utilities_1.mnu\"\r\nFile 1=\"_functions_ni_lib_nivs_sysdef_utilities_2.mnu\"\r\nFile 2=\"functions_NI_lib_NIVS_SysDef_Utilities.mnu\"\r\n"
+  }
+ }
+]

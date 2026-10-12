@@ -1,0 +1,812 @@
+{
+ "repo": "FRC1756-Argos/2018-Dashboard",
+ "url": "https://github.com/FRC1756-Argos/2018-Dashboard",
+ "commit": "623270fcdee545d2af39f6bf9b3786e38942f47e",
+ "license": "GPL-3.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "2018-Dashboard.lvproj",
+   "bytes": 30907,
+   "sha256": "6628533ea1656e7c172bdd9a3f210f04fb0b8513fea8788ed6c8aeece0ce9a3f",
+   "via": "extension"
+  },
+  {
+   "path": "Adjust Dashboard Window.vi",
+   "bytes": 76255,
+   "sha256": "73786de1d8c184fe032dd16a9ca0fbd954b7a19bd08f4cc2c48531a4bb679eaa",
+   "via": "extension"
+  },
+  {
+   "path": "Dashboard Main.vi",
+   "bytes": 589190,
+   "sha256": "d02e1e121a6b53315976ef8f045579a3fb503324479c83873053bce3a7b9c30e",
+   "via": "extension"
+  },
+  {
+   "path": "Decode Status Byte.vi",
+   "bytes": 13310,
+   "sha256": "3ea31602ede6db50d98e24733d03c1972ec7c393044a3494bff4760c0f1bc7a5",
+   "via": "extension"
+  },
+  {
+   "path": "FPS Calculator.vi",
+   "bytes": 14482,
+   "sha256": "42369d29ea421af2cef14ad736035eb83662f73ee34afdd70ef8b84d0efd836c",
+   "via": "extension"
+  },
+  {
+   "path": "Get All Users Directory.vi",
+   "bytes": 9543,
+   "sha256": "d13b9dcefab4f748dacbe406f0b563049c723a44d20df78f683682427b1df6bb",
+   "via": "extension"
+  },
+  {
+   "path": "Handle Camera Configuration.vi",
+   "bytes": 54879,
+   "sha256": "4eee5d79dee183db86498aafb93b444ecf1314ba0d385bdcd9e3b024bcc29a44",
+   "via": "extension"
+  },
+  {
+   "path": "Initialize Camera and CheckList.vi",
+   "bytes": 16395,
+   "sha256": "c2be401662f4bb537ee7854bebe8589453c6d357e523c55c355d2e3029dfa16e",
+   "via": "extension"
+  },
+  {
+   "path": "Interpolate RGB Color.vi",
+   "bytes": 21265,
+   "sha256": "a76cf1b77a354fd85aef5be9534b9f0c19cb4ea93e59d8ab33399e60e2fb4493",
+   "via": "extension"
+  },
+  {
+   "path": "Open Playback Panel.vi",
+   "bytes": 20983,
+   "sha256": "da6c50c2d7c716883d31add5807caf45df9126f138d0524b6d4c5a573eafc5b1",
+   "via": "extension"
+  },
+  {
+   "path": "Panel Resized.vi",
+   "bytes": 83333,
+   "sha256": "1a84baf74e676372305f5fc6a5346fce3b9dbb32f82418fcc0e045f80a429881",
+   "via": "extension"
+  },
+  {
+   "path": "Parse Digital Module.vi",
+   "bytes": 15676,
+   "sha256": "45dceba68b963a0b2d5e9e2d35e562c6678a5e35994d37486215bf54ac232374",
+   "via": "extension"
+  },
+  {
+   "path": "Playback Controls.vi",
+   "bytes": 93909,
+   "sha256": "86ff6c8aa473bdac77cf54edd1cb2670cf5737157397db7489abb0adf312db98",
+   "via": "extension"
+  },
+  {
+   "path": "Prepare Joystick Data for Displays.vi",
+   "bytes": 17062,
+   "sha256": "fb058c1f04ed88277ef2759c141119cff3b737e037413d696643c4ae0cebb011",
+   "via": "extension"
+  },
+  {
+   "path": "Save DB Images.vi",
+   "bytes": 13258,
+   "sha256": "de4e83113ca3316ec632c0c1d3f9516481dfff54c041e7733caea19b5000ec77",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 142,
+   "sha256": "4cbc1aac331e192d82f117c08c12d573bcb5f0b92e7e2f6dc41491e0a544c153",
+   "via": "tree"
+  },
+  {
+   "path": "App EXE.ico",
+   "bytes": 32038,
+   "sha256": "39ba34a5de39df1c19c6890eb7b361bc634c9551f1db3ad5c6aa235f5aae3d77",
+   "via": "tree"
+  },
+  {
+   "path": "Dashboard.ini",
+   "bytes": 262,
+   "sha256": "f7dd7ad1e041bd1720568f23964e3f5d3dc14b0a9db08c02779f825274add1d3",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 35147,
+   "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 62,
+   "sha256": "658674dc30c910d61515ff450e5a9e63851586c90b50c88d452297a3a0fd0c01",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vic.png",
+   "bytes": 1966,
+   "sha256": "7be647bb66d1517b104b97357c572043d8380da75a73f8bc7f36378f30c7343b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vid.png",
+   "bytes": 25299,
+   "sha256": "d19c3ff2a00a5fcb4ff2369c06f9938276bc32d6611bffd24b99c378360bcd7c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vid1.png",
+   "bytes": 2667,
+   "sha256": "6621932b7699f0b56ebbb4b26411e11034dc4854d8a4d4cc5803a04671421ee9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vid2.png",
+   "bytes": 2942,
+   "sha256": "4b313a7773ddc9d55a1e1dfc3adc5cd4314bbe17a64c32f50df127200bb34955",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Adjust Dashboard Window.vip.png",
+   "bytes": 7597,
+   "sha256": "896904c5af6b4bc7adf8f7f8c7dacd7526020172782fef6d17abb3857219d07d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vic.png",
+   "bytes": 1131,
+   "sha256": "1fdf4079d2692434e1620f1b22acdc7ea22f92547ad36505fca0926ca1c59ca4",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid.png",
+   "bytes": 165726,
+   "sha256": "5e2e18a75d86f88719019790c35f7c3b491dadd1075956f8733ea894a28596e3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid1.png",
+   "bytes": 16907,
+   "sha256": "73e9cd662a4e64904a8f1eed3700e3031a842335c5d5cbcc22e9eefb3894bc88",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid10.png",
+   "bytes": 7038,
+   "sha256": "82906ad5ac798b3f055c90d58d817c0361ca3d7d424775f0b6fd26c8bad689eb",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid11.png",
+   "bytes": 7319,
+   "sha256": "00e099f42b221e6405efb5f0cdff964c409e10e1db63607adc3f3bb32e24f37c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid12.png",
+   "bytes": 7269,
+   "sha256": "aa44e12800dbbb7272c53c6aa69b70dbf5230e4b6f9f3db61f39acabb6d2f894",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid13.png",
+   "bytes": 6781,
+   "sha256": "237383168cec41fffad8c69ed811b4e6a5245858cd5a694aa0ee2313f5de6804",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid14.png",
+   "bytes": 6835,
+   "sha256": "1058a1bb8195be2ffd9500e966600e41ab27ffc50179a5682c74279c2f676bcd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid15.png",
+   "bytes": 12313,
+   "sha256": "4a7675fa9c45a840af18e4b1acb23cde8c407dfa438c05344873601fb1a892af",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid16.png",
+   "bytes": 1738,
+   "sha256": "481de5e3f354516c42b3a382d314bcf87be6c3ae85a3d25c20da0d4dd4291ce6",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid17.png",
+   "bytes": 2977,
+   "sha256": "7a1d5e3e60d3045bbf5fb601e6b5934d245e4a07c06604d69211874e1b5f9928",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid18.png",
+   "bytes": 6498,
+   "sha256": "af91c58526bb7cb6763549b62f952029dee450ad1fecf03da63da58a9008d4cd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid19.png",
+   "bytes": 6369,
+   "sha256": "1f6147507ca8d79d9121b614d162e78e5ba15414b9368dfde3742c2ffcf3013d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid2.png",
+   "bytes": 2243,
+   "sha256": "7bbc9fb4ecf63e59601985f8dfe0e77e181914ba06393b5e6bb138e973912589",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid20.png",
+   "bytes": 6402,
+   "sha256": "7d11b501b8b4d53f0933702ea35202484e1c6b35d5ace6f19737f047a49cc699",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid21.png",
+   "bytes": 1390,
+   "sha256": "76662a693d73c263b63b754527dec0aa2c8bfa5b7251929b20a217af76153248",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid22.png",
+   "bytes": 1668,
+   "sha256": "310bf2d05cef484c27816e17e932f13e3f873287c147b610c55018b697b17e51",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid23.png",
+   "bytes": 6474,
+   "sha256": "8c62a9c62dc64321de9ddf5af3d561dd482d9e596f16d85d321de313edbe7322",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid24.png",
+   "bytes": 1186,
+   "sha256": "434d18324fa676f8dbcb0c9f56cfd87144acdc248fd4d90ea8293e484b27c5e7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid25.png",
+   "bytes": 1143,
+   "sha256": "84123124ab59bad3d636a561835c38bc133b9a3500f0e70094aae5e24e59b6ac",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid26.png",
+   "bytes": 2437,
+   "sha256": "36063f6d280af87e5f8c698eb5400977ea3e4c2b488c0eec712d1cb2aa706d73",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid27.png",
+   "bytes": 1739,
+   "sha256": "f0356189e20672c753f744e7b631e6c7c3d87d2a942d2122c91cce4656451ccc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid28.png",
+   "bytes": 5512,
+   "sha256": "e081fcdc40fd63b3fe98bae55e14e6893eef1f96f1c508794fd4ac601d6fa24b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid29.png",
+   "bytes": 1416,
+   "sha256": "86288bf67bbaee532c226744cc7f244cfe5c160c7f276a9f85f72817bbc36572",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid3.png",
+   "bytes": 1657,
+   "sha256": "bf063d5be6eeb0203c57ff15226426c6f97366ffa96b64e9532cd56410aba6d9",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid30.png",
+   "bytes": 1705,
+   "sha256": "dc76a56ba50435ccc3accf9124100c8b070c48e66831cdb356688c668b72c48a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid31.png",
+   "bytes": 1362,
+   "sha256": "3700f1689ad6224a63f8354ce52fd6fcc16bb982a64aa3fe1ab3a626cc84fc4c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid32.png",
+   "bytes": 1830,
+   "sha256": "ca15889efd3b899ea9ce4845c6e25061063560a09fc7f05e5c7ae54973fe9769",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid33.png",
+   "bytes": 1301,
+   "sha256": "d0d73b35195b2948ae4dd343d7f0204d5753caf9cee2ff9b16e5af059d87cd14",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid4.png",
+   "bytes": 6814,
+   "sha256": "07df10829e453885fc1c062476715ca710b0c2e83b5524ac64fbaee162ede12f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid5.png",
+   "bytes": 6749,
+   "sha256": "d378cc5de18302bc1554f7f57ffbc3cd140ffc7f634e5cc6be91a80ff1da9bf3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid6.png",
+   "bytes": 7155,
+   "sha256": "119d5fd3f190e7280f81c2764bd966dae96839f86738a62724e61568a3b2ff60",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid7.png",
+   "bytes": 13316,
+   "sha256": "32514c4837350b9e902a1e2dba1ae53becfcabedb994de2f7acf4c92d63c7430",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid8.png",
+   "bytes": 8533,
+   "sha256": "459888a30e2d3f0a3cbe830ea6316c379610c76bdd91dc23e1f790767414c98b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vid9.png",
+   "bytes": 7091,
+   "sha256": "22fe87e3937d868b16f1ff0ca32c5f90f915febea6d53b520deb1e15d0a4246c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Dashboard Main.vip.png",
+   "bytes": 10120,
+   "sha256": "92b8d3ccca5c7e3b2857d52d5dc444e4dbc42f0632b12155bb066a477dfe7ce5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Decode Status Byte.vic.png",
+   "bytes": 1740,
+   "sha256": "2ee39ccf11791eed0be9d6b6247ff0f1b72703022cbdf9ec4a2f073633089c3c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Decode Status Byte.vid.png",
+   "bytes": 10095,
+   "sha256": "4b29f36b5dac1587c52f3e3042dbf51b389eb1c44ed064e35edf423c24722043",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Decode Status Byte.vid1.png",
+   "bytes": 1338,
+   "sha256": "e970070df48b2dd85fae927b1af0a498a464cb4b4a49302f877e9038c8194aec",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Decode Status Byte.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Decode Status Byte.vip.png",
+   "bytes": 5634,
+   "sha256": "b9cfd552657b61cfdce51d4f37eed6bb31e4c8874e90e1a13ec37a0059aa74f3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/LVRectTypeDefctli.png",
+   "bytes": 1059,
+   "sha256": "abd35dccfedb5bdc7137a01d3084db51fd23c8d47e401f7e1e7d5b591a46d589",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Panel Resized.vic.png",
+   "bytes": 2347,
+   "sha256": "a0b4e51bce1756dc3ecb273025ec4dee2ca503103c6eb7f7f8e94a1560891880",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Panel Resized.vid.png",
+   "bytes": 34254,
+   "sha256": "ab08dee888226243229aea3b1fbdf8b0433d93afc7adfc2fc220776381d5721d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Panel Resized.vid1.png",
+   "bytes": 1869,
+   "sha256": "0732dee9baa973e73892136838c4b75fd020eaaa21ded6f0865fa0bde94715ff",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Panel Resized.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Panel Resized.vip.png",
+   "bytes": 12924,
+   "sha256": "3e276a765309ec3b3bd00d11cf0a4bc2d56754b748cf81e834f89ab3a120dea2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Parse Digital Module.vic.png",
+   "bytes": 2218,
+   "sha256": "e035ddb6d961a12b0d9355add199bf8d74751b85040d581ad868d5e8e6134798",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Parse Digital Module.vid.png",
+   "bytes": 5289,
+   "sha256": "776e9ff5ecae9e1dc1c7babd3fd1a63e6633f1bf584ff8c1b3500a196b7cebb8",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Parse Digital Module.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Parse Digital Module.vip.png",
+   "bytes": 8622,
+   "sha256": "63451aa786b1da2609a929569725cc54ac51f3c1a38fb6f410d3cdb291480d32",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Save DB Images.vic.png",
+   "bytes": 1625,
+   "sha256": "e4a3d0591fd013f924de4ad733b56b61d5ee9fd39d913799482efb82caeca536",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Save DB Images.vid.png",
+   "bytes": 5742,
+   "sha256": "601b7429bd05182737bb40b19dc2b87bf2ae51a5625741022160bac1b0600eba",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Save DB Images.vid1.png",
+   "bytes": 1430,
+   "sha256": "dafb79d2eb6771795537506579dc71719942204b6e79d684dfbcf8c1551b95ac",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Save DB Images.vih.png",
+   "bytes": 1540,
+   "sha256": "029dc453d92bafdd304bb1fd442d5a74a16b986735cb0d43547fd142d4574903",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/Save DB Images.vip.png",
+   "bytes": 1939,
+   "sha256": "c5889d5690e231370ec31c2c87460960463b1f0e0c3e88248740dd6b3bbdb22a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cbool.png",
+   "bytes": 907,
+   "sha256": "6fea8392ae7ee244cfb1149da0f80ef9fad1697e13a37544dbae975619c0e77b",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ccclst.png",
+   "bytes": 919,
+   "sha256": "03b5ddf7d9bda13a28675a55337e44bafafbea03437e46b032ec88dfc85f2570",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ccltrn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ccobrn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cdbl.png",
+   "bytes": 911,
+   "sha256": "2841b67bb2fbc26cf7ed77051520ded1002db94dce7e6801407ca31d3df0ad21",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cenum.png",
+   "bytes": 908,
+   "sha256": "9a6148792753d7448bd2a53822c87a42cdb01ee1bfb4ef98dfd16fc8d99a9824",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cerrcodeclst.png",
+   "bytes": 918,
+   "sha256": "1dc7d182c93bade9222e357f08d51b762c5931aea618e415c3d9e888dfafe7e3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ci16.png",
+   "bytes": 916,
+   "sha256": "73c41ca7aff44d00292b2f16e652dec6235c93bed2c43510421e2eab938ba745",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ci32.png",
+   "bytes": 921,
+   "sha256": "c9d947736e0c8647bfe0db070b28de2e3dc8e103ce0ab4a4da2d6bc5225edd92",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cnclst.png",
+   "bytes": 914,
+   "sha256": "df13e42af75effd98b3a7ed72ab9b157fbc40c5acbfe97749cb44337426c6ac5",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cncrn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cnotern.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cpluginddocontrolrefnum.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cradiobtnsrn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cstr.png",
+   "bytes": 920,
+   "sha256": "4ccdba7d12bfab823bf007928278c3692a98a79a8cb8e8bc51c3c88d18342c5a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ctabctlrn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ctreern.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cu16.png",
+   "bytes": 914,
+   "sha256": "d3a6e3b4280a6780505f5ab975ef142dfee07d95e51f6e26a600d17924d75091",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cu8.png",
+   "bytes": 908,
+   "sha256": "3ef0e7c8c27d7cdb0505a70452bc7f356cb84e540d0d248dbcd54559bfd2d3fc",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cudtagrefflat.png",
+   "bytes": 906,
+   "sha256": "b3522b4340b59e85012a1e40d317add476e4fb2c225620657d46bd421d2705c2",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/cvirn.png",
+   "bytes": 907,
+   "sha256": "94673406862cfffed34359f64594a4e7ab7d01e7fdf6cf7430eb5ec497a837a7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/i1dbool.png",
+   "bytes": 913,
+   "sha256": "9359ca9ddf2edc5753f537b8bc4705d0f2afc8bb36697ae79e31d74537561f21",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/i1dcclst.png",
+   "bytes": 921,
+   "sha256": "2bdf1ec15d30f7723525b7625d1cc53100cb878984733e325f95272685d424bd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/i1dnclst.png",
+   "bytes": 917,
+   "sha256": "39dd306e2dd73b28dfec9c61ba4bc820e7c327ae9f64a3aa277b000a081afb63",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ibool.png",
+   "bytes": 908,
+   "sha256": "f834cc609f814c23139e34c80cd925bd33906c8af3998592dffb199514cc2f50",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/icclst.png",
+   "bytes": 916,
+   "sha256": "9fe29a3b5cf25bedd8783ce624e3f4e8b7ce907783776add5753e5a52903ca12",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/idbl.png",
+   "bytes": 907,
+   "sha256": "790e6e8d617445b602204d6e706e87dbdcad8f5484cee8fea37e806de72b3b1c",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ienum.png",
+   "bytes": 908,
+   "sha256": "1352e6815193b96ff5e086c39388f7868e6d8fff19b5be14482a8a8bbae23ac1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ierrcodeclst.png",
+   "bytes": 914,
+   "sha256": "050b69a98f58c630dfa9cfd70671c95fdbb872101310173482090fd3b23aebb7",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/ii32.png",
+   "bytes": 914,
+   "sha256": "8433e3760873c48fbe4205dcf738bd4cf723d4a35e1503ffab63278d21e16ab1",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/inclst.png",
+   "bytes": 915,
+   "sha256": "3083234ea0dd03de221464d3c754a223bc8d7023c614ed9e586f35a8329e4230",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/istr.png",
+   "bytes": 912,
+   "sha256": "b9c3f2dceba34596aab2229bc1624d0908ae7ff5998eaccc2eeab0741c8eb39f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/img/iudtagrefflat.png",
+   "bytes": 908,
+   "sha256": "327e3c6cfd8a4a577ac456cf6192a8610b7955c2be8f57962017ca8aa2e1fd9f",
+   "via": "tree"
+  },
+  {
+   "path": "docs/index.html",
+   "bytes": 247,
+   "sha256": "f9560f6297f5f251422423b38f57feb7c24a357cce2676c05516cd47b3c27d44",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Adjust Dashboard Window.vi.html",
+   "bytes": 3403,
+   "sha256": "bf26ae1926d6a45eadb65a2147be6574e26871827517050b999d8a0862304402",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Dashboard Main.vi.html",
+   "bytes": 16139,
+   "sha256": "50ca58df53a05cd1a0b31460459fc771e1dfb5652a05b3667ae6c806b181ae2d",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Decode Status Byte.vi.html",
+   "bytes": 2741,
+   "sha256": "f3544582474fed667800e15f555fdb8ebda90f06b1f432ed4de4e81cc2475b2e",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Panel Resized.vi.html",
+   "bytes": 7724,
+   "sha256": "94d08d9a71a71486ca27317af735b95eadddf69fa21a3526ba3ee48bee3e43cd",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Parse Digital Module.vi.html",
+   "bytes": 4694,
+   "sha256": "924100e10f5c4c9533b82634a6172fccc9ec7610f3c9506e83815d45af922bc3",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/Save DB Images.vi.html",
+   "bytes": 1464,
+   "sha256": "d302550f5aaac180a3a27cf24e502fb867fe53bb63fc669d67578ff6d23fa56a",
+   "via": "tree"
+  },
+  {
+   "path": "docs/src/index.html",
+   "bytes": 674,
+   "sha256": "d8f351ef2176f3d7b6de9c9fd1dc4de7bd7f79fa6c9742c53e8e489c727dbc61",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\Platform\\system.llb\\System Exec.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Bind Controls to SmartDashboard.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Connextion Info.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Get Tab Control Refs.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Make Table Operation.ctl",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read Boolean.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read Number.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read Numeric Array.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read String Array.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read String.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read Value.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Read and Format Entries as Tree.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Update Persistence.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Write Boolean.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Write Number.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\NT Write Value.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Table Manager.vi",
+  "<vilib>\\Rock Robotics\\Network Tables\\Tokenize Path.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Camera\\WPI_CameraRead MJPG for Dashboard.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardAdd File Length.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardDelete Videos.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardEnsure File Extension.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardGet All Users Directory.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardLog file path.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardLogging Global.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardManage Camera Display Indices.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardNT Log FieldName Cache.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardNew Image Display Size.vi",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardPlay Operation.ctl",
+  "<vilib>\\Rock Robotics\\WPI\\Dashboard\\WPI_DashboardRetrieveStatusInfo.vi",
+  "<vilib>\\Rock Robotics\\WPI\\DriverStation\\WPI_DriverStationDigitalData.ctl",
+  "<vilib>\\Rock Robotics\\WPI\\Simulation\\DS_Mode_Simulation_Global.vi",
+  "<vilib>\\Utility\\colorconv.llb\\Color to RGB.vi",
+  "<vilib>\\Utility\\colorconv.llb\\RGB to Color.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (I32).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (I32).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\file.llb\\Dflt Data Dir.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Acquire Input Data.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Initialize Mouse.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\mouseAcquire.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVRectTypeDef.ctl",
+  "<vilib>\\vision\\Basics.llb\\IMAQ Create",
+  "<vilib>\\vision\\Files.llb\\IMAQ Write File 2",
+  "<vilib>\\vision\\Files.llb\\IMAQ Write JPEG File 2",
+  "<vilib>\\vision\\Image Controls.llb\\IMAQ Image.ctl",
+  "<vilib>\\vision\\Image Controls.llb\\Image Type",
+  "<vilib>\\vision\\Overlay.llb\\IMAQ Clear Overlay"
+ ]
+}

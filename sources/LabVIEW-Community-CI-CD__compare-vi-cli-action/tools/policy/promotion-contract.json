@@ -1,0 +1,77 @@
+{
+  "schema": "promotion-contract/v1",
+  "schemaVersion": "1.0.0",
+  "check_context": "Promotion Contract / promotion-contract",
+  "require_check_context_in_branch_protection": false,
+  "channels": {
+    "rc": {
+      "version_pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+-rc\\.[0-9]+$",
+      "requires_approval_gate": true,
+      "allows_latest_tag": false,
+      "required_evidence": [
+        "contract-alignment",
+        "promotion-evidence-ledger",
+        "certification-matrix",
+        "supply-chain-trust-gate",
+        "rollback-drill-health",
+        "shared-source-resolution"
+      ]
+    },
+    "stable": {
+      "version_pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "requires_approval_gate": true,
+      "allows_latest_tag": true,
+      "required_evidence": [
+        "contract-alignment",
+        "promotion-evidence-ledger",
+        "certification-matrix",
+        "supply-chain-trust-gate",
+        "rollback-drill-health",
+        "shared-source-resolution"
+      ]
+    },
+    "lts": {
+      "version_pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "requires_approval_gate": true,
+      "allows_latest_tag": true,
+      "required_evidence": [
+        "contract-alignment",
+        "promotion-evidence-ledger",
+        "certification-matrix",
+        "supply-chain-trust-gate",
+        "rollback-drill-health",
+        "shared-source-resolution"
+      ]
+    }
+  },
+  "required_status_checks": {
+    "develop": [
+      "lint",
+      "fixtures",
+      "Policy Guard (Upstream) / policy-guard",
+      "vi-history-scenarios-linux",
+      "commit-integrity"
+    ],
+    "release/*": [
+      "lint",
+      "pester / normalize",
+      "smoke-gate",
+      "Policy Guard (Upstream) / policy-guard",
+      "commit-integrity"
+    ]
+  },
+  "required_status_checks_ref": {
+    "develop": {
+      "branchName": "develop",
+      "branchClassId": "upstream-integration"
+    },
+    "release/*": {
+      "branchName": "release/*",
+      "branchClassId": "upstream-release-prep"
+    }
+  },
+  "artifacts": {
+    "ledger_schema": "docs/schemas/promotion-evidence-ledger-v1.schema.json",
+    "default_output_dir": "tests/results/promotion-contract"
+  }
+}

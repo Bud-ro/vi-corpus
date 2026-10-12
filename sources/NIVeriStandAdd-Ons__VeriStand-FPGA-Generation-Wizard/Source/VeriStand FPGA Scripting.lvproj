@@ -1,0 +1,218 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<Project Type="Project" LVVersion="26008000">
+	<Item Name="My Computer" Type="My Computer">
+		<Property Name="IOScan.Faults" Type="Str"></Property>
+		<Property Name="IOScan.NetVarPeriod" Type="UInt">100</Property>
+		<Property Name="IOScan.NetWatchdogEnabled" Type="Bool">false</Property>
+		<Property Name="IOScan.Period" Type="UInt">10000</Property>
+		<Property Name="IOScan.PowerupMode" Type="UInt">0</Property>
+		<Property Name="IOScan.Priority" Type="UInt">9</Property>
+		<Property Name="IOScan.ReportModeConflict" Type="Bool">true</Property>
+		<Property Name="IOScan.StartEngineOnDeploy" Type="Bool">false</Property>
+		<Property Name="server.app.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="server.control.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="server.tcp.enabled" Type="Bool">false</Property>
+		<Property Name="server.tcp.port" Type="Int">0</Property>
+		<Property Name="server.tcp.serviceName" Type="Str">My Computer/VI Server</Property>
+		<Property Name="server.tcp.serviceName.default" Type="Str">My Computer/VI Server</Property>
+		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
+		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="Dependencies" Type="Folder">
+			<Item Name="Engine Simulation Toolkit.lvlib" Type="Library" URL="../SubModules/Engine Simulation Toolkit FPGA IP/IP Source/Engine Simulation Toolkit.lvlib"/>
+			<Item Name="FPGA Wizard Templates.lvlib" Type="Library" URL="../Templates/FPGA Wizard Templates.lvlib"/>
+			<Item Name="Speciality FPGA IO.lvlib" Type="Library" URL="../SubModules/FPGA Addon Speciality IO/Source/Speciality FPGA IO.lvlib"/>
+		</Item>
+		<Item Name="IO" Type="Folder">
+			<Property Name="NI.SortType" Type="Int">3</Property>
+			<Item Name="Input" Type="Folder">
+				<Item Name="FPGA Addon" Type="Folder">
+					<Item Name="FPGA Addon Input.lvclass" Type="LVClass" URL="../Classes/Signal/FPGA Addon Input/FPGA Addon Input.lvclass"/>
+					<Item Name="Quadrature Encoder Input.lvclass" Type="LVClass" URL="../Classes/Signal/Quadrature Encoder Input/Quadrature Encoder Input.lvclass"/>
+				</Item>
+				<Item Name="EST" Type="Folder">
+					<Item Name="EST Input.lvclass" Type="LVClass" URL="../Classes/Signal/EST Input/EST Input.lvclass"/>
+					<Item Name="Digital Event.lvclass" Type="LVClass" URL="../Classes/Signal/EST Digital Event/Digital Event.lvclass"/>
+				</Item>
+				<Item Name="Digital Indicator.lvclass" Type="LVClass" URL="../Classes/Signal/Digital Indicator/Digital Indicator.lvclass"/>
+				<Item Name="Analog Indicator.lvclass" Type="LVClass" URL="../Classes/Signal/Analog Indicator/Analog Indicator.lvclass"/>
+			</Item>
+			<Item Name="Output" Type="Folder">
+				<Item Name="FPGA Addon" Type="Folder">
+					<Item Name="FPGA Addon Output.lvclass" Type="LVClass" URL="../Classes/Signal/FPGA Addon Output/FPGA Addon Output.lvclass"/>
+					<Item Name="Wheel Speed Sensor.lvclass" Type="LVClass" URL="../Classes/Signal/Wheel Speed Sensor/Wheel Speed Sensor.lvclass"/>
+				</Item>
+				<Item Name="EST" Type="Folder">
+					<Item Name="EST Output.lvclass" Type="LVClass" URL="../Classes/Signal/EST Output/EST Output.lvclass"/>
+					<Item Name="Knock Sensor.lvclass" Type="LVClass" URL="../Classes/Signal/EST Knock Sensor/Knock Sensor.lvclass"/>
+				</Item>
+				<Item Name="Digital Control.lvclass" Type="LVClass" URL="../Classes/Signal/Digital Control/Digital Control.lvclass"/>
+				<Item Name="Analog Control.lvclass" Type="LVClass" URL="../Classes/Signal/Analog Control/Analog Control.lvclass"/>
+			</Item>
+			<Item Name="Signal.lvclass" Type="LVClass" URL="../Classes/Signal/Signal/Signal.lvclass"/>
+			<Item Name="Input Signal.lvclass" Type="LVClass" URL="../Classes/Signal/Input Signal/Input Signal.lvclass"/>
+			<Item Name="Output Signal.lvclass" Type="LVClass" URL="../Classes/Signal/Output Signal/Output Signal.lvclass"/>
+		</Item>
+		<Item Name="Modules" Type="Folder">
+			<Item Name="Input Module.lvclass" Type="LVClass" URL="../Classes/Module/Input Module/Input Module.lvclass"/>
+			<Item Name="Module.lvclass" Type="LVClass" URL="../Classes/Module/Module/Module.lvclass"/>
+			<Item Name="Output Module.lvclass" Type="LVClass" URL="../Classes/Module/Output Module/Output Module.lvclass"/>
+		</Item>
+		<Item Name="Project" Type="Folder">
+			<Item Name="Project.lvclass" Type="LVClass" URL="../Classes/Project/Project.lvclass"/>
+			<Item Name="VI.lvclass" Type="LVClass" URL="../Classes/VI/VI/VI.lvclass"/>
+		</Item>
+		<Item Name="Structures" Type="Folder">
+			<Property Name="NI.SortType" Type="Int">3</Property>
+			<Item Name="Loops" Type="Folder">
+				<Item Name="Digital High Speed Loop.lvclass" Type="LVClass" URL="../Classes/VI/Digital High Speed Loop/Digital High Speed Loop.lvclass"/>
+				<Item Name="DMA Loop.lvclass" Type="LVClass" URL="../Classes/VI/DMA Loop/DMA Loop.lvclass"/>
+				<Item Name="Module Loop.lvclass" Type="LVClass" URL="../Classes/VI/Module Loop/Module Loop.lvclass"/>
+			</Item>
+			<Item Name="Main Sequence.lvclass" Type="LVClass" URL="../Classes/VI/Main Sequence/Main Sequence.lvclass"/>
+			<Item Name="Structures.lvclass" Type="LVClass" URL="../Classes/VI/Structures/Structures.lvclass"/>
+			<Item Name="Loop.lvclass" Type="LVClass" URL="../Classes/VI/Loop/Loop.lvclass"/>
+		</Item>
+		<Item Name="FPGA Target" Type="FPGA Target">
+			<Property Name="AutoRun" Type="Bool">false</Property>
+			<Property Name="configString.guid" Type="Str">{2CD9260C-C39D-4C87-B046-5ADD3AF34787}ResourceName=40 MHz Onboard Clock;TopSignalConnect=Clk40;ClockSignalName=Clk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=50.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427E;USB-7856R/Clk40/falsefalseFPGA_EXECUTION_MODEFPGA_TARGETFPGA_TARGET_CLASSUSB_7856RFPGA_TARGET_FAMILYKINTEX7TARGET_TYPEFPGA/[rSeriesConfig.Begin]rseries.aio./Connector1/AI0=0,rseries.aio./Connector1/AI1=0,rseries.aio./Connector1/AI2=0,rseries.aio./Connector1/AI3=0,rseries.aio./Connector1/AI4=0,rseries.aio./Connector1/AI5=0,rseries.aio./Connector1/AI6=0,rseries.aio./Connector1/AI7=0,rseries.analogCalibratedType=1,rseries.hsdio=0,rseries.lsdio=0,rseries.terminalConfig=0[rSeriesConfig.End]</Property>
+			<Property Name="configString.name" Type="Str">40 MHz Onboard ClockResourceName=40 MHz Onboard Clock;TopSignalConnect=Clk40;ClockSignalName=Clk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=50.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427E;USB-7856R/Clk40/falsefalseFPGA_EXECUTION_MODEFPGA_TARGETFPGA_TARGET_CLASSUSB_7856RFPGA_TARGET_FAMILYKINTEX7TARGET_TYPEFPGA/[rSeriesConfig.Begin]rseries.aio./Connector1/AI0=0,rseries.aio./Connector1/AI1=0,rseries.aio./Connector1/AI2=0,rseries.aio./Connector1/AI3=0,rseries.aio./Connector1/AI4=0,rseries.aio./Connector1/AI5=0,rseries.aio./Connector1/AI6=0,rseries.aio./Connector1/AI7=0,rseries.analogCalibratedType=1,rseries.hsdio=0,rseries.lsdio=0,rseries.terminalConfig=0[rSeriesConfig.End]</Property>
+			<Property Name="NI.LV.FPGA.CompileConfigString" Type="Str">USB-7856R/Clk40/falsefalseFPGA_EXECUTION_MODEFPGA_TARGETFPGA_TARGET_CLASSUSB_7856RFPGA_TARGET_FAMILYKINTEX7TARGET_TYPEFPGA</Property>
+			<Property Name="NI.LV.FPGA.Version" Type="Int">8</Property>
+			<Property Name="Resource Name" Type="Str"></Property>
+			<Property Name="rseries.aio./Connector1/AI0" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI1" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI2" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI3" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI4" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI5" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI6" Type="Str">0</Property>
+			<Property Name="rseries.aio./Connector1/AI7" Type="Str">0</Property>
+			<Property Name="rseries.analogCalibratedType" Type="Str">1</Property>
+			<Property Name="rseries.hsdio" Type="Str">0</Property>
+			<Property Name="rseries.lsdio" Type="Str">0</Property>
+			<Property Name="rseries.terminalConfig" Type="Str">0</Property>
+			<Property Name="Target Class" Type="Str">USB-7856R</Property>
+			<Property Name="Top-Level Timing Source" Type="Str">40 MHz Onboard Clock</Property>
+			<Property Name="Top-Level Timing Source Is Default" Type="Bool">true</Property>
+			<Item Name="40 MHz Onboard Clock" Type="FPGA Base Clock">
+				<Property Name="FPGA.PersistentID" Type="Str">{2CD9260C-C39D-4C87-B046-5ADD3AF34787}</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig" Type="Str">ResourceName=40 MHz Onboard Clock;TopSignalConnect=Clk40;ClockSignalName=Clk40;MinFreq=40000000.000000;MaxFreq=40000000.000000;VariableFreq=0;NomFreq=40000000.000000;PeakPeriodJitter=250.000000;MinDutyCycle=50.000000;MaxDutyCycle=50.000000;Accuracy=50.000000;RunTime=0;SpreadSpectrum=0;GenericDataHash=D41D8CD98F00B204E9800998ECF8427E;</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.Accuracy" Type="Dbl">50</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.ClockSignalName" Type="Str">Clk40</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.MaxDutyCycle" Type="Dbl">50</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.MaxFrequency" Type="Dbl">40000000</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.MinDutyCycle" Type="Dbl">50</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.MinFrequency" Type="Dbl">40000000</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.NominalFrequency" Type="Dbl">40000000</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.PeakPeriodJitter" Type="Dbl">250</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.ResourceName" Type="Str">40 MHz Onboard Clock</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.SupportAndRequireRuntimeEnableDisable" Type="Bool">false</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.TopSignalConnect" Type="Str">Clk40</Property>
+				<Property Name="NI.LV.FPGA.BaseTSConfig.VariableFrequency" Type="Bool">false</Property>
+				<Property Name="NI.LV.FPGA.Valid" Type="Bool">true</Property>
+				<Property Name="NI.LV.FPGA.Version" Type="Int">5</Property>
+			</Item>
+			<Item Name="Engine Simulation Toolkit.lvlib" Type="Library" URL="../SubModules/Engine Simulation Toolkit FPGA IP/IP Source/Engine Simulation Toolkit.lvlib"/>
+			<Item Name="FPGA Wizard Templates.lvlib" Type="Library" URL="../Templates/FPGA Wizard Templates.lvlib"/>
+			<Item Name="Speciality FPGA IO.lvlib" Type="Library" URL="../SubModules/FPGA Addon Speciality IO/Source/Speciality FPGA IO.lvlib"/>
+			<Item Name="Dependencies" Type="Dependencies"/>
+			<Item Name="Build Specifications" Type="Build"/>
+		</Item>
+		<Item Name="VeriStand FPGA Generation Wizard.vi" Type="VI" URL="../VeriStand FPGA Generation Wizard.vi"/>
+		<Item Name="Dependencies" Type="Dependencies"/>
+		<Item Name="Build Specifications" Type="Build">
+			<Item Name="My Application" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{22020A7B-5BE4-4FE4-89F6-F41532DC08C8}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{736D10A3-FCF0-4F1B-B871-DA719C2525BB}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">1</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{9E020EE8-3731-47F4-B2D0-90E64BACB731}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">My Application</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../Built</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{5C62E755-5D33-47D0-B8FF-9344B47BA50A}</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">Application.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../Built/Application.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../Built/data</Property>
+				<Property Name="Destination[2].destName" Type="Str">Templates</Property>
+				<Property Name="Destination[2].path" Type="Path">../Built/Templates</Property>
+				<Property Name="Destination[2].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[3].destName" Type="Str">SubModules</Property>
+				<Property Name="Destination[3].path" Type="Path">../Built/SubModules</Property>
+				<Property Name="Destination[3].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="DestinationCount" Type="Int">4</Property>
+				<Property Name="Source[0].itemID" Type="Str">{21F6A25F-FA0E-4069-80A0-E00DC2A69B63}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/VeriStand FPGA Generation Wizard.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].destinationIndex" Type="Int">3</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Item[@Label='Dependencies' and @Type='Folder']/Engine Simulation Toolkit.lvlib</Property>
+				<Property Name="Source[2].Library.allowMissingMembers" Type="Bool">true</Property>
+				<Property Name="Source[2].type" Type="Str">Library</Property>
+				<Property Name="Source[3].destinationIndex" Type="Int">2</Property>
+				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Item[@Label='Dependencies' and @Type='Folder']/FPGA Wizard Templates.lvlib</Property>
+				<Property Name="Source[3].Library.allowMissingMembers" Type="Bool">true</Property>
+				<Property Name="Source[3].type" Type="Str">Library</Property>
+				<Property Name="Source[4].destinationIndex" Type="Int">3</Property>
+				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Item[@Label='Dependencies' and @Type='Folder']/Speciality FPGA IO.lvlib</Property>
+				<Property Name="Source[4].Library.allowMissingMembers" Type="Bool">true</Property>
+				<Property Name="Source[4].type" Type="Str">Library</Property>
+				<Property Name="SourceCount" Type="Int">5</Property>
+				<Property Name="TgtF_companyName" Type="Str">National Instruments</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">My Application</Property>
+				<Property Name="TgtF_internalName" Type="Str">My Application</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2019 National Instruments</Property>
+				<Property Name="TgtF_productName" Type="Str">My Application</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{7D5CDBE8-5426-4859-9368-7F794F09BB0E}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Application.exe</Property>
+			</Item>
+			<Item Name="My Source Distribution" Type="Source Distribution">
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{375165C0-B3FD-4283-8925-CDF8F43A5609}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">My Source Distribution</Property>
+				<Property Name="Bld_excludedDirectory[0]" Type="Path">vi.lib</Property>
+				<Property Name="Bld_excludedDirectory[0].pathType" Type="Str">relativeToAppDir</Property>
+				<Property Name="Bld_excludedDirectory[1]" Type="Path">instr.lib</Property>
+				<Property Name="Bld_excludedDirectory[1].pathType" Type="Str">relativeToAppDir</Property>
+				<Property Name="Bld_excludedDirectory[2]" Type="Path">user.lib</Property>
+				<Property Name="Bld_excludedDirectory[2].pathType" Type="Str">relativeToAppDir</Property>
+				<Property Name="Bld_excludedDirectory[3]" Type="Path">resource/objmgr</Property>
+				<Property Name="Bld_excludedDirectory[3].pathType" Type="Str">relativeToAppDir</Property>
+				<Property Name="Bld_excludedDirectory[4]" Type="Path">/C/ProgramData/National Instruments/InstCache/15.0</Property>
+				<Property Name="Bld_excludedDirectoryCount" Type="Int">5</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../Built</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{95E79DD0-4040-4650-AD59-AB5CFFCD5AB8}</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">Destination Directory</Property>
+				<Property Name="Destination[0].path" Type="Path">../Built</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../Built/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{21F6A25F-FA0E-4069-80A0-E00DC2A69B63}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].Container.applyInclusion" Type="Bool">true</Property>
+				<Property Name="Source[1].Container.depDestIndex" Type="Int">0</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Item[@Label='Dependencies' and @Type='Folder']</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[1].type" Type="Str">Container</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+			</Item>
+		</Item>
+	</Item>
+</Project>

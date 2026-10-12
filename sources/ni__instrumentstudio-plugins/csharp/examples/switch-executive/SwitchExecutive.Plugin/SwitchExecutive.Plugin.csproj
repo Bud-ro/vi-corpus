@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <InstrumentStudioDirectory Condition="'$(InstrumentStudioDirectory)' == ''">C:\Program Files\National Instruments\InstrumentStudio</InstrumentStudioDirectory>
+    <NISwitchExecutiveDirectory Condition="'$(NISwitchExecutiveDirectory)' == ''">C:\Windows\system32</NISwitchExecutiveDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NationalInstruments.Common">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Controls.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.Numerics">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Controls.Numerics.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Controls.SkinProviders.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Graphs">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Controls.SkinProviders.Graphs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Numerics">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Controls.SkinProviders.Numerics.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Core">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.FuseControlsImplementation">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.FuseControlsImplementation.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.InstrumentFramework.Plugins">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.InstrumentFramework.Plugins.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.PlatformFramework">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.PlatformFramework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>$(InstrumentStudioDirectory)\System.Windows.Interactivity.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\missingdevice_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+   <Resource Include="Resources\missingdevice_12x12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- niSE.dll provides two COM components: niSE and niseCfg. Use COMFileReference instead of
+      COMReference so that NI Switch Executive doesn't have to be installed/registered on the
+      build machine. -->
+    <!-- niSE component -->
+    <COMFileReference Include="$(NISwitchExecutiveDirectory)\niSE.dll\1">
+      <WrapperTool>tlbimp</WrapperTool>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMFileReference>
+    <!-- niseCfg component -->
+    <COMFileReference Include="$(NISwitchExecutiveDirectory)\niSE.dll\2">
+      <WrapperTool>tlbimp</WrapperTool>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMFileReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.310801">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+</Project>

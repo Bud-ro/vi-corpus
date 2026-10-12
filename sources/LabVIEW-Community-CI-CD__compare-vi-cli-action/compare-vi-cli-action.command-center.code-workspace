@@ -1,0 +1,166 @@
+{
+  "folders": [
+    {
+      "name": "PLANE_FORK__compare-vi-cli-action",
+      "path": "."
+    },
+    {
+      "name": "PLANE_UPSTREAM__compare-vi-cli-action",
+      "path": "../../compare-vi-cli-action-upstream/compare-vi-cli-action"
+    }
+  ],
+  "settings": {
+    "window.title": "[COMMAND_CENTER] ${activeEditorShort}${separator}${rootName}",
+    "terminal.integrated.shellIntegration.enabled": true
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Command Center: bootstrap fork plane",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "priority:bootstrap"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_FORK__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: bootstrap upstream plane",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "priority:bootstrap"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_UPSTREAM__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: parity report (fork plane)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/priority/report-origin-upstream-parity.mjs",
+          "--base-ref",
+          "upstream/develop",
+          "--head-ref",
+          "origin/develop"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_FORK__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: show standing issue snapshot (fork plane)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "priority:show"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_FORK__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: dispatch Validate (fork plane, allow fork)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "priority:validate",
+          "--",
+          "--allow-fork",
+          "--push-missing",
+          "--ref",
+          "${input:validateRef}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_FORK__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: dispatch Validate (upstream plane)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "priority:validate",
+          "--",
+          "--ref",
+          "${input:validateRef}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_UPSTREAM__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: watch Validate by branch (upstream plane)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "ci:watch:rest",
+          "--",
+          "--branch",
+          "${input:watchBranch}"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_UPSTREAM__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Command Center: watch PR checks (safe, fork plane)",
+        "type": "process",
+        "command": "node",
+        "args": [
+          "tools/npm/run-script.mjs",
+          "ci:watch:safe",
+          "--",
+          "--PullRequest",
+          "${input:watchPullRequest}",
+          "-IntervalSeconds",
+          "20",
+          "-HeartbeatPolls",
+          "3"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder:PLANE_FORK__compare-vi-cli-action}"
+        },
+        "problemMatcher": []
+      }
+    ],
+    "inputs": [
+      {
+        "id": "validateRef",
+        "type": "promptString",
+        "description": "Branch/ref for Validate dispatch",
+        "default": "develop"
+      },
+      {
+        "id": "watchBranch",
+        "type": "promptString",
+        "description": "Branch name to watch latest Validate run",
+        "default": "develop"
+      },
+      {
+        "id": "watchPullRequest",
+        "type": "promptString",
+        "description": "Pull request number for safe check polling",
+        "default": "1"
+      }
+    ]
+  }
+}

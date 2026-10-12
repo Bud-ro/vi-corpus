@@ -1,0 +1,85 @@
+name: "Session Index Post"
+description: "Append session index summary, validate schemas, and upload v1+v2 artifacts"
+inputs:
+  results-dir:
+    description: "Results directory containing session-index.json and optional session-index-v2.json"
+    required: false
+    default: "tests/results"
+  validate-schema:
+    description: "Validate session-index schemas"
+    required: false
+    default: "true"
+  upload:
+    description: "Upload session-index artifacts"
+    required: false
+    default: "true"
+  artifact-name:
+    description: "Artifact name"
+    required: false
+    default: "session-index"
+runs:
+  using: "composite"
+  steps:
+    - name: Append session index to summary
+      shell: pwsh
+      run: |
+        $dir = '${{ inputs.results-dir }}'
+        $idxV1 = Join-Path $dir 'session-index.json'
+        $idxV2 = Join-Path $dir 'session-index-v2.json'
+        $preferredPath = $null
+        $preferredSource = 'missing'
+        if (Test-Path $idxV2) {
+          $preferredPath = $idxV2
+          $preferredSource = 'v2'
+        } elseif (Test-Path $idxV1) {
+          $preferredPath = $idxV1
+          $preferredSource = 'v1'
+        }
+
+        if ($preferredPath) {
+          try {
+            $j = Get-Content $preferredPath -Raw | ConvertFrom-Json -ErrorAction Stop
+            if ($j.stepSummary) {
+              $j.stepSummary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            } else {
+              ("Session index ({0}) available: {1}" -f $preferredSource, $preferredPath) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+            }
+          } catch { Write-Host "::warning::Failed to read session index: $_" }
+        } else {
+          Write-Host '::notice::No session index found (v2 or v1).'
+        }
+
+        if (Test-Path $idxV2) {
+          ("Session index v2 available: {0}" -f $idxV2) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+        } else {
+          Write-Host '::notice::session-index-v2.json not found (fallback to v1 only).'
+        }
+
+    - name: Validate session index (schema-lite)
+      if: ${{ inputs.validate-schema == 'true' }}
+      shell: pwsh
+      run: |
+        $dir = '${{ inputs.results-dir }}'
+        $idxV1 = Join-Path $dir 'session-index.json'
+        $idxV2 = Join-Path $dir 'session-index-v2.json'
+        if (Test-Path $idxV1) {
+          pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $idxV1 -SchemaPath docs/schemas/session-index-v1.schema.json
+          if ($LASTEXITCODE -ne 0) { Write-Host "::warning::Schema-lite returned $LASTEXITCODE for session index" }
+        } else { Write-Host '::notice::session-index.json not present for validation.' }
+
+        if (Test-Path $idxV2) {
+          pwsh -File tools/Invoke-JsonSchemaLite.ps1 -JsonPath $idxV2 -SchemaPath docs/schema/generated/session-index-v2.schema.json
+          if ($LASTEXITCODE -ne 0) { Write-Host "::warning::V2 schema validation returned $LASTEXITCODE for session-index-v2.json" }
+        } else {
+          Write-Host '::notice::session-index-v2.json not present for validation.'
+        }
+
+    - name: Upload session index artifact
+      if: ${{ inputs.upload == 'true' }}
+      uses: actions/upload-artifact@v6
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: |
+          ${{ inputs.results-dir }}/session-index.json
+          ${{ inputs.results-dir }}/session-index-v2.json
+

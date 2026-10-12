@@ -1,0 +1,20 @@
+name: ci-checks
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore: |
+      *.md
+      .*
+      LICENSE
+  workflow_dispatch:
+
+jobs:
+
+  ci-checks:
+    uses: vipm-io/OpenG-Tookit/.github/workflows/ci-checks.yml@main
+    secrets: inherit
+    with:
+      ci-container: "ghcr.io/vipm-io/openg-variant-data-library:main"

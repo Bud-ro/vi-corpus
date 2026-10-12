@@ -1,0 +1,1054 @@
+using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
+using LabVIEWMcp.Infra;
+using ModelContextProtocol.Server;
+
+namespace LabVIEWMcp.Tools;
+
+/// <summary>
+/// Serves the AIXML format reference that lives in docs/aixml-reference.md.
+///
+/// Why this is a tool and not just a file in the repo: a reference nobody reads prevents no
+/// mistakes. AIXML has no published schema, and its two nastiest traps fail SILENTLY at
+/// authoring time - a `uid.terminal` string names a net rather than pointing at an element,
+/// and terminal names are unguessable ("x &gt; y?" has spaces, "x+y" does not). Any client
+/// generating AIXML without those rules will produce plausible, wrong XML.
+///
+/// The document is embedded from docs/, so there is exactly one copy. Editing the markdown
+/// and rebuilding updates what the server serves; there is nothing to keep in sync.
+/// </summary>
+[McpServerToolType]
+[McpServerResourceType]
+internal sealed class KnowledgeTools
+{
+    private const string ResourceName = "aixml-reference.md";
+    private const string DqmhResourceName = "dqmh-patterns.md";
+    private const string LvprojResourceName = "lvproj-structure.md";
+    private const string LvlibResourceName = "lvlib-lvclass-structure.md";
+    private const string ViServerResourceName = "vi-server-reference.md";
+    private const string MethodsResourceName = "vi-server-methods.tsv";
+    private const string PropertiesResourceName = "vi-server-properties.tsv";
+
+    /// <summary>
+    /// Rows returned when a query matches more than this. A deliberate cap: the two
+    /// catalogues are 400 kB together, and the whole point of a query tool is that the
+    /// caller never receives the file. Truncation is always reported, never silent.
+    /// </summary>
+    private const int DefaultLimit = 40;
+    private const int MaxLimit = 400;
+
+    /// <summary>The handful of rules that stop a first attempt from being silently wrong.</summary>
+    private const string Essentials = """
+        AIXML essentials (full detail: call this tool with a section, or 'all')
+
+        1. NETS, NOT POINTERS. A `uid.terminal` string names a *net* (a wire). Every element
+           lists which net each of its terminals sits on - inputs for input terminals,
+           outputs for outputs. Two terminals are wired iff they name the same net. Fan-out
+           = repeat the net string. `inputs` does NOT point at the source element, and an
+           element may legitimately name a net after its own uid.
+        2. LOOK UP TERMINAL NAMES. They are literal LabVIEW labels: `Increment` -> `x+1`,
+           `Greater?` -> `x > y?` (with spaces), `Select` -> `s? t\3Af`, `Or` -> `x .or. y?`.
+           Export a VI that already uses the node and copy the string.
+        3. ESCAPES. `\3A` = colon, `\2C` = comma, `\0A`/`\0D` = newline - because `:` and `,`
+           separate entries in inputs/outputs. XML entities apply on top.
+        4. NO LAYOUT. There is no coordinate attribute anywhere. Position, size and diagram
+           cleanup cannot be expressed. Keep FreeLabel comments to a few words or they cover
+           wires; put prose in the VI `description`.
+        5. GENERATED VIs MUST BE SELF-CONTAINED. A `Call` to a project- or library-local
+           subVI is rejected as "Unsupported SubVI". Primitives, all structure kinds and the
+           whole type system work.
+        6. ALWAYS lvai_validate_aixml BEFORE generating. It is cheap and its messages are
+           specific.
+        """;
+
+    /// <summary>
+    /// Past this, a section is big enough that a client spills it to a file - and a file holding
+    /// one JSON string is not greppable, so the caller cannot find the paragraph they came for.
+    /// Measured: section 8 is 54 kB, and a VI-generator run failed to find a subsection that had
+    /// been added to it that same day, then re-derived the fact by exporting a VI.
+    /// </summary>
+    /// <summary>
+    /// The most one answer may carry. Past this a client spills the whole thing to a file, and a
+    /// file holding one JSON string is not greppable - so the content becomes unreachable rather
+    /// than merely long. Measured 2026-09-07: section 8 of the AIXML reference is 89 521
+    /// characters and could not be read at all.
+    ///
+    /// This replaced an 8 000-character threshold that only APPENDED ADVICE - "call again with
+    /// node= instead" - to an answer that had already overrun the limit, so the advice arrived
+    /// inside the thing it was warning about. Only three sections of one document are over it
+    /// (8, 9 and 10 of the AIXML reference, all with subsections to index); no other served
+    /// document has a section anywhere near it.
+    /// </summary>
+    private const int MaxServeChars = 20_000;
+
+    /// <summary>Past this many hits a lookup is answered with headings, not with passages.</summary>
+    private const int FloodThreshold = 25;
+    private const int FloodSample = 8;
+
+    /// <summary>
+    /// How many terms one call may look up. A cap rather than unbounded fan-in: past this the
+    /// answer is no longer a focused lookup, and the caller wants a section.
+    /// </summary>
+    private const int MaxTerms = 40;
+
+    /// <summary>
+    /// How each document names itself in a lookup answer. A miss has to say WHICH document did
+    /// not mention the term, or "Nothing mentions X" reads as "this is undocumented anywhere".
+    /// </summary>
+    private const string AixmlLabel = "the AIXML reference";
+
+    private static string LabelFor(string resourceName) => resourceName switch
+    {
+        ResourceName => AixmlLabel,
+        DqmhResourceName => "the DQMH reference",
+        LvprojResourceName => "the .lvproj reference",
+        LvlibResourceName => "the .lvlib/.lvclass reference",
+        ViServerResourceName => "the VI Server guide",
+        _ => $"'{resourceName}'",
+    };
+
+    /// <summary>
+    /// Every document this class serves is an EMBEDDED RESOURCE, so it cannot change while the
+    /// process lives - a rebuild replaces the exe and restarts the server. That makes caching
+    /// for the process lifetime correct with no invalidation to get wrong, unlike the example
+    /// index, which reads from disk and therefore needs an explicit refresh.
+    ///
+    /// This matters more than it looks. Before the cache, EVERY reference call re-read its
+    /// resource out of the assembly and re-split it: 144 kB for the AIXML document, and 412 kB
+    /// for the two VI Server catalogues, which ClassOverview walked line by line on each
+    /// unfiltered call.
+    /// </summary>
+    private static readonly ConcurrentDictionary<string, string> DocumentCache = new(StringComparer.Ordinal);
+
+    private static readonly ConcurrentDictionary<string, List<(string Heading, string Body)>> SectionCache
+        = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// The per-document line index a lookup needs. Keyed by document REFERENCE, which works
+    /// because <see cref="Load"/> hands back the same cached instance every time - so the real
+    /// callers share one index while a test passing an ad-hoc string simply builds its own.
+    /// </summary>
+    private static readonly ConditionalWeakTable<string, DocumentIndex> IndexCache = new();
+
+    private static string? _classOverview;
+
+    /// <summary>
+    /// Fence extents, owning heading and table-header row for every line of a document.
+    /// Building this is the expensive half of a lookup, and it is identical for every term -
+    /// which is the whole reason a batched lookup beats N single ones on more than round trips.
+    /// </summary>
+    private sealed record DocumentIndex(
+        string[] Lines, int[] FenceStart, int[] FenceEnd, string[] Heading, int[] Header);
+
+    [McpServerTool(Name = "lvai_aixml_reference", ReadOnly = true,
+                   Title = "AIXML format reference")]
+    [Description("""
+        The rules for reading and WRITING LabVIEW AIXML. Call this before authoring or editing
+        any AIXML - the format has no published schema and its wiring model is
+        counter-intuitive, so generating without it produces plausible but wrong XML.
+        Without arguments: the essential rules plus a section list (cheap, start here).
+        With node: ONLY the passages mentioning that node or term - the right call when you
+        want one node's terminal names, e.g. node='Build Waveform', node='Index Array',
+        node='graph21703'. Section 8 alone is 54 kB, far past what is worth reading whole.
+        PASS EVERY NODE YOUR DIAGRAM NEEDS IN ONE CALL, comma-separated:
+        node='Select,Index Array,Build Waveform,Greater?'. Terms are matched by substring, so
+        single lookups return the same text over and over - the 2D-indexing block answers
+        `Index Array`, `disabled index` and `Array Subset` alike. A batch prints each passage
+        ONCE and each table header once instead of once per term. Measured on one VI: 18 single
+        lookups where 3 batched calls carried the same content.
+        With section: that section's full text ('types', 'structures', 'escaping', 'wiring',
+        a heading number, or part of a title). With section='all': the whole document.
+        """)]
+    public static string AixmlReference(
+        [Description("Section number, keyword or title fragment; 'all' for everything; omit for the essentials")]
+        string? section = null,
+        [Description("Node or term to look up, e.g. 'Build Waveform'. Returns only the table " +
+                     "rows, code blocks and paragraphs that mention it, each under its heading. " +
+                     "SEVERAL TERMS AT ONCE, comma-separated - 'Select,Index Array,Not' - which " +
+                     "is one round trip and prints each passage once rather than once per term. " +
+                     "Takes precedence over section")]
+        string? node = null,
+        [Description("Max passages to return (default 40, max 400)")] int limit = DefaultLimit,
+        [Description("Which chunk of an over-long section to return, 1-based. Omit for the " +
+                     "subsection index, which is what you want first")]
+        int page = 0)
+    {
+        string document;
+        try
+        {
+            document = Load();
+        }
+        catch (Exception e)
+        {
+            return Json.Error(e.GetType().Name,
+                $"The embedded AIXML reference could not be read: {e.Message}");
+        }
+
+        var sections = Sections(ResourceName);
+
+        if (!string.IsNullOrWhiteSpace(node))
+            return LookupMany(document, ParseTerms(node),
+                              Math.Clamp(limit <= 0 ? DefaultLimit : limit, 1, MaxLimit), AixmlLabel);
+
+        if (string.IsNullOrWhiteSpace(section))
+            return Essentials + Environment.NewLine + Environment.NewLine + Toc(sections);
+
+        if (section.Trim().Equals("all", StringComparison.OrdinalIgnoreCase))
+            return document;
+
+        var match = Find(sections, section.Trim()) ?? FindSubsection(document, section.Trim());
+        if (match is null)
+            // Falling through to the node lookup rather than just listing the sections: the old
+            // "No section matched" plus a list of 15 numbers reads as "that content is not here",
+            // which was measured sending a caller off to re-derive a documented fact. If the term
+            // appears anywhere, show it.
+            return LookupMany(document, ParseTerms(section), DefaultLimit, AixmlLabel);
+
+        return Serve(match, page, AixmlLabel);
+    }
+
+    [McpServerResource(Name = "aixml-reference", UriTemplate = "labview://aixml-reference",
+                      MimeType = "text/markdown",
+                      Title = "AIXML format reference")]
+    [Description("How LabVIEW's AIXML block-diagram format is structured, and how to author it.")]
+    public static string AixmlReferenceResource() => Load();
+
+    [McpServerTool(Name = "lvai_dqmh_reference", ReadOnly = true,
+                   Title = "DQMH module structure reference")]
+    [Description("""
+        How a DQMH (Delacor Queued Message Handler) module is built, as it appears in AIXML:
+        the fixed set of module VIs, the two-loop Main.vi, the typed request/broadcast event
+        clusters, and the naming conventions. Read this before analysing or discussing a
+        project that uses DQMH - the two loops sit inside a case frame rather than at the
+        diagram root, so a naive tree walk finds nothing.
+        Note it also records what CANNOT be generated: every DQMH framework call is a
+        project-local subVI, which AIXML generation rejects.
+        Without arguments: a section list. With section: that section, or 'all'. A section value
+        that is not a heading is looked up as a TERM instead - and it may be a comma-separated
+        list, which costs one round trip and prints each passage once.
+        """)]
+    public static string DqmhReference(
+        [Description("Section number or title fragment; 'all' for everything; omit for the " +
+                     "section list. A value that matches no heading is looked up as a term, and " +
+                     "may be a comma-separated list of them")]
+        string? section = null) => Serve(DqmhResourceName, section);
+
+    [McpServerResource(Name = "dqmh-patterns", UriTemplate = "labview://dqmh-patterns",
+                      MimeType = "text/markdown",
+                      Title = "DQMH module structure reference")]
+    [Description("The structure of a DQMH module as seen through AIXML.")]
+    public static string DqmhReferenceResource() => Load(DqmhResourceName);
+
+    [McpServerTool(Name = "lvai_lvproj_reference", ReadOnly = true,
+                   Title = "LabVIEW project file (.lvproj) reference")]
+    [Description("""
+        The grammar of a LabVIEW `.lvproj` file: item types, virtual versus auto-populating
+        folders, the `URL` forms, property scopes, build specifications, formatting rules and
+        recipes for generating one. Derived by census over a corpus of real project files, with
+        counts throughout so a rule can be told apart from a single observation.
+        Read this before parsing or writing a `.lvproj`. Two traps it documents: a project's
+        own library members are NOT listed in the file (the `.lvlib` owns them), and no RPC adds
+        a file to a project - `.lvproj` generation is on NI's unsupported list, so any project
+        edit is plain XML work outside the AIXML path.
+        Without arguments: a section list. With section: that section, or 'all'. A section value
+        that is not a heading is looked up as a TERM instead - and it may be a comma-separated
+        list, which costs one round trip and prints each passage once.
+        """)]
+    public static string LvprojReference(
+        [Description("Section number or title fragment; 'all' for everything; omit for the " +
+                     "section list. A value that matches no heading is looked up as a term, and " +
+                     "may be a comma-separated list of them")]
+        string? section = null) => Serve(LvprojResourceName, section);
+
+    [McpServerResource(Name = "lvproj-structure", UriTemplate = "labview://lvproj-structure",
+                      MimeType = "text/markdown",
+                      Title = "LabVIEW project file reference")]
+    [Description("How a LabVIEW .lvproj file is structured, and how to generate one.")]
+    public static string LvprojReferenceResource() => Load(LvprojResourceName);
+
+    [McpServerTool(Name = "lvai_lvlib_reference", ReadOnly = true,
+                   Title = "LabVIEW library and class file (.lvlib/.lvclass) reference")]
+    [Description("""
+        The grammar of a `.lvlib` and a `.lvclass`: the item types, where ACCESS SCOPE is
+        recorded and how it is inherited, and how a class names its parent. Read this before
+        deciding what is public - no RPC reports access scope, so the library file is the only
+        source, and the two scope properties behave differently: on a `.lvlib` the scope sits on
+        the FOLDER and its members inherit it, while a `.lvclass` records it per member.
+        Also covers the encoded parent-class record, which is where inheritance comes from on
+        LabVIEW versions that do not write plain-text Parent items.
+        Without arguments: a section list. With section: that section, or 'all'. A section value
+        that is not a heading is looked up as a TERM instead - and it may be a comma-separated
+        list, which costs one round trip and prints each passage once.
+        """)]
+    public static string LvlibReference(
+        [Description("Section number or title fragment; 'all' for everything; omit for the " +
+                     "section list. A value that matches no heading is looked up as a term, and " +
+                     "may be a comma-separated list of them")]
+        string? section = null) => Serve(LvlibResourceName, section);
+
+    [McpServerResource(Name = "lvlib-lvclass-structure",
+                      UriTemplate = "labview://lvlib-lvclass-structure",
+                      MimeType = "text/markdown",
+                      Title = "LabVIEW library and class file reference")]
+    [Description("How .lvlib and .lvclass files record membership, access scope and inheritance.")]
+    public static string LvlibReferenceResource() => Load(LvlibResourceName);
+
+    [McpServerTool(Name = "lvai_vi_server_reference", ReadOnly = true,
+                   Title = "VI Server methods and properties catalogue")]
+    [Description("""
+        Look up the exact Invoke Node / Property Node vocabulary for generating a VI that calls
+        VI Server: 3078 methods and 6410 properties over 153 classes, with their terminal names.
+        Use this whenever you author AIXML containing an Invoke Node or Property Node.
+        A method's `target` string CANNOT be derived any other way - method names are binary IDs
+        inside a .vi, LabVIEW.exe does not carry them as text, and SearchInfoCache covers palette
+        items rather than VI Server. Guessing produces XML that validates and then does nothing.
+        Without arguments: how to use it plus the class list. With query and/or cls: matching
+        rows only. SEVERAL NAMES IN ONE CALL, comma-separated - query='Callees,Icon,Print' -
+        which is one round trip and never prints the same row twice.
+        Combine with lvai_run_vi_as_top_level to reach capabilities no RPC exposes -
+        that is how a VI's icon and connector pane are obtained.
+        """)]
+    public static string ViServerReference(
+        [Description("Substring of the method or property name, e.g. 'To HTML', 'Callees'. " +
+                     "Several at once, comma-separated: 'Callees,Icon' - matching rows are " +
+                     "merged and de-duplicated")]
+        string? query = null,
+        [Description("Class filter, with or without braces: 'LV.VI', '{LV.Application}'")]
+        string? cls = null,
+        [Description("'methods', 'properties' or 'both' (default)")] string? kind = null,
+        [Description("Max rows to return (default 40, max 400)")] int limit = DefaultLimit,
+        [Description("Section of the guide document, or 'all'; ignored when query/cls are given")]
+        string? section = null)
+    {
+        var wantMethods = !string.Equals(kind, "properties", StringComparison.OrdinalIgnoreCase);
+        var wantProperties = !string.Equals(kind, "methods", StringComparison.OrdinalIgnoreCase);
+
+        // No filter at all: hand back guidance, not 400 kB of data.
+        if (string.IsNullOrWhiteSpace(query) && string.IsNullOrWhiteSpace(cls))
+            return Serve(ViServerResourceName, section) + Environment.NewLine + Environment.NewLine +
+                   ClassOverview();
+
+        string methods, properties;
+        try
+        {
+            methods = Load(MethodsResourceName);
+            properties = Load(PropertiesResourceName);
+        }
+        catch (Exception e)
+        {
+            return Json.Error(e.GetType().Name,
+                $"The embedded VI Server catalogue could not be read: {e.Message}");
+        }
+
+        limit = Math.Clamp(limit <= 0 ? DefaultLimit : limit, 1, MaxLimit);
+        var sb = new StringBuilder();
+        var total = 0;
+
+        if (wantMethods)
+        {
+            var (rows, count) = Match(methods, query, cls, limit);
+            total += count;
+            sb.AppendLine($"METHODS  (class → target → parameters → returns; "
+                          + "'reference' and 'error in (no error)' are always available)");
+            sb.AppendLine(rows.Count == 0 ? "  (no match)" : string.Join(Environment.NewLine, rows));
+            if (count > rows.Count)
+                sb.AppendLine($"  ... {count - rows.Count} more method rows match; narrow the query or raise limit");
+            sb.AppendLine();
+        }
+
+        if (wantProperties)
+        {
+            var (rows, count) = Match(properties, query, cls, limit);
+            total += count;
+            sb.AppendLine("PROPERTIES  (class → property → access as configured in the source VI, "
+                          + "NOT a statement about writability)");
+            sb.AppendLine(rows.Count == 0 ? "  (no match)" : string.Join(Environment.NewLine, rows));
+            if (count > rows.Count)
+                sb.AppendLine($"  ... {count - rows.Count} more property rows match; narrow the query or raise limit");
+        }
+
+        if (total == 0)
+            return $"Nothing matched query=\"{query}\" cls=\"{cls}\"." + Environment.NewLine +
+                   "Method names carry a category prefix in two interchangeable spellings " +
+                   "('Print VI To HTML' and 'Print.VI To Printer' both occur and both import), " +
+                   "so try a shorter fragment." + Environment.NewLine + Environment.NewLine +
+                   ClassOverview();
+
+        return sb.ToString().TrimEnd();
+    }
+
+    [McpServerResource(Name = "vi-server-reference", UriTemplate = "labview://vi-server-reference",
+                      MimeType = "text/markdown",
+                      Title = "VI Server catalogue guide")]
+    [Description("How to reach VI Server from a generated VI, and what the two catalogues contain.")]
+    public static string ViServerReferenceResource() => Load(ViServerResourceName);
+
+    // ---------- internals ----------
+
+    /// <summary>
+    /// Filter a catalogue TSV. Returns the capped rows plus how many matched in total, so the
+    /// caller can say what it dropped instead of pretending the list was complete.
+    /// </summary>
+    private static (List<string> Rows, int Total) Match(string tsv, string? query, string? cls,
+                                                       int limit)
+    {
+        var wantClass = NormalizeClass(cls);
+        var queries = string.IsNullOrWhiteSpace(query)
+            ? [null]
+            : ParseTerms(query).Take(MaxTerms).Cast<string?>().ToList();
+        if (queries.Count == 0) queries = [null];
+
+        var rows = new List<string>();
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var total = 0;
+
+        // One pass per name, but the row set is shared: 'Icon' and 'Icon.Get Image' overlap
+        // heavily, and printing the overlap once is the point of taking a list.
+        foreach (var one in queries)
+        {
+            var result = Collect(tsv, one, wantClass, exact: true, int.MaxValue);
+
+            // A bare 'LV.VI' must mean the VI class, not every class whose name merely contains
+            // that text. The catalogue is sorted by class and '}' sorts after every letter, so
+            // {LV.VIRefnum} precedes {LV.VI}: a loose match plus the row cap would fill up with
+            // near-misses and bury the exact class that was asked for. Substring is the fallback.
+            if (result.Total == 0 && wantClass is not null)
+                result = Collect(tsv, one, wantClass, exact: false, int.MaxValue);
+
+            foreach (var row in result.Rows)
+            {
+                if (!seen.Add(row)) continue;
+                total++;
+                if (rows.Count < limit) rows.Add(row);
+            }
+        }
+
+        return (rows, total);
+    }
+
+    private static (List<string> Rows, int Total) Collect(string tsv, string? query,
+                                                         string? wantClass, bool exact, int limit)
+    {
+        var rows = new List<string>();
+        var total = 0;
+        var first = true;
+
+        foreach (var line in tsv.Replace("\r\n", "\n").Split('\n'))
+        {
+            if (line.Length == 0) continue;
+            if (first) { first = false; continue; }          // header
+
+            var tab = line.IndexOf('\t');
+            if (tab < 0) continue;
+            var rowClass = line[..tab];
+
+            if (wantClass is not null &&
+                !(exact
+                    ? rowClass.Equals(wantClass, StringComparison.OrdinalIgnoreCase)
+                    : rowClass.Contains(wantClass.Trim('{', '}'), StringComparison.OrdinalIgnoreCase)))
+                continue;
+
+            // The name is the second column; matching the whole line would hit parameter
+            // names and return rows whose method has nothing to do with the query.
+            var rest = line[(tab + 1)..];
+            var tab2 = rest.IndexOf('\t');
+            var name = tab2 < 0 ? rest : rest[..tab2];
+
+            if (!string.IsNullOrWhiteSpace(query) &&
+                !name.Contains(query, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            total++;
+            if (rows.Count < limit) rows.Add("  " + line);
+        }
+        return (rows, total);
+    }
+
+    /// <summary>Accept 'LV.VI', '{LV.VI}' and 'lv.vi' alike; null when no filter was given.</summary>
+    private static string? NormalizeClass(string? cls)
+    {
+        if (string.IsNullOrWhiteSpace(cls)) return null;
+        var t = cls.Trim();
+        if (!t.StartsWith('{')) t = "{" + t;
+        if (!t.EndsWith('}')) t += "}";
+        return t;
+    }
+
+    /// <summary>
+    /// The classes that carry the most entries — enough to aim a second query. Computed once:
+    /// it walks both catalogues line by line, 412 kB, and the answer cannot change at run time.
+    /// </summary>
+    private static string ClassOverview()
+    {
+        if (_classOverview is not null) return _classOverview;
+        try
+        {
+            // Only a success is remembered. A failure here means an embedded resource is missing,
+            // which is permanent - but caching the apology would hide it from a later reader.
+            return _classOverview = BuildClassOverview();
+        }
+        catch (Exception e)
+        {
+            return $"(class overview unavailable: {e.Message})";
+        }
+    }
+
+    private static string BuildClassOverview()
+    {
+        var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var resource in new[] { MethodsResourceName, PropertiesResourceName })
+            foreach (var line in Load(resource).Replace("\r\n", "\n").Split('\n'))
+            {
+                var tab = line.IndexOf('\t');
+                if (tab <= 0 || line.StartsWith("class\t", StringComparison.Ordinal)) continue;
+                var key = line[..tab];
+                counts[key] = counts.GetValueOrDefault(key) + 1;
+            }
+
+        var sb = new StringBuilder($"Classes: {counts.Count}. The largest, by entry count:");
+        sb.AppendLine();
+        foreach (var (name, n) in counts.OrderByDescending(p => p.Value).Take(15))
+            sb.AppendLine($"  {name}  ({n})");
+        sb.Append("Pass any of these as cls, e.g. cls='LV.VI'.");
+        return sb.ToString();
+    }
+
+    /// <summary>Shared section-serving used by every document tool.</summary>
+    private static string Serve(string resourceName, string? section)
+    {
+        string document;
+        try
+        {
+            document = Load(resourceName);
+        }
+        catch (Exception e)
+        {
+            return Json.Error(e.GetType().Name,
+                $"The embedded document '{resourceName}' could not be read: {e.Message}");
+        }
+
+        var sections = Sections(resourceName);
+
+        if (string.IsNullOrWhiteSpace(section)) return Toc(sections);
+        if (section.Trim().Equals("all", StringComparison.OrdinalIgnoreCase)) return document;
+
+        // Same fallback the AIXML tool has had: "No section matched" plus a list of headings
+        // reads as "that content is not here", and it was measured sending a caller off to
+        // re-derive a fact the document carried. If the term appears anywhere, show the passages
+        // - and accept a comma-separated list, so several terms cost one call.
+        var match = Find(sections, section.Trim()) ?? FindSubsection(document, section.Trim());
+        return match is null
+            ? LookupMany(document, ParseTerms(section), DefaultLimit, LabelFor(resourceName))
+            : Serve(match, page: 0, LabelFor(resourceName));
+    }
+
+    /// <summary>
+    /// One matched section, chunked when it is too big to survive the round trip.
+    ///
+    /// SECTION 8 OF THE AIXML REFERENCE COULD NOT BE READ AT ALL. Measured 2026-09-07: it is
+    /// 89 521 characters, which overruns the client's tool-output limit, so the whole answer was
+    /// spilled to a file - and a file holding one JSON string is not greppable, which cost the
+    /// caller two extra <c>grep</c> calls to find one paragraph. It is also the section the
+    /// document's own multi-terminal rule points at, so the failure lands on a reader who was
+    /// told to go there.
+    ///
+    /// The old behaviour was to return it whole with a note suggesting <c>node=</c> instead. That
+    /// note was right and useless: by the time it is read, the answer has already blown the limit.
+    ///
+    /// So an over-long section is answered with its SUBSECTION INDEX plus its own preamble - the
+    /// <c>###</c> headings with their sizes, each of which <see cref="FindSubsection"/> can
+    /// already serve by title. That turns one unreadable answer into a two-call lookup with no
+    /// content unreachable. A section with no subsections to index falls back to
+    /// <c>page=</c> chunks, and an explicit <c>page</c> always gets the raw chunk.
+    /// </summary>
+    private static string Serve(string match, int page, string documentLabel)
+    {
+        if (match.Length <= MaxServeChars && page <= 0) return match;
+
+        var lines = match.Replace("\r\n", "\n").Split('\n');
+        var subs = new List<(string Title, int Start, int End)>();
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (!lines[i].StartsWith("### ", StringComparison.Ordinal)) continue;
+            if (subs.Count > 0) subs[^1] = (subs[^1].Title, subs[^1].Start, i);
+            subs.Add((lines[i][4..].Trim(), i, lines.Length));
+        }
+
+        var pages = (match.Length + MaxServeChars - 1) / MaxServeChars;
+
+        // An index is only an answer if it can actually aim the next call. Two subsections in a
+        // 90 kB section would leave both over the limit, so that falls through to chunks.
+        if (page <= 0 && subs.Count >= 3)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"[{match.Length / 1024} kB - too large to return whole, so this is its " +
+                          "index. Ask for one subsection by title with section='<title>', or for " +
+                          $"a raw chunk with page=1..{pages}. If you came for one node, " +
+                          "node='<name>' is better than either - and name every node you need in " +
+                          "that one call, comma-separated: it returns just the passages that " +
+                          "mention them, which is searchable where this is not.]");
+            sb.AppendLine();
+            sb.AppendLine(string.Join(Environment.NewLine, lines[..subs[0].Start]).TrimEnd());
+            sb.AppendLine();
+            sb.AppendLine("Subsections (pass one as `section`):");
+            foreach (var (title, start, end) in subs)
+            {
+                var size = lines[start..end].Sum(l => l.Length + 1);
+                sb.AppendLine($"  {title}   ({size / 1024} kB)");
+            }
+            return sb.ToString().TrimEnd();
+        }
+
+        var wanted = Math.Clamp(page <= 0 ? 1 : page, 1, pages);
+        var from = (wanted - 1) * MaxServeChars;
+
+        // Cut on a line boundary: a chunk that ends mid-row of a terminal-name table is worse
+        // than a slightly uneven one, because the row is the unit a caller came for.
+        var take = Math.Min(MaxServeChars, match.Length - from);
+        var end2 = from + take;
+        if (end2 < match.Length)
+        {
+            var nl = match.LastIndexOf('\n', end2 - 1, take);
+            if (nl > from) end2 = nl + 1;
+        }
+
+        return $"[{documentLabel}, chunk {wanted} of {pages} ({match.Length / 1024} kB total). " +
+               $"Next: page={Math.Min(wanted + 1, pages)}.]" + Environment.NewLine +
+               Environment.NewLine + match[from..end2].TrimEnd();
+    }
+
+    /// <summary>
+    /// The embedded document, read once per process. A failing read is NOT cached - GetOrAdd
+    /// lets the exception through - so a missing resource keeps reporting itself rather than
+    /// being remembered as an empty document.
+    /// </summary>
+    internal static string Load(string resourceName = ResourceName)
+        => DocumentCache.GetOrAdd(resourceName, ReadResource);
+
+    /// <summary>The level-2 sections of an embedded document, split once per process.</summary>
+    internal static List<(string Heading, string Body)> Sections(string resourceName)
+        => SectionCache.GetOrAdd(resourceName, static name => Split(Load(name)));
+
+    private static string ReadResource(string resourceName)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        using var stream = assembly.GetManifestResourceStream(resourceName)
+            ?? throw new InvalidOperationException(
+                $"Embedded resource '{resourceName}' is missing. Available: " +
+                string.Join(", ", assembly.GetManifestResourceNames()));
+        using var reader = new StreamReader(stream, Encoding.UTF8);
+        return reader.ReadToEnd();
+    }
+
+    /// <summary>Split on level-2 headings, keeping each heading with its body.</summary>
+    internal static List<(string Heading, string Body)> Split(string document)
+    {
+        var result = new List<(string, string)>();
+        var lines = document.Replace("\r\n", "\n").Split('\n');
+        var heading = "(preamble)";
+        var body = new StringBuilder();
+
+        foreach (var line in lines)
+        {
+            if (line.StartsWith("## ", StringComparison.Ordinal))
+            {
+                if (body.Length > 0) result.Add((heading, body.ToString().TrimEnd()));
+                heading = line[3..].Trim();
+                body.Clear();
+                body.AppendLine(line);
+            }
+            else
+            {
+                body.AppendLine(line);
+            }
+        }
+        if (body.Length > 0) result.Add((heading, body.ToString().TrimEnd()));
+        return result;
+    }
+
+    /// <summary>
+    /// Resolve a section by number, title fragment, or one of a few convenience keywords
+    /// that describe what someone is actually looking for rather than the heading wording.
+    /// </summary>
+    internal static string? Find(List<(string Heading, string Body)> sections, string query)
+    {
+        foreach (var (heading, body) in sections)
+            if (heading.StartsWith(query + ".", StringComparison.OrdinalIgnoreCase) ||
+                heading.Equals(query, StringComparison.OrdinalIgnoreCase))
+                return body;
+
+        var keywords = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["wiring"] = "core model",
+            ["nets"] = "core model",
+            ["net"] = "core model",
+            ["types"] = "type grammar",
+            ["type"] = "type grammar",
+            ["escaping"] = "escaping",
+            ["escapes"] = "escaping",
+            ["structures"] = "structures",
+            ["loop"] = "structures",
+            ["case"] = "structures",
+            ["event"] = "structures",
+            ["terminals"] = "multi-terminal",
+            ["nodes"] = "multi-terminal",
+            ["elements"] = "elements",
+            ["skeleton"] = "document skeleton",
+            ["limits"] = "can and cannot",
+            ["errors"] = "known failure",
+            ["failures"] = "known failure",
+            ["workflow"] = "workflow",
+        };
+        var needle = keywords.TryGetValue(query, out var mapped) ? mapped : query;
+
+        foreach (var (heading, body) in sections)
+            if (heading.Contains(needle, StringComparison.OrdinalIgnoreCase))
+                return body;
+
+        return null;
+    }
+
+    /// <summary>
+    /// A heading with its markdown stripped, for matching only. Headings in this document carry
+    /// backticks around node names, and a lookup prints the heading as a `[label]` - so a caller
+    /// naturally feeds that label straight back as `section=`, and it did not match. The label
+    /// the tool shows must be a label the tool accepts.
+    /// </summary>
+    private static string Plain(string heading) =>
+        heading.Replace("`", "").Replace("*", "").Trim();
+
+    /// <summary>
+    /// How well a passage answers a lookup for <paramref name="needle"/>. The reference writes
+    /// every node name in backticks, so that is the signal worth ranking on; a whole-word hit
+    /// comes next; a bare substring last, because that is what makes "Select" match "selector".
+    /// </summary>
+    internal static int Rank(string passage, string needle)
+    {
+        // A TABLE ROW WHOSE FIRST CELL *IS* THE TERM IS THE ANSWER, not one passage among many.
+        // Measured 2026-09-07: node='Select' returned 34 passages and printed 8, and the one row
+        // the caller came for - `| \`Select\` | \`t\`, \`s\`, \`f\` | \`s? t\3Af\` |` - was among
+        // them but buried, because every other mention of `Select` in backticks scored the same 3.
+        // A leading cell is a much stronger signal than a mention: that row is ABOUT the term,
+        // where the prose merely uses it. This is not specific to the terminal tables - it holds
+        // for every keyed table in every document these tools serve.
+        if (IsLeadingCell(passage, needle)) return 5;
+        if (passage.Contains($"`{needle}`", StringComparison.OrdinalIgnoreCase)) return 3;
+        if (passage.Contains($"`{needle} ", StringComparison.OrdinalIgnoreCase) ||
+            passage.Contains($"\"{needle}\"", StringComparison.OrdinalIgnoreCase)) return 2;
+
+        var at = passage.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
+        while (at >= 0)
+        {
+            var before = at == 0 || !char.IsLetterOrDigit(passage[at - 1]);
+            var afterAt = at + needle.Length;
+            var after = afterAt >= passage.Length || !char.IsLetterOrDigit(passage[afterAt]);
+            if (before && after) return 1;
+            at = passage.IndexOf(needle, at + 1, StringComparison.OrdinalIgnoreCase);
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// Does any line of this passage put <paramref name="needle"/> in its FIRST table cell?
+    ///
+    /// A passage built for a table hit carries three lines - the header, the `|---|` rule and the
+    /// matched row - so every line is checked rather than just the last. Backticks are stripped
+    /// because this document writes every node name in them, and the match is exact: `Select`
+    /// must not be answered by the `Select (Array)` row of some other table.
+    /// </summary>
+    private static bool IsLeadingCell(string passage, string needle)
+    {
+        foreach (var line in passage.Split('\n'))
+        {
+            var trimmed = line.TrimStart();
+            if (!trimmed.StartsWith('|')) continue;
+
+            var cut = trimmed.IndexOf('|', 1);
+            if (cut < 0) continue;
+
+            if (trimmed[1..cut].Trim().Trim('`', '*', ' ')
+                    .Equals(needle, StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// A `###` subsection by title. <see cref="Split"/> only cuts on `##`, so a subsection was
+    /// invisible to `section=` even though the tool description promises "part of a title" -
+    /// measured: `section='Polymorphic subVI calls'` answered "No section matched" for a
+    /// subsection of exactly that name.
+    /// </summary>
+    internal static string? FindSubsection(string document, string query)
+    {
+        var lines = document.Replace("\r\n", "\n").Split('\n');
+        var wanted = Plain(query);
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (!lines[i].StartsWith("### ", StringComparison.Ordinal)) continue;
+            if (!Plain(lines[i][4..]).Contains(wanted, StringComparison.OrdinalIgnoreCase)) continue;
+
+            var end = i + 1;
+            while (end < lines.Length &&
+                   !lines[end].StartsWith("## ", StringComparison.Ordinal) &&
+                   !lines[end].StartsWith("### ", StringComparison.Ordinal)) end++;
+            return string.Join(Environment.NewLine, lines[i..end]).TrimEnd();
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Every passage mentioning <paramref name="needle"/>, each carrying enough around it to be
+    /// usable on its own. What "enough" means differs by what was hit, and getting this wrong
+    /// makes the result worthless rather than merely terse:
+    ///
+    /// - a TABLE ROW comes back with its header row, because `| `Build Waveform` | `waveform`,
+    ///   `t0` | ... |` says nothing about which column is which;
+    /// - a line inside a FENCED BLOCK returns the whole block, since half an XML snippet cannot
+    ///   be copied;
+    /// - everything else returns the line.
+    ///
+    /// Each passage is labelled with the heading it sits under, so the caller can follow up with
+    /// section= if they want the surroundings.
+    /// </summary>
+    internal static string Lookup(string document, string needle, int limit)
+        => LookupMany(document, [needle], limit);
+
+    /// <summary>
+    /// The same lookup over SEVERAL terms in one answer, with every passage printed at most
+    /// once across the whole batch.
+    ///
+    /// Why this exists, measured on the run that produced SignalLoader_13.vi: generating one VI
+    /// took 18 single-term lookups, and because a term is matched by substring the same text came
+    /// back repeatedly - the 2D-indexing code block four times (`Index Array`, `disabled index`,
+    /// `Array Subset`, `Read Delimited Spreadsheet`), the Build Waveform block three times
+    /// (`Build Waveform`, `waveform`, `Time Stamp`), and the `| Node | inputs | outputs |` header
+    /// trio once per term - eighteen times. Twelve of those terms were known as soon as the
+    /// diagram was sketched, so they belonged in one call.
+    ///
+    /// A cache would not have helped: no two of those 18 calls had the same argument. The
+    /// duplication is in the OUTPUT, which is what dedup here removes.
+    ///
+    /// Terms keep their own block so "what are Select's terminals" stays answerable, but a
+    /// passage already shown under an earlier term is not repeated - and a term whose passages
+    /// all appeared earlier says so rather than looking like a miss.
+    /// </summary>
+    internal static string LookupMany(string document, IReadOnlyList<string> needles, int limit,
+                                      string documentLabel = "the AIXML reference")
+    {
+        var terms = needles.Where(n => !string.IsNullOrWhiteSpace(n))
+                           .Select(n => n.Trim())
+                           .Distinct(StringComparer.OrdinalIgnoreCase)
+                           .Take(MaxTerms)
+                           .ToList();
+
+        if (terms.Count == 0)
+            return $"No term to look up." + Environment.NewLine + Environment.NewLine +
+                   Toc(Split(document));
+
+        if (terms.Count == 1)
+            return LookupOne(document, terms[0], limit, documentLabel,
+                             alreadyShown: null, out _);
+
+        // A batch is asked for a DIFFERENT question than a single lookup: "the terminal names of
+        // these 18 nodes", not "everything about this one term". Keeping the full per-term budget
+        // makes a broad term like `Select` or `waveform` - which alone floods - eat the answer,
+        // and the caller receives one enormous blob whether or not it needed the depth. So the
+        // budget is divided, with a floor of three passages so a term still gets its table row,
+        // its code block and one sentence. A caller who wants the depth raises limit.
+        var perTerm = Math.Max(3, limit / terms.Count);
+
+        var shownPassages = new HashSet<string>(StringComparer.Ordinal);
+        var sb = new StringBuilder();
+        sb.AppendLine($"{terms.Count} terms looked up in {documentLabel}. Each passage is shown " +
+                      "once across the whole batch; a term whose passages all appeared earlier " +
+                      "says so instead of repeating them. Up to " + perTerm + " passages per term " +
+                      "- raise limit for more, or ask for one term on its own.");
+
+        foreach (var term in terms)
+        {
+            var block = LookupOne(document, term, perTerm, documentLabel, shownPassages, out var suppressed);
+            sb.AppendLine();
+            sb.AppendLine($"── {term} ──");
+            if (suppressed > 0)
+                sb.AppendLine($"({suppressed} passage(s) already shown above)");
+            sb.AppendLine(block);
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+
+    /// <summary>
+    /// One term's passages. <paramref name="alreadyShown"/> is the batch's dedup set: passages
+    /// found in it are counted into <paramref name="suppressed"/> and left out, and passages
+    /// emitted here are added to it. Pass null for a single-term lookup, whose output format is
+    /// unchanged from before batching existed.
+    /// </summary>
+    private static string LookupOne(string document, string needle, int limit, string documentLabel,
+                                    HashSet<string>? alreadyShown, out int suppressed)
+    {
+        suppressed = 0;
+        var index = IndexOf(document);
+        var lines = index.Lines;
+        var fenceStart = index.FenceStart;
+        var fenceEnd = index.FenceEnd;
+        var heading = index.Heading;
+        var header = index.Header;
+
+        var passages = new List<string>();
+        var headings = new List<string>();
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var total = 0;
+
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (!lines[i].Contains(needle, StringComparison.OrdinalIgnoreCase)) continue;
+
+            string body;
+            if (fenceStart[i] >= 0)
+                body = string.Join(Environment.NewLine,
+                    lines[fenceStart[i]..(fenceEnd[i] + 1)]);
+            else if (lines[i].StartsWith('|') && header[i] >= 0 && header[i] != i)
+                body = string.Join(Environment.NewLine,
+                    [lines[header[i]], lines[header[i] + 1], lines[i]]);
+            else
+                body = lines[i];
+
+            var passage = (heading[i].Length > 0 ? $"[{heading[i]}]" + Environment.NewLine : "") + body;
+            if (!seen.Add(passage)) continue;          // a fence hit on several lines is one block
+
+            // Counted into total either way: "3 passages mention X, 2 already shown" is the
+            // honest statement. Dropping them from the count would understate what the document
+            // says about the term.
+            total++;
+            if (alreadyShown is not null && alreadyShown.Contains(passage)) { suppressed++; continue; }
+            passages.Add(passage);
+            if (heading[i].Length > 0 && !headings.Contains(heading[i])) headings.Add(heading[i]);
+        }
+
+        // Rank before capping, or a common word buries the node it names. Measured:
+        // node='Select' returned 29 passages about `selector`, `selectin` and "selects" while the
+        // Select node's own terminal `s? t\3Af` did not appear at all. This document writes every
+        // node name in backticks, so `Select` is a precise signal that a plain substring is not.
+        passages = [.. passages.OrderByDescending(p => Rank(p, needle))];
+
+        if (total == 0)
+            return $"Nothing in {documentLabel} mentions \"{needle}\"." + Environment.NewLine +
+                   (documentLabel == AixmlLabel
+                       ? "Terminal names are literal LabVIEW labels, so try a shorter fragment - " +
+                         "'Waveform' rather than 'Build Waveform (t0)'. If the node genuinely is not " +
+                         "documented, export a VI that already uses it (section 8 says which are not " +
+                         "covered) and copy the terminal strings from there." + Environment.NewLine
+                       : "Try a shorter fragment." + Environment.NewLine) +
+                   Environment.NewLine + Toc(SectionsOf(document));
+
+        // Everything this term matched was already printed under an earlier term of the batch.
+        // Saying so beats both repeating the text and staying silent - silence reads as a miss,
+        // which is what sends a caller off to re-derive a documented fact.
+        if (passages.Count == 0)
+            return $"{total} passage(s) mention \"{needle}\" - all shown above.";
+
+        // A term that is everywhere - 'error in (no error)' hit 100 passages - is not answered by
+        // dumping the first 40 of them. Measured: that filled a caller's context and it still had
+        // to fetch a section afterwards. Show a few, and name the headings so the next call can
+        // be aimed.
+        var flooded = total > FloodThreshold;
+        var shown = Math.Min(passages.Count, flooded ? FloodSample : limit);
+
+        var sb = new StringBuilder();
+        sb.AppendLine($"{total} passage(s) in {documentLabel} mention \"{needle}\":");
+        if (flooded)
+        {
+            sb.AppendLine();
+            sb.AppendLine($"That term is everywhere - showing {shown}. It appears under these " +
+                          "headings; ask for one of them with section= instead:");
+            foreach (var h in headings.Take(12)) sb.AppendLine($"  {h}");
+            if (headings.Count > 12) sb.AppendLine($"  ... and {headings.Count - 12} more");
+        }
+
+        foreach (var passage in passages.Take(shown))
+        {
+            alreadyShown?.Add(passage);
+            sb.AppendLine();
+            sb.AppendLine(passage);
+        }
+        if (total > shown + suppressed)
+            sb.AppendLine($"{Environment.NewLine}  ... {total - shown - suppressed} more; " +
+                          "narrow the term, name a section, or raise limit");
+        return sb.ToString().TrimEnd();
+    }
+
+    /// <summary>The line index for a document, built once and shared by every later lookup.</summary>
+    private static DocumentIndex IndexOf(string document)
+        => IndexCache.GetValue(document, static doc => BuildIndex(doc));
+
+    private static DocumentIndex BuildIndex(string document)
+    {
+        var lines = document.Replace("\r\n", "\n").Split('\n');
+
+        // Pass 1: fence extents, so a hit inside one can return the block whole.
+        var fenceStart = new int[lines.Length];
+        var fenceEnd = new int[lines.Length];
+        Array.Fill(fenceStart, -1);
+        var open = -1;
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (!lines[i].TrimStart().StartsWith("```", StringComparison.Ordinal)) continue;
+            if (open < 0) { open = i; continue; }
+            for (var k = open; k <= i; k++) { fenceStart[k] = open; fenceEnd[k] = i; }
+            open = -1;
+        }
+
+        // Pass 2: the heading each line sits under, and the header row of the table it is in.
+        var heading = new string[lines.Length];
+        var header = new int[lines.Length];
+        Array.Fill(header, -1);
+        var section = "";
+        var current = -1;
+        for (var i = 0; i < lines.Length; i++)
+        {
+            var line = lines[i];
+            if (fenceStart[i] < 0)
+            {
+                if (line.StartsWith("## ", StringComparison.Ordinal)) { section = line[3..].Trim(); current = -1; }
+                else if (line.StartsWith("### ", StringComparison.Ordinal)) { section = line[4..].Trim(); current = -1; }
+                // A header row is a table line whose successor is the |---|---| rule.
+                else if (line.StartsWith('|') && i + 1 < lines.Length &&
+                         lines[i + 1].StartsWith('|') && lines[i + 1].Contains("---")) current = i;
+                else if (!line.StartsWith('|')) current = -1;
+            }
+            heading[i] = section;
+            header[i] = current;
+        }
+
+        return new DocumentIndex(lines, fenceStart, fenceEnd, heading, header);
+    }
+
+    /// <summary>Sections of a document reached by text rather than by resource name.</summary>
+    private static List<(string Heading, string Body)> SectionsOf(string document)
+        => SectionsByText.GetValue(document, static doc => Split(doc));
+
+    private static readonly ConditionalWeakTable<string, List<(string Heading, string Body)>> SectionsByText = new();
+
+    /// <summary>
+    /// Split a comma- or newline-separated term list. Node and terminal names in these documents
+    /// carry no commas - the escape `\2C` exists precisely because a raw comma is a separator in
+    /// AIXML too - so a comma here is unambiguously a list separator.
+    /// </summary>
+    internal static List<string> ParseTerms(string raw)
+        => [.. raw.Split([',', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries |
+                                            StringSplitOptions.TrimEntries)];
+
+    private static string Toc(List<(string Heading, string Body)> sections)
+    {
+        var sb = new StringBuilder("Sections (pass one as `section`):");
+        sb.AppendLine();
+        foreach (var (heading, _) in sections)
+            if (heading != "(preamble)")
+                sb.AppendLine($"  {heading}");
+        return sb.ToString().TrimEnd();
+    }
+}

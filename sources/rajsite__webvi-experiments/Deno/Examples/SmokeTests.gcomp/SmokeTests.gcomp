@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="E0DD5901E4B87FA7999ECC97B270F1337A55B087CF62A4CBF0722994608236D36231601192CAFEE5DA181E5A04DF911DC94E78D6F8575E0312B2DAAA7B47683E" Timestamp="1DAE2ABAD52922E" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="9.5.0.49854" FeatureSetName="GComponentFeatureSet" Name="http://www.ni.com/GComponent.xsd" OldestCompatibleVersion="9.0.0.0" Version="9.0.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.0.49854" FeatureSetName="Web Module: WebVI" Name="http://www.ni.com/NationalInstruments.LabVIEW.HtmlVI" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.5.0.49854" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ApplicationVersionInfo Build="9.5.0.49854" Name="G Web Development Software" Version="22.3.0" />
+	</SourceModelFeatureSet>
+	<ComponentDefinition DefaultConfigurationName="Configuration1" Id="ab93cdefe15b4cd6924afd5f0fb75cb2" RootNamespaceId="bf64ee7d7ec644b49c43ab36d17af295" xmlns="http://www.ni.com/GComponent.xsd">
+		<Icon Id="c292a8b101a41749cb184e174135081" ListViewIconCrop="0 0 40 40" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]40" Id="2a2468f4aab24a358b7d779a912ba7c2" Left="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<IconTemplate Height="[float]40" Id="9361ea1c88284bad83291ffcdc545a06" Left="[float]0" TemplateName="[string]Blank" Top="[float]0" Width="[float]40" />
+			</IconPanel>
+		</Icon>
+		<CompilerSymbolTable Id="710deb82f9604867a79433d823ddde2e" xmlns="http://www.ni.com/PlatformFramework" />
+		<ComponentConfiguration ComponentSubtypeIdentifier="WebApplication" Id="cf5e2ffd7e1347ec8069354b5c009b0f" Name="Configuration1">
+			<CompilerSymbolTable Id="aecb84829e204d25b91b5e9e656809d1" xmlns="http://www.ni.com/PlatformFramework" />
+			<WebApplicationOutputTypeProperties Id="5003146989934ab093f663faeeec72e0" xmlns="http://www.ni.com/NationalInstruments.LabVIEW.HtmlVI" />
+			<ComponentItemProperties AssociatedEnvoyId="6e7ca780d2b34ce0a23a51a8f7755839" Id="28fa7e72488e477faffd7ea170d8d75b" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="28d984c43ae04d17bd9af2ab74c5b3a1" Id="ee61682cdbea4bc8879696a03011a675" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="bd8416f554144bb299ffeabcc6da5480" Id="10f4605c74624fe096dfee695c8214ee" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="8f50b8340bba42369fda89ff9a48aa58" Id="de9f6b52dc1141959cec56bb271846ca" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="8f95df482dc54f76884f3685def0ea76" Id="9c7d31b66a474247acc7b993f3ba19a1" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="4bd402072e8540a0b2d44ec249f425bb" Id="cc5710e177dc48949b3c9970f25c2f35" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="1d5fcbda04e34f52a980620c0f4dfd06" Id="86609da7076493994b41866e1f46ee4" TopLevel="True" />
+			<ComponentItemProperties AssociatedEnvoyId="870a0b93d624d4ebf67990132fea5cf" Id="6d024ed7700f4507971971c82ae7679c" TopLevel="True" />
+		</ComponentConfiguration>
+	</ComponentDefinition>
+	<EnvoyManagerFile Id="44a7e7ff34764f589523fbbe083ab5b5" xmlns="http://www.ni.com/PlatformFramework">
+		<EnvoyManagerRootEnvoy Id="53037122d1dd4a1882c2157398a39836" ModelDefinitionType="EnvoyManagerRootEnvoy" Name="RootEnvoy" />
+		<EmbeddedDefinitionReference Id="48b243c41ed04c45a4625a62fca43b70" ModelDefinitionType="{http://www.ni.com/GComponent.xsd}ComponentDefinitionEnvoyHierarchyRoot" Name="Global namespace">
+			<ComponentDefinitionEnvoyHierarchyRoot xmlns="http://www.ni.com/GComponent.xsd" />
+			<NameScopingEnvoy AutomaticallyResolveUp="True" Id="bf64ee7d7ec644b49c43ab36d17af295" Name="SmokeTests">
+				<NameScopingEnvoy AutomaticallyResolveUp="True" Id="2ed99d57d8334ddc9fc321d77e20c327" Name="Automated">
+					<NameScopingEnvoy AutomaticallyResolveUp="True" Id="ceed54bf103a449ebfe604db9f32d0cd" Name="Deno">
+						<SourceFileReference Id="6e7ca780d2b34ce0a23a51a8f7755839" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="current working directory.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\Deno\current working directory.test.gviweb" />
+						<SourceFileReference Id="28d984c43ae04d17bd9af2ab74c5b3a1" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="environment variable.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\Deno\environment variable.test.gviweb" />
+					</NameScopingEnvoy>
+					<NameScopingEnvoy AutomaticallyResolveUp="True" Id="bd09ad7153904357b9cc3a07a69aad0f" Name="DenoKV">
+						<SourceFileReference Id="bd8416f554144bb299ffeabcc6da5480" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="simple.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\DenoKV\simple.test.gviweb" />
+					</NameScopingEnvoy>
+					<NameScopingEnvoy AutomaticallyResolveUp="True" Id="9f03348fb39147e7b9298a514ffb2eef" Name="SystemLink Data APIs">
+						<SourceFileReference Id="8f50b8340bba42369fda89ff9a48aa58" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="file.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\SystemLink Data APIs\file.test.gviweb" />
+						<SourceFileReference Id="8f95df482dc54f76884f3685def0ea76" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="tag.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\SystemLink Data APIs\tag.test.gviweb" />
+						<NameScopingEnvoy AutomaticallyResolveUp="True" Id="eb31f780e65446efbea7f7e47e268a0d" Name="Support">
+							<SourceFileReference Id="e6f4f99064fd477dbd103f7cfbd261db" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="Open Test Configuration.gvi" StoragePath="Automated\SystemLink Data APIs\Support\Open Test Configuration.gvi" />
+						</NameScopingEnvoy>
+					</NameScopingEnvoy>
+					<NameScopingEnvoy AutomaticallyResolveUp="True" Id="daabcbc653154a09b33657cadd6edbb3" Name="WebSocket">
+						<SourceFileReference Id="4bd402072e8540a0b2d44ec249f425bb" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="echo.test.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Automated\WebSocket\echo.test.gviweb" />
+					</NameScopingEnvoy>
+				</NameScopingEnvoy>
+				<NameScopingEnvoy AutomaticallyResolveUp="True" Id="86484b393c1d4d2b877a2792dfc4b751" Name="Manual">
+					<NameScopingEnvoy AutomaticallyResolveUp="True" Id="d618f2316cba4d74aaae621e56840d2b" Name="Deno">
+						<SourceFileReference Id="1d5fcbda04e34f52a980620c0f4dfd06" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="dialog.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="Manual\Deno\dialog.gviweb" />
+					</NameScopingEnvoy>
+				</NameScopingEnvoy>
+				<SourceFileReference Id="870a0b93d624d4ebf67990132fea5cf" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="main.gviweb" OverridingModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.HTMLVirtualInstrument" StoragePath="main.gviweb" />
+			</NameScopingEnvoy>
+		</EmbeddedDefinitionReference>
+		<NameScopingEnvoy Id="16269d0b99434aaca3ca3cf99a020cd8" Name="SmokeTests.gcomp" NameTracksFileName="True">
+			<ContentReference ContentIdentifier="cf5e2ffd7e1347ec8069354b5c009b0f" Id="b513f52f90a34dc58ece0dd6fe9b6873" Name="Configuration1" OverridingModelDefinitionType="{http://www.ni.com/GComponent.xsd}ComponentConfiguration" />
+		</NameScopingEnvoy>
+	</EnvoyManagerFile>
+</SourceFile>

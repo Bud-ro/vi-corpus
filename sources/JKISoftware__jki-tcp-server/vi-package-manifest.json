@@ -1,0 +1,45 @@
+[
+ {
+  "path": "source/.vipc",
+  "url": "https://raw.githubusercontent.com/JKISoftware/jki-tcp-server/ccd8b2dc8a25b5416fb820fdf854cf0c14d2f29a/source/.vipc",
+  "bytes": 3005,
+  "sha256": "cd1011843bcffae639d73a7d8ccff04cf8c6e362c3c6f50d7d965da83b3ef693",
+  "members": [
+   {
+    "path": "config.xml",
+    "bytes": 659,
+    "crc32": 2095675085,
+    "sha256": "9c24ba448cce77e2a3c8eaa14be63db6abb5b5008fad6c8b2e25c1aecee4b341"
+   },
+   {
+    "path": "oglib_time-4.0.1.3.spec",
+    "bytes": 1912,
+    "crc32": 3589861997,
+    "sha256": "482425564d0b7e09b64235dec91cd3003c4dc4c6e8251774001a04f4ac8660cc"
+   },
+   {
+    "path": "oglib_error-4.2.0.23.spec",
+    "bytes": 2304,
+    "crc32": 782420414,
+    "sha256": "8382a1cc7928572ce7d565edbee873e212b154fb4571d1e70b2b816c17951953"
+   },
+   {
+    "path": "oglib_time-4.0.1.3.bmp",
+    "bytes": 4230,
+    "crc32": 1596916657,
+    "sha256": "7b4cf44b8e7706fa0d0371e321969c939064f389718848dda77c936f5d3429fd"
+   },
+   {
+    "path": "oglib_error-4.2.0.23.bmp",
+    "bytes": 4230,
+    "crc32": 2774640145,
+    "sha256": "e9d20a4349b5f4b1f72f41a995a40f536e86a7d314058651d81abdaeccb1fc9e"
+   }
+  ],
+  "spec": {
+   "config.xml": "<VI_Package_Configuration File_Type=\"xml\" Version=\"0.6\" Created_Date=\"2008-07-01 12:19:34\" Modified_Date=\"2023-03-13 17:35:08\" Creator=\"jim.kring\" Comments=\"\" ID=\"3cb447e1c255b29970016400ffe09b2a\">\r\n  <Target>\r\n    <Name>LabVIEW</Name>\r\n    <Version>20.0 (64-bit)</Version>\r\n    <Package>\r\n      <Name>oglib_time-4.0.1.3</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>oglib_error-4.2.0.23</Name>\r\n      <Included>false</Included>\r\n      <Dependency>true</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n  </Target>\r\n</VI_Package_Configuration>",
+   "oglib_time-4.0.1.3.spec": "[Package]\r\nName=\"oglib_time\"\r\nVersion=\"4.0.1.3\"\r\nRelease=\"\"\r\nID=324f0b16d8c8431ec752b049ec0df007\r\nFile Format=\"vip\"\r\nFormat Version=\"2010\"\r\nDisplay Name=\"OpenG Time Library\"\r\n\r\n\r\n[Description]\r\nDescription=\"The OpenG Time Library package contains several routines related to software timing.\"\r\nSummary=\"OpenG Time Library\"\r\nLicense=\"BSD\"\r\nCopyright=\"Copyright (c) 2002 Jean-Pierre Drolet; 2002-2006 Jim Kring; 2010-2011 Jonathon Green\"\r\nDistribution=\"\"\r\nVendor=\"National Instruments\"\r\nURL=\"http://wiki.openg.org/Oglib_time\"\r\nPackager=\"OpenG.org\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"Package build with VIPM 2013\\0A[FIX] 127 - Time Library Fix for QuickDrop and Shortcut Palettes: Add (OpenG) Suffix to OpenG VIs that conflict with built-ins\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"TRUE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\">=9.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"3\"\r\nSub-Packages=\"\"\r\nNamespaces=\"5F5F6F67746B\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=5\r\nFile 0=\"user.lib/_OpenG.lib/time/time.llb/Periodic Trigger__ogtk.vi\"\r\nFile 1=\"user.lib/_OpenG.lib/time/time.llb/Tick Count (ms)__ogtk.vi\"\r\nFile 2=\"user.lib/_OpenG.lib/time/time.llb/VI Tree - time__ogtk.vi\"\r\nFile 3=\"user.lib/_OpenG.lib/time/time.llb/Wait (ms)__ogtk.vi\"\r\nFile 4=\"user.lib/_OpenG.lib/time/time.llb/Wait Until Next ms Multiple__ogtk.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"Always\"\r\nNum Files=1\r\nFile 0=\"functions_oglib_time.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir=\"<menus>/Categories/OpenG\"\r\nReplace Mode=\"If Newer\"\r\nNum Files=1\r\nFile 0=\"dir.mnu\"\r\n",
+   "oglib_error-4.2.0.23.spec": "[Package]\r\nName = \"oglib_error\"\r\nVersion = \"4.2.0.23\"\r\nRelease = \"\"\r\nID =6a4fba44e87163a961fce8e560c3c7c5\r\nFile Format = \"vip\"\r\nFormat Version = \"2010\"\r\nDisplay Name = \"OpenG Error Library\"\r\n\r\n\r\n[Description]\r\nDescription = \"The OpenG Error Library package contains several routines related to error handling.\"\r\nSummary = \"OpenG Error Library\"\r\nLicense = \"BSD-3-Clause\"\r\nCopyright = \"Copyright (c) 2002 Jean-Pierre Drolet; Jim Kring; 2010-2011 Jonathon Green; 2011 Ed Dickens; 2011 JKI; 2011 Fran�ois Normandin\"\r\nDistribution = \"\"\r\nVendor = \"OpenG.org\"\r\nURL = \"http://wiki.openg.org/Oglib_error\"\r\nPackager = \"OpenG.org\"\r\nDemo = \"FALSE\"\r\nRelease Notes = \"[NEW] 3426051 - Add new 'Filter Error Codes\" API\"\r\nSystem Package = \"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version = \">=9.0\"\r\nExclusive_LabVIEW_System = \"ALL\"\r\nExclusive_OS = \"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall = \"\"\r\nPostInstall = \"\"\r\nPreUninstall = \"\"\r\nPostUninstall = \"\"\r\nVerify = \"\"\r\nPreBuild = \"\"\r\nPostBuild = \"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv = FALSE\r\nRequires = \"\"\r\nConflicts = \"\"\r\n\r\n\r\n[Activation]\r\nLicense File = \"\"\r\nLicensed Library = \"\"\r\n\r\n\r\n[Files]\r\nNum File Groups = \"3\"\r\nSub-Packages = \"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir = \"<application>\"\r\nReplace Mode = \"Always\"\r\nNum Files = 10\r\nFile 0 = \"user.lib/_OpenG.lib/error/error.llb/Build Error Cluster__ogtk.vi\"\r\nFile 1 = \"user.lib/_OpenG.lib/error/error.llb/Case (Error IO)__ogtk.vi\"\r\nFile 2 = \"user.lib/_OpenG.lib/error/error.llb/Clear All Errors__ogtk.vi\"\r\nFile 3 = \"user.lib/_OpenG.lib/error/error.llb/Error Codes Ring Constant__ogtk.vi\"\r\nFile 4 = \"user.lib/_OpenG.lib/error/error.llb/Error Constant__ogtk.vi\"\r\nFile 5 = \"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes (Array)__ogtk.vi\"\r\nFile 6 = \"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes (Scalar)__ogtk.vi\"\r\nFile 7 = \"user.lib/_OpenG.lib/error/error.llb/Filter Error Codes__ogtk.vi\"\r\nFile 8 = \"user.lib/_OpenG.lib/error/error.llb/Filtered Error Details - Cluster__ogtk.ctl\"\r\nFile 9 = \"user.lib/_OpenG.lib/error/error.llb/VI Tree - error__ogtk.vi\"\r\n\r\n\r\n[File Group 1]\r\nTarget Dir = \"<menus>/Categories/OpenG\"\r\nReplace Mode = \"Always\"\r\nNum Files = 1\r\nFile 0 = \"functions_oglib_error.mnu\"\r\n\r\n\r\n[File Group 2]\r\nTarget Dir = \"<menus>/Categories/OpenG\"\r\nReplace Mode = \"If Newer\"\r\nNum Files = 1\r\nFile 0 = \"dir.mnu\"\r\n"
+  }
+ }
+]

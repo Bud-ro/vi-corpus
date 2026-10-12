@@ -1,0 +1,8 @@
+<h2 dir="auto" id="h_4774480761351655104528452"><strong>Pr&eacute;sentation des Structures&nbsp;(Partie 2/3)</strong></h2>
+<ul dir="auto">
+<li>Utilisation des structures de programmation de bases (if, for, while, &eacute;v&egrave;nement)</li>
+<li>Notion de "langage de flux"</li>
+</ul>
+<p dir="auto"></p>
+<p>&nbsp;<a href="https://www.youtube.com/watch?v=PEJbc9J_bzc&list=PLtioRYPUn23rmTQmI3XhCEMH0Tcn9y50z&index=3&ab_channel=TechnologiesdeFrance%28TDF%29"><img src="Presentation des structures de programmation.png" width="640" height="362" alt="" style="display: block; margin-left: auto; margin-right: auto;" /></a></p>
+

@@ -1,0 +1,591 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { mkdtempSync } from 'node:fs';
+import {
+  buildValidateDispatchReport,
+  dispatchValidate,
+  inferForkLaneRemoteFromBranch,
+  parseCliOptions,
+  resolveValidateDispatchTarget,
+  writeValidateDispatchReport
+} from '../dispatch-validate.mjs';
+
+function createRunStub({
+  fullRef = 'refs/heads/feature/x',
+  sha = 'abc1234',
+  statusOutput = '',
+  ghList = '[]',
+  onPush = () => {}
+} = {}) {
+  const calls = [];
+  const stub = (cmd, args) => {
+    calls.push({ cmd, args });
+    if (cmd === 'git') {
+      if (args[0] === 'rev-parse' && args[1] === '--symbolic-full-name') {
+        return fullRef;
+      }
+      if (args[0] === 'rev-parse' && args[1] === '--verify') {
+        return sha;
+      }
+      if (args[0] === 'status' && args[1] === '--porcelain') {
+        return statusOutput;
+      }
+      if (args[0] === 'push') {
+        onPush(args);
+        return '';
+      }
+    }
+    if (cmd === 'gh' && args[0] === 'run' && args[1] === 'list') {
+      return ghList;
+    }
+    return '';
+  };
+  stub.calls = calls;
+  return stub;
+}
+
+test('parseCliOptions respects env override', () => {
+  const opts = parseCliOptions(['node', 'script'], {
+    VALIDATE_DISPATCH_ALLOW_FORK: '1',
+    VALIDATE_DISPATCH_PUSH: '1',
+    VALIDATE_DISPATCH_FORCE_PUSH: '1',
+    VALIDATE_DISPATCH_ALLOW_NONCANONICAL_VI_HISTORY: '1',
+    VALIDATE_DISPATCH_ALLOW_NONCANONICAL_HISTORY_CORE: '1',
+  });
+  assert.equal(opts.allowFork, true);
+  assert.equal(opts.pushMissing, true);
+  assert.equal(opts.forcePushOk, true);
+  assert.equal(opts.historyScenarioSet, 'smoke');
+  assert.equal(opts.allowNonCanonicalViHistory, true);
+  assert.equal(opts.allowNonCanonicalHistoryCore, true);
+  assert.equal(opts.ref, null);
+});
+
+test('parseCliOptions accepts cli flags', () => {
+  const opts = parseCliOptions([
+    'node',
+    'script',
+    '--ref',
+    'feature/x',
+    '--sample-id',
+    'ts-20260308-000000-abcd',
+    '--history-scenario-set',
+    'history-core',
+    '--push-missing',
+    '--force-push-ok',
+    '--allow-noncanonical-vi-history',
+    '--allow-noncanonical-history-core',
+  ]);
+  assert.equal(opts.ref, 'feature/x');
+  assert.equal(opts.sampleId, 'ts-20260308-000000-abcd');
+  assert.equal(opts.historyScenarioSet, 'history-core');
+  assert.equal(opts.pushMissing, true);
+  assert.equal(opts.forcePushOk, true);
+  assert.equal(opts.allowNonCanonicalViHistory, true);
+  assert.equal(opts.allowNonCanonicalHistoryCore, true);
+});
+
+test('parseCliOptions treats blank history scenario input as smoke', () => {
+  const opts = parseCliOptions([
+    'node',
+    'script',
+    '--history-scenario-set',
+    '   ',
+  ]);
+
+  assert.equal(opts.historyScenarioSet, 'smoke');
+});
+
+test('parseCliOptions trims non-empty sample ids', () => {
+  const opts = parseCliOptions([
+    'node',
+    'script',
+    '--sample-id',
+    '  ts-20260308-000000-abcd  ',
+  ]);
+
+  assert.equal(opts.sampleId, 'ts-20260308-000000-abcd');
+});
+
+test('inferForkLaneRemoteFromBranch extracts the fork remote from fork lane branches', () => {
+  assert.equal(inferForkLaneRemoteFromBranch('issue/origin-1490-validate-same-owner-fork-standing-lanes'), 'origin');
+  assert.equal(inferForkLaneRemoteFromBranch('issue/personal-1490-validate-same-owner-fork-standing-lanes'), 'personal');
+  assert.equal(inferForkLaneRemoteFromBranch('issue/1490-upstream-native-lane'), null);
+});
+
+test('resolveValidateDispatchTarget prefers a published fork ref for same-owner fork lanes', () => {
+  const calls = [];
+  const target = resolveValidateDispatchTarget({
+    repoRoot: 'repo',
+    context: {
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      origin: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      personal: null,
+      activeForkRemote: 'origin',
+      activeFork: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' }
+    },
+    ref: 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    branchName: 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    findRemoteRefFn: (_repoRoot, remoteName) => {
+      calls.push(remoteName);
+      if (remoteName === 'origin') {
+        return { pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' };
+      }
+      return null;
+    }
+  });
+
+  assert.deepEqual(calls, ['upstream', 'origin']);
+  assert.equal(target.remoteName, 'origin');
+  assert.equal(target.repository.repo, 'compare-vi-cli-action-fork');
+  assert.equal(target.selection, 'branch-fork-lane');
+});
+
+test('dispatchValidate blocks fork by default', () => {
+  assert.throws(
+    () =>
+      dispatchValidate({
+        argv: ['node', 'script'],
+        env: {},
+        getRepoRootFn: () => 'repo',
+        resolveContextFn: () => ({
+          upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+          isFork: true
+        }),
+        getCurrentBranchFn: () => 'feature/x',
+        runFn: createRunStub(),
+        ensureGhCliFn: () => {}
+      }),
+    /blocked: working copy points to a fork/i
+  );
+});
+
+test('dispatchValidate allows fork when override set', () => {
+  const runStub = createRunStub();
+  const result = dispatchValidate({
+    argv: [
+      'node',
+      'script',
+      '--allow-fork',
+      '--ref',
+      'feature/x',
+      '--sample-id',
+      'ts-20260308-000000-abcd',
+      '--history-scenario-set',
+      'history-core',
+      '--allow-noncanonical-vi-history',
+      '--allow-noncanonical-history-core',
+    ],
+    env: {},
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      isFork: true
+    }),
+    getCurrentBranchFn: () => 'feature/x',
+    findRemoteRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureCleanWorkingTreeFn: () => {},
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(result.remote, 'upstream');
+  assert.ok(
+    runStub.calls.some(
+      (call) =>
+        call.cmd === 'gh' &&
+        call.args[0] === 'workflow' &&
+        call.args[1] === 'run' &&
+        call.args.includes('validate.yml') &&
+        call.args.includes('sample_id=ts-20260308-000000-abcd') &&
+        call.args.includes('history_scenario_set=history-core') &&
+        call.args.includes('allow_noncanonical_vi_history=true') &&
+        call.args.includes('allow_noncanonical_history_core=true')
+    ),
+    'should dispatch validate workflow via gh'
+  );
+});
+
+test('dispatchValidate generates and forwards a sample_id when not provided', () => {
+  const runStub = createRunStub();
+
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--allow-fork', '--ref', 'feature/x'],
+    env: {},
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'feature/x',
+    findRemoteRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureCleanWorkingTreeFn: () => {},
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(result.remote, 'upstream');
+  assert.match(result.sampleId, /^ts-\d{8}-\d{6}-[0-9a-z]{4}$/);
+  const workflowCall = runStub.calls.find(
+    (call) => call.cmd === 'gh' && call.args[0] === 'workflow' && call.args[1] === 'run'
+  );
+  assert.ok(workflowCall, 'should invoke gh workflow run');
+  const sampleArg = workflowCall.args.find((arg) => arg.startsWith('sample_id='));
+  assert.ok(sampleArg, 'should pass sample_id input');
+  assert.equal(sampleArg, `sample_id=${result.sampleId}`);
+  assert.ok(workflowCall.args.includes('history_scenario_set=smoke'));
+  assert.ok(workflowCall.args.includes('allow_noncanonical_vi_history=false'));
+  assert.ok(workflowCall.args.includes('allow_noncanonical_history_core=false'));
+});
+
+test('dispatchValidate generates a sample_id when --sample-id is blank', () => {
+  const runStub = createRunStub();
+
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--allow-fork', '--ref', 'feature/x', '--sample-id', '   '],
+    env: {},
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'feature/x',
+    findRemoteRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'abc1234' }),
+    ensureCleanWorkingTreeFn: () => {},
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(result.remote, 'upstream');
+  assert.match(result.sampleId, /^ts-\d{8}-\d{6}-[0-9a-z]{4}$/);
+  const workflowCall = runStub.calls.find(
+    (call) => call.cmd === 'gh' && call.args[0] === 'workflow' && call.args[1] === 'run'
+  );
+  assert.ok(workflowCall, 'should invoke gh workflow run');
+  const sampleArg = workflowCall.args.find((arg) => arg.startsWith('sample_id='));
+  assert.ok(sampleArg, 'should pass sample_id input');
+  assert.equal(sampleArg, `sample_id=${result.sampleId}`);
+  assert.notEqual(sampleArg, 'sample_id=');
+});
+
+test('dispatchValidate fails when ref missing on remote without auto-push', () => {
+  assert.throws(
+    () =>
+      dispatchValidate({
+        argv: ['node', 'script', '--ref', 'missing'],
+        env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+        getRepoRootFn: () => 'repo',
+        resolveContextFn: () => ({
+          upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+          isFork: false
+        }),
+        getCurrentBranchFn: () => 'missing',
+        findRemoteRefFn: () => null,
+        ensureRemoteHasRefFn: () => {
+          throw new Error('should not push');
+        },
+        ensureCleanWorkingTreeFn: () => {
+          throw new Error('should not check cleanliness');
+        },
+        runFn: createRunStub({ fullRef: 'refs/heads/missing' }),
+        ensureGhCliFn: () => {}
+      }),
+    /Push it first/i
+  );
+});
+
+test('dispatchValidate pushes missing refs when flag set', () => {
+  let published = false;
+  let cleanChecked = false;
+  let pushArgs = null;
+  const runStub = createRunStub({
+    onPush: (args) => {
+      pushArgs = args;
+    }
+  });
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--ref', 'feature/x', '--push-missing'],
+    env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'feature/x',
+    findRemoteRefFn: () => (published ? { pattern: 'refs/heads/feature/x', sha: 'abc1234' } : null),
+    ensureRemoteHasRefFn: () => {
+      published = true;
+      return { pattern: 'refs/heads/feature/x', sha: 'abc1234' };
+    },
+    ensureCleanWorkingTreeFn: (runOverride) => {
+      cleanChecked = true;
+      assert.equal(runOverride('git', ['status', '--porcelain']), '');
+    },
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(cleanChecked, true);
+  assert.ok(pushArgs, 'should invoke git push');
+  assert.ok(!pushArgs.includes('--force-with-lease'), 'should not force push by default');
+});
+
+test('dispatchValidate refuses to overwrite upstream without force flag', () => {
+  const runStub = createRunStub();
+  assert.throws(
+    () =>
+      dispatchValidate({
+        argv: ['node', 'script', '--ref', 'feature/x', '--push-missing'],
+        env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+        getRepoRootFn: () => 'repo',
+        resolveContextFn: () => ({
+          upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+          isFork: false
+        }),
+        getCurrentBranchFn: () => 'feature/x',
+        findRemoteRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'deadbeef' }),
+        ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: 'deadbeef' }),
+        ensureCleanWorkingTreeFn: () => {
+          throw new Error('should not force push');
+        },
+        runFn: runStub,
+        ensureGhCliFn: () => {}
+      }),
+    /Pass --force-push-ok/i
+  );
+});
+
+test('dispatchValidate force pushes when override present', () => {
+  let remoteSha = 'deadbeef';
+  let cleanChecked = false;
+  let forcePushInvoked = false;
+  const runStub = createRunStub({
+    onPush: (args) => {
+      if (args.includes('--force-with-lease')) {
+        forcePushInvoked = true;
+      }
+      remoteSha = 'abc1234';
+    }
+  });
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--ref', 'feature/x', '--push-missing', '--force-push-ok'],
+    env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'feature/x',
+    findRemoteRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: remoteSha }),
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/feature/x', sha: remoteSha }),
+    ensureCleanWorkingTreeFn: (runOverride) => {
+      cleanChecked = true;
+      assert.equal(runOverride('git', ['status', '--porcelain']), '');
+    },
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(cleanChecked, true);
+  assert.equal(forcePushInvoked, true);
+  assert.ok(
+    runStub.calls.some((call) => call.cmd === 'gh' && call.args[0] === 'workflow' && call.args[1] === 'run')
+  );
+});
+
+test('dispatchValidate targets the same-owner fork repo when the branch is published there', () => {
+  const runStub = createRunStub({ fullRef: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes' });
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--ref', 'issue/origin-1490-validate-same-owner-fork-standing-lanes'],
+    env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      origin: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      personal: null,
+      activeForkRemote: 'origin',
+      activeFork: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    findRemoteRefFn: (_repoRoot, remoteName) => {
+      if (remoteName === 'origin') {
+        return { pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' };
+      }
+      return null;
+    },
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' }),
+    ensureCleanWorkingTreeFn: () => {},
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(result.repo, 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork');
+  assert.equal(result.remote, 'origin');
+  assert.ok(
+    runStub.calls.some(
+      (call) =>
+        call.cmd === 'gh' &&
+        call.args[0] === 'workflow' &&
+        call.args[1] === 'run' &&
+        call.args.includes('--repo') &&
+        call.args.includes('LabVIEW-Community-CI-CD/compare-vi-cli-action-fork')
+    )
+  );
+});
+
+test('dispatchValidate pushes missing same-owner fork refs to the fork remote', () => {
+  let published = false;
+  let pushArgs = null;
+  const runStub = createRunStub({
+    fullRef: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    onPush: (args) => {
+      pushArgs = args;
+      published = true;
+    }
+  });
+
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--ref', 'issue/origin-1490-validate-same-owner-fork-standing-lanes', '--push-missing'],
+    env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      origin: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      personal: null,
+      activeForkRemote: 'origin',
+      activeFork: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    findRemoteRefFn: (_repoRoot, remoteName) => {
+      if (remoteName === 'origin' && published) {
+        return { pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' };
+      }
+      return null;
+    },
+    ensureRemoteHasRefFn: (_repoRoot, remoteName) => {
+      assert.equal(remoteName, 'origin');
+      return { pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' };
+    },
+    ensureCleanWorkingTreeFn: () => {},
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.dispatched, true);
+  assert.equal(result.repo, 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork');
+  assert.equal(result.remote, 'origin');
+  assert.ok(pushArgs, 'should invoke git push');
+  assert.equal(pushArgs[1], 'origin');
+  assert.ok(
+    runStub.calls.some(
+      (call) =>
+        call.cmd === 'gh' &&
+        call.args[0] === 'workflow' &&
+        call.args[1] === 'run' &&
+        call.args.includes('LabVIEW-Community-CI-CD/compare-vi-cli-action-fork')
+    )
+  );
+});
+
+
+test('dispatchValidate carries fork-plane lane identity for same-owner fork lanes', () => {
+  const runStub = createRunStub({ fullRef: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes' });
+  const result = dispatchValidate({
+    argv: ['node', 'script', '--ref', 'issue/origin-1490-validate-same-owner-fork-standing-lanes'],
+    env: { VALIDATE_DISPATCH_ALLOW_FORK: '1' },
+    getRepoRootFn: () => 'repo',
+    resolveContextFn: () => ({
+      upstream: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action' },
+      origin: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      personal: null,
+      activeForkRemote: 'origin',
+      activeFork: { owner: 'LabVIEW-Community-CI-CD', repo: 'compare-vi-cli-action-fork' },
+      isFork: false
+    }),
+    getCurrentBranchFn: () => 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    findRemoteRefFn: (_repoRoot, remoteName) => {
+      if (remoteName === 'origin') {
+        return { pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' };
+      }
+      return null;
+    },
+    ensureRemoteHasRefFn: () => ({ pattern: 'refs/heads/issue/origin-1490-validate-same-owner-fork-standing-lanes', sha: 'abc1234' }),
+    ensureCleanWorkingTreeFn: () => {},
+    resolveStandingIssueNumberFn: () => ({
+      issueNumber: 1490,
+      localIssueNumber: 1490,
+      source: 'router',
+      issueUrl: 'https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/1490',
+      canonicalIssueUrl: 'https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/1490',
+      localIssueUrl: null,
+      mirrorOf: null
+    }),
+    runFn: runStub,
+    ensureGhCliFn: () => {}
+  });
+
+  assert.equal(result.laneIdentity.kind, 'fork-plane-branch');
+  assert.equal(result.laneIdentity.forkContext.remote, 'origin');
+  assert.equal(result.laneIdentity.forkContext.repository, 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork');
+  assert.equal(result.laneIdentity.forkIssue, null);
+  assert.equal(result.laneIdentity.canonicalIssue.issueNumber, 1490);
+});
+
+test('writeValidateDispatchReport persists fork lane provenance for future worker reuse', () => {
+  const reportDir = mkdtempSync(path.join(os.tmpdir(), 'priority-validate-report-'));
+  const result = {
+    repoRoot: reportDir,
+    repo: 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork',
+    remote: 'origin',
+    ref: 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+    sampleId: 'ts-20260321-000000-abcd',
+    issueNumber: 1490,
+    localIssueNumber: 1490,
+    issueSource: 'router',
+    issueUrl: 'https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/1490',
+    localIssueUrl: null,
+    mirrorOf: null,
+    laneIdentity: {
+      kind: 'fork-plane-branch',
+      branch: 'issue/origin-1490-validate-same-owner-fork-standing-lanes',
+      issueSource: 'router',
+      forkContext: { remote: 'origin', repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork' },
+      canonicalIssue: { repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action', issueNumber: 1490, issueUrl: 'https://github.com/LabVIEW-Community-CI-CD/compare-vi-cli-action/issues/1490' },
+      forkIssue: null,
+      mirrorOf: null
+    },
+    historyScenarioSet: 'smoke',
+    allowNonCanonicalViHistory: false,
+    allowNonCanonicalHistoryCore: false,
+    run: {
+      databaseId: 23372316293,
+      headSha: 'abc1234',
+      status: 'queued',
+      conclusion: null,
+      createdAt: '2026-03-21T05:00:00Z'
+    }
+  };
+
+  const report = buildValidateDispatchReport(result, '2026-03-21T05:10:00.000Z');
+  const persisted = writeValidateDispatchReport(result, { reportDir, getNow: () => '2026-03-21T05:10:00.000Z' });
+
+  assert.equal(report.schema, 'priority/validate-dispatch@v1');
+  assert.equal(report.laneIdentity.kind, 'fork-plane-branch');
+  assert.equal(report.target.repository, 'LabVIEW-Community-CI-CD/compare-vi-cli-action-fork');
+  assert.equal(path.basename(persisted.reportPath), 'priority-validate-dispatch-origin-1490.json');
+  assert.match(fs.readFileSync(persisted.reportPath, 'utf8'), /priority\/validate-dispatch@v1/);
+});

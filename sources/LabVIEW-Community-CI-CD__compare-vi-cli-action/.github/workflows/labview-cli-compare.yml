@@ -1,0 +1,91 @@
+name: LabVIEW CLI Compare
+
+on:
+  workflow_dispatch:
+    inputs:
+      fail_on_diff:
+        description: 'Fail the job when differences are detected'
+        required: false
+        default: 'true'
+        type: choice
+        options: ['true','false']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  cli-compare:
+    runs-on: [self-hosted, Windows, X64, comparevi, capability-ingress, labview-2026, lv32]
+    env:
+      # Headless + safe UI behaviour
+      LV_SUPPRESS_UI: '1'
+      LV_NO_ACTIVATE: '1'
+      LV_CURSOR_RESTORE: '1'
+      # Prefer CLI capture for deterministic, headless compare
+      LVCI_COMPARE_MODE: labview-cli
+      LVCI_COMPARE_POLICY: cli-only
+      # Enable cleanup at the end of the job
+      UNBLOCK_GUARD: '1'
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Validate native LV32 host-plane readiness
+        id: host_plane
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $reportPath = Join-Path $env:GITHUB_WORKSPACE 'tests/results/_agent/host-planes/labview-2026-host-plane-report.json'
+          pwsh -NoLogo -NoProfile -File tools/Write-LabVIEW2026HostPlaneDiagnostics.ps1 -OutputPath $reportPath | Out-Null
+          if (-not (Test-Path -LiteralPath $reportPath -PathType Leaf)) {
+            throw ("LabVIEW 2026 host-plane diagnostics report was not written to {0}" -f $reportPath)
+          }
+          $report = Get-Content -LiteralPath $reportPath -Raw | ConvertFrom-Json -Depth 12
+          if ($report.native.planes.x32.status -ne 'ready') {
+            Write-Host "::error::LabVIEW 2026 native x32 host plane is not ready. Observed status: $($report.native.planes.x32.status)"
+            exit 1
+          }
+          $cli = [string]$report.native.planes.x32.cliPath
+          if ([string]::IsNullOrWhiteSpace($cli)) {
+            Write-Host '::error::LabVIEW CLI path missing from the native x32 host-plane report.'
+            exit 1
+          }
+          if (-not (Test-Path -LiteralPath $cli -PathType Leaf)) {
+            Write-Host "::error::LabVIEWCLI.exe not found. Checked: $cli"
+            Write-Host 'Repair the canonical LabVIEW 2026 host plane before trusting this specialized LV32 lane.'
+            exit 1
+          }
+          "cli=$cli" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "reportPath=$reportPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Run LabVIEW CLI Compare
+        id: compare
+        uses: ./
+        env:
+          LABVIEW_CLI_PATH: ${{ steps.host_plane.outputs.cli }}
+        with:
+          base: VI1.vi
+          head: VI2.vi
+          fail-on-diff: ${{ inputs.fail_on_diff || 'true' }}
+          compare-timeout-seconds: '1200'
+
+      - name: Runner Unblock Guard
+        if: always()
+        uses: ./.github/actions/runner-unblock-guard
+        with:
+          snapshot-path: tests/results/runner-unblock-snapshot.json
+          cleanup: ${{ env.UNBLOCK_GUARD == '1' }}
+          process-names: 'conhost,pwsh,LabVIEW,LVCompare'
+
+      - name: Echo outputs
+        if: always()
+        shell: pwsh
+        run: |
+          Write-Host "hostPlane = ${{ steps.host_plane.outputs.reportPath }}"
+          Write-Host "diff      = ${{ steps.compare.outputs.diff }}"
+          Write-Host "exitCode  = ${{ steps.compare.outputs.exitCode }}"
+          Write-Host "cliPath   = ${{ steps.compare.outputs.cliPath }}"
+          Write-Host "command   = ${{ steps.compare.outputs.command }}"

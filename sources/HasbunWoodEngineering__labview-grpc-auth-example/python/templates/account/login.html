@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+  <h1 class="title">Sign in</h1>
+  <p class="subtitle">Use your username, password, and 2FA code.</p>
+
+  {% if form.non_field_errors %}
+    <div class="errors">
+      {{ form.non_field_errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+
+    {% for field in form.visible_fields %}
+      {% if field.name != "remember" %}
+        <div class="field">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="helptext">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+
+    <div class="actions">
+      <button type="submit">Sign in</button>
+    </div>
+  </form>
+
+  <div class="footer">
+    {% trans "Auth service for test systems" %}
+  </div>
+{% endblock %}

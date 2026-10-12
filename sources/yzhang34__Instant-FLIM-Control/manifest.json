@@ -1,0 +1,523 @@
+{
+ "repo": "yzhang34/Instant-FLIM-Control",
+ "url": "https://github.com/yzhang34/Instant-FLIM-Control",
+ "commit": "c5e9fe89272e5e371ed4b7bc9d6dc74ad0fc123b",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "LabView/Analysis.vi",
+   "bytes": 39444,
+   "sha256": "9edbd71f1482a133334205913d2844075b2dff5170796b6de7e71c321756d9a0",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Array2GrayPic.vi",
+   "bytes": 23061,
+   "sha256": "3b1ec936c0419aa5ade379722324719a5ef163be7f3c74d401158101e916e998",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Array2HSVColorPic.vi",
+   "bytes": 26609,
+   "sha256": "04f566593044aa208d1a1b41929840eabb3538c96d9bb2d26aae3a2a3eeae184",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/ColorMapTables.vi",
+   "bytes": 28374,
+   "sha256": "7fb738cf80b623da777069f79df32b002c2bc360ec79474d1fd1c21fa833c159",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/CompositeProperties.vi",
+   "bytes": 18679,
+   "sha256": "02d34d5ee7149ee4081a2fa8c09bfcb4461321ad8ee3122798682026d3c90be6",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/CreateFolder.vi",
+   "bytes": 15048,
+   "sha256": "e21a1fa4e6ebcc8d89eecbd4c36a9af618ad2a3d348cf258bbfef4cde10e5893",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Crop2DMatrix.vi",
+   "bytes": 12668,
+   "sha256": "f74c5e00187a80a710322d3591821a6baa2d960cb56dce991cd3771df7b28973",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Crop3DStack.vi",
+   "bytes": 13695,
+   "sha256": "ce421e849d3c4b0dfdfafa3c48f368cfb3a9b000386934bae15b12650a7ea2d6",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/DAQClose.vi",
+   "bytes": 27200,
+   "sha256": "1f259276b48c5f73ebaaab081b252a1da8c643d750fe4e8b379b68eccf60269d",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/DAQInit.vi",
+   "bytes": 43651,
+   "sha256": "44e871e29208c564c405ee6fe7d18fb662d364cf3067169da604265c3b20e72d",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/DrawPhasorPlot.vi",
+   "bytes": 39698,
+   "sha256": "455c98a8494ca7c3b0b823f89dcc799108ec5ae1afc23c58249efe7a1660ca5d",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/DrawROICircle.vi",
+   "bytes": 18389,
+   "sha256": "948443f3b338ec7404349c58f990c2cee8fa50f6f92275247b5207eff6dc6845",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Event-driven MPM-FLIM imaging platform.aliases",
+   "bytes": 45,
+   "sha256": "5198969c47695ae86994f8ff097f1f08323d3847494a8092cd7e6d2368daae5b",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Event-driven MPM-FLIM imaging platform.lvlps",
+   "bytes": 83,
+   "sha256": "6d5d1fc9ba75e4c8ad311e40543ea164aba3f7430d7d4d9716b419dc3e219a64",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Event-driven MPM-FLIM imaging platform.lvproj",
+   "bytes": 58930,
+   "sha256": "4a59fcf25bef7ed42864da4a3906d5f2f8e73c2fdec537a22c725bd15ad847a6",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/GSCalculation.vi",
+   "bytes": 17065,
+   "sha256": "7cd1f10d38d70434e3faf082909ef8679cc0669b5d823d3bfc2f5e02d33a8fa5",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/HSV2RGB.vi",
+   "bytes": 16507,
+   "sha256": "8a8e8078470a931da9219494bdbba34b61a716b1c946c0d9114302e9a1c2c616",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/HSVCombIntensityLifetime.vi",
+   "bytes": 231948,
+   "sha256": "c0b934613f52009b7aca0576fdb840d9cba5ff8e540844df7e580c7f9a11042a",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/ImageFrame.vi",
+   "bytes": 39122,
+   "sha256": "fb1496a9c9676f9c893854dee75633b4b2e72bf9ba65c06c5c190f9234f3be34",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/LifetimeCalculation.vi",
+   "bytes": 14295,
+   "sha256": "655efea8718eed6890b4829463fa8ae723dfc1a0c2aaf555999a4a90f6d42fd5",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/LifetimeHistogram.vi",
+   "bytes": 50701,
+   "sha256": "916cbe1c3ab0a63b9cb5781c296f0f1e739afa6782ab0b9c5c398f617ff30fb8",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Main.vi",
+   "bytes": 18989296,
+   "sha256": "8fd1d423177fc374545bf68ecda1ebd20aceb117a8207e76387b24c03529b14f",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/PhaseCalibration.vi",
+   "bytes": 32036,
+   "sha256": "f029bfeb1d965fbe3ce5213c11f1bbe93eccbfe192544fac8680d7653b79e14a",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/PhaseConversion.vi",
+   "bytes": 21227,
+   "sha256": "da46d3a6a9a0fcbcb8f9dc846dce8f14b6514f13de9103a2d90f9e867113ad5e",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/PhasorROI2IMG.vi",
+   "bytes": 37141,
+   "sha256": "dbf717c3d7f904edf049d6de189dfae83ed631fbedcbee619ffe321e3f7f452f",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/PowerControl.vi",
+   "bytes": 29672,
+   "sha256": "6427f53248753eb88ba7f948dd0a96b4308d878951030ed3e37feb4072c199ad",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/PowerOffCalibration.vi",
+   "bytes": 30859,
+   "sha256": "5cb1454a1e989adc108bbbce508ffefee46564509ad4b5e6ba8aa04bc3fc07e4",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/QuadraticOptimization.vi",
+   "bytes": 11785,
+   "sha256": "3f9a04be0c3b7f8538e87791aeffc69bdef8aa9540edf2fb18888afe1b608883",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/RunningAverage.vi",
+   "bytes": 13690,
+   "sha256": "a4d80e23d4e8d7e0ebc69d2833a14d6532e8dc9e2c7e8389ee4271efe1418877",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Save2CSV.vi",
+   "bytes": 20676,
+   "sha256": "95006f7d871c987c91903caa75452cbac8f7cc3e5ee02bfef1299a6ffde1133f",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Save2ColorPNG.vi",
+   "bytes": 22837,
+   "sha256": "2d30017a5914c645c078f777c840308b28224d76313ac088284ae0f272edaeb5",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Save2RealTIF.vi",
+   "bytes": 27108,
+   "sha256": "cabff6b0b9b74ae3c888c3eea6e85beb04ead5567f2f6bedcc1104941fd318b2",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/Save3DStack.vi",
+   "bytes": 32287,
+   "sha256": "1a70bd636df569e1dd9a7de100aec7787262316a6b47c1330c6d502326cc5849",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/SaveHSVComb.vi",
+   "bytes": 22619,
+   "sha256": "75f7f4f818e2bbca04c8b0bc9980076bc7a2c3fee59d8e881fd9eda52e6208ed",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/SaveMatrix.vi",
+   "bytes": 20066,
+   "sha256": "4a898f4456581524f1a8503709203895c533c93718287d40ae952b53f5a9c4bd",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/SaveOverlap.vi",
+   "bytes": 43979,
+   "sha256": "7e3d241e776ef6643097a499ceb717c9f7ce16f27606d2e6371b3b18b0a6839a",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/SavePhasor.vi",
+   "bytes": 41334,
+   "sha256": "da1c30d9fab2c4927ca3226987b4fa1d791ab910d07fa83e5824659f205b55c0",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/ScanXY.vi",
+   "bytes": 20542,
+   "sha256": "c8fd034bab735daabcde5ac4a8a6ad7a45c2c77e68358b645a8d7fa3f8704787",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/ShutterControl.vi",
+   "bytes": 22362,
+   "sha256": "0c8e2e85c7d8e82f20f9eb53d4e7e9925cdf9a355f11b594a151ad9ec1bcd967",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/TLDFM.llb",
+   "bytes": 1062628,
+   "sha256": "1266cc6df72149ab57d64e626619aeaaed48180ae0e9d2b69f75b3f27e75d372",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/TLDFMX.llb",
+   "bytes": 483328,
+   "sha256": "014b1644b458678cae460ded0c2052d92ed06bd984aaca551b8eafef36529e5a",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/VISAInit.vi",
+   "bytes": 31808,
+   "sha256": "42909b029ce1306696c86647dc8b146243fc9c58ffdb26aa6f4da0b3ffff23f6",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/ctiff.llb",
+   "bytes": 604150,
+   "sha256": "4ee819547be93562f309ef3f8fb2e5a0bb381827dce761a5aa0b2d7da1811df4",
+   "via": "extension"
+  },
+  {
+   "path": "LabView/TLDFM_64.dll",
+   "bytes": 125160,
+   "sha256": "1367e22a36f66bb7c3912ad372622d3feae3c4d3be2da42b537030a506507a7d",
+   "via": "ref:LabView/TLDFM.llb"
+  },
+  {
+   "path": "LabView/TLDFMX_64.dll",
+   "bytes": 122600,
+   "sha256": "1d5765df88a70efc135fc0474bfa306578bdb023246d6a832e085787621d0996",
+   "via": "ref:LabView/TLDFMX.llb"
+  },
+  {
+   "path": "LabView/libctiff.dll",
+   "bytes": 409088,
+   "sha256": "5916050a4c6f970b87efeb002791c942fe8e76e812b4c12c3f935e2b8abb01d5",
+   "via": "ref:LabView/ctiff.llb"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 546,
+   "sha256": "7c37258965826d8c9d448dcb04d0017e630cd9c10321024afac09f2e7fca6606",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 11339,
+   "sha256": "8408943f2bfa21f1f87efabf2d1f1c6132f22fc21cf95ec2ac519c999abb5242",
+   "via": "tree"
+  },
+  {
+   "path": "LabView/32bit/libctiff.dll",
+   "bytes": 364032,
+   "sha256": "7d648d4f13803fa2cfbadd647ec90f76ef80c08ed73d542e1a5df82986e6ef50",
+   "via": "tree"
+  },
+  {
+   "path": "LabView/32bit/readme.txt",
+   "bytes": 114,
+   "sha256": "ba01fd49df99781397acdb240d04e572ce82e9ff6480eace6cd1ed34ca56702f",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 19318,
+   "sha256": "f04e05feb41f2eb70549886e446dcf663a5e89fb90a4fd43428235e8eda13341",
+   "via": "tree"
+  },
+  {
+   "path": "media/image1.png",
+   "bytes": 136815,
+   "sha256": "484cc2d4a519ea39378b617cd0ded2eccdca6652c7779ac4c64ac8dad8dd37b4",
+   "via": "tree"
+  },
+  {
+   "path": "media/image10.png",
+   "bytes": 733951,
+   "sha256": "f993060200795592430af0bfddbe7f6db96b34a93b13b552f2894bc9cf18982f",
+   "via": "tree"
+  },
+  {
+   "path": "media/image11.png",
+   "bytes": 321952,
+   "sha256": "ee9466324cc0404fdc59bb01e2aad7ee448969f1c7a78011838204883cf5ea40",
+   "via": "tree"
+  },
+  {
+   "path": "media/image12.png",
+   "bytes": 636308,
+   "sha256": "7751e49556b0900c3033c9fba3ce0a8ff52eeb8df370203568aaf71fe704392b",
+   "via": "tree"
+  },
+  {
+   "path": "media/image13.png",
+   "bytes": 667703,
+   "sha256": "6cac8e232254b5c28472bc75ce911246f4758a7878a3103ab018ed35040db243",
+   "via": "tree"
+  },
+  {
+   "path": "media/image14.png",
+   "bytes": 876542,
+   "sha256": "cf48375e923e26dcb3b88ca5af4f28fbe62726e2b754314ed3624c212c9b5d01",
+   "via": "tree"
+  },
+  {
+   "path": "media/image15.png",
+   "bytes": 945359,
+   "sha256": "989b979a65ecc15439b896434e4b87968d829ac5e7ae7c1194cdb4a3705a966b",
+   "via": "tree"
+  },
+  {
+   "path": "media/image16.png",
+   "bytes": 496701,
+   "sha256": "1155e1cf1b0c4e9b37e5c9ff8e6dbe35f90f833b62448178c492390aa26f2426",
+   "via": "tree"
+  },
+  {
+   "path": "media/image17.png",
+   "bytes": 737946,
+   "sha256": "eb88fc7e463cc9c8b470fec1f37376086146d5d2e38d408b26ad729a7951dffc",
+   "via": "tree"
+  },
+  {
+   "path": "media/image18.png",
+   "bytes": 738786,
+   "sha256": "e68373d41d4f92c5786eccb45243b2673271e906e7e7ebd3e9046537d7257885",
+   "via": "tree"
+  },
+  {
+   "path": "media/image19.png",
+   "bytes": 271048,
+   "sha256": "57f96f49ece27b26c0fd48d762b8824ba47f73b605d8f5934646727907f19a55",
+   "via": "tree"
+  },
+  {
+   "path": "media/image2.png",
+   "bytes": 151510,
+   "sha256": "3ef1234d9047322a9a1f1b4a2529d090d4ee9b6271b49df672f776e9fb4e4180",
+   "via": "tree"
+  },
+  {
+   "path": "media/image20.png",
+   "bytes": 844236,
+   "sha256": "1b39bad341cf83b299477c42a5c9e277c9ef6294b872a03aa75a0915800b944b",
+   "via": "tree"
+  },
+  {
+   "path": "media/image21.png",
+   "bytes": 690657,
+   "sha256": "f7675f93a2b9cd402b62a6769f4374b78b0556e313ea7dc91fb63e5388de93e0",
+   "via": "tree"
+  },
+  {
+   "path": "media/image22.png",
+   "bytes": 909121,
+   "sha256": "5985a942bcaea97102e9f09268605326a6d6e24153246734de3482ca3b74ab1d",
+   "via": "tree"
+  },
+  {
+   "path": "media/image23.png",
+   "bytes": 468489,
+   "sha256": "f5426d089b3a92e0dc0b1088ae14df7fc3dd34a1df861a6be479f6194f19be4e",
+   "via": "tree"
+  },
+  {
+   "path": "media/image24.png",
+   "bytes": 17114,
+   "sha256": "18cba3e3446f1dbcddd5a9897d735a47fc7c908f6d4834f01a7d923f187404c6",
+   "via": "tree"
+  },
+  {
+   "path": "media/image25.png",
+   "bytes": 16381,
+   "sha256": "210efaffffe299bb048eaef1d2ec2b7b192e8808afd7cf26dc52e7fc84788ecc",
+   "via": "tree"
+  },
+  {
+   "path": "media/image26.png",
+   "bytes": 126271,
+   "sha256": "5a26c2bb879820e943c75ecaf9caad2601d5f4f9e5a84312f810a8f34508b834",
+   "via": "tree"
+  },
+  {
+   "path": "media/image3.png",
+   "bytes": 556657,
+   "sha256": "7069fbf1b67d1dc02e567d7c0312415a36532f5963602ce094867bc97dbb5cc1",
+   "via": "tree"
+  },
+  {
+   "path": "media/image5.png",
+   "bytes": 478625,
+   "sha256": "0e71b328ce52d02e034dd3563b6f76db29c674a2a2f3faa4d61b1a5e64ea4c79",
+   "via": "tree"
+  },
+  {
+   "path": "media/image6.png",
+   "bytes": 9403,
+   "sha256": "d357a0e2e2e50947e643ec968b29e1f6c1e06eb40c17f26d246db1071a17eb3e",
+   "via": "tree"
+  },
+  {
+   "path": "media/image7.png",
+   "bytes": 175601,
+   "sha256": "5dba618ca43ce1bd8cb6112aee97878fc2da6fbf28459114516f9e3aa74aba14",
+   "via": "tree"
+  },
+  {
+   "path": "media/image8.png",
+   "bytes": 427997,
+   "sha256": "092adc71f2d789faa535c80f3686e8a7c8f6fa605f6349735d3f6ec266fc89bd",
+   "via": "tree"
+  },
+  {
+   "path": "media/image9.png",
+   "bytes": 726377,
+   "sha256": "dd4fe167493613a01f8d8a4dde9383f96fc1e8f04759ca0bbfafa36d7ef71730",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<resource>\\visarc",
+  "<vilib>\\Analysis\\5stat.llb\\General Histogram.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\NI_AALPro.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\Std Deviation and Variance.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Clear Task.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Control Task.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Is Task Done.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Start Task.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Stop Task.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Wait Until Done.vi",
+  "<vilib>\\DAQmx\\configure\\timing.llb\\DAQmx Timing (Implicit).vi",
+  "<vilib>\\DAQmx\\configure\\timing.llb\\DAQmx Timing (Sample Clock).vi",
+  "<vilib>\\DAQmx\\configure\\timing.llb\\DAQmx Timing.vi",
+  "<vilib>\\DAQmx\\configure\\trigger.llb\\DAQmx Start Trigger (Digital Edge).vi",
+  "<vilib>\\DAQmx\\configure\\trigger.llb\\DAQmx Trigger.vi",
+  "<vilib>\\DAQmx\\create\\channels.llb\\DAQmx Create Channel (AI-Voltage-Basic).vi",
+  "<vilib>\\DAQmx\\create\\channels.llb\\DAQmx Create Channel (AO-Voltage-Basic).vi",
+  "<vilib>\\DAQmx\\create\\channels.llb\\DAQmx Create Channel (CO-Pulse Generation-Frequency).vi",
+  "<vilib>\\DAQmx\\create\\channels.llb\\DAQmx Create Channel (DO-Digital Output).vi",
+  "<vilib>\\DAQmx\\create\\channels.llb\\DAQmx Create Virtual Channel.vi",
+  "<vilib>\\DAQmx\\miscellaneous.llb\\DAQmx Fill In Error Info.vi",
+  "<vilib>\\DAQmx\\read.llb\\DAQmx Read (Analog 1D DBL 1Chan NSamp).vi",
+  "<vilib>\\DAQmx\\read.llb\\DAQmx Read (Analog 2D DBL NChan NSamp).vi",
+  "<vilib>\\DAQmx\\read.llb\\DAQmx Read.vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write (Analog 1D DBL NChan 1Samp).vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write (Analog 2D DBL NChan NSamp).vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write (Digital Bool 1Line 1Point).vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write.vi",
+  "<vilib>\\Instr\\_visa.llb\\VISA Configure Serial Port",
+  "<vilib>\\Instr\\_visa.llb\\VISA Configure Serial Port (Instr).vi",
+  "<vilib>\\Utility\\colorconv.llb\\RGB to Color.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Write Delimited Spreadsheet (DBL).vi",
+  "<vilib>\\Utility\\file.llb\\Write Delimited Spreadsheet.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\picture\\bmp.llb\\Write BMP File.vi",
+  "<vilib>\\picture\\jpeg.llb\\Write JPEG File.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Oval.vi",
+  "<vilib>\\picture\\picture.llb\\Draw True-Color Pixmap.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Unflattened Pixmap.vi",
+  "<vilib>\\picture\\picture.llb\\Empty Picture",
+  "<vilib>\\picture\\pictutil.llb\\Picture to Pixmap.vi",
+  "<vilib>\\picture\\png.llb\\Write PNG File.vi",
+  "C:\\Users\\Yide\\Google Drive\\Experiments",
+  "C:\\Users\\Yide\\Google Drive\\Experiments\\[2018] Nanosecond FLIM\\LabView\\20180315 event driven program multiplexing 3D imaging"
+ ]
+}

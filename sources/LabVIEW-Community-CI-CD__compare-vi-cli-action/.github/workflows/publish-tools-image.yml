@@ -1,0 +1,178 @@
+name: Publish Tools Image
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Image version (for example: 0.7.0 or 0.7.0-rc.1)'
+        required: false
+        type: string
+      channel:
+        description: 'Release channel'
+        required: false
+        default: stable
+        type: choice
+        options:
+          - stable
+          - rc
+      tag:
+        description: 'Optional legacy tag override (deprecated, use version)'
+        required: false
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Assert promotion contract alignment
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Assert-PromotionContractAlignment.ps1 -OutputJsonPath tests/results/promotion-contract/publish-tools-alignment.json -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Resolve image publish context
+        id: context
+        shell: bash
+        env:
+          INPUT_VERSION: ${{ inputs.version || '' }}
+          INPUT_CHANNEL: ${{ inputs.channel || '' }}
+          INPUT_TAG: ${{ inputs.tag || '' }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || '' }}
+          REF_NAME: ${{ github.ref_name }}
+          GITHUB_SHA: ${{ github.sha }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+          SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          node tools/priority/resolve-tools-image-publish-context.mjs \
+            --version "$INPUT_VERSION" \
+            --channel "$INPUT_CHANNEL" \
+            --tag "$INPUT_TAG" \
+            --release-tag "$RELEASE_TAG" \
+            --ref-name "$REF_NAME" \
+            --sha "$GITHUB_SHA" \
+            --owner "$REPOSITORY_OWNER" \
+            --repo "$REPOSITORY" \
+            --server-url "$SERVER_URL" \
+            --github-output "$GITHUB_OUTPUT" \
+            --tags-file "$RUNNER_TEMP/tools-image-tags.txt" \
+            --labels-file "$RUNNER_TEMP/tools-image-labels.txt"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push tools image
+        id: build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: tools/docker/Dockerfile.tools
+          push: true
+          tags: ${{ steps.context.outputs.tags }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.context.outputs.version }}
+            org.opencontainers.image.title=comparevi-tools
+
+      - name: Verify cookiecutter conveyor surface in published tools image
+        shell: bash
+        env:
+          COOKIECUTTER_VERSION: '2.7.1'
+        run: |
+          set -euo pipefail
+          image="${{ steps.context.outputs.image_name }}:${{ steps.context.outputs.version }}"
+          docker pull "$image"
+          output="$(docker run --rm "$image" cookiecutter --version)"
+          printf '%s\n' "$output"
+          if [[ "$output" != *"$COOKIECUTTER_VERSION"* ]]; then
+            echo "Expected cookiecutter ${COOKIECUTTER_VERSION} in ${image}, got: ${output}" >&2
+            exit 1
+          fi
+
+      - name: Write release summary artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tests/results/_agent/release
+          summary_path="tests/results/_agent/release/tools-image-release-summary.md"
+          {
+            echo "# comparevi-tools publish summary"
+            echo ""
+            echo "- Image: \`${{ steps.context.outputs.image_name }}\`"
+            echo "- Version: \`${{ steps.context.outputs.version }}\`"
+            echo "- Channel: \`${{ steps.context.outputs.channel }}\`"
+            if [ "${{ steps.context.outputs.is_tools_tag }}" = "true" ]; then
+              echo "- Stable family version: \`${{ steps.context.outputs.stable_family_version }}\`"
+              echo "- Bundle tag class: \`tools-tag\`"
+            fi
+            echo "- Digest: \`${{ steps.build.outputs.digest }}\`"
+            echo "- Source ref: \`${{ github.ref_name }}\`"
+            echo ""
+            echo "## Published tags"
+            while IFS= read -r tag; do
+              echo "- \`${tag}\`"
+            done < "${{ steps.context.outputs.tags_file }}"
+          } | tee "$summary_path"
+
+      - name: Append summary
+        shell: bash
+        run: |
+          cat tests/results/_agent/release/tools-image-release-summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload release summary artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: comparevi-tools-release-summary-${{ github.run_id }}
+          path: tests/results/_agent/release/tools-image-release-summary.md
+          if-no-files-found: error
+
+      - name: Write promotion evidence ledger
+        if: always()
+        shell: pwsh
+        run: |
+          $gateStatus = switch ('${{ job.status }}') {
+            'success' { 'pass' }
+            'cancelled' { 'blocked' }
+            default { 'fail' }
+          }
+          $channel = if ([string]::IsNullOrWhiteSpace('${{ steps.context.outputs.channel }}')) { 'unknown' } else { '${{ steps.context.outputs.channel }}' }
+          $version = if ([string]::IsNullOrWhiteSpace('${{ steps.context.outputs.version }}')) { 'unknown' } else { '${{ steps.context.outputs.version }}' }
+          pwsh -NoLogo -NoProfile -File tools/Write-PromotionEvidenceLedger.ps1 -OutputPath tests/results/promotion-contract/publish-tools-ledger.json -WorkflowName '${{ github.workflow }}' -Stream 'comparevi-tools' -Channel $channel -Version $version -GateStatus $gateStatus -GateReason 'publish-tools-image workflow result' -SummaryPath 'tests/results/_agent/release/tools-image-release-summary.md' -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Emit SLO metrics
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node tools/priority/slo-metrics.mjs \
+            --repo "${{ github.repository }}" \
+            --output tests/results/_agent/slo/publish-tools-slo-metrics.json
+
+      - name: Upload promotion evidence artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: promotion-evidence-tools-${{ github.run_id }}
+          path: |
+            tests/results/promotion-contract/publish-tools-ledger.json
+            tests/results/_agent/slo/publish-tools-slo-metrics.json
+          if-no-files-found: error

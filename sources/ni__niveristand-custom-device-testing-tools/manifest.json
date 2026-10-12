@@ -1,0 +1,1528 @@
+{
+ "repo": "ni/niveristand-custom-device-testing-tools",
+ "url": "https://github.com/ni/niveristand-custom-device-testing-tools",
+ "commit": "fe62cb5b50b642cf171a6ed8ad63f2a727d660f4",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "DiscoverTestCases/DiscoverTestCases.lvclass",
+   "bytes": 55761,
+   "sha256": "ee44bb0940f75e3578be779a8e7ada5635d558f6dafbe6cdb8f3333de126ec0d",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/GetHelp.vi",
+   "bytes": 12151,
+   "sha256": "ae8cf9fe2b6e09552f550c40dfc2cbbc1aedf9da21bc599001bf53daec55931f",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/RunOperation.vi",
+   "bytes": 19540,
+   "sha256": "2a311a9ec5edb2a0d9a89df417793fa43b8d23946b1a459e3fd12d19aae0b254",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/Utilities/FindTestClasses.vi",
+   "bytes": 17611,
+   "sha256": "12fd9244cfbfce760c11b0853f938bce191966cebeef300e042bfafa9487bb62",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/Utilities/ParseInputs.vi",
+   "bytes": 17351,
+   "sha256": "c6a2f1aa2c91d31e15fed7a8f4489b2827a572f97d01aed2e57b3b3be3eb1eef",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/Utilities/ParseOutputs.vi",
+   "bytes": 16436,
+   "sha256": "677d0e8d3726acfc65d7e52d59186cc112b341d7d33b307f3f194fccf749e29e",
+   "via": "extension"
+  },
+  {
+   "path": "DiscoverTestCases/Utilities/ValidateInputs.vi",
+   "bytes": 16594,
+   "sha256": "15d109e523229807e5b1ce100ba5cef6fb30a98e750a031fe5540887f30ebf4c",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/GetHelp.vi",
+   "bytes": 12239,
+   "sha256": "9703ee0ba42ef47e6546638529519b07d331f6463b7fb8926aa6678e47a0af9c",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/RunOperation.vi",
+   "bytes": 23892,
+   "sha256": "058506c6f405a6a432b57824ecca88306bfc325c7aff3dd33228fe2a9d62d85f",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/RunVITester.lvclass",
+   "bytes": 31965,
+   "sha256": "0f7b7373fe127de16577dbdd805387f558306625224b2150ee11372fc7a4be95",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/Utilities/ParseInputs.vi",
+   "bytes": 17983,
+   "sha256": "1939597aa70bc79bed562aa380b3ce17b8975eded6a697613cb258d39e34ff29",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/Utilities/ParseOutputs.vi",
+   "bytes": 15992,
+   "sha256": "20faa37eeb1e98a88aa00e6431f14a8c1ddc171eacd4adb3e00c1a6be9dfe00d",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/Utilities/PrintPaths.vi",
+   "bytes": 18686,
+   "sha256": "3e4302fed5c798338cc7da5eee661651a275e3a11a877e3f61f2a831ec16a3a1",
+   "via": "extension"
+  },
+  {
+   "path": "RunVITester/Utilities/ValidateInputs.vi",
+   "bytes": 18886,
+   "sha256": "285fa795749c6446a63e251d7b2b5ac100539649460e15129e99cbcb1e88edef",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/CloseSystemDefinitionReferences.vi",
+   "bytes": 17531,
+   "sha256": "f8f99a3eafc15dc362eea83836bff3d427a2a143f88d558230c0764f2282cc8b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/CreateNewSystemDefinition.vi",
+   "bytes": 17745,
+   "sha256": "81842bf026a816d172ded61e9763f3941f92abc7109a3566800b10d24a15ea16",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/Read Root.vi",
+   "bytes": 16965,
+   "sha256": "a3c459bef3d253b03c020c9cbfed951e8bb61a3be367e54d019569c1cc0048f0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/Read SystemDefinition.vi",
+   "bytes": 16993,
+   "sha256": "e900583a3a4c762e97108942fa4b5666c069cd9e23321c2170b6fb67ca6d8c75",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/Read Target.vi",
+   "bytes": 16975,
+   "sha256": "35a0d1f3d592bb35bdf0b0adf0a57668a786f923bfcde1d758b8725e9d569d4b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/SetUpSystemDefinitionReferences.vi",
+   "bytes": 18811,
+   "sha256": "c283bee54a98d7fb970c619aede0e8f18502f138496d9e9a89f76a7c89f0a336",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandScriptingTestCase/VeriStandScriptingTestCase.lvclass",
+   "bytes": 39823,
+   "sha256": "abdb09f0072d5481909ec0477ccf033b984250b7f5299145096a4e068d1d8bcd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/AddCalibrationFile.vi",
+   "bytes": 19414,
+   "sha256": "e2c199d3ff0ddff799422de0ea48273544df6a08055a6b3693b8062b03bc6e50",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/AddConfigurationFiles.vi",
+   "bytes": 25493,
+   "sha256": "b2db35aaba4290c62ebc00f3730e39b4184abe008502eecdab3f45909d5bb3cf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/AssertChannelLoopback.vi",
+   "bytes": 22833,
+   "sha256": "eef9fdab7c59cd951b40b8104d50d70b8da715c8c6cefc1fe7e8bea439ff8619",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/AssertMultiChannelLoopback.vi",
+   "bytes": 23378,
+   "sha256": "ebc68e8fba59d3f548fea5e17b7296247d7750805633345165c6039794aaacfc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/AssertMultiChannelLoopbackForMappedChannels.vi",
+   "bytes": 25927,
+   "sha256": "cdf50a75d46caac7bd70fbd14eeb6ed9a5e94321780a4f90ed68a71a1d0d2bf3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/BenchmarkSystemDefinition.vi",
+   "bytes": 30769,
+   "sha256": "d64d0092ad2be545e12616f5a65bdbddc646386250e0ab46c0a3574fad13f8af",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/CloseVeriStandConnection.vi",
+   "bytes": 35528,
+   "sha256": "cb8a57c2792fea75e49fb91e71481da6ed8d23c3c44c229aefd027447463eefc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/FlattenSaveClassData.vi",
+   "bytes": 20504,
+   "sha256": "faf1bc59b7b91af3c39446fbb194d64ebc3a1d05e8c441ccd2f2df714f8311d1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/GetProperty.vi",
+   "bytes": 18415,
+   "sha256": "036cab4da35e64fb8111b185a5e02028b98b87b7a6d0870704e6227f388071e3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/LoadUnflattenClassData.vi",
+   "bytes": 20514,
+   "sha256": "4b8d864c08df9dd20a6af4bc00e919ac8e119a6df17a25b8977675f74b34569c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/OpenVeriStandConnection.vi",
+   "bytes": 20547,
+   "sha256": "75738a2bb3f65b0124a8c7db98386c4a3800227892211806d290d56fafae0177",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/ReadActiveConfiguration.vi",
+   "bytes": 16035,
+   "sha256": "c35e5ec475a9ee53a500860d1d4529851a21cc7029dfaba4f88462afd04a030e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/ReadSystemDefinitionInformation.vi",
+   "bytes": 18679,
+   "sha256": "df7b8eb9c00679c312a2960332e6508a2ca249b5efcf5139ee3efc2cd881515f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/ReadWorkspaceManager.vi",
+   "bytes": 16204,
+   "sha256": "0be2cbf4c0efb89405e0b2c09348bd1391339bc5be17f797fbdad3e6c0f48cbe",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/SetMultipleChannelValues.vi",
+   "bytes": 20396,
+   "sha256": "2e0791d145aa6e2ef6de82e40a92b6ce1bf968f197ff3f529f39aae136e5d62d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/SetSystemDefinitionFile.vi",
+   "bytes": 23183,
+   "sha256": "a2ab3a8b18c4a44e13ab86bade2ec96a6253b4e7b0d9041ee8c32a0e332a902c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/AddDefaultConfigurationFile.vi",
+   "bytes": 23919,
+   "sha256": "588fab29433b87b1796952687fe4e16ab76c20e799218aa5668db88725657264",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/AddTargetsConfigurationFile.vi",
+   "bytes": 23995,
+   "sha256": "54599115262d7dede2f92ed60fe5850d627ac97a610e285cb5ee0db2dfbe5457",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/BenchmarkInformation.ctl",
+   "bytes": 10765,
+   "sha256": "add29006aaba70e10e1e24940fae351f3cd1f9cfe32d0e9677fd09237b56d821",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/BuildDataLogConfiguration.vi",
+   "bytes": 25933,
+   "sha256": "2126f929eef461d7b78e0356aaad91ef4a801216dcfdc0c52d7ac169def27257",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/ChannelKeyValuePair.ctl",
+   "bytes": 7196,
+   "sha256": "560b19b3b98ec8f09f8ab96b4ee5ed3702984769f4076337291d55489f41962e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/ConfigureTargetRate.vi",
+   "bytes": 20243,
+   "sha256": "60745276776ace0594dcc50e313a955b60f792dcca03f39ed9e839f05651790c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/GetSystemChannelPaths.vi",
+   "bytes": 16009,
+   "sha256": "f3a16e89c33e3e4dd5556b22b0d298e7171be12849815550b0196b812778fa39",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/GetSystemChannelValues.vi",
+   "bytes": 20674,
+   "sha256": "16b99bd96028ab79f9723b77325adbfa8212c725e989095ea7d881c50f8c7eb9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/GetSystemChannelValuesForDuration.vi",
+   "bytes": 40573,
+   "sha256": "82c8518772fa01736e25119f4a5fd78f07c6d539d1b3ae8f7958c015bf3689e4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/LaunchVeriStand.vi",
+   "bytes": 18815,
+   "sha256": "d51d77dd2c3dc237bacf5f5436d42fe588b03325eb440b9ce5c6c0b83f4ef62c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/MakeSystemDefinitionPathAbsolute.vi",
+   "bytes": 18856,
+   "sha256": "22d6c7861a7e1633e4482e59a9598251efe5977ff74e4ae485111002a452e33c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/OpenSystemDefinitionFile.vi",
+   "bytes": 23324,
+   "sha256": "79704f0789a9336e7032f6fa37e6ecc61eeabcc6d505336e331f5cf69d862269",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/OpenWorkspaceManager.vi",
+   "bytes": 32944,
+   "sha256": "599295cf61f3df725660bd8bf809affc6d059acb8ea8eb555f19a6896629b0ff",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/PatchSystemDefinitionFile.vi",
+   "bytes": 13753,
+   "sha256": "776496a1a83d81245670afb37bc74dbc984c3ef3b9335d2cb60d3b85485c90a9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/ReadTDMSFileFromDataLogConfiguration.vi",
+   "bytes": 21632,
+   "sha256": "35f32ca86a1d1d7c3ee35829018fd98e1288432a96bc4a5271d50ab73609652d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/SkipIfLabVIEWVersionIsIncompatible.vi",
+   "bytes": 22690,
+   "sha256": "f43a2f85522acf1db20b95530e2648aa1edb730823fb801c25935b78994d520b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/SystemChannelInformation.ctl",
+   "bytes": 10465,
+   "sha256": "9a7269973131b94d76b56e3aef03972cf8babd3489bf0cf65bf6247e94e3235b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/Utilities/UpdateBenchmarkInformation.vi",
+   "bytes": 18714,
+   "sha256": "128da17f5952a743c7c06446b395f131fd1bc0ff94a15e8f6bd0a581ce8fb8c8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestCase/VeriStandTestCase.lvclass",
+   "bytes": 170092,
+   "sha256": "965fdd3d69fe54b2bdfd4463fc986e3b9fd5c09c113d67bfd7e7a2f205b6e7a1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ApplySystemDefinitionOverride.vi",
+   "bytes": 18009,
+   "sha256": "de3ea23e887ba1fe91e429f2f5d585c9fc273a9fb4dc28396c893d48d959683f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ApplyTargetConfiguration.vi",
+   "bytes": 24852,
+   "sha256": "821fc4b47c12788932cd4319b6a867ff7f779dfb3ff0f2bf40f89201d42b461b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/AssertConnectorPanesMatchExpected.vi",
+   "bytes": 17297,
+   "sha256": "247bc05759c234a1d7b02ebc8d2f9f87732f9da1b8e1cfed29568553461da9b5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/AssertConnectorPanesMatchTemplateFiles.vi",
+   "bytes": 21970,
+   "sha256": "174acc09f99600d13c0e5b246a268c1cc968cd3eda4bdb50420543aa96d30917",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/AssertSourceSeparatedFromCompiledCode.vi",
+   "bytes": 20941,
+   "sha256": "b20d4a3add52c255e2ed69baa4a7c1233c82a88e0f2b6e7fca01669b6da5d8a3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/AssertTargetsHaveCorrectVeriStandVersion.vi",
+   "bytes": 17316,
+   "sha256": "7980047bc58eae25d33d1827de4262e8f869a4fb5d6d7a14f70d3a4181ec75f7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ChassisInformation.ctl",
+   "bytes": 15963,
+   "sha256": "ba3403cc28a1836ea6c323fa72871d70d953323fbfeb30b6856b7549fd9e218c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/CheckIfBaseTypesMatch.vi",
+   "bytes": 15489,
+   "sha256": "3dd88cc08522ce0d200309de0521c908aa69f7ef03f1a324a2e03ef39c8f29f8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/CheckIfConnectorPanesMatch.vi",
+   "bytes": 25218,
+   "sha256": "d86fa6b4f965fce7659deaabba981cb5473aeb04ee14b0ebf65884c87da19ccb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/CheckVeriStandVersionMatchesLabVIEW.vi",
+   "bytes": 69343,
+   "sha256": "3357693c80f4af29bf10b31d76e57bd4fd15bc220e0c611f4880732be5b0cd01",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/CheckifVeriStandisRunning.vi",
+   "bytes": 15365,
+   "sha256": "e5ddfcc76b74d043527256e9c9b64f83c85a5449227d7bfe21ebd3cc124f1a8c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConfigOverrideItem.ctl",
+   "bytes": 12675,
+   "sha256": "d16e589da4794450a6cce7c70bed39584942633115755d7cfb0a2e6ae6ad9fc1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConfigPropertyItem.ctl",
+   "bytes": 12543,
+   "sha256": "9b97193829df039771e1a6ad3cedf4ba71ea226c0c471631987300e93b12c387",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConfigureSystemDefinitionFile.vi",
+   "bytes": 12853,
+   "sha256": "5b8009fe81f0e5d9ac20c6c38278b56c670c53587ea67c594d53bc9aad36e704",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConfigureTarget.vi",
+   "bytes": 10983,
+   "sha256": "99ba4f686cac21d18da4792f73dfd7489734629865e2fd82a9f1b155ef78f6b2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConnectorPaneTemplate.ctl",
+   "bytes": 12858,
+   "sha256": "c387c0ac31c82d35ff9820a38ab4a45f7399b832ec96d903cda0c24c2833c0b5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConvertSystemDefinitionPropertyTypeToEnum.vi",
+   "bytes": 14373,
+   "sha256": "ebd141bbe4ac2fd2b6e898858cefb1cf7fa9576a7f35466c27fce268a810b803",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ConvertTargetPlatformToOperatingSystem.vi",
+   "bytes": 15466,
+   "sha256": "7e21d41aec0ba4f09bb0e4e78401a98b767eba670428bd6b93df1bc64b84eb42",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/CreateNewSystemDefinition.vi",
+   "bytes": 17889,
+   "sha256": "427576ae35329fcc549364fc9cb13d458a5a33435bb1eb28932629c7495f348b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/DelayDataFlow.vim",
+   "bytes": 21606,
+   "sha256": "c6ff14ce292be31eda8e9aa8a7817cd7139db03bf2eb0b862dd78a6d84d7442c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/FilterCustomDeviceVIs.vi",
+   "bytes": 20653,
+   "sha256": "71279a728b2d150efebbb6f8d09a082148cc4a6864271b41c2a6d3c2dd8946d5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/FindTargetInSystemDefinition.vi",
+   "bytes": 15916,
+   "sha256": "8563a839644d87fd11d2a271330191be8778c9453fe2e19a0016bd51da8eed9c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/FlattenSaveClassData.vi",
+   "bytes": 18528,
+   "sha256": "71c3a5b2c2c0196338ca0daa88d1b6d4e5b1fbebb43d4af3653202560d0653fc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GenerateOverriddenSystemDefinition.vi",
+   "bytes": 21374,
+   "sha256": "d78dc3438cfbf845d8f33929b78c12b7efd8d5e124749ba21cf88349eff7b939",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GenerateOverriddenSystemDefinitionFromExplicitOverrides.vi",
+   "bytes": 27055,
+   "sha256": "4bdb906f7926bff17727986c932d78100a7a533c227684015805fc01e7a57cc6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GenerateSystemDefinitionReport.vi",
+   "bytes": 24670,
+   "sha256": "4205fb66dd20823dd72609e97f7071747b28c907c0b129ec8ac05316d65b1379",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetAssetsDirectory.vi",
+   "bytes": 16762,
+   "sha256": "1080ebb0c478ce6f75416423654beac42e3d09551ef70172649eb7e8a8b78c22",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetCustomDeviceInitializationVI.vi",
+   "bytes": 18519,
+   "sha256": "3d96a4e6c9ad9b9a335ea9d7dc5f3dac2190d1409bfb8545be707564c00d9064",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetCustomDevicePageVIs.vi",
+   "bytes": 22658,
+   "sha256": "870b3e142c9833c9f2d0cbbb424cc733dc6b3902dc03f4131664364643a58347",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetCustomDeviceRTDriverVIs.vi",
+   "bytes": 21426,
+   "sha256": "8022bde3dde7bad7c5a178c4767eeadc29fc0df4bc2a06bce4cce9bfa9b0cda8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetCustomDeviceTimingSourceVIs.vi",
+   "bytes": 20218,
+   "sha256": "2a18397399ca6150993b8ac9dd6600452031f290c9a9eca0093185d5b96635f3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetCustomDeviceXMLVIs.vi",
+   "bytes": 22985,
+   "sha256": "f29da89dacf034beff80902bbf5355e86b1b6db544d983f8c36b95524dd62a16",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetLVFilesWithCompiledCode.vi",
+   "bytes": 18038,
+   "sha256": "4c24d6a1adbcf74af18a543cb5ce97b2b2bc09429b1c47d427da6ed1c6a146bc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionNodeByName.vi",
+   "bytes": 17509,
+   "sha256": "0a72f757404f1fcedf6d3fdf8128546717b21a8a8d8d729fa1f9b7b6b0ee6f89",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue.vi",
+   "bytes": 15428,
+   "sha256": "1b64c1573dc4a46b3847710d5175cc3eae8b85e3ba93cd87c6276adbb3b01780",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValueErrorMessage.vi",
+   "bytes": 15668,
+   "sha256": "fa699dbce93597ed0cca94645f8487fbb793d387a99bf9a2e3f312c6368330b7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_BinaryString.vi",
+   "bytes": 13125,
+   "sha256": "419eb6fcb6e9ab8c38f6ced00d4b08506c9189926de05ad96f4fb861a855aac2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_Bool.vi",
+   "bytes": 13045,
+   "sha256": "c26d049935cb03d93f7c5a083c9079a885dfc08bca3300c01ab852e8f185ef76",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_Double.vi",
+   "bytes": 13079,
+   "sha256": "d93d370350e23ffd96a20b82007b6218141a5b4784d20eb1101010c92c4fefc6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_I16.vi",
+   "bytes": 13048,
+   "sha256": "6efe9abe0f6fe57ec725d31b0de3dad05b4f40ada4262c6beb5c238c76ad4a46",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_I32.vi",
+   "bytes": 13044,
+   "sha256": "47a3570f1a4e6d40d8505bfa16e3561aca111106a2bc8e31a7d1780fb9e42d0b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_I64.vi",
+   "bytes": 13064,
+   "sha256": "4869a23bcd53ce2934adcf00c271eae62b9842c517bcbfbefc1e2b087ea0fc87",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_String.vi",
+   "bytes": 12983,
+   "sha256": "94588ee1be6a1363df3e7bb1285ad28ca3af96dcb31764eb4930283b5571a9ba",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_U16.vi",
+   "bytes": 13048,
+   "sha256": "3a9594a4c8b7e17b24498d9b7197d8b384bc32e3676ba6d2d02a1f13a1f2bfcf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_U32.vi",
+   "bytes": 13060,
+   "sha256": "95a47f19fcda6ead68b23efe707ebc93b1aef13d4554d3f641017f749c2fe56f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/GetSystemDefinitionPropertyValue_U64.vi",
+   "bytes": 13056,
+   "sha256": "4eb490b88a72ab54979a05bc189d7a31252a59f44718d5ca84db91313e67ebeb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValueErrorMessage.vi",
+   "bytes": 15668,
+   "sha256": "5783952997fc10f7d86d456358d61e44fd96e990a2c611b98411dbcb2200c958",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetTargetIPAddresses.vi",
+   "bytes": 16596,
+   "sha256": "4fe5364b2831ce31a2e0249c017ceb0397911b493c6df1794408744c3a8f5a62",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetVIFolderPath.vi",
+   "bytes": 16219,
+   "sha256": "b8e327097cec658d9792b88e1ce469d45dddbdc85a0868167bfe82781b6d7b62",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/GetValuesMatchingXPath.vi",
+   "bytes": 16454,
+   "sha256": "4665be6c85a50628ed0137e4d8bcef31a3bbb59dc8d16371c47988df84d44b6d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/LoadUnflattenClassData.vi",
+   "bytes": 19790,
+   "sha256": "76743adcead2ae6c645ab3a790ead082d9de9aef44ee56e9d8d4e1883b96502d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/LogForDuration.vi",
+   "bytes": 23630,
+   "sha256": "12ba62a26eb263f90079a22567ca4e1c845edec85c390105f8b6769730cb0d07",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/OpenVeriStandProjectExplorer.vi",
+   "bytes": 33404,
+   "sha256": "54550405e27c6a271540aa0ab6cd57dff9ebfc871b516b3ca45e65e45dd70c97",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ParseSystemDefinitionFile.vi",
+   "bytes": 14593,
+   "sha256": "f58fcec827bd7024f6874a10623b2d9a8847ecec275a10a7c16b95bd887448ad",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QueryCustomDevices.vi",
+   "bytes": 19718,
+   "sha256": "f19e519e309d99a0417cff3fe4d9c198fd3407468fc90d67a1cf6d322ce1e43d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QueryDAQHardware.vi",
+   "bytes": 19640,
+   "sha256": "c32ddf84b8135a3f5bd688a0bff50124da6ddb688419040f0caad8f3ae6e43ca",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QueryHardware.vi",
+   "bytes": 21733,
+   "sha256": "dce2ca6dbeeadf8eaab14590083d4d4c1e5a4ecb7b13df21de53b13fce9fc139",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QuerySystemDefinitionFile.vi",
+   "bytes": 22849,
+   "sha256": "905d8dfa47e9d6ababfbbb23e4718dedd72e96640cf01af80eabc1c3b6d76f85",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QueryTarget.vi",
+   "bytes": 22039,
+   "sha256": "b7efb5557cf38827291792f60f31734ff43bb1190f63ddb2d5b7e517eb3407cb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/QueryTimingAndSyncHardware.vi",
+   "bytes": 19174,
+   "sha256": "c4470e254470239cfe379ad399f7c737c1dafdfa2f1e127c81bbcde5ecfd2816",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/Read Rx Values Until Equal.vi",
+   "bytes": 16970,
+   "sha256": "67dc7b9442045e3fd8fe6e97634e1c613ae41450b7db65d7cb821111cdfd92e4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ReadSystemDefinitionOverrideFile.vi",
+   "bytes": 46168,
+   "sha256": "cb6b56a4776e21337a396cddf9b56a578a7411c0747d52b2a93c91c04382f37c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/ReadTargetsConfigurationFile.vi",
+   "bytes": 25224,
+   "sha256": "fad42f4d14818f23d7d2c48b1c7736c13fdd6e7c525299eecad4f40f352c62d0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SaveSystemDefinitionFile.vi",
+   "bytes": 14240,
+   "sha256": "f7b7b6809d1dc8326bf536350de291b47cd24a327bf6135f6e7b8e53527a4406",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue.vi",
+   "bytes": 15448,
+   "sha256": "f57a0e1722d3356d855d903e641555ac426a73670749ea5f22c8977a4334391c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValueFromString.vi",
+   "bytes": 28890,
+   "sha256": "0e033e5e81e61284ca4dbc853a60f1a1ead083770630a2471d06d381f60d2975",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_BinaryString.vi",
+   "bytes": 16461,
+   "sha256": "f9a190f9ea1fe4fed4afa30d0f9bc6889f6e14cf3cbe13e45fca71ccb3918aaf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_Bool.vi",
+   "bytes": 13137,
+   "sha256": "9c16c68ac0a110c1b361a9bdcfcc5b9fed4e3efc2c1bfb1fd2eab01e1a45b22a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_Double.vi",
+   "bytes": 13155,
+   "sha256": "6d5e853db6867681769a9ca556e468b31e6f086a44888dba08463a25559c72bd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_I16.vi",
+   "bytes": 13136,
+   "sha256": "70b2ded95b4a0b1559dddc7db8857bc07f2063c963541702672f9386925c2823",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_I32.vi",
+   "bytes": 13116,
+   "sha256": "6dfdd4146d2858881683921d95ef3f9692ae62739e276e6521a2cc9d40d7a58e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_I64.vi",
+   "bytes": 13140,
+   "sha256": "56779a5eeaa73e29bc4a4e8e97d79c1387c80da5b9e66a224513e69e1a72154c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_String.vi",
+   "bytes": 16299,
+   "sha256": "e95ee49ba5bb4de21ae9eae330f352c982ff583ba0f2b8eba741e53e6fa5a97f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_U16.vi",
+   "bytes": 13132,
+   "sha256": "f10e9d586394530fd6b268ecd9e678f7055fce9cc7b66ef0bc73f02fbf183b55",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_U32.vi",
+   "bytes": 13128,
+   "sha256": "81766904ce6ce43059f62ebca41fea3a6bcd0497566a94e330e76b9ebf31aa7c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SetSystemDefinitionPropertyValue/SetSystemDefinitionPropertyValue_U64.vi",
+   "bytes": 13128,
+   "sha256": "5807d55db0ea27c3cf733061241e67603bd276826582c1e56516fce8dbf3ab62",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SystemDefinitionInformation.ctl",
+   "bytes": 12328,
+   "sha256": "d4b628da7fc6831767b0be71b444ef3802ffa361ad901f3e24a39e6ff607318e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/SystemDefinitionPropertyType.ctl",
+   "bytes": 4837,
+   "sha256": "0e4a40f06868ccd0c0e2e4d47f61964592ac57e2cc99a274c204317bf62be8b2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/TargetInformation.ctl",
+   "bytes": 11246,
+   "sha256": "a06d174e679101ae388c22248ff7bce64cb1e8f2d2c9e4e36ab1b2bd1d9b9e28",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/TargetPlatform.ctl",
+   "bytes": 4619,
+   "sha256": "96113b255c0bee0bc52addfcb0d2b090a948072f6f681a62d4c019e42461b1ac",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/TargetsConfiguration.ctl",
+   "bytes": 11441,
+   "sha256": "6262767c7d4c75370b2ed11d016d8e802bcdc949986bfb49bdc9b247dcb630c2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/VeriStandTestUtilities.lvlib",
+   "bytes": 50195,
+   "sha256": "f7f35bfff34343c27ff9b3e54afad4e2bab5df8276abbfea2f91fd898f8e6e41",
+   "via": "extension"
+  },
+  {
+   "path": "Source/VeriStandTestUtilities/Write Tx Values and Read Rx Values Until Equal.vi",
+   "bytes": 15150,
+   "sha256": "4c924b4d2e7cd17e85a4a5034211e870628f4663d1df1efc94b1140dd91c015f",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/Targets File Work Around.vi",
+   "bytes": 19236,
+   "sha256": "10198af0327bc6cc24b1d29302e9d3366fb68885c8f40fda96be4a1acfa25748",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/VeriStandTestCaseSystemTests.lvclass",
+   "bytes": 25767,
+   "sha256": "0ed8a3fdb2129b9ade863c584737bf87fe0686b14c66bfec6fed18cb4c6689bd",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/setUp.vi",
+   "bytes": 9993,
+   "sha256": "fe5d825b01b92f4672f5b0373e6c9bc16e7720230d60d9e191b6a1569f9828ce",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/tearDown.vi",
+   "bytes": 8612,
+   "sha256": "d4e0360048e5656132f19077daa750cb0f67dcdd67416d89baa841cd73076197",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/testBenchmarkSystemDefinitionFails.vi",
+   "bytes": 13274,
+   "sha256": "05fc3ad850e7484800fc4d7522fdfa39701ed8033407e4f00f57d1232723b96a",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/testBenchmarkSystemDefinitionPasses.vi",
+   "bytes": 12763,
+   "sha256": "328a6c6dfdc0586105ae82893a8b2a48509c254ca1c204c356b5a4c04b75135a",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/testExample.vit",
+   "bytes": 9448,
+   "sha256": "37896f23c9252deb8c09f23d6028125cc7cb35d8b7d432ccccded536ad51f026",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/testOpenCloseVeriStandConnection.vi",
+   "bytes": 19632,
+   "sha256": "59836bad41acd3b9bb3c642b8dfe92b01ae458803fd358312b6ae2c73f4083fd",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/VeriStandTestCaseUnitTests.lvclass",
+   "bytes": 22019,
+   "sha256": "007f9f1efc75a40286c7a1708fe0e358065baea6336cf0d61b99f36920d1c121",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/setUp.vi",
+   "bytes": 9969,
+   "sha256": "63bd335dd74fa7d12a49e0bf353d98fb6aa5a893e1493cb9134b9fcd6571f231",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/tearDown.vi",
+   "bytes": 8592,
+   "sha256": "355f6e3ea68b4ab5f04106547ded9c0bf603a41cc085d96e3cf19b56994b9451",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/testExample.vit",
+   "bytes": 9420,
+   "sha256": "bd1446c8bac4b0665beb959c1e46a30e14f5a0102a52dd4401f9d45e8565fc3f",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/testGetPropertyFromAddedConfigurationFileWithoutDeploying.vi",
+   "bytes": 12841,
+   "sha256": "8e355de3a1abeab9b7698dd41f903edc5483e18b41a5cf5e44f79add01d80583",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Bad/Page_ExpectedTerminalNotFound.vi",
+   "bytes": 20793,
+   "sha256": "862d0648acbcbddf9ed6a53806e4b4e886c18ebf803258fa2ec40c33562db17a",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Bad/Page_IncorrectTerminalType.vi",
+   "bytes": 21010,
+   "sha256": "150f3fbcf52ffc955e2dba0f87b2237604d5b959dc1008e450bf8c96cfb68bc5",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Bad/Page_UnexpectedTerminalFound.vi",
+   "bytes": 21032,
+   "sha256": "37bbb05bd8692ce1cad44c137e930e010713f8b2ea4afd3480395e40575b8f10",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnCompile_Good.vi",
+   "bytes": 14274,
+   "sha256": "77d529fbc92e7599e87ef0e55f6a1d2e27fc11d8fcc0ac3974710af9fb8778a6",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnDeleteRequest_Good.vi",
+   "bytes": 16288,
+   "sha256": "5274c5b727de9ffe6190f7a79d8317b8860eb0e329076da5bd3bb22f6adfdd40",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnDelete_Good.vi",
+   "bytes": 8477,
+   "sha256": "a886cca9219d2f002841fd545bdfaab6f8ac1467b6dbbf613830057a2f802255",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnDownload_Good.vi",
+   "bytes": 9659,
+   "sha256": "d35d6f1a1891e60b59167b5152921b752978cf620e3f08c6c9152a0ee9787cd2",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnLoad_Good.vi",
+   "bytes": 7735,
+   "sha256": "0aa948bee1038838b108d97cf32fa5dc50bdfe01690d67221d0d08b5b388d4ac",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnPaste_Good.vi",
+   "bytes": 8404,
+   "sha256": "7d950eab9a19881a2d8eb6c118a00958cc749ffa508fa6a367e9e1b67121e63e",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnSave_Good.vi",
+   "bytes": 7735,
+   "sha256": "e5d81219e52f1982007f8da5d0f10b8ae172a58fcd75c16ffdd0f01ed4e689b4",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/ActionVIOnShutdown_Good.vi",
+   "bytes": 8807,
+   "sha256": "4b40736ef4cbce728378dceab82d6649fcbbacfddbc6a46c9cb295c778bc06e7",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/AsynchronousCustomDeviceDriverVI_Good.vi",
+   "bytes": 28837,
+   "sha256": "918908c0c9f6a10a18c0b498867aeb00d8a9ee64ee3f0b23137772f2009c2137",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/InitializationVI_Good.vi",
+   "bytes": 8357,
+   "sha256": "2ab47f3ebcc4cd4d6fe4805360140ff65d1a8fe13455965627b46232c6cb02e2",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/InlineCustomDeviceDriverVIHWInterface_Good.vi",
+   "bytes": 20758,
+   "sha256": "af8d1ed86c064bb5165cc7703ce4cedee7a798aa292bfd0c3eefd51184b57295",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/InlineCustomDeviceDriverVIModelInterface_Good.vi",
+   "bytes": 20025,
+   "sha256": "eb80bf2faef30214df6f5385e0b808e697c68befe2f23b6d26a65de8b93cf82b",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/Page_Good.vi",
+   "bytes": 20757,
+   "sha256": "93f749d9dbe1e6472ed4834c66c6ae83ed9cad840b0473aa132aadd965f4ffb4",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/RunTimeMenuCustomItem2Launch_Good.vi",
+   "bytes": 7061,
+   "sha256": "95818e8dd5a1482c455e2b9d40546bdbd2aeeb50a30e13a6fc0a91c7fe921882",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/Good/TimingSourceInitializationVI_Good.vi",
+   "bytes": 9641,
+   "sha256": "c582800be11aa3267b60d237ed7f7994d5b4b2e55f71403c854bbbf4285278a1",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated.ctl",
+   "bytes": 4185,
+   "sha256": "0309be6fc63b215f4f5ad0fced2e5bcd55e02202cb26131c30d0c3f7e7339d4c",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated.ctt",
+   "bytes": 4185,
+   "sha256": "3a4620c8298d44ae7fe4d6ca96b18b62556e2b87daad3612145d3b66f97ae3db",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated.vim",
+   "bytes": 5573,
+   "sha256": "3f504340ece369b6ca42198c81068cac001058d855e864fc9f7dfd906f7bfb3b",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated.vit",
+   "bytes": 4821,
+   "sha256": "e0bd922106893b174999004119f1099d3631c1b4384519e6bddcb18f7e65ea81",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated_1.vi",
+   "bytes": 4822,
+   "sha256": "1571263c07917aa4c795b77d3182ea50395be3c97e2f9a924dd264f04a40bb53",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/NotSeparated_2.vi",
+   "bytes": 4822,
+   "sha256": "0567edcce9efb30dd8f1be3fe587fe9d52b0858e697ff7adc2faae17f840b4ae",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/Separated.ctl",
+   "bytes": 4234,
+   "sha256": "3dc7ee219867f6ec3d15671eb23ebe1e53650c5be19b379d864e08363754aaad",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/SeparateFromCompiledCode/Separated.vi",
+   "bytes": 3153,
+   "sha256": "cea22ec83daa4e6effb157b31f6383f6f49f2b238c3ab1eac0c6f43b457a2857",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/VeriStandTestUtilitiesTests.lvclass",
+   "bytes": 36646,
+   "sha256": "f198557308cc389795a40809087114da92152ee6ebbb60d37598b44ac69ab372",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/setUp.vi",
+   "bytes": 9989,
+   "sha256": "2803000741aef10e68268f800ab3a3c581b7a37ffd9441ce891dabafcd06b908",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/tearDown.vi",
+   "bytes": 8604,
+   "sha256": "b2ed08fe21533917e685aaea47435a062346c7a05b21232728f1c10b96e6e664",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedAsynchronousAllGood.vi",
+   "bytes": 10624,
+   "sha256": "88ca678ad75bfd9c8343719c4e77704a1a3227cf971d44f03a6f67bf1114d4e2",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedExpectedTerminalNotFound.vi",
+   "bytes": 11761,
+   "sha256": "0664ba2f7f90e3a8be4f3966616d77767299d5d8e7c12141defae11ffe2bba93",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedIncorrectTerminalType.vi",
+   "bytes": 11758,
+   "sha256": "41137bb785bd8a56f94fcadb164f141f9d132a7fb05c5a823ae2ad21511c9a11",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi",
+   "bytes": 13685,
+   "sha256": "2c6808555d6130aa276b775bce71bdf7876e75a7e5fb0b9f02fdeb61d441aa54",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedSystemPage.vi",
+   "bytes": 10619,
+   "sha256": "ab934bd04b4ea8fc80429efc6cf9eaae7f4afb04f7294c47a70134823c12115c",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedUnexpectedTerminalFound.vi",
+   "bytes": 11760,
+   "sha256": "727fb1e91d0139950ca83e36f38fbb8871342812ef014e739fa65de0ea57e6ad",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertSourceSeparatedFromCompiledCodeInTestTools.vi",
+   "bytes": 11188,
+   "sha256": "45f2f2d9f022dc14476d1e8b59e882cc29f4cbab7b2b24d23ac8b7b067935dd1",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testAssertSourceSeparatedFromCompiledCodeReturnsExpected.vi",
+   "bytes": 13040,
+   "sha256": "a82baeb3ae4b64be06e5b51ca569c1433f323b79ab15db3c90d6458c57b365d7",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testConfigureSystemDefinitionFile.vi",
+   "bytes": 13413,
+   "sha256": "13824384eb435cf1b56d5dd509954b07ad41dc76bb3b0b1298fd4c2fd9eae458",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testExample.vit",
+   "bytes": 9436,
+   "sha256": "3186715c34002e8edd9635334cadc875da7dc7801c31ff0e84bc35b6ac8af5fe",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testGenerateOverriddenSystemDefinition.vi",
+   "bytes": 20402,
+   "sha256": "40ec033a1d1acfe1735111d84f3980befbaa4994d710681830653ba99c5922ae",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testGenerateSystemDefinitionReport.vi",
+   "bytes": 14890,
+   "sha256": "8756766d81f1795f3e83e3cc358a93c43581cbd3cd3b83ef25a13de0abf06a91",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testGetTargetIPAddressesMatchesSystemDefinition.vi",
+   "bytes": 12331,
+   "sha256": "820fc62da070632c0ca6bd9be4939d9b680447feef67542be3ba1e225bd75273",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/testQuerySystemDefinitionFile.vi",
+   "bytes": 16033,
+   "sha256": "1075df135850045e2071edb503d16e9f1076f5d0f4df36ab3d6ca8b334574e16",
+   "via": "extension"
+  },
+  {
+   "path": "VeriStand Test Utilities.lvproj",
+   "bytes": 139113,
+   "sha256": "8bc50cca4f9f168bc9dcd6402496d6aa9cf87e7f0c5aefeefe843f510055a786",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/Assets/Config.ini",
+   "bytes": 113,
+   "sha256": "3c1619ac0ced110083887b6207638347b1b16d6bd25d10a3f287ab1b14308363",
+   "via": "ref:Source/VeriStandTestCase/Utilities/AddDefaultConfigurationFile.vi"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/targets.ini",
+   "bytes": 96,
+   "sha256": "5494b3ddaa293f371f345ea6861b0ec2aff62f89913108d5db8defa09d9795e6",
+   "via": "ref:Source/VeriStandTestCase/Utilities/AddTargetsConfigurationFile.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestCaseUnitTests/Assets/DummyProperty.ini",
+   "bytes": 113,
+   "sha256": "3c1619ac0ced110083887b6207638347b1b16d6bd25d10a3f287ab1b14308363",
+   "via": "ref:Tests/System/VeriStandTestCaseSystemTests/Targets File Work Around.vi"
+  },
+  {
+   "path": "Tests/System/VeriStandTestCaseSystemTests/Assets/MostlyEmpty.nivssdf",
+   "bytes": 43992,
+   "sha256": "46f325113fa48095afb541194c5541e89a9c8dfc14d8b343031081b3184a91b2",
+   "via": "ref:Tests/System/VeriStandTestCaseSystemTests/testBenchmarkSystemDefinitionFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceAllGood.xml",
+   "bytes": 4598,
+   "sha256": "b0f4cd1d2f122dd0ea9e7e4d6289ef3f22b944f306d9f9c9dabbe68348ea3ab9",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedAsynchronousAllGood.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceExpectedTerminalNotFound.xml",
+   "bytes": 1680,
+   "sha256": "4a942e06469f85a1d2253bca855f5181681947e5be8850a540b75a82cb9316b4",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedExpectedTerminalNotFound.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceIncorrectTerminalType.xml",
+   "bytes": 1677,
+   "sha256": "12083be3ae50dfc0db311335b2841c9139dcdb398bf67ecff0b02d80aa74b401",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedIncorrectTerminalType.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingAsynchronousDriver.xml",
+   "bytes": 1608,
+   "sha256": "9929aa442f50cb6e1a8192980307028a4e6c236e5d034f40cb3b7f1414846c5a",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingInitialization.xml",
+   "bytes": 1650,
+   "sha256": "0fbc9f10eded4952c2c9830ee2e0ffade70523b20741a43c77a9af42276c4abe",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnCompile.xml",
+   "bytes": 1823,
+   "sha256": "bfda008d2924938b6eab4d08b681d76511fbd00b9efa1f86e8fcbf49c8477ac4",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnDelete.xml",
+   "bytes": 1821,
+   "sha256": "ddfb22bec7af0ade38788d4dc3a855e82f1b288e89cc6f04f967fd326c66b8c0",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnDeleteRequest.xml",
+   "bytes": 1835,
+   "sha256": "0210cbd66beceeeadc78b08d3c40ad667161d8b04341fe7f61b13402feffa46b",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnDownload.xml",
+   "bytes": 1825,
+   "sha256": "d5c58bc37667042fa00341c97fbb88dd26575b2175cfd1c9b7342b04a6268355",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnLoad.xml",
+   "bytes": 1817,
+   "sha256": "c4d9163156efc985ea3c148743681f65b7faf704efea6164f9082a70fc2bad67",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnPaste.xml",
+   "bytes": 1819,
+   "sha256": "adef780df5b51e1b64b8e3419752cb8b0463edd456ac5ad278fc4676eaea2cb4",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnSave.xml",
+   "bytes": 1817,
+   "sha256": "292ad3e607dc96abf14786ec438f9fd1ff104f6251b912286af1d5a1ac9c62e8",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingOnShutdown.xml",
+   "bytes": 1837,
+   "sha256": "b7e8c9d3ee546612a58308e04c23c0f72d7c178718966136f82f897afbb5e1d1",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingPage.xml",
+   "bytes": 1662,
+   "sha256": "fcbc360b1296be6774e94118de7c9644ad7c0f318b30b85595f1ebfb4c6aaa6d",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingRunTimeMenu.xml",
+   "bytes": 2304,
+   "sha256": "bc379752a367e30c157e71329a82a22c121bf2d9c12e2b4b789a4cd54eb33d23",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceMissingTimingSourceInitialization.xml",
+   "bytes": 2443,
+   "sha256": "a00d8fb8dc4435c196a7f1605c31440d55695dba4e23f8247cf74027d1b2bf95",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedMissingFails.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceSystemPage.xml",
+   "bytes": 1957,
+   "sha256": "f8d1b6a05f82230ce7f6850ad9e931d79d4d76fcb2b3f1b356d6a614f89f7a1d",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedSystemPage.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/CustomDeviceHooks/CustomDeviceUnexpectedTerminalFound.xml",
+   "bytes": 1679,
+   "sha256": "f1e96be6ab622b73f661e9b2ddc50901c418c6656deab68e493d2a3fabb32ebe",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testAssertConnectorPanesMatchExpectedUnexpectedTerminalFound.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/QuerySystemDefinitionTest.nivssdf",
+   "bytes": 349809,
+   "sha256": "e9056f3815206d462d2a7b9160be3107e9adb303193a43cd26a52edac96905b6",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testConfigureSystemDefinitionFile.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/GenerateOverriddenSystemDefinitionTest.nivssdf",
+   "bytes": 44042,
+   "sha256": "146a5894892ab6551ee85bffb1f8976cf0823b00dc5b1099423b33ce37a1c071",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testGenerateOverriddenSystemDefinition.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/GenerateOverriddenSystemDefinitionOverrides.ini",
+   "bytes": 177,
+   "sha256": "9fc590608f499fa96f58af95e238aed11423ed95101f9d202d47e52593f6f919",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testGenerateOverriddenSystemDefinition.vi"
+  },
+  {
+   "path": "Tests/Unit/VeriStandTestUtilitiesTests/Assets/IPAddressTest.nivssdf",
+   "bytes": 128061,
+   "sha256": "741960914b69fbfb8642cee94b411c5c0629f3563382369bde61c8e85046f343",
+   "via": "ref:Tests/Unit/VeriStandTestUtilitiesTests/testGetTargetIPAddressesMatchesSystemDefinition.vi"
+  },
+  {
+   "path": ".gitattributes",
+   "bytes": 238,
+   "sha256": "cbe2a3deb0ff7b891f4b801c211f5f0e5b06beb92899ea6801e6b724648c0d6d",
+   "via": "tree"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "bytes": 65,
+   "sha256": "b6bdeeed6c0c8e20827b2145fb7623138895046cc86fbd7908e29b6d776a80ec",
+   "via": "tree"
+  },
+  {
+   "path": ".github/PULL_REQUEST_TEMPLATE.md",
+   "bytes": 679,
+   "sha256": "31391111f2ee686313043cf7d11206339c25f29ea89cb05fe95e0653d6131a7c",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 230,
+   "sha256": "5130ebcd30733a0090fb88558834f7ac7c3dc2e18f735e42a29fa466def73e71",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 2195,
+   "sha256": "bc46ef929b19a82001eb151b34d1391690a710aca62f001e09fe613bebdb2e93",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1071,
+   "sha256": "ef76fcaaf71b6f28897982c3a899070ee009dfef625c17262a0d9f5f32416d8a",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 5618,
+   "sha256": "36ca8f3808033a8ff0e8952261724622acb334f6f27817c476d66b89abc0980e",
+   "via": "tree"
+  },
+  {
+   "path": "azure-pipelines.yml",
+   "bytes": 1195,
+   "sha256": "c994884ea48def51577e096c4bc3350a91b728fb8d9e6ff3b35e6d551b577bb8",
+   "via": "tree"
+  },
+  {
+   "path": "control",
+   "bytes": 631,
+   "sha256": "9e40f0c3198dadd94227cfa0a5569182ac5596bbf788a37240702300d39aa9e0",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\lvexpress.chm",
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass",
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass\\CoreOperation.ctl",
+  "<nishared>\\LabVIEW CLI\\Operations\\CoreOperation\\Read Logger.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\GetOperationError.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\GetOperationOutput.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\Logger\\LogMessage.vi",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\Logger\\Logger.lvclass",
+  "<nishared>\\LabVIEW CLI\\Operations\\Utilities\\OperationErrorType.ctl",
+  "<resource>\\objmgr\\DOMUserDefRef.rc",
+  "<userlib>\\_OpenG.lib\\appcontrol\\appcontrol.llb\\Current VIs Parents Ref__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\array\\array.llb\\Remove Duplicates from 1D Array (Variant)__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\array\\array.llb\\Remove Duplicates from 1D Array__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Append Path to Root if Relative - Absolute or Relative Path Array__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Append Path to Root if Relative - Scalar__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Append Path to Root if Relative__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Build Path - File Names Array - path__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Build Path - Traditional - path__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Build Path__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Create Dir if Non-Existant__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Current VIs Parent Directory__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\File Exists - Scalar__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\File Exists__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\file\\file.llb\\Temporary Filename__ogtk.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean (DBL).vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device API.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Channel Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Execution Mode.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Item Ref.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Data Access Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Data Reference.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Global Data Refs.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Hardware Interface Driver VI Operation.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Message Response (Byte Array).ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Message Response (String).ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Model Interface Driver VI Operation.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Channel Data Reference.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Channel Value by Data Reference.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Custom Device Channel List.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Event Refnum.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Parse Incoming Command Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Register Custom Device Engine Events.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Rename Custom Device Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Channel Value by Data Reference.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Signal When Ready for Shutdown.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Unset Busy Cursor.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\Custom Device Utility Library.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Report Final Error Status.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\LogChannelConfiguration.ctl",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\LogFileConfiguration.ctl",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\LogFileTriggerConfiguration.ctl",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\LogFileTriggerType.ctl",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\LogProperty.ctl",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Close Workspace Manager Reference.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Connect to System.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Disconnect from System.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Get Channel Value.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Get Multiple Channel Values.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Get System Node Channel List.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Open Workspace Manager Reference.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Set Channel Value.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Set Multiple Channel Values.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Start Data Logging.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI VeriStand - Stop Data Logging.vi",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\NI_VS Workspace ExecutionAPI.lvlib",
+  "<vilib>\\NI VeriStand\\Execution\\Workspace\\WorkspaceAPI.ctl",
+  "<vilib>\\Platform\\system.llb\\System Exec.vi",
+  "<vilib>\\Utility\\Data Type\\Disconnect Type Definitions.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Default Value.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Path.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Get Key Names.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Create File with Incrementing Suffix.vi",
+  "<vilib>\\Utility\\file.llb\\Is Path and Not Empty.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Compare Two Paths.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Generate Temporary File Path.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Recursive File List.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\WebDAVClient\\Advanced\\SessionHandle.ctl",
+  "<vilib>\\WebDAVClient\\NI_WebDAV.lvlib",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\WaitOnTestComplete.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\skip.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\VI Tester API.llb\\Run Tests (Path Array).vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\VI Tester API.llb\\Run Tests.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\VI Tester API.llb\\VI Tester API.lvlib",
+  "<vilib>\\addons\\_JKI.lib\\_jki_lib_vi_tester_junit_xml_results.llb\\TextTestRunner.JUnitXML.lvclass",
+  "<vilib>\\addons\\_JKI.lib\\_jki_lib_vi_tester_junit_xml_results.llb\\TextTestRunner.JUnitXML_Init.vi",
+  "<vilib>\\express\\express execution control\\TimeDelayBlock.llb\\Ex_Inst_Time Delay.vi",
+  "<vilib>\\express\\express execution control\\TimeDelayBlock.llb\\subTimeDelay.vi",
+  "<vilib>\\express\\express execution control\\TimeDelayConfig.llb\\Configure Time Delay.vi",
+  "<vilib>\\httpClient\\Base64Encode.vi",
+  "<vilib>\\httpClient\\LabVIEWHTTPClient.lvlib",
+  "<vilib>\\nisyscfg\\Close (System).vi",
+  "<vilib>\\nisyscfg\\Close.vi",
+  "<vilib>\\nisyscfg\\Get Installed Components.vi",
+  "<vilib>\\nisyscfg\\Get Installed Software.vi",
+  "<vilib>\\nisyscfg\\Initialize Session.vi",
+  "<vilib>\\nisyscfg\\nisyscfg.lvlib",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "<vilib>\\xml\\Close Reference(Node).vi",
+  "<vilib>\\xml\\Close.vi",
+  "<vilib>\\xml\\Load XML File.vi",
+  "<vilib>\\xml\\Load.vi",
+  "<vilib>\\xml\\NI_XML.lvlib",
+  "<vilib>\\xml\\XPath\\Get All Matched Nodes.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestRunner.llb\\TestRunner.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TextTestRunner.llb\\TextTestRunner.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\addons\\_JKI.lib\\_jki_lib_vi_tester_junit_xml_results.llb\\TextTestRunner.JUnitXML.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\Shared\\LabVIEW CLI\\Operations\\CoreOperation\\CoreOperation.lvclass",
+  "C:\\Users\\nitest\\Desktop\\dev\\niveristand-custom-device-testing-tools\\VeriStandTestUtilities\\Delay Data Flow.vim"
+ ]
+}

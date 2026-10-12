@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2011" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>National Instruments::PXI-2514</eng>
+		<loc>National Instruments::PXI-2514</loc>
+	</AddMenu>
+	<Version>1.0</Version>
+	<Type>Asynchronous</Type>
+	<MaxOccurrence>2474</MaxOccurrence>
+	<MainPageGUID>BAE3B2AA-1010-B3CF-1600-CCDDC4410D53</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-2514\PXI-2514 Configuration.llb\PXI-2514 Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<Source>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-2514\PXI-2514 Engine.llb\PXI-2514 RT Driver VI.vi</Path>
+		</Source>
+		<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\PXI-2514\PXI-2514 Engine.llb\PXI-2514 RT Driver VI.vi</RealTimeSystemDestination>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>PXI-2514</eng>
+				<loc>PXI-2514</loc>
+			</Name>
+			<GUID>BAE3B2AA-1010-B3CF-1600-CCDDC4410D53</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-2514\PXI-2514 Configuration.llb\PXI-2514 Main Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>PXI-2514 Channel</eng>
+				<loc>PXI-2514 Channel</loc>
+			</Name>
+			<GUID>58A32CF1-4004-805F-65E3-76DB05DAFAA3</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-2514\PXI-2514 Configuration.llb\PXI-2514 Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<Dummy />
+	</CustomXML>
+</CustomDevice>

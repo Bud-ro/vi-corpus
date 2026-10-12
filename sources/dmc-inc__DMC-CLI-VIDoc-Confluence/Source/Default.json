@@ -1,0 +1,639 @@
+{
+  "Parser":{
+    "Draw Controls":{
+      "Subpanels":true,
+      "Tabs":true,
+      "TypeDefs":true,
+      "Error Clusters":"Draw",
+      "DVRs":"Draw",
+      "Queues & Notifiers":"Draw"
+    },
+    "Max Control Recursion Depth":3,
+    "Bookmarks Map":[
+      [
+        "Dialog",
+        ["Dialog","#Dialog"]
+      ],
+      [
+        "Subpanel",
+        ["Subpanel","#Subpanel"]
+      ],
+      [
+        "User Interface",
+        ["GUI","#GUI"]
+      ]
+    ]
+  },
+  "Enabled Sections":{
+    "Projects":true,
+    "Interfaces":true,
+    "Classes":true,
+    "Libraries":true,
+    "VIs":true,
+    "Controls":true,
+    "LLBs":true
+  },
+  "Printer":{
+    "Project":{
+      "Paths":true,
+      "Descriptions":true,
+      "Memory":true,
+      "Options":true,
+      "Symbols":true
+    },
+    "VI Member":{
+      "Memory":true,
+      "By Folder":true,
+      "By Tree":true,
+      "By List":true,
+      "Methods":true,
+      "Method Options":{
+        "Front Panels":true,
+        "Options":true,
+        "Controls":true
+      },
+      "List Detail Level":"Full",
+      "Methods Detail Level":"Full",
+      "Controls Detail Level":"Full"
+    },
+    "Interface":{
+      "Memory":true,
+      "By List":true,
+      "Details":true,
+      "Detail Options":{
+        "Description":true,
+        "Properties":true,
+        "Inheritance":true,
+        "Inheritance Options":{
+          "Parent Interfaces":true,
+          "Friends":true
+        }
+      },
+      "List Detail Level":"Full",
+      "Controls Detail Level":"Full",
+      "Methods Detail Level":"Full",
+      "Controls Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      },
+      "Methods Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      }
+    },
+    "Class":{
+      "Memory":true,
+      "By Folder":false,
+      "By Tree":false,
+      "By List":true,
+      "Details":true,
+      "Detail Options":{
+        "Description":true,
+        "Properties":true,
+        "Inheritance":true,
+        "Inheritance Options":{
+          "Parent Classes":true,
+          "Parent Interfaces":true,
+          "Parent Libraries":true,
+          "Friends":true
+        }
+      },
+      "CPD Detail Level":"Full",
+      "List Detail Level":"Full",
+      "Controls Detail Level":"Full",
+      "Methods Detail Level":"Full",
+      "Set Accessor Detail Level":"Full",
+      "Get Accessor Detail Level":"Full",
+      "Controls Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      },
+      "Methods Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      },
+      "Get Accessors Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      },
+      "Set Accessors Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      }
+    },
+    "Library":{
+      "Memory":true,
+      "By Folder":false,
+      "By Tree":false,
+      "By List":true,
+      "Details":true,
+      "Detail Options":{
+        "Description":true,
+        "Properties":true,
+        "Friends":true,
+        "Child Libraries":true
+      },
+      "List Detail Level":"Full",
+      "Methods Detail Level":"Full",
+      "Controls Detail Level":"Full",
+      "Methods Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      },
+      "Controls Scope":{
+        "Public":true,
+        "Protected":true,
+        "Community":true,
+        "Private":true,
+        "Unknown":true
+      }
+    },
+    "Control Member":{
+      "Memory":true,
+      "By Folder":false,
+      "By Tree":false,
+      "By List":true,
+      "Controls":true,
+      "List Detail Level":"Full",
+      "Controls Detail Level":"Full"
+    },
+    "Format Options":{
+      "Background":{
+        "Public Scope":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Protected Scope":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Community Scope":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Private Scope":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Unknown Scope":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Auto Error Handling":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Inline":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Separate CC":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Execution Priority Normal":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        },
+        "Reentrancy Non-RE":{
+          "Option":false,
+          "Color":0,
+          "Operator":false
+        }
+      },
+      "Bookmark Options":{
+        "Bookmarks as New Line in VI Descriptions":true,
+        "Unique Bookmark Tags Only":true,
+        "Include Tag and Text":true
+      }
+    },
+    "Library Scope":{
+      "Public":true,
+      "Community":false,
+      "Private":false,
+      "Unknown":true
+    },
+    "LLB":{
+      "Methods":true,
+      "Controls":true,
+      "Methods Detail Level":"Full",
+      "Controls Detail Level":"Full"
+    },
+    "Bookmark Settings Map":[
+      [
+        "Dialog",
+        {
+          "Memory":true,
+          "By Folder":true,
+          "By Tree":true,
+          "By List":true,
+          "Methods":true,
+          "Method Options":{
+            "Front Panels":true,
+            "Options":true,
+            "Controls":true
+          },
+          "List Detail Level":"Full",
+          "Methods Detail Level":"Full",
+          "Controls Detail Level":"Full"
+        }
+      ],
+      [
+        "Subpanel",
+        {
+          "Memory":true,
+          "By Folder":true,
+          "By Tree":true,
+          "By List":true,
+          "Methods":true,
+          "Method Options":{
+            "Front Panels":true,
+            "Options":true,
+            "Controls":true
+          },
+          "List Detail Level":"Full",
+          "Methods Detail Level":"Full",
+          "Controls Detail Level":"Full"
+        }
+      ],
+      [
+        "User Interface",
+        {
+          "Memory":true,
+          "By Folder":true,
+          "By Tree":true,
+          "By List":true,
+          "Methods":true,
+          "Method Options":{
+            "Front Panels":true,
+            "Options":true,
+            "Controls":true
+          },
+          "List Detail Level":"Full",
+          "Methods Detail Level":"Full",
+          "Controls Detail Level":"Full"
+        }
+      ]
+    ]
+  },
+  "Confluence Printer":{
+    "Expand Structures":{
+      "VI Member":{
+        "By Folder Expand":true,
+        "By Tree Expand":true,
+        "By List Expand":true,
+        "Methods Expand":false,
+        "Controls Expand":true
+      },
+      "Control Member":{
+        "By Folder Expand":true,
+        "By Tree Expand":true,
+        "By List Expand":true,
+        "Controls Expand":true
+      },
+      "Interface":{
+        "List Expand":false,
+        "Controls Expand":true,
+        "Methods Expand":false,
+        "Inheritance Expand":true
+      },
+      "Library":{
+        "By Folder Expand":true,
+        "By Tree Expand":true,
+        "By List Expand":false,
+        "Controls Expand":true,
+        "Methods Expand":false,
+        "Inheritance Expand":true
+      },
+      "Class":{
+        "By Folder Expand":true,
+        "By Tree Expand":true,
+        "By List Expand":false,
+        "CPD Expand":true,
+        "Controls Expand":true,
+        "Methods Expand":false,
+        "Set Accessors Expand":true,
+        "Get Accessors Expand":true,
+        "Inheritance Expand":true
+      }
+    },
+    "Sortable Tables":true,
+    "Table Column Ordering":{
+      "Class List":{
+        "Minimal":["Name","Description","Last Change"],
+        "Standard":[
+          "Image",
+          "Name",
+          "Description",
+          "Last Change"
+        ],
+        "Full":[
+          "Image",
+          "Name",
+          "Description",
+          "Last Change",
+          "Branch",
+          "Commit Hash",
+          "Version"
+        ]
+      },
+      "Library List":{
+        "Minimal":["Name","Description","Last Change"],
+        "Standard":[
+          "Image",
+          "Name",
+          "Description",
+          "Last Change"
+        ],
+        "Full":[
+          "Image",
+          "Name",
+          "Description",
+          "Last Change",
+          "Branch",
+          "Commit Hash",
+          "Version"
+        ]
+      },
+      "Control FP":{
+        "Minimal":["Name","Data Type","Description"],
+        "Standard":[
+          "Name",
+          "Image",
+          "Description",
+          "Data Type"
+        ],
+        "Full":[
+          "Name",
+          "Image",
+          "Description",
+          "Caption",
+          "Tip Strip",
+          "Data Type",
+          "Key Toggle"
+        ]
+      },
+      "Library Control Files":{
+        "Minimal":["Name","Scope","Type","FP"],
+        "Standard":["Name","Scope","Type","FP"],
+        "Full":["Name","Scope","Type","FP"]
+      },
+      "UI Methods":{
+        "Minimal":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Last Change"
+        ],
+        "Standard":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Last Change"
+        ],
+        "Full":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Branch",
+          "Last Change",
+          "FP",
+          "BD",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Priority",
+          "Minimum Size",
+          "Title",
+          "FP Behavior",
+          "FP Closeable",
+          "Commit Hash"
+        ]
+      },
+      "Method List":{
+        "Minimal":["Name","Description","Last Change"],
+        "Standard":[
+          "VI Icon",
+          "Name",
+          "Description",
+          "Last Change",
+          "Branch"
+        ],
+        "Full":[
+          "VI Icon",
+          "Name",
+          "Description",
+          "Branch",
+          "Last Change",
+          "Rev"
+        ]
+      },
+      "Interface Methods":{
+        "Minimal":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Last Change",
+          "Branch"
+        ],
+        "Standard":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Last Change"
+        ],
+        "Full":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Last Change",
+          "Reentrant",
+          "Auto Error",
+          "Compiled",
+          "Priority",
+          "Commit Hash",
+          "Branch"
+        ]
+      },
+      "LLB Methods":{
+        "Minimal":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Last Change",
+          "Branch"
+        ],
+        "Standard":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Last Change"
+        ],
+        "Full":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Branch",
+          "Last Change",
+          "BD",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Priority",
+          "Commit Hash"
+        ]
+      },
+      "Library Methods":{
+        "Minimal":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Last Change",
+          "Branch"
+        ],
+        "Standard":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Last Change"
+        ],
+        "Full":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Branch",
+          "Last Change",
+          "BD",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Priority",
+          "Commit Hash"
+        ]
+      },
+      "Class Methods":{
+        "Minimal":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Last Change",
+          "Branch"
+        ],
+        "Standard":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Last Change"
+        ],
+        "Full":[
+          "Name",
+          "Conpane",
+          "Description",
+          "Branch",
+          "Last Change",
+          "BD",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Priority",
+          "Commit Hash"
+        ]
+      }
+    },
+    "Confluence Connection":{
+      "Connection Type":"Cloud",
+      "URL":"",
+      "Email":""
+    }
+  }
+}       "Name",
+          "Conpane",
+          "Description",
+          "Branch",
+          "Last Change",
+          "BD",
+          "Structure Tree",
+          "Scope",
+          "Reentrant",
+          "Inline",
+          "Auto Error",
+          "Compiled",
+          "Code Complexity",
+          "Data Size",
+          "Debug",
+          "Priority",
+          "Rev",
+          "Commit Hash"
+        ]
+      }
+    },
+    "Confluence Connection":{
+      "Connection Type":"Cloud",
+      "URL":"",
+      "Email":""
+    }
+  }
+}

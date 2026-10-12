@@ -1,0 +1,57 @@
+[
+ {
+  "path": "LabVIEW Source/Dependencies/G CLI Dev Dependencies.vipc",
+  "url": "https://raw.githubusercontent.com/G-CLI/G-CLI/662f75a78cef656359a2312910a85cd142b77bab/LabVIEW%20Source/Dependencies/G%20CLI%20Dev%20Dependencies.vipc",
+  "bytes": 7278942,
+  "sha256": "8490d6c7d0e9f6e7db444a979e11c27866878fd7847425afea3ac53a55d441ff",
+  "members": [
+   {
+    "path": "config.xml",
+    "bytes": 681,
+    "crc32": 3531868861,
+    "sha256": "b8004139ba31a7f3ae21d0e3d41c2e6997e0eb21a84faed9833ffbf77f84c3c5"
+   },
+   {
+    "path": "jki_rsc_toolkits_palette-1.1-1.ogp",
+    "bytes": 4079,
+    "crc32": 2303606006,
+    "sha256": "20355c81a66e335fb8cfbdf8a725ede43ba1b0364393954e19efa06e20e5a234"
+   },
+   {
+    "path": "jki_labs_tool_vi_tester-3.0.2.294-1.ogp",
+    "bytes": 7285176,
+    "crc32": 1165276172,
+    "sha256": "d81766b872f3545b175ec386cc9ac6f610f2713d5418c45dc17d0da98e6c16ae"
+   },
+   {
+    "path": "jki_labs_tool_vi_tester-3.0.2.294-1.spec",
+    "bytes": 6277,
+    "crc32": 373894720,
+    "sha256": "64a3031d0ded00596f1f2ec44ca6b87895e208b421492db6d519e76746f08e56"
+   },
+   {
+    "path": "jki_rsc_toolkits_palette-1.1-1.spec",
+    "bytes": 1133,
+    "crc32": 2422243062,
+    "sha256": "8ae3476fff9daaf62d35ea8f9e46a261e84e7dbcbfd04cb225d71495cfb77f37"
+   },
+   {
+    "path": "jki_labs_tool_vi_tester-3.0.2.294-1.bmp",
+    "bytes": 3126,
+    "crc32": 2932794076,
+    "sha256": "da840e44d6ddcfd73f2dfb03d2bff13385f2bf37c9ef586d3007bb72403974ec"
+   },
+   {
+    "path": "jki_rsc_toolkits_palette-1.1-1.bmp",
+    "bytes": 3942,
+    "crc32": 1714567000,
+    "sha256": "496d15ce5611d230f43ff64aadad237090ca03f940d040a028b52d2a58cbf55a"
+   }
+  ],
+  "spec": {
+   "config.xml": "<VI_Package_Configuration File_Type=\"xml\" Version=\"0.6\" Created_Date=\"2019-07-05 14:30:30\" Modified_Date=\"2023-01-19 20:48:37\" Creator=\"James McNally\" Comments=\"\" ID=\"b936ce7e48fea4154ffed84b6fb4d2e8\">\r\n  <Target>\r\n    <Name>LabVIEW</Name>\r\n    <Version>15.0</Version>\r\n    <Package>\r\n      <Name>jki_rsc_toolkits_palette-1.1-1</Name>\r\n      <Included>true</Included>\r\n      <Dependency>false</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n    <Package>\r\n      <Name>jki_labs_tool_vi_tester-3.0.2.294-1</Name>\r\n      <Included>true</Included>\r\n      <Dependency>false</Dependency>\r\n      <Pinned>false</Pinned>\r\n    </Package>\r\n  </Target>\r\n</VI_Package_Configuration>",
+   "jki_labs_tool_vi_tester-3.0.2.294-1.spec": "[Package Name]\r\nName=jki_labs_tool_vi_tester\r\nVersion=3.0.2.294\r\nRelease=1\r\n\r\n[Description]\r\nDescription=\"JKI VI Tester is a unit test framework for LabVIEW based on xUnit test framework patterns.\\0A\\0A-= Release Notes =-\\0A- [NEW #35] Upgraded sources to LabVIEW 2013\\0A- [FIX #27] Sort Recent Files by time relevance\\0A- [NEW #28] Template Tests Should Have Compiled Code Seperated\\0A- [FIX #34] Some reference types lost when passed from setup to test VI\\0A- [NEW #36] Separate compiled source on all VIs\\0A- [NEW #38] Allow skipping tests from setUp.vi - tests will now be skipped if skip.vi is called inside setUp.vi\\0A- [FIX #39] Some reference types lost when created in TestSuite.lvclass:setUp.vi\"\r\nSummary=\"JKI VI Tester\"\r\nLicense=BSD\r\nCopyright=\"2009-2019 JKI. All Rights Reserved.\"\r\nDistribution=JKI\r\nIcon=icon.bmp\r\nVendor=JKI\r\nURL=https://github.com/JKISoftware/JKI-VI-Tester\r\nPackager=info@jki.net\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=>=13\r\nExclusive_LabVIEW_System=ALL\r\nExclusive_OS=\"Windows NT>=5\"\r\n\r\n[Script VIs]\r\nSource Dir=\"\"\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=jki_rsc_toolkits_palette>=1.1\r\nConflicts=jki_lib_vi_tester>=0.0,jki_rsc_vi_tester_project_integration=\r\n\r\n[Files]\r\nNum File Groups=10\r\n\r\n[File Group 0]\r\nSource Dir=../Built/LLBs\r\nTarget Dir=<application>\r\nReplace Mode=Always\r\nNum Files=22\r\nFile 0=\"resource/JKI/VI Tester/GraphicalTestRunner.llb\"\r\nFile 1=\"resource/JKI/VI Tester/Templates/TestCase/setUp.vi\"\r\nFile 2=\"resource/JKI/VI Tester/Templates/TestCase/tearDown.vi\"\r\nFile 3=\"resource/JKI/VI Tester/Templates/TestCase/temp_VI_UnderTest.vi\"\r\nFile 4=\"resource/JKI/VI Tester/Templates/TestCase/TemplateTestCase.lvclass\"\r\nFile 5=\"resource/JKI/VI Tester/Templates/TestCase/testExample.vit\"\r\nFile 6=\"resource/JKI/VI Tester/Templates/TestSuite/CleanUp.vi\"\r\nFile 7=\"resource/JKI/VI Tester/Templates/TestSuite/New.vi\"\r\nFile 8=\"resource/JKI/VI Tester/Templates/TestSuite/setUp.vi\"\r\nFile 9=\"resource/JKI/VI Tester/Templates/TestSuite/tearDown.vi\"\r\nFile 10=\"resource/JKI/VI Tester/Templates/TestSuite/TemplateTestSuite.lvclass\"\r\nFile 11=\"vi.lib/addons/_JKI Toolkits/VI Tester/_TextTestResult.llb\"\r\nFile 12=\"vi.lib/addons/_JKI Toolkits/VI Tester/TestCase.llb\"\r\nFile 13=\"vi.lib/addons/_JKI Toolkits/VI Tester/TestLoader.llb\"\r\nFile 14=\"vi.lib/addons/_JKI Toolkits/VI Tester/TestResult.llb\"\r\nFile 15=\"vi.lib/addons/_JKI Toolkits/VI Tester/TestRunner.llb\"\r\nFile 16=\"vi.lib/addons/_JKI Toolkits/VI Tester/TestSuite.llb\"\r\nFile 17=\"vi.lib/addons/_JKI Toolkits/VI Tester/TextTestRunner.llb\"\r\nFile 18=\"vi.lib/addons/_JKI Toolkits/VI Tester/VI Tester API.llb\"\r\nFile 19=\"vi.lib/addons/_JKI Toolkits/VI Tester/VI Tester Project API.llb\"\r\nFile 20=\"vi.lib/addons/_JKI Toolkits/VI Tester/_support/Support.llb\"\r\nFile 21=\"vi.lib/addons/_JKI Toolkits/VI Tester/_support/VITesterUtilities.lvlib\"\r\n\r\n[File Group 1]\r\nSource Dir=../menu\r\nTarget Dir=\"<vi.lib>/addons/_JKI Toolkits/dynamic_palette\"\r\nReplace Mode=Always\r\nNum Files=1\r\nFile 0=\"JKI VI Tester.mnu\"\r\n\r\n[File Group 2]\r\nSource Dir=../menu\r\nTarget Dir=\"<vi.lib>/addons/_JKI Toolkits/VI Tester\"\r\nReplace Mode=Always\r\nNum Files=5\r\nFile 0=\"JKI TestCase.mnu\"\r\nFile 1=\"JKI TestSuite.mnu\"\r\nFile 2=\"JKI TestCase Utilities.mnu\"\r\nFile 3=\"JKI TestSuite Utilities.mnu\"\r\nFile 4=\"JKI VI Tester API.mnu\"\r\n\r\n[File Group 3]\r\nSource Dir=\"../Built/Menu Launch\"\r\nTarget Dir=\"<project>/VI Tester\"\r\nReplace Mode=Always\r\nNum Files=2\r\nFile 0=\"VI Tester.llb\"\r\nFile 1=\"VI Tester.txt\"\r\n\r\n[File Group 4]\r\nSource Dir=\"../Built/Menu Launch - New Test Case\"\r\nTarget Dir=\"<project>/VI Tester/New\"\r\nReplace Mode=Always\r\nNum Files=1\r\nFile 0=NewTestCase.llb\r\n\r\n[File Group 5]\r\nSource Dir=\"../Built/Menu Launch - New Test Suite\"\r\nTarget Dir=\"<project>/VI Tester/New\"\r\nReplace Mode=Always\r\nNum Files=1\r\nFile 0=NewTestSuite.llb\r\n\r\n[File Group 6]\r\nSource Dir=\"\"\r\nTarget Dir=<application>\r\nReplace Mode=Never\r\nNum Files=0\r\n\r\n[File Group 7]\r\nSource Dir=../Built/Examples\r\nTarget Dir=\"<application>/examples/JKI/VI Tester\"\r\nReplace Mode=Always\r\nNum Files=17\r\nFile 0=\"README - How to Run Tests.html\"\r\nFile 1=\"VI Tester Example.lvproj\"\r\nFile 2=ExampleTestSuite/ExampleTestSuite.lvclass\r\nFile 3=ExampleTestSuite/New.vi\r\nFile 4=ExampleTestSuite/setUp.vi\r\nFile 5=ExampleTestSuite/tearDown.vi\r\nFile 6=\"Queue TestCase/Queue TestCase.lvclass\"\r\nFile 7=\"Queue TestCase/setUp.vi\"\r\nFile 8=\"Queue TestCase/tearDown.vi\"\r\nFile 9=\"Queue TestCase/test Queue Reference is Valid.vi\"\r\nFile 10=\"Queue TestCase/test Queue Size is Zero.vi\"\r\nFile 11=\"Merge Errors TestCase/Merge Errors TestCase.lvclass\"\r\nFile 12=\"Merge Errors TestCase/test error array in.vi\"\r\nFile 13=\"Merge Errors TestCase/test error in 1.vi\"\r\nFile 14=\"Merge Errors TestCase/test error in 2.vi\"\r\nFile 15=\"Merge Errors TestCase/test error raised.vi\"\r\nFile 16=\"Merge Errors TestCase/test no error in.vi\"\r\n\r\n[File Group 8]\r\nSource Dir=\"../Built Project Integration\"\r\nTarget Dir=<resource>/Framework/Providers/vitester\r\nReplace Mode=Always\r\nNum Files=30\r\nFile 0=\"Nuvola Icon License.txt\"\r\nFile 1=OpenG.llb\r\nFile 2=support.llb\r\nFile 3=toolbar-addnewcase-mac.png\r\nFile 4=toolbar-addnewcase-win.png\r\nFile 5=toolbar-addnewsuite-mac.png\r\nFile 6=toolbar-addnewsuite-win.png\r\nFile 7=toolbar-open-mac.png\r\nFile 8=toolbar-open-win.png\r\nFile 9=toolbar-runall-mac.png\r\nFile 10=toolbar-runall-win.png\r\nFile 11=\"VITester - VI Tree.vi\"\r\nFile 12=\"VITester Toolbar Icon Paths.vi\"\r\nFile 13=VITester_Global_Init.vi\r\nFile 14=VITester_Global_Interface.vi\r\nFile 15=VITester_Global_OnCommand.vi\r\nFile 16=VITester_Global_OnUpdateCommand.vi\r\nFile 17=VITester_Item_Init.vi\r\nFile 18=VITester_Item_Interface.vi\r\nFile 19=VITester_Item_NotifyChanged.vi\r\nFile 20=VITester_Item_OnCommand.vi\r\nFile 21=VITester_Item_OnPopupMenu.vi\r\nFile 22=VITester_Provider_InitItems.vi\r\nFile 23=VITester_Provider_Interface.vi\r\nFile 24=VITester_Provider_NotifyChanged.vi\r\nFile 25=VITester_Provider_OnCommand.vi\r\nFile 26=VITester_Provider_OnPopupMenu.vi\r\nFile 27=VITester_Provider_OnUpdateCommandBegin.vi\r\nFile 28=VITester_Provider_Shutdown.vi\r\nFile 29=VITester_Provider_Startup.vi\r\n\r\n[File Group 9]\r\nSource Dir=\"../LabVIEW Project Plugin\"\r\nTarget Dir=<resource>/Framework/Providers/GProviders\r\nReplace Mode=Always\r\nNum Files=1\r\nFile 0=VITester.ini\r\n\r\n",
+   "jki_rsc_toolkits_palette-1.1-1.spec": "[Package Name]\r\nName=jki_rsc_toolkits_palette\r\nVersion=1.1\r\nRelease=1\r\n\r\n[Description]\r\nDescription=\"JKI Toolkits Palette\"\r\nSummary=\"JKI Toolkits Palette\"\r\nLicense=\"JKI Software License\"\r\nCopyright=\"JKI - All Rights Reserved.\"\r\nDistribution=\"JKI Toolkits\"\r\nIcon=\"../../JKI Toolkits Palette/jki_rsc_toolkits_palette.bmp\"\r\nVendor=\"JKI Software\"\r\nURL=http://jkisoft.com\r\nPackager=info@jkisoft.com\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=>=6.1\r\nExclusive_LabVIEW_System=ALL\r\nExclusive_OS=ALL\r\n\r\n[Script VIs]\r\nSource Dir=\"../../JKI Toolkits Palette\"\r\nPreInstall=\"\"\r\nPostInstall=\"\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n[Files]\r\nNum File Groups=2\r\n\r\n[File Group 0]\r\nSource Dir=\"../../JKI Toolkits Palette\"\r\nTarget Dir=<vi.lib>/addons\r\nReplace Mode=Always\r\nExclusive_LabVIEW_Version==6.1,=7.0,=7.1\r\nNum Files=1\r\nFile 0=\"JKI Toolkits.mnu\"\r\n\r\n[File Group 1]\r\nSource Dir=\"../../JKI Toolkits Palette\"\r\nTarget Dir=<application>/menus/Categories\r\nReplace Mode=Always\r\nExclusive_LabVIEW_Version=>=8.0\r\nNum Files=1\r\nFile 0=\"JKI Toolkits.mnu\"\r\n\r\n"
+  }
+ }
+]

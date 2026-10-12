@@ -1,0 +1,1219 @@
+{
+ "repo": "Tom-McQuillan/LabVIEW-MIDI",
+ "url": "https://github.com/Tom-McQuillan/LabVIEW-MIDI",
+ "commit": "302a4768716373679974a9180c9816fe9c2326c8",
+ "license": "Apache-2.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MidiWrapperPlayground.vi",
+   "bytes": 19065,
+   "sha256": "cccdf77c246a6e34e333290a04ad2c7a441c9c4de9b87d490a00fc62f6774519",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/MIDI.lvproj",
+   "bytes": 18051,
+   "sha256": "44ec6a7d726b656df18a80f819e3454b2c1af828b882a94723c5152e3c802a70",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/NEWDLL Test midiin_main.vi",
+   "bytes": 13235,
+   "sha256": "80c0d840481996460afed9c11a28ec8b524de610b54a68f6a6f9fef489b0019b",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/configuration/configuration.ctl",
+   "bytes": 15110,
+   "sha256": "802f2b3c80588d98e2b25c841621ad01cffe6e87ebf08c8bdbe50759bc40ea50",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/configuration/configuration.get.vi",
+   "bytes": 19705,
+   "sha256": "dc20cb02e03c9dbf0fb3d5f220fb05389c5799e2e5b5582859be880d0bb51f4a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/configuration/configuration.path.vi",
+   "bytes": 11434,
+   "sha256": "aede604445a11381fc4bfd76431c747d66262bc3f43e9395eee51e92686b3b88",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/configuration/configuration.set.vi",
+   "bytes": 18661,
+   "sha256": "76aed180f301cf965708f3e2d9a46d17a03491be3f186b868ff3d70ba5ab5a9a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/main.vi",
+   "bytes": 96736,
+   "sha256": "772b6890e41e0720fee0ba03185643221993e300b55fca475529c8c9ace83082",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-callback-userevent/MIDIInEvents.get.vi",
+   "bytes": 16880,
+   "sha256": "d3cac502e65389fa0afc31d15d2b0782439956a5f3f7d85826b7c013682b49c3",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-callback-userevent/create.vi",
+   "bytes": 22006,
+   "sha256": "18b920350619278499412f38c059678afb7c8ea5445de38eb5f77f04d61876c9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-callback-userevent/midi-callback-userevent.lvclass",
+   "bytes": 44609,
+   "sha256": "c313b4919e4ebcf0be6efcd0e5fc92f5f97fac6b9f656e91199dc95111f33b75",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/midi-file-event.meta.lvclass",
+   "bytes": 71097,
+   "sha256": "2b10bd1170340544d363cabb3f69bd46b1d12cdcfb41f278a2b6d10fb45bf05e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/numeric_data.get.vi",
+   "bytes": 19132,
+   "sha256": "29c22799a0e134ded1aa1fa638136f8f0559ec9bd7b1db074a08056d55a71b2e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/numeric_data.set.vi",
+   "bytes": 20736,
+   "sha256": "175376ac0edba39fd44efedc881ca869c1fc1a99a4581d1cc68df2c0cdd7c6e1",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/status.get.vi",
+   "bytes": 19182,
+   "sha256": "0667ca3c54c986da70a54b38613cee782785ddf61f4a4538fd16ea3fb2486728",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/status.set.vi",
+   "bytes": 20774,
+   "sha256": "70ed52c39e91774affbc7813a4b91895469678131e8eb6b9b70dad93cf7c5aba",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/string_data.get.vi",
+   "bytes": 17739,
+   "sha256": "a45103f5676a0f852c409287171f483c6c33cefd37c07e7e9ce84ff128612947",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.meta/string_data.set.vi",
+   "bytes": 19331,
+   "sha256": "b85d185bf41fce72f017729edb69cc5e093cd6429b9f51482980e81ae436337f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/Data1.get.vi",
+   "bytes": 17993,
+   "sha256": "5ea0cc89ce89a41b08a34c1f4f1f8fd9f3189b521a37e1a46d85f61b416e0787",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/Data1.set.vi",
+   "bytes": 19585,
+   "sha256": "3fe503d55950d8113ef5bcde263ca52f74ab44928a22bae7cdfb8759f3590166",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/Data2.get.vi",
+   "bytes": 17997,
+   "sha256": "80403c4b63e2e5ed009ba3c87bed98f23220658aa33a979089dc0fd7f2e7e97d",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/Data2.set.vi",
+   "bytes": 19585,
+   "sha256": "253b6332831a8e02addaf88d8a59e0054ca8fd372cdafadaa5b8501762681f75",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/MIDI Messages.set.vi",
+   "bytes": 20865,
+   "sha256": "0bc59c609b56ffb63f78777ac635d6ba89df4ec4ea932eb6977ef7ac9fa7d0f7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/MIDI_Messages.get.vi",
+   "bytes": 19269,
+   "sha256": "a8144a315f4785b64a0ab8f2a07e30098077e9db72ba8cda69ed581f868ff754",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event.midi/midi-file-event.midi.lvclass",
+   "bytes": 66394,
+   "sha256": "5321b882eef53871356def33d929659096585f3e0d4859f2a0eac88dd981b2c4",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/Delta Tiime.get.vi",
+   "bytes": 13147,
+   "sha256": "617e75ef7684261b410ee0acd94058ca10445b48cc69601c90e9a84dfb7bc7e9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/Delta Tiime.set.vi",
+   "bytes": 14739,
+   "sha256": "e8eead20b7132269dca17174d47ca7db29e45ddec089b2b7478f334ceb2e34d5",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/meta-data.get.vi",
+   "bytes": 19989,
+   "sha256": "52b8c5dc9227d07a71d86b33fa096be89bd93354be3e717554badc066d69b095",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/midi-file-event.lvclass",
+   "bytes": 32259,
+   "sha256": "76c23fc0d7781f5e6cf9bd0fa3b4b404c1f959e3140ec869b7732acd575f01f7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/type.vi",
+   "bytes": 15948,
+   "sha256": "45c5ab84d95f29499e5f4b6676baa9d6aaca74e9e709fa2e9de74666c0a9acce",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/uid.get.vi",
+   "bytes": 12503,
+   "sha256": "35b1dcf46deed940a3b87507a7231541ce7c143862e8e83e6f09823bcf92958b",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-event/uid.set.vi",
+   "bytes": 14135,
+   "sha256": "4d5a2f5f89acc62e4703c4eb81fa1fb9bc44333450e2400e7595a3facf0cbffb",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/build tempo map.vi",
+   "bytes": 24715,
+   "sha256": "c65891beb85eef13a254b1169b309c316e707a2c22362020ceb6f29f2e4762a7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/create.vi",
+   "bytes": 22538,
+   "sha256": "b2fe3a9e5cada5ee70ec3dfe300751f9d07bb8f7bb7a9d65864284bfcd50a5b7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/destroy.vi",
+   "bytes": 18987,
+   "sha256": "e893a3b48dba3b6662349daf14dee22fbe93338d2d1ddb669520bfa1f21a2d5f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/determine tempos.vi",
+   "bytes": 26816,
+   "sha256": "8ef5615022c0b056efc24042ee4edc4b8158a71914a60b4f69fa713d80798651",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-file-events.lvclass",
+   "bytes": 61613,
+   "sha256": "ae7c8af1571fda40e938626a0062901e6a1c82424bdeb8574608acfc027f8e0e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-track.add.vi",
+   "bytes": 23030,
+   "sha256": "a84f0aa2a098e07e60042f43b74dd63322982e532b72c096842103d2519ec7d2",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-track.get.vi",
+   "bytes": 22326,
+   "sha256": "9ed24a53b8032541f7df7634ae8e252d4b7c5a9edcbdb26b88a3c4bdf5b4a39d",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-track.get_relative_time.vi",
+   "bytes": 22204,
+   "sha256": "0968eed5bc30a098a94291838dc088065d6e15009990c6811c37ee185f6d7d8f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-track.get_song_length.vi",
+   "bytes": 17358,
+   "sha256": "27b598525037db95905bc1114794e7b438c31805e0c55cb0ac76c65a044267a3",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-track.get_with_timing.vi",
+   "bytes": 20338,
+   "sha256": "194b9c1d25e3ba51d3f51dde2a7b7c2152792b1476bf2567dd0dd5ebe30341f9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-tracks.clear.vi",
+   "bytes": 19121,
+   "sha256": "9235a15cc4699f4b358d664942d00b4091c79fc98162d6b6034452ef1e71e935",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/midi-tracks.get_number.vi",
+   "bytes": 15902,
+   "sha256": "5e71799ab3974f38ccf268f836eed2750eaa901faf90d516c8097e0eba01f247",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/privatedata.ctl",
+   "bytes": 16312,
+   "sha256": "da602a59f47d79588b6c6fcb73dd1e1f77628c76867045aa32b555a79abab8b0",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/tempo_map.get.vi",
+   "bytes": 19889,
+   "sha256": "266775480fb1bce4d0728e99bd86ea133937acb1867df09196a532da926b91a2",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file-events/ticks_per_quarter_note.set.vi",
+   "bytes": 19274,
+   "sha256": "4350063ea12ca88ad5cde8cac0282e47b4fd9caa14315866811a93e9188bac0f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/MIDI Messages.ctl",
+   "bytes": 10774,
+   "sha256": "e63cd16bb8726b5e9a72fabb772f86f64720274bd88a91220ec006f89a410dc6",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/MIDI Meta Events.ctl",
+   "bytes": 11317,
+   "sha256": "b23d2fb4701a4fa97acfe8b6435fd1650253bd1f31fed86ffebe4e93e8974a12",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/Note Value.ctl",
+   "bytes": 9727,
+   "sha256": "5f1eef48f61885740de07d8cf83a99c7c5468c2f8fe499c29bc653662868231a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/bytesplitter.vi",
+   "bytes": 18936,
+   "sha256": "5cc014244fb8b15a041c754bd3507487166cecacf8fbbe913eda7fd6d115bc24",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/file.close.vi",
+   "bytes": 20578,
+   "sha256": "d5c72693f7c3ce6504fe8926e632513f20dc3a0048e8968e92d0cb6945154169",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/file.open.vi",
+   "bytes": 47821,
+   "sha256": "744fd1eef508b4aedf7003bd1435905d8d528c488f5d8edab02e75b7a5efd542",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/file.valid.vi",
+   "bytes": 19530,
+   "sha256": "fdd1af825d517132b3511c9fdb7eeeb3e4c9888d363ff574772522cecbb4e82d",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/file_format.ctl",
+   "bytes": 8684,
+   "sha256": "af4952519c0dc371af77724d09f7e70d6c38c315f99dba65203049d0ae942623",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/header_data.vi",
+   "bytes": 21103,
+   "sha256": "11c491aef0617158740ad3b52976eadf02f5298a64d011d622d5cad860e65419",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/midi-file.lvclass",
+   "bytes": 69528,
+   "sha256": "41b300b53eba3b6cee1115426895a5ac349f2c4d3c60d836e19868503b75390a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/track_chunk.read.vi",
+   "bytes": 26140,
+   "sha256": "ed9cd4fae54a2fd159198bf8d5ffd2f935b06ef52e13d3670cfb86df615dbe12",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/track_event.read.vi",
+   "bytes": 41896,
+   "sha256": "a11adad7c29f4fc818ce77524163b026d7363c407af52c975742145bb4508229",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file/variable_length_value.vi",
+   "bytes": 22105,
+   "sha256": "457792f5c878c97a9080b45be4078a7d199814f0640e8da1c0685cc221558a6e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-file_main.vi",
+   "bytes": 29766,
+   "sha256": "f34372326dc58ad18821a9ffbd929e5c253767ead4f1319d8aa022b3bce21861",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/black_key_width.get.vi",
+   "bytes": 15955,
+   "sha256": "9c52b8cd61680be69997282aac75ff68365524abf03362a065b42114a3ed79d0",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/close.vi",
+   "bytes": 22941,
+   "sha256": "ad5e46ff722a72d196eb1fb013da4c70ae640441571758dbb9c575b9feda004a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/create.vi",
+   "bytes": 35002,
+   "sha256": "ebb84320c1161e359cccc4f71a15c1430eddee438edfe9e08e352a45223d86d9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/display.length_in_pixels.vi",
+   "bytes": 18892,
+   "sha256": "ebb8b32394d47597cb208a5ab629d07323dba71ecdedd3dcb91808906ec24acb",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.a.vi",
+   "bytes": 25410,
+   "sha256": "6d4a29e9ab342a7857a7b0369e7bf99c3ee742241c4154d0cebf43a4e4232a78",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.a0.vi",
+   "bytes": 21767,
+   "sha256": "198a5305ff2d6794ee80f933d7f2427d7e4f4bc4d77f4481a78e2fe37ccf9584",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.b.vi",
+   "bytes": 21774,
+   "sha256": "d1e310fe368743b16355029e51684d80a8b5c98e0fdc0a63e63ffc19b5e0ac02",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.c#d#.vi",
+   "bytes": 21297,
+   "sha256": "65bac0d131297249b7bdcc890fc0d128b2ff7db25c595931055fa3a0e931c186",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.c.vi",
+   "bytes": 21758,
+   "sha256": "d968df0cecd520a8d05bc012868244b6bad37930fe72f33a6b9f53a89d982456",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.c8.vi",
+   "bytes": 21387,
+   "sha256": "56b2d6258b346e413c82be95c4c4cde1a371be24c04e834019a0c696f1592a71",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.d.vi",
+   "bytes": 25422,
+   "sha256": "7584d94eb9cb199958821f6bf0a7b9e710a927f8e7abeeaf953008d2ef6d38a4",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.e.vi",
+   "bytes": 25062,
+   "sha256": "80cd0ed077b7c3330e32302ef5494f8fd91cad39cb31f9a9dc10e1c0ab85e479",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.f#g#a#.vi",
+   "bytes": 21195,
+   "sha256": "e0af79a77812434703a677dfd3737febc400c7cec908e781a8bfc1140791a163",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.f.vi",
+   "bytes": 25058,
+   "sha256": "1842cda273abb3b4982db3a2132edca6afb0c007bad1467a48e96ba14b204188",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.g.vi",
+   "bytes": 21026,
+   "sha256": "f0e10cbe6b598cf76cdc5e03d5998e0b658fe1b54616b4875eb9e391372637fc",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/draw.notes.vi",
+   "bytes": 45062,
+   "sha256": "581c27864293f0abaea9a55200e60b55588bfbd681fcea46d68c036b6390ba41",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/keyboard.NoteOff.vi",
+   "bytes": 24612,
+   "sha256": "2d784fd61b732c5a4db2fc14f47cd20095b7d46b12490f5494baf54138f56c49",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/keyboard.NoteOff_All.vi",
+   "bytes": 20164,
+   "sha256": "081b83e5482638277cea809cbb801e01850ba8057dcee27aa99c1a8298a7b9a2",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/keyboard.NoteOn.vi",
+   "bytes": 24619,
+   "sha256": "f3b320c261089dfd2302793cb19e1adadde7c702b3659aa300b38e78a213dcfd",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/keyboard.add.vi",
+   "bytes": 26128,
+   "sha256": "25b0bd0ba11e28e9d5d748653530887eb2c4f7f865ac6781c466adeb42dc438e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/keyboard.note_polygons.get.vi",
+   "bytes": 61830,
+   "sha256": "a02b6bd1f9833d0c4e4bdcaebd3470193a4268f016c178156781787736dbe5a4",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/map_key_polygons.vi",
+   "bytes": 31272,
+   "sha256": "bcde7489533822bc1dff7caab01d7528f782184b717353e8815d52138d352b87",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/midi-ui.lvclass",
+   "bytes": 218976,
+   "sha256": "d01afeefc23c05131ef134a8ef6f6796d0447742d3ae6be515539a13ed48069a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/music.NoteOff.vi",
+   "bytes": 24537,
+   "sha256": "308ec036fea3ad5c79aca94dcfad7188919a91277ee512b86eaf2f95ad7f7dff",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/music.NoteOn.vi",
+   "bytes": 24716,
+   "sha256": "fd1c1129808e3f49b34ca39f2f6e6bcf040cf1c412bb654b25c56976f37fb7d5",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/music_pictures_by_index.get.vi",
+   "bytes": 22111,
+   "sha256": "6ec723d0f81f3e39577297ae12e04c8e55aa19b32b9a53282bb61beb5fbe5b1a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/music_pictures_by_index.set.vi",
+   "bytes": 22111,
+   "sha256": "776c6e0524e7f5c5788d0a397c8cdb15fec55ddfc2074ced5c83dd781b62135a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/note bounds.vi",
+   "bytes": 17115,
+   "sha256": "6d4996196da1bbc371c4e5377551d6b946c3c243183585e765a885b4c14d765a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/noteOnorOffEvent.vi",
+   "bytes": 13172,
+   "sha256": "e8870824af461c0c155c5e78afc5ea26c2529287491ee26f7ffc57e8fc00253b",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/note_array.create.vi",
+   "bytes": 28065,
+   "sha256": "f533132fae772678a8a04478750a53ebfb3037b075f1ddb37c2e3ae6e3aae46c",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/note_array.to_pictures.vi",
+   "bytes": 24022,
+   "sha256": "5bc4141e8ee63c0243805913d9de217a51dc4d2c2bf7d44d8bcd4f4506bbda37",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/note_bounds_by_note_name.get.vi",
+   "bytes": 18956,
+   "sha256": "ae8b0f6827b29ca14f11de675c1709f9feba3f511697f599f64318b91daf7cc0",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/notes.add.vi",
+   "bytes": 57457,
+   "sha256": "2b870ed4f0ca7a727d6e3ae6e3c87a7c76c6893c132852b1d46e072c44921959",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/nusic_note_index_by_noteoff_id.get.vi",
+   "bytes": 21882,
+   "sha256": "12ccd589bd35c62b8777e0fc600ed7211ffce3084e04921fd59af57463d3d219",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/nusic_note_index_by_noteon_id.get.vi",
+   "bytes": 21893,
+   "sha256": "505fede177214fbe3d3ba7f1606dadcdc07c053450767e72d8b3ca6ce0084a16",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/picture.clear.vi",
+   "bytes": 20961,
+   "sha256": "e6b15937d6e5a7d77521fafe6064deb285adc82a60d4e4db03f71a489dbea6cc",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/picture.get.vi",
+   "bytes": 21827,
+   "sha256": "583618a7803cfd7d66872b843a0b76e79cfe8ba787a43a8766750ffb831e1f46",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/picture.get_area.vi",
+   "bytes": 24512,
+   "sha256": "d1c7c2128e5d12fafb450c69456193ca4153960f2c3c72cedeb8eb77fd020b7f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/picture.publish.vi",
+   "bytes": 23995,
+   "sha256": "b935bbee0e9cee44127571f52be0ea83d5b2e3633009a42250b9ff284537c0cb",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/picture_ref.get.vi",
+   "bytes": 24831,
+   "sha256": "2c437d9bebd83754230a7b143f2ef40fcb51df84f8485bdec54b44b0e716fec2",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/prepare_keyboard_notes.vi",
+   "bytes": 20086,
+   "sha256": "ac6fc98d6b709fc67c531b4b0c93b599a9bdba614369d1a616febaab1787856a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/privatedata.ctl",
+   "bytes": 27904,
+   "sha256": "57b2a62f5c7ec741495ccd4d8d2f370305ef3e76f127706bd58dba8d42824765",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/rotate polygon.vi",
+   "bytes": 25914,
+   "sha256": "7b7c755086dfbc58eeb1ae57aa15a61c3333e6984a0231fa7bd98b72bf7be0c5",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/rotations.get.vi",
+   "bytes": 17857,
+   "sha256": "2e9384811e50de01dc1ab37ff8c271919b783af676798aa8b59c4777bc0820c2",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi-ui/white_key_length.get.vi",
+   "bytes": 17884,
+   "sha256": "ad1933753788d253ff06a1c5ff0e604dfea2876d680b9ccb3b597cf004b4ed78",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midi.lvclass",
+   "bytes": 76559,
+   "sha256": "df7d1d18d4389673b5fcf6a8e8048226a5c57d705e918d541709f2406169dad6",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInClose.vi",
+   "bytes": 14695,
+   "sha256": "5e2ce3da69637a644e7333db3d03ec76f478a0c24afad30bc22451f8065f3a6b",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInEventsToReceive.vi",
+   "bytes": 14873,
+   "sha256": "a8fadba0b4202d6913068923dbe1bd8076b1944acd328548e80890a8b44cff7b",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInGetErrorTextA.vi",
+   "bytes": 16743,
+   "sha256": "f88a890534b1b0fe7d9660bab9404e516f58cc45c97c637913368bfcdbe6af43",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInGetNumDevs.vi",
+   "bytes": 14032,
+   "sha256": "437093c45748abc44121cf6a4e96161709ebb964fae55bf39a1e545779c650e4",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInOpen.vi",
+   "bytes": 18862,
+   "sha256": "c62d9424b6eb5eefd43e40b584a1c29a5690bcbc22b891aaff66a737d0e31f98",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInReset.vi",
+   "bytes": 15283,
+   "sha256": "dda436281d6ca2b257a043722aaacb57aa2be1299f440da56afb84a7ed791a89",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInStart.vi",
+   "bytes": 15315,
+   "sha256": "47fd0358112f1ba9fb46133c485d9d74f218b59220f983b46b4d3920def8e9bf",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInStop.vi",
+   "bytes": 14958,
+   "sha256": "1b2eb41ddcf32ea58440ed23d7e935434596c26da9c44a73dfb590a314cbb0dd",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiInTranslateEvent.vi",
+   "bytes": 13544,
+   "sha256": "bc5c33e6af1ff71686e1d5283e11bc1c8da36c2a7142fa2b2c3c345e8c04985c",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--Aftertouch.vi",
+   "bytes": 14479,
+   "sha256": "a3af8ae01aa4c6571d38368a0c1a0bff2db366f33ce9e9ea90b479da4a61164f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--ChannelPressure.vi",
+   "bytes": 17768,
+   "sha256": "6b1c05389bd68ac956c084c30bd3941404cd51951dd8874743b3405bbd814c7f",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--ContinuousController.vi",
+   "bytes": 14313,
+   "sha256": "c059b5af80ca1ca7ac32f4fd115b85129e17bfd34f6f20c73e09f172f903b8f9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--NoteOff.vi",
+   "bytes": 17760,
+   "sha256": "b6afd7b5bcef7e61340035c460af62d8004f6462d9192dcf26c55bc2efde9fc7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--NoteOn.vi",
+   "bytes": 21047,
+   "sha256": "aff3427dc52c568648db5351040aa2b49a63aca817a91985441ce7b2b08c7f51",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--PatchChange.vi",
+   "bytes": 17588,
+   "sha256": "d453db5c8b29f7036b702823e30663653c62484555caa8423b6cf43002008886",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiMessageConstant--PitchBend.vi",
+   "bytes": 17762,
+   "sha256": "93a7ecefddf56e2410af32dcd90ca0e2d1369bcc834db45d7e6641142ff7df6c",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutClose.vi",
+   "bytes": 14556,
+   "sha256": "63a317337ab968a13999fc41f2bcc493f4a7067143fa5bd95a65edf7345843ff",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutGetDevCapsA.vi",
+   "bytes": 17078,
+   "sha256": "ba34186a84047d13084f7ce043469571e370f6301d4fa08104eb62bf4700d445",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutGetErrorTextA.vi",
+   "bytes": 16792,
+   "sha256": "0ac903bc96f5fae0b25548ffc1d46d7263318ff4306e56a1e2d79545389c5591",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutGetNumDevs.vi",
+   "bytes": 13917,
+   "sha256": "4cb59112616f79b7eb83017f776ffe95e545ba689c5287d9ea5e1f6d35af6f24",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutNoteOff.vi",
+   "bytes": 18534,
+   "sha256": "b0b32685f7c0f6bf6c4f1074478b6230d059b9ff705329ccbfab4f3ce6d2558d",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutNoteOn.vi",
+   "bytes": 18533,
+   "sha256": "a14c2a4cad530596c472cd3ceec2db5ae8fff028de3793de97c14cda25d772d7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutOpen.vi",
+   "bytes": 15499,
+   "sha256": "2abc7588b24d36a402c28473c2aa30c92f142cb8fba6675e7f8ce08d80069b54",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutPatchChange.vi",
+   "bytes": 15542,
+   "sha256": "b05c4a69382a6bec68e1f211b1778c332811ad5bce47e0ee81c5a6841dc02847",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutShortMsg.vi",
+   "bytes": 15647,
+   "sha256": "c86dcc98213a2a0c45aad466643039c8aa8462d28a1bae6aa99f6c50f5913d60",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midiOutSustainPedal.vi",
+   "bytes": 15471,
+   "sha256": "a8a37f1fbc1e04a0b27a6d171fde77a0563a3b1567a4ee6f41505cec52daf1e3",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midichannel.get.vi",
+   "bytes": 20495,
+   "sha256": "8e71475ef4c7cd53a8dc5fa6954d89d70f8414d7f50105df50c27759f004627e",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midi/midichannel.set.vi",
+   "bytes": 20515,
+   "sha256": "cde73e99f67fbb564564c01119a500b3e84daf660196e9d32b138228cc0bd8c8",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/close.vi",
+   "bytes": 15549,
+   "sha256": "4072b7f36cb2d7dffbeb1a1ee9b2f916bc892d600bf670d3fc6fdd670fcb33f9",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midi-file-events.set.vi",
+   "bytes": 15120,
+   "sha256": "6c00ada90d7dc3b5d5806d67b8c7c8c586ea20cbd73786268b17137adbf994a0",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midi-ui.set.vi",
+   "bytes": 15023,
+   "sha256": "fcb171c2a445d843bbaeb2051066988366429cf2d32b49ce96178cd0a3fa23f7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midi.set.vi",
+   "bytes": 14984,
+   "sha256": "e59310b4ef4b414e4d91ddd2909eca6456211a294acedf3d939f1b2c96443650",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.Core.vi",
+   "bytes": 84718,
+   "sha256": "a40047645b9b892eaa9b3716b6e955eeef329679ff2e3829dfc4b7332dfec9a8",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.Launch.vi",
+   "bytes": 19408,
+   "sha256": "d67eb667313cafce0e5b75771d5515df91273569947dc60962f0121ddfdb56f4",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.msg.Pause.vi",
+   "bytes": 22023,
+   "sha256": "4a596892370cc03a1694a37fabbb96c5608567eb102f0d163ebe29d78b0b9faf",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.msg.Play.vi",
+   "bytes": 22018,
+   "sha256": "dab7a1d22bbe86d9a84247b1e80b02b5b97a82bb5535b5a703402e1dc0665a3a",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.msg.Resume.vi",
+   "bytes": 25316,
+   "sha256": "7b69db10fb124c60a85b5a9598f9b91747fc93c7fedb4d804043962a76a035d5",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiOutPlayer.msg.Stop.vi",
+   "bytes": 22110,
+   "sha256": "fac3e2b150850b1ff6dab995bc532c6e7cb4829ad9ebe536e6c7341347f64422",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiPlayer.announcements.get.vi",
+   "bytes": 19056,
+   "sha256": "ac28002d387269e8f86a4a7d31d323a0549faef4e6cb0a54ecb5e718fe25b301",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiPlayer/midiPlayer.lvclass",
+   "bytes": 60224,
+   "sha256": "8e2a422799c9b8144d83b207415f8d6e20c108f464bfec562b7ba221ede342a8",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiin_main.vi",
+   "bytes": 28283,
+   "sha256": "bf85ec03a7c95bc1c07bea113c0b1396fe460eb06a0f8156e7505f5618f92221",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/midiout_main.vi",
+   "bytes": 52780,
+   "sha256": "10a8a9d4b2200699af702041bd5d7c2de6b29e602d597dc179872c4031ddd9de",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/MIDI MIDI Events scripting.vi",
+   "bytes": 7838,
+   "sha256": "23651343973ca97b14247298a8046d85319404a89d11bde14b9017807bedb723",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/MIDI Meta Events scripting.vi",
+   "bytes": 7582,
+   "sha256": "604831baf3216a4696d400ed2fe4651a249a0dc124624c3e2dad258fa8e80ea3",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/note value scripting.vi",
+   "bytes": 8340,
+   "sha256": "847a54c4d0a6df266dcaf59f8e747cf33e8f13b84ab7f897324c9e168b713a47",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/piano UI.vi",
+   "bytes": 37644,
+   "sha256": "9901682ee8c89e974c4e8f1003ccb0aa92e9d762f48a911fd4b0c970cb392520",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/reading midi file.vi",
+   "bytes": 46921,
+   "sha256": "1ddc16294ab430341e76bc4083a127718b4bba3008d51e57975013ac459ebdc6",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/playground/ui idea.vi",
+   "bytes": 231487,
+   "sha256": "2d4a8dbedd580b6eee1bbffbc23b415483535b3973fe6b0d517a8b68ade7b7c7",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/shared/midi message type.ctl",
+   "bytes": 4346,
+   "sha256": "e3e678beb395aa97e2ffda9f00ea88d085af265039942bbfcd290b7d6ac0e239",
+   "via": "extension"
+  },
+  {
+   "path": "lv-src/shared/midi note number.ctl",
+   "bytes": 10325,
+   "sha256": "5de2f58f178e36314343d5199f2d65d58bf0ff6ee1b5bb0cb4372b696f7814ff",
+   "via": "extension"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/x64/Release/MIDIInToLabVIEWWrapper.dll",
+   "bytes": 18944,
+   "sha256": "ef36b00fc29e68d5fc95a0a0add048243a7ec671f2e2f092376f9fb6d9503d13",
+   "via": "ref:cpp-src/MIDIInToLabVIEWWrapper/MidiWrapperPlayground.vi"
+  },
+  {
+   "path": "lv-src/configuration.ini",
+   "bytes": 59,
+   "sha256": "e1c4c3435eaaaae5acda39fdd2ba95878f8e10f285fb61f2015f428932f7746a",
+   "via": "ref:lv-src/configuration/configuration.path.vi"
+  },
+  {
+   "path": "midi-files/Chopin- Waltz in A minor.mid",
+   "bytes": 3279,
+   "sha256": "63f7aa29413fd4ba56a91b6d233aadb87a4f6cc77a036f645f1213e103b1b137",
+   "via": "ref:lv-src/midi-file_main.vi"
+  },
+  {
+   "path": "midi-files/Chopin - Fantaisie-Impromptu (Op. 66).mid",
+   "bytes": 24269,
+   "sha256": "a4f8989f1ce3d49c13bea2f64ca55976d6d7944673bd04c2bd86627645263a0b",
+   "via": "ref:lv-src/midi-file_main.vi"
+  },
+  {
+   "path": "midi-files/Beethoven Symphony No.5.mid",
+   "bytes": 90781,
+   "sha256": "4c13d0923bb8e0d2a8b97cb51785e45ba90eab70d533516f50157239d2855b74",
+   "via": "ref:lv-src/midi-file_main.vi"
+  },
+  {
+   "path": "midi-files/taylor swift -love story[ic3zz86].mid.mid",
+   "bytes": 24245,
+   "sha256": "1a4e84b2ac5b95592004cc9d6cca942fc1d2be22f08fc1e06446232256d3dff7",
+   "via": "ref:lv-src/midi-file_main.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 100,
+   "sha256": "905ac3806b71b89c765f8f66602318d57967204d6230267a439078fa9f25339f",
+   "via": "tree"
+  },
+  {
+   "path": ".vscode/tasks.json",
+   "bytes": 742,
+   "sha256": "27f0ca5edd474ccba9bbedfa7eba00b6bc09aa0c7aa5969b8d3b45bbd603c034",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 10807,
+   "sha256": "2612d271922dc5f0faa08544f9866345b9c1cdec2ccda0bca053c9a3a639532b",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 660,
+   "sha256": "9eee57f911949b4741d9413f6785ab1d4a0b5daf52f0c96fe0a86bb4cd7da5f4",
+   "via": "tree"
+  },
+  {
+   "path": "builds/MIDI/My Application/midi.ini",
+   "bytes": 250,
+   "sha256": "4f6d710288ba686f7deb06f19ed5ff5608b71f7fab71851b4a54ea2c82f3a1b4",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/.vscode/tasks.json",
+   "bytes": 419,
+   "sha256": "9126a47a25ba78a914ffadd415a456abda1cf588edf593848295e381968dcea1",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/Release/MIDIInTo.fff30238.tlog/MIDIInToLabVIEWWrapper.lastbuildstate",
+   "bytes": 183,
+   "sha256": "9f172e26aed6f2c73322a2a356bfd354232fd32f2f9632537593397a2fb9489c",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/Release/MIDIInTo.fff30238.tlog/unsuccessfulbuild",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/Release/MIDIInToLabVIEWWrapper.log",
+   "bytes": 265,
+   "sha256": "f2252347d9f2f077295ba90a4b850c6c9d106a55fe293b31e1b4fa8f28eb664f",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/x64/Release/MIDIInTo.fff30238.tlog/MIDIInToLabVIEWWrapper.lastbuildstate",
+   "bytes": 181,
+   "sha256": "764c29ebee086f75d4aadfcb7a0b70454b9c628fa515a1726451438d467488dc",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/x64/Release/MIDIInToLabVIEWWrapper.dll.recipe",
+   "bytes": 323,
+   "sha256": "b06a727ddbe8062e89a1cf0e580f535188fd2686fcdf3be4883c17614dbf83fd",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/x64/Release/MIDIInToLabVIEWWrapper.iobj",
+   "bytes": 292407,
+   "sha256": "9906d702365514b3b71fa4771a4f5cf1623f25b6eabc9360ddf644b58072f0a7",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/x64/Release/MIDIInToLabVIEWWrapper.ipdb",
+   "bytes": 53680,
+   "sha256": "65b745771b4de2b111f619407b460bef5953913cde7d1d127343022b9b431834",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInTo.fff30238/x64/Release/MIDIInToLabVIEWWrapper.log",
+   "bytes": 555,
+   "sha256": "3ae5b87b5166a4aff54487c47e7db5fe9c5c982282c8115b3495f7be691c411d",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.cpp",
+   "bytes": 2428,
+   "sha256": "208a385d1cfaa3ecc9ebf714ec6d984427f8fa81bcd2a3144b26997f3f1c12d9",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.h",
+   "bytes": 402,
+   "sha256": "726ac60b25ba9b16623a9b27362421d6ea42c64a6508bd8e93a689cbf743c7b4",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.sln",
+   "bytes": 1434,
+   "sha256": "f00904debb796e96250d949b578d9524bc361eb543a9d3dfd7a64c22b5ef8fc0",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.vcxproj",
+   "bytes": 8730,
+   "sha256": "da4b339701c2e8de19c2fbad38012f4ae72285cd77c22f592aa4bcb45fdabd88",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.vcxproj.filters",
+   "bytes": 1370,
+   "sha256": "1adec9d3d085599569a4d35a1e944a80851a7814864dd854f04134ac174f96e6",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/MIDIInToLabVIEWWrapper.vcxproj.user",
+   "bytes": 165,
+   "sha256": "c65b2b1a71dcd26333d8dc209ffeb90a906ddd8bbab6d45dada8e3bc84c30226",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/framework.h",
+   "bytes": 149,
+   "sha256": "d7e3273aca06ee9a2b47ec7f96fbf06fd9301849ebf26ba54a441f8fcde36bd6",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/pch.cpp",
+   "bytes": 186,
+   "sha256": "b20ad711fa06e3ef62f8e3c626e13b3bdc69cff08c60c8b358f38b09e16c99ef",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDIInToLabVIEWWrapper/pch.h",
+   "bytes": 563,
+   "sha256": "ae8edb9ed44e84db3a64ff02bb4e053d661dc19474d8e284bda1c4d625744a0b",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDI_In_CPP_Exmaple/MIDI_In_CPP_Exmaple.sln",
+   "bytes": 1428,
+   "sha256": "2da8a832e79afa5b4f12715cb18c475fc466e1b8ec917ada1776394d4658759b",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDI_In_CPP_Exmaple/MIDI_In_CPP_Exmaple.vcxproj",
+   "bytes": 6503,
+   "sha256": "01587e88596b853f9e70d9a85fb39e5b1898a9f16ff893bfedbc3986c00e211a",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDI_In_CPP_Exmaple/MIDI_In_CPP_Exmaple.vcxproj.filters",
+   "bytes": 964,
+   "sha256": "ee2ad05ac3231149e6011b67968ab30a6818cc9cd9716e8b660d7f6c3417700d",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDI_In_CPP_Exmaple/MIDI_In_CPP_Exmaple.vcxproj.user",
+   "bytes": 165,
+   "sha256": "c65b2b1a71dcd26333d8dc209ffeb90a906ddd8bbab6d45dada8e3bc84c30226",
+   "via": "tree"
+  },
+  {
+   "path": "cpp-src/MIDI_In_CPP_Exmaple/midiinSimple.cpp",
+   "bytes": 2410,
+   "sha256": "f446037f89e3195e09415944a65a5a090919dcf96e0f4befbe64f8255238101c",
+   "via": "tree"
+  },
+  {
+   "path": "lv-src/MIDI Driver.vipb",
+   "bytes": 65592,
+   "sha256": "64815ece1d6715926eeebbb41451ec0c7a5d7d008803ee332e0c9de914e88c08",
+   "via": "tree"
+  },
+  {
+   "path": "lv-src/MIDI.dragon",
+   "bytes": 199,
+   "sha256": "7642f5090a5d98e5641bee43a7ab51a5abc25647846e857f3371b13012695293",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<userlib>\\_OpenG.lib\\variantconfig\\variantconfig.llb\\Read INI Cluster__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\variantconfig\\variantconfig.llb\\Write INI Cluster__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\variantconfig\\variantconfig.llb\\openg_variant_configuration_file.lvlib",
+  "<vilib>\\AdvancedString\\Delimited String to 1D String Array.vi",
+  "<vilib>\\Analysis\\NI_AAL_Geometry.lvlib",
+  "<vilib>\\Analysis\\geometry.llb\\Point in Polygon (Scalar).vi",
+  "<vilib>\\Analysis\\geometry.llb\\Point in Polygon Position.ctl",
+  "<vilib>\\Analysis\\geometry.llb\\Point in Polygon.vi",
+  "<vilib>\\Utility\\High Resolution Relative Seconds.vi",
+  "<vilib>\\Utility\\Is Value Changed.vim",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Path.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\file.llb\\Is Path and Not Empty.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Get File Extension.vi",
+  "<vilib>\\Utility\\traverseref.llb\\TRef Find Object By Label.vi",
+  "<vilib>\\Utility\\traverseref.llb\\TRef TravTarget.ctl",
+  "<vilib>\\VIPM\\Collection_Extensions\\Set\\Convert Array to Set__vipm_lv_collection_ext.vim",
+  "<vilib>\\VIPM\\Collection_Extensions\\Set\\Create Empty Set__vipm_lv_collection_ext.vim",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Add State(s) to Queue__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Append Error Details__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Build State String with Arguments__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Conditional State String__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Parse State Queue_2024__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Select State(s)__jki_lib_state_machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Select State(s)_err__jki_lib_state_machine.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\File Dialog Source.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\subFile Dialog.vi",
+  "<vilib>\\express\\express input\\FileDialogConfig.llb\\Configure File Dialog.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Multiple Lines.vi",
+  "<vilib>\\picture\\picture.llb\\Draw Rectangle.vi",
+  "<vilib>\\picture\\pictutil.llb\\Draw Circle by Radius.vi",
+  "<vilib>\\ptbypt\\NI_PtbyPt.lvlib",
+  "<vilib>\\ptbypt\\Other Functions.llb\\Array Max & Min PtByPt.vi",
+  "<vilib>\\set operations\\Set Union.vim",
+  "<vilib>\\string\\Create NI GUID.vi",
+  "C:\\Users\\JKI\\Downloads\\Taylor-Swift-Enchanted-Anonymous-20220306204655-nonstop2k.com.mid",
+  "C:\\code\\LabVIEW-MIDI\\cpp-src\\MIDIInToLabVIEWWrapper\\x64\\Release\\MIDIInToLabVIEWWrapper.dll",
+  "C:\\code\\LabVIEW-MIDI\\cpp-src\\MIDIToLabVIEW\\MIDIToLabVIEW\\MIDItoLabVIEW.dll",
+  "C:\\code\\LabVIEW-MIDI\\lv-src\\midi-file-event\\midi-file-event.lvclass"
+ ]
+}

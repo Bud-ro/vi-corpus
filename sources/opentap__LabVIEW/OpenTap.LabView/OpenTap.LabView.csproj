@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OpenTapPackageDefinitionPath>..\package.xml</OpenTapPackageDefinitionPath>
+    <OpenTapVersion>9.25.1</OpenTapVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="OpenTap.LabView.UnitTests"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NationalInstruments.LabVIEW.Interop">
+      <HintPath>../Dependency/NationalInstruments.LabVIEW.Interop.dll</HintPath>
+    </Reference>
+    <PackageReference Include="YamlDotNet" Version="15.1.2"/>
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Dependency\OpenTap.LabView.Test1.dll">
+      <Link>OpenTap.LabView.Test1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Dependency\OpenTap.LabView.Test1.xml">
+      <Link>OpenTap.LabView.Test1.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Dependency\OpenTap.LabView.Test1.ini">
+      <Link>OpenTap.LabView.Test1.ini</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.4.3" />
+    <OpenTapPackageReference Include="OpenTAP"/>
+  </ItemGroup>
+
+  <!-- Debug specific config-->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <AdditionalOpenTapPackage Include="Expressions" Version="1"/>
+    <AdditionalOpenTapPackage Include="TUI" Version="1" />
+    <AdditionalOpenTapPackage Include="Editor"/>
+  </ItemGroup>
+
+  <!-- Release specific config -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <InstallCreatedOpenTapPackage>false</InstallCreatedOpenTapPackage>
+    <CreateOpenTapPackage>false</CreateOpenTapPackage>
+  </PropertyGroup>
+
+</Project>

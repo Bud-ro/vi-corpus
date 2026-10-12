@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+		<title>Read/Start DTCs</title>
+		<link rel="STYLESHEET" type="text/css" href="css/VSsystemexplorer.css">
+		<script src="common.js" type="text/javascript"></script><script src="js/expandable_tree.js" type="text/javascript"></script>
+		<link rel="STYLESHEET" type="text/css" href="css/expandable_tree.css">
+		<script src="launchhelp.js" type="text/javascript"></script><script src="js/dynamicjumps.js" type="text/javascript"></script>
+	</head>
+<body>
+	<noscript>
+		<p class="Body">JavaScript is disabled. <a href="veristandmerge.chm::/JavaScript_Disabled.html">Details</a></p>
+		<hr width="100%" noshade>
+	</noscript>
+<h1>Read/Start DTCs</h1>
+<p class="Body">DTCs are diagnostic trouble codes.  These DTCs are usually set by a controller when a fault occurs due to a parameter being out of range, sensor being disconnected, etc.  DTCs are requested from the controller and timestamped by the addon.  The most recent codes are kept in the DTC channels.</p>
+<h2>What do you want to do?</h2>
+<h3>Set the DTC formatting</h3>
+<p>The <strong>DTC Byte Length</strong>, <strong>Status Byte Length</strong>, <strong>Failure Byte Length</strong> (or Additional Data Byte Length) and <strong>Byte Order</strong> are needed to be able to convert the DTCs to fault codes.</p>
+<p>
+UDS Defaults
+<ul>
+<li>DTC Byte Length: 3
+<li>Status Byte Length:1
+<li>Failure Byte Length: 0 or 2
+</ul>
+</p>
+<p>
+KWP2000 & GMLAN Defaults
+<ul>
+<li>DTC Byte Length: 2
+<li>Status Byte Length:1
+<li>Failure Byte Length: 0
+</ul>
+</p>
+<h3>Set the DTC Codes and Status Codes</h3>
+<p>The user can import the DTC codes and status codes. This is done through a comma seperated value (CSV) file. For DTC codes, the format is numeric code (first column), J2012 code (second column) and description string (third column) in a CSV file. The numeric code can be a number or a hex value. Use a "x" to designate hex. E.g xABCD. If you use a number, it will be converted to hex on import. Each row the CSV file is a code/J2012 code/string pairing. The user selects the <strong>DTC Codes</strong> tab and hits <strong>Import</strong>. Select the CSV file and the table will update. The same approach applies for the <strong>Status Codes</strong> tab. The CSV format is slightly different. It is numeric code (first column) and description string (second column)</p>
+<h3>Set the number of recent DTCs</h3>
+<p>By default, the user can see the most recent 10 DTCs received. If the user wants a different buffer length, they can set <strong>Number of DTCs</strong> to the desired value and hit <strong>Apply</strong>.</p>
+<h3>Monitor the total number of DTCs on an ECU</h3>
+<p>The # of DTCs channel allows the user to see the total number of DTCs received.</p>
+
+<h2>Settings</h2>
+<h3>UDS Specific</h3>
+<p><strong>Extension</strong> </p>
+<ul>
+<li>x2 (2) = Report DTC By Status Mask
+<li>x8 (8) = Report DTC By Severity Mask Record
+<li>x9 (9) = Report Severity Information Of DTC
+</ul>
+<p><strong>Mask</strong> defines the status of DTCs to be read. The values are application specific.</p>
+<p><strong>Status</strong> defines the status of DTCs to be read. The values are application specific. Ignored on x2 and x9 extensions.</p>
+<h3>KWP2000 Specific</h3>
+<p><strong>Extension</strong> changes which service is used.</p>
+<ul>
+<li>x17 (23) = Read Status of DTCs
+<li>x18 (24) = Read DTCs by Status 
+</ul>
+<p><strong>Group of DTCs</strong> specifies the group of Diagnostic Trouble Codes to be cleared.</p>
+<ul>
+<li>0x0000 (0) = All powertrain DTCs 
+<li>0x4000 (16384) = All chassis DTCs 
+<li>0x8000 (32768) = All body DTCs 
+<li>0xC000 (49152) = All network-related DTCs 
+<li>0xFF00 (65280) = All DTCs 
+</ul>
+<p><strong>Mode</strong> defines the type of DTCs to be read. Ignored if Extension is x17 (23). The values are application specific. The usual values are:</p>
+<ul>
+<li>2 = All Identified
+<li>3 = All Supported 
+</ul>
+<h3>GMLAN Specific</h3>
+<p>NOTE: This uses Service xA9 with extension x81.</p>
+<p><strong>Status Mask</strong> </p>
+<ul>
+<li>Bit 0 = DTC supported by calibration
+<li>Bit 1 = Current DTC
+<li>Bit 2 = test not passed since DTC cleared
+<li>Bit 3 = test failed since DTC cleared
+<li>Bit 4 = history DTC
+<li>Bit 5 = test not passed since current power up
+<li>Bit 6 = current DTC since power up
+<li>Bit 7 = warning indicator requested state
+</ul>
+</body>
+</html>

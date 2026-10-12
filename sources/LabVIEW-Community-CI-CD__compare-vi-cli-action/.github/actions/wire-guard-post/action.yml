@@ -1,0 +1,22 @@
+name: Wire Guard (post)
+description: Wire marker for guard (post) phase
+inputs:
+  results-dir:
+    description: Results directory
+    required: false
+    default: results/fixture-drift
+runs:
+  using: composite
+  steps:
+  - name: Wire G1
+    shell: pwsh
+    run: |
+      $ErrorActionPreference = 'Stop'
+      $phase = 'G1'
+      $rd = '${{ inputs.results-dir }}'
+      if ([string]::IsNullOrWhiteSpace($rd)) { $rd = 'results/fixture-drift' }
+      $wireDir = Join-Path $rd '_wire'
+      New-Item -ItemType Directory -Force -Path $wireDir | Out-Null
+      $payload = [ordered]@{ phase=$phase; timestamp=(Get-Date).ToUniversalTime().ToString('o'); kind='guard-post' }
+      $outPath = Join-Path $wireDir ("{0}.json" -f $phase)
+      ($payload | ConvertTo-Json -Depth 4) | Out-File -FilePath $outPath -Encoding utf8

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyName>NationalInstruments.HelloWorldPlugin</AssemblyName>
+    <RootNamespace>NationalInstruments.InstrumentStudio.HelloWorldPlugin</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <InstrumentStudioDirectory Condition="'$(InstrumentStudioDirectory)' == ''">C:/Program Files/National Instruments/InstrumentStudio</InstrumentStudioDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NationalInstruments.Core">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.InstrumentFramework.Plugins">
+      <HintPath>$(InstrumentStudioDirectory)\NationalInstruments.InstrumentFramework.Plugins.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

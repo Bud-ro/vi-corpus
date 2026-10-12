@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.labview-community-cicd.example/compare-vi-cli-action/agent-cost-account-balance-v1.schema.json",
+  "title": "Agent Cost Account Balance Snapshot v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generatedAt",
+    "effectiveAt",
+    "plan",
+    "balances",
+    "sourceSchema",
+    "sourceKind",
+    "sourcePathEvidence",
+    "confidence",
+    "operatorNote"
+  ],
+  "properties": {
+    "schema": { "const": "priority/agent-cost-account-balance@v1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "effectiveAt": { "type": "string", "format": "date-time" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "snapshotAt": { "type": "string", "format": "date-time" },
+    "renewalCycleBoundaryAt": { "type": "string", "format": "date-time" },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "renewsAt", "daysRemaining"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "renewsAt": { "type": "string", "format": "date" },
+        "daysRemaining": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "balances": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["totalCredits", "usedCredits", "remainingCredits"],
+      "properties": {
+        "totalCredits": { "type": "integer", "minimum": 0 },
+        "usedCredits": { "type": "integer", "minimum": 0 },
+        "remainingCredits": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "sourceSchema": { "type": "string", "minLength": 1 },
+    "sourceKind": {
+      "type": "string",
+      "enum": ["operator-account-state", "billing-export", "manual-baseline"]
+    },
+    "sourcePathEvidence": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+    "operatorNote": { "type": "string", "minLength": 1 }
+  }
+}

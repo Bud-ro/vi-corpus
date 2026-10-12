@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package lv_python_grpc_webui_demo.v1;
+
+// -----------------------------
+// Common messages
+// -----------------------------
+
+enum HeaterState {
+  HEATER_ENABLED = 0;
+  HEATER_DISABLED = 1;
+}
+
+message Empty {}
+
+
+// -----------------------------
+// Requests
+// -----------------------------
+
+message UpdateSetPointRequest {
+  double temperature_set_point = 1;
+}
+
+message UpdateRampRateRequest {
+  double temperature_ramp_rate = 1;
+}
+
+message UpdateHeaterStateRequest {
+  HeaterState heater_state = 1;
+}
+
+// -----------------------------
+// Broadcast payloads (streamed)
+// -----------------------------
+
+message ChamberStatus {
+  double actual_temperature = 1;
+  double temperature_set_point = 2;
+  double temperature_ramp_rate = 3;
+  HeaterState heater_state = 4;
+}
+message SetPointUpdated {
+  double temperature_set_point = 1;
+}
+
+message RampRateUpdated {
+  double temperature_ramp_rate = 1;
+}
+
+message HeaterStateUpdated {
+  HeaterState heater_state = 1;
+}
+
+// -----------------------------
+// Service
+// -----------------------------
+
+service ThermalChamberController {
+  // Mirrors DQMH Basic Requests 
+  rpc StartModule(Empty) returns (Empty);
+  rpc ShowModulePanel(Empty) returns (Empty);
+  rpc HideModulePanel(Empty) returns (Empty);
+  rpc StopModule(Empty) returns (Empty); 
+
+  // Mirrors DQMH: Update Set Point (Request)
+  rpc UpdateSetPoint(UpdateSetPointRequest) returns (Empty);
+
+  // Mirrors DQMH: Update Ramp Rate (Request)
+  rpc UpdateRampRate(UpdateRampRateRequest) returns (Empty);
+
+  // Mirrors DQMH: Update Heater State (Request)
+  rpc UpdateHeaterState(UpdateHeaterStateRequest) returns (Empty);
+
+  // Mirrors DQMH Broadcasts (4 separate server-to-client streams)
+  rpc SubscribeChamberStatusUpdated(Empty) returns (stream ChamberStatus);
+  rpc SubscribeSetPointUpdated(Empty) returns (stream SetPointUpdated);
+  rpc SubscribeRampRateUpdated(Empty) returns (stream RampRateUpdated);
+  rpc SubscribeHeaterStateUpdated(Empty) returns (stream HeaterStateUpdated);
+}

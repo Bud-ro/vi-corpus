@@ -1,0 +1,756 @@
+{
+ "repo": "LS-Instruments/lsi-af-message-maker",
+ "url": "https://github.com/LS-Instruments/lsi-af-message-maker",
+ "commit": "9ead5a8e3dabfee161450795aa3969c7badbfa52",
+ "license": "BSD-3-Clause",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "Async Template Interface/Async Message Template Interface.lvclass",
+   "bytes": 37552,
+   "sha256": "108bd6cdf644af203815a6a6a2a075936a4b5d7520c2b892f7f3f0dce1a6fe8e",
+   "via": "extension"
+  },
+  {
+   "path": "Async Template Interface/Do.vi",
+   "bytes": 26966,
+   "sha256": "2fc9a09f2b7804fc4c4d52e8beae1a2ddb9e10845fee6ceefa8693ff28f31707",
+   "via": "extension"
+  },
+  {
+   "path": "Async Template Interface/Send.vi",
+   "bytes": 14900,
+   "sha256": "10935067581b6bb5b4d2bc5244ae8591ead7caa8f7bc87409525cb8e32e14e6d",
+   "via": "extension"
+  },
+  {
+   "path": "Async Template/Async Message Template.lvclass",
+   "bytes": 37190,
+   "sha256": "c11cf81ba615e13ce35a050683497d45b6ff019e978d0c970c4fb2eff933ae81",
+   "via": "extension"
+  },
+  {
+   "path": "Async Template/Do.vi",
+   "bytes": 15322,
+   "sha256": "5c7fe84660b5272b5d3fdbc17795496ce1e6f63d6e9580520e3a45767fed7bc5",
+   "via": "extension"
+  },
+  {
+   "path": "Async Template/Send.vi",
+   "bytes": 14820,
+   "sha256": "7e049515ea94f27c9fc5a5470609d16b25125e97d50fe4d0dfb49620fec74c72",
+   "via": "extension"
+  },
+  {
+   "path": "LSI AF Message Maker.lvproj",
+   "bytes": 19069,
+   "sha256": "6819aea7787a90f3f92e05e9d6b4a4669406a26f2b298b4b307dee504a7d801c",
+   "via": "extension"
+  },
+  {
+   "path": "LSI AF Message Maker.vi",
+   "bytes": 84164,
+   "sha256": "8348c7245b22478a42a40babad72b1f8900b5abfc2cf6a0f94288699e054dd1c",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Add Actor-Interface to Tree.vi",
+   "bytes": 21799,
+   "sha256": "7ac3d917460cdd530d62852669acf4dcc3071a733e234f9820825b937b162a91",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Add Method to Tree.vi",
+   "bytes": 32598,
+   "sha256": "57a99ef1ffaefcbfde465c37efd711a403f03ee2099fa196feb3ba163501ce68",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Add To Project.vi",
+   "bytes": 21190,
+   "sha256": "1a490d84d2265a9aefce0d3d1c22a262ae11dc2a1f9e521da1d3bd2c642558f0",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Async Send Method.vi",
+   "bytes": 81715,
+   "sha256": "7bc1a27ca4d01e53b57e092ad8faecb3295146844e1990377da61494f0cbc8c2",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Do Interface.vi",
+   "bytes": 58074,
+   "sha256": "0fb8ad4c619bd0053728403eaacee0125ceb10034abfe14fde12a3665120806c",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Do.vi",
+   "bytes": 50000,
+   "sha256": "3ad35b38b4bf633907469cbcb178779aa62d6789359ead2f8c96dbc1818b9902",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Private Data.vi",
+   "bytes": 24382,
+   "sha256": "4bb861d92af465034264a07813da2555f6ff2019f3914032b281535c37859df4",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Project Tree.vi",
+   "bytes": 17350,
+   "sha256": "0925e6b5e114d862c9566cb712dd40cfebc2f27e3013903d519917a8ac7bcb1d",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Send Method.vi",
+   "bytes": 64765,
+   "sha256": "0ff05f5b0ca30eb4b2c38c8c7523e7edd0a271d07988912e6815f44d4c28a23e",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Build Wiring Spec.vi",
+   "bytes": 39693,
+   "sha256": "20f5da2ac394ee4b6846076c25a575175a5451f48b903a22969420fcf9c551aa",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Check for Custom Changes.vi",
+   "bytes": 24792,
+   "sha256": "9ab74b9442f2513c593e47990ef9065099e2435e9af048232a2775db4d96ab0e",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Cleanup.vi",
+   "bytes": 14179,
+   "sha256": "7f0c18bd370c929b5a9a904a783741e62f263e59003d6baa6beecb9658c671fc",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Close Messages Refs.vi",
+   "bytes": 12851,
+   "sha256": "539344776ee7e85dd49e63e7bba88a51d758b24f0f0bcce6b8222eda4c75b0af",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Compute Actor-Interface Status.vi",
+   "bytes": 15414,
+   "sha256": "55e2765822ade9ed22f5e5f16956780b0b087c705dbb3c5f05f42d8a74210403",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Connector Pane Position.ctl",
+   "bytes": 4096,
+   "sha256": "8e29e4557036ed1174cd94beb1f0bbb8a1bf6cc266df6e4b4cf709dfa5e6ef26",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Defer Front Panel.vi",
+   "bytes": 16657,
+   "sha256": "186eae2fd235e6c0aaac79034bd21c60f869ad571b3b07d576d5cd8cd8b771ba",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Details Map.ctl",
+   "bytes": 12468,
+   "sha256": "ef87ec76eaf4966cefb7fd45f60493ce62015186aecf025f30d7dcf02f0ca829",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Find All Actors In Project.vi",
+   "bytes": 27510,
+   "sha256": "35bc3dbf1abfe1cc4b3355f345c5d5a9c08454859b92f606e4007ac7d1ae85be",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Get Actor-Interface Details.vi",
+   "bytes": 15223,
+   "sha256": "8511ccff8c72d69db3ce7a20c947a45dffb728fdab5b94f73506bc8d1f1bdc3c",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Get Message Status.vi",
+   "bytes": 22610,
+   "sha256": "2283fdd1b93bee07fad4d5b41a525bc659e24bef19ef7a6ec19197318884b2fb",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Get Template Message Path.vi",
+   "bytes": 20257,
+   "sha256": "3e51ec7b3a25151e10e939cfaf1106a2b8a0163b3133c9b98dc5debedcc534f5",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Is an Actor Test.vi",
+   "bytes": 18244,
+   "sha256": "ff043e681bb246153b6f0f779a40d65f9840f0e0b652ce340bbb7abed6d8138a",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Is an Actor-Interface.vi",
+   "bytes": 18545,
+   "sha256": "112de5bcf1528cb56228770b7aaa70e794a9bbea3483af0f5d967e7913f763d3",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Load Icon.vi",
+   "bytes": 6553,
+   "sha256": "b9e022da51308c7acdaf283a2e72e7ee22444dcc7a2d4541ff578fc61454ce52",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Lookup Description.vi",
+   "bytes": 15546,
+   "sha256": "46dd79f916475fb18988f389442db1dc5ccf59d3367b2e6eceaf02a160d787d6",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Make Message.vi",
+   "bytes": 28708,
+   "sha256": "b2345dbdf8ca1e5ef4ff0010e898408a3d49d3f65937d2e898be08661bf090ae",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Details.ctl",
+   "bytes": 9252,
+   "sha256": "bb7c1189087f6638017ef3cf7fe2abaf59a3cf4435dc2f91d5903a4d2d3d70f4",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Maker.lvclass",
+   "bytes": 103098,
+   "sha256": "65aa45af3a59f253a363aff9a477eca08972396cb6d7870eb70f1b14c7fdb532",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Maker.vi",
+   "bytes": 18773,
+   "sha256": "f320e667aae8206edff3ca5ae6beab2eadca64f886ee5f66c9fee186116cc559",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Meta Data.ctl",
+   "bytes": 8518,
+   "sha256": "fab98862c9df5e1afffbb01c23f6d56a057531a2655ddae3a24d3243c921fc02",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Path.vi",
+   "bytes": 14628,
+   "sha256": "e599d577a6f1f796c85c29f654d00810bd81215ca6032f739efb485474a18bb9",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Recipient Type.ctl",
+   "bytes": 8747,
+   "sha256": "eb4338176a9587300aa6e79c2aeb8a7f14f73f9d0dd427778a2cf174603d5de1",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Status.ctl",
+   "bytes": 8423,
+   "sha256": "fee8696d26d3ad6b143fecc38a85b95450aa9eacdb2e12120717950b4a3aeb3d",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Message Type.ctl",
+   "bytes": 8609,
+   "sha256": "f6817ce939df3874a1648148c2f9e6f7e3ec31070c36cfca93afe8075b296733",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Messages Map.ctl",
+   "bytes": 13621,
+   "sha256": "4c3b396c653e35fbffa969be51a372f5a4fa143b616c5a1d23bd245d2c837265",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Method FQN TO Tree Tag.vi",
+   "bytes": 13242,
+   "sha256": "d691228529495078b14583a4a8c8faab96d38c044140cb04a8cb48f2c5395499",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Method Signature.ctl",
+   "bytes": 4681,
+   "sha256": "b4a73d771e4f5f741e05b0c180bd978c4588060eabce423f8aa0502dcbeabb5e",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Method Tree Tag to FQN.vi",
+   "bytes": 13898,
+   "sha256": "e1b6c8f2b212c0402aff2acc2ddf4ab4a1a15a4e779bcb8b89629aeed14acdfc",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/New Message.vi",
+   "bytes": 38687,
+   "sha256": "40e302c0634816a40aff9b268fa2fa98449a6ee9c4edf8e25ab6ac51d35fd0f1",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Refresh Tree.vi",
+   "bytes": 29312,
+   "sha256": "0e30aea89ff375486c8ee1fa8bf01bd8c7ef1184f43e2d4932576bbe31421151",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Relink to PPL.vi",
+   "bytes": 24873,
+   "sha256": "46f99089770883a82377b8d215a8d4e913c52b1051be5fdf98500cb05e9d44ba",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Reset Message Class.vi",
+   "bytes": 18727,
+   "sha256": "f0f5ef2103ef1721eb8993917cb25b8e9195b871ffabcd1e77457c4b739755f0",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Reset VI.vi",
+   "bytes": 19784,
+   "sha256": "106e9d9e8cc9a9fd9291aceff04bec65e19f4ed0222690b1a964127235e5fd9d",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Restore Tree Collapsed State.vi",
+   "bytes": 15624,
+   "sha256": "8ecaecf5c59515c774f3301e558f2917cce7157c3c4963b5d5d1e7fc436b02e5",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Save All.vi",
+   "bytes": 16464,
+   "sha256": "308ec120174629384ed576352a255d2f566976b84989b2467b1752ba935e8c3b",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Save Icon.vi",
+   "bytes": 4985,
+   "sha256": "c0c83a0db38a67636febb81d297dcdb3b5badfe816474af58b1a5ebde752a254",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Save Tree Collapsed State.vi",
+   "bytes": 14501,
+   "sha256": "ed26da7b2bbc0d3039ec3aaf95031a6b518a7c61fb07f35a3b0b4ef41f6a0d5a",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Scripting Refs.ctl",
+   "bytes": 4287,
+   "sha256": "93e1190e7f79613999148271f7837af0f9e1e5b9187d321fe47c20a6218aeab8",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Set Message Class Icon.vi",
+   "bytes": 27038,
+   "sha256": "ffadd2d3fb6c0d7c6361edecc821425a86340f789df6ed44ec5069ff2b707edb",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Set Message Metatdata.vi",
+   "bytes": 22701,
+   "sha256": "ff11b778ef095cb36a919a0f3368ec2b24d1f8f8b191198bb6e105644a0357a3",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Set Method Library Tag.vi",
+   "bytes": 15442,
+   "sha256": "7483a57fb0caf2792a10c5bbe6b8deb3340daa8aed4fce059e7954ee1f6aa6fe",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Unset Method Library Tag.vi",
+   "bytes": 15004,
+   "sha256": "216dae13d8c4c747f6049c3af9fb17db21dcc980a2fd079a8174ae59214bc987",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Untitled 1 (SubVI).vi",
+   "bytes": 5818,
+   "sha256": "dda3632465bd53e1250041e0b23e864bf1cfb533c4560f070a2236c3bf4207c5",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Update Out of Date.vi",
+   "bytes": 16934,
+   "sha256": "0c607e4f58daa2d9ed3926881f37c8b242538669e4da760d7103dcd07e540272",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/VI Checksum.vi",
+   "bytes": 21487,
+   "sha256": "c8685571b654939eee6934ceafe9d5ed1896f81e49928e20df4040d39f57cb38",
+   "via": "extension"
+  },
+  {
+   "path": "Message Maker/Wiring Spec.ctl",
+   "bytes": 5784,
+   "sha256": "718c593c438f6a72165d40e8578e4ae980803b2053a9cc3c04f3907046b967bd",
+   "via": "extension"
+  },
+  {
+   "path": "Save for 2020.vi",
+   "bytes": 8485,
+   "sha256": "0a4973e3ba2f7f6077f45ad8405e58eb61c7f290cc22d1409bceb158f49856ea",
+   "via": "extension"
+  },
+  {
+   "path": "Template Interface/Do.vi",
+   "bytes": 26922,
+   "sha256": "a54ef79c7743fb42a346811ef43705f6623b02165e9c510502f0d463971dd031",
+   "via": "extension"
+  },
+  {
+   "path": "Template Interface/Message Template Interface.lvclass",
+   "bytes": 37263,
+   "sha256": "fb585c3f4dec13d72524d279737881a7b9b68946b5fa280adb973ba83c3f43b3",
+   "via": "extension"
+  },
+  {
+   "path": "Template Interface/Send.vi",
+   "bytes": 14268,
+   "sha256": "2bbf2603f95b350501d16209859fe51ae8462638bbf83134edffa16fa8fe3ebd",
+   "via": "extension"
+  },
+  {
+   "path": "Template/Do.vi",
+   "bytes": 16062,
+   "sha256": "fb9c6de2817beb2c1968c5e36924447e01d12dd5b29ba5e275a8937fec1c56cc",
+   "via": "extension"
+  },
+  {
+   "path": "Template/Message Template.lvclass",
+   "bytes": 36680,
+   "sha256": "35d8c6f8c11b7a2c52da4e725eea5a4bbf516d4376143caf4a0dfeaed4822758",
+   "via": "extension"
+  },
+  {
+   "path": "Template/Send.vi",
+   "bytes": 14976,
+   "sha256": "b8d053190fd80c65d00d7455c5cc02e980c463b57f9a127efe326ddf354e9cb5",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/LSI AF Message Maker Tests.lvproj",
+   "bytes": 3668,
+   "sha256": "f2ca171d67f06c0fefb522c4a15f14713b9995cb647dc6377c0ddac1e2fad913",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 1/Test Actor 1.lvlib",
+   "bytes": 1286,
+   "sha256": "2111acb44dcf70881f0b941c65a04684326d8197d31637815b187860bee1a44c",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 1/Test Actor 1/Method 1.vi",
+   "bytes": 14540,
+   "sha256": "dde5484660a994bfebe42ddb08852d1bf008c31bdcd571c78c1adc57d59e3b02",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 1/Test Actor 1/Method 2.vi",
+   "bytes": 14692,
+   "sha256": "9184f6313a55a02f4912662917046b9c9cff4c067edee7ccffa8da4e6ab068ac",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 1/Test Actor 1/Method 3.vi",
+   "bytes": 12480,
+   "sha256": "5e8ac8a123b07e1635730f790c3c22d40bf4eb28d2e63a44f51008982c398e04",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 1/Test Actor 1/Test Actor 1.lvclass",
+   "bytes": 25816,
+   "sha256": "f6f21a7c1d162d07b17aefd170053c2b05d7abb5cb27cc4a148dd39ac907c0a0",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 2/Test Actor 2.lvlib",
+   "bytes": 1251,
+   "sha256": "4fe10ee7456d1984ecfbc851c56370b998409a5f5f352ae4a8dac2c3bb126dd6",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 2/Test Actor 2/Method 1.vi",
+   "bytes": 14540,
+   "sha256": "7f22a0a7c98e5a53f1737728de927a3cb9fe1732d271ad59384cfd207f3e6f3a",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 2/Test Actor 2/Method 2.vi",
+   "bytes": 14692,
+   "sha256": "532c68c49e4209b5f345f10391852bd3d3e4f8899756ca845c88630e8fd74119",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 2/Test Actor 2/Method 3.vi",
+   "bytes": 12480,
+   "sha256": "4d6c3b70641371acb4071b07474ec70e649579f8dae43e3b7ddcc75faa70f1a3",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor 2/Test Actor 2/Test Actor 2.lvclass",
+   "bytes": 26185,
+   "sha256": "8d2e57f7cf8bca88cef61019f1a7a0f53b864d964dcceb6b80c73b1f1c4f111e",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor No Methods/Test Actor No Methods.lvlib",
+   "bytes": 1278,
+   "sha256": "4d1bbbaf90f2374f4dec436a04fbf8bf9eb8397b2cc0722437e89ae064085e88",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Actor No Methods/Test Actor No Methods/Test Actor No Methods.lvclass",
+   "bytes": 23700,
+   "sha256": "f025fc5b8f2295d1e5fcaaf27bdee0664ad176b84dbc15e56ea13c92e5dee9df",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor.lvlib",
+   "bytes": 1298,
+   "sha256": "5b188931e707de82a815b382ef8330ae4e0c1289132f63e979d0b87ee7abeaeb",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Method 1.vi",
+   "bytes": 14516,
+   "sha256": "b01e81a6de221772746d75cf38d9aba59e190524734b96e7759f1fbc25426b81",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Method 2.vi",
+   "bytes": 14672,
+   "sha256": "6483d4b8a83597ac0d6b2bb5ff0b3806fd31357dbb9ed5f6f94fae4be81b338e",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Method 3.vi",
+   "bytes": 12412,
+   "sha256": "755213a4bdf19221a91a690a8f16be75e175e48f147cecf5d33c61a4c709f8e5",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Method 4.vi",
+   "bytes": 14316,
+   "sha256": "64d1a988675b1c3de4cfe0bc914e358392e39476de27fc652ec8444edfa4005e",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Method 5.vi",
+   "bytes": 11948,
+   "sha256": "89ca9d2fef9d0dc289ceed3bf9888f7c5627c785e34bd2939a821845072e5ca7",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Async Actor/Test Async Actor/Test Async Actor.lvclass",
+   "bytes": 42057,
+   "sha256": "88e353121cbfd9b04836c591cd5234cc6f8aee4cc7884e0320679946578e8fac",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface.lvlib",
+   "bytes": 1269,
+   "sha256": "c4da9c74ead0fb67b0ec45a2da7feb7328e1647e9d009e0ea52c2ac84906507d",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Method 1.vi",
+   "bytes": 14552,
+   "sha256": "2fcb1fcfba06b86b94e3460d9bc7d4d5ea7ee20f63f020c61bc5fc2a471a74f0",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Method 2.vi",
+   "bytes": 14712,
+   "sha256": "72c6e415f5db92296037ba4f4a0a68a13ae7f6bf4b2ad14b88f87615fc49cc26",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Method 3.vi",
+   "bytes": 12352,
+   "sha256": "35ef61e7340052a98bd936ba06dd132c1259e5928330e91d4cfff55746e327c3",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Method 4.vi",
+   "bytes": 14116,
+   "sha256": "22175799cd5d0e7a48d56bf5ac3c97e248b3133a5b4c47095fafeecbb1a11112",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Method 5.vi",
+   "bytes": 11748,
+   "sha256": "4a4ba0ac2b2ce317990a26d7066654ab1c6cf54aa56632a3f2495358c597e617",
+   "via": "extension"
+  },
+  {
+   "path": "Tests/Test Interface/Test Interface/Test Interface.lvclass",
+   "bytes": 19952,
+   "sha256": "0932e92c043d8b0dd15a1fc05c42df300e86e547d1103878cc2f6f9ea52ae3ed",
+   "via": "extension"
+  },
+  {
+   "path": "VIPM/Post-Uninstall Custom Action.vi",
+   "bytes": 11064,
+   "sha256": "12b60fc60dcd5fe6a739f4d966b6144657d1d9932755dcf43e359172457b014a",
+   "via": "extension"
+  },
+  {
+   "path": "VIPM/Pre-Install Custom Action.vi",
+   "bytes": 9913,
+   "sha256": "436a4b9d61ddccfd78902a1bc13ce322dbd4bf253172ef81aed0b4fdacce0940",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 27,
+   "sha256": "6761a944bcccbe6da285cd866764d0e725a8710a86336cff92ceb36d4dc97771",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Ignore Outdated.png",
+   "bytes": 307,
+   "sha256": "bf67da8114c9d39172979f64f1ee75b1129f96b70ae680681ad617187838af42",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Package Icon.pdn",
+   "bytes": 5267,
+   "sha256": "3140f05fea57b33d777c75a97079f605f59d32e74797f4099582d62cb732141d",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Package Icon.png",
+   "bytes": 656,
+   "sha256": "90a3918799ac650b7544dbc60c2f27ae780698586fca81a7fcc99a89c7093db3",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Send Header Async.pdn",
+   "bytes": 4746,
+   "sha256": "52c4e0469c497d5cefdda18cd04c4f614ca5e88aee70d7d4a60711b06784658b",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Send Header Async.png",
+   "bytes": 652,
+   "sha256": "7e019bda835e029abbaeddc8e111f571e30a5c0f31086be1dd716f7c072fe6f1",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Send Header.pdn",
+   "bytes": 4467,
+   "sha256": "125483b2e29b6c1b3ff72362302dd50432e4e81f6b9ee9310cb174c531c23b60",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Send Header.png",
+   "bytes": 410,
+   "sha256": "c7820e6acdc5e6fc9b12b3e13d69bcbf7b8c50e967bf675471ef54339449c0e9",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Untitled.png",
+   "bytes": 614,
+   "sha256": "2e222b18537b3e9ad1698755a5d483540a018452a70d27a9b7e094bf9be61176",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/Warning.png",
+   "bytes": 275,
+   "sha256": "833768e654aefc72f15c2d33167900bc8d54e37f46a19dc921780b1df6a9f6dc",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/message-ok.png",
+   "bytes": 4532,
+   "sha256": "7de9bdf395b72ee9a93625746f50cf12faf8ffb1cec574bcfa5d99b73e6c11ee",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/message-out-of-date.png",
+   "bytes": 4407,
+   "sha256": "60e5d59c14c632ade0b9c9b6b8ab5d8b1be3a0edf95891920e69291c4e0fae14",
+   "via": "tree"
+  },
+  {
+   "path": "Icons/never-update.png",
+   "bytes": 4391,
+   "sha256": "c5448b5f0c7255bed2704c07279aaf17a9bf234554251dfe96813287f3b0178c",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1504,
+   "sha256": "f9d554b8f3c3619369a063c4e9c8a76c7c13634a9a494fb2b2365a5cc186242d",
+   "via": "tree"
+  },
+  {
+   "path": "LSI Actor Framework Message Maker.vipb",
+   "bytes": 19080,
+   "sha256": "466e4d764e799aeea155b599ba2a04f8bac9a14a84d7f914c7923586250437b1",
+   "via": "tree"
+  },
+  {
+   "path": "Message Overlay.png",
+   "bytes": 614,
+   "sha256": "292a00871141ed3c2149fc0db0e6135419f8d62d158e3c6e17220bfa0cc1ceb6",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1643,
+   "sha256": "5f9b5bc406480fe6814f787d90ede91e20264281011e10162829b4c138698809",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\lvcomm.chm",
+  "<vilib>\\ActorFramework\\Actor\\Casting Utility For Actors.vim",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\LabVIEW Icon API\\API_Text.ctl",
+  "<vilib>\\LabVIEW Icon API\\Generate LV Icon Text Layer.vi",
+  "<vilib>\\LabVIEW Icon API\\Get Flattened Image.vi",
+  "<vilib>\\LabVIEW Icon API\\Get Library Icon.vi",
+  "<vilib>\\LabVIEW Icon API\\Get VI Icon.vi",
+  "<vilib>\\LabVIEW Icon API\\LabVIEW Icon API.lvlib",
+  "<vilib>\\LabVIEW Icon API\\Set Library Icon.vi",
+  "<vilib>\\LabVIEW Icon API\\Set VI Icon.vi",
+  "<vilib>\\LabVIEW Icon API\\lv_icon\\Classes\\Icon\\Icon.lvclass",
+  "<vilib>\\LabVIEW Icon API\\lv_icon\\Classes\\Layer\\Layer.lvclass",
+  "<vilib>\\LabVIEW Icon API\\lv_icon\\Controls\\Layer.ctl",
+  "<vilib>\\LabVIEW Icon API\\lv_icon\\Controls\\LayerType.ctl",
+  "<vilib>\\Utility\\Apply New Library Tools-Options Settings.vi",
+  "<vilib>\\Utility\\Apply New VI Tools-Options Settings.vi",
+  "<vilib>\\Utility\\Data Type\\Get LabVIEW Class Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\LVClass\\Qualified Name Array To Single String.vi",
+  "<vilib>\\Utility\\MD5Checksum.llb\\MD5Checksum string.vi",
+  "<vilib>\\Utility\\VariantDataType\\GetLVClassInfo.vi",
+  "<vilib>\\Utility\\VariantDataType\\VariantType.lvlib",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Three Button Dialog.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Create Directory Recursive.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVPointTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVPositionTypeDef.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\TRef TravTarget.ctl",
+  "<vilib>\\Utility\\traverseref.llb\\Traverse for GObjects.vi",
+  "<vilib>\\Utility\\traverseref.llb\\VI Scripting - Traverse.lvlib",
+  "<vilib>\\addons\\analyzer\\_analyzerutils.llb\\VIAnUtil Check Type If ErrClust.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\numeric\\Enum to Array of Enums.vim",
+  "<vilib>\\picture\\picture.llb\\Draw Flattened Pixmap.vi",
+  "<vilib>\\picture\\png.llb\\Read PNG File.vi"
+ ]
+}

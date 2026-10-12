@@ -1,0 +1,67 @@
+{
+  "opentool": "1.0.0",
+  "info": {
+    "title": "CRUD API for mock",
+    "version": "1.0.0"
+  },
+  "functions": [
+    {
+      "name": "add",
+      "description": "Add two numbers.",
+      "parameters": [
+        {
+          "name": "a",
+          "schema": {
+            "type": "number"
+          },
+          "description": "The first number.",
+          "required": true
+        },
+        {
+          "name": "b",
+          "schema": {
+            "type": "number"
+          },
+          "description": "The second number.",
+          "required": true
+        }
+	  ],
+      "return": {
+        "name": "result",
+        "schema": {
+            "type": "number"
+          },
+        "description": "Add result."
+      }
+    },
+    {
+      "name": "multiple",
+      "description": "Multiple two numbers.",
+      "parameters": [
+        {
+          "name": "a",
+          "schema": {
+            "type": "number"
+          },
+          "description": "The first number.",
+          "required": true
+        },
+        {
+          "name": "b",
+          "schema": {
+            "type": "number"
+          },
+          "description": "The second number.",
+          "required": true
+        }
+	  ],
+      "return": {
+        "name": "result",
+        "schema": {
+            "type": "number"
+          },
+        "description": "Multiple result."
+      }
+    }
+  ]
+}

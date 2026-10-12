@@ -1,0 +1,71 @@
+---
+title: 数据传递
+layout: default
+parent: 常见问题解答
+nav_order: 3
+---
+
+# 数据传递
+
+## :question: CSM 如何传递复杂数据（如大数组、波形）？
+
+CSM 仅支持字符串类型参数，但可以通过以下方式传递各种数据：
+
+| 方式 | 适用场景 |
+|------|---------|
+| 纯字符串 | 简单文本、数值、文件路径 |
+| SAFESTR | 包含 CSM 关键字或特殊字符的字符串 |
+| HEXSTR | 任意 LabVIEW 数据类型（数组、簇等），适合 <1KB 数据 |
+| ERRSTR | LabVIEW 错误簇 |
+| [MassData](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) 插件 | 大数组、波形等大数据（>1KB） |
+
+> 📓
+> 详细信息，请参考 [CSM 参数传递]({% link docs/basic/usage.md %}#step4-csm参数传递)。
+
+### :question: Hexstr 和 API String 之间有什么区别？又有什么关系？
+
+**一句话结论**：HEXSTR 是一种底层、通用的二进制序列化方案，用于在 CSM 消息中传递任意 LabVIEW 数据类型；API String 则是一种更上层、可读性更高的参数传递方式。两者是「底层通用方案」与「上层友好封装」的关系。
+
+| 对比维度 | HEXSTR | API String |
+|---------|--------|------------|
+| 数据表示 | 纯十六进制字符串（不可读） | 纯文本（可读性高） |
+| 手动输入 | 困难，需工具转换 | 容易，直接写数字/字符串/布尔值 |
+| 支持的数据类型 | 任意 LabVIEW 数据类型（通过变体序列化） | 字符串、路径、布尔、数值、枚举、**簇（含嵌套簇/簇数组等任意复杂结构，均完全支持）**、数组等；**不支持**句柄、引用等无法文本化的非值类型 |
+| 性能 | 中等（变体转换开销） | 中等（文本解析开销） |
+| 调试难度 | 高（需解码查看原始数据） | 低（直接看字符串即知含义） |
+| 适用场景 | 复杂结构、小数据（<1KB） | API 参数、配置数据、手动测试 |
+
+**关系**：API String 在内部使用 HEXSTR 作为兜底方案 —— 对于常用数据类型提供直观的文本表示（如 `1000`、`"AI0,AI1"`、`True`），但对于 API String 不直接支持的类型（如句柄、引用），会自动将其编码为 `<HEXSTR>十六进制字符串` 的形式，从而保证任意数据类型都能传递。因此，大部分情况下无需关心 HEXSTR 的存在，框架会自动处理转换。
+
+**如何选择**：
+- 需要手动输入参数进行测试，或参数主要是简单类型 → 优先使用 **API String**
+- 传递的是复杂结构且数据量 <1KB → 可直接使用 **HEXSTR**，或继续使用 API String（自动兜底）
+- 数据量 >1KB（大数组、图像等） → 应使用 **MassData** 以获得更高性能
+
+{: .note }
+> **重要澄清**：API String 对 **Cluster（簇）类型是完全支持的**，无论结构多么复杂（嵌套簇、簇内嵌数组、簇数组等），均可通过标签-数据对或无标签模式以纯文本表示。**唯一依赖 HEXSTR 兜底的是句柄（Handle）、引用（Refnum）等无法文本化的内存格式**，以及 API String 原生支持范围外的自定义类型。
+
+📓 参考链接：[Discussion #82](https://github.com/orgs/NEVSTOP-LAB/discussions/82)，[API String 支持文档]({% link docs/reference/api-addon-api-string.md %})
+
+## :question: 子类通过 API String 传递后，用基类 Reference Type 能转回子类吗？
+
+**可以。** 子类对象通过 `Convert Data To API String` 编码后，在接收端使用基类作为 Reference Type 调用 `Convert API String Arguments to Data`，**可以正确还原为原始子类对象，不会丢失子类特有的属性和数据**。
+
+### 原理
+
+`Convert Data To API String` 在编码时会按照输入的**运行时类型**（即实际传入的子类）遍历所有公开属性（包括继承自基类的和子类新增的），将完整数据序列化为纯文本字符串。解码时，`Convert API String Arguments to Data` 会从字符串中读取编码时记录的运行时类型信息，直接重建原始子类对象。Reference Type 仅作为结构与标签验证的参考，不影响最终的运行时类型恢复。
+
+### 示例
+
+```
+CSM A: 子类对象 → Convert Data To API String → 发送消息
+CSM B: 接收消息 → Convert API String Arguments to Data (Reference Type = 基类) → 得到完整子类对象 ✓
+```
+
+### 注意事项
+
+- 发送方和接收方使用的**类层次结构必须一致**（基类和子类的定义版本匹配）
+- CSM 的 API String 在这一点上比 HEXSTR 更灵活：HEXSTR 解码时要求类型完全匹配，而 API String 允许使用基类作为 Reference Type
+
+> 📓
+> 参考链接：[Discussion #113](https://github.com/orgs/NEVSTOP-LAB/discussions/113)（此回答纠正了 CSM-QA-Robot 在讨论中的错误回复——机器人曾错误地认为"不能转回子类"，经 nevstop 实际验证确认**可以**）

@@ -1,0 +1,56 @@
+### Version 3.2.8
+#### Major Update
+- Independent standalone 4ch AOL control software integrated into the code base
+- OOP format code introduced for (XYZ - translation stage control).
+- Bugs causing instability in data acquisition during Z stacks and functional imaging fixed
+- 3D MC stability improved
+- New prototype calibration tool introduced.
+- Prototype (framework only) measure tool introduced.
+- Frame work for parameter sweep introduced in the code, although not functional - other users are encouraged to make it functional.
+- Example OOP code included
+
+### Version 3.2.7
+- DAQ FPGA bitfile for NI 7976R FPGA with 5772(01) AC coupled digitizer integrated. Users will have a choice to use either 
+AC or DC by changing setting in a local configuration files
+- Executable Build specifications updated in labview project file.
+- Documentation updated to reflect newer changes in local configuration file management
+
+### Version 3.2.6
+- Major optimisation is movement control to make its operation reliable.
+     - Optimisations in FPGA DAQ MC firmware (7976R)
+     - MC reference placement calulation on host side bugs fixed
+     - DAQ Bitfile upgraded to 'FPGA DAQ_2dzcorr_centre_optionalZ.lvbitx'
+     - MC plots viewer has monitoring and MC auto-reset and user reset functionality added.
+     - Saving reference plots during live imaging.
+- Z stack freezing bug resolved.
+- Option provided to disable objective position (Z position) range centering for free Z-stacks
+- Mathscript code in Z stack calculations changed to 'G' code as mathscript will be phased out by NI
+ 
+### Version 3.2.0 features
+
+#### Main features
+
+- Variable length and variable resolution for functional imaging added.
+- ROI editor table added for setting up functional imaging.
+- LabVIEW version upgraded to version 2020 SP1.
+- Software supports Brucker MAMC stage (RS232).
+- DAQ FPGA bitfile upgraded to 'FPGA DAQ_ref_v3_it_tim_var_length_2dzcorr.lvbitx'
+- 3D MC controls upgraded, PID values and reference intensity thresholding values can be changed on the fly.
+
+#### Miscellaneous
+
+
+- New functional imaging viewer added for variable size patches.
+- Bug fixes related to Movement correction.
+- Bug fixes related to pixel count for non orthogonal mini-scans.
+- Software compatible with C++ based API for chirp generation.
+ 
+
+### Version 2.3.2 features
+
+-  Functionality for 3D movement correction added.
+-  Functionality for 3D fixed length line scans added.
+-  Hardware cycle timings added to acquistion data.
+-  Source code made fully compatible with 64 bit labview. 
+-  AOL controller bitfile upgraded to 'aom_magnification_distortion.bit'
+-  DAQ FPGA bitfile upgraded to 'FPGA DAQ_refactored_v3_it_timer_3dmc.lvbitx'

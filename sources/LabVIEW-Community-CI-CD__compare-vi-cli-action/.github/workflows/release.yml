@@ -1,0 +1,1056 @@
+name: Release on tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Authoritative release tag to publish or replay.'
+        required: true
+        type: string
+      publication_mode:
+        description: 'Release publication behavior for workflow_dispatch replay.'
+        required: false
+        default: publish
+        type: choice
+        options:
+          - publish
+          - verify-existing-release
+
+jobs:
+  certification-matrix:
+    name: certification-matrix
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      target_tag: ${{ steps.release_target.outputs.tag }}
+      channel: ${{ steps.channel.outputs.channel }}
+      publication_mode: ${{ steps.publication_mode.outputs.mode }}
+    steps:
+      - name: Resolve release target tag
+        id: release_target
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            tag='${{ inputs.release_tag }}'
+          fi
+          if [[ -z "$tag" ]]; then
+            echo "Release target tag could not be resolved." >&2
+            exit 1
+          fi
+          if [[ "$tag" != v* ]]; then
+            echo "Release target tag must start with v: $tag" >&2
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.release_target.outputs.tag }}
+
+      - name: Resolve release channel
+        id: channel
+        shell: bash
+        run: |
+          set -euo pipefail
+          resolved_tag='${{ steps.release_target.outputs.tag }}'
+          channel="stable"
+          if [[ "$resolved_tag" == *-rc.* ]]; then
+            channel="rc"
+          fi
+          echo "channel=${channel}" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve publication mode
+        id: publication_mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          mode='publish'
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            mode='${{ inputs.publication_mode }}'
+          fi
+          case "$mode" in
+            publish|verify-existing-release)
+              ;;
+            *)
+              echo "Unsupported publication mode: $mode" >&2
+              exit 1
+              ;;
+          esac
+          echo "mode=${mode}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate certification matrix
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node tools/priority/certification-matrix.mjs \
+            --repo "${{ github.repository }}" \
+            --channel "${{ steps.channel.outputs.channel }}" \
+            --enforce stable \
+            --policy tools/policy/certification-matrix.json \
+            --output tests/results/_agent/certification/release-certification-matrix.json
+
+      - name: Validate certification matrix schema
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/certification/release-certification-matrix.json `
+            -SchemaPath docs/schemas/certification-matrix-v1.schema.json
+
+      - name: Upload certification matrix artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: certification-matrix-${{ github.run_id }}
+          path: tests/results/_agent/certification/release-certification-matrix.json
+          if-no-files-found: error
+
+  release:
+    runs-on: ubuntu-latest
+    needs: certification-matrix
+    environment:
+      name: production
+    permissions:
+      actions: write
+      contents: write
+      attestations: write
+      id-token: write
+    outputs:
+      cli_version: ${{ steps.meta.outputs.cli_version }}
+      target_tag: ${{ needs.certification-matrix.outputs.target_tag }}
+    env:
+      RELEASE_TAG: ${{ needs.certification-matrix.outputs.target_tag }}
+      RELEASE_PUBLICATION_MODE: ${{ needs.certification-matrix.outputs.publication_mode }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - name: Checkout replay automation surfaces
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: actions/checkout@v5
+        with:
+          ref: develop
+          path: .release-automation
+
+      - name: Resolve release automation root
+        id: automation_root
+        shell: bash
+        run: |
+          set -euo pipefail
+          automation_root='.'
+          if [[ -f '.release-automation/tools/priority/release-trust-remediation.mjs' ]]; then
+            automation_root='.release-automation'
+          fi
+          echo "path=${automation_root}" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        shell: pwsh
+        run: node tools/npm/cli.mjs ci
+
+      - name: Build release notes from CHANGELOG
+        id: notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${RELEASE_TAG}"
+          awk -v tag="$TAG" '
+            $0 ~ "^##[[:space:]]*\\[?" tag "\\]?$" {print; in=1; next}
+            in && $0 ~ "^##[[:space:]]*\\[" {exit}
+            in && $0 ~ "^##[[:space:]]*v?[0-9]" {exit}
+            in {print}
+          ' CHANGELOG.md > RELEASE_NOTES.md || true
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "No changelog section found for $TAG. Falling back to auto-generated notes." | tee RELEASE_NOTES.md
+            echo "fallback=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "fallback=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Compute CLI version
+        id: meta
+        shell: pwsh
+        run: |
+          [xml]$xml = Get-Content -Raw Directory.Build.props
+          $ver = $xml.Project.PropertyGroup.Version
+          if (-not $ver) { $ver = '0.0.0' }
+          "cli_version=$ver" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Publish CompareVI.Tools artifact
+        id: comparevi_tools
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Publish-CompareVIToolsArtifact.ps1 `
+            -OutputRoot artifacts/cli `
+            -MetadataReportPath tests/results/_agent/release/comparevi-tools-artifact.json `
+            -EmitGitHubOutputs
+
+      - name: Validate CompareVI.Tools artifact metadata schema
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/release/comparevi-tools-artifact.json `
+            -SchemaPath docs/schemas/comparevi-tools-release-manifest-v1.schema.json
+
+      - name: Run CompareVI.Tools bundle certification
+        id: bundle_certification
+        shell: pwsh
+        run: |
+          $resultsRoot = 'tests/results/_agent/release/comparevi-history-bundle-certification'
+          $summaryPath = Join-Path $resultsRoot 'comparevi-history-bundle-certification.json'
+          pwsh -NoLogo -NoProfile -File tools/Test-CompareVIHistoryBundleCertification.ps1 `
+            -ResultsDir $resultsRoot `
+            -SummaryJsonPath $summaryPath `
+            -BundleArchivePath '${{ steps.comparevi_tools.outputs.comparevi_tools_archive_path }}' `
+            -GitHubOutputPath $env:GITHUB_OUTPUT `
+            -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Validate bundle certification schema
+        shell: pwsh
+        run: |
+          node tools/npm/run-script.mjs schema:validate -- `
+            --schema docs/schemas/comparevi-history-bundle-certification-v1.schema.json `
+            --data '${{ steps.bundle_certification.outputs.summary-json-path }}'
+
+      - name: Render bundle certification markdown
+        shell: pwsh
+        run: |
+          $resultsRoot = 'tests/results/_agent/release/comparevi-history-bundle-certification'
+          $markdownPath = Join-Path $resultsRoot 'comparevi-history-bundle-certification.md'
+          node tools/npm/run-script.mjs history:bundle:verify -- `
+            --summary '${{ steps.bundle_certification.outputs.summary-json-path }}' `
+            --markdown $markdownPath `
+            --step-summary $env:GITHUB_STEP_SUMMARY
+
+      - name: Append bundle certification summary
+        shell: pwsh
+        run: |
+          $markdownPath = 'tests/results/_agent/release/comparevi-history-bundle-certification/comparevi-history-bundle-certification.md'
+          if (-not (Test-Path -LiteralPath $markdownPath -PathType Leaf)) {
+            throw "Bundle certification markdown not found: $markdownPath"
+          }
+          '' | Out-File -FilePath RELEASE_NOTES.md -Encoding utf8 -Append
+          Get-Content -LiteralPath $markdownPath | Out-File -FilePath RELEASE_NOTES.md -Encoding utf8 -Append
+
+      - name: Publish CLI artifacts
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/Publish-Cli.ps1 -CompareViSharedSource package-first -PrepareSharedPackageFeed -FailOnSharedFallback
+
+      - name: Validate shared-source resolution schema
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/release/shared-source-resolution.json `
+            -SchemaPath docs/schemas/release-shared-source-resolution-v1.schema.json
+
+      - name: Upload shared-source resolution artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-shared-source-resolution-${{ github.run_id }}
+          path: tests/results/_agent/release/shared-source-resolution.json
+          if-no-files-found: error
+
+      - name: Generate SBOM (SPDX)
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/Generate-ReleaseSbom.ps1 -ArtifactsRoot artifacts/cli -OutputPath sbom.spdx.json
+
+      - name: Generate provenance metadata
+        shell: pwsh
+        run: pwsh -NoLogo -NoProfile -File tools/Generate-ReleaseProvenance.ps1 -ArtifactsRoot artifacts/cli -OutputPath provenance.json
+
+      - name: Upload workflow artifact (CLI)
+        uses: actions/upload-artifact@v7
+        with:
+          name: cli-artifacts
+          path: |
+            artifacts/cli/*.zip
+            artifacts/cli/*.tar.gz
+            artifacts/cli/SHA256SUMS.txt
+            artifacts/cli/sbom.spdx.json
+            artifacts/cli/provenance.json
+            tests/results/_agent/release/comparevi-tools-artifact.json
+            tests/results/_agent/release/comparevi-history-bundle-certification/**
+            tests/results/_agent/release/shared-source-resolution.json
+          if-no-files-found: error
+
+      - name: Attest release assets provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            artifacts/cli/*.zip
+            artifacts/cli/*.tar.gz
+            artifacts/cli/SHA256SUMS.txt
+            artifacts/cli/sbom.spdx.json
+            artifacts/cli/provenance.json
+
+      - name: Enforce supply-chain trust gate
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node tools/priority/supply-chain-trust-gate.mjs \
+            --repo "${{ github.repository }}" \
+            --artifacts-root artifacts/cli \
+            --checksums artifacts/cli/SHA256SUMS.txt \
+            --sbom artifacts/cli/sbom.spdx.json \
+            --provenance artifacts/cli/provenance.json \
+            --tag-ref "${RELEASE_TAG}" \
+            --signer-workflow "${{ github.repository }}/.github/workflows/release.yml" \
+            --report tests/results/_agent/supply-chain/release-trust-gate.json
+
+      - name: Validate supply-chain trust report schema
+        if: always()
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/supply-chain/release-trust-gate.json `
+            -SchemaPath docs/schemas/supply-chain-trust-gate-v1.schema.json
+
+      - name: Append release trust remediation guidance
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          node "${{ steps.automation_root.outputs.path }}/tools/priority/release-trust-remediation.mjs" \
+            --trust-report tests/results/_agent/supply-chain/release-trust-gate.json \
+            --tag-ref "${RELEASE_TAG}" \
+            --output tests/results/_agent/release/release-trust-remediation.md \
+            --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload supply-chain trust artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-supply-chain-trust-${{ github.run_id }}
+          path: |
+            tests/results/_agent/supply-chain/release-trust-gate.json
+            tests/results/_agent/release/release-trust-remediation.md
+          if-no-files-found: error
+
+      - name: Enforce rollback drill health gate
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node "${{ steps.automation_root.outputs.path }}/tools/priority/rollback-drill-health.mjs" \
+            --repo "${{ github.repository }}" \
+            --policy "${{ steps.automation_root.outputs.path }}/tools/policy/release-rollback-policy.json" \
+            --report tests/results/_agent/release/rollback-drill-health.json
+
+      - name: Validate rollback drill health schema
+        if: always()
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/release/rollback-drill-health.json `
+            -SchemaPath '${{ steps.automation_root.outputs.path }}/docs/schemas/release-rollback-drill-health-v1.schema.json'
+
+      - name: Upload rollback drill health artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-rollback-drill-health-${{ github.run_id }}
+          path: tests/results/_agent/release/rollback-drill-health.json
+          if-no-files-found: error
+
+      - name: Append release surface map
+        shell: pwsh
+        env:
+          CLI_VERSION: ${{ steps.meta.outputs.cli_version }}
+          MODULE_VERSION: ${{ steps.comparevi_tools.outputs.comparevi_tools_release_version }}
+          MODULE_METADATA: tests/results/_agent/release/comparevi-tools-artifact.json
+        run: |
+          @(
+            ''
+            '## Release surface map'
+            ''
+            ('- Stable backend release tag: `{0}`' -f $env:RELEASE_TAG)
+            ('- `comparevi-cli` release assets and `comparevi-cli version` map to `{0}`.' -f $env:CLI_VERSION)
+            ('- `CompareVI.Tools` bundle version `{0}` is published from the same backend release tag.' -f $env:MODULE_VERSION)
+            ('- The bundle metadata is recorded in `{0}` and embedded in the archive as `comparevi-tools-release.json`.' -f $env:MODULE_METADATA)
+            '- Compatibility expectation: extract the archive and import `tools/CompareVI.Tools/CompareVI.Tools.psd1`; do not mix bundle files across release tags.'
+            '- `comparevi-history` is versioned and released separately; backend contract changes require an explicit facade ref bump/release in that repo.'
+          ) | Out-File -FilePath RELEASE_NOTES.md -Encoding utf8 -Append
+
+      - name: Record protected-tag-safe replay mode
+        if: env.RELEASE_PUBLICATION_MODE == 'verify-existing-release'
+        shell: pwsh
+        run: |
+          @(
+            '## Protected-Tag-Safe Replay'
+            ''
+            ('- Verified `{0}` from workflow ref `develop` without mutating the existing GitHub Release.' -f $env:RELEASE_TAG)
+            '- GitHub Release mutation and Publish Tools Image dispatch are intentionally skipped in this mode.'
+          ) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+
+      - name: Create GitHub Release with assets (CHANGELOG)
+        if: env.RELEASE_PUBLICATION_MODE == 'publish' && steps.notes.outputs.fallback == 'false'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          body_path: RELEASE_NOTES.md
+          files: |
+            artifacts/cli/*.zip
+            artifacts/cli/*.tar.gz
+            artifacts/cli/SHA256SUMS.txt
+            artifacts/cli/sbom.spdx.json
+            artifacts/cli/provenance.json
+
+      - name: Create GitHub Release with assets (auto notes)
+        if: env.RELEASE_PUBLICATION_MODE == 'publish' && steps.notes.outputs.fallback == 'true'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          generate_release_notes: true
+          files: |
+            artifacts/cli/*.zip
+            artifacts/cli/*.tar.gz
+            artifacts/cli/SHA256SUMS.txt
+            artifacts/cli/sbom.spdx.json
+            artifacts/cli/provenance.json
+
+      - name: Dispatch Publish Tools Image workflow
+        if: env.RELEASE_PUBLICATION_MODE == 'publish'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const releaseVersion = '${{ steps.comparevi_tools.outputs.comparevi_tools_release_version }}';
+            const releaseChannel = releaseVersion.includes('-rc.') ? 'rc' : 'stable';
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-tools-image.yml',
+              ref: 'develop',
+              inputs: {
+                version: releaseVersion,
+                channel: releaseChannel
+              }
+            });
+            core.info(`Dispatched publish-tools-image workflow for ${releaseVersion} (${releaseChannel}).`);
+
+  validate-cli-artifacts:
+    runs-on: ${{ matrix.os }}
+    needs: release
+    env:
+      RELEASE_TAG: ${{ needs.release.outputs.target_tag }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download CLI artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: cli-artifacts
+          path: cli-dl
+
+      - name: Resolve validation artifact paths
+        id: artifact_paths
+        shell: pwsh
+        run: |
+          $v = '${{ needs.release.outputs.cli_version }}'
+          $archiveName = switch ('${{ runner.os }}') {
+            'Windows' { "comparevi-cli-v$($v)-win-x64-selfcontained.zip" }
+            'Linux' { "comparevi-cli-v$($v)-linux-x64-selfcontained.tar.gz" }
+            'macOS' { "comparevi-cli-v$($v)-osx-x64-selfcontained.tar.gz" }
+            default { throw "Unsupported runner.os: ${{ runner.os }}" }
+          }
+          $resolver = Join-Path $PWD 'tools' 'Resolve-DownloadedArtifactPath.ps1'
+          $archivePath = & $resolver -SearchRoot 'cli-dl' -FileName $archiveName
+          $checksumPath = & $resolver -SearchRoot 'cli-dl' -FileName 'SHA256SUMS.txt'
+          "archive_name=$archiveName" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "archive_path=$archivePath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "checksum_path=$checksumPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Extract artifact (Windows)
+        id: extract_windows
+        if: runner.os == 'Windows'
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $zipPath = '${{ steps.artifact_paths.outputs.archive_path }}'
+          Expand-Archive -Path $zipPath -DestinationPath cli-out
+          Get-ChildItem cli-out | Out-Host
+
+      - name: Verify checksum (Windows)
+        id: checksum_windows
+        if: runner.os == 'Windows'
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $zipPath = '${{ steps.artifact_paths.outputs.archive_path }}'
+          $zip = Get-Item -LiteralPath $zipPath
+          $sumPath = '${{ steps.artifact_paths.outputs.checksum_path }}'
+          $entries = @()
+          foreach ($line in Get-Content $sumPath) {
+            if ($line -match '^([0-9a-fA-F]{64})\s+(.+)$') {
+              $entries += [pscustomobject]@{ Hash = $matches[1].ToLower(); Path = $matches[2].Trim(); Name = (Split-Path -Leaf $matches[2].Trim()) }
+            }
+          }
+          if (-not $entries) { throw "No checksums parsed" }
+          $expected = ($entries | Where-Object { $_.Name -eq $zip.Name } | Select-Object -First 1)
+          if (-not $expected) { throw "No checksum entry found for $($zip.Name)" }
+          $actual = (Get-FileHash -Algorithm SHA256 $zip.FullName).Hash.ToLower()
+          if ($actual -ne $expected.Hash) { throw "SHA256 mismatch for $($zip.Name). expected=$($expected.Hash) actual=$actual" }
+          Write-Host "Checksum OK for $($zip.Name)"
+
+      - name: Extract artifact (Linux)
+        id: extract_linux
+        if: runner.os == 'Linux'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          tarball='${{ steps.artifact_paths.outputs.archive_path }}'
+          mkdir -p cli-out
+          tar -xzf "$tarball" -C cli-out
+          ls -la cli-out
+
+      - name: Verify checksum (Linux)
+        id: checksum_linux
+        if: runner.os == 'Linux'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='${{ steps.artifact_paths.outputs.archive_name }}'
+          tarball='${{ steps.artifact_paths.outputs.archive_path }}'
+          sum_path='${{ steps.artifact_paths.outputs.checksum_path }}'
+          [ -f "$tarball" ]
+          expected=$(awk -v file="$file" '$2 ~ file {print tolower($1)}' "$sum_path")
+          [ -n "$expected" ]
+          actual=$(sha256sum "$tarball" | awk '{print tolower($1)}')
+          if [ "$actual" != "$expected" ]; then
+            echo "Checksum mismatch for $file: expected=$expected actual=$actual"
+            exit 1
+          fi
+          echo "Checksum OK for $file"
+
+      - name: Extract artifact (macOS)
+        id: extract_macos
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          tarball='${{ steps.artifact_paths.outputs.archive_path }}'
+          mkdir -p cli-out
+          tar -xzf "$tarball" -C cli-out
+          ls -la cli-out
+
+      - name: Verify checksum (macOS)
+        id: checksum_macos
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='${{ steps.artifact_paths.outputs.archive_name }}'
+          tarball='${{ steps.artifact_paths.outputs.archive_path }}'
+          sum_path='${{ steps.artifact_paths.outputs.checksum_path }}'
+          [ -f "$tarball" ]
+          expected=$(awk -v file="$file" '$2 ~ file {print tolower($1)}' "$sum_path")
+          [ -n "$expected" ]
+          actual=$(shasum -a 256 "$tarball" | awk '{print tolower($1)}')
+          if [ "$actual" != "$expected" ]; then
+            echo "Checksum mismatch for $file: expected=$expected actual=$actual"
+            exit 1
+          fi
+          echo "Checksum OK for $file"
+
+      - name: Smoke run (Windows)
+        id: smoke_windows
+        if: runner.os == 'Windows'
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $exe = Resolve-Path 'cli-out/comparevi-cli.exe'
+          $v = & $exe version | ConvertFrom-Json
+          if ($v.name -ne 'comparevi-cli') { throw "Unexpected name: $($v.name)" }
+          $tok = & $exe tokenize --input 'foo -x=1 "bar baz"' | ConvertFrom-Json
+          if (-not ($tok.normalized -contains '-x' -and $tok.normalized -contains '1')) { throw 'Tokenize validation failed' }
+          & $exe procs | Out-Null
+
+      - name: Smoke run (Linux/macOS)
+        id: smoke_posix
+        if: runner.os != 'Windows'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          bin="cli-out/comparevi-cli"
+          # Ensure executable (tarballs from Windows builds may need this)
+          chmod +x "$bin" || true
+          ver_json=$("$bin" version)
+          node -e "const o=JSON.parse(process.argv[1]); if(o.name!=='comparevi-cli') {throw new Error('bad name') }" "$ver_json"
+          tok_json=$("$bin" tokenize --input 'foo -x=1 "bar baz"')
+          node -e "const o=JSON.parse(process.argv[1]); if(!o.normalized.includes('-x')||!o.normalized.includes('1')) throw new Error('bad tokenize')" "$tok_json"
+          "$bin" procs >/dev/null
+
+      - name: Write release-review scenario summary
+        if: always()
+        shell: pwsh
+        run: |
+          $checksumOutcome = switch ('${{ runner.os }}') {
+            'Windows' { '${{ steps.checksum_windows.outcome }}' }
+            'Linux' { '${{ steps.checksum_linux.outcome }}' }
+            'macOS' { '${{ steps.checksum_macos.outcome }}' }
+            default { 'skipped' }
+          }
+          $smokeOutcome = switch ('${{ runner.os }}') {
+            'Windows' { '${{ steps.smoke_windows.outcome }}' }
+            'Linux' { '${{ steps.smoke_posix.outcome }}' }
+            'macOS' { '${{ steps.smoke_posix.outcome }}' }
+            default { 'skipped' }
+          }
+          pwsh -NoLogo -NoProfile -File tools/release-review/Write-ReleaseReviewScenarioSummary.ps1 `
+            -Os '${{ matrix.os }}' `
+            -Tag '${{ env.RELEASE_TAG }}' `
+            -ChecksumOutcome $checksumOutcome `
+            -SmokeOutcome $smokeOutcome `
+            -OutputPath 'tests/results/release-review/scenario-summary-${{ matrix.os }}.json'
+
+      - name: Validate release-review scenario summary schema
+        if: always()
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath 'tests/results/release-review/scenario-summary-${{ matrix.os }}.json' `
+            -SchemaPath docs/schemas/release-review-scenario-summary-v1.schema.json
+
+      - name: Upload release-review scenario summary
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-review-scenario-${{ matrix.os }}-${{ github.run_id }}
+          path: tests/results/release-review/scenario-summary-${{ matrix.os }}.json
+          if-no-files-found: error
+
+      - name: Validate CompareVI.Tools bundle
+        if: runner.os == 'Linux'
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem -Recurse -Path cli-dl -Filter 'CompareVI.Tools-v*.zip' | Select-Object -First 1
+          if (-not $zip) {
+            throw 'CompareVI.Tools release zip was not found in downloaded release artifacts.'
+          }
+
+          $extractRoot = Join-Path $env:RUNNER_TEMP 'comparevi-tools-bundle'
+          if (Test-Path -LiteralPath $extractRoot) {
+            Remove-Item -LiteralPath $extractRoot -Recurse -Force
+          }
+          Expand-Archive -Path $zip.FullName -DestinationPath $extractRoot
+
+          $bundleDir = Get-ChildItem -LiteralPath $extractRoot -Directory | Select-Object -First 1
+          if (-not $bundleDir) {
+            throw 'CompareVI.Tools archive did not contain a top-level bundle directory.'
+          }
+
+          $metadataPath = Join-Path $bundleDir.FullName 'comparevi-tools-release.json'
+          if (-not (Test-Path -LiteralPath $metadataPath -PathType Leaf)) {
+            throw "CompareVI.Tools metadata file was not found: $metadataPath"
+          }
+
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath $metadataPath `
+            -SchemaPath docs/schemas/comparevi-tools-release-manifest-v1.schema.json
+
+          foreach ($relativePath in @(
+            'README.md',
+            'tools/CompareVI.Tools/CompareVI.Tools.psd1',
+            'tools/Compare-VIHistory.ps1',
+            'tools/Compare-RefsToTemp.ps1',
+            'tools/Get-LabVIEWContainerShellContract.ps1',
+            'tools/Run-NILinuxContainerCompare.ps1',
+            'scripts/CompareVI.psm1'
+          )) {
+            $candidate = Join-Path $bundleDir.FullName $relativePath
+            if (-not (Test-Path -LiteralPath $candidate)) {
+              throw "CompareVI.Tools bundle missing required file: $relativePath"
+            }
+          }
+
+      - name: Enforce validation outcomes
+        shell: pwsh
+        run: |
+          $checksumOutcome = switch ('${{ runner.os }}') {
+            'Windows' { '${{ steps.checksum_windows.outcome }}' }
+            'Linux' { '${{ steps.checksum_linux.outcome }}' }
+            'macOS' { '${{ steps.checksum_macos.outcome }}' }
+            default { 'skipped' }
+          }
+          $smokeOutcome = switch ('${{ runner.os }}') {
+            'Windows' { '${{ steps.smoke_windows.outcome }}' }
+            'Linux' { '${{ steps.smoke_posix.outcome }}' }
+            'macOS' { '${{ steps.smoke_posix.outcome }}' }
+            default { 'skipped' }
+          }
+          $failures = @()
+          if ($checksumOutcome -ne 'success') {
+            $failures += "checksum=$checksumOutcome"
+          }
+          if ($smokeOutcome -ne 'success') {
+            $failures += "smoke-cli=$smokeOutcome"
+          }
+          if ($failures.Count -gt 0) {
+            throw "Release validation failed for ${{ matrix.os }}: $($failures -join '; ')"
+          }
+
+  release-contract:
+    name: release-contract
+    runs-on: ubuntu-latest
+    needs: [certification-matrix, release, validate-cli-artifacts]
+    if: ${{ always() && needs.release.result == 'success' }}
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    env:
+      RELEASE_TAG: ${{ needs.release.outputs.target_tag }}
+      RELEASE_PUBLICATION_MODE: ${{ needs.certification-matrix.outputs.publication_mode }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download certification matrix artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: certification-matrix-${{ github.run_id }}
+          path: tests/results/_agent/certification
+
+      - name: Download supply-chain trust artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: release-supply-chain-trust-${{ github.run_id }}
+          path: tests/results/_agent
+
+      - name: Download shared-source resolution artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: release-shared-source-resolution-${{ github.run_id }}
+          path: tests/results/_agent/release
+
+      - name: Download release-review scenario artifacts
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-review-scenario-*-${{ github.run_id }}
+          path: tests/results/release-contract/scenarios
+          merge-multiple: true
+
+      - name: Download rollback drill health artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: release-rollback-drill-health-${{ github.run_id }}
+          path: tests/results/_agent/release
+
+      - name: Resolve release source commit
+        id: release_source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --force --tags origin "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
+          source_sha="$(git rev-parse "${RELEASE_TAG}^{commit}")"
+          echo "source_sha=$source_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve current develop head
+        id: current_develop
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --force origin "refs/heads/develop:refs/remotes/origin/develop"
+          develop_sha="$(git rev-parse "refs/remotes/origin/develop^{commit}")"
+          echo "develop_sha=$develop_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Decide downstream proving enforcement mode
+        id: downstream_proving_policy
+        if: always()
+        shell: bash
+        env:
+          RELEASE_SOURCE_SHA: ${{ steps.release_source.outputs.source_sha }}
+          CURRENT_DEVELOP_SHA: ${{ steps.current_develop.outputs.develop_sha }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          source_sha="${RELEASE_SOURCE_SHA}"
+          develop_sha="${CURRENT_DEVELOP_SHA}"
+          mode="advisory-replay"
+          reason="release-publication-mode-not-publish"
+
+          if [[ "${RELEASE_PUBLICATION_MODE}" == "publish" ]]; then
+            if [[ "$source_sha" == "$develop_sha" ]]; then
+              mode="required"
+              reason="release-source-matches-current-develop"
+            else
+              mode="deferred-release-source-not-current-develop"
+              reason="release-source-differs-from-current-develop"
+            fi
+          fi
+
+          {
+            echo "mode=$mode"
+            echo "reason=$reason"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo '## Downstream Proving Gate'
+            echo
+            echo "- Publication mode: \`${RELEASE_PUBLICATION_MODE}\`"
+            echo "- Release source SHA: \`$source_sha\`"
+            echo "- Current develop SHA: \`$develop_sha\`"
+            echo "- Enforcement mode: \`$mode\`"
+            echo "- Reason: \`$reason\`"
+            if [[ "$mode" == 'deferred-release-source-not-current-develop' ]]; then
+              echo '- Exact-SHA downstream proving is deferred because `downstream-promotion.yml` proves `develop`, not a release-only branch head.'
+              echo '- Keep the selection artifact for evidence, then enforce exact downstream proof after finalize or back-merge aligns `develop` to the release source.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Resolve downstream proving artifact selection
+        id: downstream_proving_artifacts
+        if: always()
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node tools/priority/resolve-downstream-proving-artifact.mjs \
+            --repo "${{ github.repository }}" \
+            --workflow downstream-promotion.yml \
+            --branch develop \
+            --expected-source-sha "${{ steps.release_source.outputs.source_sha }}" \
+            --destination-root tests/results/_agent/release/downstream-proving-artifacts \
+            --output tests/results/_agent/release/downstream-proving-selection.json
+
+      - name: Validate downstream proving selection schema
+        if: always()
+        shell: pwsh
+        run: |
+          $selectionPath = 'tests/results/_agent/release/downstream-proving-selection.json'
+          if (-not (Test-Path -LiteralPath $selectionPath -PathType Leaf)) {
+            Write-Host "Downstream proving selection report not found at $selectionPath; release-scorecard will fail closed if proving is required."
+            exit 0
+          }
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath $selectionPath `
+            -SchemaPath docs/schemas/downstream-proving-selection-v1.schema.json
+
+      - name: Assert promotion contract alignment
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Assert-PromotionContractAlignment.ps1 -OutputJsonPath tests/results/promotion-contract/release-alignment.json -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Download CLI artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: cli-artifacts
+          path: cli-dl
+
+      - name: Resolve release-contract artifact paths
+        id: contract_artifacts
+        shell: pwsh
+        run: |
+          $resolver = Join-Path $PWD 'tools' 'Resolve-DownloadedArtifactPath.ps1'
+          $metadataPath = & $resolver -SearchRoot 'cli-dl' -FileName 'comparevi-tools-artifact.json'
+          $provenancePath = & $resolver -SearchRoot 'cli-dl' -FileName 'provenance.json'
+          "metadata_path=$metadataPath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "provenance_path=$provenancePath" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Validate CompareVI.Tools metadata artifact
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath '${{ steps.contract_artifacts.outputs.metadata_path }}' `
+            -SchemaPath docs/schemas/comparevi-tools-release-manifest-v1.schema.json
+
+      - name: Validate release provenance schema
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath '${{ steps.contract_artifacts.outputs.provenance_path }}' `
+            -SchemaPath docs/schemas/run-provenance-v1.schema.json
+
+      - name: Validate release-review scenario summary artifacts
+        shell: pwsh
+        run: |
+          $scenarioFiles = @(Get-ChildItem -LiteralPath 'tests/results/release-contract/scenarios' -Filter 'scenario-summary-*.json' -File | Sort-Object Name)
+          if ($scenarioFiles.Count -eq 0) {
+            throw 'No release-review scenario summaries were downloaded.'
+          }
+          foreach ($file in $scenarioFiles) {
+            pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+              -JsonPath $file.FullName `
+              -SchemaPath docs/schemas/release-review-scenario-summary-v1.schema.json
+          }
+
+      - name: Evaluate release-review policy
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/release-review/Evaluate-ReleaseReviewPolicy.ps1 `
+            -ScenarioRoot tests/results/release-contract/scenarios `
+            -ProfilePath tools/release-review/scenario-profiles.json `
+            -PolicyPath tools/policy/release-review-gates.json `
+            -Tag '${{ env.RELEASE_TAG }}' `
+            -OutputIndexPath tests/results/release-contract/review-index.json `
+            -OutputCommentPath tests/results/release-contract/review-comment.md
+          if (Test-Path -LiteralPath 'tests/results/release-contract/review-comment.md' -PathType Leaf) {
+            Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ''
+            Get-Content -LiteralPath 'tests/results/release-contract/review-comment.md' | Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY
+          }
+
+      - name: Validate release-review artifacts schema
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/release-contract/review-index.json `
+            -SchemaPath docs/schemas/release-review-index-v1.schema.json
+
+      - name: Assert requirements-verification check contract
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Assert-RequirementsVerificationCheckContract.ps1
+
+      - name: Run requirements verification gate
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Verify-RequirementsGate.ps1 `
+            -TestsPath tests `
+            -ResultsRoot tests/results `
+            -OutDir tests/results/_agent/verification `
+            -BaselinePolicyPath tools/policy/requirements-verification-baseline.json `
+            -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Enforce release contract outcome
+        shell: pwsh
+        run: |
+          $reviewIndex = Get-Content -LiteralPath 'tests/results/release-contract/review-index.json' -Raw | ConvertFrom-Json -Depth 20
+          $decision = [string]$reviewIndex.decision
+          $failures = @($reviewIndex.failures)
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ''
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value '## Release Contract'
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ''
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ("- Decision: **{0}**" -f $decision)
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value '- Artifacts: tests/results/release-contract/scenarios/scenario-summary-*.json'
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value '- Artifacts: tests/results/release-contract/review-index.json'
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value '- Artifacts: tests/results/release-contract/review-comment.md'
+          if ($decision -ne 'pass') {
+            $failureMessage = if ($failures.Count -gt 0) { $failures -join '; ' } else { 'release review policy did not pass' }
+            throw "release-contract failed: $failureMessage"
+          }
+
+      - name: Write promotion evidence ledger
+        if: always()
+        shell: pwsh
+        run: |
+          $gateStatus = switch ('${{ job.status }}') {
+            'success' { 'pass' }
+            'cancelled' { 'blocked' }
+            default { 'fail' }
+          }
+          $channel = if ('${{ env.RELEASE_TAG }}' -match '-rc\.') { 'rc' } else { 'stable' }
+          pwsh -NoLogo -NoProfile -File tools/Write-PromotionEvidenceLedger.ps1 -OutputPath tests/results/promotion-contract/release-ledger.json -WorkflowName '${{ github.workflow }}' -Stream 'comparevi-cli' -Channel $channel -Version '${{ needs.release.outputs.cli_version }}' -GateStatus $gateStatus -GateReason 'release-contract job result' -SummaryPath 'tests/results/release-contract/review-index.json' -StepSummaryPath $env:GITHUB_STEP_SUMMARY
+
+      - name: Emit SLO metrics
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node tools/priority/slo-metrics.mjs \
+            --repo "${{ github.repository }}" \
+            --candidate-workflow release.yml \
+            --output tests/results/_agent/slo/release-slo-metrics.json \
+            --route-on-breach \
+            --route-title-prefix "[SLO] Release promotion breach"
+
+      - name: Build release scorecard
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          channel="stable"
+          downstream_promotion_path="${{ steps.downstream_proving_artifacts.outputs.downstream_proving_scorecard_path }}"
+          downstream_proving_selection_path='tests/results/_agent/release/downstream-proving-selection.json'
+          if printf '%s' "${RELEASE_TAG}" | grep -q -- '-rc\.'; then
+            channel="rc"
+          fi
+          signed_tag_args=()
+          scorecard_args=(
+            --repo "${{ github.repository }}"
+            --stream comparevi-cli
+            --channel "${channel}"
+            --version "${{ needs.release.outputs.cli_version }}"
+            --tag-ref "${RELEASE_TAG}"
+            --ledger tests/results/promotion-contract/release-ledger.json
+            --slo tests/results/_agent/slo/release-slo-metrics.json
+            --rollback tests/results/_agent/release/rollback-drill-health.json
+            --trust tests/results/_agent/supply-chain/release-trust-gate.json
+            --output tests/results/_agent/release/release-scorecard.json
+          )
+          if [[ "${{ steps.downstream_proving_policy.outputs.mode }}" == 'required' ]]; then
+            scorecard_args+=(
+              --downstream-proving-selection "${downstream_proving_selection_path}"
+              --require-downstream-proving
+            )
+            if [ -n "${downstream_promotion_path}" ]; then
+              scorecard_args+=(--downstream-promotion "${downstream_promotion_path}")
+            fi
+          fi
+          if ! printf '%s' "${RELEASE_TAG}" | grep -Eq -- '-tools\.[0-9]+$'; then
+            signed_tag_args+=(--require-signed-tag)
+          fi
+          node tools/priority/release-scorecard.mjs \
+            "${signed_tag_args[@]}" \
+            "${scorecard_args[@]}"
+
+      - name: Validate release scorecard schema
+        if: always()
+        shell: pwsh
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/Invoke-JsonSchemaLite.ps1 `
+            -JsonPath tests/results/_agent/release/release-scorecard.json `
+            -SchemaPath docs/schemas/release-scorecard-v1.schema.json
+
+      - name: Upload release contract artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-contract-${{ github.run_id }}
+          path: |
+            tests/results/release-contract/scenarios/scenario-summary-*.json
+            tests/results/release-contract/review-index.json
+            tests/results/release-contract/review-comment.md
+            tests/results/_agent/verification/verification-summary.json
+            tests/results/promotion-contract/release-alignment.json
+            tests/results/promotion-contract/release-ledger.json
+            tests/results/_agent/slo/release-slo-metrics.json
+            tests/results/_agent/certification/release-certification-matrix.json
+            tests/results/_agent/supply-chain/release-trust-gate.json
+            tests/results/_agent/release/rollback-drill-health.json
+            tests/results/_agent/release/downstream-proving-selection.json
+            tests/results/_agent/release/release-scorecard.json
+            tests/results/_agent/release/comparevi-tools-artifact.json
+            tests/results/_agent/release/shared-source-resolution.json
+          if-no-files-found: error

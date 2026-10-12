@@ -1,0 +1,104 @@
+---
+title: 消息通信
+layout: default
+parent: 常见问题解答
+nav_order: 2
+---
+
+# 消息通信
+
+## :question: CSM 是什么？
+
+CSM 是 Communicable State Machine（可通信状态机）的缩写，是基于 JKI State Machine (JKISM) 扩展的 LabVIEW 应用框架。CSM 遵循 JKISM 的字符串消息模式，并通过添加新的字符串规则来描述模块间的消息通信，包括同步消息、异步消息、状态订阅/取消订阅等。
+
+> 📓
+> 更多信息，请参考 [基本概念]({% link docs/basic/concepts.md %})。
+>
+
+## :question: 同步调用（-@）和异步调用（->）有什么区别？
+
+- **同步调用 (`-@`)**：发送消息后阻塞等待目标模块处理完毕并返回结果，才继续执行。适合需要立即获取结果的场景，但存在超时风险。
+- **异步调用 (`->`)**：发送消息后立即继续执行，不等待目标模块。目标模块处理完毕后，调用方在 "Async Response" 状态接收返回值。
+- **异步无返回 (`->|`)**：发送消息后立即继续执行，不会收到任何返回，适合单向通知场景。
+
+> 📓
+> 更多信息，请参考 [模块间通讯]({% link docs/basic/communication.md %})。
+>
+
+## :question: 消息（Message）和广播（Broadcast/Status）有什么区别？
+
+- **消息**：CSM 模块间 **1对1** 的通信方式，通过 `-@`、`->`、`->|` 等符号向指定模块发送，需要明确目标模块名称。
+- **广播**：CSM 的 **1对多** 通信方式，类似 Pub/Sub 模式。订阅者通过注册感兴趣的状态来接收通知，发送方无需知道谁在监听。
+
+> 📓
+> 更多信息，请参考 [基本概念 - 消息]({% link docs/basic/concepts.md %}) 和 [模块间通讯 - 状态订阅]({% link docs/basic/communication.md %}#状态订阅)。
+>
+
+## :question: CSM 广播会丢数吗？
+
+CSM 的广播（Broadcast）机制是**无损的**，不会丢失数据。广播在后台通过队列实现，所有订阅者均会收到每一条广播消息，因此可以放心地用于连续数据采集等对数据完整性要求较高的场景。
+
+但需要注意：**如果订阅关系是动态创建的**，必须保证数据包在订阅关系建立之后才发出。订阅关系创建之前发出的广播不会被新订阅者收到；一旦订阅关系建立完成，后续所有广播消息都会通过队列可靠地传递。
+
+> 📓
+> 更多信息，请参考 [模块间通讯 - 状态订阅]({% link docs/basic/communication.md %}#状态订阅)。
+>
+
+## :question: 非 CSM 模块是否可以接收 CSM 广播数据？
+
+可以。CSM 提供了 LabVIEW User Event 接口，非 CSM 模块可以通过 [`CSM - Broadcast Event.vi`]({% link docs/reference/api-05-module-operation-api.md %}#csm---broadcast-eventvi) 获取指定 CSM 模块的状态更改事件句柄，然后在标准 LabVIEW 事件结构中监听 CSM 广播。Status（信号广播）和 Interrupt（中断广播）均可接收。使用完毕后，需调用 [`CSM - Destroy Broadcast Event.vi`]({% link docs/reference/api-05-module-operation-api.md %}#csm---destroy-broadcast-eventvi) 释放句柄。
+
+> 📓
+> 参考示例：`3. Caller is Other Framework Scenario\CSM Example - Caller is NOT a CSM.vi` 和 `4. Advance Examples\6. Global Log Handling Capability\`，更多信息请参考[模块间通讯 - 非 CSM 代码接收广播]({% link docs/basic/communication.md %}#非-csm-代码接收广播)。
+> 原帖：[Discussion #39](https://github.com/orgs/NEVSTOP-LAB/discussions/39)
+
+## :question: 同步调用等待期间，能否同时发出异步消息？
+
+**不能**——在同一个状态队列中，消息是**顺序执行**的。同步消息（`-@`）会阻塞队列的继续执行，后续的异步消息必须等到同步调用返回后才会被处理，不会在等待期间"同时"发出。
+
+```csm
+API: GetData >> params -@ Database        // 同步调用，阻塞等待返回
+API: UpdateProgress >> 50% ->| UI         // 必须等上一条同步消息返回后才执行
+```
+
+如果确实需要在同步等待期间同时发出异步消息，必须从**不同模块或线程**发送：
+
+- **独立 CSM 模块**：让两个模块并行运行，彼此不互相阻塞
+- **外部线程**：在独立线程中通过 `CSM - Post Message.vi` 发送，不受其他同步调用影响
+
+> 📓
+> 参考链接：[Discussion 原帖](https://github.com/orgs/NEVSTOP-LAB/discussions/53)，[模块间通讯 - 混合消息场景]({% link docs/basic/communication.md %}#混合消息场景)
+
+## :question: 什么是 CSM 模块的 Response 和 Async Response？
+
+- **Response**：处理同步消息（`-@`）后的回调状态。目标模块处理完消息后，调用方会进入此状态。
+- **Async Response**：处理异步消息（`->`）后的回调状态。目标模块处理完毕后，调用方在此状态接收返回值。
+
+在这两个状态中，参数分为两部分：
+
+| 参数 | 含义 |
+|------|------|
+| `Parse State Queue++.vi` 的 `Argument` | 被调用方返回的结果数据 |
+| `Parse State Queue++.vi` 的 `Response Info.Argument` | **原始请求参数**（发送消息时携带的参数） |
+| `Additional Information` | 包含原消息名称（State）、原消息参数（Arguments）、被调用方错误（Error） |
+| `Source CSM` | 返回响应的来源模块名称 |
+
+这一设计让响应处理时具备完整上下文。例如发送 `Query ID >> 李梅 -@ database` 后，`Response` 状态中 `Parse State Queue++.vi` 的 `Argument` 是返回的证件号码，而 `Parse State Queue++.vi` 的 `Response Info.Argument` 是原始查询参数 `李梅`，`Additional Information/State` 是原消息名称 `Query ID`。对于异步消息（`->`）尤为有用，因为多个异步请求可能同时在途，`Parse State Queue++.vi` 的 `Response Info.Argument` 和 `Additional Information/State` 帮助区分各请求的上下文。
+
+> 📓
+> 更多信息，请参考 [模块间通讯]({% link docs/basic/communication.md %})。
+>
+
+## :question: Response/Async Response 中如何区分是哪个状态发出的异步请求？
+
+同一 CSM 模块的多个状态（如 StateA、StateB）都向同一目标模块发送异步消息时，在 Response/Async Response 中可通过以下方式区分：
+
+- **通过 `Additional Information/State`（原消息名称）**：该字段记录了原始请求的 API 名称，不同状态通常使用不同的消息名称（如 `API: 读数据`、`API: 写数据`），据此即可区分来源。
+- **通过 `Additional Information/Arguments`（原消息参数）**：如果多个状态使用相同的消息名称，可在调用参数中携带区分标识，在 Async Response 中解析 `Additional Information/Arguments` 获取。
+- **通过 `Source CSM`**：获知返回值来自哪个模块。
+
+{: .note }
+> CSM 框架已通过 `Additional Information` 和 `Source CSM` 提供了区分请求来源所需的信息，**无需手动维护全局变量或依赖消息返回顺序**。直接使用 `Parse State Queue++.vi` 的 `Additional Information` 输出即可。
+
+> 📓
+> 参考链接：[基本概念 — 响应]({% link docs/basic/concepts.md %}#响应response)，[Discussion #96](https://github.com/orgs/NEVSTOP-LAB/discussions/96)

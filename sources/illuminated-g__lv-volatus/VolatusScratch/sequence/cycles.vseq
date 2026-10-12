@@ -1,0 +1,157 @@
+{
+    "Sequence": {
+        "Constants": {
+            "On_S":  0.2,
+            "Off_S": 0.8,
+            "SP_Delta": 0.01
+        },
+        "Debug": {
+            "States": true,
+            "Conditions": true,
+            "Timing": false
+        },
+        "Version": "1",
+        "Comment": "Demonstrates Sequence Variables usage.",
+        "Period": 1,
+        "Variables": {
+            "Remaining": 0,
+            "Done": 0,
+            "SP": 0
+        },
+        "Entry": "Start",
+        "Abort": "Stop",
+        "States": {
+            "Start": {
+                "Comment": "Load Counts from Channels",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "LoadVar", "Var": "Remaining", "Channel": "Cycles_Left"},
+                            {"Type": "LoadVar", "Var": "Done",      "Channel": "Cycles_Done"},
+                            {"Type": "LoadVar", "Var": "SP",        "Channel": "Cycles_SP"},
+                            {"Type": "Event", "Message": "Starting {seq_name}."}
+                        ]
+                    },
+                    {
+                        "Time": 0.1,
+                        "Comment": "Stop if remaining hasn't been set.",
+                        "Commands": [
+                            {"Type": "Transition", "Target": "Stop"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "On",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "HighLimit", "Source": "Remaining", "Limit": 0}
+                        ]
+                    }
+                ]
+            },
+            "On": {
+                "Comment": "Command value on.",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "BoolTest", "Value": true}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "Off",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "Time", "Timer": "State", "Time": "{On_S}"}
+                        ]
+                    }
+                ]
+            },
+            "Off": {
+                "Comment": "Command value off.",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "BoolTest", "Value": false},
+
+                            {"Type": "DecVar",  "Var": "Remaining"},
+                            {"Type": "SaveVar", "Var": "Remaining", "Channel": "Cycles_Left"},
+                            {"Type": "IncVar",  "Var": "Done"},
+                            {"Type": "SaveVar", "Var": "Done",      "Channel": "Cycles_Done"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "Cycle",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "Time", "Timer": "State", "Time": "{Off_S}"}
+                        ]
+                    }
+                ]
+            },
+            "Cycle": {
+                "Comment": "Check if done.",
+                "Steps": [
+                    {
+                        "Time": 0.0,
+                        "Commands": [
+                            {"Type": "Event", "Message": "{seq_name} completed cycle {Done}, {Remaining} cycles remaining."},
+                            {"Type": "AddToVar", "Var": "SP", "Value": "{SP_Delta}"},
+                            {"Type": "SaveVar",  "Var": "SP", "Channel": "Cycles_SP"}
+                        ]
+                    },
+                    {
+                        "Time": 0.1,
+                        "Commands": [
+                            {"Type": "Transition", "Target": "Done"}
+                        ]
+                    }
+                ],
+                "Transitions": [
+                    {
+                        "Type": "State",
+                        "Target": "On",
+                        "Logic": "Any",
+                        "Conditions": [
+                            {"Type": "HighLimit", "Source": "Remaining", "Limit": 0}
+                        ]
+                    }
+                ]
+            },
+            "Done": {
+                "Comment": "Cycles completed.",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Event", "Message": "{seq_name} completed."},
+                            {"Type": "Transition", "Target": "Stop"}
+                        ]
+                    }
+                ]
+            },
+            "Stop": {
+                "Comment": "Stopping, ensure controls off.",
+                "Steps": [
+                    {
+                        "Time": 0,
+                        "Commands": [
+                            {"Type": "Digital", "Channel": "BoolTest", "Value": false},
+                            {"Type": "Stop"}
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

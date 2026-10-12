@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
+import { buildThroughputScorecard } from '../throughput-scorecard.mjs';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+
+test('throughput-scorecard schema validates generated report payloads', () => {
+  const schemaPath = path.join(repoRoot, 'docs', 'schemas', 'throughput-scorecard-v1.schema.json');
+  const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
+  const ajv = new Ajv2020({ strict: false, allErrors: true });
+  addFormats(ajv);
+  const validate = ajv.compile(schema);
+
+  const report = buildThroughputScorecard({
+    repository: 'LabVIEW-Community-CI-CD/compare-vi-cli-action',
+    runtimeState: {
+      workerPool: {
+        targetSlotCount: 4,
+        occupiedSlotCount: 1,
+        availableSlotCount: 3,
+        releasedLaneCount: 1,
+        utilizationRatio: 0.25
+      },
+      activeCodingLanes: 1
+    },
+    deliveryMemory: {
+      summary: {
+        totalTerminalPullRequestCount: 2,
+        mergedPullRequestCount: 1,
+        closedPullRequestCount: 1,
+        hostedWaitEscapeCount: 1,
+        meanTerminalDurationMinutes: 12.5,
+        viHistorySuitePullRequestCount: 1
+      }
+    },
+    queueReport: {
+      inflight: 1,
+      capacity: 1,
+      effectiveMaxInflight: 2,
+      paused: false,
+      throughputController: { mode: 'healthy' },
+      governor: { mode: 'normal' },
+      readiness: {
+        readySet: [{ number: 1512 }]
+      }
+    },
+    inputPaths: {
+      runtimeStatePath: 'tests/results/_agent/runtime/delivery-agent-state.json',
+      deliveryMemoryPath: 'tests/results/_agent/runtime/delivery-memory.json',
+      queueReportPath: 'tests/results/_agent/queue/queue-supervisor-report.json',
+      concurrentLaneStatusPath: 'tests/results/_agent/runtime/concurrent-lane-status-receipt.json',
+      hostRamBudgetPath: 'tests/results/_agent/runtime/host-ram-budget.json',
+      utilizationPolicyPath: 'tools/policy/merge-queue-utilization-target.json'
+    },
+    concurrentLaneStatus: {
+      schema: 'priority/concurrent-lane-status-receipt@v1',
+      status: 'active',
+      hostedRun: {
+        observationStatus: 'active'
+      },
+      pullRequest: {
+        observationStatus: 'queued'
+      },
+      summary: {
+        selectedBundleId: 'hosted-plus-manual-linux-docker',
+        laneCount: 3,
+        activeLaneCount: 2,
+        completedLaneCount: 0,
+        failedLaneCount: 0,
+        blockedLaneCount: 0,
+        plannedLaneCount: 0,
+        deferredLaneCount: 1,
+        manualLaneCount: 1,
+        shadowLaneCount: 0,
+        orchestratorDisposition: 'wait-hosted-run'
+      }
+    },
+    utilizationPolicy: {
+      mergeQueue: {
+        readyInventoryFloor: 2,
+        occupancyFloorRatio: 0.5,
+        occupancyTargetRatio: 1,
+        treatPausedQueueAsExempt: true
+      }
+    },
+    now: new Date('2026-03-21T03:10:00.000Z')
+  });
+
+  assert.equal(validate(report), true, JSON.stringify(validate.errors, null, 2));
+  assert.equal(report.logicalLaneActivation.seededLaneCount, 20);
+  assert.equal(report.logicalLaneActivation.activeLaneCount, 4);
+  assert.equal(report.summary.metrics.seededLogicalLaneCount, 20);
+  assert.equal(report.summary.metrics.activeLogicalLaneCount, 4);
+});

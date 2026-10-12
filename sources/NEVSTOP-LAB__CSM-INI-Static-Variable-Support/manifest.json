@@ -1,0 +1,1369 @@
+{
+ "repo": "NEVSTOP-LAB/CSM-INI-Static-Variable-Support",
+ "url": "https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support",
+ "commit": "455c8a172b2b082e75a8b4e3d5f299c80ec376fc",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "CSM INI Static Variable Support.lvproj",
+   "bytes": 74907,
+   "sha256": "e10adf20f51e8d5f1ad6ed60884cfe135a101f7f21341a8b137150c6bb0dfd96",
+   "via": "extension"
+  },
+  {
+   "path": "CSM Tool/CSM-INI Variable Viewer - DebugTool.vi",
+   "bytes": 141023,
+   "sha256": "7a5120e16134e974c26d32f7f151b5ce3162d5c20a9f581483580329f0f5f09a",
+   "via": "extension"
+  },
+  {
+   "path": "CSM Tool/_csm-iniViewer/Populate all INI Variables to Tree.vi",
+   "bytes": 21370,
+   "sha256": "109c63cd382bc2c6bc9ad4e21a20f50b72f4812090fa2f08567a9e707c2a5990",
+   "via": "extension"
+  },
+  {
+   "path": "CSM Tool/_csm-iniViewer/csm-iniViewer.lvlib",
+   "bytes": 1308,
+   "sha256": "04069bef41a6b8a5a3974efe5d783306299d9504388056f17c2a61227d72c652",
+   "via": "extension"
+  },
+  {
+   "path": "Example/1. Used as parameters parsed by CSM.vi",
+   "bytes": 17199,
+   "sha256": "d3d179eeb415b384c6566efee3c7441450299abd13f4b60d13d63f9a8139299d",
+   "via": "extension"
+  },
+  {
+   "path": "Example/2. Load the corresponding configuration by providing the prototype.vi",
+   "bytes": 316274,
+   "sha256": "aad68adf4307c987a4eef14491f6857804fde382df27fc6a296f12cb437d4643",
+   "via": "extension"
+  },
+  {
+   "path": "Example/3. In CSM API parameters.vi",
+   "bytes": 769384,
+   "sha256": "1958e0b6826c035065f776e00b2434db2edaec1731ae086a482e8d3880a04b5d",
+   "via": "extension"
+  },
+  {
+   "path": "Example/4. Multi-file configuration system.vi",
+   "bytes": 463306,
+   "sha256": "aef49918ce622954ed29a9113da4f3cca5423979d46c93334de0c31625012455",
+   "via": "extension"
+  },
+  {
+   "path": "Example/5. import Config.ini with include section.vi",
+   "bytes": 114601,
+   "sha256": "992872f8378e45b4173019fd04ec7cdb0394196b6c04e4d0ff1bca8e8c22c1bd",
+   "via": "extension"
+  },
+  {
+   "path": "Example/6. Read Nested Variables.vi",
+   "bytes": 402100,
+   "sha256": "a17c7c1433c6248f58a7fe4deb474ddbd53f43e52a063bf85a0044b3c9e9fe7f",
+   "via": "extension"
+  },
+  {
+   "path": "Example/7. Write and Read Configuration.vi",
+   "bytes": 413715,
+   "sha256": "33604ef91e5ff5c7ce34b34791e972ba5e0b26b6cb8726b120f78a5d388f0ab0",
+   "via": "extension"
+  },
+  {
+   "path": "Example/8. import Configuration From String.vi",
+   "bytes": 104991,
+   "sha256": "aef39d2a3eb9bf2ff6e22d1ba3c8e3777ad7bb5bb80cadb21c6d1e31c060265a",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Configuration File Path.vi",
+   "bytes": 17585,
+   "sha256": "1acc3d25930a748a62f7163d93a30dbfc2d067f1eedfc6fd3b76ced624bd0bee",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Load Configuration Variables From File.vi",
+   "bytes": 20104,
+   "sha256": "ffaea088d665331fcd97ecd0a4a4b25addce8e3842b45a6e6c9b1526552246e7",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Load Configuration Variables From String.vi",
+   "bytes": 20198,
+   "sha256": "4c2719aae81be612fe506056614ef50d5ac12652276f252cf23eb5cf1f3d0ec2",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Mark All Temp Variables as Permanent.vi",
+   "bytes": 22474,
+   "sha256": "e9cb937481a1266a02c7c91e47cb86bb3281ea8061c47b1905c6b1c5ab5db113",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Populate Configuration Variables.vi",
+   "bytes": 36658,
+   "sha256": "6674b4d62d0c6c3cf39a1d40b462f92d19fb8862a469c805720c8a218447fed6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Read Cluster Elements From Key.vim",
+   "bytes": 29621,
+   "sha256": "df68c63c25f1ee553116ed941f0a29328bcdc949aeaba8547e6f8683e91d39b8",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Read Cluster Elements From Session.vim",
+   "bytes": 72173,
+   "sha256": "0571c39321c0299274587535ea237cccd2c92affcc72ecd2fc6377336b471ecf",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Read Configuration Variable.vim",
+   "bytes": 66638,
+   "sha256": "b1eb2e47fccf9a195ad85a9c45eaf67d277b93ae2585ba3b1640c5a823ac9e39",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Reset to Default.vi",
+   "bytes": 15574,
+   "sha256": "ce2863ce924ce73f22764e92d31a441fbe81af24d6bc8d4a746efc8fd8d69d56",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Restore Variable Value.vi",
+   "bytes": 18856,
+   "sha256": "7185972a0d922ab7a6633b893f4867120a07524af183de2aec49b4e529ae9cb4",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Sync Configuration Variables to File.vi",
+   "bytes": 19306,
+   "sha256": "46a992908a3df116e379c29b236c46d13c573b9fb1c536b2fdd7c88f92e9905d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Unload Configuration Variable File.vi",
+   "bytes": 14960,
+   "sha256": "ba4a64e8c436bc81ec8ec37f61490147cb01213d3e284c12730e197b0bc0af29",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/CSM - Write Configuration Variable.vim",
+   "bytes": 59991,
+   "sha256": "183ca62e82a641dd8830015f64d8207e68cd14e2919828093a20b5522647bf95",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/Convert API String to Cluster(Default in Key).vim",
+   "bytes": 84410,
+   "sha256": "f807dfd9f1ba15793d447bb96705ce09b3fda194e0cd3fa0e88220fb2d28d254",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/Convert API String to Cluster(Default in Session).vim",
+   "bytes": 136666,
+   "sha256": "fc23d9e06045ac0a5e9934c75b8bce5e6ae177947e82ddc72da3655f4e80ab6e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/INI-Static-Variable-Support.lvlib",
+   "bytes": 6246,
+   "sha256": "899f9bed430ec9a2dc3e780d6046b8a195a13d8ecc7162ecff5b9e77ded3fdea",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Close.vi",
+   "bytes": 15349,
+   "sha256": "96b5978aa8f71c7bec0f1e71a2a839bfa56b94e01ae61cc26cde14f737a10390",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Config.ctl",
+   "bytes": 14411,
+   "sha256": "0d949e5851bcd59ee085fb9f4625a7f3855c3cb3851cacaeb156f9ff64ec08e0",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Delete.vi",
+   "bytes": 30658,
+   "sha256": "4e325c4145ccf857e2e574dfe7d15e74a029bf1a03a103a057249b3162c1a473",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Get Key Names.vi",
+   "bytes": 28053,
+   "sha256": "091aac25405c5b7eb112ab7dc7e6ae60f1ca857f91ff4cb80921758de7156e6d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Get Section Names.vi",
+   "bytes": 18977,
+   "sha256": "240972fe8019f761a2b8d5a53b55761b5bb57f8dd4f5a6b2bb3d707cb033728a",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Key Information From Index.vi",
+   "bytes": 37078,
+   "sha256": "2100c7f541d2c5418594755e47122bc6bfc26131068ff6c88ea66253decde374",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Key Information.vi",
+   "bytes": 29379,
+   "sha256": "1ca3c2fd026054903fbf065bff8e1aad5c94a9e703b1fac28277dccd23dab8cd",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/KeyInfo.ctl",
+   "bytes": 5468,
+   "sha256": "8b78e96bbf01ad20dafef82805961788bf357edf0eb06150022288ab07fb0c20",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/LabVIEW-Config.lvlib",
+   "bytes": 17439,
+   "sha256": "8fe8ae7b4549d671dd047172827e78544a79eb1ed1b6a918a2e540ec1d98cc3e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/LineToken.ctl",
+   "bytes": 4198,
+   "sha256": "6676b6a67561aa4b49b81af941eadc757fd1dbe9b2d4b6db3a7a3f7a4e141721",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/MultipleLines to String.vi",
+   "bytes": 11011,
+   "sha256": "43f99db1f9a1dfa0da0bc8847ad0d12b2d2c877880778508498e812b45662dc0",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/New.vi",
+   "bytes": 31171,
+   "sha256": "736df343fbc8618b72111eb0123c5fbf727c37956b8a3bdf228b692f016ff80a",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Open.vi",
+   "bytes": 21728,
+   "sha256": "1708d665d2d1391472ad5c445b4956459e90e4aec0a1da5b02ea2638bf65fa68",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Parse Token.vi",
+   "bytes": 18307,
+   "sha256": "07c8c5d7d8bf94c26cf7fa117c3e684976945ef3f8f2ec2ac8473e796ed4b255",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Parse Value.vi",
+   "bytes": 15607,
+   "sha256": "a044ec2a2898f099d3359395071f4a954ffc571eadaa573f7b4e8289bf664c39",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (Boolean).vi",
+   "bytes": 33088,
+   "sha256": "fd9075cd877d326c01c08393ca037856c4894b57ca999d23b0aea38d33601ce4",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (DBL).vi",
+   "bytes": 36636,
+   "sha256": "0a0f56a7065463a12f0af164049a21f919b7093b9eda979dd9cd9ce4b762cb45",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (I32).vi",
+   "bytes": 35680,
+   "sha256": "2d35d8829e373ccf74def78ff285af868aa37844189964c9309c5728beb30cc4",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (Raw).vi",
+   "bytes": 42460,
+   "sha256": "18ff67cc8a832f6f1e7ef239743d15f626d9e5e8d7c0958c53c7953212817a4d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (String).vi",
+   "bytes": 34911,
+   "sha256": "8df4190c843aa2956d3d634b9c0a5707ec0eca7a13382f8d8388502f6cd7d562",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key (U32).vi",
+   "bytes": 35764,
+   "sha256": "8b4f651e3bfe0c2cf18ced340b3ae0f7a05ed22b12b7065aaa4bbda3d5ba9942",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Array Key.vi",
+   "bytes": 10202,
+   "sha256": "77a1d0d5d3cbf17fda81024238ac57690da3a7b17eac728c2a3caa6bcd7c5586",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (Boolean).vi",
+   "bytes": 32790,
+   "sha256": "d173ae492c813e37cd9ddef6b2353fed60727bbe794cac18261c61ef2ca42ac6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (DBL).vi",
+   "bytes": 33066,
+   "sha256": "aae2dfe89774c771b91fe24fa64a0ac10e126937e472f2aaed70324f536ce2fe",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (I32).vi",
+   "bytes": 32098,
+   "sha256": "1371f428c7f4d65c7c6179e7c8ec030868f972c71597d80cf5336ea7e4fce73e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (Raw).vi",
+   "bytes": 33830,
+   "sha256": "06cb83d3e8ecf6f415c928cfd2011895715c8be9190f3d0029f1ee3df5790f0b",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (String).vi",
+   "bytes": 31505,
+   "sha256": "a2f88981958fca82b999c270938077552af10e918c81e2b47aa7efa0d202a94d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key (U32).vi",
+   "bytes": 32102,
+   "sha256": "e559c305efb2d376e69600721518b68961422df6a8544709cbe7ddf8f170bfa9",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Read Key.vi",
+   "bytes": 10020,
+   "sha256": "a39e5f50cfafe6879d304e6cd7ade7a34a4c742afc30b5cc9dc116ef4e49f485",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Remove Key.vi",
+   "bytes": 30210,
+   "sha256": "cf547a33162bd3841aa2934aeb1b3fe3f108c8d2fd6fd238116258fb1d3a9916",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Remove Section.vi",
+   "bytes": 27330,
+   "sha256": "02a14412b3932021ac88ef7331bd1bf6a9ed8424699413db0461fe17db5cb7ae",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Session Information.vi",
+   "bytes": 32935,
+   "sha256": "53d3285c6932e26908e681a8e371957b1476202500e4acc0c6b0bd5a0489f28f",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/SessionInfo.ctl",
+   "bytes": 5544,
+   "sha256": "98ee1adff641039007fd6fc97e188a4916504c4f7b62a1a0255ea5b5ac8f348e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/String Escape.vi",
+   "bytes": 17605,
+   "sha256": "14ac90481c69401f901f302f01c7183dbafc2b149b4415747a3fd85c62ef2add",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/String Unescape.vi",
+   "bytes": 15911,
+   "sha256": "382af8ddf5029ad5bf25d8c4c0b4453620fcf420317bc719b073b65070c7b448",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/VI Tree.vi",
+   "bytes": 21043,
+   "sha256": "15e60856c7d47d0b75b0f3c08108990ecd34910f6a61bed93a58acf369fc90fd",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (Boolean).vi",
+   "bytes": 33687,
+   "sha256": "a7e9c22a37d155ab2dec3a46f7b174c84704a23a950b2139e2bf9e4b2766ce8f",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (DBL).vi",
+   "bytes": 33843,
+   "sha256": "2c79c91a5cee9b1e115704808219d1a4efb30471a84e0a802c9b7becaab6db50",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (I32).vi",
+   "bytes": 33499,
+   "sha256": "26bb3b80873dca3bdf1825a3ab56e22f4622e789e874d5d5ad2531fdb43ea5ec",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (Raw).vi",
+   "bytes": 55135,
+   "sha256": "6b4e5f9f4d68a64001a3c749aa7d352a0855aa3ff300ffa9391f0518aa59bedb",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (String).vi",
+   "bytes": 34878,
+   "sha256": "ac0a7b2a396825aa4d41b6dd5b1a66779de4cc76c19a447ab046a4bb167fa46b",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key (U32).vi",
+   "bytes": 33531,
+   "sha256": "5b7b7e7b08e5915f96ffb7ab352233183bd0d8ff2ec493d966fe305fd34b4892",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/Write Key.vi",
+   "bytes": 10037,
+   "sha256": "57e0e6a01c2409714b745a0da8dae5cc5d92ae48659c1594d5dea677143d4eee",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/_is UTF-8.vi",
+   "bytes": 24629,
+   "sha256": "ef5d395a2f7470f5f255f21ebee24552bb77bdd3935edef931421dc921cf4a54",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read All Variable Names.vi",
+   "bytes": 24453,
+   "sha256": "14dc8322a02ee64bc4a1f6ddacb4497a6571d72961dd15cb0fc434aeeaaea429",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read File Logger Configuration from INI String.vi",
+   "bytes": 8248,
+   "sha256": "828778aea14d11ae45fa345671a58f13fc0aeb07686e6c5890cdbcf156def912",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read INI String.vi",
+   "bytes": 20249,
+   "sha256": "796df81cca8b0e280a89d6894056f099771dd9fb020054a38d66a4b5dea90d04",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read Key Names.vi",
+   "bytes": 21904,
+   "sha256": "95f9a54a23a1e2c4290aa6303a33e8e4f17c2a38ee0dc25868fcd349f35e204f",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read Log Filter Rules from INI Strings.vi",
+   "bytes": 8488,
+   "sha256": "c74d77502779ebff6d08c96cb9a498cef42c6d3b600c79d490a66d5de8e7f03a",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read Sections.vi",
+   "bytes": 16707,
+   "sha256": "34bf82d641e1997d7d0c70e04f11f73ff6b232ca8e9a6dfb59d14e94869fbb97",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Read Sessions.vi",
+   "bytes": 20331,
+   "sha256": "65cc05a286a279960724fac812aabde50bd94fe8860ac962928eada194aca30d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSM - Write INI String.vi",
+   "bytes": 24914,
+   "sha256": "a8edf17e8081429cc28b6a71d4eaca7d7516ad8a2171bec962d7b81220f2a577",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/CSM-Static-Variable-Manager.lvclass",
+   "bytes": 45799,
+   "sha256": "4a4bdc51c244e4a05861ee41573dc5083f96dd082c6b852e95dee95a24793c8c",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/INIConfig(Memory).vi",
+   "bytes": 10977,
+   "sha256": "654f4e4a3795e1fe2d77a0b9b7dd5dc411441e089d9a460ab5ba5e75f34701d9",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Import Permanent Variable From File.vi",
+   "bytes": 11155,
+   "sha256": "f7daea1336e45cf17e61d8c511c0fdf619a99265438c7b1e2bcbbbef10fb31ce",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Import Variable From String.vi",
+   "bytes": 15699,
+   "sha256": "cd151c58f9d90a0b03442b472ee725bfc10f9547014808378c770b9cfd58b1c8",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Initialize.vi",
+   "bytes": 12506,
+   "sha256": "d1b8746b187879ff6c6abba0d7815ebd2bd0fd917c09ce3f2d0a24a8f12564b1",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/List Files.vi",
+   "bytes": 14014,
+   "sha256": "7a0171b8a41eb69920179257c9fd62e5fa209d15c578ac9a0e975fd3862d2ec3",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/List Keys.vi",
+   "bytes": 10633,
+   "sha256": "4bed5ac18793699aca55d21a78e6602e2de66c46d008c259310be3edbbe38c6a",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/List Permanent Variables.vi",
+   "bytes": 15888,
+   "sha256": "9d5400574f7f9b68c20635dae98c5c62b97a0f0e49f83baa9696657a2a50c24d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/List Sessions.vi",
+   "bytes": 10137,
+   "sha256": "7f979baa6ccfd96c782ff56dc350cf97682e80f06bf7ce1b6deb848c78496902",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/List Variables.vi",
+   "bytes": 12722,
+   "sha256": "a4fa90bea6f33fb4430c7c49bcc08b72eadc6c41551f37583038a6d848c556e6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Mark All Temp Variables as Permanent.vi",
+   "bytes": 25572,
+   "sha256": "a40696aeac258a6cbebcbfc842fed3316521cf18dc451ec90a4de0e77febd8fc",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Read INI String.vi",
+   "bytes": 20719,
+   "sha256": "821270c33b75fafda9bf3472b9950daf096b2ef10b7d17f72e0ef642622c26f4",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Restore Variable Value.vi",
+   "bytes": 24818,
+   "sha256": "ec6a4fdfdbd4b13dd3984e7a491421d76f0c2268fe6586a2bb2785e3c52a73db",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Sync to File.vi",
+   "bytes": 33544,
+   "sha256": "9804d9bba4b600707b8c3c7ae78c1bde668accdc835d285263bf386ac429c3bd",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/Write INI String.vi",
+   "bytes": 13192,
+   "sha256": "08e37fc4a9947afa1d11171262f443ba98a301b4298f5c640259e45de762e7ec",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/_Append Variable Source File in Map.vi",
+   "bytes": 14215,
+   "sha256": "4c1c46b046754ea847fe04cc16bba98b65c7a5d6c643cc5e48c80ce780a5417b",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/_Import Permanent Variable.vi",
+   "bytes": 29350,
+   "sha256": "58b93b2fa23160a1276ac732af923d0f0e35aff9f788f40e0c4d24ece53e9aa8",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/_Remove Variable Source File in Map.vi",
+   "bytes": 16195,
+   "sha256": "7e937d3da133c24b085cc72a6559df885951a16fbc56eddf39e6e523485e4119",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/_Search Top Variable Source File in Map.vi",
+   "bytes": 22267,
+   "sha256": "5191024c86cd115174fc1492c7ff03a4eb2dfa036876c167b8529e24f421d07e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/CSMSVMgr/unload File.vi",
+   "bytes": 24907,
+   "sha256": "369255f766abe98cb6590ab0153080d176f1173e5fb1e6071f82d9bec698ffdd",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Default Ini Config File.vi",
+   "bytes": 8675,
+   "sha256": "5f11948675f7e43a7211075ec8dd521cbb5a6133715c64626c89b6452fd3aed3",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/FlagInstance-CSMINIVariable.vi",
+   "bytes": 16615,
+   "sha256": "e9868faca08ffa4619cc24c8879a7963b41407aa079e459a3579f15aacfcb779",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/FlagInstance-Update CSMINIVariable.vi",
+   "bytes": 20274,
+   "sha256": "da435225771298fc07ed3616b0b2fada0198efd92aeb58a57d03a1dd616356c6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/INI Session.vi",
+   "bytes": 5639,
+   "sha256": "debf6c2b377a912b5363f43d9d41abefaf19810cacd82cc6579bb4f2b45f0c66",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/INI-FGV(lvlibp).vi",
+   "bytes": 26319,
+   "sha256": "8343961cfc0e383da6c2318ea3afe855545b0eaee0a572693d627662957f0eed",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/INI-FGV.vi",
+   "bytes": 34355,
+   "sha256": "f2620cf4638a192433355ee1d75ac9165c23b426a670366217e1f775902e5ee8",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Is HexStr Content.vi",
+   "bytes": 6921,
+   "sha256": "2eb7c290aa2e9e463dda6c770dea45529427e7906382791def76f2f9b0e7b3e6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Parse Contained Variables.vi",
+   "bytes": 20793,
+   "sha256": "c05ebf27c79474c4b0f1f9c6ba26e3c937feaa3b529b322337256822234f3281",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Parse Used Session and Name.vi",
+   "bytes": 7351,
+   "sha256": "052ac59629df6fa97e77adcb399370913e45acca60f818f2b6c9b2687554d7e9",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Populate String with INI Variable.vi",
+   "bytes": 57273,
+   "sha256": "afcf5f4a1113339ef4164a1dec4f0eb75705c5e7ac6ed4f5e8a1f640b151a3f9",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/Read CSM Log Filter Rules.vi",
+   "bytes": 8785,
+   "sha256": "106d814b8e181df83c40b68b50ab27a14ab00111001e299dd2b2fb8458aef22c",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/_Def-Ini-Variable.ctl",
+   "bytes": 9866,
+   "sha256": "a9f50fbe93fdd54be1e723ce789d4ff10be49c881b39c27b987b5ecb3da773c2",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/_fgv-oper.ctl",
+   "bytes": 4474,
+   "sha256": "7bb479572ac630e4ca337ddf35425ea5d37d431db4ec567fa4e5e5340c0fc2c6",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/instances/_CSM - Read File Logger Configuration - v1.0.vi",
+   "bytes": 21240,
+   "sha256": "9ec439a3bec777cde8f77059167eabaec8a4fc6e5269734bd055632c8f18cb0d",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/instances/_CSM - Read Log Filter Rules - v1.0.vi",
+   "bytes": 21611,
+   "sha256": "9c07c324e16b0a0e1b7f8f5592a3bd11e3c91191bad57b50baee27881d760e34",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/instances/_Read CSM File Logger Configuration - v1.0.vi",
+   "bytes": 135086,
+   "sha256": "34730888f3e4e0defcb9cf10aa776b058e47bb9f36fffc83d9cf245f6b16627e",
+   "via": "extension"
+  },
+  {
+   "path": "INI-Static-Variable-Support/_Support/instances/_Read CSM Log Filter Rules - v1.0.vi",
+   "bytes": 35525,
+   "sha256": "9753e0562befa958bbd67f64f1e8473c963d9f9fe570a745c3a545413fc0cb1a",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/Example/CSM with INI Config.vi",
+   "bytes": 285839,
+   "sha256": "fc2ff05db093266f44fa5bf13c356eb748559338c7fd43a1c2b879aca9b55d3c",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/Example/Caller.vi",
+   "bytes": 8962,
+   "sha256": "058d020f9628f343010c8e7578700551f33122b9382970ed0f2ab1fcda4e4a0e",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/testcase - Convert API String to Cluster.vi",
+   "bytes": 393040,
+   "sha256": "3319380751fc385ef49c879f96798a496491ccd7175c4f6b93194d3ca59cc0ec",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/testcase - Get INI-Static-Variable with Cache.vi",
+   "bytes": 8521,
+   "sha256": "5775be916a507b03a21fb2d30766f08c7d464f6622797552068ad10c0564b7ca",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/testcase - INI-Static-Variable-Support.vi",
+   "bytes": 9894,
+   "sha256": "97715777f7f8a9e526c624d1fa4a9110935de7a2037269dd317e0eecbc944169",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/testcase - load and list configurations.vi",
+   "bytes": 16491,
+   "sha256": "296811c50971b4c3def62ed996812168765d91c4a45616a197f0fa0fb286c3ab",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/testcase - temp to permanent.vi",
+   "bytes": 5936,
+   "sha256": "02dde230f56a7a438bff657a7a1034b73e3414027531a9d8b285eba133dd117c",
+   "via": "extension"
+  },
+  {
+   "path": "test/Prototype/pARSADFASF.vi",
+   "bytes": 10722,
+   "sha256": "d519ecd9844f9c61dd95b10075da9e6894dd649ae930bef46f3e216c33766c5c",
+   "via": "extension"
+  },
+  {
+   "path": "test/Prototype/references.vi",
+   "bytes": 15762,
+   "sha256": "69e01c658c353b1927fabc937da8ec7195f3dfba51e71a5df423482d6360aa23",
+   "via": "extension"
+  },
+  {
+   "path": "test/test #56.vi",
+   "bytes": 7076,
+   "sha256": "7c9360b86cef64d0eb9ea970976bc918a017a0ff5f6373422ff285d89aa6e43c",
+   "via": "extension"
+  },
+  {
+   "path": "test/test performance.vi",
+   "bytes": 142944,
+   "sha256": "9d05d757a5ed9acc71fad3400ff1b5a930abbbf5b85112e05955264fe90e898e",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/All Cases.vi",
+   "bytes": 57945,
+   "sha256": "a8ea074964520ba0cd8404a406ea47cdb124d680a465953818009da684a8e76e",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/Read Array Key.vi",
+   "bytes": 17174,
+   "sha256": "ba09717d3a45f642b3f286035b109365543d4cdfd4e0bfcaf252e26aab81cb7a",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/Read Keys.vi",
+   "bytes": 17917,
+   "sha256": "811465eea618a42c3d6b45395c646904ede87a2c30a92eae60d5bae5d572e72d",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/Read Multiple Line Keys.vi",
+   "bytes": 19951,
+   "sha256": "6715de8188ec3db1762ca709ba95fe3b65d67425b43376f7a8a99080f4d5cd85",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/Remove Keys.vi",
+   "bytes": 14179,
+   "sha256": "ac47705a6abd8bc240f368f80ce2e7e425d89e37d1967bd77b4f11658fcc77fe",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/LabVIEW-Config/Write Keys.vi",
+   "bytes": 15274,
+   "sha256": "072f9a92aecad127bc963d6dd098c9729151ca2517503449bb067a52874ea91e",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/_support/read CSM log Filter config v1.0.vi",
+   "bytes": 15571,
+   "sha256": "6b0874dde1b6977238dc87ddc8bb2b1b952f124acc210603b08b0acc756e5688",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/csm-ini-variable-addon.lvclass",
+   "bytes": 52469,
+   "sha256": "7fbbc5114ba944ad2e15517da5e12edc8f4ad15d33f3de58b6efe19cebc8d108",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/setUp.vi",
+   "bytes": 12973,
+   "sha256": "ba8c27b16067d81b6d33efe4f913d84cf71079e79daae108f78259990ef8394b",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/tearDown.vi",
+   "bytes": 9932,
+   "sha256": "00b10bf1db009d70427db7074e2e63f4e662293f37aeaa85bfb8aed05892ee97",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - Case Insensitive and Space-safe.vi",
+   "bytes": 13174,
+   "sha256": "43de7986a670afaa352b50fa7b8c87bc2d81cbaa2be3bfa6dde3fc8c28214f55",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - NESTED Write with the section name you write.vi",
+   "bytes": 261867,
+   "sha256": "7945301154a5a89d5fc16f5632d74c68df0e9813a416895d718cbc026b8ac4c6",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - NESTED read with submodule.vi",
+   "bytes": 17873,
+   "sha256": "4e92ea7b234294d56cd958f8459e54b32a3c0998357bbd3e3381adb154276900",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - NESTED read.vi",
+   "bytes": 276710,
+   "sha256": "6e4bde2be9c135821acd88b20cdac61e50d459e4d9106204dbc0840e1c82312b",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - Sync param Value to the top INI.vi",
+   "bytes": 254474,
+   "sha256": "5f9cf0ea2de5734acd89ca04934db75e300b8d8cf385c0918f84ff85de10d786",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - github 85 cannot write parameters into empty ini.vi",
+   "bytes": 308115,
+   "sha256": "475ff722865ebfd2f9e6daa3816296c0dabe55c0aec5431b4e4a21203b0b214b",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - load and unload.vi",
+   "bytes": 186494,
+   "sha256": "908f9e02bde4ad192b1d251cfdffb12f0c9d2dfaa37fa403a78ecd16330872be",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - load config with __include section.vi",
+   "bytes": 15541,
+   "sha256": "fd475ed188984dff3dacb6608542d316887c620afdcce6f06ed2681eabf7e9fc",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - loop references.vi",
+   "bytes": 26918,
+   "sha256": "2542df9e17e08280f2bd3811cfb8031d709aa98f630626d5a44f7f79989fb444",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - read Cluster From Session.vi",
+   "bytes": 110604,
+   "sha256": "e46e5f8d8ead33b9e4d5fb7282ae64a070ac024aed4ae27456618a37cb3811b9",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - read from INI String.vi",
+   "bytes": 13127,
+   "sha256": "37237da7feda0861118893c1d5a553962695de68251b46207c582fcdf53b72e3",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - read value with backslash.vi",
+   "bytes": 15548,
+   "sha256": "0f6468158a3ed44e03071a7259a86dc6cb02b8b984c9d5d822bf9c2e04588978",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - restore variable value.vi",
+   "bytes": 548485,
+   "sha256": "80bb10f988497b5d658b85f132d836f44bdac06b1e302cd9ed96b5c808e4b424",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - submodule case.vi",
+   "bytes": 120553,
+   "sha256": "ec09ccc283b45075bcd25abde594a1c95f9d82da6caf1a5b3dcedc00fa3e4eb3",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/test - value with Special Char.vi",
+   "bytes": 50970,
+   "sha256": "4434af9b4e429d5cafce68ae104ab21fae1c30acc519ac75b31666a3ab0b6b0c",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/csm-ini-variable-addon/testVIs/testExample.vit",
+   "bytes": 10152,
+   "sha256": "6d1da39e98c937e68aa97872120c98fb097c32c1a4259e910f375211c6df68ac",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/All Cases.vi",
+   "bytes": 57917,
+   "sha256": "1669c484d18996da550b77a8d84bb76e58c3ff0b5017a244077076a8197ba29a",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/Read Array Key.vi",
+   "bytes": 17150,
+   "sha256": "d47c854c2b5a58e30a32f58272a0a9d81bb66ab6c0ee4aae07ebb4e3975bca78",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/Read Keys.vi",
+   "bytes": 17937,
+   "sha256": "ff56a73d4526b4db3c8bb6d5102751ae30335b087fb06fe0eea3f0bfd63d951d",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/Read Multiple Line Keys.vi",
+   "bytes": 19915,
+   "sha256": "a974745131d603073b6c2572f25d98f83d270984f71641818be28cf7b4861061",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/Remove Keys.vi",
+   "bytes": 14151,
+   "sha256": "3011262e93cc8545155c052e9fa5cb65dd5d15246dcfaea8d5648e01e5f61898",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/LabVIEW-Config/Write Keys.vi",
+   "bytes": 15246,
+   "sha256": "74fd980c7af19519ade450ff071f1d0294482272ff5cd8d80f72055961cf13c7",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/_support/read CSM log Filter config v1.0.vi",
+   "bytes": 15543,
+   "sha256": "9e79dda46bf1393e8f07b40cfd588fd5eb2a7496b550517118d1819be3279e47",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/labview-config-library.lvclass",
+   "bytes": 43304,
+   "sha256": "28d6d7d79ab763c8368989266576594e609bc7bdd3e1f9f600d64583bea2406d",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/setUp.vi",
+   "bytes": 10469,
+   "sha256": "90bb3fb1a69a6fbc3919cd403ec09bb2ff0a2b2f56bdb8816217f03d8f91e15b",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/tearDown.vi",
+   "bytes": 8604,
+   "sha256": "e61b6a2ccacd7276e2d04c54968a416b38285bbea75dfcfab499ce451998e18e",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - GB2312.vi",
+   "bytes": 15429,
+   "sha256": "8cde5b3f1d4a2033a32a067ae534646e97d149e5c5bc40c03cb6d318abd17c83",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - LabVIEW-Config Read Array.vi",
+   "bytes": 11708,
+   "sha256": "2f9aab03730ab11ba7e66be69cd2a34aa4705a735e46154bec72a9712f883534",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - LabVIEW-Config.vi",
+   "bytes": 14377,
+   "sha256": "cb1595bc38d2e4aa8a93c811e02fa322820bd6d95833ff5371852e041102aed7",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - Read CSM File Logger Config.vi",
+   "bytes": 16202,
+   "sha256": "108d0547157a4b08bb5b47f4cd645c34b12c185b1ef69e0ae3ae8ec938143410",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - Read CSM Log Filter Config.vi",
+   "bytes": 15737,
+   "sha256": "aec92f56182921f1915e7277c532ff8941a98f1e4537ba4e7fefbf9909e0430a",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - add key in sperated but same name session.vi",
+   "bytes": 19800,
+   "sha256": "a32c7fd195a87193c524a49e9ea58e4083356837b747b65f9482b9cce4004668",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - array in seperated but same session.vi",
+   "bytes": 20494,
+   "sha256": "919349af2f8b86b1b34999e4ea499f349a13cc69098c48cb1d3c740dc0a932dd",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - case insensitive and space-safe.vi",
+   "bytes": 134602,
+   "sha256": "2faccc7af334c9ac7e4fd3cddf6e9bbedc6fc0c00f9dea103b5226ca1c104107",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - multiline Key.vi",
+   "bytes": 12380,
+   "sha256": "3e3f765cefc8a197d28cf40d0cd88a825304293bb07e3a9b790cac22c8ffa7c8",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - remove keys in sperated but same name session.vi",
+   "bytes": 20520,
+   "sha256": "5b86d752332f9ff12677fffb2b3ea7661968edd095fe505f9482419ee6732d50",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - remove multiline Key.vi",
+   "bytes": 20167,
+   "sha256": "7213d8f38af2e1ffcf810c09a0e1252033f97583c382ff3b6928265fc2dcb6e0",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/test - seperated but same session.vi",
+   "bytes": 20925,
+   "sha256": "5ae971b6ca2a7581b8229c95aed9b9d2c5f8b6f1c844cec47545d8d694a3c874",
+   "via": "extension"
+  },
+  {
+   "path": "testcases/labview-config-library/testVIs/testExample.vit",
+   "bytes": 10124,
+   "sha256": "98c8b2e244601b6f345c0708a99383a3da3b594dfbedbb8f43701b809b938f20",
+   "via": "extension"
+  },
+  {
+   "path": "test/Example/test.ini",
+   "bytes": 107,
+   "sha256": "fdbc89d99e946acff7941a9f2d6e155355d4497c86cb8eebcad803d24f77cffd",
+   "via": "ref:test/Example/testcase - Convert API String to Cluster.vi"
+  },
+  {
+   "path": "test/Example/a.ini",
+   "bytes": 31,
+   "sha256": "4f8def20527462a234c162b29f320cdc1d0d8b7c616b73fd1cc90700f021ca81",
+   "via": "ref:test/Example/testcase - load and list configurations.vi"
+  },
+  {
+   "path": "test/Example/b.ini",
+   "bytes": 29,
+   "sha256": "97985ad0cdaed195e2ed3d87d292c978f64c7ec31f11cf4f9f219745a18cb975",
+   "via": "ref:test/Example/testcase - load and list configurations.vi"
+  },
+  {
+   "path": "testcases/labview-config-library/txt/ascii.ini",
+   "bytes": 22,
+   "sha256": "7718b5286cac3c643395563c2f2d10d05c37e351b882145450f2e5e061dc10dc",
+   "via": "ref:testcases/labview-config-library/testVIs/test - GB2312.vi"
+  },
+  {
+   "path": "testcases/labview-config-library/txt/utf8.ini",
+   "bytes": 25,
+   "sha256": "3effed99f60ba9e90aac7f6222312df6301600c0aa00e489e5a431783481170f",
+   "via": "ref:testcases/labview-config-library/testVIs/test - GB2312.vi"
+  },
+  {
+   "path": ".github/1.png",
+   "bytes": 128022,
+   "sha256": "04251d811540d155b7945d4561b8d838425ccaf4cd15c70a9f8f3252d95abf4b",
+   "via": "tree"
+  },
+  {
+   "path": ".github/2.png",
+   "bytes": 92463,
+   "sha256": "f099309ef356c8eef917373bf3f2b31c9c8457f5169d499840386dec42e98239",
+   "via": "tree"
+  },
+  {
+   "path": ".github/3.png",
+   "bytes": 128146,
+   "sha256": "12d4cac65a9acbaf5af7535b98ddd417e5416be39b026af7eb2cccff76ace985",
+   "via": "tree"
+  },
+  {
+   "path": ".github/4.png",
+   "bytes": 144775,
+   "sha256": "e21bd5f38040103af05c1325e3c21a148d89f15f4970457684d670fb60584377",
+   "via": "tree"
+  },
+  {
+   "path": ".github/6.png",
+   "bytes": 73755,
+   "sha256": "03718317308354b27b74ba5072426a379b8f509701646c168bcc89a9c1b6ab1e",
+   "via": "tree"
+  },
+  {
+   "path": ".github/7.png",
+   "bytes": 94249,
+   "sha256": "ad7b7ca5f3b8f69c781c84d076f2ee707ad3c6007d664fbddc5d92bba822f2b4",
+   "via": "tree"
+  },
+  {
+   "path": ".github/CSM-INI-Static-Variable-Support 2.drawio",
+   "bytes": 4982,
+   "sha256": "dbb9b51f6d4e53f74575474d58022d9be6f87c64b602662f007d38fa2feeb9ad",
+   "via": "tree"
+  },
+  {
+   "path": ".github/CSM-INI-Static-Variable-Support.drawio",
+   "bytes": 15934,
+   "sha256": "173b41bf6689a816ad881c17103175afbc97c5fc9f6e1e8434007a6e74fc46d1",
+   "via": "tree"
+  },
+  {
+   "path": ".github/CSM-INI-Static-Variable-Support.png",
+   "bytes": 37260,
+   "sha256": "ce22bad70a745f43b98fe7fd09133e25a37c3a14b22dbfaad1300e4a2532f40a",
+   "via": "tree"
+  },
+  {
+   "path": ".github/csm-ini-variable-cache-design.svg",
+   "bytes": 9641,
+   "sha256": "eff9a9cecf45df7ed5c9feb3607e24e69ae452d244f461fa9a502d5f86abc8b7",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Build_VIPM_Library.yml",
+   "bytes": 2866,
+   "sha256": "17263df78ccfa9c890d6451276864417d3eca5525546c932f1e214da988bc3ef",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Check_Broken_VIs.yml",
+   "bytes": 1785,
+   "sha256": "8fa5e99492a3f574d2a43affe9f1e913f68c462c3500776285d10ff2fc8aa988",
+   "via": "tree"
+  },
+  {
+   "path": ".github/workflows/Run Testcases.yml",
+   "bytes": 1712,
+   "sha256": "4e6c2d3a14a03c3b12c7364ff2f471f9de367a90e1f36577da3c09ff399baf81",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 79,
+   "sha256": "f1b8ec9c72294ea6f899e827c3528b4a57595266a437e38bad0e075b62f5e26f",
+   "via": "tree"
+  },
+  {
+   "path": ".markdownlint.json",
+   "bytes": 162,
+   "sha256": "87eae964f05deb1b5745e00767cbbdceb8acea10e66235844dc546693c4f529b",
+   "via": "tree"
+  },
+  {
+   "path": ".vscode/settings.json",
+   "bytes": 328,
+   "sha256": "556c6b8be2a94f38a61184bb490101f21c4d44b67c22fb25002ba75bac84b229",
+   "via": "tree"
+  },
+  {
+   "path": "CSM INI Static Variable Support.vipb",
+   "bytes": 20696,
+   "sha256": "4bad777067a1f32253bbf8e0030da9510d47e2950ac573bb97b664d3c0ed2e66",
+   "via": "tree"
+  },
+  {
+   "path": "DEV ENVIRONMENT LabVIEW 2017",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "via": "tree"
+  },
+  {
+   "path": "INI-Static-Variable-Support/As String.mnu",
+   "bytes": 1926,
+   "sha256": "3144e9e1a28039aca4e926ca6bcf7c4815d57d49d45cc6eaa8dd79b7aab2e053",
+   "via": "tree"
+  },
+  {
+   "path": "INI-Static-Variable-Support/Import CSM Configuration.mnu",
+   "bytes": 1875,
+   "sha256": "e86bfee52883a55515475a3001cece41917130505f133daa7563b541493eedaa",
+   "via": "tree"
+  },
+  {
+   "path": "INI-Static-Variable-Support/LabVIEW-Config/dir.mnu",
+   "bytes": 4508,
+   "sha256": "fdc14221b761578544c08afc7b830201f8d6b804e890a006564189ed356cd3ee",
+   "via": "tree"
+  },
+  {
+   "path": "INI-Static-Variable-Support/Multiple Files Support.mnu",
+   "bytes": 2126,
+   "sha256": "fed824fd1912fe5d1d7a986f4ecd5019f26556b5fe1356cca63cef4682175ebb",
+   "via": "tree"
+  },
+  {
+   "path": "INI-Static-Variable-Support/dir.mnu",
+   "bytes": 4864,
+   "sha256": "cfbde2dc4f26684e84d665488f9cf0b22db7618c5bb17114ecbe7022df791626",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1068,
+   "sha256": "60a2b98361b86dc57cc9505ecde246b4bfc5fa4890bab7b6f07c373e0e1f40ec",
+   "via": "tree"
+  },
+  {
+   "path": "README(zh-cn).md",
+   "bytes": 5349,
+   "sha256": "6954c1d973904055ad9d1f042ac3a1654041a1416f3e8e36baf1832334fdc022",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 6026,
+   "sha256": "1410c67b5f64fb238488cbbdda042e7dabf1c1cbe4b259b0ed8d7d15ce737060",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/Examples/CSM INI-Variable Support(en-us).md",
+   "bytes": 15984,
+   "sha256": "0b3417635965bf517f1c6a700cf91b1a0d2b388fd956ab94bbb19de9f93e9b7f",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/Examples/CSM INI-Variable Support(zh-cn).md",
+   "bytes": 13647,
+   "sha256": "31d50a2c2f408452b2b70118ea0af09d881c598e3236b1a47121a0aaee276723",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/VI Description/VI Description(en-us)/VI Description(en-us) - Addon INI-Variable.md",
+   "bytes": 17151,
+   "sha256": "f20cbf5595d9751630a67bce57f2118ef0a91dbfdc50d37151ee1ec79007a04c",
+   "via": "tree"
+  },
+  {
+   "path": "help/NEVSTOP/Communicable State Machine(CSM)/VI Description/VI Description(zh-cn)/VI Description(zh-cn) - Addon INI-Variable.md",
+   "bytes": 15002,
+   "sha256": "0595931b3b39f6721833609ca22eb67b4a09cf17985b82720cd616578099c6f0",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Break Down Multiple States String.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Broadcast Status Change.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Compact Multiple States.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Argument to Error.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Data to HexStr.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert Error to Argument.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Convert HexStr to Data.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Get New State Notifier Event.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Internal State Debug Log History.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Keywords.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Make String Arguments Safe.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Revert Arguments-Safe String.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\AdvanceAPI\\CSM - Send Message and Wait for Reply.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Communicable State Machine.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Parse State Queue++.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Build Error Cluster.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Random Change Flag.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Timeout Selector.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\Trim Both Whitespace.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\Utility\\uuid.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\CSM Shared.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Remove Comments from Single-line.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Remove Duplicates From StrArray.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Semaphore Lock.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Semaphore Unlock.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Split Single-line Message.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Shared\\Trim Single-line Text.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\CSMKVMap\\CSMKVMap-Read.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\ChangeFlag\\ChangeFlag-Read.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\ChangeFlag\\ChangeFlag-Write.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\ChangeFlag\\ChangeFlagDB.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Typedef\\_CSM_GlobalLog Filter Rules - v1.0.ctl",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Typedef\\_CSM_GlobalLog_MSG_TYPE.ctl",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_Support\\Typedef\\_CSM_GlobalLog_STATE_TYPE.ctl",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_csmlite\\Parse State Queue_csmlite.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_csmlite\\Pass Allowed Message.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_csmlite\\_PassAllowedMessage - MsgList.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_csmlite\\_csmlite.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_ui\\Close FP if in LabVIEW Dir.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_ui\\Tree Rows from Delimited String Array_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\_tool\\_ui\\csm-ui-support.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\API String - Is Supported Datatype.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\API String Arguments Support.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\Convert API String Arguments to Data.vim",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\Convert Data To API String Arguments.vim",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\Concatenate Strings If not Empty_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\Convert API String Arguments to Data(variant).vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\Data To API String Arguments.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\Data To SingleElementsArray_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\SingleElementsArray To Data_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\API-String-Arugments-Support\\_Support\\String To Indexed Enum_csm.vi",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\INI-Static-Variable-Support\\CSM - Read Cluster Elements From Session.vim",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\INI-Static-Variable-Support\\CSM - Read Configuration Variable.vim",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\Logger\\CSM File Logger.lvlib",
+  "<userlib>\\_NEVSTOP\\Communicable State Machine(CSM)\\addons\\Logger\\_Support\\CSM Application Directory.vi",
+  "<vilib>\\Instr\\_visa.llb\\VISA Configure Serial Port",
+  "<vilib>\\Instr\\_visa.llb\\VISA Configure Serial Port (Instr).vi",
+  "<vilib>\\Utility\\Data Type\\Get Type Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\file.llb\\Is Path and Not Empty.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Generate Temporary File Path.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Add State(s) to Queue__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Build State String with Arguments__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\State Machine\\_JKI_lib_State_Machine.llb\\Parse State Queue__JKI_lib_State_Machine.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\WaitOnTestComplete.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\skip.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\File Dialog Source.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\subFile Dialog.vi",
+  "<vilib>\\express\\express input\\FileDialogConfig.llb\\Configure File Dialog.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2017\\vi.lib\\addons\\_JKI Toolkits\\VI Tester\\TestCase.llb\\TestCase.lvclass",
+  "C:\\Test\\Data.ini",
+  "C:\\Users\\Supermanman\\AppData\\Local\\Temp\\lvtemporary_285019.ini",
+  "C:\\Users\\Supermanman\\AppData\\Local\\Temp\\lvtemporary_738965.ini",
+  "C:\\test\\name.ini"
+ ]
+}

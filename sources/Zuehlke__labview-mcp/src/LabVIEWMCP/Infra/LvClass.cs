@@ -1,0 +1,1480 @@
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+
+namespace LabVIEWMcp.Infra;
+
+/// <summary>
+/// Everything about a <c>.lvclass</c> that can be done without LabVIEW: the flattened-string
+/// codec, the wrapper around the private data control, the field grammar a caller writes, the
+/// document itself, and reading one back.
+///
+/// WHY THIS EXISTS. No RPC creates a class - measured, and now settled: server reflection reports
+/// 23 RPCs on <c>lvai.LVAI</c> and not one of them touches a library, a class or a project. So a
+/// class is ours to write, and the only part LabVIEW has to contribute is the private data
+/// CLUSTER, which AIXML can generate as an ordinary VI. <see cref="Tools.ClassTools"/> composes the
+/// two.
+///
+/// THE COST OF NOT HAVING IT, measured 2026-08-26: building three classes by hand took 18 minutes
+/// and about twelve round trips, and most of that went on one silent failure - a private data blob
+/// whose length field sat two bytes late. LabVIEW's answer to that was three class entries with
+/// every field blank and an error about invalid *paths*, from a Property Node inside NI's own
+/// <c>Get library info.vi</c>. Nothing pointed at the blob. Hence <see cref="Wrap"/> is written
+/// once, here, with a round trip test that pins it.
+///
+/// See docs/lvclass-creation.md for the measurements and docs/lvlib-lvclass-structure.md for the
+/// census this relies on.
+/// </summary>
+internal static class LvClass
+{
+    // ------------------------------------------------------------------ flattened string codec
+
+    /// <summary>
+    /// LabVIEW's flattened-string encoding: six bits per character, offset <c>0x21</c>, most
+    /// significant bits first. The same scheme carries <c>NI.LVClass.ParentClassLinkInfo</c>,
+    /// <c>NI.Lib.Icon</c> and the private data control.
+    ///
+    /// scripts\pylv-class-privatedata.py carries its own copy so it runs standalone with no build.
+    /// That duplication is deliberate and the same arrangement as pylv-conpane.py against
+    /// <see cref="ConnectorPane"/>; <c>LvClassCodecTests</c> pins this one against a literal
+    /// expectation so the two cannot drift silently.
+    /// </summary>
+    public static string Encode(ReadOnlySpan<byte> data)
+    {
+        var text = new StringBuilder((data.Length * 8 + 5) / 6);
+        int bits = 0, held = 0;
+
+        foreach (var b in data)
+        {
+            bits = (bits << 8) | b;
+            held += 8;
+            while (held >= 6)
+            {
+                held -= 6;
+                text.Append((char)(((bits >> held) & 0x3F) + 0x21));
+            }
+        }
+
+        // The final group is padded with zero bits. Decoding it yields no extra byte, because a
+        // byte is only emitted once eight bits are held - which is why the round trip closes.
+        if (held > 0) text.Append((char)(((bits << (6 - held)) & 0x3F) + 0x21));
+
+        return text.ToString();
+    }
+
+    /// <summary>
+    /// The inverse. Whitespace is skipped: LabVIEW writes these properties as one long line, but
+    /// nothing guarantees that and a wrapped one must still decode.
+    /// </summary>
+    public static byte[] Decode(string text)
+    {
+        var bytes = new List<byte>(text.Length * 6 / 8 + 1);
+        int bits = 0, held = 0;
+
+        foreach (var ch in text)
+        {
+            if (ch is '\r' or '\n' or '\t' or ' ') continue;
+            bits = (bits << 6) | ((ch - 0x21) & 0x3F);
+            held += 6;
+            if (held >= 8)
+            {
+                held -= 8;
+                bytes.Add((byte)((bits >> held) & 0xFF));
+            }
+        }
+
+        return [.. bytes];
+    }
+
+    // ------------------------------------------------------------------ the private data wrapper
+
+    /// <summary>
+    /// The 29 bytes in front of the length field, copied verbatim from a LabVIEW-authored class
+    /// (examples\Channels\Event Messenger\...\Circle Message.lvclass, LabVIEW 2026 Q3). Only the
+    /// first four are understood - they are the <c>LVVersion</c>. Reusing the rest works; deriving
+    /// them was not necessary and has not been attempted.
+    /// </summary>
+    private static readonly byte[] Header = Convert.FromHexString(
+        "26008000000000020005000500000c00400001ffffffff000000010001");
+
+    /// <summary>Four zero bytes close the property, after the .ctl.</summary>
+    private static readonly byte[] Trailer = [0, 0, 0, 0];
+
+    /// <summary>
+    /// The stamp as the four bytes that open <see cref="Header"/>. The XML attribute and the
+    /// binary header carry the SAME digits - `26008000` is `0x26 0x00 0x80 0x00` - so this is a
+    /// hex read of the string, not a second encoding to keep in step.
+    /// </summary>
+    internal static byte[] VersionBytes(string lvVersion) =>
+        lvVersion.Length == 8 && lvVersion.All(Uri.IsHexDigit)
+            ? Convert.FromHexString(lvVersion)
+            : throw new ArgumentException(
+                $"'{lvVersion}' is not an eight-hex-digit LVVersion stamp such as 25008000.",
+                nameof(lvVersion));
+
+    /// <summary>Where the u32 big-endian length of the .ctl sits. Getting this wrong is silent.</summary>
+    public const int LengthFieldOffset = 29;
+
+    /// <summary>
+    /// A <c>.ctl</c>'s bytes as the text of <c>NI.LVClass.FlattenedPrivateDataCTL</c>, XML-escaped
+    /// and ready to place in the document. The class file stores the whole control - there is no
+    /// <c>.ctl</c> on disk beside a class, which is why <see cref="Document"/> names one that does
+    /// not exist.
+    /// </summary>
+    /// <param name="lvVersion">
+    /// The <c>LVVersion</c> stamp. THE FIRST FOUR HEADER BYTES ARE THAT SAME VERSION, in the same
+    /// digits: `26008000` is the bytes `0x26 0x00 0x80 0x00`. So a 2025 station needs
+    /// `0x25 0x00 0x80 0x00` here too, and leaving the captured header verbatim would put a 2026
+    /// stamp inside a 2025 class's private data.
+    ///
+    /// NOT MEASURED ON A 2025 STATION - there is none here. What IS established is that the four
+    /// bytes are the version (the header's own comment, from the LabVIEW-2026 class it was copied
+    /// from) and that the XML attribute uses the identical digits. If a 2025 class built this way
+    /// still fails to load, this is the first place to look.
+    /// </param>
+    public static string Wrap(ReadOnlySpan<byte> ctl, string lvVersion)
+    {
+        var blob = new byte[Header.Length + 4 + ctl.Length + Trailer.Length];
+        Header.CopyTo(blob, 0);
+        VersionBytes(lvVersion).CopyTo(blob, 0);
+        blob[LengthFieldOffset + 0] = (byte)(ctl.Length >> 24);
+        blob[LengthFieldOffset + 1] = (byte)(ctl.Length >> 16);
+        blob[LengthFieldOffset + 2] = (byte)(ctl.Length >> 8);
+        blob[LengthFieldOffset + 3] = (byte)ctl.Length;
+        ctl.CopyTo(blob.AsSpan(LengthFieldOffset + 4));
+        Trailer.CopyTo(blob, blob.Length - Trailer.Length);
+
+        return Escape(Encode(blob));
+    }
+
+    /// <summary>
+    /// The <c>.ctl</c> back out of a class file's property text, sliced by the length field rather
+    /// than by "everything after the header" - the four trailing zeros are not part of the control,
+    /// and including them is exactly the mistake that cost 2026-08-26 its afternoon.
+    /// </summary>
+    /// <summary>
+    /// A <c>Type="Bin"</c> property's text as the bytes it stands for: XML-unescaped, then decoded.
+    /// Separate from <see cref="Unwrap"/> because the private data property is the only one with the
+    /// length-prefixed wrapper - <c>ParentClassLinkInfo</c> and <c>NI.Lib.Icon</c> are plain
+    /// flattened data and stop here.
+    /// </summary>
+    public static byte[] DecodeProperty(string propertyText) => Decode(Unescape(propertyText));
+
+    public static byte[] Unwrap(string propertyText)
+    {
+        var blob = DecodeProperty(propertyText);
+        if (blob.Length < LengthFieldOffset + 4)
+            throw new InvalidDataException(
+                $"The private data property decodes to {blob.Length} bytes, too short to carry a " +
+                "length field. It is not a flattened control.");
+
+        var length = (blob[LengthFieldOffset] << 24) | (blob[LengthFieldOffset + 1] << 16) |
+                     (blob[LengthFieldOffset + 2] << 8) | blob[LengthFieldOffset + 3];
+
+        if (length < 0 || LengthFieldOffset + 4 + length > blob.Length)
+            throw new InvalidDataException(
+                $"The private data length field says {length} bytes but only " +
+                $"{blob.Length - LengthFieldOffset - 4} follow it. The header is the wrong size, " +
+                "or the text is truncated.");
+
+        return blob[(LengthFieldOffset + 4)..(LengthFieldOffset + 4 + length)];
+    }
+
+    private static string Escape(string text) => text
+        .Replace("&", "&amp;", StringComparison.Ordinal)
+        .Replace("<", "&lt;", StringComparison.Ordinal)
+        .Replace(">", "&gt;", StringComparison.Ordinal);
+
+    /// <summary>
+    /// Safe to apply to text an XML parser has ALREADY unescaped, which is how <see cref="Read"/>
+    /// reaches it: the codec emits only characters 0x21-0x60, and every entity spelling needs a
+    /// letter above that range - `l` in <c>&amp;lt;</c> is 0x6C, `m` in <c>&amp;amp;</c> is 0x6D -
+    /// so no entity can occur inside encoded output by accident. That invariant is what lets
+    /// <see cref="Unwrap"/> take either form.
+    /// </summary>
+    private static string Unescape(string text) => text
+        .Replace("&lt;", "<", StringComparison.Ordinal)
+        .Replace("&gt;", ">", StringComparison.Ordinal)
+        .Replace("&quot;", "\"", StringComparison.Ordinal)
+        .Replace("&apos;", "'", StringComparison.Ordinal)
+        .Replace("&amp;", "&", StringComparison.Ordinal);
+
+    // ------------------------------------------------------------------ the field grammar
+
+    /// <summary>
+    /// One private data field: an AIXML scalar type name, the label it carries, and optionally its
+    /// DEFAULT value as the literal the carrier control is authored with (null = the type's empty
+    /// literal).
+    /// </summary>
+    public sealed record Field(string Type, string Name, string? Default = null);
+
+    /// <summary>
+    /// The AIXML scalar types a field may use, with the <c>value</c> literal each needs. AIXML
+    /// requires <c>value</c> on every Control, and the literal is per-type - so an allowlist is
+    /// the honest shape: an unknown type would need a guessed literal, and a wrong literal
+    /// generates without complaint (§2 of aixml-reference.md records <c>TRUE</c> running as false).
+    ///
+    /// VERIFIED end to end on 2026-08-26: string, bool, double, int32, uint32. The remaining widths
+    /// are the same shape and are ASSUMED; the tool runs ValidateAIXML first, so LabVIEW rejects a
+    /// wrong one by name before anything is written.
+    /// </summary>
+    private static readonly Dictionary<string, string> Literals = new(StringComparer.Ordinal)
+    {
+        ["string"] = "",
+        // A timestamp's default is the EMPTY literal, the same shape as a string's - counted in 20
+        // cached exports, every `type="timestamp"` carrying `value=""`, controls and constants
+        // alike. It was left out of this table at first, which refused `timestamp.Timestamp` as a
+        // type "this tool has no default literal for" and read as though AIXML could not express
+        // one. AIXML can; only the table could not.
+        ["timestamp"] = "",
+        // A path's default is the empty literal too - counted across the cached example exports,
+        // every `type="path"` control and indicator carrying `value=""`. Left out until 2026-09-04,
+        // which refused `path.File Path` and read as though a class could not hold a path at all;
+        // a HAL class shipped with its file path as a `string` and a String To Path in every method
+        // because of it. AIXML could always express one: measured the same day, a carrier VI with a
+        // `type="path"` control validated and generated in 165 ms. NI's provider half of the route
+        // is ASSUMED, the same standing as the int widths below: the tool validates before it
+        // writes, so LabVIEW refuses a type it cannot make a field of, by name.
+        ["path"] = "",
+        ["bool"] = "false",
+        ["double"] = "0",
+        ["single"] = "0",
+        ["int8"] = "0",
+        ["int16"] = "0",
+        ["int32"] = "0",
+        ["int64"] = "0",
+        ["uint8"] = "0",
+        ["uint16"] = "0",
+        ["uint32"] = "0",
+        ["uint64"] = "0",
+    };
+
+    public static IReadOnlyCollection<string> KnownTypes => Literals.Keys;
+
+    /// <summary>
+    /// This table's literal for a scalar field type, or null for a type it does not carry.
+    /// Exposed so the OTHER implementation of this rule - <see cref="Tools.TestTools.DefaultFor"/>,
+    /// which also handles compound types - can be tested against it. The two disagreed about
+    /// `timestamp` until 2026-09-14, and nothing compared them.
+    /// </summary>
+    public static string? LiteralFor(string type) =>
+        Literals.TryGetValue(type, out var literal) ? literal : null;
+
+    /// <summary>
+    /// Parse <c>string.Manufacturer, int32.Year Of Manufacture</c> into fields. The separator is a
+    /// comma because that is what the AIXML cluster grammar uses, which also means a field NAME
+    /// cannot contain one - said here rather than discovered from a malformed type string.
+    /// </summary>
+    public static List<Field> ParseFields(string? spec) => ParseFields(spec, allowTypedefMarkers: false);
+
+    /// <summary>The type a <c>typedef.&lt;name&gt;</c> position marker parses to.</summary>
+    public const string TypedefMarker = "typedef";
+
+    /// <summary>
+    /// As above; with <paramref name="allowTypedefMarkers"/> a <c>typedef.&lt;name&gt;</c> entry is
+    /// accepted as a POSITION marker for a field whose .ctl lvai_create_class's typedefFieldsJson
+    /// names. Before 2026-09-25 a typedef field could not be placed at all - it was appended after
+    /// every scalar, so `Config, Gain` came out as Gain 0, Config 1.
+    /// </summary>
+    public static List<Field> ParseFields(string? spec, bool allowTypedefMarkers)
+    {
+        var fields = new List<Field>();
+        if (string.IsNullOrWhiteSpace(spec)) return fields;
+
+        foreach (var entry in spec.Split(',', StringSplitOptions.TrimEntries |
+                                             StringSplitOptions.RemoveEmptyEntries))
+        {
+            var dot = entry.IndexOf('.', StringComparison.Ordinal);
+            if (dot <= 0 || dot == entry.Length - 1)
+                throw new ArgumentException(
+                    $"'{entry}' is not a field. Each one is <type>.<name>, e.g. " +
+                    "'string.Manufacturer' - the same spelling AIXML's cluster grammar uses.");
+
+            var type = entry[..dot].Trim();
+            var name = entry[(dot + 1)..].Trim();
+
+            // `<type>.<name>=<default>` - the default is what the carrier control is authored
+            // with, and NI's provider takes the field from that control. Added 2026-09-25: a class
+            // asked for `Gain` defaulting to 1 came out 0, because every field was authored with
+            // its type's empty literal and there was no way to say otherwise.
+            string? fieldDefault = null;
+            var equals = name.IndexOf('=', StringComparison.Ordinal);
+            if (equals >= 0)
+            {
+                fieldDefault = name[(equals + 1)..].Trim();
+                name = name[..equals].Trim();
+                if (name.Length == 0)
+                    throw new ArgumentException($"'{entry}' has a default but no field name.");
+                if (DefaultProblem(type, fieldDefault) is { } problem)
+                    throw new ArgumentException($"'{entry}': {problem}");
+            }
+
+            if (allowTypedefMarkers && type == TypedefMarker)
+            {
+                if (fieldDefault is not null)
+                    throw new ArgumentException(
+                        $"'{entry}': a typedef field takes its default from the .ctl, not from here.");
+                if (fields.Any(f => string.Equals(f.Name, name, StringComparison.Ordinal)))
+                    throw new ArgumentException($"'{name}' appears twice.");
+                fields.Add(new Field(TypedefMarker, name));
+                continue;
+            }
+
+            if (!Literals.ContainsKey(type))
+                throw new ArgumentException(
+                    $"'{entry}' has type '{type}', which this tool has no default literal for. " +
+                    $"The types it knows are {string.Join(", ", Literals.Keys.Order())}. A cluster, " +
+                    "an array or an enum field is not supported here - generate that private data " +
+                    "control by hand and use docs/lvclass-creation.md section 1.");
+
+            if (name.Contains('{') || name.Contains('}'))
+                throw new ArgumentException(
+                    $"'{entry}' has a brace in its field name. The AIXML cluster type string is " +
+                    "delimited by braces, so a name cannot carry one.");
+
+            if (fields.Any(f => string.Equals(f.Name, name, StringComparison.Ordinal)))
+                throw new ArgumentException(
+                    $"'{name}' appears twice. LabVIEW allows it in a cluster and nothing good " +
+                    "comes of it - an accessor cannot say which one it means.");
+
+            fields.Add(new Field(type, name, fieldDefault));
+        }
+
+        return fields;
+    }
+
+    /// <summary>
+    /// Why a default literal cannot be used for this type, or null when it can. Numbers are
+    /// checked as numbers because a wrong literal generates without complaint and a field then
+    /// silently defaults to 0; a timestamp default is refused because a non-empty timestamp
+    /// `value` is DISCARDED by the converter (CLAUDE.md, measured 2026-09-14).
+    /// </summary>
+    internal static string? DefaultProblem(string type, string value)
+    {
+        var invariant = System.Globalization.CultureInfo.InvariantCulture;
+        switch (type)
+        {
+            case "timestamp":
+                return "a timestamp field cannot carry a default - the converter discards a " +
+                       "non-empty timestamp literal, so the field would read empty anyway.";
+            case "bool":
+                return value is "true" or "false" or "TRUE" or "FALSE" or "True" or "False"
+                    ? null : $"'{value}' is not a boolean - write true or false.";
+            case "double" or "single":
+                return double.TryParse(value, System.Globalization.NumberStyles.Float, invariant, out _)
+                    ? null : $"'{value}' is not a number (use a '.' as the decimal point).";
+            case "int8" or "int16" or "int32" or "int64":
+                return long.TryParse(value, System.Globalization.NumberStyles.Integer, invariant, out _)
+                    ? null : $"'{value}' is not an integer.";
+            case "uint8" or "uint16" or "uint32" or "uint64":
+                return ulong.TryParse(value, System.Globalization.NumberStyles.None, invariant, out _)
+                    ? null : $"'{value}' is not an unsigned integer.";
+            default:
+                return value.Contains(',')
+                    ? "a default cannot contain a comma - the comma separates the fields."
+                    : null;
+        }
+    }
+
+    /// <summary>A default as the carrier control's <c>value</c> literal, escaped for AIXML.</summary>
+    internal static string DefaultLiteral(string type, string value) =>
+        type == "bool"
+            ? value.ToLowerInvariant()
+            : Xml(value).Replace("\\", "\\5C", StringComparison.Ordinal);
+
+    /// <summary>
+    /// The CARRIER: a VI whose front panel holds one control per field, and nothing else.
+    ///
+    /// NI's <c>Add Member Data to Private Data Control.vi</c> takes an array of front-panel
+    /// CONTROL REFERENCES and makes one field out of each, taking its name and its type. So the
+    /// fields are expressed as controls on a throwaway VI rather than as a cluster, and this is
+    /// the one part of class creation AIXML is good at.
+    ///
+    /// The cluster this used to author - <c>Cluster of class private data</c>, converted into a
+    /// control by flipping flags - is gone with the route that needed it: the result was a class
+    /// LabVIEW reported normally and refused to compile, because a private data control's type
+    /// space is compiler output. docs/lvclass-creation.md section 2a.
+    /// </summary>
+    public static string CarrierAixml(string className, IReadOnlyList<Field> fields)
+    {
+        // NUMBERED FROM AixmlCheck.SafeUidBase, not from 10. Every lvai_create_class call used to
+        // log a `uidInReservedRange` repair per field - self-corrected before conversion, so it
+        // cost nothing but log noise, and the noise is the point: dwarnCount saturates (at 100
+        // events, 200 log lines - see docs/labview-crash-signatures.md, 2026-09-08) and
+        // a signature we emit ourselves crowds out the ones that mean something. Measured
+        // 2026-09-07, three calls in one cold build reporting 4, 2 and 2 such repairs.
+        var controls = string.Join("\n", fields.Select((f, i) =>
+            $"""  <Control _name="{f.Name}" outputs="value:" type="{f.Type}" uid="{AixmlCheck.SafeUidBase + i * 10}" uid_parent="root" value="{(f.Default is { } d ? DefaultLiteral(f.Type, d) : Literals[f.Type])}"/>"""));
+        return $"""
+                <VI _name="{className}-fields.vi" description="Carrier for the private data fields of {className}.lvclass. Its front-panel controls are handed to NI's Add Member Data to Private Data Control.vi as references\2C so each control's name and type becomes a field. Nothing here runs.">
+                {controls}
+                </VI>
+                """;
+    }
+
+    // ------------------------------------------------------------------ the document
+
+    /// <summary>
+    /// The class file. Tabs and single-quoted declaration because that is what LabVIEW writes, and
+    /// matching it keeps a diff against a file LabVIEW has re-saved readable.
+    ///
+    /// The properties are the minimum that loads clean, measured: no <c>NI.Lib.Icon</c> and no
+    /// <c>NI.LVClass.Geneology</c> are needed, and LabVIEW added neither when it saved three such
+    /// classes - it did not rewrite one byte of them.
+    /// </summary>
+    /// <param name="lvVersion">The <c>LVVersion</c> stamp - see <see cref="Project"/>.</param>
+    public static string Document(string className, string privateDataBlob,
+                                  string? parentQualifiedName, string? parentUrl,
+                                  string lvVersion)
+    {
+        var text = new StringBuilder();
+        text.Append("<?xml version='1.0' encoding='UTF-8'?>\r\n");
+        text.Append($"<LVClass LVVersion=\"{lvVersion}\">\r\n");
+        text.Append("\t<Property Name=\"NI.Lib.SourceVersion\" Type=\"Int\">637566976</Property>\r\n");
+        text.Append("\t<Property Name=\"NI.Lib.Version\" Type=\"Str\">1.0.0.0</Property>\r\n");
+        text.Append("\t<Property Name=\"NI.LV.All.SourceOnly\" Type=\"Bool\">true</Property>\r\n");
+        text.Append("\t<Property Name=\"NI.LVClass.ClassNameVisibleInProbe\" Type=\"Bool\">false</Property>\r\n");
+        text.Append($"\t<Property Name=\"NI.LVClass.FlattenedPrivateDataCTL\" Type=\"Bin\">{privateDataBlob}</Property>\r\n");
+        text.Append("\t<Property Name=\"NI.LVClass.LowestCompatibleVersion\" Type=\"Str\">1.0.0.0</Property>\r\n");
+
+        if (parentQualifiedName is not null && parentUrl is not null)
+        {
+            text.Append("\t<Item Name=\"Parent Libraries\" Type=\"Parent Libraries\">\r\n");
+            text.Append($"\t\t<Item Name=\"{Xml(parentQualifiedName)}\" Type=\"Parent\" URL=\"{Xml(parentUrl)}\"/>\r\n");
+            text.Append("\t</Item>\r\n");
+        }
+
+        // Scope 2 is private, which is what LabVIEW gives a private data control. The URL names a
+        // .ctl that does not exist on disk and must not be created: the control lives in the
+        // property above, and LabVIEW materialises the path only in memory.
+        text.Append($"\t<Item Name=\"{Xml(className)}.ctl\" Type=\"Class Private Data\" URL=\"{Xml(className)}.ctl\">\r\n");
+        text.Append("\t\t<Property Name=\"NI.LibItem.Scope\" Type=\"Int\">2</Property>\r\n");
+        text.Append("\t</Item>\r\n");
+        text.Append("</LVClass>\r\n");
+
+        return text.ToString();
+    }
+
+    private static string Xml(string value) => value
+        .Replace("&", "&amp;", StringComparison.Ordinal)
+        .Replace("<", "&lt;", StringComparison.Ordinal)
+        .Replace(">", "&gt;", StringComparison.Ordinal)
+        .Replace("\"", "&quot;", StringComparison.Ordinal);
+
+    // ------------------------------------------------------------------ reading one back
+
+    public sealed record Member(string Name, string Url, string Type, string Scope,
+                                bool? DynamicDispatch);
+
+    /// <summary>
+    /// HOW MANY FIELDS ALREADY HAVE ACCESSORS, counted from the members that ARE accessors.
+    /// <paramref name="accessIndex"/> is 0 Read, 1 Write, 2 both, matching the wizard's own UI order.
+    ///
+    /// The naive form of this - member count divided by two - is what `lvai_create_accessors` used
+    /// until 2026-08-31, and it assumed every member of a class is half of an accessor pair. Measured
+    /// that day: a class carrying two interface overrides resumed at field 1, so field 0 got no
+    /// accessors and nothing pointed back at it. The answer reported `membersAfter: 8` and looked
+    /// complete. Any class with a method breaks it, which since interfaces became scriptable is every
+    /// class that implements one.
+    ///
+    /// The wizard names an accessor `Read &lt;field&gt;.vi` / `Write &lt;field&gt;.vi` and builds them in field
+    /// order, so this is exact under that contract. It cannot tell a hand-written `Read something.vi`
+    /// for a non-field `something` from a real accessor - far narrower than the defect it replaces.
+    /// </summary>
+    public static int FieldsWithAccessors(IEnumerable<Member> members, int accessIndex) =>
+        AccessorFields(members, accessIndex).Complete.Count;
+
+    /// <summary>
+    /// The names of fields whose accessor set is only PARTLY there - a `Read X.vi` with no
+    /// `Write X.vi`, or the reverse.
+    ///
+    /// WHY THIS MATTERS, and it cost a corrupted class to learn. <see cref="FieldsWithAccessors"/>
+    /// used to count matching members and divide by two, and integer division silently truncated a
+    /// half-built field away: seven accessor members answered THREE. A resume then restarted at the
+    /// field whose `Read` already existed, NI's wizard name-mangled the collision into
+    /// `Read Bio 2.vi` / `Write Bio 2.vi`, and the tool reported `ok: true, moreToDo: false`.
+    /// Measured 2026-09-02 after a client timeout landed mid-pair.
+    ///
+    /// The tool documentation asserted the opposite - "the library is saved after every field so the
+    /// class is left consistent … never a mismatch". That holds when the timeout lands BETWEEN
+    /// fields and not when it lands inside one, which is a coin toss rather than a guarantee.
+    /// A caller resuming must therefore be told, not silently rounded.
+    /// </summary>
+    public static IReadOnlyList<string> IncompleteAccessorFields(
+        IEnumerable<Member> members, int accessIndex) =>
+        AccessorFields(members, accessIndex).Incomplete;
+
+    /// <summary>
+    /// Accessor members grouped by the field they belong to. `Read Top Speed.vi` and
+    /// `Write Top Speed.vi` are one field; anything not shaped like an accessor is ignored, which is
+    /// what keeps the private data control and ordinary methods out of the count.
+    /// </summary>
+    private static (List<string> Complete, List<string> Incomplete) AccessorFields(
+        IEnumerable<Member> members, int accessIndex)
+    {
+        string[] wanted = accessIndex switch
+        {
+            0 => ["Read "],
+            1 => ["Write "],
+            _ => ["Read ", "Write "],
+        };
+
+        var byField = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        foreach (var member in members)
+        {
+            if (!member.Name.EndsWith(".vi", StringComparison.OrdinalIgnoreCase)) continue;
+            // Only the prefixes this accessUi ASKS for. Grouping on both would make a Write-only
+            // run call a field that has just a Read "half-built", when it is simply not built yet -
+            // incompleteness can only mean "some of the wanted set, but not all", which for a
+            // single-sided set is impossible by construction.
+            foreach (var prefix in wanted)
+            {
+                if (!member.Name.StartsWith(prefix, StringComparison.Ordinal)) continue;
+                var field = member.Name[prefix.Length..^3];
+                if (!byField.TryGetValue(field, out var have))
+                    byField[field] = have = new HashSet<string>(StringComparer.Ordinal);
+                have.Add(prefix);
+                break;
+            }
+        }
+
+        var complete = new List<string>();
+        var incomplete = new List<string>();
+        foreach (var (field, have) in byField.OrderBy(p => p.Key, StringComparer.Ordinal))
+            (wanted.All(have.Contains) ? complete : incomplete).Add(field);
+        return (complete, incomplete);
+    }
+
+    /// <summary>
+    /// Members whose name looks like NI's wizard renamed around a collision - `Read Bio 2.vi`. The
+    /// wizard does not refuse a duplicate, it appends a number, so a class can be corrupted by a
+    /// resume and still read back as if nothing were wrong. Anything reporting success must check.
+    /// </summary>
+    public static IReadOnlyList<string> MangledAccessorNames(IEnumerable<Member> members) =>
+        [.. members.Select(m => m.Name)
+                   .Where(n => System.Text.RegularExpressions.Regex.IsMatch(
+                       n, @"^(Read|Write) .+ \d+\.vi$"))
+                   .OrderBy(n => n, StringComparer.Ordinal)];
+
+    public sealed record ClassInfo(
+        string Path, string ClassName, string? ContainingLibrary, string QualifiedName,
+        IReadOnlyList<string> Ancestors, string AncestorSource, string? PrivateDataName,
+        int PrivateDataBytes, IReadOnlyList<Member> Members, bool IsInterface,
+        IReadOnlyList<ParentLink> ParentLinks)
+    {
+        /// <summary>
+        /// THE ONE BASE CLASS, or null for a class that derives from <c>LabVIEW Object</c>. This is
+        /// what a single-valued <c>inheritsFrom</c> is allowed to say; see
+        /// <see cref="ParentLink"/> for why <c>Ancestors[0]</c> is not.
+        ///
+        /// THREE CASES, AND THE ORDER MATTERS - each fallback exists because skipping it reports
+        /// something worse than the defect this replaces:
+        /// <list type="number">
+        /// <item>a link that OPENED and is a class - the answer, whatever its position;</item>
+        /// <item>else a link that could NOT be opened, because it is the only candidate left and
+        /// answering <c>LabVIEW Object</c> over a link the file plainly lists would hide a real
+        /// parent. <see cref="ParentKindsAreComplete"/> is false there and says so;</item>
+        /// <item>else the first ancestor that is not this class. That is the old rule, and it is
+        /// still the only one available for the DECODED representations
+        /// (<c>ParentClassLinkInfo</c>, <c>Geneology</c>), which carry no URL - so a pre-2026 class
+        /// file keeps answering exactly what it answered before.</item>
+        /// </list>
+        /// A class whose every link resolved to an INTERFACE falls through all three and is
+        /// correctly a root class - which is the case that was being reported as inheriting from
+        /// an interface.
+        /// </summary>
+        public ParentLink? BaseClass
+        {
+            get
+            {
+                if (ParentLinks.FirstOrDefault(p => p.Kind == ParentLink.Class) is { } opened)
+                    return opened;
+                if (ParentLinks.FirstOrDefault(p => p.Kind == ParentLink.Unresolved) is { } blind)
+                    return blind;
+                // Past here every link OPENED and every one is an interface, so the class really
+                // is a root class - unless there are no links at all, which is the decoded route.
+                if (ParentLinks.Count > 0) return null;
+
+                var decoded = Ancestors.FirstOrDefault(
+                    a => !string.Equals(a, QualifiedName, StringComparison.OrdinalIgnoreCase));
+                return decoded is null ? null
+                    : new ParentLink(decoded, null, ParentLink.Unresolved,
+                                     "decoded ancestry - no URL to open, so the kind of this link "
+                                     + "is not established");
+            }
+        }
+
+        /// <summary>The interfaces this class implements, in file order.</summary>
+        public IReadOnlyList<ParentLink> Interfaces =>
+            [.. ParentLinks.Where(p => p.Kind == ParentLink.Interface)];
+
+        /// <summary>
+        /// True when every link was opened and its kind settled. False means <see cref="BaseClass"/>
+        /// is a GUESS rather than an answer - an unresolved link may be a class or an interface,
+        /// and the decoded representations carry no URL to open at all. Anything reporting a base
+        /// class has to report this beside it, which is the whole difference between this and the
+        /// field it replaces: that one was also a guess and did not say so.
+        /// </summary>
+        public bool ParentKindsAreComplete =>
+            ParentLinks.All(p => p.Kind != ParentLink.Unresolved)
+            && !Ancestors.Any(a => !string.Equals(a, QualifiedName,
+                                                  StringComparison.OrdinalIgnoreCase)
+                                   && !ParentLinks.Any(
+                                       p => string.Equals(p.Name, a, StringComparison.Ordinal)));
+    }
+
+    /// <summary>
+    /// ONE <c>&lt;Item Type="Parent"&gt;</c>, WITH ITS KIND SETTLED BY OPENING IT.
+    ///
+    /// AN INTERFACE LINK AND A PARENT-CLASS LINK ARE THE SAME ITEM TYPE, so
+    /// <see cref="ClassInfo.Ancestors"/> mixes the two and its ORDER decides what a single-valued
+    /// field can say. <c>docs/lvclass-interfaces.md</c> has recorded that from the other side since
+    /// 2026-08-31, ending "the only way to tell them apart is to open each and read its own
+    /// IsInterface" - and NOBODY DID, so both tools kept reporting <c>Ancestors[0]</c>.
+    /// **Measured 2026-09-15 over every .lvclass on this station: 46 of 437 classes with a parent
+    /// link name a NON-CLASS as their parent**, NI's own examples among them - `Caller A.lvclass`
+    /// reports `Abstraction.lvclass` where its base is `Actor.lvclass`, and `Flathead.lvclass`
+    /// reports the `Lever` interface where its base is `Rotating Tool`.
+    ///
+    /// **What made it fixable is that the item carries a <c>URL</c>** - 432 of 432 on this station,
+    /// which is the measurement that turns "cannot be told apart" into two file reads. The URL is
+    /// relative to THE .lvclass ITSELF TREATED AS A DIRECTORY, not to its folder: LabVIEW addresses
+    /// a member as <c>Serial.lvclass/Member.vi</c>, so a sibling class is
+    /// <c>../../Serial/Serial.lvclass/Serial.lvclass</c>. Resolving it against the folder instead
+    /// left every relative link unresolved and looked exactly like "the URL is not usable" - the
+    /// first run of the probe said so.
+    /// </summary>
+    /// <param name="Name">The item's <c>Name</c>, which is what <c>Ancestors</c> carries.</param>
+    /// <param name="Url">The item's <c>URL</c>, verbatim.</param>
+    /// <param name="Kind"><c>class</c>, <c>interface</c> or <c>unresolved</c>.</param>
+    /// <param name="ResolvedPath">The file the URL named, when it was found.</param>
+    public sealed record ParentLink(string Name, string? Url, string Kind, string? ResolvedPath)
+    {
+        public const string Class = "class";
+        public const string Interface = "interface";
+        public const string Unresolved = "unresolved";
+    }
+
+    /// <summary>
+    /// A class file's own account of itself. The reason this is worth a reader at all:
+    /// <c>lvai_describe_project</c>'s <c>parent</c> field is the OWNING LIBRARY, not the base class
+    /// - measured on NI's own hierarchy, where <c>Circle Message.lvclass</c> derives from
+    /// <c>Draw Message.lvclass</c> and reports <c>"parent": "Draw Messages.lvlib"</c>. So nothing
+    /// in the gRPC interface reports inheritance, and the file is the only source.
+    /// </summary>
+    public static ClassInfo Read(string lvclassPath)
+    {
+        var full = System.IO.Path.GetFullPath(lvclassPath);
+        var document = XDocument.Load(full);
+        var root = document.Root
+            ?? throw new InvalidDataException($"'{full}' has no root element.");
+
+        if (root.Name.LocalName != "LVClass")
+            throw new InvalidDataException(
+                $"'{full}' has root <{root.Name.LocalName}>, not <LVClass>. A .lvlib and a " +
+                ".lvproj use the same grammar with a different root - this reader is for classes.");
+
+        var className = System.IO.Path.GetFileNameWithoutExtension(full);
+        var library = Property(root, "NI.Lib.ContainingLib");
+
+        var (ancestors, source, rawLinks) = Ancestors(root);
+
+        var privateData = root.Elements("Item")
+            .FirstOrDefault(i => (string?)i.Attribute("Type") == "Class Private Data");
+
+        var blob = Property(root, "NI.LVClass.FlattenedPrivateDataCTL");
+        var blobBytes = 0;
+        if (blob is not null)
+            try { blobBytes = Unwrap(blob).Length; }
+            catch (InvalidDataException) { blobBytes = -1; }
+
+        // AN INTERFACE AND A CLASS ARE THE SAME FILE FORMAT, and this one property is the whole
+        // difference the grammar records. NI's manual puts it as an interface being "a class
+        // without a private data control", and that shows up here twice over: IsInterface is
+        // true, and there is no `Class Private Data` item at all. The flag is what to trust -
+        // a class with empty private data still has the item.
+        //
+        // Worth having because NOTHING ELSE REPORTS IT. Measured 2026-08-31 on a generated
+        // interface: lvai_describe_project lists it as `Type="LVClass"` exactly like a class, and
+        // lvai_describe_class had no field for it either, so a real interface read back as an
+        // ordinary empty class through every tool while the flag sat in the file.
+        var isInterface = string.Equals(Property(root, "NI.LVClass.IsInterface"), "true",
+                                        StringComparison.OrdinalIgnoreCase);
+
+        return new ClassInfo(
+            full, className, library,
+            library is null ? $"{className}.lvclass" : $"{library}:{className}.lvclass",
+            ancestors, source,
+            (string?)privateData?.Attribute("Name"), blobBytes,
+            [.. Members(root)], isInterface,
+            [.. rawLinks.Select(l => Classify(full, l.Name, l.Url))]);
+    }
+
+    /// <summary>
+    /// WHAT KIND OF LINK THIS IS, settled by opening the file the <c>URL</c> names and reading its
+    /// own <c>NI.LVClass.IsInterface</c>. Nothing in the OWNING file distinguishes an interface
+    /// link from a parent-class link, so this is the only route - see <see cref="ParentLink"/>.
+    ///
+    /// Defensive throughout: a link that cannot be resolved or read comes back
+    /// <see cref="ParentLink.Unresolved"/> with the reason in the path, because reporting a
+    /// GUESS here is the defect this replaces. Measured 2026-09-15 over 449 links on this
+    /// station - vi.lib, user.lib, instr.lib, examples and three generated builds - every one
+    /// resolved: 400 class, 49 interface, 0 unresolved.
+    /// </summary>
+    private static ParentLink Classify(string lvclassPath, string name, string? url)
+    {
+        if (url is not { Length: > 0 })
+            // No URL is what the DECODED routes give - they never reach here, but a hand-written
+            // Parent item without one would, and it is a real answer rather than a failure.
+            return new ParentLink(name, url, ParentLink.Unresolved, "the item carries no URL");
+
+        var resolved = Resolve(lvclassPath, url);
+        if (resolved is null)
+            return new ParentLink(name, url, ParentLink.Unresolved,
+                                  "the URL names an alias this reader does not map");
+        if (!File.Exists(resolved))
+            return new ParentLink(name, url, ParentLink.Unresolved, $"not found: {resolved}");
+
+        try
+        {
+            var parent = XDocument.Load(resolved).Root;
+            if (parent is null) return new ParentLink(name, url, ParentLink.Unresolved, resolved);
+            var isInterface = string.Equals(Property(parent, "NI.LVClass.IsInterface"), "true",
+                                            StringComparison.OrdinalIgnoreCase);
+            return new ParentLink(name, url,
+                                  isInterface ? ParentLink.Interface : ParentLink.Class, resolved);
+        }
+        catch (Exception failure) when (failure is System.Xml.XmlException or IOException
+                                                or UnauthorizedAccessException)
+        {
+            return new ParentLink(name, url, ParentLink.Unresolved,
+                                  $"{resolved} could not be read: {failure.Message}");
+        }
+    }
+
+    /// <summary>
+    /// THE URL IS RELATIVE TO THE <c>.lvclass</c> ITSELF TREATED AS A DIRECTORY, not to the folder
+    /// holding it - LabVIEW addresses a class member as <c>Serial.lvclass/Member.vi</c>, so a
+    /// sibling class reads <c>../../Serial/Serial.lvclass/Serial.lvclass</c> with the extension
+    /// twice over. Resolving against the folder leaves every relative link not-found, which looks
+    /// exactly like "the URL is not usable"; the first run of the probe concluded that.
+    ///
+    /// The <c>/&lt;alias&gt;/</c> forms are LabVIEW's install-relative paths. Only the ones that
+    /// name a real directory are mapped; anything else is refused by returning null rather than
+    /// guessed at, and the caller says so.
+    /// </summary>
+    private static string? Resolve(string lvclassPath, string url)
+    {
+        var match = Regex.Match(url, @"^/<([^>]+)>/(.*)$");
+        if (!match.Success)
+            return System.IO.Path.GetFullPath(
+                System.IO.Path.Combine(lvclassPath, url.Replace('/', '\\')));
+
+        var folder = match.Groups[1].Value.ToLowerInvariant() switch
+        {
+            "vilib" => "vi.lib",
+            "userlib" => "user.lib",
+            "instrlib" => "instr.lib",
+            "resource" => "resource",
+            "lvaddons" => "LVAddons",
+            _ => null,
+        };
+        if (folder is null) return null;
+
+        var install = Grpc.LabViewLocator.Select(Grpc.LabViewLocator.Discover());
+        var root = install is null ? null : System.IO.Path.GetDirectoryName(install.ExePath);
+        return root is null
+            ? null
+            : System.IO.Path.GetFullPath(System.IO.Path.Combine(
+                  root, folder, match.Groups[2].Value.Replace('/', '\\')));
+    }
+
+    /// <summary>
+    /// The ancestor chain, checking both representations in the order the census established:
+    /// plain-text <c>Parent</c> items (LabVIEW 2026 only, 85 of 189 classes) then the encoded
+    /// <c>ParentClassLinkInfo</c> (every version at or below 20xxxxxx). No file carried both, and
+    /// 71 carried neither, which means <c>LabVIEW Object</c>.
+    /// </summary>
+    private static (IReadOnlyList<string>, string, IReadOnlyList<(string Name, string? Url)>)
+        Ancestors(XElement root)
+    {
+        // THE URL COMES BACK WITH THE NAME, because the kind of link cannot be read off the name
+        // and can be read off the file the URL points at. See ParentLink.
+        var plain = root.Elements("Item")
+            .Where(i => (string?)i.Attribute("Type") == "Parent Libraries")
+            .SelectMany(i => i.Elements("Item"))
+            .Where(i => (string?)i.Attribute("Type") == "Parent")
+            .Select(i => ((string?)i.Attribute("Name"), (string?)i.Attribute("URL")))
+            .Where(pair => pair.Item1 is not null)
+            .Select(pair => (Name: pair.Item1!, Url: pair.Item2))
+            .ToList();
+
+        // The entries are the whole chain, nearest first.
+        if (plain.Count > 0)
+            return ([.. plain.Select(l => l.Name)], "Parent Libraries items (plain text)", plain);
+
+        // Older files: pull the names out of the decoded bytes with a regex rather than parsing the
+        // PTH0 record layout, which was not worth reverse-engineering.
+        //
+        // TAKE THE LAST .lvclass, NOT THE FIRST MATCH. A PTH0 record spells the path out, so the
+        // owning LIBRARY comes before the class - lvlib-lvclass-structure.md §3 says the immediate
+        // parent is the last `.lvclass` name and the `.lvlib` before it is its owning library.
+        // Reported wrongly until 2026-08-26: JKI's Lexer.lvclass came back inheriting from
+        // "JKI JSON Serialization.lvlib", which is not a class at all and cannot be a parent.
+        foreach (var property in new[] { "NI.LVClass.ParentClassLinkInfo", "NI.LVClass.Geneology" })
+        {
+            if (Property(root, property) is not { Length: > 0 } encoded) continue;
+
+            var decoded = Encoding.Latin1.GetString(Decode(Unescape(encoded)));
+            var names = Regex.Matches(decoded, @"[\w \-.()]{2,}\.lv(?:class|lib)")
+                .Select(m => m.Value)
+                .Distinct(StringComparer.Ordinal)
+                .ToList();
+
+            var classes = names
+                .Where(n => n.EndsWith(".lvclass", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            // The two properties carry different things and must not be read the same way:
+            // ParentClassLinkInfo is ONE parent, so its last .lvclass is the answer. Geneology is
+            // the WHOLE ancestry, so reporting one name from it would invent a direct parent.
+            if (classes.Count > 0)
+                return property.EndsWith("ParentClassLinkInfo", StringComparison.Ordinal)
+                    ? ([classes[^1]],
+                       $"{property} (decoded - one parent, taken as the last .lvclass in the record)",
+                       [])
+                    : (classes,
+                       $"{property} (decoded - the WHOLE ancestry, and the order is not " +
+                       "guaranteed, so which of these is the direct parent is not established " +
+                       "here. Only a Parent Libraries item or ParentClassLinkInfo says that.",
+                       []);
+
+            // A record naming no class at all is not an ancestry answer, so say so rather than
+            // handing back a library as if it were a parent.
+            if (names.Count > 0)
+                return ([], $"{property} decoded but named no .lvclass - " +
+                            $"only {string.Join(", ", names)}; treat as LabVIEW Object", []);
+        }
+
+        return ([], "no parent recorded - derives from LabVIEW Object", []);
+    }
+
+    /// <summary>
+    /// The members with their effective scope. A class records scope PER MEMBER in
+    /// <c>NI.ClassItem.MethodScope</c> - unlike a .lvlib, where it sits on the folder and the
+    /// children inherit it - so no propagation is needed here. Never read the folder name: the
+    /// census found folders called <c>private</c> whose 12 members were all effectively public.
+    /// </summary>
+    private static IEnumerable<Member> Members(XElement root)
+    {
+        foreach (var item in Descend(root))
+        {
+            // `.vi`, `.vim` and `.ctl` members all carry Type="VI" - 4 163 of them in the census -
+            // so the kind comes from the extension, not from the attribute.
+            if ((string?)item.Attribute("Type") != "VI") continue;
+
+            var scope = Property(item, "NI.ClassItem.MethodScope") ??
+                        Property(item, "NI.LibItem.Scope");
+
+            var isStatic = Property(item, "NI.ClassItem.IsStaticMethod");
+
+            yield return new Member(
+                (string?)item.Attribute("Name") ?? "",
+                (string?)item.Attribute("URL") ?? "",
+                System.IO.Path.GetExtension((string?)item.Attribute("Name") ?? "")
+                    .TrimStart('.') switch { "ctl" => "control", "vim" => "malleable VI", _ => "VI" },
+                scope switch
+                {
+                    "1" => "public",
+                    "2" => "private",
+                    "3" => "protected",
+                    "4" => "not public (flavour unverified)",
+                    null => "public (no scope recorded)",
+                    _ => $"unknown ({scope})",
+                },
+                isStatic is null ? null : isStatic == "false");
+        }
+    }
+
+    /// <summary>Items at any depth: a class may nest members in virtual folders.</summary>
+    private static IEnumerable<XElement> Descend(XElement element)
+    {
+        foreach (var item in element.Elements("Item"))
+        {
+            yield return item;
+            foreach (var nested in Descend(item)) yield return nested;
+        }
+    }
+
+    private static string? Property(XElement parent, string name) => parent
+        .Elements("Property")
+        .FirstOrDefault(p => (string?)p.Attribute("Name") == name)?.Value;
+
+    // ------------------------------------------------------------------ the project entry
+
+    /// <summary>
+    /// The target-scope properties LabVIEW writes on `My Computer`, in the alphabetical order
+    /// <c>lvproj-structure.md</c> section 9 prescribes and section 6 documents. Written in full
+    /// rather than left to defaults: the first version of this generator emitted
+    /// <c>server.tcp.enabled</c> alone, and a project LabVIEW has to complete is a project LabVIEW
+    /// marks dirty the moment it opens it.
+    /// </summary>
+    private static readonly (string Name, string Type, string Value)[] TargetProperties =
+    [
+        ("server.app.propertiesEnabled", "Bool", "true"),
+        ("server.control.propertiesEnabled", "Bool", "true"),
+        ("server.tcp.enabled", "Bool", "false"),
+        ("server.tcp.port", "Int", "0"),
+        ("server.tcp.serviceName", "Str", "My Computer/VI Server"),
+        ("server.tcp.serviceName.default", "Str", "My Computer/VI Server"),
+        ("server.vi.callsEnabled", "Bool", "true"),
+        ("server.vi.propertiesEnabled", "Bool", "true"),
+        ("specify.custom.address", "Bool", "false"),
+    ];
+
+    /// <summary>
+    /// A <c>.lvproj</c> listing the classes given. Written rather than asked for, because no RPC
+    /// adds a file to a project either - <c>.lvproj</c> generation is on NI's unsupported list, so
+    /// this is plain XML work.
+    ///
+    /// Shaped after the recipe in <c>lvproj-structure.md</c> section 9, which was verified loading
+    /// on LabVIEW 2026: two project-scope properties, the nine target-scope ones, then the content
+    /// items, then <c>Dependencies</c> and <c>Build Specifications</c>.
+    /// </summary>
+    /// <param name="lvVersion">
+    /// The <c>LVVersion</c> stamp, from <see cref="LabViewVersionStamp"/>. PASSED IN rather than
+    /// resolved here: resolving needs a running LabVIEW, and a writer that reaches out to find one
+    /// cannot be unit-tested and fails in surprising places. It was the constant `26008000` until
+    /// 2026-09-07, which made every class tool unusable on a LabVIEW 2025 station - the throwaway
+    /// `-loadcheck.lvproj` this writes could not be opened, `Error 1125`.
+    /// </param>
+    public static string Project(IEnumerable<(string Name, string Url)> classes, string lvVersion)
+    {
+        var text = new StringBuilder();
+        text.Append("<?xml version='1.0' encoding='UTF-8'?>\r\n");
+        text.Append($"<Project Type=\"Project\" LVVersion=\"{lvVersion}\">\r\n");
+        text.Append("\t<Property Name=\"NI.LV.All.SourceOnly\" Type=\"Bool\">false</Property>\r\n");
+        text.Append("\t<Property Name=\"NI.Project.Description\" Type=\"Str\"></Property>\r\n");
+        text.Append("\t<Item Name=\"My Computer\" Type=\"My Computer\">\r\n");
+        foreach (var (name, type, value) in TargetProperties)
+            text.Append($"\t\t<Property Name=\"{name}\" Type=\"{type}\">{Xml(value)}</Property>\r\n");
+        foreach (var (name, url) in classes)
+            text.Append($"\t\t<Item Name=\"{Xml(name)}\" Type=\"LVClass\" URL=\"{Xml(url)}\"/>\r\n");
+        text.Append("\t\t<Item Name=\"Dependencies\" Type=\"Dependencies\"/>\r\n");
+        text.Append("\t\t<Item Name=\"Build Specifications\" Type=\"Build\"/>\r\n");
+        text.Append("\t</Item>\r\n");
+        text.Append("</Project>\r\n");
+        return text.ToString();
+    }
+
+    /// <summary>
+    /// Add one class to an existing project, in front of <c>Dependencies</c> so it lands among the
+    /// content items rather than after them. Returns false when it is already listed - adding it
+    /// twice makes LabVIEW report a conflict, which reads as a broken class.
+    ///
+    /// PARSED TO DECIDE, EDITED AS TEXT TO WRITE. Round-tripping through <c>XDocument.Save</c> is
+    /// what the first version did, and it rewrote the whole file: a BOM appeared, the declaration's
+    /// single quotes became double, tabs became two spaces, and every self-closing tag gained a
+    /// space. None of that stops LabVIEW loading the project - the load check passed throughout -
+    /// but <c>lvproj-structure.md</c> section 8 keeps those rules precisely so a diff against a
+    /// LabVIEW-saved file is signal rather than noise, and the second class written into a project
+    /// reformatted what the first one wrote. A line insert preserves the style, the line endings
+    /// and the BOM of whatever file it is handed, including one LabVIEW wrote itself.
+    /// </summary>
+    public static bool AddToProject(string projectPath, string className, string relativeUrl)
+    {
+        var name = $"{className}.lvclass";
+
+        var document = XDocument.Load(projectPath);
+        var target = document.Root?.Elements("Item")
+            .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer")
+            ?? throw new InvalidDataException(
+                $"'{projectPath}' has no <Item Type=\"My Computer\"> target to add the class to.");
+
+        var already = target.Elements("Item").Any(i =>
+            (string?)i.Attribute("Type") == "LVClass" &&
+            (string.Equals((string?)i.Attribute("Name"), name, StringComparison.OrdinalIgnoreCase) ||
+             string.Equals((string?)i.Attribute("URL"), relativeUrl, StringComparison.OrdinalIgnoreCase)));
+        if (already) return false;
+
+        var text = File.ReadAllText(projectPath);
+        var newline = text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var lines = text.Split(newline).ToList();
+
+        // Anchor on Dependencies, then Build Specifications: both are machine-managed and always
+        // last under the target, so inserting before either lands among the content items. A
+        // LabVIEW-saved Dependencies item has children and is therefore not self-closing, which is
+        // why the test is on the Type attribute rather than on the whole element.
+        var anchor = lines.FindIndex(l => IsItemOfType(l, "Dependencies"));
+        if (anchor < 0) anchor = lines.FindIndex(l => IsItemOfType(l, "Build"));
+        if (anchor < 0)
+            throw new InvalidDataException(
+                $"'{projectPath}' has neither a Dependencies nor a Build Specifications item, so " +
+                "there is no anchor to insert before. LabVIEW writes both under every target; a " +
+                "project without them was not written by LabVIEW and is not safe to edit blind.");
+
+        var indent = lines[anchor][..(lines[anchor].Length - lines[anchor].TrimStart().Length)];
+        lines.Insert(anchor,
+            $"{indent}<Item Name=\"{Xml(name)}\" Type=\"LVClass\" URL=\"{Xml(relativeUrl)}\"/>");
+
+        File.WriteAllText(projectPath, string.Join(newline, lines));
+        return true;
+    }
+
+    private static bool IsItemOfType(string line, string type)
+    {
+        var trimmed = line.TrimStart();
+        return trimmed.StartsWith("<Item ", StringComparison.Ordinal) &&
+               trimmed.Contains($"Type=\"{type}\"", StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// List plain VIs under the target, inside a virtual folder, and answer how many were added.
+    /// Already-listed VIs are skipped by NAME at any depth, so calling this twice is safe.
+    ///
+    /// WHY IT EXISTS: nothing else writes a VI into a `.lvproj`. `lvai_generate_class_test` produced
+    /// a complete, green, verified suite on 2026-08-29 and the user's Project Explorer showed three
+    /// classes and no tests at all — *"Die Tests fehlen im Projekt!"*. A test nobody can find from
+    /// the project is a test nobody runs.
+    ///
+    /// THE PROJECT MUST BE CLOSED IN LABVIEW WHEN THIS RUNS. LabVIEW's close SAVES its own copy over
+    /// the file, so an edit made while it holds the project open is destroyed by the next close.
+    /// That is the caller's job to arrange; this only writes the file.
+    /// </summary>
+    /// <summary>
+    /// Every VI the <c>.lvproj</c> lists, as (file name, URL), at any depth.
+    ///
+    /// TWO CALLERS, BOTH ABOUT THE SAME FAILURE. Read BEFORE LabVIEW closes a project, it says
+    /// what has to be put back afterwards - the close saves LabVIEW's own copy over the file and
+    /// drops VI items it never had in memory, which is how five test suites generated one at a
+    /// time ended up with a single one listed. Read AFTER the edit, it is the only honest answer
+    /// to "is it listed now": <c>AddVisToProject</c>'s count is what was written, and the tidy
+    /// pass that follows can still take an entry back out.
+    /// </summary>
+    public static List<(string Name, string Url)> ListedVis(string projectPath)
+    {
+        try
+        {
+            if (!File.Exists(projectPath)) return [];
+
+            // Parsed, not pattern-matched, for the reason ListedClasses gives: a regex has to
+            // guess at whitespace and attribute order, and XDocument is how AddVisToProject reads
+            // the file, so the two agree by construction.
+            return XDocument.Load(projectPath).Descendants("Item")
+                .Where(i => (string?)i.Attribute("Type") == "VI")
+                .Select(i => (Name: (string?)i.Attribute("Name") ?? "",
+                              Url: (string?)i.Attribute("URL") ?? ""))
+                .Where(v => v.Name.Length > 0 && v.Url.Length > 0)
+                .ToList();
+        }
+        catch (IOException) { return []; }
+        catch (UnauthorizedAccessException) { return []; }
+        catch (System.Xml.XmlException) { return []; }
+    }
+
+    /// <summary>
+    /// The same VIs, plus WHERE each one sits: the chain of <c>&lt;Item&gt;</c> names between the
+    /// target and the VI, <c>/</c>-joined, and empty for one listed at target level.
+    ///
+    /// WHY THE PLACE IS WORTH A SECOND READ. <c>AddVisToProject</c> treats a VI listed at ANY depth
+    /// as listed and adds nothing, which is right - two items for one file is the worse outcome -
+    /// but it makes <c>added: 0</c> mean two different things, and one of them is wrong. Measured
+    /// 2026-09-03 and reproduced by two agents independently: LabVIEW adopts the runner it has open
+    /// during its own save and drops it at TARGET level, so the project held both runners outside
+    /// their folders while the answer read <c>"Already listed; nothing added."</c> Nothing moves the
+    /// item - an item inside a class or a library is owned by it - so the fix is to say where it is.
+    /// </summary>
+    public static List<(string Name, string Url, string Folder)> ListedViPlaces(string projectPath)
+    {
+        try
+        {
+            if (!File.Exists(projectPath)) return [];
+
+            var target = XDocument.Load(projectPath).Root?.Elements("Item")
+                .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer");
+            if (target is null) return [];
+
+            return target.Descendants("Item")
+                .Where(i => (string?)i.Attribute("Type") == "VI")
+                .Select(i => (Name: (string?)i.Attribute("Name") ?? "",
+                              Url: (string?)i.Attribute("URL") ?? "",
+                              // Ancestors() is nearest-first, so this walks out to the target and
+                              // stops; reversing it reads the way the tree does, outermost first.
+                              Folder: string.Join("/", i.Ancestors("Item")
+                                  .TakeWhile(a => a != target)
+                                  .Select(a => (string?)a.Attribute("Name") ?? "")
+                                  .Reverse())))
+                .Where(v => v.Name.Length > 0)
+                .ToList();
+        }
+        catch (IOException) { return []; }
+        catch (UnauthorizedAccessException) { return []; }
+        catch (System.Xml.XmlException) { return []; }
+    }
+
+    /// <summary>
+    /// Every folder that has a same-named SIBLING folder, as (name, line of the second one). Two
+    /// such folders make LabVIEW refuse the project with Error 74 - measured 2026-09-26 as an A/B.
+    /// Empty when the file cannot be read, so a bad read never blocks an open.
+    /// </summary>
+    public static IReadOnlyList<(string Name, int Line)> DuplicateSiblingFolders(string projectPath)
+    {
+        try
+        {
+            var root = XDocument.Load(projectPath, LoadOptions.SetLineInfo).Root;
+            if (root is null) return [];
+            return [.. root.DescendantsAndSelf()
+                .SelectMany(parent => parent.Elements("Item")
+                    .Where(i => (string?)i.Attribute("Type") == "Folder")
+                    .GroupBy(i => (string?)i.Attribute("Name") ?? "", StringComparer.Ordinal)
+                    .Where(g => g.Count() > 1)
+                    .SelectMany(g => g.Skip(1)))
+                .Select(i => ((string?)i.Attribute("Name") ?? "", ((System.Xml.IXmlLineInfo)i).LineNumber))];
+        }
+        catch (IOException) { return []; }
+        catch (UnauthorizedAccessException) { return []; }
+        catch (System.Xml.XmlException) { return []; }
+    }
+
+    public static int AddVisToProject(string projectPath, string folderName,
+                                      IReadOnlyList<(string Name, string Url)> vis)
+    {
+        if (vis.Count == 0) return 0;
+
+        var document = XDocument.Load(projectPath);
+        var target = document.Root?.Elements("Item")
+            .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer")
+            ?? throw new InvalidDataException(
+                $"'{projectPath}' has no <Item Type=\"My Computer\"> target to add the VIs to.");
+
+        // At ANY depth: a VI already inside some other folder is listed, and adding it again would
+        // give the project two items for one file.
+        var listed = target.Descendants("Item")
+            .Where(i => (string?)i.Attribute("Type") == "VI")
+            .Select(i => (string?)i.Attribute("Name"))
+            .Where(n => n is { Length: > 0 })
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var missing = vis.Where(v => !listed.Contains(v.Name)).ToList();
+        if (missing.Count == 0) return 0;
+
+        var text = File.ReadAllText(projectPath);
+        var newline = text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var lines = text.Split(newline).ToList();
+
+        var folderOpen = $"<Item Name=\"{Xml(folderName)}\" Type=\"Folder\">";
+        var folderIndex = lines.FindIndex(l => l.TrimStart().StartsWith(folderOpen,
+                                                                       StringComparison.Ordinal));
+
+        // AN EMPTY FOLDER IS WRITTEN SELF-CLOSING, and it is the SAME folder. Measured 2026-09-26 on
+        // the eighth ATM build: a hand-written minimal .lvproj carried `<Item Name="SubVIs"
+        // Type="Folder"/>`, this method looked only for the open tag, added a second `SubVIs` folder
+        // beside it - and LabVIEW answered Error 74 ("Memory or data structure corrupt") on the next
+        // open. Two same-named sibling folders are what 74 means here, measured as an A/B. So the
+        // empty form is expanded in place into an open and a close tag, and the VIs go inside it.
+        if (folderIndex < 0)
+        {
+            var folderEmpty = $"<Item Name=\"{Xml(folderName)}\" Type=\"Folder\"/>";
+            var emptyIndex = lines.FindIndex(l => l.Trim() == folderEmpty);
+            if (emptyIndex >= 0)
+            {
+                var emptyIndent = Indent(lines[emptyIndex]);
+                lines[emptyIndex] = $"{emptyIndent}{folderOpen}";
+                lines.Insert(emptyIndex + 1, $"{emptyIndent}</Item>");
+                folderIndex = emptyIndex;
+            }
+        }
+
+        int at;
+        string indent;
+        if (folderIndex >= 0)
+        {
+            at = folderIndex + 1;
+            indent = Indent(lines[folderIndex]) + "\t";
+        }
+        else
+        {
+            // Same anchors as AddToProject: Dependencies and Build Specifications are machine
+            // managed and always last, so inserting before either lands among the content items.
+            var anchor = lines.FindIndex(l => IsItemOfType(l, "Dependencies"));
+            if (anchor < 0) anchor = lines.FindIndex(l => IsItemOfType(l, "Build"));
+            if (anchor < 0)
+                throw new InvalidDataException(
+                    $"'{projectPath}' has neither a Dependencies nor a Build Specifications item, " +
+                    "so there is no anchor to insert before.");
+
+            indent = Indent(lines[anchor]);
+            lines.Insert(anchor, $"{indent}</Item>");
+            lines.Insert(anchor, $"{indent}{folderOpen}");
+            at = anchor + 1;
+            indent += "\t";
+        }
+
+        foreach (var vi in Enumerable.Reverse(missing))
+            lines.Insert(at,
+                $"{indent}<Item Name=\"{Xml(vi.Name)}\" Type=\"VI\" URL=\"{Xml(vi.Url)}\"/>");
+
+        File.WriteAllText(projectPath, string.Join(newline, lines));
+        return missing.Count;
+
+        static string Indent(string line) => line[..(line.Length - line.TrimStart().Length)];
+    }
+
+    /// <summary>
+    /// Takes the named VIs out of the project where they sit DIRECTLY under the target - the place
+    /// LabVIEW's own save drops a VI it adopts - and returns the names actually removed.
+    ///
+    /// LINE-PRECISE, NOT A RE-SERIALISATION. The element is found by parsing, so a VI of the same
+    /// name inside a folder is never touched, and its line is then removed from the text so the
+    /// rest of the file keeps LabVIEW's own formatting - the same split AddVisToProject makes. A
+    /// line that does not look like one self-closing item is left alone rather than guessed at.
+    ///
+    /// Only a FILE edit: the caller must hold the project closed, because LabVIEW's next close
+    /// saves its own copy over whatever this writes.
+    /// </summary>
+    /// <summary>
+    /// Takes LOOSE project entries for the given VI files out of a <c>.lvproj</c> - at target level
+    /// or in a virtual folder, never under a class or library item - and returns the names removed.
+    /// The file is matched by its URL resolved against the project file, not by its name, because
+    /// a class member and a loose VI elsewhere may share a file name.
+    ///
+    /// WHY IT EXISTS. A method generated with its class LOADED - the route by which a class method
+    /// calls its own accessors with no stub, measured 2026-09-25 - is generated with the project
+    /// open, so LabVIEW's save lists the new VI as a loose project item. Making it a member then
+    /// meets that entry. The agent of that build removed the line by hand with the project closed.
+    /// Line-precise like <see cref="RemoveTargetLevelVis"/>; the caller holds the project closed.
+    /// </summary>
+    public static IReadOnlyList<string> RemoveLooseViEntries(string projectPath,
+                                                             IEnumerable<string> viPaths)
+    {
+        if (!File.Exists(projectPath)) return [];
+        var wanted = viPaths.Select(Path.GetFullPath).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (wanted.Count == 0) return [];
+
+        var target = XDocument.Load(projectPath, LoadOptions.SetLineInfo).Root?.Elements("Item")
+            .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer");
+        if (target is null) return [];
+
+        var hits = target.Descendants("Item")
+            .Where(i => (string?)i.Attribute("Type") == "VI")
+            // Loose only: every ancestor up to the target is a plain virtual folder.
+            .Where(i => i.Ancestors("Item").TakeWhile(a => a != target)
+                         .All(a => (string?)a.Attribute("Type") == "Folder"))
+            .Select(i => (Name: (string?)i.Attribute("Name") ?? "",
+                          Url: (string?)i.Attribute("URL") ?? "",
+                          Line: ((System.Xml.IXmlLineInfo)i).LineNumber))
+            .Where(h => h.Line > 0 && ResolveProjectUrl(projectPath, h.Url) is { } full
+                        && wanted.Contains(full))
+            .ToList();
+        if (hits.Count == 0) return [];
+
+        var text = File.ReadAllText(projectPath);
+        var newline = text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var lines = text.Split(newline).ToList();
+
+        var removed = new List<string>();
+        foreach (var hit in hits.OrderByDescending(h => h.Line))
+        {
+            var index = hit.Line - 1;
+            if (index >= lines.Count) continue;
+            var line = lines[index].Trim();
+            if (!line.StartsWith("<Item ", StringComparison.Ordinal)
+                || !line.EndsWith("/>", StringComparison.Ordinal)
+                || !line.Contains($"Name=\"{Xml(hit.Name)}\"", StringComparison.Ordinal))
+                continue;
+            lines.RemoveAt(index);
+            removed.Add(hit.Name);
+        }
+
+        if (removed.Count > 0) File.WriteAllText(projectPath, string.Join(newline, lines));
+        removed.Reverse();
+        return removed;
+    }
+
+    public static IReadOnlyList<string> RemoveTargetLevelVis(string projectPath,
+                                                             IReadOnlyCollection<string> names)
+    {
+        if (names.Count == 0) return [];
+
+        var wanted = names.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var target = XDocument.Load(projectPath, LoadOptions.SetLineInfo).Root?.Elements("Item")
+            .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer");
+        if (target is null) return [];
+
+        var hits = target.Elements("Item")
+            .Where(i => (string?)i.Attribute("Type") == "VI"
+                        && wanted.Contains((string?)i.Attribute("Name") ?? ""))
+            .Select(i => (Name: (string)i.Attribute("Name")!,
+                          Line: ((System.Xml.IXmlLineInfo)i).LineNumber))
+            .Where(h => h.Line > 0)
+            .ToList();
+        if (hits.Count == 0) return [];
+
+        var text = File.ReadAllText(projectPath);
+        var newline = text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var lines = text.Split(newline).ToList();
+
+        var removed = new List<string>();
+        foreach (var hit in hits.OrderByDescending(h => h.Line))
+        {
+            var index = hit.Line - 1;
+            if (index >= lines.Count) continue;
+            var line = lines[index].Trim();
+            if (!line.StartsWith("<Item ", StringComparison.Ordinal)
+                || !line.EndsWith("/>", StringComparison.Ordinal)
+                || !line.Contains($"Name=\"{Xml(hit.Name)}\"", StringComparison.Ordinal))
+                continue;
+            lines.RemoveAt(index);
+            removed.Add(hit.Name);
+        }
+
+        if (removed.Count > 0) File.WriteAllText(projectPath, string.Join(newline, lines));
+        removed.Reverse();
+        return removed;
+    }
+
+    /// <summary>
+    /// Loose VI entries of a <c>.lvproj</c> that list a file ANOTHER loose entry already lists -
+    /// the ones <see cref="RemoveDuplicateViEntries"/> would take out, found without writing.
+    ///
+    /// WHY IT EXISTS. A project listing one file twice does not open: LabVIEW answers `Error 74`
+    /// and loads nothing. Measured 2026-09-25 on the ATM cold build - the class agent's close
+    /// saved the project while three helper VIs were loaded, so LabVIEW listed them at target
+    /// level, and a hand edit then listed the same three under `SubVIs`. Nothing between the edit
+    /// and the next open reported it.
+    ///
+    /// Two entries are duplicates when their URLs RESOLVE to the same file (against the project
+    /// file, as LabVIEW does); a symbolic URL counts by its text. Only LOOSE entries are compared -
+    /// target level and virtual folders - never an item inside a class, a library, Dependencies or
+    /// a build specification. Of each group the entry deepest in a folder is KEPT, the first in
+    /// document order breaking a tie, because a target-level twin is what LabVIEW's own save
+    /// makes and the folder is where someone put it.
+    /// </summary>
+    public static IReadOnlyList<(string Name, string Url, int Line)> DuplicateViEntries(string projectPath)
+    {
+        if (!File.Exists(projectPath)) return [];
+        XElement? target;
+        try
+        {
+            target = XDocument.Load(projectPath, LoadOptions.SetLineInfo).Root?.Elements("Item")
+                .FirstOrDefault(i => (string?)i.Attribute("Type") == "My Computer");
+        }
+        catch (System.Xml.XmlException) { return []; }
+        if (target is null) return [];
+
+        var loose = target.Descendants("Item")
+            .Where(i => (string?)i.Attribute("Type") == "VI")
+            .Select(i => (Item: i, Folders: i.Ancestors("Item").TakeWhile(a => a != target).ToList()))
+            .Where(x => x.Folders.All(a => (string?)a.Attribute("Type") == "Folder"))
+            .Select((x, order) => (Name: (string?)x.Item.Attribute("Name") ?? "",
+                                   Url: (string?)x.Item.Attribute("URL") ?? "",
+                                   Line: ((System.Xml.IXmlLineInfo)x.Item).LineNumber,
+                                   Depth: x.Folders.Count, Order: order))
+            .Where(x => x.Url.Length > 0 && x.Line > 0);
+
+        return [.. loose
+            .GroupBy(x => ResolveProjectUrl(projectPath, x.Url) ?? "url:" + x.Url,
+                     StringComparer.OrdinalIgnoreCase)
+            .Where(g => g.Count() > 1)
+            .SelectMany(g => g.OrderByDescending(x => x.Depth).ThenBy(x => x.Order).Skip(1))
+            .OrderBy(x => x.Line)
+            .Select(x => (x.Name, x.Url, x.Line))];
+    }
+
+    /// <summary>
+    /// Takes the entries <see cref="DuplicateViEntries"/> names out of the file, line-precise like
+    /// <see cref="RemoveTargetLevelVis"/>, and returns the names removed. A line that does not read
+    /// as one self-closing item is left rather than guessed at. The caller holds the project
+    /// CLOSED: LabVIEW's next close saves its own copy over whatever this writes.
+    /// </summary>
+    public static IReadOnlyList<string> RemoveDuplicateViEntries(string projectPath)
+    {
+        var hits = DuplicateViEntries(projectPath);
+        if (hits.Count == 0) return [];
+
+        var text = File.ReadAllText(projectPath);
+        var newline = text.Contains("\r\n", StringComparison.Ordinal) ? "\r\n" : "\n";
+        var lines = text.Split(newline).ToList();
+
+        var removed = new List<string>();
+        foreach (var hit in hits.OrderByDescending(h => h.Line))
+        {
+            var index = hit.Line - 1;
+            if (index >= lines.Count) continue;
+            var line = lines[index].Trim();
+            if (!line.StartsWith("<Item ", StringComparison.Ordinal)
+                || !line.EndsWith("/>", StringComparison.Ordinal)
+                || !line.Contains($"Name=\"{Xml(hit.Name)}\"", StringComparison.Ordinal))
+                continue;
+            lines.RemoveAt(index);
+            removed.Add(hit.Name);
+        }
+
+        if (removed.Count > 0) File.WriteAllText(projectPath, string.Join(newline, lines));
+        removed.Reverse();
+        return removed;
+    }
+
+    /// <summary>
+    /// A project item's URL as a full path - relative to the <c>.lvproj</c> FILE treated as a
+    /// directory, as LabVIEW writes it - or null for a symbolic URL (<c>/&lt;vilib&gt;/...</c>),
+    /// which names no path this process can compare.
+    /// </summary>
+    private static string? ResolveProjectUrl(string projectPath, string url)
+    {
+        if (url.Contains('<') || url.Contains("&lt;")) return null;
+        try { return Path.GetFullPath(Path.Combine(projectPath, url.Replace('/', '\\'))); }
+        catch (Exception e) when (e is ArgumentException or NotSupportedException
+                                  or PathTooLongException) { return null; }
+    }
+
+    /// <summary>
+    /// The <c>URL</c> one LabVIEW file uses to point at another.
+    ///
+    /// **`../` IS RELATIVE TO THE REFERENCING FILE, NOT ITS DIRECTORY** - the leading `..` pops the
+    /// file name. So a class sitting beside its project is <c>../Auto/Auto.lvclass</c>, and a parent
+    /// class one folder over is <c>../../Auto/Auto.lvclass</c>. This is why `../X` accounts for
+    /// 28 803 of the 29 194 URLs in the census, and it is the single easiest thing to get wrong:
+    /// <c>lvproj-structure.md</c> section 5 says so, and NI's own
+    /// <c>Circle Message.lvclass</c> writes <c>URL="../../Draw Message/Draw Message.lvclass"</c> for
+    /// a parent in the sibling folder.
+    ///
+    /// THIS SHIPPED WRONG. The first version took a DIRECTORY and produced
+    /// <c>Auto/Auto.lvclass</c> with no `../` at all, which resolves one level too deep - inside
+    /// the `.lvproj` treated as a folder. LabVIEW is lenient enough to find the class anyway, so the
+    /// load check passed and nothing reported it; the user reading the project file did. Hence the
+    /// parameter is a FILE path now, and `RelativeUrlTests` pins both shapes.
+    ///
+    /// Forward slashes are what LabVIEW writes here, in a `.lvproj` and a `.lvclass` alike.
+    /// </summary>
+    public static string RelativeUrl(string referencingFile, string toPath)
+    {
+        var directory = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(referencingFile))
+            ?? throw new ArgumentException(
+                $"'{referencingFile}' has no directory, so nothing can be relative to it.",
+                nameof(referencingFile));
+
+        // "../" first, because the referencing FILE NAME is the first component `..` removes.
+        return "../" + System.IO.Path.GetRelativePath(directory, toPath).Replace('\\', '/');
+    }
+
+    /// <summary>
+    /// The parent's qualified name as a child must spell it: <c>&lt;owning library&gt;:&lt;class&gt;</c>
+    /// when the parent belongs to a library, the bare file name otherwise. Read off the parent file
+    /// rather than assumed, because getting it wrong is how a parent link silently fails to resolve.
+    /// </summary>
+    public static string QualifiedName(string lvclassPath)
+    {
+        var name = System.IO.Path.GetFileNameWithoutExtension(lvclassPath);
+        try
+        {
+            var root = XDocument.Load(lvclassPath).Root;
+            var library = root is null ? null : Property(root, "NI.Lib.ContainingLib");
+            return library is null ? $"{name}.lvclass" : $"{library}:{name}.lvclass";
+        }
+        catch (Exception e) when (e is IOException or System.Xml.XmlException)
+        {
+            return $"{name}.lvclass";
+        }
+    }
+}

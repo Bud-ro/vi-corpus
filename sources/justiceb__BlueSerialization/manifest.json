@@ -1,0 +1,839 @@
+{
+ "repo": "justiceb/BlueSerialization",
+ "url": "https://github.com/justiceb/BlueSerialization",
+ "commit": "6416a1cc3f7863b5a7780cf6bc2b28448c88b9a7",
+ "license": "BSD-3-Clause",
+ "licenseFile": "LICENSE.md",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "Source/BlueSerializable/BlueSerializable.lvclass",
+   "bytes": 95543,
+   "sha256": "2ef50ab6b5660f8b6ebc87979ae287c65479acc4d9991e4b05b22beac8fa9b33",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/GetSerializableData.vi",
+   "bytes": 29447,
+   "sha256": "94b040d93c9c6a227d9a8bec9c21ed98ad6b4ce64273e5e73e02787ae6a2346f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/GetSerializableData_StaticCommunity.vi",
+   "bytes": 19783,
+   "sha256": "fed311c461828a26b92f20c22dd39c75cc486799ed7bb2471b1d00512cb3aa66",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/GetVersionSerializableData.vi",
+   "bytes": 24846,
+   "sha256": "8ebcd5d4dbe5650a495f530d52d8feeb568c7264e9f4a43f523909fe897abfb1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/GetVersionSerializableData_StaticCommunity.vi",
+   "bytes": 8142,
+   "sha256": "605a2fbfb133cd686c348e6c283a688e74c19d26634740d7871ac95d6554f6d7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/HandleVersionMutation.vi",
+   "bytes": 25045,
+   "sha256": "fb09198d828a3d10d4c122679d3247c2e5bd4ec1815adfd96dac5126610bdaf3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/HandleVersionMutation_StaticCommunity.vi",
+   "bytes": 9209,
+   "sha256": "126671bf587f48b789c8c02e5677046054416457decb7c50c9fa1a15b358c3d7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/SerializableData.ctl",
+   "bytes": 12245,
+   "sha256": "285038bdc97167417883083daf0c78f3dad8447ba8032177d4aa9af598951ac7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/SetSerializableData.vi",
+   "bytes": 24835,
+   "sha256": "80696837956de6d11de06805acb7bed27297ef5cd41d59099d02395799b86fc1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/SetSerializableData_StaticCommunity.vi",
+   "bytes": 15255,
+   "sha256": "454ce8af4cabfc911da4a3ed9a0d7b08625886c93bed1c1dcdfa2d028719ae88",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/SetSerializeSliceClass.vi",
+   "bytes": 18426,
+   "sha256": "bfbef22f7435f68051b8d17b0ba9105cfe17685d01ba8d412ce967393dcd8c94",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/SetSerializeSliceClass_StaticCommunity.vi",
+   "bytes": 8630,
+   "sha256": "6eb696e4b05e36768720db1ed42aad2670eda02129291b5c2d90e9263ed5deaf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializable/TemplateMutationMethod.vi",
+   "bytes": 9094,
+   "sha256": "508d12883d50c76f37470a81c08d7b9d287e0169fa706c65da6f62bfb92561e1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/BlueSerializableTemplate.lvclass",
+   "bytes": 50676,
+   "sha256": "ddc6d9d9a057fc1c9a3c59344667e740b789d29052feb9d5597c6e696aa458f6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/BlueSerializableTemplate.lvlib",
+   "bytes": 1291,
+   "sha256": "82dca1e8faf57768f36361edb22f19760f6be2fecf85d3dd8f5bd2ae6786cbb0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/GetSerializableData.vi",
+   "bytes": 30535,
+   "sha256": "d5499cf72193f833158801ade4bd3a45e7ea50a08d59a24836b8c84134575bd6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/GetVersionSerializableData.vi",
+   "bytes": 26506,
+   "sha256": "e5438c7c1f24f6660494b7ac78f521dd245528175d1651506dff1ee67d1c2fee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/HandleVersionMutation.vi",
+   "bytes": 33549,
+   "sha256": "dc11b63b85a21cbbeb37ee361fa3dcf0000344a37d7fd70284805a10a61e6296",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/Mutate_Template.vi",
+   "bytes": 14223,
+   "sha256": "d103a595c160f1d00c1a40aada21ea76c5b11917dbfaeb4dcb08da8a05bda8a6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/SerializableData.ctl",
+   "bytes": 15625,
+   "sha256": "f72d6f9ce2299ccfd5be461e80cf6994766c7e593f9e2c7986c8a6d7e8f60b1e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializableTemplate/SetSerializableData.vi",
+   "bytes": 25431,
+   "sha256": "d71dbedd26d38f2d044636170442d944d3ff25fb0dc907025745b6df07a2ad00",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerialization.lvlib",
+   "bytes": 1453,
+   "sha256": "359cfb0d89131b6a8506875daf1dbb069a61386a4a5f1a349b502e19c4b5847c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerialization.lvproj",
+   "bytes": 5504,
+   "sha256": "96db16f07b63144c3c2dc200504055e2cd1b579f3ac8d0151d9b2571c8c317c3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/AgreedClassLayerDeserialize.vi",
+   "bytes": 31551,
+   "sha256": "b8af9b18410ece095cf2690fdf2e74a2efa491088a943274bb6a4c6b2af7a75d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/BlueSerializableClassName.vi",
+   "bytes": 17717,
+   "sha256": "a3712c7db371c535e4b2984648200aaf7e3122fd591a24ee3b35aa5470181492",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/BlueSerializableVersion.ctl",
+   "bytes": 16868,
+   "sha256": "916de26374208893a9a1594fcd52ef6de67774d73a5ef78f3f87e827f4824522",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/BlueSerializer.lvclass",
+   "bytes": 352208,
+   "sha256": "7b7d74e296befea4d5c326e291535472f09803dc9c848d085a5d3bbe2e5ce380",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/CheckIfPlaceholder.vi",
+   "bytes": 23206,
+   "sha256": "96a09e68683449acbb16c32276b96bc7c832e2d7cdd36edb5c76fe3b659193a3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassExpansion.vi",
+   "bytes": 27122,
+   "sha256": "215e118589c53ae8afecb3fa48939877bd15c6bd338d2343ef854ba03d54cb37",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassHeader.ctl",
+   "bytes": 15284,
+   "sha256": "4c9e8868839e1ff55ac559bcf887e445a7fb6c21537223f9a91ffa20986ce0b6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameAndVersion.ctl",
+   "bytes": 15020,
+   "sha256": "e57ab407937ee26fab80c199ee3dbe81ad462a83a799641565765e43d24a424c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameCacheCluster.ctl",
+   "bytes": 16422,
+   "sha256": "f27ba0984e767bbc75103bb02a9da54ff2953281d14347763cffe01199e7eda3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameCacheMap.ctl",
+   "bytes": 14370,
+   "sha256": "2329a7a6906eba6a424a01cc1f7e75d28e67353f0af387d77f962ce509970bdd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameCacheWrite.vi",
+   "bytes": 26795,
+   "sha256": "047e7f6b446c5d9e127512617d77ada0c53a3860f01829863dc6409a88cb3d3f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameCalcV2.vi",
+   "bytes": 37135,
+   "sha256": "102f13380a6a2c9ac34bacd49c0935e21a9b81331d24eb16c37cd6b009f96e54",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameObj.ctl",
+   "bytes": 13481,
+   "sha256": "be943c82fe7c16a594e301ca8c251bb5aa1d51a876d3b41c56cf4737dd4a2ad8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameObjSerializable.ctl",
+   "bytes": 14477,
+   "sha256": "df4ffde5c38535d228b28ba309942e1e26ee4253340ded92515514b3e5942f31",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClassNameSummary.ctl",
+   "bytes": 13245,
+   "sha256": "c353fc633016e20bc3367185c6001f58ef4c9f4ee1a7862d0713691afc6120dc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClearClassNameCache.vi",
+   "bytes": 28423,
+   "sha256": "1d71c6e3f86c4d6ddb234b5ba1060c2ab43fd9ab3703c3c5680cd5bb656ade6e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ClearClassNameCacheStatic.vi",
+   "bytes": 23505,
+   "sha256": "82f4cb544462b8222d4e52678e21d8abf4870496129c17086336e400bb8eec25",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DataToBeSerialized.ctl",
+   "bytes": 23771,
+   "sha256": "243a271ad0774903cd68ef5d19ea29eccc7ac6ad3f8faa5c7d4e1434447c7410",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize.vi",
+   "bytes": 44171,
+   "sha256": "feaee3dc9e474d9949534946c990c1e723bcd7113197dcf4c57525b7819dbdbd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializeInitObjectStack.vi",
+   "bytes": 31606,
+   "sha256": "43dd2115cadc0f53e6e0a630ccc2bb851cd91f4d432428daaf2d3e0126926a78",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializeInitTargetObjectAndStack.vi",
+   "bytes": 45715,
+   "sha256": "f21ee3765529b2f7a80747f7f06956e6dc769522a95094dc59189e27043847f2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializeMutationOptions.ctl",
+   "bytes": 13407,
+   "sha256": "0cfd05a52cb9ba7cf901540f1ad0e8891ea2aeae078c3e22e7fe678455d59f94",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializeOptions.ctl",
+   "bytes": 21203,
+   "sha256": "7f0aeefd2985ed623ebb4b5bf301bdd78c4fa3d95003eb7fa36298579142553e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializePreservationOptions.ctl",
+   "bytes": 14103,
+   "sha256": "cd85b04c446f1c6355ae18b001d5863b086034c1fe8547b17ff1959ce13774fb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/DeserializeSlicingOptions.ctl",
+   "bytes": 14542,
+   "sha256": "dc08d7b96adbfe5c3c2cc2205e0c00e6b842810d5aba53522228ac1f54a8e90c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_MutationInput.ctl",
+   "bytes": 16778,
+   "sha256": "4f888fe5ff96282f981c7f021d571fb9bf569b8eb3e1aa8cc06bc3097de9eec8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_NonBlueObject.vi",
+   "bytes": 23073,
+   "sha256": "31b916f7da4b1c4260695a3dc7f3574a936cf89e8ffae4b6047def75ccc2c297",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_To_LessSpecific.vi",
+   "bytes": 30087,
+   "sha256": "952ec6dde776d47297f11f67a0bc90fac929af0ab634f97866a515a3cd9bd243",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_To_Same.vi",
+   "bytes": 21199,
+   "sha256": "6004f0d32feb4fcc042b5ca558407ebd60b1edad4662d8225d923440554cf3bf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_To_Sibling.vi",
+   "bytes": 21802,
+   "sha256": "7598bcc13dadf4bee227087c0dbe59a6732803d16c8a2a2c3474dea3bdd77020",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Deserialize_VIM.vim",
+   "bytes": 47332,
+   "sha256": "db2df2a5dabaf7305f975d0a37a41b9e0342aa93ef575a4d2996dc19bcd5af90",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/FindItem.vi",
+   "bytes": 23184,
+   "sha256": "30841ee25a9d7ef43d8dd2bec6bea8f2c4770a0e84108928f815b9521b13524e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/FindMutationByVerIndex.vi",
+   "bytes": 45206,
+   "sha256": "fe9de4464da28bd985e562995e88c3e5d7f2cdbf97e2c141070cc9effef709a7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetClassListInMemory.vi",
+   "bytes": 18048,
+   "sha256": "1d9597526766d3eabc5176a22fd28e7ebfb7c889fc3ca35db2b268a726fb65e1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetClassNameAndVersion.vi",
+   "bytes": 22426,
+   "sha256": "556b8f0238e74a61c211a0d279f7b09f07911ba4cc8fdc71345f04b2d7effa75",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetDescendantType.vi",
+   "bytes": 20949,
+   "sha256": "5c551755ad85d276c4b1f1d01054f1d64b812e777c3a119d3cb8ccceb82ddbd0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetLVObject.vi",
+   "bytes": 43987,
+   "sha256": "5a49d34271fe500d24e888e61f3d6c40e2ed3bd3acf868005cfa2b33f7d8778e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetLastCompatibleVersion.vi",
+   "bytes": 21236,
+   "sha256": "28fe765d5406fce152c827b51a15c31e38298ef1a59f76f91e041e832646ea0e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetNumberLevelsExpanded.vi",
+   "bytes": 22155,
+   "sha256": "5cb3dda6c5e3720170c11555b1a895895506fb0f8f02ccc4fd8e42ec95dea404",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetSerializableClassHeader.vi",
+   "bytes": 30398,
+   "sha256": "a66883be717516b7848ccff47dc1bd17d4cf4e3d42982b27f7c6a892e32c37be",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetSerializableDataAction.ctl",
+   "bytes": 10358,
+   "sha256": "bb358cff8fb588de1222d6d91a1cadb67f8e2a5116a9707c6447d4590449d65c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/GetUnmodifiedSerializableData.vi",
+   "bytes": 32365,
+   "sha256": "c5af5d0c0357ee69df7dfdb4148c9ba16dd01433a8030fc399d8a054e2d401d6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Is Interface Or LabVIEW Object Blue.vi",
+   "bytes": 18915,
+   "sha256": "cbf507470c583947337fe4ce5c06dca9f51ab9d734e8b3a34592258433390e4d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/LVOOP Get Default Object Inline.vi",
+   "bytes": 13559,
+   "sha256": "ee4de620cb977e08763bdbf9d2ec26fc430944eac8883a22d1c506906661968a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/LVOOP is Same or Descendant Class Inline.vi",
+   "bytes": 12696,
+   "sha256": "9e64d39e45215f54c55085c1567ee3716cc1a967b2bdcf7641967844e4024e23",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/MutationOptionsErrorCheck.vi",
+   "bytes": 53997,
+   "sha256": "2bfa783bd146716c04f4887323aec493fa2cb345ff15d348f5e2a576e7a60b4e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/MutationParentLevelsAdded.vi",
+   "bytes": 29793,
+   "sha256": "3661c87b0a6b53f6212cc6b3931ac936142fc87674d36840860e89ce530c945b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/MutationParentLevelsRemoved.vi",
+   "bytes": 30643,
+   "sha256": "ed4cbde5bbc5d273ba158248cb340cf45a1adf0951c09ac61aec56a2c3512b14",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/ParseSerializableClassHeader.vi",
+   "bytes": 29668,
+   "sha256": "c36ef4790f642e1ab4084504d52a873c84042b356b599b65d539e55d455e174c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/PreserveNonWiredDataEnumToBools.vi",
+   "bytes": 17083,
+   "sha256": "76eb16d0d856be4cdf7f21907b452308164d2c5b7fe915e6be7953b2fca21d85",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/PreserveNonWiredDataOption.ctl",
+   "bytes": 10203,
+   "sha256": "fe92d306535f8c71afc311db7d81c5ce94a9d098f5066139c0da58aecb2595df",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Serialize.vi",
+   "bytes": 37641,
+   "sha256": "2ff6eb65dc25f267e12bd86f2ddc94951a14d87d9986c955425387a20ce62d6a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SerializeBuildHeader.vi",
+   "bytes": 33480,
+   "sha256": "32449192485445ed3579cec87de6b150051a334190e20dbf6d82726d66378573",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SerializeOptions.ctl",
+   "bytes": 17057,
+   "sha256": "b01a12986e9322767d8d6e0cd8cae46ad0295f91c0fa8060972f79b06fcf3d32",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SerializeOptionsPayload.ctl",
+   "bytes": 17248,
+   "sha256": "1caf251b9eeb23dd30fa1a406140efb60bcc8199cf4bd8b00262e8834a1338c2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SerializeSliceCalc.vi",
+   "bytes": 37374,
+   "sha256": "0a10cc3fa5730f54ad40f1e84c72a31d3d36a584855ca6031297d5db3710cb15",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SerializeSliceCalcString.vi",
+   "bytes": 40892,
+   "sha256": "c9c122fbe5d661ec09f49abbf533658b00a7d78194900362750d918950a08a09",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/SliceClass.vi",
+   "bytes": 32842,
+   "sha256": "44679216bb682603e0765bc40109ef19d20e6be2372167061e21a13488fb7838",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/StringVersionToLibraryVersion.vi",
+   "bytes": 39757,
+   "sha256": "00ab68b189c24fad1aff46aa195a7d8bbd13e2f3d2482182b5220a3b3a3f0056",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/StructuredDataToVariant.vi",
+   "bytes": 26139,
+   "sha256": "c72105c52932705bf365447b7b7e69d0fdbc80d29deab22e52230543f021ee5e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/Anything_To_Variant.vi",
+   "bytes": 55423,
+   "sha256": "cb79e926dd77b9fc4c0cb40043f60554879709ae8c9fbc409d5e7e1cdbcc6e29",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/GetClassNameArray.vi",
+   "bytes": 29377,
+   "sha256": "1c773b2d2da7d3ce969e87312b83cbdd6bae634e670aa9984de3f2759f0c71b8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/GetParentClassesHiererchy.vi",
+   "bytes": 22017,
+   "sha256": "e6dacc6b83b82d6dadad2851a2d44b544f1abdce9d454115b44ec14c6bdc12f8",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/GetSerializableDataCluster.ctl",
+   "bytes": 38699,
+   "sha256": "f3878178c481270e1e7acd7a2549da55a6ed5a68fb191c0ac3af6d2ab4a95051",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/GetSerializableDataClusterClass.ctl",
+   "bytes": 36004,
+   "sha256": "7a65fa52a17ba35d14312c1e6da08e4595784bf41a63b876371949e7a7b713ee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/GetSerializableDataCommon.vi",
+   "bytes": 44353,
+   "sha256": "5325213c68524d47cc24bcbbac6175785d6c6df8c27a89762e02968a29cb2664",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SearchOutOfOrder.vi",
+   "bytes": 34992,
+   "sha256": "4b61605a2f244a877260ccff2e193fed110be56686bbaca396c9ea2ae10fb86d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SerializableDataCluster.ctl",
+   "bytes": 31396,
+   "sha256": "a9388c50a006ad2db27a0e4586a633bbe9817b6ae3fcb755b8f6bc5180ad0c0e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SerializableDataGetDataAction.ctl",
+   "bytes": 13234,
+   "sha256": "5d3a05e99f6c100e9fa26a8fe8647cadc919d7cf1fc7b57d6a7bd30b7fc07139",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SerializableObject_To_Variant.vi",
+   "bytes": 44765,
+   "sha256": "b1b32c6b1f202a16d96d77b65bda2a44ae70b6292774b269464d4be1df2770c9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataCluster.ctl",
+   "bytes": 38543,
+   "sha256": "75f6d2787943f071a49b50fbece15c739aea4dcf915a790dfb01486303f6e38a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataClusterIterable.ctl",
+   "bytes": 40695,
+   "sha256": "2f676d8a2af55a98096dd413187eae687b2015093e2b4f9009a10cd8b7830b4e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataClusterLayer.ctl",
+   "bytes": 13272,
+   "sha256": "92daeebff71e9ba1aa8ab12356f89100ff2fa1b3ae12bf7aba94698454987ded",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataCommon.vi",
+   "bytes": 38533,
+   "sha256": "8ec03c30846b3e228cfc7b542a404b7afe35529b1c029e087b265ff2bf53d5d1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataObject.ctl",
+   "bytes": 41238,
+   "sha256": "241adc64c63fc5755b8211a7369164f431fd304d59c95d8bdda0fe0c29d1a893",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/Support/SetSerializableDataOverride.ctl",
+   "bytes": 43748,
+   "sha256": "fba9a1cf6e9a5646aedd819d0601792c1aa5ca14a8eb92168ca2fe9dbbb73b0b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/TextToVariant.vi",
+   "bytes": 29893,
+   "sha256": "af9a8a715b56b22e9fdaa1523e2715555a4bef80cb082bb2ff06e31d830af678",
+   "via": "extension"
+  },
+  {
+   "path": "Source/BlueSerializer/VariantToText.vi",
+   "bytes": 29677,
+   "sha256": "b446d305d45ba6eb8f4c352fdc6d0af6008117aed13521f27a987453717dd5f4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Example/BlueSerializationExample.lvlib",
+   "bytes": 1248,
+   "sha256": "806744b15e457e9a5e0131403c74b8ec65155ad20080acfe0aa4cbab8251d7f4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Example/Example.vi",
+   "bytes": 79607,
+   "sha256": "2b6744cf85bdf7bbe5a2046d464a2f288dc17403755739f25501ee7d32d1a462",
+   "via": "extension"
+  },
+  {
+   "path": "Source/ProviderLinker/ProjectProviderLinker.vi",
+   "bytes": 14589,
+   "sha256": "405f13a73d12abc1e25aececf833b04230c681c459e423ae07a0ad9980818695",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 23,
+   "sha256": "36a97a7660dde8e25ecac7fa760178f91d7a2673e9aaf700092986d92d6f8ad8",
+   "via": "tree"
+  },
+  {
+   "path": "BlueSerialization.vipb",
+   "bytes": 29378,
+   "sha256": "8e351a15b99acc285a1a3759708a72c74c2a5a49ce99b445950b7bb3630f40ba",
+   "via": "tree"
+  },
+  {
+   "path": "Images/1.png",
+   "bytes": 39073,
+   "sha256": "d57b62c4100e4e0724b87edc3c1188c9df3c6098b078b9a5f3bb12f70cec2923",
+   "via": "tree"
+  },
+  {
+   "path": "Images/10.png",
+   "bytes": 5808,
+   "sha256": "cac3815915862133883e5f073c25768029fc96e5856cfef7e08aba8245b27743",
+   "via": "tree"
+  },
+  {
+   "path": "Images/11.png",
+   "bytes": 32887,
+   "sha256": "c795e5865086e1a0193c7a2b42e0571c017a0139ba9c057311eecad98b3e16b7",
+   "via": "tree"
+  },
+  {
+   "path": "Images/12.png",
+   "bytes": 12910,
+   "sha256": "b885ed0200b89e708cc4c173ff29b23886c82f3f97de4544870fafb66a1a101b",
+   "via": "tree"
+  },
+  {
+   "path": "Images/13.png",
+   "bytes": 17093,
+   "sha256": "63ec74388b0b00a52a5917dd63cf32d90f75e0efc6b1801b0dd7914d47cd3697",
+   "via": "tree"
+  },
+  {
+   "path": "Images/14.png",
+   "bytes": 16945,
+   "sha256": "6ef42e059f5e26e571f3b41a35ac904234c8753b811479d3b54e898700569e73",
+   "via": "tree"
+  },
+  {
+   "path": "Images/15.png",
+   "bytes": 45434,
+   "sha256": "f1dc009d469c7e02f0cd88a507dc042cb149cdb670a48c4445048aef947fa2b1",
+   "via": "tree"
+  },
+  {
+   "path": "Images/16.png",
+   "bytes": 24428,
+   "sha256": "e5ed1b21514552ff3ee5520b575d64659d9edccccd269b23d9578b1f315b0d5f",
+   "via": "tree"
+  },
+  {
+   "path": "Images/17.png",
+   "bytes": 20769,
+   "sha256": "30b1d2a1cd1eb689b0c0a71feca1cbffc69e6971d9b584a7a4e7101a25037cc6",
+   "via": "tree"
+  },
+  {
+   "path": "Images/18.png",
+   "bytes": 39875,
+   "sha256": "616c47b589ee9af393cbb5893bf2adbacb5ae69050d060511e71f32dc0271ac4",
+   "via": "tree"
+  },
+  {
+   "path": "Images/19.png",
+   "bytes": 59752,
+   "sha256": "1681fbd07abaebda842090598dc8705a71c1697e55f7712c798340d3e45d5f67",
+   "via": "tree"
+  },
+  {
+   "path": "Images/2.png",
+   "bytes": 6221,
+   "sha256": "394a4700aa45df76c320bbd492e5339337da5533b8e9e7f9b531d77862c5ed94",
+   "via": "tree"
+  },
+  {
+   "path": "Images/20.png",
+   "bytes": 43171,
+   "sha256": "e6cb5c14498adb53f08ef11ddd1abc5eae270a9f5ccac551d20bcb0f681660d0",
+   "via": "tree"
+  },
+  {
+   "path": "Images/21.png",
+   "bytes": 22227,
+   "sha256": "3b3a1a6fa0fe0457bbece806d2f09e04dd6a58477b1f972a26f1c2472c227ab2",
+   "via": "tree"
+  },
+  {
+   "path": "Images/22.png",
+   "bytes": 7375,
+   "sha256": "ce828c5fb7319dc6e78191df64857d7da418c7ea23851fa3e30d983ec6ac3170",
+   "via": "tree"
+  },
+  {
+   "path": "Images/23.png",
+   "bytes": 14545,
+   "sha256": "6804efbd845b58671971109e56c82f0c28b2eb54c357dc01046e0ad88ca3b748",
+   "via": "tree"
+  },
+  {
+   "path": "Images/24.png",
+   "bytes": 25865,
+   "sha256": "d5e0a137a4c8541441c5758c0f00bd5434bff798f624ed894fe38debe5507dcb",
+   "via": "tree"
+  },
+  {
+   "path": "Images/25.png",
+   "bytes": 41368,
+   "sha256": "9f7c98c89a0e660afb895d0feda26920291912cc576a69366f3e9ab383cedea9",
+   "via": "tree"
+  },
+  {
+   "path": "Images/3.png",
+   "bytes": 11296,
+   "sha256": "8b767fd2757007188925f81d513621ba730bb2c1e9cdcebde2678c5f2e1579f3",
+   "via": "tree"
+  },
+  {
+   "path": "Images/4.png",
+   "bytes": 12598,
+   "sha256": "9d93bdaf337c4c2571601491162b76a4ea3b39d965f56ec4b61bf10c82c8a441",
+   "via": "tree"
+  },
+  {
+   "path": "Images/5.png",
+   "bytes": 64453,
+   "sha256": "f228967efbe518ec3e49b8f70f195f6254d9513db3641ec131295ba4466dea3e",
+   "via": "tree"
+  },
+  {
+   "path": "Images/6.png",
+   "bytes": 36230,
+   "sha256": "af13dd6d9efd5f28267aec03e181b984cff177a3e12c4debea751c98fd98a70f",
+   "via": "tree"
+  },
+  {
+   "path": "Images/7.png",
+   "bytes": 43040,
+   "sha256": "5636e062f7a7b2519bb0fce0524dc21bebdc540905a28142755790de62668b07",
+   "via": "tree"
+  },
+  {
+   "path": "Images/8.png",
+   "bytes": 7892,
+   "sha256": "7b6fbbd523c89fe313734df6082f09d6f45940f08a8eaa87f7211056f90d987f",
+   "via": "tree"
+  },
+  {
+   "path": "Images/9.png",
+   "bytes": 8179,
+   "sha256": "890ffd4e66972888b913b43fae4dc594788c9c92196a85428c96742b2829d347",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE.md",
+   "bytes": 1519,
+   "sha256": "bb353b458f3cbcbc9645b56b140d6c2751d0446591a4bbb8fb76f0b21420c43f",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 22986,
+   "sha256": "04996fe23117780bb9234937e5849e3361d014fe019ec22237176b4690618a3b",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<resource>\\Framework\\Providers\\BlueSerializationProviderShared\\BlueSerializationProviderShared.lvlib",
+  "<resource>\\Framework\\Providers\\BlueSerializationProviderShared\\FindMutationHistoryIndex.vi",
+  "<resource>\\Framework\\Providers\\BlueSerializationProviderShared\\GetVersionNumberFromMutation.vi",
+  "<resource>\\Framework\\Providers\\BlueSerializationProviderShared\\UserCommentToVersion.vi",
+  "<resource>\\Framework\\Providers\\BlueSerializationProvider\\BlueSerializationProviderDependencyLinker.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Set Data Name__ogtk.vi",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Array of Variants to Cluster.vi",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\Cluster to Array of Variants.vi",
+  "<vilib>\\JDP Science\\JDP Science Common Utilities\\JDP Utility.lvlib",
+  "<vilib>\\Utility\\Data Type\\Get Array Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get Cluster Information.vi",
+  "<vilib>\\Utility\\Data Type\\Get Type Information.vi",
+  "<vilib>\\Utility\\Data Type\\NI_Data Type.lvlib",
+  "<vilib>\\Utility\\Data Type\\Type Definitions\\Data Type.ctl",
+  "<vilib>\\Utility\\EditLVLibs\\Edit LVLibs.lvlib",
+  "<vilib>\\Utility\\EditLVLibs\\LVClass\\Get Mutation History.vi",
+  "<vilib>\\Utility\\EditLVLibs\\LVClass\\Mutation History.ctl",
+  "<vilib>\\Utility\\EditLVLibs\\LVClass\\Mutation Record.ctl",
+  "<vilib>\\Utility\\EditLVLibs\\LibVersion.ctl",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Default Value By Name.vi",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\LVClass\\Qualified Name Array To Single String.vi",
+  "<vilib>\\Utility\\LVClass\\Single String To Qualified Name Array.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "C:\\DSCE code\\Serialization\\BlueSerialization\\Source\\BlueSerializer\\Deserialize_VIM.vim"
+ ]
+}

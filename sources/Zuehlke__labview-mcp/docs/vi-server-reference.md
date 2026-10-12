@@ -1,0 +1,1293 @@
+# The VI Server catalogue: methods and properties for generated VIs
+
+`RunVIAsTopLevel` plus `ConvertAIXMLToVI` turn the whole VI Server API into something this MCP
+server can reach: generate a VI that calls the method you need, run it, read the result. That is
+how the documentation agent gets a VI's icon and connector pane, neither of which any of the 23
+RPCs returns.
+
+The obstacle is naming. An Invoke Node in AIXML is identified by a `target` string, and that
+string **cannot be looked up from outside LabVIEW**: method names are binary IDs inside a `.vi`
+(grepping VI files for `FP.Open` finds nothing), `LabVIEW.exe`'s string table carries only a
+handful, and `SearchInfoCache` covers palette items rather than VI Server methods. Every method
+had to be discovered by placing the node in a scratch VI and exporting it.
+
+These two files remove that step for 3 078 methods and 6 410 properties across 153 classes:
+
+| File | Rows | Columns |
+|---|---|---|
+| [`vi-server-methods.tsv`](vi-server-methods.tsv) | 3 078 | `class`, `method`, `parameters`, `returns` |
+| [`vi-server-properties.tsv`](vi-server-properties.tsv) | 6 410 | `class`, `property`, `access` |
+| [`vi-server-classes.tsv`](vi-server-classes.tsv) | 296 | `class`, `parentId` — the class list, authoritative |
+
+**THOSE 153 CLASSES ARE NOT ALL OF THEM, and the third file is why.** Both catalogues were harvested
+by placing nodes and exporting, so they contain what somebody happened to call — nothing more.
+LabVIEW itself will hand over the complete list: `{LV.ClassSpecifierConstant}` carries an
+`All Types[]` property returning every class name with its parent id, read through
+`scripts\lvai_class_names.xml`. Measured 2026-08-26: **296 classes, of which 143 appear in neither
+TSV.** Among the missing are `LVClassLibrary` (a `.lvclass`), `LabVIEWClassControl` (a front-panel
+control whose type is a LabVIEW class), `Library` and `LabVIEWClassConstant`.
+
+So **a class absent from the two TSVs is not absent from LabVIEW** — check `vi-server-classes.tsv`
+first, then probe its members with `ValidateAIXML` against a negative control: an invented class
+answers `Invalid property` with *"the type of the source is void"*, a real one only complains that
+`reference` is unwired, and an invented method answers `Invalid method`. The message does not name
+the offending node, so batch candidates and count the lines. That route confirmed `Add Item` and
+`Save` on `{LV.LVClassLibrary}` and refused fourteen invented names; `lvclass-creation.md` §5 has
+the run.
+
+Tab-separated so a single `grep` answers "what do I wire to this node":
+
+```bash
+grep -P "^\{LV\.VI\}\t" docs/vi-server-methods.tsv
+```
+
+## When this is the wrong book
+
+These two files cover **Invoke Nodes and Property Nodes only**. They do not contain primitives and
+they do not contain palette subVIs — no `Read from Text File`, no `Sort 1D Array`, no `Build Array`.
+For those, use `lvai_palette_index` to find the VI and an AIXML export of a VI that already uses the
+node to get its terminal names; the verified table in
+[`aixml-reference.md`](aixml-reference.md) §8 collects the ones measured so far.
+
+The distinction that decides which index to open is not the size of the operation but its *kind*:
+
+- a computation **on data** — parse, sort, compare, read a file — is a primitive or a subVI
+- a property or action **of a LabVIEW object** — a VI, a control, a front panel, a project, the
+  application itself — is a Property or Invoke Node, and this is its only index
+
+The second kind is easy to overlook, because it does not feel like a missing function. "Get this
+VI's icon", "list the items in a project", "is this VI broken", "read a control's value by name",
+"what does this VI call" appear in no palette at all. If a search for a function comes up empty,
+ask whether the thing you want is really a property of something — and look here.
+
+## Where the data comes from
+
+Exported with `ConvertVIToAIXML` from two collector VIs — one holding an Invoke Node per method,
+one holding a Property Node per class — and then flattened into the two tables. The catalogue is
+therefore LabVIEW's own vocabulary as its exporter writes it, not a hand-written list.
+
+**To rebuild it after a LabVIEW upgrade** you need those collector VIs, and they are not part of a
+stock installation: they were local to the machine this snapshot came from, under the IDE's
+`wizard\` folder. Any VI works as long as it carries one node per entry — drop the nodes onto a
+blank diagram, save, export, and run the same flattening. Do not treat the table as valid forever:
+it is a snapshot of one install, and the private interface behind it changes between versions.
+
+A third collector for **decorations** was exported too and yielded nothing usable, which is the
+finding recorded further down: AIXML does not carry decorations at all.
+
+## Using it to author AIXML
+
+An Invoke Node needs `target` (the `method` column), `type` (the `class` column), and terminal
+names taken from `parameters` / `returns`. `reference` and `error in (no error)` are always
+available as inputs, `reference out` and `error out` as outputs; they are stripped from the
+columns because every row would carry them.
+
+```xml
+<Node _name="Invoke Node" target="Print VI To HTML" type="{LV.VI}"
+      inputs="reference:20.vi reference,error in (no error):20.error out,HTML File Path:14.path,Format:70.value"
+      outputs="reference out:30.reference out,error out:30.error out" uid="30" uid_parent="root"/>
+```
+
+A Property Node instead carries `fields`, a comma-separated list with a `read+` or `write+`
+prefix per property, and one output terminal per field:
+
+```xml
+<Node _name="Property Node" fields="read+Callees' Names" type="{LV.VI}"
+      inputs="reference:20.vi reference,error in (no error):20.error out"
+      outputs="Callees' Names:40.Callees' Names,reference out:,error out:" uid="40" uid_parent="root"/>
+```
+
+Nested properties use `:` in their name, written `\3A` in AIXML —
+`Printing:Header Content:VI Icon?` becomes `Printing\3AHeader Content\3AVI Icon?`.
+
+**An enum-valued property needs its exact item list.** Writing one means feeding the node a
+`Constant` whose `type` carries the labels, and the generator checks that list strictly:
+
+```xml
+<Constant _name="Front Panel Window\3AState" outputs="value:344.value"
+          type="uint32{Invalid,Standard,Closed,Hidden,Minimized,Maximized}" uid="344" value="2"/>
+```
+
+`Invalid` occupies index 0, so `Closed` is **2**, not 1. Get the list wrong and validation says only
+`Wire: enumeration conflict` — naming neither the property nor the items it expected, which makes
+guess-and-retry blind. The **base type is not** checked as strictly: a `uint16` constant with the
+same labels validated. So exporting a VI that already carries the node is the only reliable way to
+obtain the list, and the constant above came from exactly that — a hand-built diagram put through
+`ConvertVIToAIXML`.
+
+## Five things the data will not tell you
+
+**The `access` column is not a capability.** 6 445 of the entries were configured for reading in
+the source VI and only 44 for writing, so almost everything reads `read`. That says how the node
+happened to be set up, **not** whether the property is writable. Use `write+` when you need to
+write and let LabVIEW reject it if it is read-only.
+
+**Method names have two spellings and both work.** The same file contains `Print VI To HTML` and
+`Print.VI To Printer` — space and dot for what is the same `Category Method` shape. Verified:
+feeding the space form to `ConvertAIXMLToVI` produces a working VI, and exporting that VI back
+returns the dotted form. LabVIEW canonicalises on export and accepts either on import, so use the
+column verbatim.
+
+**A few rows repeat their parameters.** In the source VI some nodes are drawn with duplicated
+terminals — `Function; Function; HTML File Path; HTML File Path` on several `{LV.Application}`
+print methods. The duplication is in LabVIEW's export, not in the extraction, and it is left
+verbatim because repeated terminal names are also how genuinely expandable nodes (`Index Array`
+with two `index` entries) are described. When a call fails on a row like that, wire each name once.
+
+**Decorations cannot be generated.** A collector VI holding one of each decoration exports as 47
+boolean indicators named after them (`Down Tee`, `Left Tee`, …) inside a Stacked Sequence Structure, and no
+decoration element of any kind. The AIXML exporter drops them, so a generated VI cannot carry
+arrows, boxes or separators. `FreeLabel` is the one annotation that does survive.
+
+**The whole PROJECT surface is missing.** Grep both files for `Project`: across 153 classes and
+9 488 entries there is **not one** hit — no `{LV.Project}` class, and no `Project\3AActive Project`
+on `{LV.Application}`. Yet both names are real: a hand-built VI using them exported cleanly,
+validated, and ran. So the collector VIs this catalogue was flattened from simply did not include
+the project classes, and the claim above that this is the *only* index for "a property or action of
+a LabVIEW object" has a hole in it exactly where projects are. When a name is missing here, it does
+not follow that it does not exist — **build the node by hand in the IDE and export that VI**, which
+is how these two were recovered. That is also the standing recipe for extending this catalogue.
+
+### Probing for a name instead of building the node by hand
+
+The recipe above needs a person at the IDE, which is why the project surface stayed a blank for so
+long. It does not have to: **`ValidateAIXML` rejects an invented method name and accepts a real
+one**, so a candidate can be tested from here, in one call, without LabVIEW ever running the node.
+
+The control is what makes it a measurement rather than a hopeful guess. Measured on
+`{LV.Project}`:
+
+| `target` on the Invoke Node | `ValidateAIXML` |
+|---|---|
+| `ZZZNotAMethodZZZ` | `errorCode 1` — *"Invoke Node: Invalid method"* |
+| `Close` | **`errorCode 0`** |
+| `Save` | **`errorCode 0`** |
+
+Without the first row the other two prove nothing, because a validator that checked no targets at
+all would answer 0 to everything.
+
+**So `{LV.Project}` carries at least `Save` and `Close`, and a project CAN be closed** — which
+retires the older conclusion, drawn from the catalogue's silence, that nothing could release one.
+Both are shipped as `lvai_close_active_project`.
+
+Terminals come from the same trick one step further: generate the probe VI and export it back.
+`Close` reads
+
+```xml
+<Node _name="Invoke Node" inputs="reference:43.Project.ActiveProject,error in (no error):43.error out"
+      outputs="reference out:,error out:" target="Close" type="{LV.Project}" .../>
+```
+
+— `reference` and `error in`, and **no save parameter**, which is why the shipped helper calls
+`Save` first: an unsaved project would risk LabVIEW's modal save prompt, and a modal dialog stops
+the gRPC service until a human dismisses it.
+
+Verified by A/B, since validation says nothing about behaviour: run the helper → `status 0`; run it
+again → `Error 1055`, no active project. The project really is gone.
+
+### That `Save` has a side effect on the caller's project, and it is not cosmetic
+
+Measured 2026-08-22, on a throwaway project built for an unrelated test. Before the call the
+`.lvproj` listed one VI. After it:
+
+```xml
+<Property Name="specify.custom.address" Type="Bool">false</Property>
+<Item Name="APPLY_Fresh.vi" Type="VI" URL="../APPLY_Fresh.vi"/>
+<Item Name="lvai_close_active_project.vi" Type="VI"
+      URL="../../../../../../LabVIEWMCP/helpers/lvai_close_active_project.vi"/>
+```
+
+**The helper added itself to the project as a permanent member, and the `Save` above committed it
+to disk** — together with a `Property` element LabVIEW filled in, and a re-based `URL` for the
+original VI that no longer resolves from the project's own directory. Nothing was lost here because
+the project was disposable, but on a real `.lvproj` this is an uninvited edit to a file that is
+probably under version control, and the diff names a helper from a temp directory that will not
+exist on a colleague's machine.
+
+So `lvai_close_active_project` and `lvai_close_vi` are **not** read-only toward the project, and the
+`Save` that keeps LabVIEW from showing a modal prompt is what writes the change. Prefer closing the
+project by hand when the project matters; if a helper has already run, check `git status` on the
+`.lvproj` before committing. This is the cost of the back door that "Which interface to reach for"
+in `CLAUDE.md` warns about in general terms — here is a concrete instance of it.
+
+## Writing back: setting a VI's icon
+
+**Set the icon LAST. Regenerating the VI destroys it.** `ConvertAIXMLToVI` over an existing path
+leaves LabVIEW's default icon behind — measured twice, on two different VIs, by reading the icon
+back out with `Save VI Icon to File` and looking at it. So in any generate-edit-regenerate loop the
+icon has to be re-applied after *every* generation, and the sequence is always generate → set icon,
+never the reverse.
+
+File size will not tell you this and briefly suggested the opposite: the regenerated VI was *larger*
+than the one carrying the icon (7 570 vs 5 022 bytes), which looked like something had been
+preserved. It had not. A VI freshly generated from the same AIXML in that same LabVIEW session came
+out at 7 033 bytes — the session simply writes bigger VIs than the earlier one did. **Compare icons
+by reading them back, never by byte count.**
+
+**Setting an icon does not burn the path.** The helper opens a VI reference, writes, saves, reads
+back and closes the reference — and afterwards `ConvertAIXMLToVI` on that same path still returns
+`errorCode 0`. This is the distinction that matters for `Error 1357`: a helper that opens and closes
+a *reference* releases the VI, while `lvai_open_file` and `RunVIAsTopLevel` leave it loaded.
+Generation itself is clean too — two `ConvertAIXMLToVI` calls to the same path, back to back, both
+succeed.
+
+AIXML cannot carry an icon — "VI icon graphics" is on NI's not-supported list for the generator
+([`aixml-reference.md`](aixml-reference.md) §9), and none of the 23 RPCs sets one. VI Server does,
+so the same generate-run-read loop that *reads* the icon also writes it. Measured on LabVIEW 2026
+against a freshly generated VI:
+
+| Step | Node |
+|---|---|
+| open the target | `Open VI Reference` fed by `String To Path` — `RunVIAsTopLevel` cannot set a path control |
+| set the icon | `Invoke Node` `Set VI Icon from File`, `type="{LV.VI}"`, input `Image File` |
+| persist it | `Invoke Node` `Save\3AInstrument` — without it the change dies with the reference |
+| verify | `Invoke Node` `Save VI Icon to File`, input `Image File` |
+
+**The image itself is produced here, not by the caller.** `lvai_set_vi_icon` takes `line1`,
+`line2`, `line3` plus optional `bannerColor` / `backgroundColor` / `borderColor` and renders the
+32×32 PNG in-process before running the helper above — a banner across the top carrying `line1`,
+up to two lines under it, a 1 px frame, five characters per line, drawn from an embedded 5×7 bitmap
+font. `iconImagePath` still accepts real artwork; pass one or the other.
+
+That replaced a `PowerShell` + `System.Drawing` recipe which both agent definitions used to
+prescribe, and the reason is a measurement rather than taste: profiling one whole VI generation (41
+tool calls, 455 s) put the icon at 21.1 s, of which **12.5 s was the caller composing and running
+that PowerShell call** and only 8.6 s was this tool reaching VI Server. Rendering server-side costs
+no measurable time and removes a tool call worth about 11 s of wall clock on its own. The full
+profile is in [`aixml-reference.md`](aixml-reference.md) §10.
+
+Two consequences of the quantisation described below. The default banner is **`006699`, not NI's
+own `005A9C`** — the web-safe neighbour, chosen so the PNG this tool wrote and the icon read back
+out of the VI are the same image. **Measured end to end on `DaqReadAndTDMS.vi`: 0 of 1 024 pixels
+differ**, against 189 of 1 024 for the non-web-safe icon below, and the three colours present
+(`000000`, `006699`, `FFFFFF`) come back untouched. And a caller-supplied colour outside the cube is
+reported in `warnings` together with the value it will actually read back as, rather than being
+silently corrected or silently changed by LabVIEW.
+
+**Compare the decoded pixels, not the PNG bytes.** The same measurement showed LabVIEW writes the
+read-back file as a **palette** PNG (colour type 3) while this tool writes **truecolour** (type 2),
+so the two files differ in length and in almost every byte while encoding an identical image. A
+byte or hash comparison of icon files reports a difference that is not there.
+
+Cost of the whole call, with the helper already generated: **4.39 s and 5.69 s** over two runs, both
+`verified: true`. Too few samples to separate from the 3.6 s measured before rendering moved
+in-process, and the render itself — a 200-byte PNG — cannot account for a second of it; the spread
+is the helper run. What is certain is that the separate `PowerShell` call is gone: 6.8 s of tool
+time and 5.7 s of model time, removed.
+
+A bitmap font rather than a system typeface is also deliberate: at 32 px an anti-aliased TrueType
+glyph turns to mush, which is why the old recipe had to set `SingleBitPerPixelGridFit`.
+
+Four things this measured that the catalogue does not say:
+
+- **`Set VI Icon from File` accepts a 32×32 PNG directly.** Neither `Set VI Icon from Image Data`
+  nor a flattened LabVIEW image cluster is needed — a plain file from any image library is enough.
+- **`Save VI Icon to File` writes a PNG when `Image Format` and `Image Depth` are left unwired**
+  (32×32, `89 50 4E 47` magic), so the default enum value 0 is PNG. That makes it the verification
+  step.
+- **The round trip is pixel-identical only for web-safe colours.** This document used to say
+  "pixel-identical" without qualification, which makes an exact comparison look broken when it is
+  working correctly. LabVIEW quantises an icon to the web-safe cube — each channel in
+  `{00,33,66,99,CC,FF}` — and geometry is untouched. Measured on a 32×32 icon of four bars, an
+  arrow and a frame: **189 of 1 024 pixels differed**, and every one of them was a colour
+  substitution, not a moved pixel:
+
+  | Source | Read back | Pixels |
+  |---|---|---|
+  | `FFFFFF` | `FFFFFF` | 711 — unchanged, already web-safe |
+  | `000000` | `000000` | 124 — unchanged, already web-safe |
+  | `1A5FA0` | `336699` | 120 — **snapped** |
+  | `C8501E` | `CC6633` | 69 — **snapped** |
+
+  Re-rendering the same icon with `336699` and `CC6633` and re-applying gave **0 of 1 024
+  differing**. So pick icon colours from the cube and the read-back becomes a clean equality
+  check; use arbitrary colours and you must compare geometry instead, or accept the nearest
+  cube entry. Note the failure is silent and pretty — the quantised icon looks right, so a
+  difference count is the only way to see it.
+
+  **The target is an indexed palette, and it is wider than the cube — measured on a second
+  icon.** The read-back PNG comes back as `Format8bppIndexed` where the source was
+  `Format32bppArgb`: 256 entries, not 216. On a "CSV over a sine wave" icon, **298 of 1 024
+  pixels** differed in exactly two substitutions:
+
+  | Source | Read back | Pixels | in the cube? |
+  |---|---|---|---|
+  | `005A9C` | `006699` | 270 | yes — the cube explains this one |
+  | `DCDCDC` | `DDDDDD` | 28 | **no** — `DD` is not in `{00,33,66,99,CC,FF}` |
+
+  So "quantises to the web-safe cube" is the right advice but the wrong model: the cube is a
+  *subset* of what LabVIEW keeps, and a colour can land outside it. Picking from the cube is
+  still the way to get a clean equality check — every cube colour survives — but do not use the
+  cube to predict where an arbitrary colour will land, and do not read a non-cube read-back value
+  as evidence that something went wrong.
+- **`Save\3AInstrument` needs no `Path to saved file`.** Unwired, it saves in place.
+
+The run reports **`errorCode 91` with all three indicators empty** — the known read-back artifact
+(§10 of the AIXML reference), not a failure. Verify out of band, as the rule there says: the target
+`.vi` grew from 4 643 to 5 191 bytes with a fresh timestamp, and the read-back PNG matched the
+input (pixel for pixel, subject to the web-safe caveat above).
+
+**Applying an icon twice in a row is safe, and the second one is free of side effects.** Measured
+while correcting the colours of an already-iconised VI: the first apply grew the target from 7 526
+to 8 074 bytes, the second left it at 8 074 with `viResaved: true`. So re-applying to fix a colour
+or a design is a normal operation, not something to avoid — which matters because the icon has to
+be re-applied after every `ConvertAIXMLToVI` anyway.
+
+**Where the helper may be saved is not a free choice.** `ConvertAIXMLToVI` failed with
+`Error 7 … File not found` on `Save\3AInstrument` when the target was
+`%LOCALAPPDATA%\LabVIEWMCP\helpers\lvdoc_set_icon.vi` — twice, minutes apart, with the directory
+present and writable (PowerShell wrote a file into it at the same moment), and `ADS\<user>` holding
+`FullControl`. The identical call succeeded into `%TEMP%\LabVIEWMCP\helpers` and into `C:\Temp`.
+So Error 7 here is **not** the documented "the directory does not exist" case; LabVIEW is refusing
+the location itself. The cause is unexplained — the only difference observed is that a directory
+under `%LOCALAPPDATA%` inherits an AppContainer ACE (`S-1-15-3-…`) which `Temp` does not. This is
+why `lvai_set_vi_icon` defaults its helper to `%TEMP%`, and why it turns Error 7 into a hint that
+names the directory instead of repeating the missing-directory advice.
+
+One trap met while generating the demo VI. `ConvertAIXMLToVI` refused the target name
+`Celsius To Fahrenheit.vi` with `Error 1051 … already exists in memory` on `Save\3AInstrument`,
+and kept refusing it on every retry — **a failed generation leaves that name occupied in LabVIEW
+for the rest of the session**, so retrying the same path can never succeed. Renaming the target
+fixed it immediately.
+
+**Never call this service concurrently — one RPC at a time.** That first failure happened while a
+second `ConvertAIXMLToVI` ran at the same moment, which was only a suspicion when it was written
+here. A second, cleaner observation settled it: two `ValidateAIXML` calls issued in parallel *both*
+came back with `Error 1018 … Unspecified error occurred` and `Method Name: Get Errors`, and each of
+the two files then validated cleanly on its own, byte-for-byte unchanged. So a concurrent second
+call spoils both, and the symptom is an error thrown from *inside* the service — not a complaint
+about your XML. Do not read `Error 1018` as "my AIXML is broken".
+
+## Reading a VI's results: `Ctrl Val.Get All` plus `Flatten To XML`
+
+The second capability that had to be composed rather than called. `RunVIAsTopLevel` marshals only
+strings, so a generated VI with a `bool`, `cluster`, `array` or waveform output verifies to an
+empty answer with `errorCode 91` — *after* running correctly. Shipped as
+`lvai_run_vi_and_read_values`, helper source `scripts\lvai_run_and_read.xml`.
+
+The chain, and why each link is what it is:
+
+| step | node | why |
+|---|---|---|
+| open | `Open VI Reference` ← `String To Path` | `RunVIAsTopLevel` cannot set a path control |
+| set | `Invoke Node` `{LV.VI}` `Ctrl Val.Set`, one per input, inside a For Loop | `Control Name` and `Value`; the error wire through a shift register is what *orders* them before the run |
+| run | `Invoke Node` `{LV.VI}` `Run VI`, `Wait until done` = TRUE | — |
+| read | `Invoke Node` `{LV.VI}` `Ctrl Val.Get All` | returns **every** front-panel object at once as a variant — no name list to supply, nothing to miss |
+| render | `Flatten To XML` | takes `anything`, so one node handles waveform, cluster and array alike |
+| return | a single `string` indicator | the only thing that survives the trip back |
+
+**The measurement that dictates the shape: set, run and read must be one call.** A
+`RunVIAsTopLevel` on the target followed by a *separate* helper reading it returns the target's
+**defaults** — measured on a VI that had just produced eight samples: `Y` empty, `dt = 1.0`,
+`loaded? = FALSE`. The two calls do not share the VI's data space, and a defaults answer looks
+exactly like a real one. Anything that reads values must also have run them, through the same
+reference.
+
+**Reading a Time Stamp back: the four I32s are not in the order you expect.** A flattened LabVIEW
+timestamp arrives as a four-element cluster of I32, and the order is **fraction-low,
+fraction-high, seconds-low, seconds-high** — seconds *last*, not first. So
+
+```xml
+<Timestamp><Name>t0</Name><Cluster>
+  <I32><Val>0</Val></I32> <I32><Val>-2147483648</Val></I32>
+  <I32><Val>10</Val></I32> <I32><Val>0</Val></I32>
+</Cluster></Timestamp>
+```
+
+is **10.5 s**, not 0. The `-2147483648` is `0x80000000` in the fraction's high word — exactly one
+half. Verified against a CSV whose first timestamp was 10.500. Read it the obvious way round and
+every t0 in a waveform looks like garbage or zero.
+
+Two details that cost a round trip each:
+
+- **`Flatten To XML` renders an empty array as one template element.** A `Dimsize` of `0` is still
+  followed by a child element carrying the element *type*. Count the children and a VI with no
+  controls reports one phantom control; read `Dimsize` instead.
+- **The helper's own error must also leave as a string.** Wiring its `error out` cluster to an
+  indicator would put it right back in the unmarshallable class, so it goes through a second
+  `Flatten To XML`. This also keeps the two apart cleanly: a target VI that *reports* an error is
+  a successful harness run, and only `error xml` says whether the harness itself worked.
+
+### The way IN: typed since 2026-09-16, and why numerics need only one case
+
+This section read "inputs are unchanged by any of this — they still cross as strings, so only string
+controls can be set" until the limit was measured as a *cost* rather than a caveat: in one build
+**five separate agents each generated throwaway copies of the VI under test**, with the values baked
+into the control defaults, because a VI taking a path or a number could not be driven at all. The
+asymmetry was not the point; it was the largest recurring tax of the run.
+
+`lvai_run_and_read_typed.vi` is now the default helper. Values still arrive as TEXT — the wire
+format is unchanged, two newline-separated lists paired by position — and the helper types them:
+
+1. `{LV.VI}` `Front Panel` → `{LV.Panel}` `Controls[]`, then one loop reading `Label.Text`.
+2. A second loop matches each requested name with `Search 1D Array` and reads the control's
+   `Class Name`.
+3. A Case structure converts, then calls `Ctrl Val.Set`.
+
+**What `Class Name` actually answers, measured on one control of each type:**
+
+| control | `Class Name` | conversion |
+|---|---|---|
+| string | `String` | none (the `Default` frame) |
+| path | `Path` | `String To Path` |
+| double **and** int32 | **`Digital`** | `Fract/Exp String To Number` → DBL |
+| boolean | `Boolean` | `To Upper Case`, then `= "TRUE"` or `= "1"` |
+| enum / text ring | `Enum` / `Ring` | the item NAME looked up in `{LV.Enum}` / `{LV.Ring}` `Strings []`, else a number — since 2026-09-25 |
+| array / cluster | `Array` / `Cluster` | `Unflatten From XML` with a VARIANT as its type — since 2026-09-25, see below |
+
+**One numeric case suffices because `Ctrl Val.Set` COERCES.** Both representations answer `Digital`,
+and an I32 control fed a DBL variant read back `42`. Without that measurement the case structure
+would have needed a `Representation` branch per numeric type — twelve frames instead of one.
+
+**Array and cluster controls ARE reachable since 2026-09-25 — this paragraph said "they remain
+unreachable: there is no general text-to-composite conversion without a runtime type".** That was
+true of TEXT and false of LabVIEW's own XML: `Unflatten From XML` wired with a **Variant constant
+as its `type`** yields a variant that carries the value's own type, and `Ctrl Val.Set` takes it.
+Measured on a 2D string array (round trip exact) and an error cluster (status, code and source all
+arrived). So the value goes in as the XML this tool already returns under a compound control's
+`xml`, and a table read back from one VI can be passed straight into the next. The server wraps a
+bare `<Array>` or `<Cluster>` in `<LvVariant>` and folds the indentation between tags, because the
+wire format is one line per value.
+
+**What does NOT survive that route: a line break inside a string member.** The first version wrote
+it as `&#10;`, and **`Unflatten From XML` decodes no character reference** — the error cluster's
+source came back as the literal text `acceptance&#10;second line`, `error 0`. So the server now
+refuses such a value (`inputContainsNewline`, naming the control) rather than send it.
+
+**An enum or ring takes an item NAME or an index.** The name is looked up in the control's own
+`Strings []`, exact and case-sensitive. The trap on the way: `Fract/Exp String To Number` reads
+`Balanse` as `0`, so a plain name-else-number fallback sets ITEM 0 and runs the target with it. The
+frame asks whether the text was a name OR parsed at all (`offset past number > 0`) and otherwise
+hands `Ctrl Val.Set` the STRING, which answers **`Error 91`** before the run — measured, with the
+typo `Balanse` against `Balance`, and the name and the index both setting the right message.
+
+**A name that matches nothing is `Error 1055`**, from the `Class Name` property node — so it fires
+in the LOOKUP, before any control is set, and the target does not run. Note the lookup happens first,
+which is why this is a refnum error rather than LabVIEW's own control-name message.
+
+**Read `helperFailed`, not `errorCode`.** `errorCode` on the tool's answer is `RunVIAsTopLevel`'s,
+and it reads **0** for both refusals above; the only other tells were an empty `values` and a number
+buried in `helperErrorXml`. `helperErrorCode` and `helperFailed` now surface it directly.
+
+`lvai_run_and_read.vi` still ships as the string-only fallback and is reachable through
+`helperAixmlPath`. `lvai_run_for_ms.vi`, the `runForMs` runner, has **not** been given the typed
+setter — its use case is a top-level UI VI, which usually takes no inputs at all — and the tool's
+answer says so when inputs are passed alongside `runForMs`.
+
+**It reads every control's `Disabled` since 2026-09-26**, answered as `disabled`:
+`[{label, disabled}]`, 0 enabled, 1 disabled, 2 disabled and greyed out. A snapshot of values cannot
+show whether a control can be operated, and nothing can look afterwards - the helper closes its
+reference and the VI leaves memory - so the sixth ATM build had to generate a probe VI that ran the
+main VI itself to see six controls read 2. The read uses `{LV.VI}` `Front Panel` ->
+`{LV.Panel}` `Controls[]` -> `{LV.Control}` `read+Label.Text,read+Disabled` (an `array{uint8}`),
+after the snapshot and on its OWN error chain, so a failed read leaves `disabled` null and never
+costs the values or the abort. The VI reference is carried through that loop on a shift register,
+which is what orders `Close Reference` after it even when the panel has no controls.
+
+## Reading where a VI's terminals actually sit: `Connector Pane:Reference`
+
+The third capability with no RPC behind it, and the one that catches a whole class of silent defect:
+nothing in the `lvai` surface reports a VI's connector pane, so a generated pane can only be
+*assumed* correct — and on 2026-08-13 that assumption put two inputs of `DaqReadAndTDMS.vi` on the
+output edge. Shipped as **`lvai_connector_pane`**; helper source `scripts\lvpane_probe.xml`, and
+`scripts\lvpane_sweep.xml` for the bulk form that walks a list of VIs in one run (measured at about
+200 ms per VI over vi.lib, and it is what harvested the pattern table).
+
+The chain is three links and reads only:
+
+| step | node | why |
+|---|---|---|
+| open | `Open VI Reference` ← `String To Path` | local instance is fine; this is read-only, and opening and closing a VI *reference* does not burn the path for a later `ConvertAIXMLToVI` |
+| pane | `Property Node` `{LV.VI}` `read+Connector Pane\3AReference` | the only way from a VI to its pane |
+| read | `Property Node` `{LV.ConnectorPane}` `read+Pattern`, `read+Number of Connection Terminals`, `read+Terminal Bounds[]` | three properties in one node, one round trip |
+| render | `Flatten To XML` on the bounds, `Number To Decimal String` on the two scalars | strings are all `RunVIAsTopLevel` marshals |
+
+What it answers, and why it is worth a helper: **`Terminal Bounds[]` is indexed by exactly the AIXML
+`conIdx`**, one `Rectangle` of `Left`/`Top`/`Right`/`Bottom` per slot on a 32×32 pane. `Left = 0` is
+the left edge, `Left = 25` the right edge, and `Top` orders them down the edge — so the array *is*
+the map from the number you wrote to the place a reviewer sees. Measured cost 360–600 ms.
+
+The reason this matters more than it sounds: the pane pattern is neither chosen nor predictable from
+the indices, and the patterns generation actually produces number their slots incompatibly — 4815
+bottom-left is `8`, 4833 bottom-left is `11`. Detail in `aixml-reference.md` §2.
+
+**The pattern of a NEW VI is not in this API at all — it is `DefaultConPane` in `LabVIEW.ini`.**
+Worth knowing before hunting for a scripting route: LabVIEW hands every new VI the station's default
+pane, and that default is a text setting beside `LabVIEW.exe` (`"4833"` on this station, `4815` from
+the factory). `lvai_connector_pane` reads it, so a generator can know its pattern before it writes a
+single `conIdx`. Nothing in VI Server exposes or sets it.
+
+**`Pattern` really is read-only, and that is what forces the sweep.** It is listed `read` in
+`vi-server-properties.tsv`, and the class carries no setter for it: `{LV.ConnectorPane}` has
+`AssignCtrlToTerm`, `DiscTerm`, `DiscAllTerms`, `FlipHoriz`, `FlipVert`, `Rot90` and the generic
+`SetProperty (Index; Value)`, but nothing that names a pattern. So the 36 patterns cannot be dialled
+up one after another and photographed; each one has to be found on a VI that already uses it, which
+is why `docs/connector-pane-patterns.tsv` covers 30 of 36 and says which 6 are missing.
+
+`AssignCtrlToTerm` would let a helper move a terminal in place, and it is deliberately unused:
+regenerating the VI from corrected AIXML costs about a second, needs no scripting, and keeps one
+source of truth for the pane. The tool therefore reports and advises but never edits.
+
+**A long helper blocks the whole service, and it looks like LabVIEW is gone.** Measured while
+`lvpane_sweep.vi` walked 500 VIs: every other call - a different tool, a different process - failed
+port discovery with `DeadlineExceeded` on the very port that had just worked, and the error text
+suggests the AI service was never started. It was; it was busy. So run a bulk sweep when nothing
+else needs LabVIEW, and read a sudden `DeadlineExceeded` on a known-good port as "something is still
+running in there" rather than as a dead service. The sweep itself is unaffected - it keeps going and
+writes its file - and the client-side timeout on the call that started it means nothing.
+
+**And a big enough sweep kills LabVIEW.** Same session, the next 500-VI batch: LabVIEW.exe was gone
+about 12 minutes in, with nothing written, after roughly 1 100 VIs had been loaded across four runs.
+Working set was only ~610 MB at the time, so this is not a plain out-of-memory story - LabVIEW 2026
+is 32-bit here, and the sweep never gives anything back: opening a VI reference **loads** that VI and
+closing the reference does not unload it, which is the same fact that makes `Error 1357` so hard to
+escape. Consequences worth having in advance: keep batches to about 250 VIs, harvest after each one,
+and remember that a batch that dies takes its entire result with it because the file is written once
+at the end. Sizes measured: 40 VIs 8 s, 254 VIs 90 s, 500 VIs 18 min, the next 500 fatal.
+
+**`lvai_close_vi` does not rescue this, and the reason is instances again.** It is the obvious idea -
+there is a tool for releasing a VI, so call it per swept VI - and it cannot work: that tool reaches
+the **IDE's** application instance through the active project, while a generated sweep helper's
+`Open VI Reference` resolves in the **addon's** instance, which is where the loaded copies pile up.
+Measured on a swept vi.lib VI: `Error 1055`, no active project, and even with one open a `vi.lib` VI
+is not a member of it, so the second precondition fails too. Worse, succeeding would be no help -
+opening a reference in the IDE instance *loads* the VI there as well. Small batches remain the only
+mitigation.
+
+## Writing a terminal's wire rule: `SetWireRule`, the only repair for a required output
+
+The pane section above reads; this one writes, and it is the fix for a defect the reading side
+cannot see. **A terminal's required / recommended / optional flag is `{LV.ConnectorPane}`
+`SetWireRule(TermIdx, Rule)`** — an Invoke Node, not a property, which is why searching the
+catalogue for "Required" or "Terminal" finds nothing and the operation looks unavailable.
+
+| what | value |
+|---|---|
+| `TermIdx` | the AIXML `conIdx` — the same number, no translation |
+| `Rule = 2` | recommended. Measured: write it, read it back with `lvai_vi_terminals`, get `recommended` |
+| `Rule = 4` | dynamic dispatch. Already used by `lvai_add_class_method`, `docs/class-method-tooling.md` |
+
+There is no `GetWireRule` in the catalogue, so read the current state with `lvai_vi_terminals`
+rather than looking for one.
+
+**Why you need it: an AIXML terminal with no `connection` attribute is generated as `required`**
+(measured, `aixml-reference.md`), and a required *output* makes every caller non-executable with
+`Error 1003` while the VI itself looks perfect. Regenerating from corrected AIXML is the other fix
+and it is usually the wrong one for a class member, because the VI has since been retyped and made
+a member — `SetWireRule` moves no terminal, so no caller has to change.
+
+Two things about the call, both measured 2026-09-04 while repairing four class methods:
+
+- **Do it in the IDE's application instance** — `Project:Active Project` → `Application` →
+  `Open VI Reference`. This is the same rule `{LV.Control}` `Replace` obeys: outside it, a scripting
+  write on a class member can report success and change nothing.
+- **Save the VI *and* the owning class**: `Save.Instrument` then `{LV.LVClassLibrary}` `Save`. A
+  VI-only save does not persist a change to a class member. Same pairing as `lvai_add_class_method`.
+
+Verify from the saved file rather than from the session — `pylv_extract` plus
+`scripts/pylv-conpane.py --show` prints each terminal's rule with no LabVIEW involved, and an
+in-memory copy that was never written reads correctly right up until someone reopens the file.
+
+## Closing a VI's window
+
+No RPC closes a VI — `OpenFile` has no counterpart — so this is the same generated-helper route.
+Two ways of closing look interchangeable and are not. **What decides is who opened the panel:**
+
+| `Front Panel Window\3AOpen` reads | `Invoke Node` `FP.Close` | `Property Node` `write+Front Panel Window\3AOpen` = `False` |
+|---|---|---|
+| **false** | **Error 1149** | reports success — and does nothing |
+| **true** (e.g. after `write+…Open` = `True` on the same refnum) | **closes it**; `source` empty | closes it |
+
+**Error 1149 is the whole explanation**, and it says so itself:
+
+> Cannot close or set the state of a closed front panel. The front panel must already be open
+> before you close it or set its state.
+
+One sentence settles three separate puzzles. `FP.Close` does not refuse because the window belongs
+to the IDE — it refuses because, as far as VI Server is concerned, **there is no open panel to
+close**. The `Front Panel Window:State` = `Closed` writes that were refused twice fail for exactly
+the same reason: the message covers "or set its state" in so many words, so that property is
+state-dependent, not read-only. And `write+…Open` = `False` never won because it does more — it wins
+because writing *false* to an already-false property is a no-op that cannot fail. An earlier version
+of this section read that comparison as a capability difference. It is not one.
+
+**A visible window does not make these properties true.** Measured on a freshly generated VI, opened
+with nothing but `lvai_open_file` and never otherwise touched: `Front Panel Window\3AOpen`
+**closed**, `Block Diagram Window\3AOpen` **closed** — while the VI's window was **plainly on
+screen**, confirmed by the person sitting at the machine, who then closed it by hand. So
+`…Window\3AOpen` does not answer "is there a window". It answers something narrower, and a window
+put there by `OpenFile` does not set it. That is precisely the precondition `FP.Close` tests, which
+is why it answers `Error 1149` about a VI you can see with your own eyes.
+
+Do not repeat the mistake this section made twice: **`errorCode 0` from a window operation is not
+evidence that a window moved.** Only a human looking at the screen, or a property that genuinely
+tracks the window, can tell you that.
+
+Still open: whether a VI a **person** opened by double-clicking reads differently from one opened by
+the `OpenFile` RPC. `FP.Close` run by hand against a hand-opened VI was reported to work, which needs
+the property to have read true — so the two may well differ. One measurement would settle it.
+
+So before closing a panel you did not open, **read `Front Panel Window\3AOpen` first**. If it is
+false there is nothing to close, and the two techniques differ only in how they tell you: the
+property write reports a success it did not achieve, `FP.Close` gives you the honest 1149.
+
+Opening the panel with the property and then calling `FP.Close` on the very same reference reported
+`open` → no error → `closed`, and took 710 ms against 21 ms for the failing call: the window really
+did appear and go. Guides that describe an Invoke Node step called "Close VI" are describing
+`FP.Close`, and none of them mentions this precondition.
+
+Two techniques carried that measurement and are worth reusing. `Front Panel Window:Open` is listed
+as **`read`** in the catalogue and took a `write+` perfectly well — the concrete instance of the
+warning above that the `access` column is not a capability. And a helper can be made
+self-verifying: read the property back in the same run, and turn the bool into text with `Select`
+between two string constants, because a bool indicator does not marshal back (§10 of the AIXML
+reference). To time-order a read that must survive a failing node, take its `error in` from *before*
+that node and its `reference` from the node's `reference out` — the reference wire carries the
+ordering while the error wire stays clean.
+
+**Pass a generated helper absolute paths.** `String To Path` turns a bare `HelloWorld.vi` into a
+*relative* path, and `Open VI Reference` resolves it against the calling VI's own directory — which,
+for a helper in the `%TEMP%` cache, is not where the target lives. The error says so explicitly,
+naming the path it tried: `VI Path: …\AppData\Local\Temp\LabVIEWMCP\helpers\HelloWorld.vi`. The same
+bare input *works* when helper and target happen to share a folder, which makes this a trap that
+hides until the helper moves. A bare name means "the VI of that name in memory" only when the string
+reaches `Open VI Reference` **without** `String To Path` in between.
+
+**There is no `Close VI` method.** Searching all 3 078 methods for "close" returns seven rows, and
+the only ones on `{LV.VI}` are `FP.Close`, `FP.Set Close If Lonely` and
+`Remote Panel Close Connection To Client`. Guides that describe an Invoke Node step called
+"Close VI" are describing `FP.Close` under its UI label; releasing the last reference with
+`Close Reference` is what actually closes a VI.
+
+**Verifying that a VI left memory does not work the obvious way.** `{LV.Application}` carries
+`Application:All VIs In Memory`, and a generated helper can read it with the `reference` terminal
+left unwired — but what comes back is the **addon's own context**: 400-odd VIs, every one of them
+inside `LV AI Core.lvlibp` or `LV AI gRPC Service.lvlibp`. Neither the VI under test nor the helper
+itself appears. So an unwired Application reference in a generated VI is not the IDE's main
+application instance, and this property cannot confirm residency of a user VI.
+
+**Wiring an explicit `Open Application Reference` does not change it** — the obvious next move, and
+it fails identically. Same 400-odd packed-library VIs, no user VI, and not even the running helper
+itself. `Application:Exported VIs In Memory` returns the same list, **byte-identical**, 26 495
+characters both times. So `Open Application Reference` called from inside a generated helper hands
+back the *addon's* instance, not the IDE's: a generated VI has no route to the application object
+its user is looking at, and no way to enumerate what the IDE has loaded. Residency can only be
+tested indirectly — attempt the regeneration and read `Error 1357`.
+
+**The active project IS the way out of that instance — this is the bridge.** `{LV.Application}` →
+`Project\3AActive Project` → `{LV.Project}` → `Application` hands back the application object the
+*user* is working in, not the addon's. Everything else in this document that reads "there is no way
+to reach the IDE from a generated helper" was written before this was found, and is wrong.
+
+It has one precondition, and getting it wrong is what made this look like a dead end at first: **a
+project must be ACTIVE in the IDE.** With none active, `Project\3AActive Project` returns
+**`Error 1055`, "Object reference is invalid"**, and every step downstream fails for a reason that
+has nothing to do with the step. Opening a project through the `OpenFile` RPC was *not* enough to
+make it active in one measurement and *was* enough in a later one, so treat "active" as the user's
+IDE state, not something this interface sets reliably.
+
+This also explains the entire run of window findings above. The panels that read `closed` while
+plainly visible, and the `Error 1149`s from `FP.Close` on VIs that were obviously open — all of them
+were **measured in the wrong application instance**. The addon's instance genuinely has no such
+panel open. The properties were never lying; they were answering about a different world.
+
+That attempt also carries a lesson about diagnosing chains. The version that first showed the
+problem had a `Clear Errors.vi` between the stages, and it blamed `Open VI Reference` — the *last*
+node to break, three steps downstream of the cause. Removing the error clearing moved the report to
+the property node that actually failed. **A chain that clears errors between stages names its last
+casualty, not its first.**
+
+### "The IDE's instance" is not ONE instance — there are 34, and only one holds your VI
+
+Measured 2026-09-11, after NI's own `LV AI Plugins.lvlib:Get editor app ref.vi` suggested a
+**project-free** route to the editor: it reads `{LV.Application}` `Application\3AAll Contexts`,
+walks them reading `Application\3AContext Name`, and takes the one equal to the literal
+**`NI.LV.Editor`**. That looked like it would retire the active-project precondition above, which
+`lvai_close_vi` and every class-editing call pay. **It does not.**
+
+One probe opened the *same* VI in *every* context and read its `Front Panel Window\3AOpen`, with
+the panel demonstrably open and frontmost. All 34 contexts answered `Open VI Reference` with
+**error 0**; exactly **one** reported the panel open:
+
+| context | sees the open panel |
+|---|---|
+| `Main Application Instance` (index 0) | no |
+| `NI.LV.Editor`, `NI.LV.NoVIs`, `NI.LV.XNode`, `NI.LV.Express`, `NI.LV.IconEditor`, … 31 in all | no |
+| `JKI.LV.Extensions.SDP` | no |
+| `My Computer` — **the last of two so named** | **yes** |
+
+So a VI that belongs to an open project lives in that **project target's** application context, and
+the two `My Computer` entries are the targets of the two open projects. `NI.LV.Editor` is a
+*scripting* context, which is exactly what NI uses it for — `Get editor app ref.vi` feeds
+`Open VI Reference` plus `Start Asynchronous Call` to launch `Show code suggestions.vi`, its own UI
+VI, and never a user VI. **`Project\3AActive Project` → `Application` remains the only route to the
+context holding the user's code**, and the precondition is not an accident of how it was found.
+
+Two things fell out of establishing it, both cheap to know:
+
+- **NI's helper cannot be borrowed.** `LV AI Plugins.lvlib\3AGet editor app ref.vi` is refused by
+  `ValidateAIXML` — *"This VI cannot access the referenced item in private scope"* — while
+  `lv_discuss_file_with_nigel.vi` in the **same library** resolves and runs. So library membership
+  is not the question; **access scope is**, and it is worth one throwaway validate before designing
+  around any VI in that tree. The *technique* is public, and the walk is a dozen ordinary nodes.
+- **`Front Panel Window\3AOpen` is truthful once you are in the right context**, reading `true` for
+  a panel this document elsewhere records as reading `false`. That earlier finding was the addon's
+  instance, and index 0 above reproduces it.
+
+**And this is where a one-route measurement lies.** The two probes — project-route and
+`NI.LV.Editor`-route — disagreed about one panel at one moment, which first read as *"Apply closed
+the front panel"*, a much more interesting claim. The control that killed it took one call: run the
+two probes back to back with nothing in between and watch them still disagree.
+
+## Unloading a VI so its path can be regenerated
+
+**This works.** A VI in memory blocks `ConvertAIXMLToVI` from overwriting that path (`Error 1357`),
+and the recipe below releases it. Everything further down that says otherwise predates the finding.
+
+**It is shipped as `lvai_close_vi`** — the AIXML below is `scripts/lvai_close_vi.xml`, generated
+into a helper once and reused, and the tool reports both preconditions as hints when they are what
+failed. Read the recipe to understand it; call the tool rather than rebuilding it.
+
+```xml
+<Node _name="Property Node" fields="read+Project\3AActive Project" type="{LV.Application}"
+      outputs="Project\3AActive Project:20.proj,reference out:,error out:20.error out"
+      uid="20" uid_parent="root"/>
+<Node _name="Property Node" fields="read+Application" type="{LV.Project}"
+      inputs="reference:20.proj,error in (no error):20.error out"
+      outputs="Application:22.app,reference out:,error out:22.error out"
+      uid="22" uid_parent="root"/>
+<Node _name="Open VI Reference"
+      inputs="application reference (local):22.app,vi path:12.path,error in (no error):22.error out"
+      outputs="vi reference:24.vi reference,error out:24.error out" uid="24" uid_parent="root"/>
+<Constant _name="Closed" type="uint32{Invalid,Standard,Closed,Hidden,Minimized,Maximized}"
+          outputs="value:30.value" value="2" uid="30" uid_parent="root"/>
+<Node _name="Property Node" fields="write+Front Panel Window\3AState" type="{LV.VI}"
+      inputs="reference:24.vi reference,error in (no error):24.error out,Front Panel Window\3AState:30.value"
+      outputs="reference out:32.reference out,error out:32.error out" uid="32" uid_parent="root"/>
+<Node _name="Close Reference" inputs="reference:32.reference out,error in (no error):32.error out"
+      outputs="error out:34.error out" uid="34" uid_parent="root"/>
+```
+
+Measured as a controlled A/B, three times through the cycle: `OpenFile` the VI → regenerate →
+`1357`; run this helper → regenerate → **`errorCode 0`**.
+
+**The VI must belong to the active project, not merely coexist with one.** This is the
+precondition that decides whether the recipe works at all, and it was isolated with a second
+A/B against the *same* active project:
+
+| VI | member of the active project, opened with both pairs | `State` write | regenerate after |
+|---|---|---|---|
+| in the project | yes | succeeds | **`errorCode 0`** |
+| loose on disk | no | **fails**, naming `Front Panel Window\3AState` | `1357` |
+
+So an active project is necessary but not sufficient. A VI opened loose is loaded into a context
+where the project's application cannot see its panel, and the write fails exactly as it does in
+the addon's instance. The practical consequence is a rule about *generation*, not about repair:
+**generate every VI into a project** — write a minimal `.lvproj`, list the VI, open both — because
+retrofitting one afterwards means the VI is already loaded in the wrong place.
+
+**Both halves are necessary, and the discriminating test says which does the work.** The identical
+chain *without* the `Front Panel Window\3AState` write — reach the project's application, open the
+VI reference, close the reference — leaves the regeneration failing with `1357`. Reaching the right
+application instance is not what releases the VI. **Closing the panel while inside that instance
+is.** And it must be `State` = `Closed` rather than `Open` = `False`, because in the addon's
+instance the panel already reads closed, so that write is the no-op described earlier.
+
+Note `{LV.Project}` and `Project\3AActive Project` appear nowhere in the catalogue — see the fifth
+entry under "things the data will not tell you". Both names came from a hand-built VI.
+
+### The older, weaker findings this replaces
+
+The reason to want it: a VI in memory blocks `ConvertAIXMLToVI` from overwriting that path
+(`Error 1357`). `FP.Set Close If Lonely` sits next to `FP.Close` in the catalogue and reads like the
+answer, but measured it is not enough. One helper run — write `Front Panel Window\3AOpen` **and**
+`Block Diagram Window\3AOpen` to `False`, then `FP.Set Close If Lonely`, then `Close Reference` —
+reported no error at all, and the regeneration still failed with 1357. There is no unload or
+remove-from-memory method anywhere in the 3 078 entries. `FP.Set Close If Lonely` presumably does
+what it says for a VI that VI Server alone ever loaded; for one the **IDE** has opened, nothing here
+gets it back out. Plan around it: fresh name per iteration, and do not open a VI you still intend to
+regenerate.
+
+## The addon's own VIs: mapped, and reachable by `Call By Reference`
+
+The 23 RPCs are a thin shell over a much larger set of VIs inside the addon. Those VIs are
+**inventoried** in [`lvai-internal-vis.tsv`](lvai-internal-vis.tsv) — 419 rows, 404 of them
+exported, 321 with a connector pane. Regenerate it with `scripts/lvai_inventory.xml`, generated and
+driven by `RunVIAsTopLevel` with one string input. It is station- and version-specific: this
+snapshot is `lvai 26.3`, `win32`, LabVIEW 2026, and three addon versions were installed side by
+side.
+
+**Read the inventory before assuming a capability is missing.** It names parameters the RPC layer
+drops — `XML generator.vi` takes a **`vi` reference** as well as a `vi path` and returns
+`conversion messages` and `terminal wire name`; `VI generator.vi` takes an **`app ref`**, so its
+target application instance is selectable; `Apply code changes.vi` takes `vi ref` plus
+`changes (UTF-8 encoded XML)` with none of the gRPC gate that makes `ApplyAIXMLToVI` answer
+`Error 42` (§14 of the AIXML reference). Also present: `Generate VI BD image.vi`,
+`Get front panel info.vi`, `Arrange front panel.vi`, `Open VI in best context.vi`,
+`Run from PPL or loose VI.vi`, `Undo and erase transaction.vi`, and a `SearchInfoCache.vi` with
+`Filters`, `Offset`, `Limit` and `Case Sensitive`.
+
+**Neither a `Call` nor `Run VI` reaches it** — but `Call By Reference` does; see below. Measured
+both failing ways first, because the two look like one wall seen from two sides:
+
+| Route | Result |
+|---|---|
+| AIXML `Call target="LV AI Core.lvlibp\3AXML generator.vi"` | `Error 53`, `Unsupported SubVI` — not palette-reachable |
+| VI Server `Open VI Reference` + `Run VI` | `Error 1390` |
+
+`General Error Handler.vi` spells 1390 out: *"You attempted to open a VI Server reference to an
+out-of-scope VI. A VI can open VI Server references only to other VIs that it **could call as
+subVIs**."* The generator refuses the subVI call, so the generated VI may not hold a server
+reference either. Consistent, and it closes the shortcut.
+
+What was ruled out along the way, so nobody repeats it:
+
+- **Not a packed-library export problem.** `Application:Exported VIs In Memory` lists 404 of the
+  422 VIs in memory, `XML generator.vi` among them.
+- **Not reentrancy.** `Open VI Reference` with `options = 8` fails *earlier*, at the open, with the
+  same 1390 — these VIs are not reentrant, so there is no clone to run.
+- **Not the application instance.** Reached through `Project\3AActive Project` → `Application`, the
+  IDE's instance opens the reference successfully — 899 ms, a real load, against 6 ms for the
+  by-name open in the addon's instance — and `Run VI` still answers 1390. Note the precondition
+  from the unload recipe applies here too: with no project active, the first property node fails
+  with `Error 1055`, and a name-only open in the IDE instance fails with `Error 1004` because the
+  VI is not in memory *there*. Give it the path through the `.lvlibp`.
+
+**The path through a `.lvlibp` is real and LabVIEW will tell you it.** Guessing it does not work —
+`…\LV AI Core.lvlibp\1abvi3w\gRPC Implementations\ConvertVIToAIXML.vi` gives `Error 7`. Open a
+reference to the VI **by qualified name** while it is in memory and read `{LV.VI}` `VI Path`; the
+real form mirrors the source tree, e.g.
+`…\LV AI Core.lvlibp\1abvi3w\resource\AI\LV AI Core\XML generator.vi`.
+
+### `Call By Reference` does reach them — 1390 is a `Run VI` problem
+
+**This corrects the section title.** `Run VI` is refused, but a **`Call By Reference` node with a
+strictly typed VI refnum** is not: it is a subVI-shaped call, which is exactly what 1390 asks for.
+Measured against `Apply code changes.vi` — the call executes, returns cleanly and reports no error.
+So the addon's exported VIs *are* callable; the shortcut that fails is `Run VI`, not the route.
+
+Three things it needs, all of which cost an attempt to find:
+
+- **The strict refnum.** `Open VI Reference` must be given a `type specifier VI Refnum` carrying
+  the target's whole connector pane. You cannot type that by hand; drop the node in the IDE once,
+  export the VI, and copy the `type=` string verbatim — for this one it begins
+  `ref{LV.VI}{function{78,d08,0,900,…`.
+- **The traversal path**, not the colon form. `…\LV AI Core.lvlibp:Apply code changes.vi` gives
+  `Error 7`; `…\LV AI Core.lvlibp\1abvi3w\resource\AI\LV AI Core\Apply code changes.vi` resolves.
+- **An `app ref`** from `Project\3AActive Project` → `Application`, so the reference is opened in
+  the IDE's instance.
+
+Note the generator quietly drops one terminal here: `Call By Reference` has two `error out`s — the
+called VI's and the node's own — and a re-export showed the second one unwired despite being
+authored. Check it if the error chain behaves oddly.
+
+### `Apply code changes.vi` is a no-op, under every condition we could arrange
+
+Reaching it changes nothing, which is the disappointing half of the finding above and worth
+recording so nobody spends another evening on it. The call returns **no error**, an **empty**
+`conversion messages`, and leaves the target byte-identical — while invalidating every reference to
+it, so it is plainly doing *something* internally. Eliminated one at a time:
+
+| Suspicion | Measured |
+|---|---|
+| Wrong payload shape | minimal delta and full state both no-ops |
+| Target reference invalid | reads back its `VI Path` in both instances |
+| `Save\3AInstrument` broken | **works**, `errorCode 0`, with no Apply in between |
+| Target not a project member | added to the active project — no change |
+| Target not open | **was true** — see below — opened, no change |
+| Missing *Discuss with Nigel* attachment | set by hand on the target — no change |
+
+The last row extends §14 of [`aixml-reference.md`](aixml-reference.md): the attachment gates more
+than the RPC, because calling the core VI directly does not unlock it either. `ConvertAIXMLToVI`
+remains the only write path.
+
+### `OpenFile` answering `errorCode 0` does not mean a window opened
+
+Measured through the IDE's own instance — the only reading that can be trusted, per the entry
+above — a VI that `lvai_open_file` had just reported success for came back
+`Front Panel Window\3AOpen` = **false** and `Block Diagram Window\3AOpen` = **false**. Three
+experiments ran on the false assumption that the file was open before anyone looked at the screen.
+
+To actually open it, write the properties through a reference taken from the IDE's application
+instance — the inverse of the unload recipe above — and **read them back in the same run**:
+
+```xml
+<Node _name="Property Node" fields="write+Front Panel Window\3AOpen" type="{LV.VI}"
+      inputs="reference:220.vi reference,error in (no error):220.error out,Front Panel Window\3AOpen:120.value"
+      outputs="reference out:230.reference out,error out:230.error out" uid="230" uid_parent="root"/>
+```
+
+Both then report `true`. Same lesson as the icon tool and the launcher: judge by a read-back, never
+by the return code.
+
+**A hand-built wrapper remains untried.** Dropping a PPL-exported VI on a diagram is ordinary work
+*in the IDE* — only the generator cannot do it. A wrapper saved loose, with string and path
+terminals, would be drivable by `RunVIAsTopLevel` like any other VI. Given `Call By Reference`
+works, this is now a convenience rather than the only way in.
+
+### Four terminal and method names this cost
+
+The methods table lists **display** names where AIXML wants the scripting name:
+
+| Wanted | `docs/vi-server-methods.tsv` says | `target=` that resolves |
+|---|---|---|
+| set a control by variant | `Set Control Value [Variant]` | **`Ctrl Val.Set`** |
+| read a control by variant | `Get Control Value [Variant]` | **`Ctrl Val.Get`** |
+
+`Run VI` is listed correctly. The discriminator is the same one that separates a resolvable `Call`
+from an unresolvable one: **`Invalid method` means unresolved, `Contains unwired or bad terminal`
+means resolved** — so a node with no parameters wired probes resolution on its own.
+
+Two primitives, while measuring the above: `Number To Decimal String` outputs
+**`decimal integer string`**, not `string`; and `Variant To Data` takes **`error in`**, not
+`error in (no error)`.
+
+**Ask LabVIEW what an error code means** rather than guessing — `General Error Handler.vi` is
+palette-reachable, and wiring `type of dialog (OK msg\3A1)` to `0` (`no dialog`, a
+`uint16{no dialog,OK message,…}`) suppresses the modal box and leaves the text in `message`. Its
+code input is `[error code] (0)`. That one call decided this whole section.
+
+## What this opens up
+
+Gaps in the RPC surface that a generated helper VI could close, none of them attempted yet:
+
+### Two traps in the palette index
+
+**A palette VI can shadow a primitive's name.** `Close Reference` is a built-in function, and the
+DataFinder add-on also ships a VI called `Close Reference.vi`. `lvai_palette_index` lists the VI,
+because it is one — but a `Call` to that name reaches the add-on VI, not the function. When a name
+you recognise as a primitive turns up in the index, look at the palette file it came from before
+wiring it, and use a `Node` if what you wanted was the primitive.
+
+**Add-on palettes live outside the IDE folder.** Drivers install under
+`%ProgramFiles%\NI\LVAddons\<addon>\<api>\menus`, not into `<LabVIEW>\menus`. The index reads both;
+the first version read only the IDE folder and reported NI-DAQmx as absent while a `Call` to
+`DAQmx Read.vi` resolved perfectly well. If a driver's VIs seem missing, check that its add-on was
+scanned — the tool names the ones it read, and names any it skipped for requiring a newer LabVIEW.
+
+| Gap | Route |
+|---|---|
+| `describe_vi` returned an empty `subvisInfo`, so there is no call graph | `{LV.VI}` properties `Callees' Names`, `Callers' Names` |
+| `.ctl` typedefs are unreadable (`errorCode 5001`) | the `{LV.ConnectorPane}` / control classes expose type information |
+| `describe_project` reports no folders at all | the project classes enumerate the tree |
+| Nothing reports whether a VI is broken | `{LV.VI}` and `{LV.Wire}` carry `Is Broken?`-style properties |
+| No RPC creates a `.lvlib`, `.lvclass` or `.lvproj` | LabVIEW scripting, if `server.viscripting…` is enabled |
+
+See Phase 4 of [`../.claude/agents/labview-doc-generator.md`](../.claude/agents/labview-doc-generator.md)
+for a worked example that runs end to end, and [`aixml-reference.md`](aixml-reference.md) for the
+AIXML rules themselves.
+
+## Reaching a class's private data control, and the write primitives on it
+
+Measured 2026-08-28, while trying to bind a class private data field to a typedef.
+
+**The catalogue does not list `{LV.LVClassLibrary}` at all** — 153 classes, and that is not one of
+them. It is nevertheless a real class with a real `Private Data Control` property, which hands back
+a VI reference to the control. Same lesson as `{LV.Project}`, which the catalogue also omits while
+`Save` and `Close` work: **a catalogue miss is not evidence that a property does not exist.** Settle
+it with a throwaway `ValidateAIXML`, which accepts a real name and refuses an invented one.
+
+**Two routes reach the same control.** `{LV.LVClassLibrary}` `Private Data Control`, or
+`Open VI Reference` on the control's **synthetic path** — `…\X.lvclass\X.ctl`, which does not exist
+on disk. The synthetic-path route is measured: `{LV.VI}` `VI Name` on the result answers
+`Baum.lvclass:Baum.ctl`, `Front Panel` → `{LV.Panel}` `Controls[]` has exactly **1** element whose
+`Class Name` is `Cluster`, and after a downcast `{LV.Cluster}` `Controls[]` has one element per
+field. The downcast is required; without it the property answers `Invalid property`.
+
+**`Is Typedef?` is NOT a boolean.** It is `uint32` with four items —
+`{not a typedef, typedef, strict typedef, class private data}` — so an AIXML indicator typed `bool`
+is refused at validation with "You have connected two terminals of different types", naming the enum.
+
+**The write primitives that exist**, and they are more than the typedef-named methods suggest:
+
+| class | method | parameters |
+|---|---|---|
+| `{LV.Control}`, `{LV.Panel}`, and nearly every control class | `Replace` | `Style; Path; PaletteString` |
+| same | `Replace No Attrib` | `Param 0; Param 1; PaletteString` |
+| `{LV.Control}` | `Move` | `position; owner; duplicate` |
+| `{LV.Panel}` | `Copy Selection`, `Paste Selection`, `Make Selection` | — |
+| `{LV.GObject}` — so **every** diagram object, no narrowing cast needed | `Replace` | `Style; Path; PaletteString` |
+| `{LV.Terminal}` | `Create Constant`, `Create Control`, `Create Indicator` | `Value` |
+
+**The same gesture works on a BLOCK DIAGRAM constant, which is how a generated call is bound to the
+typedef its subVI expects.** `{LV.Constant}` is the generic class to reach for — it carries
+`Is Typedef?`, `Typedef:Path`, `Typedef:VI`, `Label`, `Terminal`, `Value`, `Discon Typedef` and
+`Update Typedef` without a per-class cast — and `{LV.Terminal}` carries `Name`, `Coercion Dot?`,
+`Connected Wire` and `Type Descriptor`.
+
+Two traps, both measured 2026-08-29. `Replace` **invalidates the reference it was called on**: the
+next Property Node on it answers `error 1055`, and a label written afterwards is silently lost. And
+its **return value cannot be consumed** — capturing the Invoke Node's `Replace` output made
+generation fail with "the type of the source is void" at three unrelated nodes, while the identical
+shape on `Create Constant` works. Read nothing from the constant after the replace; verify through
+the terminal's `Coercion Dot?`, whose reference does survive.
+
+`Create Constant` on a terminal yields a constant of the terminal's **exact** type, typedef
+included, with no path passed in — but it does **not rewire**, so it cannot replace `Replace`: the
+diagram simply gains a floating constant while the old one stays wired. Use it to *learn* the
+`.ctl`, then delete it. Full account in `docs/typedef-constants.md`.
+
+`Replace` with a `Path` is the IDE's "Replace → Select a Control…" gesture. An earlier revision of
+this repository concluded from a typedef-named search that "VI Server has only `Discon Typedef` and
+`Update Typedef`, so there is no *connect*" — that is wrong, because the operation is not named after
+typedefs.
+
+**`Replace` on a private-data FIELD is REFUSED — error 1073, and the route you take decides whether
+you are told.** Two attempts, same goal, different answers, which is the part worth keeping:
+
+| route to the control | what `Replace` did |
+|---|---|
+| IDE app instance → `Open VI Reference` on the **synthetic path** `…\X.lvclass\X.ctl` | clean error cluster, the field's refnum **invalid (1055)** on the next read, `.lvclass` byte-identical — a silent nothing |
+| `LVClass.Open` → `{LV.LVClassLibrary}` `Private Data Control` | **error 1073** on the Invoke Node, naming `Method Name: Replace` |
+
+The second route reads the field correctly first (`Is Typedef?` returns a real `not a typedef`), so
+it reaches the right control and is refused on the *operation*, not on the addressing. 1073 is
+LabVIEW's "not permitted in this state". **Prefer the `LVClass.Open` route for anything that edits:
+the synthetic-path route answers the same question by saying nothing.**
+
+No unlock was found to lift it. Probed by validation, which accepts a real method name and refuses an
+invented one: `{LV.LVClassLibrary}` **`Save` exists**; `Unlock` and `Unlock Library` are both refused
+with "Invoke Node: Invalid method". So the class can be saved from script, but the private data
+control's contents could not be edited from script here.
+
+**The export route works, measured end to end, and it needs NO PROJECT.** This is the one to start
+from. `LVClass.Open` takes **no application reference** — leave `reference` unwired — so none of the
+`Project:Active Project` machinery elsewhere in this repository is required:
+
+```
+LVClass.Open (Path)                      -> {LV.LVClassLibrary}      reference UNWIRED
+  {LV.LVClassLibrary}  read+Private Data Control   -> a {LV.VI} reference
+  {LV.VI}     read+Front Panel  ->  {LV.Panel}  read+Controls[]  ->  Index Array [0]   (the cluster)
+  New VI      vi type = Control VI (2)                            -> a fresh VI
+  {LV.VI}     read+Front Panel  on that new VI                    -> its panel
+  {LV.Control} Move   position; owner = the new panel; duplicate UNWIRED   (a move, not a copy)
+  {LV.VI}      Save.Instrument   Path to saved file; Save a Copy; Without Diagram
+```
+
+`New VI` is an ordinary node, not an invoke node, and its `vi type` enum is
+`{invalid VI type, Standard VI, Control VI, Global VI, Polymorphic VI, Configuration VI, SubSystem,
+Facade VI, Method VI, Statechart Diagram VI}` — `Control VI` is **2**. Note `Path to saved file`,
+lower case on *saved* and *file*.
+
+Measured on a five-field class with two bound typedefs, no project open: the written `.ctl` carries
+**every field and both bindings** — the `typeDef` heap wrappers survive, and the file names appear in
+its `VCTP` exactly as in the class. The result is a plain control VI (`TypeDefVI="0"`), not a typedef
+itself, and it is healthy (`State="1"`, `BadDDO="0"`). Both `.lvclass` files were untouched, so the
+export is non-destructive.
+
+So a class's private data **can** be handled as an ordinary `.ctl` — read it, diff it, extract it
+with pylabview — without unwrapping `NI.LVClass.FlattenedPrivateDataCTL` by hand. The reverse
+direction, putting an edited control back or `Move`-ing a bound instance **into** the live private
+data with `duplicate` TRUE, uses the same primitives and is **not measured**. The open part of it is
+saving: `Save.Instrument` writes a new file, and what writes the private data back into the
+`.lvclass` is not established — that is exactly where the `Replace` attempt above lost its change.
+
+### Binding a typedef from script DOES work — via the export, not in place
+
+**Measured 2026-08-28, and it overturns the verdict this section carried for most of that day.** The
+chain below bound a `PFBool.ctl` typedef onto a live class's private data field with no IDE gesture at
+all, verified from the class file afterwards: `<TypeDesc Type="TypeDef">` with `<Label
+Text="PFBool.ctl"/>`, three `typeDef` heap objects, `State="1"`, `BadDDO="0"`, `BadCompile="0"`.
+
+Two facts make it work, and each was the missing piece of an earlier failure:
+
+1. **`Save.Instrument` with an UNWIRED `Path to saved file` saves the control IN PLACE** — and for a
+   class's private data control, in place means back inside the `.lvclass`. Every earlier attempt
+   changed the control in memory and had nothing that wrote it.
+2. **`Replace` is refused on the class's private data control (error 1073) but ALLOWED on an ordinary
+   `.ctl`.** So the edit is done on an exported copy, not on the class's own control.
+
+```
+export   LVClass.Open → Private Data Control → Panel → Controls[0]
+         New VI (vi type = Control VI) → its Panel
+         {LV.Control} Move   owner = that panel        (duplicate TRUE keeps the source intact)
+         {LV.VI} Save.Instrument   Path to saved file = <somewhere>.ctl
+
+edit     Open VI Reference on that .ctl → Panel → Controls[0] → downcast {LV.Cluster}
+         → Controls[] → element i
+         {LV.Control} Replace   Path = the typedef .ctl        <- allowed here, 1073 on the class
+         {LV.VI} Save.Instrument   path UNWIRED                <- saves the .ctl in place
+
+import   LVClass.Open → Private Data Control → Panel → Controls[]
+         For Loop over them: {LV.Control} Delete               <- empties the cluster
+         Open VI Reference on the edited .ctl → Panel → Controls[0]
+         {LV.Control} Move   owner = the private data panel
+         {LV.VI} Save.Instrument   path UNWIRED                <- writes back into the .lvclass
+```
+
+Verify `Is Typedef?` on the field before and after: it is **not** a boolean but a `uint32` enum,
+`{not a typedef, typedef, strict typedef, class private data}`. A plain round trip with an unedited
+export is the right first test — it came back lossless, all six fields and both existing bindings
+intact.
+
+**Two caveats, both measured.**
+
+**The accessors are NOT refreshed.** After the scripted binding the class carried the typedef while
+`Read <field>.vi` and `Write <field>.vi` still held the bare type, and an open/close of the project
+did **not** rewrite them — unlike the same binding done as an IDE gesture, where LabVIEW rewrote every
+typedef-carrying accessor. Regenerate them if the accessor must show the typedef.
+
+**Reach the class the PROJECT holds, and then the project may stay open.** For the import, wire
+`Project:Active Project` → `{LV.Project}` `Application` into `LVClass.Open`'s `reference`; leave it
+unwired only for the export, which reads and needs no project. This paragraph first said "do not leave
+the project open across the import", which was the wrong lesson drawn from a real crash: with the app
+instance wired there is no second copy to diverge, and four bindings were made with the project open
+the whole time and LabVIEW alive throughout. An import helper **with** the instance wired answers
+`Error 1055` when the project is closed — the same fact from the other side.
+
+What did kill LabVIEW was a close/reopen/close cycle around a class that had been rewritten through an
+**unwired** `LVClass.Open`, so the project's copy and the edited copy were different objects. The log
+carries a signature not previously recorded here:
+
+```
+DWarnInternal 0x9AFA10AF: bad mlabel length
+    source\heapobjs\MultiLabel.cpp(452)
+[ExecSys:0; Executing:"[VI "lvai_close_active_project.vi"]"]
+DWarn 0xECE53844: DestroyPlatformEvent failed with MgErr 42.
+```
+
+The files on disk were undamaged — the class kept its binding and all twelve members. Repeating the
+open/close on a freshly restarted LabVIEW was clean, so the trigger is the **stale in-memory copy**,
+not the operation. The fix is therefore not to cycle the project at all: wire the app instance, edit
+the copy the project already has, and leave it open.
+
+### `Move` with `duplicate` does NOT create a typedef binding
+
+Measured 2026-08-28, and it closes the last plausible scripting route. In the IDE, dragging a control
+out of a typedef's own window creates a **bound instance** — that is how a typedef gets into a
+cluster. From script it does not: `{LV.Control}` `Move` with `duplicate` TRUE, source = the control on
+`PFBool.ctl`'s own front panel, target = a fresh Control VI's panel, saved with `Save.Instrument`.
+The written file carries a plain `<TypeDesc Type="Boolean" Label="TrueFalse?"/>`, a `stdBool` heap
+object, and **zero** mentions of `PFBool.ctl`.
+
+That is the same de-linked result NI's own `Add Member Data to Private Data Control.vi` produces, and
+it explains why: the control on a typedef's panel **is** the definition, an ordinary `stdBool` /
+`stdRing` / `stdNum`, never a `typeDef` object. Copying it copies a plain control. The `typeDef`
+wrapper exists only in consumers, and nothing in VI Server was found that creates one.
+
+**This route is a dead end, but the goal is NOT out of reach: see "Binding a typedef from script DOES
+work - via the export, not in place" above.** What fails is creating a binding where the control sits;
+what works is exporting the cluster to an ordinary `.ctl`, calling `Replace` there, and importing it
+back. `Move` stays useful for exactly that - carrying the cluster out and back in.
+
+## A reference out of `All Objects[]` is GENERIC - downcast before reading anything class-specific
+
+Measured 2026-09-10 with one-property probes that differ in nothing else, which is
+what makes it attributable:
+
+| probe | in-loop read | verdict |
+|---|---|---|
+| F | `{LV.GObject}` `Class Name` | **`errorCode 0`** |
+| E | `{LV.Loop}` `Diagram` | `Property Node: Invalid property` |
+| G | `To More Specific Class` -> `{LV.WhileLoop}` `Diagram` | **`errorCode 0`** |
+| H | `To More Specific Class` -> `{LV.Loop}` `Diagram` | **`errorCode 0`** |
+
+So `{LV.Diagram}` `All Objects[]` hands back references whose STATIC type is the
+generic object class, and a Property Node typed for a subclass is refused on one -
+`Invalid property`, which reads like a wrong property NAME and is a wrong wire
+TYPE. `To More Specific Class` with a `<Constant type="ref{LV.WhileLoop}" value=""/>`
+as `target class` fixes it, and the same shape is already used by
+`lvai_create_accessors` for `{LV.Cluster}`.
+
+**The catalogue is not the culprit and checking it does not help here.** Both
+`{LV.WhileLoop}` `Diagram` and `{LV.Loop}` `Diagrams[]` are listed, and both are
+refused without the downcast. Four rounds went into hunting a spelling that was
+never wrong.
+
+**And the harness matters more than the candidate.** The first four probes put the
+property under test behind an `Index Array` and inside a full diagram; every
+failure produced 10-25 cascaded messages and all four candidates - including a
+deliberately wrong class as a control - answered IDENTICALLY. A probe whose
+negative control is indistinguishable from its hypothesis is measuring nothing.
+What discriminated was one property node inside a body already proven to pass,
+changing exactly one attribute. **Build the harness so a known-wrong input fails
+differently, then trust it.**
+
+Still open, and honest about it: with the downcast the document validates and
+generates, and at RUN time the traversal returns blank class names from the
+fourth object on with every inner count 0. That is a separate defect in the probe
+body, not in the rule above.
+
+### That defect is SOLVED, and it was two defects - measured 2026-09-11
+
+A working traversal of a real producer/consumer VI settles both halves, and the second one is the
+kind of fault that reports success:
+
+**1. A For Loop that iterates ZERO times emits the DEFAULT value at its output tunnel - including an
+error cluster.** The first probe answered `errorCode 0` with every array empty and every string
+blank, which reads as "the VI ran and found nothing". It had in fact failed at
+`Open VI Object Reference`, and routing the error chain THROUGH the loop replaced that fault with a
+fresh no-error cluster. Route the error chain AROUND any loop whose iteration count is data, and
+index the per-iteration codes out separately. With that one change the same probe named its own
+fault: `Error 1054` at that node.
+
+**2. A failing `To More Specific Class` in the same iteration as a read INVALIDATES the remaining
+references.** Two probes over the same five objects: one reading only `{LV.GObject}` `Class Name`
+returned all five (`Function, EventStructure, Text, Terminal, Terminal`); the other adding a downcast
+to `{LV.Terminal}` returned the first two and then **blank names with `Error 1055`** for the rest -
+after the downcast had answered `Error 1057, Object cannot be cast to the specified type` on the
+objects that are not terminals. So the earlier "blank from the fourth object on" was this, not a
+property-name problem. **One property node per reference, and no speculative downcast beside it** -
+read the class names first, then descend into the objects you have already identified.
+
+**`Open VI Object Reference` searches ONE diagram, not the hierarchy.** With `owner refnum` = the VI's
+Block Diagram and `vi object class` = a `ref{LV.EventStructure}` constant it answered
+**`Error 1054, The specified object was not found`** for a structure that sits inside a While Loop.
+Descend a level at a time - `All Objects[]`, downcast the loop, `{LV.WhileLoop}` `Diagram`,
+`All Objects[]` again.
+
+**The `Class Name` strings carry NO SPACES**, which matters when matching on them: measured on one VI,
+`Function`, `WhileLoop`, `CaseStructure`, `EventStructure`, `RegisterForEvents`, `SelectorTunnel`,
+`ClusterConstant`, `FixedConstant`, `ControlTerminal`, `Terminal`, `Text`. Not "Event Structure".
+
+### Drawing a WIRE from script, and the direction rule
+
+`{LV.Terminal}` **`Connect Wire`** (`Wire Source; Auto Wire? (T); Wiring Specs; Auto Route? (F)`) is
+called on the DESTINATION terminal; `{LV.Node}`, `{LV.Structure}` and every node class carry the
+plural `Connect Wires`. Measured 2026-09-11 branching an event registration refnum onto an Event
+Structure's dynamic event terminal: `errorCode 0`, the target's `signalList` entry grew by exactly
+one terminal, nothing else in the heap moved, `Execution:State` stayed 1.
+
+**`Error 1062, "Specified objects cannot be wired together"` is a DIRECTION verdict, not a type
+one.** The first attempt wired the structure's own tunnel to the terminal beside it - both are
+SINKS - and 1062 says so in the only words it has. The source of a net is found by walking it:
+`{LV.Tunnel}` `Outside Terminal` -> `{LV.Terminal}` `Connected Wire` -> `{LV.Wire}` `Terminals[]` ->
+the element whose `Is Source?` is true.
+
+**`Connected Wire` on an UNWIRED terminal answers `errorCode 0` with an invalid refnum**, so a clean
+read is not evidence that a wire exists. Ask the wire something - `{LV.Wire}` `Class Name` or
+`Is Broken?` - or read the heap.
+
+**LabVIEW's own error text is on disk and needs no LabVIEW to read.**
+`<install>\resource\errors\English\LabVIEW-errors.txt` is plain XML, one `<nierror code="N">` per
+code, and it is the fastest way to turn a scripting refusal into a sentence: 1054 "The specified
+object was not found", 1055 "Object reference is invalid", 1057 "Type mismatch: Object cannot be cast
+to the specified type", 1062 "Specified objects cannot be wired together". Four codes that all
+reached a probe in one afternoon, each of which reads like something else.
+
+The worked route, with the Event-Structure specifics and what it does not yet establish, is in
+[`labview-vit-templates.md`](labview-vit-templates.md) - "THE WIRE IS SCRIPTABLE AFTER ALL".
+
+### And leaving the project open while probing ADOPTED six scratch VIs - second occurrence
+
+Measured as damage, 2026-09-10. The probe needs a project ACTIVE (the
+`Project:Active Project` hop), so one was opened and left open across several
+runs. `lvai_close_active_project` then SAVED it, and the saved `.lvproj` had
+grown from 903 to 1919 bytes:
+
+- **six** of the session's throwaway VIs adopted as project items, with `URL`s
+  pointing into the session scratchpad and `%TEMP%\LabVIEWMCP\helpers` - paths
+  that are deleted when the session ends, so the project would have opened with
+  six broken items
+- **three** real VIs dropped out of the listing, including the main deliverable
+
+CLAUDE.md already says both halves of this - "LabVIEW adopts every VI it has open
+when it saves that project" and "Read the `.lvproj` after every close" - and it
+happened anyway, because the adoption is invisible until you look. So the rule
+that actually prevents it is narrower and mechanical: **do not leave a project
+open across probe runs.** Open it, take the one measurement that needs it, close
+it, read the file back. A probe loop that reuses an open project is trading one
+`lvai_open_file` call for a corrupted project file.
+
+Repairing it is plain XML work with the project CLOSED, and the check that
+settles it is resolving every `URL` against the disk rather than counting items.

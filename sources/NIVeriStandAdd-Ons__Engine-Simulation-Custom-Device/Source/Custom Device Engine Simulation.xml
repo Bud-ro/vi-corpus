@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+<XSDVersion Major="2011" Minor="0" Fix="0" Build="0" />
+  <AddMenu>
+    <eng>National Instruments::Engine Simulation</eng>
+    <loc>National Instruments::Engine Simulation</loc>
+  </AddMenu>
+  <Version>3.10.0</Version>
+  <Type>Asynchronous</Type>
+  <MaxOccurrence>2474</MaxOccurrence>
+  <MainPageGUID>981B5D80-125D-3755-C95E-D7EA1B6DEE7D</MainPageGUID>
+  <InitializationVI>
+    <Type>Action</Type>
+    <Item2Launch>
+      <Type>To Common Doc Dir</Type>
+		<Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Engine Simulation Initialization VI.vi</Path>
+    </Item2Launch>
+  </InitializationVI>
+  <CustomDeviceVI>
+    <SourceDistribution>
+      <Source>
+        <SupportedTarget>PharlapWindows</SupportedTarget>
+        <Source>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\Engine Simulation\Engine Simulation Engine.llb\Engine Simulation RT Driver VI.vi</Path>
+        </Source>
+        <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Engine Simulation\Engine Simulation Engine.llb\Engine Simulation RT Driver VI.vi</RealTimeSystemDestination>
+      </Source>
+      <Source>
+        <SupportedTarget>VxWorks</SupportedTarget>
+        <Source>
+          <Type>To Common Doc Dir</Type>
+          <Path>Custom Devices\Engine Simulation\c\Engine Simulation Engine (VxWorks).llb\Engine Simulation RT Driver VI.vi</Path>
+        </Source>
+        <RealTimeSystemDestination>c:\ni-rt\NIVeriStand\Custom Devices\Engine Simulation\Engine Simulation Engine (VxWorks).llb\Engine Simulation RT Driver VI.vi</RealTimeSystemDestination>
+      </Source>
+		</SourceDistribution>
+	</CustomDeviceVI>
+  <Dependencies />
+  <Pages>
+    <Page>
+      <Name>
+        <eng>Engine Simulation %</eng>
+        <loc>Engine Simulation %</loc>
+      </Name>
+      <ExcludeFromAlphabeticalOrder>false</ExcludeFromAlphabeticalOrder>
+      <GUID>981B5D80-125D-3755-C95E-D7EA1B6DEE7D</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Glyphs\engine.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Engine Simulation Main Page.vi</Path>
+      </Item2Launch>
+      <ActionVIOnLoad>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Main On Load Action VI.vi</Path>
+      </ActionVIOnLoad>
+      <ActionVIOnCompile>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Main On Compile Action VI.vi</Path>
+      </ActionVIOnCompile>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>Angle Processing Unit Page</eng>
+        <loc>Angle Processing Unit Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>164D4EF3-DDDB-483A-8ED9-6596F8ED3FBF</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\timingsource.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\APU Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>8454ECB0-EDAF-4BCC-A5B8-A8ED4B99E5CD</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Angle(s)</eng>
+            <loc>Add Angle(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add APU Angle RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add APU Angle RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>03D3BE0A-1485-13A6-563AEB9BF271825A</GUID>
+          <Type>VI</Type>
+          <MinNrOfChilds>2</MinNrOfChilds>
+          <Name>
+            <eng>Remove Angle(s)</eng>
+            <loc>Remove Angle(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Dialogs\Delete Multiple Items.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddAPUAngle</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddAngle.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>8454ECB0-EDAF-4BCC-A5B8-A8ED4B99E5CD</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Angle(s)</eng>
+            <loc>Add Angle(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Angle(s)</eng>
+            <loc>Add Angle(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add Angle(s)</eng>
+            <loc>Add Angle(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add APU Angle RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveAPUAngle</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveAngle.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>03D3BE0A-1485-13A6-563AEB9BF271825A</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Angle(s)</eng>
+            <loc>Remove Angle(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Angle(s)</eng>
+            <loc>Remove Angle(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Angle(s)</eng>
+            <loc>Remove Angle(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove APU Angle RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>Crank and Cams Page</eng>
+        <loc>Crank and Cams Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>B8A54196-A3EC-62F7-D181-DF8C7E0BE69D</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Glyphs\NTeeth.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Crank and Cams Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>5D98FEFB-B4B4-4ED7-8DBE-40EF4ECB9CF2</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Crank or Cam(s)</eng>
+            <loc>Add Crank or Cam(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Crank Cam RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Crank Cam RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>03D3BE0A-1485-13A6-563AEB9BF271825A</GUID>
+          <Type>VI</Type>
+          <MinNrOfChilds>1</MinNrOfChilds>
+          <Name>
+            <eng>Remove Crank or Cam(s)</eng>
+            <loc>Remove Crank or Cam(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Dialogs\Delete Multiple Items.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddCrankCam</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddCrankCam.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>5D98FEFB-B4B4-4ED7-8DBE-40EF4ECB9CF2</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Crank/Cam(s)</eng>
+            <loc>Add Crank/Cam(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Crank/Cam(s)</eng>
+            <loc>Add Crank/Cam(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add Crank/Cam(s)</eng>
+            <loc>Add Crank/Cam(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Crank Cam RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveCrankCam</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveCrankCam.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>03D3BE0A-1485-13A6-563AEB9BF271825A</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Crank/Cam(s)</eng>
+            <loc>Remove Crank/Cam(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Crank/Cam(s)</eng>
+            <loc>Remove Crank/Cam(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Crank/Cam(s)</eng>
+            <loc>Remove Crank/Cam(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+	
+    <Page>
+      <Name>
+        <eng>Data Replay Loop Page</eng>
+        <loc>Data Replay Loop Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <GUID>A6C5F3D6-D595-FB51-CC0F-A3E187312E4C</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\NI-XNET DataReplay.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Data Replay Loop Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>2C47DA58-1B89-E70F-AB9E-27FFE4EA91A7</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Data Replay(s)</eng>
+            <loc>Add Data Replay(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>C0A5D812-131D-8B85-9179-A6AF0A444F3F</GUID>
+          <Type>VI</Type>
+          <MinNrOfChilds>1</MinNrOfChilds>
+          <Name>
+            <eng>Remove Data Replay(s)</eng>
+            <loc>Remove Data Replay(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Dialogs\Delete Multiple Items.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddDataReplay</ID>
+          <Glyph>
+            <Type>To Application Data Dir</Type>
+            <Path>System Explorer\Glyphs\NI-XNET Add Replay File.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>2C47DA58-1B89-E70F-AB9E-27FFE4EA91A7</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Data Replay(s)</eng>
+            <loc>Add Data Replay(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Data Replay(s)</eng>
+            <loc>Add Data Replay(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add Data Replay(s)</eng>
+            <loc>Add Data Replay(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveDataReplay</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveDataReplay.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>C0A5D812-131D-8B85-9179-A6AF0A444F3F</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Data Replay(s)</eng>
+            <loc>Remove Data Replay(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Data Replay(s)</eng>
+            <loc>Remove Data Replay(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Data Replay(s)</eng>
+            <loc>Remove Data Replay(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+	
+	<Page>
+      <Name>
+        <eng>Data Replay Page</eng>
+        <loc>Data Replay Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <GUID>A1C69264-1A23-45C8-CFFF-4B9A0433C19C</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\NI-XNET File(Replay).png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Data Replay Page.vi</Path>
+      </Item2Launch>
+	        <RunTimeMenu>
+        <MenuItem>
+          <GUID>9EF99E08-DD9E-D2AB-761B-0B05B37A26E2</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay Offset RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>8AC40855-3D90-D30B-6DD3-BCBA9360F9BD</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Data Replay Offset RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Data Replay Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddReplayOffset</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddOffset.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>9EF99E08-DD9E-D2AB-761B-0B05B37A26E2</ReferencedGUID>
+          <ButtonText>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Data Replay Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveReplayOffset</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveOffset.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>8AC40855-3D90-D30B-6DD3-BCBA9360F9BD</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Data Replay Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+	
+    <Page>
+      <Name>
+        <eng>N Teeth M Missing Page</eng>
+        <loc>N Teeth M Missing Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <GUID>D13AE4FE-5D80-B0CC-FDA0-9157C9A149E5</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Glyphs\NTeeth.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\N Teeth M Missing Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>Fully Custom Collection Page</eng>
+        <loc>Fully Custom Collection Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <GUID>F50F9943-5E77-7915-BB8D-E6902279B28E</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Glyphs\FullyCustom.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Fully Custom Collection Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>D446960E-062D-48DE-AE9F-1C01AE2E9ABB</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Profile</eng>
+            <loc>Add Profile</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add FullyCustom Profile RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add FullyCustom Profile RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>3AC00642-457E-42AB-99DB-F95D15B69FFD</GUID>
+          <Type>Action</Type>
+          <MinNrOfChilds>1</MinNrOfChilds>
+          <Name>
+            <eng>Remove Profile</eng>
+            <loc>Remove Profile</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove FullyCustom Profile RTM.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddFullyCustomProfile</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddFullyCustom.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>D446960E-062D-48DE-AE9F-1C01AE2E9ABB</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Profile</eng>
+            <loc>Add Profile</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Profile</eng>
+            <loc>Add Profile</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add Profile</eng>
+            <loc>Add Profile</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add FullyCustom Profile RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveFullyCustomProfile</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveFullyCustom.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>3AC00642-457E-42AB-99DB-F95D15B69FFD</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Profile</eng>
+            <loc>Remove Profile</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Profile</eng>
+            <loc>Remove Profile</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Profile</eng>
+            <loc>Remove Profile</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>Fully Custom Page</eng>
+        <loc>Fully Custom Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <AllowMultiSelection>false</AllowMultiSelection>
+      <GUID>C620946F-22B4-9CF6-4F15-9C7CC7CA9D8C</GUID>
+      <Glyph>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Glyphs\FullyCustom.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Fully Custom Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>BE4CB252-DBF1-4A45-B149-3FA3AF3FC44E</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Profile Offset RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Profile Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>D76A2063-77F4-4BF8-83D4-76A92D04DD3A</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Profile Offset RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Profile Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddProfOffset</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddOffset.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>BE4CB252-DBF1-4A45-B149-3FA3AF3FC44E</ReferencedGUID>
+          <ButtonText>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add VVT Offset</eng>
+            <loc>Add VVT Offset</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add Profile Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveProfOffset</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveOffset.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>D76A2063-77F4-4BF8-83D4-76A92D04DD3A</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove VVT Offset</eng>
+            <loc>Remove VVT Offset</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove Profile Offset RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>ECU Events Page</eng>
+        <loc>ECU Events Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>C0F2F8B4-F3D7-60C5-FF9F-3CDFC1FB32F6</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\event-based.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\ECU Events Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>1987DF43-3B58-4032-8840-DB3DF21F835C</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add ECU Event(s)</eng>
+            <loc>Add ECU Event(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>03D3BE0A-1485-13A6-563AEB9BF271825A</GUID>
+          <Type>VI</Type>
+          <MinNrOfChilds>1</MinNrOfChilds>
+          <Name>
+            <eng>Remove ECU Event(s)</eng>
+            <loc>Remove ECU Event(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Dialogs\Delete Multiple Items.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddEvent</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddEvent.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>1987DF43-3B58-4032-8840-DB3DF21F835C</ReferencedGUID>
+          <ButtonText>
+            <eng>Add ECU Event(s)</eng>
+            <loc>Add ECU Event(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add ECU Event(s)</eng>
+            <loc>Add ECU Event(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add ECU Event(s)</eng>
+            <loc>Add ECU Event(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveEvent</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveEvent.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>03D3BE0A-1485-13A6-563AEB9BF271825A</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove ECU Event(s)</eng>
+            <loc>Remove ECU Event(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove ECU Event(s)</eng>
+            <loc>Remove ECU Event(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove ECU Event(s)</eng>
+            <loc>Remove ECU Event(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>ECU Event Page</eng>
+        <loc>ECU Event Page</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <GUID>0C39D0EB-6C13-AC47-ACCA-A16625DA2D25</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\event-based_periodic.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\ECU Event Page.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+        <MenuItem>
+          <GUID>88BD8316-E741-45DB-B04A-284AF5309131</GUID>
+          <Type>Action</Type>
+          <Name>
+            <eng>Add Measurement(s)</eng>
+            <loc>Add Measurement(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event Measurement RTM.vi</Path>
+          </Item2Launch>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event Measurement RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </MenuItem>
+        <MenuItem>
+          <GUID>03D3BE0A-1485-13A6-563AEB9BF271825A</GUID>
+          <Type>VI</Type>
+          <MinNrOfChilds>1</MinNrOfChilds>
+          <Name>
+            <eng>Remove Measurement(s)</eng>
+            <loc>Remove Measurement(s)</loc>
+          </Name>
+          <Item2Launch>
+            <Type>Absolute</Type>
+            <Path>Dialogs\Delete Multiple Items.vi</Path>
+          </Item2Launch>
+        </MenuItem>
+      </RunTimeMenu>
+      <ButtonList>
+        <Button>
+          <ID>NIVS_EngineSim_AddEventMeas</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\AddMeasurement.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>88BD8316-E741-45DB-B04A-284AF5309131</ReferencedGUID>
+          <ButtonText>
+            <eng>Add Measurement(s)</eng>
+            <loc>Add Measurement(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Add Measurement(s)</eng>
+            <loc>Add Measurement(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Add Measurement(s)</eng>
+            <loc>Add Measurement(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Add ECU Event Measurement RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+        <Button>
+          <ID>NIVS_EngineSim_RemoveEventMeas</ID>
+          <Glyph>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Glyphs\RemoveMeasurement.png</Path>
+          </Glyph>
+          <Type>Action</Type>
+          <ReferencedGUID>03D3BE0A-1485-13A6-563AEB9BF271825A</ReferencedGUID>
+          <ButtonText>
+            <eng>Remove Measurement(s)</eng>
+            <loc>Remove Measurement(s)</loc>
+          </ButtonText>
+          <Caption>
+            <eng>Remove Measurement(s)</eng>
+            <loc>Remove Measurement(s)</loc>
+          </Caption>
+          <TipStrip>
+            <eng>Remove Measurement(s)</eng>
+            <loc>Remove Measurement(s)</loc>
+          </TipStrip>
+          <Documentation>
+            <eng></eng>
+            <loc></loc>
+          </Documentation>
+          <Dependency>
+            <Type>To Common Doc Dir</Type>
+            <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Remove RTM Dependency.vi</Path>
+            <Behavior>Dynamic</Behavior>
+          </Dependency>
+        </Button>
+      </ButtonList>
+    </Page>
+
+    <Page>
+      <Name>
+        <eng>Status Channels</eng>
+        <loc>Status Channels</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>4B53A2D5-350B-49B1-8BEC-61C7CFC9989F</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\system variable.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>To Common Doc Dir</Type>
+        <Path>Custom Devices\Engine Simulation\Engine Simulation Configuration.llb\Status Channels Page.vi</Path>
+      </Item2Launch>
+    </Page>
+    
+    <Page>
+      <Name>
+        <eng>Channel (delete protected)</eng>
+        <loc>Channel (delete protected)</loc>
+      </Name>
+      <DisallowRenaming>true</DisallowRenaming>
+      <DeleteProtection>true</DeleteProtection>
+      <GUID>7C871B01-1266-4EDB-A195-BFBED06C858B</GUID>
+      <Glyph>
+        <Type>To Application Data Dir</Type>
+        <Path>System Explorer\Glyphs\default fpga channel.png</Path>
+      </Glyph>
+      <Item2Launch>
+        <Type>Absolute</Type>
+        <Path>System UI VIs\Custom Device\Custom Device Channel.vi</Path>
+      </Item2Launch>
+      <RunTimeMenu>
+      </RunTimeMenu>
+      <Help>
+        <Item2Launch>
+          <Type>To Base</Type>
+          <Path>Veristand.chm\Custom_Devices_SE.html</Path>
+        </Item2Launch>
+        <FileType>chm</FileType>
+      </Help>
+    </Page>
+  </Pages>
+  <CustomXML>
+    <Dummy></Dummy>
+  </CustomXML>
+</CustomDevice>

@@ -1,0 +1,956 @@
+{
+ "repo": "LabVIEW-Open-Source/ConfigurationManager",
+ "url": "https://github.com/LabVIEW-Open-Source/ConfigurationManager",
+ "commit": "8b714a5b34cb0f0015949a958da966896e661fbe",
+ "license": "0BSD",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-12",
+ "files": [
+  {
+   "path": "_unittests/CfgManager Cache Lifetime Tests.vi",
+   "bytes": 16715,
+   "sha256": "5dc9d26fc547dba751e4d7bd19d25aa344fee1ab40f9cb994accd08ca4d34f91",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager Main Test Suite.vi",
+   "bytes": 27290,
+   "sha256": "0271325db1d2321970a4478f61692f5d6f29028aa17782cfe86a56ba2e66536c",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager Test Launcher.vi",
+   "bytes": 15448,
+   "sha256": "79d3bb8bb32b8534f6091615f17144f6bed82c1e1105a06a8540933c7ec9222c",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager Unit Tests.lvproj",
+   "bytes": 73961,
+   "sha256": "cef6fbb5782ba11735ca669b1b3ab657d458f8de16de3e97422df24baf1aede6",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Collection Test Launcher.vi",
+   "bytes": 34339,
+   "sha256": "6b9f25e7d93c65a6746d75b677279fbc57297d54c383176de88d6e623b13e1d0",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text Partial Found Test Launcher.vi",
+   "bytes": 13527,
+   "sha256": "409c9f28a06d92f4a556e084d132ae0b5014dc00445a3abd0c2d4e916aca674b",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text Test Launcher.vi",
+   "bytes": 22493,
+   "sha256": "da904c231b382d04a3ff63b6111ad45ae029062711202939e0ad37c0dbd3ab68",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text--ForceSave.vi",
+   "bytes": 17162,
+   "sha256": "31aa689fa62ad79530b0813f92d8a1c1d0e1eb75cd2cb13463c52daf6e98b9d8",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text.INI (Array) Test Launcher.vi",
+   "bytes": 18581,
+   "sha256": "a9faf993cc53a7a10f0d8718f35ce52980d20126926e97ffd83eeef06c442516",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text.INI (NumericArray) Test Launcher.vi",
+   "bytes": 16888,
+   "sha256": "76cd120d562734f49655831f016cd560e404afe04388537fb92ed8d491f95e1d",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/CfgManager.Text.INI Test Launcher.vi",
+   "bytes": 28821,
+   "sha256": "dfdfe87cbc5b67af4b4c569e4845424b48517f1eb98b783264162d38b56c39cb",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/Test -- INI Creation.vi",
+   "bytes": 19788,
+   "sha256": "ad5a2ac8adaab23d1b91d60397c2c3f05490f77ba4236b999a7c0797dcac055f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/ConfigManager.Cache.lvclass",
+   "bytes": 55449,
+   "sha256": "b0af443b7361b92d3c11935c523d57aa8b31fdbc54024f55c79955a811d891cb",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/Create Cache.vi",
+   "bytes": 14168,
+   "sha256": "161fa7c4506420c10d2f2a19dae14a3fb152df84be6a073a5a1102c11ddf292e",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/Destroy.vi",
+   "bytes": 20435,
+   "sha256": "ac1f23f4b2195a8426ec4bcc3b95538f3658a2626b921a7338e4dfbaf83ed530",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/EnumerateElements.vi",
+   "bytes": 21033,
+   "sha256": "f331b5fecfd17be8025ea7bb5506e7f3b3a4873d9cea3520c1afcb4808a143e7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/Get Cache.vi",
+   "bytes": 22117,
+   "sha256": "3ecc0bb703b86330d3beb1a1e79dd83982f3422dafcca17391745fc3744dcf9b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/GetElement(Single).vi",
+   "bytes": 24082,
+   "sha256": "5c401aeb36ef9882cca068929ac9806b0323c83d284fea0b0d0a51553c170749",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/GetSingleton.vi",
+   "bytes": 27392,
+   "sha256": "767040538b8e1c528f7c96dbf6d5c638b670668827d4e0372df7dcbb799731c6",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/List Managers.vi",
+   "bytes": 14261,
+   "sha256": "5b1816fe17308bb96cc33a36b2483f6c3f8761ba3cf946197a00300b7a3fd5e8",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/Merge.vi",
+   "bytes": 19833,
+   "sha256": "5d5b55743812fa641fb6146995782066ca9763ab8b7b5626a4ec0e9afe2d34bd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/UpdateElement(Single).vi",
+   "bytes": 24081,
+   "sha256": "0a4a03bdeb60858258c4f232fb10df5b9b847c08ab8f687c777396099264317d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Cache/isCache.vi",
+   "bytes": 12587,
+   "sha256": "729ba4485ab7547b4939e0e6059e8612b712add2b309018d2627dc9329c5ecea",
+   "via": "extension"
+  },
+  {
+   "path": "source/CfgManager.lvlib",
+   "bytes": 1830,
+   "sha256": "186595e2e342077f883be2b32e3b0511314076985a2547f72959bd5dbfb27187",
+   "via": "extension"
+  },
+  {
+   "path": "source/CfgManager.lvproj",
+   "bytes": 5033,
+   "sha256": "6a5abdae05625c48d97d7142e5d8230bc013678107d29fc3978155ddbf86d702",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/ConfigManagerCollection.lvclass",
+   "bytes": 44263,
+   "sha256": "99c95143dcf10429f1cb2ad9b24f6fcfa6d3710bca33913fabbd241105b85cea",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/Create Collection.vi",
+   "bytes": 18273,
+   "sha256": "53733e4873c60af0414410f6b0a9b054da787b3b6dbffb52fb1acd10f34ab674",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/Destroy.vi",
+   "bytes": 20847,
+   "sha256": "475d332347153093b9a47b4eab856b5006f21e41873d51e15637ce120c6ffd6a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/EnumerateElements.vi",
+   "bytes": 22885,
+   "sha256": "10996d59686ca2b210f75ef03bc27efe93015e3024ba93a245510d779424de08",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/Get Cache.vi",
+   "bytes": 23109,
+   "sha256": "86f74f05affad20704c725a7527414b8bc80bf2b49a0a3d51d14d5d44fc6f3aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/GetElement(Single).vi",
+   "bytes": 24062,
+   "sha256": "4088d9708ad17196fa1fe329802ee0a06336612463183070c765caec736bf588",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/GetElements(Multiple).vi",
+   "bytes": 34009,
+   "sha256": "c3161ab70dfea9d68328c1837f31dc138cde13eabb2e7ceb5c0cc83e6d667db0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Collection/List Managers.vi",
+   "bytes": 15445,
+   "sha256": "dc18ab49e72e3c9bae0d898e3d246bee7cbb4f2cc2e44a6bb1cd5b52823888de",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding.Base64/Decode.vi",
+   "bytes": 16038,
+   "sha256": "f4c086eca1e9c7bf102a30f6ab4513426e2fafec53aabd93d67acb9156286911",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding.Base64/Encode.vi",
+   "bytes": 19318,
+   "sha256": "e530ef8c6e828eca28dc86e398a6f685d26655b84b89220690d1fbdd44c70dc9",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding.Base64/Encoding.Base64.lvclass",
+   "bytes": 44321,
+   "sha256": "1d9db4a148b50808481cd89cccd0db9b8c63f6b54a0e7f8fbf81d42fbd056e10",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding/Decode.vi",
+   "bytes": 15238,
+   "sha256": "7c46efa811b05d9ec70366c123c10b3192f90331db2319c8deefc5d7bddf8f6b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding/Encode.vi",
+   "bytes": 18522,
+   "sha256": "230b82fe143cdf5e1b7dcd16e30fdbe50bf22d96ec155d21c51cf93187002504",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encoding/Encoding.lvclass",
+   "bytes": 41769,
+   "sha256": "905d231616aed8c5b405ae7dea77af0a7b025c52e0885add67b9241f04886d5e",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encryption/Decrypt.vi",
+   "bytes": 18539,
+   "sha256": "d0b821287d18024dc7104d443a77385a92c7dca1217cc5d50a726a96f1d6c9a4",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encryption/Encrypt.vi",
+   "bytes": 18539,
+   "sha256": "c434b94293651236f012a4ce8de7c7e029ae43b2f99dc98296cb8b8e0a7f3f82",
+   "via": "extension"
+  },
+  {
+   "path": "source/Encryption/Encryption.lvclass",
+   "bytes": 37627,
+   "sha256": "e1f5341f53283662c8a5656f45bed8d10d0d2242be517732138388af46c917ee",
+   "via": "extension"
+  },
+  {
+   "path": "source/FileHeader/FileHeader.lvclass",
+   "bytes": 31434,
+   "sha256": "30195d430c1b2e57c4ec4c12e532bc3accf60508e487a6f056ad05340a6f42b0",
+   "via": "extension"
+  },
+  {
+   "path": "source/FileSignature/FileSignature.lvclass",
+   "bytes": 32248,
+   "sha256": "e2051eff527a3c94872c2ed0182343a7bb8cba9ae83f567d26b15596078f4431",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/Build String.vi",
+   "bytes": 28516,
+   "sha256": "3fcd3b4de0b493114336c1a72659d9657bd9f0c3de0643a5bc2164fee13be1aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/ConfigManager.Text.INI.lvclass",
+   "bytes": 125482,
+   "sha256": "cc30eb9eb6ddc2830d00055ccfcd9bca05dcad329c9066c2302b98d736672329",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/Create Manager.Text.INI.vi",
+   "bytes": 27663,
+   "sha256": "a67f5ddd4d7dbeb440e70c1c1225f0012216fb034acc5bc1be7129aac1cd3fb0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/Default INITextManager Object.vi",
+   "bytes": 24933,
+   "sha256": "8952be3fc33cb5eb55a333383d9024b00345ed77263a92fd12388661c8328eb5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/GetElement(Single).vi",
+   "bytes": 23406,
+   "sha256": "af9eab501c929f35c70a9c5b8819ea96ec2013bab06a0e358a546365b8d17b59",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/GetElements(Multiple).vi",
+   "bytes": 30885,
+   "sha256": "4dfe1001ef9a059fd0a3c2d1178661bbcc36a69a15120783e015c990eb3f0ecd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/Parse String.vi",
+   "bytes": 21260,
+   "sha256": "93b751a6d7a6771fce46aeecd38add74db84582d320ae3bd29b96126b54f5e0b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/Set Default on UnInitialized INI Object.vi",
+   "bytes": 30523,
+   "sha256": "2b953f1168efcdebaa5796b94b33c9bdc30e633761027a5d4f99934cd06fdd2b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/UpdateElement(Single).vi",
+   "bytes": 23061,
+   "sha256": "d86e48e0dbbbf28a63cf278bf89210e6de526e8651055949c74a804bb9ba2bad",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/_privatetests/_test_parse_build.vi",
+   "bytes": 10213,
+   "sha256": "e5a91a5915879bd96fcc45cbeb39178f4c643499d3ac4908a007c581191454ab",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/onKeyRead.vi",
+   "bytes": 22925,
+   "sha256": "87822071a1d31034f781eda57772e1b73e37480ca280cf16c0920fc54f8c6db2",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/onKeyWrite.vi",
+   "bytes": 19794,
+   "sha256": "852893457e234143e88c5467b93a501a94c779589c02463e2194839b63e315fe",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/regexINI.vi",
+   "bytes": 21172,
+   "sha256": "d16d10236cdeb335529d5af950ae4e5116a150e1f8905e1ae5d02356735eec13",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text.INI/regexINISectionContent.vi",
+   "bytes": 55282,
+   "sha256": "94b03aede293eb86242f5d840de160b042de866e6ba3ce09dd17f54b47d15087",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Build String.vi",
+   "bytes": 24176,
+   "sha256": "4eb80fad007007cbbba185209e716876b631b25aafa104f203b201b1896f5a0d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/CfgManager.Text.lvlib",
+   "bytes": 1654,
+   "sha256": "5d586a65b89a4b77814f49152ad7704c288715d0868908bda33de3e62c449920",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Character Class -- Enum.ctl",
+   "bytes": 6204,
+   "sha256": "b05b6cd9bea8c476c66c88970866176006555b008b62880cd14ac9b412b3da71",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Check File Properties.vi",
+   "bytes": 34285,
+   "sha256": "f9ce6475543de1a5918cc50547012e403bccbf6055276d82480b45024ef65bd9",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Clear Unsaved Changes.vi",
+   "bytes": 14649,
+   "sha256": "ad0a47fa8d8670642ac1e30a78e81f75fa276cd0d29384b9d3c303fa36f7bc92",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Common Path to Specific Path.vi",
+   "bytes": 18636,
+   "sha256": "654465bd61e1f237b26ada62d0d5f28f70cbddec41a4fa0b55e5fb1ba1974116",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/ConfigManager.Text.lvclass",
+   "bytes": 182560,
+   "sha256": "62f578c0377f2d752d39797113764d12802cb5b68b27ced9f04113d94475a8b8",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Configuration -- Cluster.ctl",
+   "bytes": 11633,
+   "sha256": "9129b547fb5cf39868a8658e6be9588d8d25f5e941b17cb20aac7b439a34bc40",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Create Manager.Text.vi",
+   "bytes": 34691,
+   "sha256": "f5a60d8904a617b4845f44f6e37203956cc39c9639ef9d490472c5d8e2ecb632",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Default TextManager Object.vi",
+   "bytes": 25766,
+   "sha256": "4c1623f94829dddf397083157084b25dc03dcfcd53ac3ebdbd9bfcc58b2fdbab",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Destroy.vi",
+   "bytes": 23351,
+   "sha256": "c49e5920fd3a3de23d7934944778a8029525e5c0119b5406563016201440df0a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Dictionary Payload -- cluster.ctl",
+   "bytes": 11838,
+   "sha256": "a69c9fa2294e584364c5cfa7d1db78df66aafe2f080129c5f5a3195098b12f84",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Enqueue Command.vi",
+   "bytes": 24115,
+   "sha256": "e9db307ca83c097dc6841369d97e7c70863e284358aa6a956238199f61615046",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/EnumerateElements.vi",
+   "bytes": 25173,
+   "sha256": "a1d0540c8dbca85778307340f1fe557618f4a65196c310ee47cdff6fb1c2c69f",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/EscapeString.vi",
+   "bytes": 15296,
+   "sha256": "125db5eddbf4cda2d286fd068272090c80350674f239e16608c86083ad4baeb2",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/GetElement(Single).vi",
+   "bytes": 28830,
+   "sha256": "0782e809f8903f2effe1e8339f9172f8484e81830bddd8778f9e4e71f8f6b90d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/GetElements(Multiple).vi",
+   "bytes": 35409,
+   "sha256": "1adb31f392407bde2608a9e4e61e6410975a1f14e20fe50bc79700c37b949273",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Launch Process.vi",
+   "bytes": 26202,
+   "sha256": "83ec7cb966170fd4e51cea86001954afbb0ea3e37d6423aa88fd41104e0d15e4",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Mark As Changed.vi",
+   "bytes": 19335,
+   "sha256": "fd98021285e5d88c594124754601d965ba41cafb90b8b7b27188cefd04425e18",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Parse String.vi",
+   "bytes": 24492,
+   "sha256": "35488ec921e942ade432b2ff4e22a0821a8c856f711eebabd28f2c1e77d6bb89",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Process.vi",
+   "bytes": 54147,
+   "sha256": "ffcb444d5c9c96fae218dbbf9c20b99749980dcafab4ac89bfe41b2f4dc72f8d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/PublicEvents -- Cluster.ctl",
+   "bytes": 12020,
+   "sha256": "13fc0c93105223a8e33aded4c59f8286ed660977890f0b624457cb250c96ec4d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Query -- cluster.ctl",
+   "bytes": 6125,
+   "sha256": "e1bbf57e2d2eec7e9f2de527eb55892b5d2828755fa54b10b20682fd4c4404c5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read File (Complete).vi",
+   "bytes": 25808,
+   "sha256": "738cf2ee77f6b0228497668ab1967c1e90176fafc8b54ad36652ed8e8eb7354d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read FileHeader.vi",
+   "bytes": 17763,
+   "sha256": "cef3d13564fba2ae9e05813ba2b0f39a04737bbb30972c99bc4546d758678b5a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read FileSignature.vi",
+   "bytes": 17802,
+   "sha256": "c51e6484b29d0426f6b9d06cffa0e4234f727a302ceb90cde0afebb870400317",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read Key-Value Separator.vi",
+   "bytes": 20480,
+   "sha256": "07baafd49fe1d488d874da3fb1f42bf298a0e6c475abe66e68896e52779c6132",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read Manager.Text Configuration.vi",
+   "bytes": 19407,
+   "sha256": "1c4a2637e76b67e89b677eab5b943e90d5b470c4b9a1e3e2617d0b92a9beae32",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read Path.vi",
+   "bytes": 20997,
+   "sha256": "ffd72751353429427f201ab1377b79afc5a1bfef1d24f4940e0693b9a379dc15",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read Section Delimiter.vi",
+   "bytes": 17926,
+   "sha256": "1fb39a6450d84a17293152cf4f58cba31a7f20a0446dee76a1e04851f6eee447",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read Unsaved changes.vi",
+   "bytes": 15644,
+   "sha256": "6c30a18e55b818ac575a8d26baceac4deececb80d5f05d6df51852fe5bc01d66",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read read timeout (ms).vi",
+   "bytes": 17690,
+   "sha256": "aad6fac4c2a613b09e92d84d8c209656bfc3f4ebd4ab34be2d76199e48b2b038",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Read write delay (ms).vi",
+   "bytes": 20961,
+   "sha256": "cf823ee1c7913233ce33483acf8beebc6ed6ee0b37022a14a78d0bf1cb0b3020",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/ReadFromDictionary.vi",
+   "bytes": 30910,
+   "sha256": "a2d6b18aae136f1e3dd9f6c36cb0900e38de0722b72f3b0117e6bb75a691bd04",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Response - cluster.ctl",
+   "bytes": 6715,
+   "sha256": "2e817104d13e26c9e0c4c886a6ae31a6f680a05aa0201e1a2312684b1048afb5",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Save.vi",
+   "bytes": 23884,
+   "sha256": "7161dd70ad4d7fb56648ab2adf76533a028638dad8df3c8000a0767c5bad0b5a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Set Default on UnInitialized Objects.vi",
+   "bytes": 30624,
+   "sha256": "07ae27be3652e2237a3394dfb24dbbd1843b060ad07e068eb7fe18e0b9fae77a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Specific Path to Common Path.vi",
+   "bytes": 16716,
+   "sha256": "7a3107d475dd23572e2491e7772eab62d33de71005df23cf50d608b1a1d32e6b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Update -- cluster.ctl",
+   "bytes": 6278,
+   "sha256": "35dc25dcfbe4f742dd6ea52fc8b093d3632dfe7d9b137a8c7922aad24cb97ec6",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/UpdateElement(Single).vi",
+   "bytes": 25421,
+   "sha256": "8c53a02a80d687131b75663243a565088f6b47412018a95a5712a2ab5e87e982",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write File (Complete).vi",
+   "bytes": 24297,
+   "sha256": "46495d27645697819792c6c75d03d5102d0c9e7da6e9c53496b08b81f2e4c8b0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write FileHeader.vi",
+   "bytes": 17584,
+   "sha256": "669fdf698d30fba0d6c4ba021e5d2e7471bcaec40fc68529596d58e3d970f4e0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write FileSignature.vi",
+   "bytes": 17619,
+   "sha256": "935ea6243fcb39656bff1aa284299b527ade62582ef8a907be22323f5a835318",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write Key-Value Separator.vi",
+   "bytes": 17745,
+   "sha256": "fb0b2e89c2621cec7e1e7fde135e9dd30a9da89af5b4c1c31c00bc2b2029a7cb",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write Manager.Text Configuration.vi",
+   "bytes": 19216,
+   "sha256": "c5a31bd1a2509ec822327a9bde27bbb681194b5c20828750a0c9403585e15677",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write Section Delimiter.vi",
+   "bytes": 17735,
+   "sha256": "e349b8800bc2282f84ba3b1cd4d5dc3c420563452362cc47106625703841d0bd",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write read timeout (ms).vi",
+   "bytes": 20783,
+   "sha256": "d995f03fbae7490d53a373b72ceb0bdec934337a2140e146d05eceebecd7292b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/Write write delay (ms).vi",
+   "bytes": 21146,
+   "sha256": "9fc6733759aa17b7b860a4f8c7509b0c81f5c05bdf266b4a30a0df8b58912daa",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/WriteToDictionary.vi",
+   "bytes": 32233,
+   "sha256": "3feddafcce933543ee5eea302b0cd142086cdae6d1dcf2570c0d1343ad4d04d0",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/onKeyRead.vi",
+   "bytes": 16389,
+   "sha256": "798912598bd33b0fad687b0e6674f2f4f94e29290215ddf65189dc66f8424c9a",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/onKeyWrite.vi",
+   "bytes": 17950,
+   "sha256": "69b2ecb59b463c4deab8c821359513f8e1b3103a9008242e80b5527fb08b4ece",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/onMarkAsChanged.vi",
+   "bytes": 30155,
+   "sha256": "0ef6a5b846b7c61abc33274d6589298ac25b2ebfc43e5a98be9ccbf5b5070249",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager.Text/payload -- cluster.ctl",
+   "bytes": 8459,
+   "sha256": "0726d2ee15449b7b475da5fb39908f6c2bf9d06c9c4ba79ba3e7dc6009b9d783",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/ConfigManager.lvclass",
+   "bytes": 77384,
+   "sha256": "d561740a1ef8cc4129a207b89346163d4ae92c4bcd200cd00d580bae819598e1",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Decompose KVPs.vi",
+   "bytes": 23742,
+   "sha256": "6680c753695554251f7265103b74bfa77f30a92a649dbd771945aa4a7d474a21",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Destroy.vi",
+   "bytes": 20395,
+   "sha256": "896e324d40b940d0e4436a8b4352ea4583925b95ce8d07d41104f2331f19ddac",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/EnumerateElements.vi",
+   "bytes": 18649,
+   "sha256": "14231595dc1eed91c5fbb3739ea0b1750ec47796690cd1e3c914a1b1001344b3",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Get Cache.vi",
+   "bytes": 23177,
+   "sha256": "81deebb828e94103dc9e3a5a7023efc3eccc77e89bb90aea80ac5ce834f9fafe",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/GetCfgManagerClassName.vi",
+   "bytes": 22826,
+   "sha256": "e0d6754930c3f4e43cc73d2a4f0fe02d9d8b1c082502d55d1a03751c274817aa",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/GetElement(Single).vi",
+   "bytes": 22138,
+   "sha256": "f27c5c71e8865a3d02d57d791c661f1b655a075e57bc07954c6b2776b1a3dc37",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/GetElements(Multiple).vi",
+   "bytes": 31229,
+   "sha256": "8b838d00333f15b91ea375f5d3ccee04b5d4cca295b09ec4169b491d0a304277",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Inspect Configuration Tree.vi",
+   "bytes": 28462,
+   "sha256": "0d79199a61476b1a614c7d6dd4e0f2687c2cdfb9eedcf90889e4d12a464b2c05",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/List Managers.vi",
+   "bytes": 13273,
+   "sha256": "048797d8b5ab02992b934787f29b30b644d63384c060715e4061e20515094bb7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/List.vi",
+   "bytes": 20064,
+   "sha256": "3e0839264a8b4a34b867965cab84ea2a48061beebd0d9afdb4cca1e518c0f9ee",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Merge Managers.vi",
+   "bytes": 32778,
+   "sha256": "db9a607bc60f0a338e980a2b7d328cb9cd89f7288e6bd7df98c0b22f0ea5e313",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read Encoding.vi",
+   "bytes": 18353,
+   "sha256": "990ea1585186cb801456280541fba69a58cd1bb26e3850200f9afb8a481ca0b7",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read Encryption.vi",
+   "bytes": 18387,
+   "sha256": "05d5e5d9243bf520d2bbf965ead1e355a114514dee5903639b2f1efcba566329",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read Serializer.vi",
+   "bytes": 18119,
+   "sha256": "6736bf5e755efefa48fe1164e851732434ddde40a0ac5533d79b866fc015916d",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read URI.vi",
+   "bytes": 16000,
+   "sha256": "3bf5b532407d12d46dc97a82aeed8fd3d6ec96ecb92550d10c4ed1d4fcd1ff09",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read(Variant).vi",
+   "bytes": 24705,
+   "sha256": "4e5bfabc36bd1406ae742a5c289af9bfd97e5cd06a733cec931ff307f8345e66",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Read.vi",
+   "bytes": 38792,
+   "sha256": "d8b84d142adf41683e3ac477b3c0e41cce3ec90eb7a1a33e2aa6dcf9df5c6c68",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/SetParameterAsChanged.vi",
+   "bytes": 23421,
+   "sha256": "fc43ba592d2c2b51f9b038db9dce254990dda18fa98080fc831394fd1a975475",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/UpdateElement(Single).vi",
+   "bytes": 21189,
+   "sha256": "14aacca77eb908936f25480b8ec508d8a27a65e084b1670a67e802704d40f526",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write Encoding.vi",
+   "bytes": 15614,
+   "sha256": "43ee07247f70321b01a958613fff3cdb98472a98c8e3e0af4af65c7c60b7e746",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write Encryption.vi",
+   "bytes": 15664,
+   "sha256": "778cff3204606ffbea68290760cb7c3e37797d837401b90b1e8fcc25dcbdfb6b",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write Serializer.vi",
+   "bytes": 15740,
+   "sha256": "9aff45d545a3052d073a5eedd4bad8d7325758e8b2834826e2d160d34a46aa73",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write URI.vi",
+   "bytes": 15813,
+   "sha256": "bdcf66b856e1659b24cff91202f934ac74f2294b1c0c8047089993174e94badc",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write(Variant).vi",
+   "bytes": 23918,
+   "sha256": "c106ebdf6e243ceffc53bd02f699377fcce5a8c561addc29fe43e7d3e35b00ea",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/Write.vi",
+   "bytes": 31513,
+   "sha256": "1671db312a9af586db121157b9d25c1a3ee577cfb844d971312bcc19df010f4e",
+   "via": "extension"
+  },
+  {
+   "path": "source/Manager/onMarkAsChanged.vi",
+   "bytes": 21943,
+   "sha256": "d8d5abaaff61d6c8adb05e3835ddec8e72bd0fcf72b1d472d79252141183956c",
+   "via": "extension"
+  },
+  {
+   "path": "_unittests/sample files/config-text_chevrons.txt",
+   "bytes": 91,
+   "sha256": "10f481d4d52e53689138e416badb26d4bd31d4b50f4a85b6bc9fbd8a33a905b5",
+   "via": "ref:_unittests/CfgManager.Collection Test Launcher.vi"
+  },
+  {
+   "path": "_unittests/sample files/config-text_colon.txt",
+   "bytes": 370,
+   "sha256": "797d92ab2ef9620b931406bba37e9a22fb6af469df085d8734d960f6ce59d4be",
+   "via": "ref:_unittests/CfgManager.Collection Test Launcher.vi"
+  },
+  {
+   "path": "_unittests/sample files/config-text-ini.txt",
+   "bytes": 309,
+   "sha256": "fb9b215ce6c348a3354c8e18432c44d5745f89c1edf51e7c390ee5d5c97d8844",
+   "via": "ref:_unittests/CfgManager.Text.INI (Array) Test Launcher.vi"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "bytes": 703,
+   "sha256": "a1d69e8682ce159a26445181d00d205cef4d037eb634480a82424b4274dc0905",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "bytes": 423,
+   "sha256": "349cefe91ab10a4dadbad4e1e417c8aa34ff40ecee3d5ceb2a50ff21bfab51a5",
+   "via": "tree"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/task-template.md",
+   "bytes": 405,
+   "sha256": "0a4b6faa017492fb4840c72c5fc6d3b99954d33208972bfbcddaf722efc668a2",
+   "via": "tree"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 148,
+   "sha256": "3b6f76c2f06e42e39c5f23852ca0f8918b27119eda4f883fa198ba55d16d0977",
+   "via": "tree"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "bytes": 612,
+   "sha256": "27f689e9077bad513a7f2b84b8f0eca8ad608513d29d78f27de8adcf0eddb2e7",
+   "via": "tree"
+  },
+  {
+   "path": "Configuration Manager.vipb",
+   "bytes": 222682,
+   "sha256": "067a490869a1d6337a7e539b372dc990999df185bef848c027078b9d19960de5",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 623,
+   "sha256": "2a0e6f774b02fb7a3fd67542cb027281cdb2fa3c87b45681b93ad51a6a1133e5",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2971,
+   "sha256": "72160d432e0f103a727f4cc372fc283b0fdcafd7852bee1bb4592bf6a5f526d1",
+   "via": "tree"
+  },
+  {
+   "path": "_config.yml",
+   "bytes": 29,
+   "sha256": "c2079b4165851ecdb83775c441b2c11cd1b13ffa04fbdeb5c8a373b859e27c2b",
+   "via": "tree"
+  },
+  {
+   "path": "_unittests/sample files/config-text.txt",
+   "bytes": 123,
+   "sha256": "d8629f30b8dffc46b353bd889e64596700081b7167fe468975dea981da666b44",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\KVP Parser.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\TypeDescriptor\\TypeDescriptor_GetName.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\TypeDescriptor\\TypeDescriptor_GetPString.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\TypeDescriptor\\TypeDescriptor_SetName.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\Variant\\OpenVariant.lvlib",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\Variant\\Variant_ExtractClusterElements.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\Variant\\Variant_GetName.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Data Manipulation\\Variant\\Variant_SetName.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Serializer\\Serializer.INI\\ExtractSectionsFromString.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Serializer\\Serializer.INI\\Serializer.PlainText.INI.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Serializer\\Serializer.PlainText\\Serializer.PlainText.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Serializer\\Serializer\\Serializer.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Serializer\\Serializer\\UnMarshall.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\Delimiter\\Create Delimiter Object.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\Delimiter\\Delimiter.lvclass",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\Delimiter\\DelimiterToStringRepresentation.vi",
+  "<vilib>\\LabVIEW Open Source Project\\Unicity\\Delimiter\\Delimiters List.ctl",
+  "<vilib>\\Utility\\LVClass\\Get LV Class Name.vi",
+  "<vilib>\\Utility\\VariantDataType\\GetTypeInfo.vi",
+  "<vilib>\\Utility\\VariantDataType\\VariantType.lvlib",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert (Poly).vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert Almost Equal_Float.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert Equal Value and Type_Variant.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert True.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Assert\\Assert.lvclass",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Define Test.vi",
+  "<vilib>\\addons\\_JKI Toolkits\\Caraya\\classes\\Test\\Test.lvclass",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\httpClient\\Base64Decode.vi",
+  "<vilib>\\httpClient\\Base64Encode.vi",
+  "<vilib>\\httpClient\\LabVIEWHTTPClient.lvlib",
+  "<vilib>\\regexp\\Match Regular Expression.xnode"
+ ]
+}

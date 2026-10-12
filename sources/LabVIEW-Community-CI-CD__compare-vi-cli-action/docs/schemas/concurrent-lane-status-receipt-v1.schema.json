@@ -1,0 +1,527 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.comparevi.dev/concurrent-lane-status-receipt-v1.schema.json",
+  "title": "Concurrent Lane Status Receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generatedAt",
+    "repository",
+    "status",
+    "applyReceipt",
+    "plan",
+    "hostedRun",
+    "pullRequest",
+    "laneStatuses",
+    "observationErrors",
+    "summary"
+  ],
+  "properties": {
+    "schema": {
+      "const": "priority/concurrent-lane-status-receipt@v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository": {
+      "type": ["string", "null"]
+    },
+    "status": {
+      "enum": ["active", "settled", "failed"]
+    },
+    "applyReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema", "status", "selectedBundleId"],
+      "properties": {
+        "path": {
+          "type": ["string", "null"]
+        },
+        "schema": {
+          "type": ["string", "null"]
+        },
+        "status": {
+          "type": ["string", "null"]
+        },
+        "selectedBundleId": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema", "source", "recommendedBundleId", "selectedBundleId"],
+      "properties": {
+        "path": {
+          "type": ["string", "null"]
+        },
+        "schema": {
+          "type": ["string", "null"]
+        },
+        "source": {
+          "type": ["string", "null"]
+        },
+        "recommendedBundleId": {
+          "type": ["string", "null"]
+        },
+        "selectedBundleId": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "hostedRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observationStatus",
+        "runId",
+        "status",
+        "conclusion",
+        "url",
+        "workflowName",
+        "displayTitle",
+        "headBranch",
+        "headSha",
+        "createdAt",
+        "updatedAt",
+        "error",
+        "reportPath",
+        "helperCommand"
+      ],
+      "properties": {
+        "observationStatus": {
+          "enum": ["not-observed", "not-required", "planned", "active", "completed", "failed", "unknown"]
+        },
+        "runId": {
+          "type": ["integer", "null"]
+        },
+        "status": {
+          "type": ["string", "null"]
+        },
+        "conclusion": {
+          "type": ["string", "null"]
+        },
+        "url": {
+          "type": ["string", "null"]
+        },
+        "workflowName": {
+          "type": ["string", "null"]
+        },
+        "displayTitle": {
+          "type": ["string", "null"]
+        },
+        "headBranch": {
+          "type": ["string", "null"]
+        },
+        "headSha": {
+          "type": ["string", "null"]
+        },
+        "createdAt": {
+          "type": ["string", "null"]
+        },
+        "updatedAt": {
+          "type": ["string", "null"]
+        },
+        "error": {
+          "type": ["string", "null"]
+        },
+        "reportPath": {
+          "type": ["string", "null"]
+        },
+        "helperCommand": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "pullRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observationStatus",
+        "selector",
+        "number",
+        "url",
+        "state",
+        "isDraft",
+        "headRefName",
+        "mergeStateStatus",
+        "mergeQueue",
+        "checksSummary",
+        "error"
+      ],
+      "properties": {
+        "observationStatus": {
+          "enum": ["not-requested", "not-found", "open", "queued", "merged", "closed", "error"]
+        },
+        "selector": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "pr", "ref"],
+          "properties": {
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pr": {
+              "type": ["integer", "null"]
+            },
+            "ref": {
+              "type": ["string", "null"]
+            }
+          }
+        },
+        "number": {
+          "type": ["integer", "null"]
+        },
+        "url": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "isDraft": {
+          "type": ["boolean", "null"]
+        },
+        "headRefName": {
+          "type": ["string", "null"]
+        },
+        "mergeStateStatus": {
+          "type": ["string", "null"]
+        },
+        "mergeQueue": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "position", "estimatedTimeToMerge", "enqueuedAt"],
+          "properties": {
+            "status": {
+              "enum": ["not-requested", "not-found", "queued", "not-queued", "unknown"]
+            },
+            "position": {
+              "type": ["integer", "null"]
+            },
+            "estimatedTimeToMerge": {
+              "type": ["integer", "null"]
+            },
+            "enqueuedAt": {
+              "type": ["string", "null"]
+            }
+          }
+        },
+        "checksSummary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["total", "completed", "pending", "failed", "successful"],
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "completed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "pending": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "successful": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "error": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "executionBundle": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "schema",
+        "status",
+        "cellId",
+        "laneId",
+        "cellClass",
+        "suiteClass",
+        "executionCellLeaseId",
+        "dockerLaneLeaseId",
+        "harnessKind",
+        "harnessInstanceId",
+        "planeBinding",
+        "premiumSaganMode",
+        "reciprocalLinkReady",
+        "effectiveBillableRateUsdPerHour",
+        "operatorAuthorizationRef",
+        "isolatedLaneGroupId",
+        "fingerprintSha256"
+      ],
+      "properties": {
+        "path": { "type": ["string", "null"] },
+        "schema": { "type": ["string", "null"] },
+        "status": { "type": ["string", "null"] },
+        "cellId": { "type": ["string", "null"] },
+        "laneId": { "type": ["string", "null"] },
+        "cellClass": { "type": ["string", "null"] },
+        "suiteClass": { "type": ["string", "null"] },
+        "executionCellLeaseId": { "type": ["string", "null"] },
+        "dockerLaneLeaseId": { "type": ["string", "null"] },
+        "harnessKind": { "type": ["string", "null"] },
+        "harnessInstanceId": { "type": ["string", "null"] },
+        "planeBinding": { "type": ["string", "null"] },
+        "premiumSaganMode": { "type": "boolean" },
+        "reciprocalLinkReady": { "type": "boolean" },
+        "effectiveBillableRateUsdPerHour": { "type": ["number", "null"] },
+        "operatorAuthorizationRef": { "type": ["string", "null"] },
+        "isolatedLaneGroupId": { "type": ["string", "null"] },
+        "fingerprintSha256": { "type": ["string", "null"] }
+      }
+    },
+    "laneStatuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "laneClass",
+          "executionPlane",
+          "decision",
+          "availability",
+          "runtimeStatus",
+          "reasons",
+          "metadata"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "laneClass": {
+            "enum": ["hosted-proof", "manual-docker", "shadow-validation"]
+          },
+          "executionPlane": {
+            "enum": ["hosted", "local", "local-shadow"]
+          },
+          "decision": {
+            "enum": ["dispatched", "planned-dispatch", "blocked", "deferred"]
+          },
+          "availability": {
+            "enum": ["available", "disabled", "unavailable"]
+          },
+          "runtimeStatus": {
+            "enum": ["planned", "active", "completed", "failed", "blocked", "deferred", "unknown"]
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "idleClassification": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["state", "source", "signals"],
+                "properties": {
+                  "state": {
+                    "enum": [
+                      "waiting-hosted",
+                      "waiting-merge",
+                      "policy-paused",
+                      "blocked",
+                      "prewarm",
+                      "operator-steering",
+                      "queue-empty"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "signals": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "observationErrors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selectedBundleId",
+        "laneCount",
+        "activeLaneCount",
+        "completedLaneCount",
+        "failedLaneCount",
+        "blockedLaneCount",
+        "plannedLaneCount",
+        "deferredLaneCount",
+        "manualLaneCount",
+        "shadowLaneCount",
+        "executionBundleStatus",
+        "executionBundleReciprocalLinkReady",
+        "executionBundlePremiumSaganMode",
+        "idleClassificationCoverage",
+        "pullRequestStatus",
+        "orchestratorDisposition"
+      ],
+      "properties": {
+        "selectedBundleId": {
+          "type": ["string", "null"]
+        },
+        "laneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "activeLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completedLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failedLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blockedLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "plannedLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deferredLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "manualLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "shadowLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "executionBundleStatus": {
+          "type": ["string", "null"]
+        },
+        "executionBundleReciprocalLinkReady": {
+          "type": "boolean"
+        },
+        "executionBundlePremiumSaganMode": {
+          "type": "boolean"
+        },
+        "idleClassificationCoverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "managedLaneCount",
+            "nonWorkingLaneCount",
+            "classifiedLaneCount",
+            "unclassifiedLaneCount",
+            "coverageRatio",
+            "stateCounts"
+          ],
+          "properties": {
+            "managedLaneCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nonWorkingLaneCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "classifiedLaneCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unclassifiedLaneCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "coverageRatio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "stateCounts": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "waiting-hosted",
+                "waiting-merge",
+                "policy-paused",
+                "blocked",
+                "prewarm",
+                "operator-steering",
+                "queue-empty"
+              ],
+              "properties": {
+                "waiting-hosted": { "type": "integer", "minimum": 0 },
+                "waiting-merge": { "type": "integer", "minimum": 0 },
+                "policy-paused": { "type": "integer", "minimum": 0 },
+                "blocked": { "type": "integer", "minimum": 0 },
+                "prewarm": { "type": "integer", "minimum": 0 },
+                "operator-steering": { "type": "integer", "minimum": 0 },
+                "queue-empty": { "type": "integer", "minimum": 0 }
+              }
+            }
+          }
+        },
+        "pullRequestStatus": {
+          "enum": ["not-requested", "not-found", "open", "queued", "merged", "closed", "error"]
+        },
+        "orchestratorDisposition": {
+          "enum": [
+            "hold-investigate",
+            "wait-hosted-run",
+            "release-merge-queue",
+            "release-with-deferred-local",
+            "release-complete"
+          ]
+        }
+      }
+    }
+  }
+}

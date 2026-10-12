@@ -1,0 +1,63 @@
+= cti-documentation
+
+This is a multilingual repository to host all of the documentation for the LabVIEW Community Training Initiative.
+
+== Videos
+Playlist: https://youtube.com/playlist?list=PLZ3A_SIOKdQufue8kHC7eMlZdgAD1tzZv
+
+== Building and publishing the site
+
+The site is built and published automatically after a push to the repository is done.
+See the `Actions` tab for details.
+
+== Documentation Versioning and Branching Workflow
+
+Versioning of the documentation relies on branches.
+Each version of the documentation stands in branches called `vx.y`.
+
+NOTE: There's no need to merge that ' vx.y` in the main branch. The build and publish action is triggered on any `vx.y` branch push.
+
+== Creating a New Version
+
+. Create a new `vx.y` branch starting from the most recent branch version.
+. Update the `version:` attribute of each `cti-doc_xx/content/antora.yml` and `cti-doc_xx/home/antora.yml` files according to the version name.
+
+TIP: You can add a `prerelease:` attribute to suffix the version name as long as the content is not ready for an official release. The version will be accessible on the website, but it will not be displayed as the default version to the visitor.
+
+== Rendering pages on your computer
+We recommend either one of these three options for people working more intensely in this repository
+
+=== Use Visual Studio
+* Install the Asciidoc extension
+* On the settings, make sure to go under Asciidoc > Antora: Show Enable Antora Prompt, and check "Show a prompt to enable Antora support when an antora.yml file is detected"
+** For this prompt to work, you need to have a single antora.yml on your folder, so open at the language folder level you are working on
+
+=== Use Intelli J to render locally
+* Clone the repository or download a zip of the source files
+* Install Community Edition for Intelli J https://www.jetbrains.com/idea/download/#community-edition (We can use it for this Open Source project)
+* When you open the CTI-Documentation folder, as soon as you open the first Asciidoc file, it will prompt you to install the Asciidoc plug in
+
+=== Building the site locally
+
+Execute the following steps:
+
+. Building the website UI:
+* Open a terminal in the `user-interface` folder.
+* Execute the following command `npx gulp bundle`
+. Build the website.
+* Open a Terminal in the `antora` folder.
+* execute the following command `npx antora --ui-bundle-url ../user-interface/build/ui-bundle.zip --url _<absolute path to your local repository>_ --to-dir build/sites/en  antora-playbook-en.yml`.
+
+Once built, the website is available in the `/antora/build/sites/en` folder.
+
+[IMPORTANT]
+====
+To build the website locally, make sure to follow the prerequisites listed below:
+
+* https://docs.antora.org/antora/latest/install-and-run-quickstart/[Antora install]
+* https://docs.antora.org/antora-ui-default/prerequisites/[UI building prerequisites]
+* https://www.npmjs.com/package/@antora/lunr-extension[Lunr extension installation]
+====
+== Contribute to the documentation
+
+Please follow the instructions available https://labviewcommunitytraining.github.io/www/en/contributing.html[here] to contribute to the documentation.

@@ -1,0 +1,1401 @@
+{
+ "repo": "ycui7/ChiMS",
+ "url": "https://github.com/ycui7/ChiMS",
+ "commit": "f5811c737709317c309e936665a7697201808807",
+ "license": "LGPL-3.0",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Apps/Apps_dynamic/DynamicSubProgram_State.ctl",
+   "bytes": 5072,
+   "sha256": "7d5510882220a5881d8ac8ad4b159f736c81fe99b0a730e9fcc1063679488eaf",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/Apps_dynamic/MeanderCtrl_Dynamic,StageRefs.vi",
+   "bytes": 117161,
+   "sha256": "7c2b8151b79b0d0ffd1547b492f2ebddea1000742e258195a7d46ea7cef8681a",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/Apps_static/MeanderCtrl_3d_StageRefs.vi",
+   "bytes": 104424,
+   "sha256": "5091602a871b17bfc0e6f1be996878cf4ebeb07082a448d610c85e1b70e21102",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/Apps_static/MeanderLoopState.ctl",
+   "bytes": 4705,
+   "sha256": "59771bfa969c6255c90537239e01b4423158e3388c1d496b10dbbd333a60a132",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/Apps_static/ScanParams_SingleLine.ctl",
+   "bytes": 6198,
+   "sha256": "cfc55d615974588e9905b52ada9943adb2648ba6dd74aa0dbedd859d60a68e91",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/BeamProfile_Proc.vi",
+   "bytes": 206188,
+   "sha256": "84a2dd02a56ffefa01ec0ef74d90de3ef41ae65fadae9e2f2646d0e0955dba4a",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/BeamProfile_SingleLineProc.vi",
+   "bytes": 38970,
+   "sha256": "35242dbbbb05a20e724038b3f7673123095828bbde7003a716f0ed498353b6d2",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/BeamProfiling_Params.ctl",
+   "bytes": 7801,
+   "sha256": "9e393e1a2f205d1c70893c1ff26946fc3e4d72cec9c2a00ebe40a6984354fd13",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/Erf_KnifeEdgeFitting.vi",
+   "bytes": 17352,
+   "sha256": "a7464060956abf0709b25a16b9bd055d426bf52547bef68f582aaac09066235a",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/Focus_KnifeEdgeFitting.vi",
+   "bytes": 10434,
+   "sha256": "118b339a8b53a7f7a7ef41ad683782fb2e10adc8133e67db0910a3f70af68d69",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/KnifeEdgeExpt.vi",
+   "bytes": 40605,
+   "sha256": "60ce0094042b7e7bde75a416caecb5da5d973dc3631b85da92a63e6f39b9c64a",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/KnifeEdge_Intensity_simulation.vi",
+   "bytes": 11538,
+   "sha256": "ed485dc121011ad70f67c569a11f85231948e69f81fc513babc22d5174ce4217",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/BeamProfiling/KnifeEdge_SimulationSignal_generation_test.vi",
+   "bytes": 9049,
+   "sha256": "a77eef6ed48382d71d7b8faf163d9d334c8e8af4000c228139ca895079bd93bd",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling(3D)/DepthProfiling_3D_Core.vi",
+   "bytes": 381522,
+   "sha256": "b72709bb38b36715e2141d49f57af96e5338713ff983dad6e23cb787bf523246",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling(3D)/Flush(DepthProfiling_3D).vi",
+   "bytes": 36700,
+   "sha256": "c982515e9684c0887b8ad4d2c5188a881f35ffac69efc183ef0368d995cbb549",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling/DepthProfileWriteCore.vi",
+   "bytes": 28441,
+   "sha256": "8a4eca2bf71233e30005c1e38e6ca4e359c3c7aa7d9c603158b0ff91907b2a4f",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling/DepthProfile_Setup.vi",
+   "bytes": 34250,
+   "sha256": "60472b4ca1262b03b4863335f6b1eea41a49cde082f72798d86a1b08b283b3ea",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling/DepthProfilingParams.ctl",
+   "bytes": 5557,
+   "sha256": "cda4da054da5386587e3238a3b16a07b8580653b3ef6052f53839741c20ad580",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/DepthProfiling/DepthProfiling_Proc.vi",
+   "bytes": 259879,
+   "sha256": "81e1275db1e091ceb7ef962c81866022d650592d65906f74083c9d5d77233b62",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/GenericMotion/CreateMeanderMask.vi",
+   "bytes": 30209,
+   "sha256": "7f32670e03d65f983e6a3c8630e064b20ac8247137dd8d73081b7c8806dac087",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/GenericMotion/CreateMeanderMask_3d.vi",
+   "bytes": 32368,
+   "sha256": "7b5c6f6e9de8a07ba0f5e1068d1b8881bf8895d1ebcc66a6439126655264a2dc",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/GenericUSBCamera/CameraEventTypedef.ctl",
+   "bytes": 5063,
+   "sha256": "d874aaf892a82d9621bfec5dfcf0b7aa3080a65104b4c215ce16b32d7bb553a5",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/GenericUSBCamera/GenericCameraCore.vi",
+   "bytes": 39053,
+   "sha256": "4202c2fd4979a3c2bb7825e95fbf0b060bbd411071093849e66aa09d245fa9d4",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/ImagingMS/DirectImaging_State.ctl",
+   "bytes": 5240,
+   "sha256": "cb534a553b47e8824ffc0c81a0377d819067a730ee7090ce8a297e787cd92799",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/ImagingMS/ImageConvPara.ctl",
+   "bytes": 5342,
+   "sha256": "04fa897ea436425c865c548f730acb241b00d3aa4246e296d755a61434038f66",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/ImagingMS/ImageConvPara_3d.ctl",
+   "bytes": 4565,
+   "sha256": "8361d317b161262f3c0608d39a3c0120b45f0b7367a1b7d833412c075872ef61",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/ImagingMS/Imaging_Params.ctl",
+   "bytes": 8243,
+   "sha256": "ab4a96c70fcff4e6ae01bf27b2cf6f2b9a56ff354515612b02fc6bde090f84da",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/ImagingMS/Imaging_Proc.vi",
+   "bytes": 310900,
+   "sha256": "2efefb59aa5dfdcb5dac444c114775644673f6bb86108ab6e049d459f87eab1e",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/LaserEnergyCalibration/Acquire_EnergyCalibrationCurve.vi",
+   "bytes": 89986,
+   "sha256": "7b46c7d9808baacf4bd2cdfeb1856d1be5ee43a88068c7bf39e8ac2b6c7414fe",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/OpticalDelayLine/DelayScanSetup.vi",
+   "bytes": 33282,
+   "sha256": "dd2e373973a9b327aedb0752281e27e94b78fbd379a0b333ed26b8bf1c75d6f1",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/OpticalDelayLine/DoublePulse_Delay_Scan_Setup.vi",
+   "bytes": 37380,
+   "sha256": "4e2f31d80bac50481ebcf8dfa0ac0e30c965049e73a43c307df147d78aa19224",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/OpticalDelayLine/Set_DoublePulse_Delay.vi",
+   "bytes": 22093,
+   "sha256": "5edba7fe61d0235d8a63397880f089dcf9ed885a006f71e7b60d9bd8408a00e4",
+   "via": "extension"
+  },
+  {
+   "path": "Apps/SurfaceCleanup/CleanSurface_3d.vi",
+   "bytes": 32243,
+   "sha256": "ce01de3629ed00c4e0ffbc19bf3e8c357ca835ff30ca5bc231bb2a07e770b545",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/BNC_Initializer.vi",
+   "bytes": 16211,
+   "sha256": "7e2672105ebcf80ec9f4fcf324654d7b689966f8448ce8dc4b9c86bd8596a8c5",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/BuildConfigsFromFrontPanel.vi",
+   "bytes": 76402,
+   "sha256": "1801e7f2dcbd0693d055369ee24da1e646e64efae5dbfb58f5c731b4572057b2",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/Configurations.vi",
+   "bytes": 49254,
+   "sha256": "4855b5c95f1aa92fe8332ccf02f028a2c6223290fbc1650a44a8876dea5e22f9",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/DefaultConfigs.vi",
+   "bytes": 51802,
+   "sha256": "cbedaba0b92cdc1af6741e78b71dfa1cecbd1153fd96a28cf3367f85c500d0cf",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/HideUnusedControls.vi",
+   "bytes": 48778,
+   "sha256": "d1cd3c936a9a68a9e7bf6d258c2791cfa87737a40a44ffbf2d556055777f9162",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/InitializeAllConfigs.vi",
+   "bytes": 55288,
+   "sha256": "7f7590a647a73ee48060ab421c3bbbcccaf0b50b1d742ac9925ef04f1178825c",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/JsonConfigs_Generator.vi",
+   "bytes": 61313,
+   "sha256": "71c5fd5b7e7f2ee39cc86f4d5af92bd8423354c29bce75e684413dae189ac19c",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/LoadConfigs_fromFile.vi",
+   "bytes": 97960,
+   "sha256": "2941b87c3ccad739e48ef3e1223c916ccbc94a9bc0d3d6e360424906774c1ed7",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/SRS-DG535_Initializer.vi",
+   "bytes": 17917,
+   "sha256": "1b4c4c24f210d44b669c71a0c8e3aa741d977441858011acdf5ea029496b6001",
+   "via": "extension"
+  },
+  {
+   "path": "Configs/SaveConfigs_toFile.vi",
+   "bytes": 37370,
+   "sha256": "30d2316bb41d7a23be473467e70c1911171a2c98dcd80188c2ec7acb2cb5d23f",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/AllControlsRefs.ctl",
+   "bytes": 24532,
+   "sha256": "15eae7570212655612683eb59618006879f8bf6229ca5ac50782af8797bf3a77",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/Average#.ctl",
+   "bytes": 4125,
+   "sha256": "5c77550bf311dad46e501766d838fbd27698f947ef093fea946b3b0c042991aa",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/DAQRangeSelector.ctl",
+   "bytes": 4457,
+   "sha256": "423125564467ffbb9368f380919639183adfb29d79d8d1878a68b32236812c35",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/Files_Format.ctl",
+   "bytes": 4473,
+   "sha256": "43841987a23430de9b8593d4c5eb360dfb2de61c276cca20dc223dfb8d6a2503",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/InstruMode_Typedef.ctl",
+   "bytes": 4559,
+   "sha256": "1667bcdffdb6f2abe4b9b9b4a202de3c71236231dfccc06570a29c2a974ed515",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/InstrumentConfiguration.ctl",
+   "bytes": 37776,
+   "sha256": "2c8230e6e30d46889ac768805528c952b535df1a8a1c7c36e6ea9286dad51205",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/InstrumentConfigurations.ctl",
+   "bytes": 26809,
+   "sha256": "768dfb39a00f1505793f89d07b5b757ce20466ae1a18189459f12a41420b318d",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/InstrumentSpecificControls/UIC-AToF/InitializationParams_BNC565_2Ch_AToF.ctl",
+   "bytes": 6765,
+   "sha256": "f9701f134193e7fba94b3d0d1ecb8dda93d24f37129b98d267835366e3c88250",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/InstrumentSpecificControls/UIC-AToF/InitializeCmd_AToF.vi",
+   "bytes": 18526,
+   "sha256": "c0267eebf31c19485cb4edc62ded215256faa2e97e5e398c8f3400e4fd0beb15",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/LaserCtrl_Method.ctl",
+   "bytes": 4469,
+   "sha256": "2699fda1390b7e36f21cf1c1d6c61448889cd4467ed023d890efd183f7a4496b",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/MainDAQ_Selector.ctl",
+   "bytes": 4785,
+   "sha256": "a1f1cb26aa8ac89503979b6e35aae57b26baa623f265422c822f3c635ab0b8de",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/MiscParams.vi",
+   "bytes": 4074,
+   "sha256": "093de39a98f14f192e041631d07f4f09b4be93535d08cebf8d6c53702317af88",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/PauseMeander.vi",
+   "bytes": 3432,
+   "sha256": "5fa647e065f36e4e56177859d35d798744e88bed147b9e96996e6bccb0aa8668",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/ProcessingMode.ctl",
+   "bytes": 3755,
+   "sha256": "4dc519a40ccbb98004873c0c97dc7c23dbc89b1c381fcf61bc96ccfc33cb7dde",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/QueueRefs.ctl",
+   "bytes": 22674,
+   "sha256": "2ca082c2474d25023598c2049c632c60fd7a12070e3cd9b3939cbeae7fb6b761",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/QuitProg.vi",
+   "bytes": 3424,
+   "sha256": "4d4027dc11dbede37c626b6a1b9c7c881433b61e34ecd98d6911f571956eacaf",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/SampleRateSelector.ctl",
+   "bytes": 4471,
+   "sha256": "a6893ac676b23c65af785aa7083dde3ccd481ae6069a796d0d8d1900855bed45",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/Signal.ctl",
+   "bytes": 22843,
+   "sha256": "4691f8e22ef0cac87719ca268b57c0ac850500bbdb202f5d1917e5e6312b63fe",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/SpecLengthSelector.ctl",
+   "bytes": 4483,
+   "sha256": "bb60587248b1ff4f5b4dcfdd765eb41c20a425e91d7491233f3e54e0fcace579",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/States-AToF.ctl",
+   "bytes": 5824,
+   "sha256": "4300175258f717e62d5abdef63418959da66bf67763ff536b8bcd41675b1414d",
+   "via": "extension"
+  },
+  {
+   "path": "ControlDef/StepWidthSelector.ctl",
+   "bytes": 4486,
+   "sha256": "ed83b5fb39cf66d5dc4ef829446e54585618f40755a050535dd9f31d9cb6fc74",
+   "via": "extension"
+  },
+  {
+   "path": "Dependencies/Base64/Base64toSGL.vi",
+   "bytes": 20327,
+   "sha256": "6d7f5f594709e7ce4f6d6389c1eb408ea117c36f11f358d9392b6631c6ebd243",
+   "via": "extension"
+  },
+  {
+   "path": "Dependencies/Base64/SGLtoBase64.vi",
+   "bytes": 19575,
+   "sha256": "bedf0ff92f0f094e466d5cf242343bca945a7e607ba6f6cc16ac7999076cf434",
+   "via": "extension"
+  },
+  {
+   "path": "Experiments/SetFocus.vi",
+   "bytes": 17116,
+   "sha256": "0b7ee70ab574d01b4f2a3d1ae050f0e4ccad1353b9ce64178fab8b4ce72d7407",
+   "via": "extension"
+  },
+  {
+   "path": "Experiments/X_Compensate_Calc.vi",
+   "bytes": 8013,
+   "sha256": "e16b7953c90651b82dca4cc72b3e53ace4433ea60a42bf7f5c980c0b920799c8",
+   "via": "extension"
+  },
+  {
+   "path": "Files/BinaryFormatSaveLoop.vi",
+   "bytes": 44452,
+   "sha256": "fdce563f02c3ae49aedb46eb058552d99559b4565529f54f5913cc7b00ad3909",
+   "via": "extension"
+  },
+  {
+   "path": "Files/BinaryFormatSaveLoop_dynamicLoad.vi",
+   "bytes": 39012,
+   "sha256": "b19df03ef6f00881f105c846be15db3137c63644e0ad9302491a79e7928da8b6",
+   "via": "extension"
+  },
+  {
+   "path": "Files/BinaryHeader.ctl",
+   "bytes": 9653,
+   "sha256": "9cc2b961226d6617ee22cfa7f3905c6cf1f42c325bd2d3b230925b72b28648db",
+   "via": "extension"
+  },
+  {
+   "path": "Files/BinaryHeader_v31.ctl",
+   "bytes": 8121,
+   "sha256": "02bd477c7ea5b7a515e9575b989331d400eec5ac979cfea957b3827e348ea7a1",
+   "via": "extension"
+  },
+  {
+   "path": "Files/ReadBinaryCore.vi",
+   "bytes": 122070,
+   "sha256": "046079b567ad5433888aaed5c43d2cce6237459c7a1aca692889faa930acdc63",
+   "via": "extension"
+  },
+  {
+   "path": "Files/SaveControlsRef.ctl",
+   "bytes": 13180,
+   "sha256": "c3b428a5c2bd8123c14e7f86177f1034b3f07e3f7d7ff1867970c1242ba6e187",
+   "via": "extension"
+  },
+  {
+   "path": "Files/Signal_Segment.ctl",
+   "bytes": 29747,
+   "sha256": "9f81f2cb949ce562ef47e9a9af0f29620d1e0ca4215f2f68360e632dc4b271c5",
+   "via": "extension"
+  },
+  {
+   "path": "Files/Signal_Segment_v3.ctl",
+   "bytes": 29290,
+   "sha256": "e6a39a20ac14298fc93bc771ab84462ae1944f3562594a30e1e1aa679cdf66e6",
+   "via": "extension"
+  },
+  {
+   "path": "Files/Signal_Segment_v35.ctl",
+   "bytes": 29639,
+   "sha256": "e4e3eb3b2fd9d7d6245705970c799d9a19e99713dc435b5b8ce11e688e96c1ed",
+   "via": "extension"
+  },
+  {
+   "path": "Files/Signal_Segment_v36.ctl",
+   "bytes": 29799,
+   "sha256": "15a5c8149c7ef499b272e94d2544e20932539728faa5080c884ba4c149c87f6e",
+   "via": "extension"
+  },
+  {
+   "path": "Files/WriteCoreLoop_v2.vi",
+   "bytes": 36112,
+   "sha256": "f0010707feded0f8afce5f840d302115a28a9b77c17150a050fd1d7117c07ddb",
+   "via": "extension"
+  },
+  {
+   "path": "Files/WriteTextFile.vi",
+   "bytes": 43217,
+   "sha256": "8766b3f495797ab9e80a68e76a96fd0c402ec4f0439d12ad28bba3aa604997d7",
+   "via": "extension"
+  },
+  {
+   "path": "Files/Write_mzMLFile.vi",
+   "bytes": 29754,
+   "sha256": "7567189bb05ef45a69a8f0dee60e647e8aa6d0c8b3f2238f69e2d4341251d843",
+   "via": "extension"
+  },
+  {
+   "path": "Files/WriterState.ctl",
+   "bytes": 4016,
+   "sha256": "633094f192cb0e4ea53043c3af283566c9ed8a1ba30c9d31443dfe8ace683c1f",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/BNC_Configs.ctl",
+   "bytes": 9332,
+   "sha256": "5dfafa7afdf4bce982a020a53f79ba1bf2c85d7bb6bd8726bd6cec04dba5cc76",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/BNC_States.ctl",
+   "bytes": 4231,
+   "sha256": "8c432f779a2a5a1b777f79dc02ed69f4d99620f105f185b98c9c08f7f40f60db",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/BncControlsRef.ctl",
+   "bytes": 10731,
+   "sha256": "279841117669036ac02d326516b0be7009b4fe9b3a169f2a53ff3ab542b29069",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/BncCore.vi",
+   "bytes": 39759,
+   "sha256": "cc37cfbd629c6d59992533f011750367323a462c31ae01139c7fbce5d97609b4",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/BncSetChannelEnable(SGL).ctl",
+   "bytes": 4201,
+   "sha256": "a7d311df6aabc66273367ac8b32f987cdf867e49db007ea316267d555854f141",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/Command/Set C-Enable.ctl",
+   "bytes": 3909,
+   "sha256": "dae60f626ed4a112f82ff624f16d2d84564f924b14bf400ecbcdcb210d7ab500",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/Command/Set C-Input.ctl",
+   "bytes": 3760,
+   "sha256": "2cfce64f4ac35d0e43485d36b886b1059aa756ee551859a6043a5912f1561ea8",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/Command/Set C-Mode.ctl",
+   "bytes": 3815,
+   "sha256": "25cd9d8815deec4d6f2f7e546b69b0a03ea4c47a3e7b23f0d5caa509ea2b9f0a",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/BNC(QuantumComposers)/Command/Set C-Output.ctl",
+   "bytes": 4033,
+   "sha256": "7648295bc93719c807d6831dd977c12d6059eb0417753553505bff355e227e56",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/DAQmx(Legacy)/DAQmxControlsRefs.ctl",
+   "bytes": 15134,
+   "sha256": "e01ae6a68296c0722afcdc39ee34635c8c599b86d9582cc0b686f66d6f242335",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/DAQmx(Legacy)/DAQmx_ControlLoop.vi",
+   "bytes": 40025,
+   "sha256": "9200e89c97f470989cf26b73ba610c8fe0c73270adfc41bbbee5985be29fcc7d",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/DAQmx(Legacy)/DAQmx_Status.ctl",
+   "bytes": 16101,
+   "sha256": "c20b7921592b04527204926670b061a35f8ee5c621d6657dfa55f7d7667eaf4f",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/DAQmx(Legacy)/_General_VoltageOutput.vi",
+   "bytes": 11849,
+   "sha256": "5983a35fc5f31eedd8ee59d07da737c4607e942770c54efe5031e6b29881894f",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/EPM2000(Legacy)/EPM2000ControlLoop.vi",
+   "bytes": 28062,
+   "sha256": "71325af5c02f8b56db4d49a1ade54b4f57c92ff6843caa793698201f7bf7bb2c",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/EPM2000(Legacy)/EPM2K_Status.ctl",
+   "bytes": 11629,
+   "sha256": "1e709d69008cc59f5a41214d316eacb1fd6dc9ace696621939fbe33a005ecbad",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/EPM2000(Legacy)/ReadResults.vi",
+   "bytes": 16491,
+   "sha256": "26d00691684e1a9fa457f7563bd2f65e063627794e93bcf8856f51bd64cb5166",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/EPM2000(Legacy)/Serial_Manager_EPM2000.vi",
+   "bytes": 29734,
+   "sha256": "46a781384c19257a2c1ed1910f08610ca9dcdb43dd24680d969175134e6d55f9",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/EPM2000(Legacy)/StringsToValue(SI).vi",
+   "bytes": 42402,
+   "sha256": "74f940047389d77e57914715cdc2a53b5f74333c4634b445508786d10cfcab97",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/DisablesChannels.vi",
+   "bytes": 9864,
+   "sha256": "50ca3a9b5dbfed65250c383a4a34ffefc3c75316cd636de2b583fac4eae426e3",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/EnableChannels.vi",
+   "bytes": 9754,
+   "sha256": "69973ce8b44ab28a76907d0b700f9cd5958f0d7e752c4ded840a35d5f4b0917c",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/Laser_Status.ctl",
+   "bytes": 11933,
+   "sha256": "541e617bf3f754eb7e62fd48ec1a2d19397efc77e1e12dae9ec4e21756cad985",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/ManualTrigger.vi",
+   "bytes": 9241,
+   "sha256": "38ee7e8f99096a884d5290f3022ab7b5244e6d96936f3f061cb4f14be3069035",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/SDGiiControlLoop.vi",
+   "bytes": 27256,
+   "sha256": "f2c0c9f856903903be7e03e6b6bca95eed7e75fe77f56762e884fa8fed9b5fb9",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/Serial_Manager_Laser.vi",
+   "bytes": 28648,
+   "sha256": "00b539e8a453d20868d85e1f5eb371618fcb0a0816ed50c0d4851b16c5c86605",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/SetContinuous.vi",
+   "bytes": 9193,
+   "sha256": "afee9c7b6b6fb627fac213372feca891230fc02428adcbcd13df7dd4b87edffb",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/SetSingleShot.vi",
+   "bytes": 12733,
+   "sha256": "94f5d9ea3f57ce608c6c25601192cec2c4678c4184276d401163b6f9c88abd3a",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/FemtoLaser(Legacy)/UpdateStatus_SDG2.vi",
+   "bytes": 12229,
+   "sha256": "390f8560c79537ae8ddfedc8db60e03ac4e36bb99d3b24cb1e885da061c6f5e0",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/Convert_I16toDBL.vi",
+   "bytes": 19996,
+   "sha256": "4183006a57a61c0367c37a927b25c22d4003edff73bbeb8a83119be6fdf45f46",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/Convert_I32toDBL.vi",
+   "bytes": 18040,
+   "sha256": "535add53ea993594ef36f9810b7579b4e0e924eea4b3644eed6978db734db061",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageAcqu.ControlsRef.ctl",
+   "bytes": 10117,
+   "sha256": "33b992a88c0f46bf15c73d16e18a5973367d82b5948362f0483ea191ff6fad55",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageAcqu.Refs.ctl",
+   "bytes": 5630,
+   "sha256": "fb6c90dcef32acc17d712171aa09a1b213a1cc1549cdab1c9baa92ff9e6504d8",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageAcquLoop.vi",
+   "bytes": 49724,
+   "sha256": "4985e0d568f59ab4886d2cf98135ada43b17cb29f8ff7da486071b31e0239ab3",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageAcquLoop_Double.vi",
+   "bytes": 49135,
+   "sha256": "88260ce9f081f504661b011d2f6bad954caf90f6b676099dbcabf741c341f4d5",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageParams.ctl",
+   "bytes": 5151,
+   "sha256": "13ea592acc141014ec84f75adce50b7744740613e91d4cbb6840575f88ee96b0",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageTransfer.vi",
+   "bytes": 15240,
+   "sha256": "33177809da2d24b81db3d47739f1736d35769dfd82253de4f8ca0fb4f0a19be8",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageTransferI16.vi",
+   "bytes": 19247,
+   "sha256": "01598a40539c2ab2197287e1c9a731913b9da939201a9f644b7758063160bcbc",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/GageTransferI8.vi",
+   "bytes": 19218,
+   "sha256": "b32a48595090ddc4867a40c6168a8861ef5b8405e3e830ed9d3a1ffdab9222ed",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/Gage_States.ctl",
+   "bytes": 3776,
+   "sha256": "0cce4131b16540ec686b8b59a2a5ea9dd51c9385e1f96fd2eb45b4c71c68d6b3",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/InstruGloble.vi",
+   "bytes": 15276,
+   "sha256": "d4581b631513c3415ad688cd065253656bb9cbfbffdd0381dc6c29a2fec136ae",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/SetGageConfig.vi",
+   "bytes": 28069,
+   "sha256": "eceb5cee1ed343493fe09f40a1756ebbce142a28638a07eb265d34679f3cc78e",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Gage(Legacy)/SetGageConfig_SW.vi",
+   "bytes": 26280,
+   "sha256": "bef607788ba0d80796fd359f7915eb1a8436fad2b2ef7860aa85f3a1456af0e0",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/GenericDAQ.lvlib",
+   "bytes": 1895,
+   "sha256": "89db28956b39eab4722adabea1a9eb5f4f4c92dddf013eaff99ce0dba5b63ff5",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/GenericDAQCore.vi",
+   "bytes": 135890,
+   "sha256": "011bebb92322b05b65df9af30ad22f8bc91702a6ff6515b3acf6e1f8cbca789c",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/FakeBeamProfileGenerator.vi",
+   "bytes": 11880,
+   "sha256": "987309cdc4af7eb9d625c2d13d3fac05f759771abbfaa2391b3c07cca74ee1c3",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/FakeImageSignalGenerator.vi",
+   "bytes": 10740,
+   "sha256": "efd84eb0e03c1c8c2d19a17f529ce0406bd905701e277e2f4c4a3a21f5a803ca",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/GenerateFakeSignal.vi",
+   "bytes": 10230,
+   "sha256": "d1e6ce704d15cca717e3e9721933adcef8175607009079596857a2d2b78ca33a",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/GenericDAQ_Configs.ctl",
+   "bytes": 13783,
+   "sha256": "826cb2b3d6a09829495ee0de8b6f49317302b7d5339c74eb19bd265d586bda16",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/GenericDAQ_Mode.ctl",
+   "bytes": 4624,
+   "sha256": "f2b2861d23f756f3325fd720c3273cedb7c46d9e48cf7721da7564986179354e",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/GenericDAQ_PrivateStats.ctl",
+   "bytes": 6644,
+   "sha256": "089dd970fc446ae8687fee87810c9b8b852b9b366282d26464383c59907c12ca",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/GenericDAQ/VI/GenericDAQ_Status.ctl",
+   "bytes": 4642,
+   "sha256": "2c0653b62849f22a1d8f9f5f1d2a960ecfa979e7a41c862b3838e6f141cb8646",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Joystick/JoyStickEvent.vi",
+   "bytes": 30489,
+   "sha256": "a3492a6a9a5474c283f16a0279db2428f122760b6276c591d6f20c8c1096f703",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Joystick/Joystick_UserEvent.ctl",
+   "bytes": 5831,
+   "sha256": "0c41f343ca918d543faa686474b2943782769d76ba2afcb3bbaf583c3cd23746",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Joystick/TestExample.vi",
+   "bytes": 15699,
+   "sha256": "de302c46c888ff8137093bcbf0c319c992ea4c329ea3708b8adb7b0347b6d2f1",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/NovaIIControlLoop.vi",
+   "bytes": 26885,
+   "sha256": "acdd9fcb0ee11ddd4c346b66f8bc5d0d41081a6d36c247d7f4300623aeb465e7",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/OphirContorlRefs.ctl",
+   "bytes": 4109,
+   "sha256": "ba08c65e10e341344d3116c5849fd3e1b08dcc3559e3597c19fa3d1bb3606e48",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/Ophir_Status.ctl",
+   "bytes": 10661,
+   "sha256": "12dc64489c0cc3f5ea1bd53017031b21e5bc4d1e7b3f7be57556c3730b479a01",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/ReadEnergy_Ophir.vi",
+   "bytes": 21256,
+   "sha256": "922cfe5f9e3c932d637df3cf4c15044cf9c7de0770e4239c21ca7b8582f6ab10",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/Serial_Manager_Ophir.vi",
+   "bytes": 30076,
+   "sha256": "ee05b1807584e4a76a6a0d930ad44216eae47049d7a9b6a79d392bf21572dfcd",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Ophir(Legacy)/StringsToEnergy(SI)_Ophir.vi",
+   "bytes": 26993,
+   "sha256": "7ff29b4c1f2ddbb57f6977eb615d0d6b2b35dda7f43882701bdde503bbbd5014",
+   "via": "extension"
+  },
+  {
+   "path": "Hardware/Signal_Emulator(Legacy)/Emu_CoreDAQ_Globle.vi",
+   "bytes": 4530,
+   "sha256": "3de702088616c38b5ec3019d7f03ee8631c25959f4e94caa3d7c911187edb289",
+   "via": "extension"
+  },
+  {
+   "path": "MainProgram.vi",
+   "bytes": 838259,
+   "sha256": "6137a60a9f882edd3bbefc16dbac840d834e7a4b46ea610712e51b1087181ec7",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Binning/BinType.ctl",
+   "bytes": 4256,
+   "sha256": "0d6ba22692fac581cc73069075e90a5c47ad51d11f8b391584a1f527429f5959",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Binning/SpecBinning.vi",
+   "bytes": 9075,
+   "sha256": "26687ef1b5f8e5bd6de8392c1302e816793ea77103924ec738b4ae7d8569ecee",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Binning/SpectraBinning.vi",
+   "bytes": 45286,
+   "sha256": "c151118a96e18e3f38e3400993fe2f0e7f4d72470cfb659066c52d056c52366c",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Binning/SpectrumBinning.vi",
+   "bytes": 45327,
+   "sha256": "2c93aaacd5240ca32fe26967ed0f3dae0bebc51d4016c889a7a16d12d879847c",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Binning/SpectrumBinning_NoGraph.vi",
+   "bytes": 42423,
+   "sha256": "c9e8672b8594577f0c864773d843b66f9aa03cecbbbb2dbc74270592c39d0451",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMAPWriterCoreParams.ctl",
+   "bytes": 10755,
+   "sha256": "0a671b0df270883872d1d820dbc3c35e0c9019a549fcd9b212f31af7a8881168",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapHeaderWriter.vi",
+   "bytes": 18918,
+   "sha256": "fbc197d2f786e8ae90735ce82e8866a5254c37df24a869635c86b1e9fc292a3b",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapProcessingSignal.ctl",
+   "bytes": 4267,
+   "sha256": "8f44fd4bd6fc62c89d983a5815ff7fd11be1e2b90f148c9e1f1aa0ffa6e70583",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapT2mWriter(Mapping).vi",
+   "bytes": 14240,
+   "sha256": "206a1c226fd322837aab0e1e03ca67218cbf0959fdbe81e9a9c076886b3df3ac",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapT2mWriter.vi",
+   "bytes": 16047,
+   "sha256": "5839a6decb57954b67f294bbeb2a70a2a45a2a6018b9709b211a53b701a09f00",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapWriteCore.vi",
+   "bytes": 32135,
+   "sha256": "5978e2413b5ac2f133e3145a110663e39c527b7dd21dd4ab6652c51adf1d2ef9",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/BioMapConversion/BioMapWriteStates.ctl",
+   "bytes": 7750,
+   "sha256": "f40d0f6521054087cae27b4590700ebe66442c3aca9e83aa1aa6892a550da918",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/CalcMzArray.vi",
+   "bytes": 10135,
+   "sha256": "75a88bc5d742b369e827fe3035294c81c087e750dc0796521cb867514528510b",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/CalcPeakArea.vi",
+   "bytes": 7872,
+   "sha256": "11835b2d0eac163cc2051603942edbbd1dee2249ae788824caca8ca0f2d1da79",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/DigitalFilter/DigitalFilter.vi",
+   "bytes": 26689,
+   "sha256": "967becdd7c1386f0494359753c28af72e9b3657213c32b759aea9d28a60d5c07",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/MassResolutionCalc/FindMassResolution.vi",
+   "bytes": 5194,
+   "sha256": "d7c90c9e75e5b3ce5e603dc431141d452ebc11a15979cd5fbf8aa158d746b3c8",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/MassResolutionCalc/FindMassResolution_Array.vi",
+   "bytes": 7496,
+   "sha256": "a9051467d36f8c78cb6e11fda72fed708752a998e7e0a370f9d33021b6741709",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/MassResolutionCalc/FindMassResolution_Multiple.vi",
+   "bytes": 28931,
+   "sha256": "2159f37cf1132c2099ba5d5ae2d92bb1509d5bec1c69bd986e56ec193a7ca1e2",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/MassResolutionCalc/FindMassResolution_Single.vi",
+   "bytes": 29257,
+   "sha256": "fd33160f314d9f4d46e816a99383d279a48a0d8fdcd83ed711256435f4647541",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Misc/Focus_Z_calc.vi",
+   "bytes": 8012,
+   "sha256": "755e88c1829d18ffb362fe862502a467904ae4580e2ad5aa2f871720072c24ef",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Motion/PositionInterpolator.vi",
+   "bytes": 15540,
+   "sha256": "ccd3e2d1292ac7f6f7a27d28ac1ff0758e193d7cad8d8461d808143ab2833e64",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Motion/SecondaryData_Position.vi",
+   "bytes": 6290,
+   "sha256": "48b2327d5da069f608841494502b8f9e87afd19bdb0366c072b59de1e0e6ff5e",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/Processing_Method.vi",
+   "bytes": 19517,
+   "sha256": "3e3fd47e1eec6dd04ec26dfe36816ed269eeb6d1a149fceec6e304f42c2ed910",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/SignalAverager/DAQParams.ctl",
+   "bytes": 5618,
+   "sha256": "e6bda7dd6f81d02e9bf95ec83c344b60e80d060da602c00640cf750a9bbda022",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/SignalAverager/DisplayGraph.ctl",
+   "bytes": 9793,
+   "sha256": "f391d14f4d81c8a1de76d8f87b18094ea40e66fe237646898c1c51d95ebff77b",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/SignalAverager/ProcCore.vi",
+   "bytes": 70808,
+   "sha256": "e6c542b03e79086a3bc8727b76fcf3cfdf29310575a489e0056e6dd63b139e2d",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/SignalAverager/ProcessParams.ctl",
+   "bytes": 19630,
+   "sha256": "a42e6a632b23eeb20bf74a73ea94071a628fe30fbead87b498fd187af5f7afad",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/SignalAverager/ProcessStates.ctl",
+   "bytes": 4922,
+   "sha256": "846c16a366cf9da90c05ff05dfb325330414bbe6217fe447f2d4ceb3962d4376",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/UicTextFormat/Decode_TextFiles.vi",
+   "bytes": 17904,
+   "sha256": "0799b514dea6d255bbeb871dccdd32b9fa557879783c039bdbbc56d26339c41a",
+   "via": "extension"
+  },
+  {
+   "path": "ProcessMethods/UicTextFormat/Decode_UICTextFiles.vi",
+   "bytes": 31419,
+   "sha256": "2b823f12fea59d0186700b33f4dc8d04d11b94c940284a8becaacfd076d2acd1",
+   "via": "extension"
+  },
+  {
+   "path": "UI/Autoscale_Y.vi",
+   "bytes": 5015,
+   "sha256": "d148944a55cd99ac64c2b6ea327d81372836cd9c0a9eb3075101b3e5d5b74999",
+   "via": "extension"
+  },
+  {
+   "path": "UI/Autoscale_Y_Multiple.vi",
+   "bytes": 10344,
+   "sha256": "ab0cc13e4decde9bdbdcbe51b837185dee1f82ad2eb01139f3d2af789357192e",
+   "via": "extension"
+  },
+  {
+   "path": "UI/Autoscale_Y_Single.vi",
+   "bytes": 10330,
+   "sha256": "744d70c8bb89d6b4378abfcdb4e7d8c23e2b28f9fd1837267340e73618224206",
+   "via": "extension"
+  },
+  {
+   "path": "UI/TriggerRateCalculator.vi",
+   "bytes": 9293,
+   "sha256": "999e597eef9c4b045e04de6705253d0837539aeab9be53aef9eb8a7c6d47f5bc",
+   "via": "extension"
+  },
+  {
+   "path": "UI/Y_Scale_Change.vi",
+   "bytes": 9558,
+   "sha256": "36715309975d3a456f8789fb42b15faa2a30638605e64f19a2fa0f4f13c775a1",
+   "via": "extension"
+  },
+  {
+   "path": "UIC-ImagingMS_Project.lvproj",
+   "bytes": 77556,
+   "sha256": "13801202769e0079f9d5c26845aaadfa3abab1c06b8c8b97c9e85dd5cf24cd23",
+   "via": "extension"
+  },
+  {
+   "path": "_AnalysisTools/AnalysisTools.vi",
+   "bytes": 153045,
+   "sha256": "bfda9565d6e3e2f9e4cec527c3e7d117bc0c7822329e2d91d44c344b3e1d59e4",
+   "via": "extension"
+  },
+  {
+   "path": "_AnalysisTools/ExecuteMultipleFilesProcessing.vi",
+   "bytes": 6906,
+   "sha256": "851401b3ce6fe064f72dda229b79e81b5023783835ba0694457b840bd570163b",
+   "via": "extension"
+  },
+  {
+   "path": "_AnalysisTools/GetMultipleFilesPath.vi",
+   "bytes": 13156,
+   "sha256": "b71dd46789d20044059b9fd21cd5e211bca97662d2bb6fa1e89699774fb5cd18",
+   "via": "extension"
+  },
+  {
+   "path": "_AnalysisTools/GetStatistics_Array.vi",
+   "bytes": 8683,
+   "sha256": "4fdb738ac6b18cbb1c613be55b39e74bf93989acfdc673a21ad20371adc52b0a",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/BinaryRead_State.ctl",
+   "bytes": 3945,
+   "sha256": "e85286e7033a1f8fd3e87f5afb1fef82334303f37e665e0421fd19bb723b97eb",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/BinaryReader.vi",
+   "bytes": 64708,
+   "sha256": "80be3f2cf6afd3e17b45676fa0b0816c77d7d2aae26f564c50a2dbceddd59841",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/BinaryReader_Params.ctl",
+   "bytes": 9580,
+   "sha256": "1d44fa90871f456da44e3d8f050a176f23cb5995e40f360001adfabfb27c59be",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/BinaryViewer_Params.ctl",
+   "bytes": 4048,
+   "sha256": "842479bf444f2b2324a85f410e6ca0a0f51210cada9f4ecd2f3448e5725d7af4",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/DepthProfile_Params.ctl",
+   "bytes": 3808,
+   "sha256": "31c81bba91a023f2336852ea1880c6140009a4d0a6597422630e365344a400d8",
+   "via": "extension"
+  },
+  {
+   "path": "_BinaryFileViewer/ReaderUpperLevelRefs.ctl",
+   "bytes": 9845,
+   "sha256": "a7945f69e1f0902d7e4f77507b7795329ed37b65690d29b4260bf360ed89b316",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/BioMap_Analyze_v75/BioMap_BinaryFormat.vi",
+   "bytes": 86443,
+   "sha256": "ffe630023c4e59710aa39fea7bd5d5ba37bebc9ad3ea27aae7b76070d1b7587b",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/BioMap_Analyze_v75/WriteHeader+MzArray(AnalyzeV75).vi",
+   "bytes": 16395,
+   "sha256": "81c7b3868e2abfee9aae017acd4218c40c23a2172e651b015280249512cf30d0",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/BioMap_Analyze_v75/preProc_State.ctl",
+   "bytes": 3806,
+   "sha256": "ca72a0ee39e5ee38daa7e8b990815a9785b59cb176a5b11f541576a9ccc9e59b",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/UIC-DepthProfileFormat/DepthProfileFileHeader.ctl",
+   "bytes": 7803,
+   "sha256": "4e6c284f00bd2f5e4f1d8e891ba9e3debe84578b7c6abb0320728c55376e54ab",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/UIC-DepthProfileFormat/DepthProfileFormat_Spectrum.ctl",
+   "bytes": 8032,
+   "sha256": "84e9994bccd065d2b24a62d8795541fcc99f498da9833a31974ab57a56c48a45",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/UIC-DepthProfileFormat/DepthProfileFormat_Writer.vi",
+   "bytes": 23681,
+   "sha256": "892099012322ee33beb301a8ab4ee3cca38d634221344b88efa37d6452cb841e",
+   "via": "extension"
+  },
+  {
+   "path": "_FileFormatConversion/UIC-DepthProfileFormat/LayerAverage_Params.ctl",
+   "bytes": 3796,
+   "sha256": "99fd2421d96293f0f4038ede575ab533ca35e62e116114022e8338c5f4840799",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 5,
+   "sha256": "fc2743481a051a8544cf29af451963c78c6dbe47e7aa6a6cd6c29b2ba351eb53",
+   "via": "tree"
+  },
+  {
+   "path": "ControlDef/InstrumentSpecificControls/UIC-AToF/RunTimeMenu_ATOF.rtm",
+   "bytes": 3118,
+   "sha256": "1c0f08846c05a9f517d05f330765a5d4989d4a4290b4877a389e7adec48e14fe",
+   "via": "tree"
+  },
+  {
+   "path": "ControlDef/RunTimeMenu_ATOF.rtm",
+   "bytes": 3247,
+   "sha256": "0b6b68e7994c037cfccb2901b01483d5a5a70142dd82f038bbd5e2c553d3555e",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 7651,
+   "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 2600,
+   "sha256": "1c78aca334f7654dbdd12b1297ec790a05309366fc09215a554be1ab5961b2c7",
+   "via": "tree"
+  },
+  {
+   "path": "lgpl-3.0.txt",
+   "bytes": 7651,
+   "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<helpdir>\\lvexpress.chm",
+  "<instrlib>\\AnalogDiscSDKLv\\AnalogDiscSDKLv.lvlib",
+  "<instrlib>\\AnalogDiscSDKLv\\AnalogDisc_Core.vi",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_AcqMode.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_AnalogIn_Configurations.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_CtrlQueue.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_Filter.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_InstrumentStatus.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_PrivateStats.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_Signal.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_State.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_TrigCond.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_TrigSrc.ctl",
+  "<instrlib>\\AnalogDiscSDKLv\\VIs\\DWF_TrigType.ctl",
+  "<instrlib>\\BNC\\Berkeley Nucleonics 500 Series.lvlib",
+  "<instrlib>\\BNC\\Public\\Action-Status\\Enable Chan-Sys.vi",
+  "<instrlib>\\BNC\\Public\\Action-Status\\Send SW Trigger.vi",
+  "<instrlib>\\BNC\\Public\\Close.vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Chan Input.vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Chan Mode (Normal).vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Chan Mode.vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Chan Output.vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Input.vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Mode (Burst).vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Mode (Duty Cycle).vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Mode (Normal).vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Mode (Single Shot).vi",
+  "<instrlib>\\BNC\\Public\\Configure\\Configure Sys (To) Mode.vi",
+  "<instrlib>\\BNC\\Public\\Initialize.vi",
+  "<instrlib>\\DG535\\Command\\DG535_Channel.ctl",
+  "<instrlib>\\DG535\\Command\\DG535_Output.ctl",
+  "<instrlib>\\DG535\\Command\\DG535_States.ctl",
+  "<instrlib>\\DG535\\Command\\DG535_TriggerMode.ctl",
+  "<instrlib>\\DG535\\Command\\Set Delay.ctl",
+  "<instrlib>\\DG535\\Command\\Set Output.ctl",
+  "<instrlib>\\DG535\\Command\\Set Trigger.ctl",
+  "<instrlib>\\DG535\\DG535ControlLoop.vi",
+  "<instrlib>\\DG535\\DG535_Configs.ctl",
+  "<instrlib>\\DG535\\SRS_DG535_Lib.lvlib",
+  "<instrlib>\\ESP300\\ESP300.lvlib",
+  "<instrlib>\\ESP300\\ESP30xCore.vi",
+  "<instrlib>\\ESP300\\Public\\Data\\ESP300_State.ctl",
+  "<instrlib>\\ESP300\\Public\\Data\\ESP30x_Data.ctl",
+  "<instrlib>\\ESP300\\Public\\Position_ESP300.vi",
+  "<instrlib>\\GageLv_uic\\Gage.lvlib",
+  "<instrlib>\\GageLv_uic\\Gage_Core.vi",
+  "<instrlib>\\GageLv_uic\\VI\\DisplayCurrentConfiguration.vi",
+  "<instrlib>\\GageLv_uic\\VI\\Gage_Configs.ctl",
+  "<instrlib>\\GageLv_uic\\VI\\Gage_DAQStatus.ctl",
+  "<instrlib>\\GageLv_uic\\VI\\Gage_PrivateStats.ctl",
+  "<instrlib>\\GageLv_uic\\VI\\SetSecondaryDataVIRef_Typedef.ctl",
+  "<instrlib>\\Gage\\CsLv.llb\\CsLv_Transfer16.vi",
+  "<instrlib>\\Gage\\CsLv.llb\\CsLv_Transfer32.vi",
+  "<instrlib>\\Gage\\CsLv.llb\\CsLv_Transfer8.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-AbortCapture.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-Capture.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-Commit.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-ConfigureAcquisition.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-ConfigureChannelArray.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-ConfigureTimeStamp.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-ConfigureTriggerArray.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-ErrorHandler.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-GetSystem.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-Initialize.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-QueryAcquisitionParameters.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-QueryChannelParameters.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-QueryStatus.vi",
+  "<instrlib>\\Gage\\CsTool.llb\\CsTool-TransferTimeStamp.vi",
+  "<instrlib>\\Gage\\DisplayCurrentConfiguration.vi",
+  "<instrlib>\\GenericDAQ\\GenericDAQ.lvlib",
+  "<instrlib>\\GenericDAQ\\GenericDAQCore.vi",
+  "<instrlib>\\GenericDAQ\\VI\\GenericDAQ_Configs.ctl",
+  "<instrlib>\\GenericDAQ\\VI\\GenericDAQ_PrivateStats.ctl",
+  "<instrlib>\\GenericDAQ\\VI\\GenericDAQ_Status.ctl",
+  "<instrlib>\\Micos_uic\\MicosCore.vi",
+  "<instrlib>\\Micos_uic\\Micos_uic.lvlib",
+  "<instrlib>\\Micos_uic\\Public\\Data\\Micos_Data.ctl",
+  "<instrlib>\\Micos_uic\\Public\\Data\\Micos_State.ctl",
+  "<instrlib>\\Micos_uic\\Public\\Position_Micos.vi",
+  "<resource>\\lvanlys.dll",
+  "<resource>\\objmgr\\imaqdx.rc",
+  "<resource>\\visarc",
+  "<userlib>\\Utility\\ErrorLog.vi",
+  "<userlib>\\Utility\\ErrorLog_lib.lvlib",
+  "<userlib>\\_OpenG.lib\\comparison\\comparison.llb\\DBL Changed__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\comparison\\comparison.llb\\Data Changed__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\comparison\\comparison.llb\\I32 Changed__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvzip\\lvzip.llb\\ZLIB Deflate__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\time\\time.llb\\Wait (ms)__ogtk.vi",
+  "<vilib>\\Analysis\\6fits.llb\\Curve Fitting Criteria.ctl",
+  "<vilib>\\Analysis\\6fits.llb\\General Linear Fit Algorithm.ctl",
+  "<vilib>\\Analysis\\6fits.llb\\General Polynomial Fit.vi",
+  "<vilib>\\Analysis\\6fits.llb\\Goodness of Fit.vi",
+  "<vilib>\\Analysis\\8numeric.llb\\Peak Detector.vi",
+  "<vilib>\\Analysis\\Matrix\\NI_Matrix.lvlib",
+  "<vilib>\\Analysis\\Matrix\\Numeric\\Conversions\\Array To Matrix - RA2.vi",
+  "<vilib>\\Analysis\\Matrix\\Numeric\\Conversions\\Array To Matrix.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\NI_AALPro.lvlib",
+  "<vilib>\\Analysis\\NI_AAL_SigProc.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\A x B.vi",
+  "<vilib>\\Analysis\\baseanly.llb\\A x Vector.vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean (DBL).vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean.vi",
+  "<vilib>\\DAQmx\\configure\\task.llb\\DAQmx Clear Task.vi",
+  "<vilib>\\DAQmx\\miscellaneous.llb\\DAQmx Fill In Error Info.vi",
+  "<vilib>\\DAQmx\\read.llb\\DAQmx Read (Analog 2D DBL NChan NSamp).vi",
+  "<vilib>\\DAQmx\\read.llb\\DAQmx Read.vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write (Analog 1D DBL NChan 1Samp).vi",
+  "<vilib>\\DAQmx\\write.llb\\DAQmx Write.vi",
+  "<vilib>\\ErrorRing\\Error Ring.xnode",
+  "<vilib>\\Native 3D Graph\\create_plot_line.vi",
+  "<vilib>\\Native 3D Graph\\xcontrol\\3DPC_SurfacePlot.xctl",
+  "<vilib>\\Utility\\cursorutil.llb\\Set Busy.vi",
+  "<vilib>\\Utility\\cursorutil.llb\\Unset Busy.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\DialogType.ctl",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\file.llb\\Application Directory.vi",
+  "<vilib>\\Utility\\file.llb\\Dflt Data Dir.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Acquire Input Data.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Initialize Joystick.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\Query Input Devices.vi",
+  "<vilib>\\Utility\\inputDevices.llb\\joystickAcquire.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVAnnotationListTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVCursorListTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVRowAndColumnTypeDef.ctl",
+  "<vilib>\\Utility\\miscctls.llb\\LVRowAndColumnUnsignedTypeDef.ctl",
+  "<vilib>\\Utility\\semaphor.llb\\Acquire Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Obtain Semaphore Reference.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Release Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Semaphore RefNum",
+  "<vilib>\\addons\\JSON API\\JSON Value\\JSON Value.lvclass",
+  "<vilib>\\addons\\JSON API\\Variant JSON\\JSON to Variant.vi",
+  "<vilib>\\addons\\JSON API\\Variant JSON\\Variant JSON.lvlib",
+  "<vilib>\\addons\\JSON API\\Variant JSON\\Variant to JSON.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\File Dialog Source.vi",
+  "<vilib>\\express\\express input\\FileDialogBlock.llb\\subFile Dialog.vi",
+  "<vilib>\\express\\express input\\FileDialogConfig.llb\\Configure File Dialog.vi",
+  "<vilib>\\express\\express output\\ExFileWriteBlock.llb\\Ex_Inst_Write LabVIEW Measurement File.vi",
+  "<vilib>\\express\\express output\\ExFileWriteBlock.llb\\ex_subFileWrite.vi",
+  "<vilib>\\express\\express output\\ExFileWriteConfig.llb\\Configure Write LabVIEW Measurement File.vi",
+  "<vilib>\\express\\express shared\\ExFile.llb\\ex_FileFormats.ctl",
+  "<vilib>\\express\\express shared\\ExFile.llb\\ex_propertySource.ctl",
+  "<vilib>\\express\\express shared\\ExFile.llb\\ex_userDefProperty.ctl",
+  "<vilib>\\express\\express shared\\ex_EditUserDefinedProperties\\usiDataType.ctl",
+  "<vilib>\\express\\express shared\\transition.llb\\Waveform Array To Dynamic.vi",
+  "<vilib>\\express\\express signal manip\\ConverttoDDTBlocks.llb\\1D Dbl 1 Channel to DDT.vi",
+  "<vilib>\\express\\express signal manip\\ConverttoDDTConfig.llb\\Configure Convert to DDT.vi",
+  "<vilib>\\gmath\\NI_Gmath.lvlib",
+  "<vilib>\\gmath\\NumericalOptimization\\LM_output select.ctl",
+  "<vilib>\\gmath\\NumericalOptimization\\Nonlinear Curve Fit LM.vi",
+  "<vilib>\\gmath\\NumericalOptimization\\Nonlinear Curve Fit.vi",
+  "<vilib>\\gmath\\NumericalOptimization\\objective function data.ctl",
+  "<vilib>\\gmath\\SpecialFunctions.llb\\Error Function.vi",
+  "<vilib>\\picture\\picture.llb\\imagedata.ctl",
+  "<vilib>\\picture\\png.llb\\Write PNG File.vi",
+  "<vilib>\\ptbypt\\NI_PtbyPt.lvlib",
+  "<vilib>\\ptbypt\\Probability & Statistics.llb\\Mean PtByPt.vi",
+  "<vilib>\\regexp\\Match Regular Expression.xnode",
+  "<vilib>\\userdefined\\High Color\\IMAQdx.ctl",
+  "<vilib>\\vision\\Basics.llb\\IMAQ ArrayToImage",
+  "<vilib>\\vision\\Basics.llb\\IMAQ Create",
+  "<vilib>\\vision\\Files.llb\\IMAQ Write File 2",
+  "<vilib>\\vision\\Files.llb\\IMAQ Write TIFF File 2",
+  "<vilib>\\vision\\Image Controls.llb\\Image Type",
+  "<vilib>\\vision\\driver\\IMAQdx.llb\\IMAQdx Close Camera.vi",
+  "<vilib>\\vision\\driver\\IMAQdx.llb\\IMAQdx Configure Grab.vi",
+  "<vilib>\\vision\\driver\\IMAQdx.llb\\IMAQdx Grab.vi",
+  "<vilib>\\vision\\driver\\IMAQdx.llb\\IMAQdx Open Camera.vi",
+  "<vilib>\\vision\\driver\\NI_Vision_Acquisition_Software.lvlib",
+  "C:\\Users\\AToF\\Documents\\uic-ImagingMS\\trunk",
+  "C:\\Users\\AToF\\Documents\\uic-ImagingMS\\trunk\\Configs"
+ ]
+}

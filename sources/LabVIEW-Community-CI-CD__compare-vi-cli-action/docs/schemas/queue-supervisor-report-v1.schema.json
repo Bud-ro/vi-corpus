@@ -1,0 +1,590 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.comparevi.dev/queue-supervisor-report-v1.schema.json",
+  "title": "Queue Supervisor Report v1",
+  "description": "Deterministic queue supervisor report contract.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "generatedAt",
+    "repository",
+    "mode",
+    "queueManagedBranches",
+    "summary",
+    "queueInventory",
+    "paused",
+    "pausedReasons",
+    "actions",
+    "candidates",
+    "orderedEligible",
+    "readiness",
+    "workerOccupancy",
+    "governor",
+    "securityIntake",
+    "retryHistory"
+  ],
+  "properties": {
+    "schema": {
+      "const": "priority/queue-supervisor-report@v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^[^/\\s]+/[^/\\s]+$"
+    },
+    "mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apply",
+        "dryRun"
+      ],
+      "properties": {
+        "apply": {
+          "type": "boolean"
+        },
+        "dryRun": {
+          "type": "boolean"
+        }
+      }
+    },
+    "queueManagedBranches": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "openCount",
+        "candidateCount",
+        "eligibleCount",
+        "queueManagedOpenCount",
+        "readyPrInventory",
+        "blockedPrInventory",
+        "readyQueuedCount",
+        "readyUnqueuedCount",
+        "mergeQueueOccupancy",
+        "mergeQueueTargetCapacity",
+        "mergeQueueAvailableCapacity",
+        "plannedCount",
+        "enqueuedCount",
+        "quarantinedCount",
+        "securityIntakeStatus"
+      ],
+      "properties": {
+        "openCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidateCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eligibleCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "queueManagedOpenCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyPrInventory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blockedPrInventory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyQueuedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyUnqueuedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueOccupancy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueTargetCapacity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueAvailableCapacity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "plannedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "enqueuedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quarantinedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "securityIntakeStatus": {
+          "enum": ["pass", "breach", "overridden", "platform-stale", "skip", "error", null]
+        }
+      }
+    },
+    "queueInventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queueManagedOpenCount",
+        "readyPrInventory",
+        "blockedPrInventory",
+        "readyQueuedCount",
+        "readyUnqueuedCount",
+        "mergeQueueOccupancy",
+        "mergeQueueTargetCapacity",
+        "mergeQueueAvailableCapacity"
+      ],
+      "properties": {
+        "queueManagedOpenCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyPrInventory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blockedPrInventory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyQueuedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "readyUnqueuedCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueOccupancy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueTargetCapacity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mergeQueueAvailableCapacity": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "paused": {
+      "type": "boolean"
+    },
+    "pausedReasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    },
+    "orderedEligible": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "reportPath",
+        "summary",
+        "readySet"
+      ],
+      "properties": {
+        "reportPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "readySet": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "number",
+              "score",
+              "dependencyRank"
+            ],
+            "properties": {
+              "number": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "score": {
+                "type": "number"
+              },
+              "dependencyRank": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "workerOccupancy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtimeStatePath",
+        "available",
+        "authoritySource",
+        "targetSlotCount",
+        "occupiedSlotCount",
+        "availableSlotCount",
+        "releasedLaneCount",
+        "utilizationRatio",
+        "activeCodingLanes",
+        "staleRuntimeSuppressed",
+        "currentCycleIdleAuthority"
+      ],
+      "properties": {
+        "runtimeStatePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "authoritySource": {
+          "enum": ["delivery-runtime", "current-cycle-idle"]
+        },
+        "targetSlotCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "occupiedSlotCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "availableSlotCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "releasedLaneCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "utilizationRatio": {
+          "type": "number",
+          "minimum": 0
+        },
+        "activeCodingLanes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "staleRuntimeSuppressed": {
+          "type": "boolean"
+        },
+        "currentCycleIdleAuthority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "source", "observedAt", "nextWakeCondition"],
+          "properties": {
+            "status": {
+              "enum": ["observed", "missing"]
+            },
+            "source": {
+              "type": ["string", "null"]
+            },
+            "observedAt": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "nextWakeCondition": {
+              "type": ["string", "null"]
+            }
+          }
+        }
+      }
+    },
+    "governor": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "path",
+        "exists",
+        "error",
+        "mode",
+        "desiredMode",
+        "reasons",
+        "generatedAt",
+        "sourceSchema",
+        "capApplied",
+        "capLimit"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "error": {
+          "type": ["string", "null"]
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["normal", "stabilize", "pause"]
+        },
+        "desiredMode": {
+          "type": "string",
+          "enum": ["normal", "stabilize", "pause"]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "sourceSchema": {
+          "type": ["string", "null"]
+        },
+        "capApplied": {
+          "type": "boolean"
+        },
+        "capLimit": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        }
+      }
+    },
+    "securityIntake": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "exists",
+        "error",
+        "status",
+        "generatedAt",
+        "sourceSchema"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "error": {
+          "type": ["string", "null"]
+        },
+        "status": {
+          "enum": ["pass", "breach", "overridden", "platform-stale", "skip", "error", null]
+        },
+        "generatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "sourceSchema": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "retryHistory": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "failures"
+        ],
+        "properties": {
+          "failures": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "number",
+        "status",
+        "attempts",
+        "quarantined",
+        "retriedUpdateBranch"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "enqueued",
+            "failed"
+          ]
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "type",
+              "status"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "stderr": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "quarantined": {
+          "type": "boolean"
+        },
+        "retriedUpdateBranch": {
+          "type": "boolean"
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "number",
+        "baseRefName",
+        "priority",
+        "coupling",
+        "dependsOn",
+        "eligible",
+        "reasons",
+        "checks"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "baseRefName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coupling": {
+          "type": "string",
+          "enum": [
+            "independent",
+            "soft",
+            "hard"
+          ]
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "ok",
+            "missing",
+            "failing"
+          ],
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "missing": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "failing": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

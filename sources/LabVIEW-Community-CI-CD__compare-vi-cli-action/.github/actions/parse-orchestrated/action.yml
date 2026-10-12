@@ -1,0 +1,16 @@
+name: parse-orchestrated
+description: Parse orchestrated command options from PR comment
+inputs:
+  body:
+    description: Raw comment body
+    required: true
+outputs:
+  strategy:
+    description: Strategy (single|matrix)
+  include_integration:
+    description: "true or false"
+  sample_id:
+    description: Sampling correlation id
+runs:
+  using: node24
+  main: index.cjs

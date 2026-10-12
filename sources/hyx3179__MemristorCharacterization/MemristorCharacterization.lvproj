@@ -1,0 +1,560 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<Project Type="Project" LVVersion="20008000">
+	<Property Name="CCSymbols" Type="Str">DEBUG,0;</Property>
+	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
+	<Property Name="NI.Project.Description" Type="Str"></Property>
+	<Item Name="我的电脑" Type="My Computer">
+		<Property Name="server.app.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="server.control.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="server.tcp.enabled" Type="Bool">false</Property>
+		<Property Name="server.tcp.port" Type="Int">0</Property>
+		<Property Name="server.tcp.serviceName" Type="Str">我的电脑/VI服务器</Property>
+		<Property Name="server.tcp.serviceName.default" Type="Str">我的电脑/VI服务器</Property>
+		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
+		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
+		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="GUI" Type="Folder">
+			<Item Name="测试.vi" Type="VI" URL="../GUI/测试.vi"/>
+			<Item Name="导电机制拟合.vi" Type="VI" URL="../GUI/导电机制拟合.vi"/>
+			<Item Name="数据处理.vi" Type="VI" URL="../GUI/数据处理.vi"/>
+			<Item Name="数据摘要显示.vi" Type="VI" URL="../GUI/数据摘要显示.vi"/>
+		</Item>
+		<Item Name="Lib" Type="Folder">
+			<Item Name="控件" Type="Folder">
+				<Item Name="队列组.ctl" Type="VI" URL="../Lib/控件/队列组.ctl"/>
+			</Item>
+			<Item Name="数据保存" Type="Folder">
+				<Item Name="打包属性.vi" Type="VI" URL="../Lib/数据保存/打包属性.vi"/>
+				<Item Name="打开文件.vi" Type="VI" URL="../Lib/数据保存/打开文件.vi"/>
+				<Item Name="数据库.vi" Type="VI" URL="../Lib/数据保存/数据库.vi"/>
+				<Item Name="写入数据.vi" Type="VI" URL="../Lib/数据保存/写入数据.vi"/>
+			</Item>
+			<Item Name="数据处理" Type="Folder">
+				<Item Name="读取数据" Type="Folder">
+					<Item Name="读取数据文件.vi" Type="VI" URL="../Lib/数据处理/读取数据/读取数据文件.vi"/>
+					<Item Name="修改属性.vi" Type="VI" URL="../Lib/数据处理/读取数据/修改属性.vi"/>
+				</Item>
+				<Item Name="控件" Type="Folder">
+					<Item Name="包含删除.ctl" Type="VI" URL="../Lib/数据处理/控件/包含删除.ctl"/>
+					<Item Name="测试类型.ctl" Type="VI" URL="../Lib/数据处理/控件/测试类型.ctl"/>
+					<Item Name="测试数据类型.ctl" Type="VI" URL="../Lib/数据处理/控件/测试数据类型.ctl"/>
+					<Item Name="索引簇.ctl" Type="VI" URL="../Lib/数据处理/控件/索引簇.ctl"/>
+					<Item Name="显示曲线范围.ctl" Type="VI" URL="../Lib/数据处理/控件/显示曲线范围.ctl"/>
+				</Item>
+				<Item Name="扫描导出" Type="Folder">
+					<Item Name="布尔非转非法数字.vi" Type="VI" URL="../Lib/数据处理/扫描导出/布尔非转非法数字.vi"/>
+					<Item Name="导出扫描测试数据.vi" Type="VI" URL="../Lib/数据处理/扫描导出/导出扫描测试数据.vi"/>
+					<Item Name="电流插值.vi" Type="VI" URL="../Lib/数据处理/扫描导出/电流插值.vi"/>
+					<Item Name="获取扫描电压.vi" Type="VI" URL="../Lib/数据处理/扫描导出/获取扫描电压.vi"/>
+					<Item Name="扫描测试数据保存.vi" Type="VI" URL="../Lib/数据处理/扫描导出/扫描测试数据保存.vi"/>
+					<Item Name="扫描方向检查.vi" Type="VI" URL="../Lib/数据处理/扫描导出/扫描方向检查.vi"/>
+				</Item>
+				<Item Name="索引数据" Type="Folder">
+					<Item Name="读取数据属性.vi" Type="VI" URL="../Lib/数据处理/索引数据/读取数据属性.vi"/>
+					<Item Name="索引脉冲(保持时间).vi" Type="VI" URL="../Lib/数据处理/索引数据/索引脉冲(保持时间).vi"/>
+					<Item Name="索引数据.vi" Type="VI" URL="../Lib/数据处理/索引数据/索引数据.vi"/>
+				</Item>
+				<Item Name="测试数据保存.vi" Type="VI" URL="../Lib/数据处理/测试数据保存.vi"/>
+				<Item Name="数据分类.vi" Type="VI" URL="../Lib/数据处理/数据分类.vi"/>
+				<Item Name="数据格式转化.vi" Type="VI" URL="../Lib/数据处理/数据格式转化.vi"/>
+				<Item Name="数据摘要提取.vi" Type="VI" URL="../Lib/数据处理/数据摘要提取.vi"/>
+				<Item Name="消除电流零偏.vi" Type="VI" URL="../Lib/数据处理/消除电流零偏.vi"/>
+			</Item>
+			<Item Name="数据库" Type="Folder">
+				<Item Name="样品标记" Type="Folder">
+					<Item Name="读取.vi" Type="VI" URL="../Lib/数据库/样品标记/读取.vi"/>
+					<Item Name="写入.vi" Type="VI" URL="../Lib/数据库/样品标记/写入.vi"/>
+				</Item>
+			</Item>
+			<Item Name="2601B.lvclass" Type="LVClass" URL="../Lib/2601B/2601B.lvclass"/>
+			<Item Name="icon.ico" Type="Document" URL="../Lib/icon.ico"/>
+			<Item Name="获取队列引用.vi" Type="VI" URL="../Lib/获取队列引用.vi"/>
+			<Item Name="禁用控件.vi" Type="VI" URL="../Lib/禁用控件.vi"/>
+			<Item Name="生成任务队列.vi" Type="VI" URL="../Lib/生成任务队列.vi"/>
+			<Item Name="输入数据.vi" Type="VI" URL="../Lib/输入数据.vi"/>
+			<Item Name="虚拟.lvclass" Type="LVClass" URL="../Lib/2601B/虚拟/虚拟.lvclass"/>
+		</Item>
+		<Item Name="viLib" Type="Folder">
+			<Item Name="LogLib.lvlib" Type="Library" URL="../viLib/LogLib/LogLib.lvlib"/>
+			<Item Name="QueueLib.lvlib" Type="Library" URL="../viLib/QueueLib/QueueLib.lvlib"/>
+			<Item Name="TableLib.lvlib" Type="Library" URL="../viLib/TableLib/TableLib.lvlib"/>
+		</Item>
+		<Item Name="Xcontrol" Type="Folder">
+			<Item Name="功能选择.xctl" Type="XControl" URL="../Xcontrol/功能选择/功能选择.xctl"/>
+			<Item Name="数据显示.xctl" Type="XControl" URL="../Xcontrol/数据显示/数据显示.xctl"/>
+		</Item>
+		<Item Name="依赖关系" Type="Dependencies">
+			<Item Name="user.lib" Type="Folder">
+				<Item Name="lvzlib32.dll" Type="Document" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzlib32.dll"/>
+				<Item Name="ZLIB Deflate Extended__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Deflate Extended__ogtk.vi"/>
+				<Item Name="ZLIB Deflate Type__ogtk.ctl" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Deflate Type__ogtk.ctl"/>
+				<Item Name="ZLIB Deflate__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Deflate__ogtk.vi"/>
+				<Item Name="ZLIB Inflate Extended__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Inflate Extended__ogtk.vi"/>
+				<Item Name="ZLIB Inflate Type__ogtk.ctl" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Inflate Type__ogtk.ctl"/>
+				<Item Name="ZLIB Inflate__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/lvzip/lvzip.llb/ZLIB Inflate__ogtk.vi"/>
+			</Item>
+			<Item Name="vi.lib" Type="Folder">
+				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
+				<Item Name="Base64 Support.lvlib" Type="Library" URL="/&lt;vilib&gt;/JDP Science/JDP Science Common Utilities/Base64/Base64 Support.lvlib"/>
+				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
+				<Item Name="Check for Equality.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/WDTOps.llb/Check for Equality.vi"/>
+				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
+				<Item Name="Check Special Tags.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Check Special Tags.vi"/>
+				<Item Name="Clear Errors.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Clear Errors.vi"/>
+				<Item Name="Close File+.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Close File+.vi"/>
+				<Item Name="Command Line String To Path.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Command Line String To Path.vi"/>
+				<Item Name="compatReadText.vi" Type="VI" URL="/&lt;vilib&gt;/_oldvers/_oldvers.llb/compatReadText.vi"/>
+				<Item Name="Convert property node font to graphics font.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Convert property node font to graphics font.vi"/>
+				<Item Name="Details Display Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Details Display Dialog.vi"/>
+				<Item Name="DialogType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/DialogType.ctl"/>
+				<Item Name="DialogTypeEnum.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/DialogTypeEnum.ctl"/>
+				<Item Name="DU64_U32SubtractWithBorrow.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/TSOps.llb/DU64_U32SubtractWithBorrow.vi"/>
+				<Item Name="Error Cluster From Error Code.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Cluster From Error Code.vi"/>
+				<Item Name="Error Code Database.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Code Database.vi"/>
+				<Item Name="ErrWarn.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/ErrWarn.ctl"/>
+				<Item Name="eventvkey.ctl" Type="VI" URL="/&lt;vilib&gt;/event_ctls.llb/eventvkey.ctl"/>
+				<Item Name="ex_CorrectErrorChain.vi" Type="VI" URL="/&lt;vilib&gt;/express/express shared/ex_CorrectErrorChain.vi"/>
+				<Item Name="Find First Error.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Find First Error.vi"/>
+				<Item Name="Find Tag.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Find Tag.vi"/>
+				<Item Name="Format Message String.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Format Message String.vi"/>
+				<Item Name="General Error Handler Core CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler Core CORE.vi"/>
+				<Item Name="General Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler.vi"/>
+				<Item Name="Get String Text Bounds.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Get String Text Bounds.vi"/>
+				<Item Name="Get Text Rect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Get Text Rect.vi"/>
+				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
+				<Item Name="GetRTHostConnectedProp.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetRTHostConnectedProp.vi"/>
+				<Item Name="I128 Timestamp.ctl" Type="VI" URL="/&lt;vilib&gt;/Waveform/TSOps.llb/I128 Timestamp.ctl"/>
+				<Item Name="JDP Timestamp.lvlib" Type="Library" URL="/&lt;vilib&gt;/JDP Science/JDP Science Common Utilities/Timestamp/JDP Timestamp.lvlib"/>
+				<Item Name="JDP Utility.lvlib" Type="Library" URL="/&lt;vilib&gt;/JDP Science/JDP Science Common Utilities/JDP Utility.lvlib"/>
+				<Item Name="Less Comparable.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Comparison/Less/Less Comparable/Less Comparable.lvclass"/>
+				<Item Name="Less Functor.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Comparison/Less/Less Functor/Less Functor.lvclass"/>
+				<Item Name="Less.vim" Type="VI" URL="/&lt;vilib&gt;/Comparison/Less.vim"/>
+				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
+				<Item Name="LVAnnotationListTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVAnnotationListTypeDef.ctl"/>
+				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
+				<Item Name="LVNumericRepresentation.ctl" Type="VI" URL="/&lt;vilib&gt;/numeric/LVNumericRepresentation.ctl"/>
+				<Item Name="LVRectTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRectTypeDef.ctl"/>
+				<Item Name="LVRowAndColumnTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRowAndColumnTypeDef.ctl"/>
+				<Item Name="NI_AALBase.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALBase.lvlib"/>
+				<Item Name="NI_AALPro.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALPro.lvlib"/>
+				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
+				<Item Name="NI_Gmath.lvlib" Type="Library" URL="/&lt;vilib&gt;/gmath/NI_Gmath.lvlib"/>
+				<Item Name="NI_MABase.lvlib" Type="Library" URL="/&lt;vilib&gt;/measure/NI_MABase.lvlib"/>
+				<Item Name="NI_MAPro.lvlib" Type="Library" URL="/&lt;vilib&gt;/measure/NI_MAPro.lvlib"/>
+				<Item Name="NI_PackedLibraryUtility.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/LVLibp/NI_PackedLibraryUtility.lvlib"/>
+				<Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi"/>
+				<Item Name="Open File+.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Open File+.vi"/>
+				<Item Name="Path To Command Line String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Path To Command Line String.vi"/>
+				<Item Name="PathToUNIXPathString.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/CFURL.llb/PathToUNIXPathString.vi"/>
+				<Item Name="Read Delimited Spreadsheet (DBL).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read Delimited Spreadsheet (DBL).vi"/>
+				<Item Name="Read Delimited Spreadsheet (I64).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read Delimited Spreadsheet (I64).vi"/>
+				<Item Name="Read Delimited Spreadsheet (string).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read Delimited Spreadsheet (string).vi"/>
+				<Item Name="Read Delimited Spreadsheet.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read Delimited Spreadsheet.vi"/>
+				<Item Name="Read File+ (string).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read File+ (string).vi"/>
+				<Item Name="Read Lines From File (with error IO).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Read Lines From File (with error IO).vi"/>
+				<Item Name="Remove Duplicates From 1D Array.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Remove Duplicates From 1D Array.vim"/>
+				<Item Name="Search and Replace Pattern.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Search and Replace Pattern.vi"/>
+				<Item Name="Set Bold Text.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set Bold Text.vi"/>
+				<Item Name="Set String Value.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set String Value.vi"/>
+				<Item Name="Simple Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Simple Error Handler.vi"/>
+				<Item Name="Sort 1D Array Core.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Helpers/Sort 1D Array Core.vim"/>
+				<Item Name="Sort 1D Array.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Sort 1D Array.vim"/>
+				<Item Name="SQLite.lvlib" Type="Library" URL="/&lt;vilib&gt;/drjdpowell/SQLite Library/SQLite.lvlib"/>
+				<Item Name="Stall Data Flow.vim" Type="VI" URL="/&lt;vilib&gt;/Utility/Stall Data Flow.vim"/>
+				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
+				<Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi"/>
+				<Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl"/>
+				<Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi"/>
+				<Item Name="Three Button Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog.vi"/>
+				<Item Name="Timestamp Subtract.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/TSOps.llb/Timestamp Subtract.vi"/>
+				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
+				<Item Name="UNIXPathStringToPath.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/CFURL.llb/UNIXPathStringToPath.vi"/>
+				<Item Name="VariantType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/VariantDataType/VariantType.lvlib"/>
+				<Item Name="Version To Dotted String.vi" Type="VI" URL="/&lt;vilib&gt;/_xctls/Version To Dotted String.vi"/>
+				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
+				<Item Name="Write Delimited Spreadsheet (DBL).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write Delimited Spreadsheet (DBL).vi"/>
+				<Item Name="Write Delimited Spreadsheet (I64).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write Delimited Spreadsheet (I64).vi"/>
+				<Item Name="Write Delimited Spreadsheet (string).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write Delimited Spreadsheet (string).vi"/>
+				<Item Name="Write Delimited Spreadsheet.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write Delimited Spreadsheet.vi"/>
+				<Item Name="Write Spreadsheet String.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write Spreadsheet String.vi"/>
+				<Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib"/>
+			</Item>
+			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
+		</Item>
+		<Item Name="程序生成规范" Type="Build">
+			<Property Name="NI.SortType" Type="Int">3</Property>
+			<Item Name="IV表征" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{FA604EC4-1AE6-4098-9E30-E5876ED5D784}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{0D8351A6-C365-4B62-ABC3-C19D6407A692}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{7580D673-42B3-400F-B45D-87DCFD75C0DB}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">IV表征</Property>
+				<Property Name="Bld_defaultLanguage" Type="Str">ChineseS</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/IV表征</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{D19043B0-DB16-40D3-8E14-3E3EDDC75798}</Property>
+				<Property Name="Bld_version.major" Type="Int">3</Property>
+				<Property Name="Bld_version.minor" Type="Int">2</Property>
+				<Property Name="Destination[0].destName" Type="Str">IV表征.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/IV表征/IV表征.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">支持目录</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/IV表征/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/我的电脑/Lib/icon.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{A5853BAA-AB39-448F-8742-BDAB059200C0}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/我的电脑/GUI/测试.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].Container.applyProperties" Type="Bool">true</Property>
+				<Property Name="Source[2].Container.depDestIndex" Type="Int">0</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/我的电脑/GUI</Property>
+				<Property Name="Source[2].properties[0].type" Type="Str">Show toolbar</Property>
+				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
+				<Property Name="Source[2].propertiesCount" Type="Int">1</Property>
+				<Property Name="Source[2].type" Type="Str">Container</Property>
+				<Property Name="SourceCount" Type="Int">3</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">IV表征</Property>
+				<Property Name="TgtF_internalName" Type="Str">IV表征</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">版权 2024</Property>
+				<Property Name="TgtF_productName" Type="Str">IV表征</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{D0C1572F-CBC3-4294-8783-4F3EB071194D}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">IV表征.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="IV程序包" Type="{E661DAE2-7517-431F-AC41-30807A3BDA38}">
+				<Property Name="NIPKG_addToFeed" Type="Bool">false</Property>
+				<Property Name="NIPKG_allDependenciesToFeed" Type="Bool">false</Property>
+				<Property Name="NIPKG_allDependenciesToSystemLink" Type="Bool">false</Property>
+				<Property Name="NIPKG_certificates" Type="Bool">true</Property>
+				<Property Name="NIPKG_createInstaller" Type="Bool">false</Property>
+				<Property Name="NIPKG_feedLocation" Type="Path">../builds/NI_AB_PROJECTNAME/IV程序包/Feed</Property>
+				<Property Name="NIPKG_feedLocation.Type" Type="Str">relativeToCommon</Property>
+				<Property Name="NIPKG_installerArtifacts" Type="Str">Install.exe|InstallCHS.dll|InstallDEU.dll|InstallFRA.dll|InstallJPN.dll|InstallKOR.dll|bin|feeds|pool|system-packages
+</Property>
+				<Property Name="NIPKG_installerBuiltBefore" Type="Bool">false</Property>
+				<Property Name="NIPKG_installerDestination" Type="Path">../builds/NI_AB_PROJECTNAME/IV程序包/Package Installer</Property>
+				<Property Name="NIPKG_installerDestination.Type" Type="Str">relativeToCommon</Property>
+				<Property Name="NIPKG_lastBuiltPackage" Type="Str">mc-ivtest_1.0.0-0_windows_all.nipkg</Property>
+				<Property Name="NIPKG_license" Type="Ref"></Property>
+				<Property Name="NIPKG_packageVersion" Type="Bool">false</Property>
+				<Property Name="NIPKG_releaseNotes" Type="Str"></Property>
+				<Property Name="NIPKG_storeProduct" Type="Bool">true</Property>
+				<Property Name="NIPKG_VisibleForRuntimeDeployment" Type="Bool">false</Property>
+				<Property Name="PKG_actions.Count" Type="Int">0</Property>
+				<Property Name="PKG_autoIncrementBuild" Type="Bool">false</Property>
+				<Property Name="PKG_autoSelectDeps" Type="Bool">true</Property>
+				<Property Name="PKG_buildNumber" Type="Int">0</Property>
+				<Property Name="PKG_buildSpecName" Type="Str">IV程序包</Property>
+				<Property Name="PKG_dependencies.Count" Type="Int">2</Property>
+				<Property Name="PKG_dependencies[0].Enhanced" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[0].MaxVersion" Type="Str"></Property>
+				<Property Name="PKG_dependencies[0].MaxVersionInclusive" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[0].MinVersion" Type="Str">20.1.1.49157-0+f5</Property>
+				<Property Name="PKG_dependencies[0].MinVersionType" Type="Str">Inclusive</Property>
+				<Property Name="PKG_dependencies[0].NIPKG.DisplayName" Type="Str">LabVIEW运行引擎（32位）</Property>
+				<Property Name="PKG_dependencies[0].Package.Name" Type="Str">ni-labview-2020-runtime-engine-x86</Property>
+				<Property Name="PKG_dependencies[0].Package.Section" Type="Str">Programming Environments</Property>
+				<Property Name="PKG_dependencies[0].Package.Synopsis" Type="Str">LabVIEW运行引擎是一款附加软件，可允许工程师在非开发计算机上运行可执行文件。</Property>
+				<Property Name="PKG_dependencies[0].Relationship" Type="Str">Required Dependency</Property>
+				<Property Name="PKG_dependencies[0].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_dependencies[1].Enhanced" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[1].MaxVersion" Type="Str"></Property>
+				<Property Name="PKG_dependencies[1].MaxVersionInclusive" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[1].MinVersion" Type="Str">20.0.0.49152-0+f0</Property>
+				<Property Name="PKG_dependencies[1].MinVersionType" Type="Str">Inclusive</Property>
+				<Property Name="PKG_dependencies[1].NIPKG.DisplayName" Type="Str">NI-VISA运行引擎</Property>
+				<Property Name="PKG_dependencies[1].Package.Name" Type="Str">ni-visa-runtime</Property>
+				<Property Name="PKG_dependencies[1].Package.Section" Type="Str">Drivers</Property>
+				<Property Name="PKG_dependencies[1].Package.Synopsis" Type="Str">提供用于控制USB、TCPIP、GPIB、Serial、PXI及其他类型仪器的API。</Property>
+				<Property Name="PKG_dependencies[1].Relationship" Type="Str">Required Dependency</Property>
+				<Property Name="PKG_dependencies[1].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_description" Type="Str"></Property>
+				<Property Name="PKG_destinations.Count" Type="Int">2</Property>
+				<Property Name="PKG_destinations[0].ID" Type="Str">{17579C0E-E72C-4122-9910-58467973F407}</Property>
+				<Property Name="PKG_destinations[0].Subdir.Directory" Type="Str">MemristorCharacterization</Property>
+				<Property Name="PKG_destinations[0].Subdir.Parent" Type="Str">root_3</Property>
+				<Property Name="PKG_destinations[0].Type" Type="Str">Subdir</Property>
+				<Property Name="PKG_destinations[1].ID" Type="Str">{204F26A1-379F-4FB2-8DC5-A8CD2BB1C4D7}</Property>
+				<Property Name="PKG_destinations[1].Subdir.Directory" Type="Str">IV表征</Property>
+				<Property Name="PKG_destinations[1].Subdir.Parent" Type="Str">{17579C0E-E72C-4122-9910-58467973F407}</Property>
+				<Property Name="PKG_destinations[1].Type" Type="Str">Subdir</Property>
+				<Property Name="PKG_displayName" Type="Str">MCIV表征</Property>
+				<Property Name="PKG_displayVersion" Type="Str"></Property>
+				<Property Name="PKG_feedDescription" Type="Str"></Property>
+				<Property Name="PKG_feedName" Type="Str"></Property>
+				<Property Name="PKG_homepage" Type="Str"></Property>
+				<Property Name="PKG_hostname" Type="Str"></Property>
+				<Property Name="PKG_maintainer" Type="Str">hyx3179 &lt;hyx3179@gmail.com&gt;</Property>
+				<Property Name="PKG_output" Type="Path">../builds/程序包</Property>
+				<Property Name="PKG_output.Type" Type="Str">relativeToProject</Property>
+				<Property Name="PKG_packageName" Type="Str">mc-ivtest</Property>
+				<Property Name="PKG_publishToSystemLink" Type="Bool">false</Property>
+				<Property Name="PKG_section" Type="Str">应用软件</Property>
+				<Property Name="PKG_shortcuts.Count" Type="Int">1</Property>
+				<Property Name="PKG_shortcuts[0].Destination" Type="Str">root_1</Property>
+				<Property Name="PKG_shortcuts[0].Name" Type="Str">IV表征</Property>
+				<Property Name="PKG_shortcuts[0].Path" Type="Path"></Property>
+				<Property Name="PKG_shortcuts[0].Target.Child" Type="Str">{D0C1572F-CBC3-4294-8783-4F3EB071194D}</Property>
+				<Property Name="PKG_shortcuts[0].Target.Destination" Type="Str">{204F26A1-379F-4FB2-8DC5-A8CD2BB1C4D7}</Property>
+				<Property Name="PKG_shortcuts[0].Target.Source" Type="Ref">/我的电脑/程序生成规范/IV表征</Property>
+				<Property Name="PKG_shortcuts[0].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_sources.Count" Type="Int">1</Property>
+				<Property Name="PKG_sources[0].Destination" Type="Str">{204F26A1-379F-4FB2-8DC5-A8CD2BB1C4D7}</Property>
+				<Property Name="PKG_sources[0].ID" Type="Ref">/我的电脑/程序生成规范/IV表征</Property>
+				<Property Name="PKG_sources[0].Type" Type="Str">EXE Build</Property>
+				<Property Name="PKG_synopsis" Type="Str">MemristorCharacterization</Property>
+				<Property Name="PKG_version" Type="Str">1.0.0</Property>
+			</Item>
+			<Item Name="数据处理" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{07A4AE77-C245-456A-B53A-792BD93BD0A4}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{6CD46E75-1785-436B-A4D0-EE7B5AE4CF55}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{AF79598C-F3EC-4BA5-85FB-8863D42866FE}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">数据处理</Property>
+				<Property Name="Bld_defaultLanguage" Type="Str">ChineseS</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/数据处理</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{19B99EDD-8BE0-4770-9F14-A65711D86661}</Property>
+				<Property Name="Bld_version.build" Type="Int">1</Property>
+				<Property Name="Bld_version.major" Type="Int">3</Property>
+				<Property Name="Bld_version.minor" Type="Int">2</Property>
+				<Property Name="Bld_version.patch" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">数据处理.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/数据处理/数据处理.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">支持目录</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/数据处理/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/我的电脑/Lib/icon.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{6C6B6907-86CC-4E32-9D42-A841006A5A15}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/我的电脑/GUI/数据处理.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].Container.applyProperties" Type="Bool">true</Property>
+				<Property Name="Source[2].Container.depDestIndex" Type="Int">0</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/我的电脑/GUI</Property>
+				<Property Name="Source[2].properties[0].type" Type="Str">Show toolbar</Property>
+				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
+				<Property Name="Source[2].propertiesCount" Type="Int">1</Property>
+				<Property Name="Source[2].type" Type="Str">Container</Property>
+				<Property Name="SourceCount" Type="Int">3</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">处理 IV表征 产生的数据</Property>
+				<Property Name="TgtF_internalName" Type="Str">数据处理</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">版权 2024 </Property>
+				<Property Name="TgtF_productName" Type="Str">IV表征 数据处理</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{7FBC7265-0D4D-4BC6-AF4A-5CF6A6DCEF2D}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">数据处理.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="数据格式转化" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{F0BB54F0-5434-4B14-ACC1-C8541AA65A80}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{9950986E-9C00-46CF-8DF4-8A2A597AD312}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{EBACC84E-C758-4187-9A52-C25A9B40586A}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">数据格式转化</Property>
+				<Property Name="Bld_defaultLanguage" Type="Str">ChineseS</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/数据格式转化</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{C2F2DA4C-C6B1-4142-843C-6D749F753E33}</Property>
+				<Property Name="Bld_version.build" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">数据格式转化.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/数据格式转化/数据格式转化.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">支持目录</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/数据格式转化/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/我的电脑/Lib/icon.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{EF4B2279-4680-4067-BA09-477D0695DF77}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/我的电脑/GUI/测试.vi</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].Container.applyProperties" Type="Bool">true</Property>
+				<Property Name="Source[2].Container.depDestIndex" Type="Int">0</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/我的电脑/GUI</Property>
+				<Property Name="Source[2].properties[0].type" Type="Str">Show toolbar</Property>
+				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
+				<Property Name="Source[2].propertiesCount" Type="Int">1</Property>
+				<Property Name="Source[2].type" Type="Str">Container</Property>
+				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[3].itemID" Type="Ref">/我的电脑/Lib/数据处理/数据格式转化.vi</Property>
+				<Property Name="Source[3].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[3].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">4</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">数据格式转化</Property>
+				<Property Name="TgtF_internalName" Type="Str">数据格式转化</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">版权 2024</Property>
+				<Property Name="TgtF_productName" Type="Str">数据格式转化</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{1FF9AC20-ED2D-49E8-BCF4-0D787DD6BE86}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">数据格式转化.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="消除电流零偏" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{4948D5A5-C9F8-4372-8BD6-C26844916876}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{4A5E5F55-F7D7-4AEB-A415-84E1EF1B75C7}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{AD02B2F7-47EC-4750-ACD2-29D6D54A3BDC}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">消除电流零偏</Property>
+				<Property Name="Bld_defaultLanguage" Type="Str">ChineseS</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/消除电流零偏</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{7F6391DD-3FCA-4FB9-A1CF-C0BA0A10D327}</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">消除电流零偏.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/消除电流零偏/消除电流零偏.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">支持目录</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/消除电流零偏/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">relativeToProject</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/我的电脑/Lib/icon.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{858BED76-4630-4205-8640-06155A5405DF}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/我的电脑/Lib/数据处理/消除电流零偏.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">消除电流零偏</Property>
+				<Property Name="TgtF_internalName" Type="Str">消除电流零偏</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">版权 2024 </Property>
+				<Property Name="TgtF_productName" Type="Str">消除电流零偏</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{689EB89D-A2DD-4051-AD7F-5D6A25B12F12}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">消除电流零偏.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="data程序包" Type="{E661DAE2-7517-431F-AC41-30807A3BDA38}">
+				<Property Name="NIPKG_addToFeed" Type="Bool">false</Property>
+				<Property Name="NIPKG_allDependenciesToFeed" Type="Bool">false</Property>
+				<Property Name="NIPKG_allDependenciesToSystemLink" Type="Bool">false</Property>
+				<Property Name="NIPKG_certificates" Type="Bool">true</Property>
+				<Property Name="NIPKG_createInstaller" Type="Bool">false</Property>
+				<Property Name="NIPKG_feedLocation" Type="Path">../builds/NI_AB_PROJECTNAME/data程序包/Feed</Property>
+				<Property Name="NIPKG_feedLocation.Type" Type="Str">relativeToCommon</Property>
+				<Property Name="NIPKG_installerArtifacts" Type="Str"></Property>
+				<Property Name="NIPKG_installerBuiltBefore" Type="Bool">false</Property>
+				<Property Name="NIPKG_installerDestination" Type="Path">../builds/NI_AB_PROJECTNAME/data程序包/Package Installer</Property>
+				<Property Name="NIPKG_installerDestination.Type" Type="Str">relativeToCommon</Property>
+				<Property Name="NIPKG_lastBuiltPackage" Type="Str">mc-datahandle_1.0.0-8_windows_all.nipkg</Property>
+				<Property Name="NIPKG_license" Type="Ref"></Property>
+				<Property Name="NIPKG_packageVersion" Type="Bool">false</Property>
+				<Property Name="NIPKG_releaseNotes" Type="Str"></Property>
+				<Property Name="NIPKG_storeProduct" Type="Bool">true</Property>
+				<Property Name="NIPKG_VisibleForRuntimeDeployment" Type="Bool">false</Property>
+				<Property Name="PKG_actions.Count" Type="Int">0</Property>
+				<Property Name="PKG_autoIncrementBuild" Type="Bool">true</Property>
+				<Property Name="PKG_autoSelectDeps" Type="Bool">true</Property>
+				<Property Name="PKG_buildNumber" Type="Int">9</Property>
+				<Property Name="PKG_buildSpecName" Type="Str">data程序包</Property>
+				<Property Name="PKG_dependencies.Count" Type="Int">1</Property>
+				<Property Name="PKG_dependencies[0].Enhanced" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[0].MaxVersion" Type="Str"></Property>
+				<Property Name="PKG_dependencies[0].MaxVersionInclusive" Type="Bool">false</Property>
+				<Property Name="PKG_dependencies[0].MinVersion" Type="Str">20.1.1.49157-0+f5</Property>
+				<Property Name="PKG_dependencies[0].MinVersionType" Type="Str">Inclusive</Property>
+				<Property Name="PKG_dependencies[0].NIPKG.DisplayName" Type="Str">LabVIEW运行引擎（32位）</Property>
+				<Property Name="PKG_dependencies[0].Package.Name" Type="Str">ni-labview-2020-runtime-engine-x86</Property>
+				<Property Name="PKG_dependencies[0].Package.Section" Type="Str">Programming Environments</Property>
+				<Property Name="PKG_dependencies[0].Package.Synopsis" Type="Str">LabVIEW运行引擎是一款附加软件，可允许工程师在非开发计算机上运行可执行文件。</Property>
+				<Property Name="PKG_dependencies[0].Relationship" Type="Str">Required Dependency</Property>
+				<Property Name="PKG_dependencies[0].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_description" Type="Str"></Property>
+				<Property Name="PKG_destinations.Count" Type="Int">2</Property>
+				<Property Name="PKG_destinations[0].ID" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_destinations[0].Subdir.Directory" Type="Str">数据处理</Property>
+				<Property Name="PKG_destinations[0].Subdir.Parent" Type="Str">{B7460582-89B8-4E3C-BF64-1C9474EE31D6}</Property>
+				<Property Name="PKG_destinations[0].Type" Type="Str">Subdir</Property>
+				<Property Name="PKG_destinations[1].ID" Type="Str">{B7460582-89B8-4E3C-BF64-1C9474EE31D6}</Property>
+				<Property Name="PKG_destinations[1].Subdir.Directory" Type="Str">MemristorCharacterization</Property>
+				<Property Name="PKG_destinations[1].Subdir.Parent" Type="Str">root_3</Property>
+				<Property Name="PKG_destinations[1].Type" Type="Str">Subdir</Property>
+				<Property Name="PKG_displayName" Type="Str">MC数据处理</Property>
+				<Property Name="PKG_displayVersion" Type="Str"></Property>
+				<Property Name="PKG_feedDescription" Type="Str"></Property>
+				<Property Name="PKG_feedName" Type="Str"></Property>
+				<Property Name="PKG_homepage" Type="Str"></Property>
+				<Property Name="PKG_hostname" Type="Str"></Property>
+				<Property Name="PKG_maintainer" Type="Str">hyx3179 &lt;hyx3179@gmail.com&gt;</Property>
+				<Property Name="PKG_output" Type="Path">../builds/程序包</Property>
+				<Property Name="PKG_output.Type" Type="Str">relativeToProject</Property>
+				<Property Name="PKG_packageName" Type="Str">mc-datahandle</Property>
+				<Property Name="PKG_publishToSystemLink" Type="Bool">false</Property>
+				<Property Name="PKG_section" Type="Str">应用软件</Property>
+				<Property Name="PKG_shortcuts.Count" Type="Int">3</Property>
+				<Property Name="PKG_shortcuts[0].Destination" Type="Str">root_1</Property>
+				<Property Name="PKG_shortcuts[0].Name" Type="Str">数据处理</Property>
+				<Property Name="PKG_shortcuts[0].Path" Type="Path"></Property>
+				<Property Name="PKG_shortcuts[0].Target.Child" Type="Str">{7FBC7265-0D4D-4BC6-AF4A-5CF6A6DCEF2D}</Property>
+				<Property Name="PKG_shortcuts[0].Target.Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_shortcuts[0].Target.Source" Type="Ref">/我的电脑/程序生成规范/数据处理</Property>
+				<Property Name="PKG_shortcuts[0].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_shortcuts[1].Destination" Type="Str">root_1</Property>
+				<Property Name="PKG_shortcuts[1].Name" Type="Str">数据格式转化</Property>
+				<Property Name="PKG_shortcuts[1].Path" Type="Path"></Property>
+				<Property Name="PKG_shortcuts[1].Target.Child" Type="Str">{1FF9AC20-ED2D-49E8-BCF4-0D787DD6BE86}</Property>
+				<Property Name="PKG_shortcuts[1].Target.Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_shortcuts[1].Target.Source" Type="Ref">/我的电脑/程序生成规范/数据格式转化</Property>
+				<Property Name="PKG_shortcuts[1].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_shortcuts[2].Destination" Type="Str">root_1</Property>
+				<Property Name="PKG_shortcuts[2].Name" Type="Str">消除电流零偏</Property>
+				<Property Name="PKG_shortcuts[2].Path" Type="Path"></Property>
+				<Property Name="PKG_shortcuts[2].Target.Child" Type="Str">{689EB89D-A2DD-4051-AD7F-5D6A25B12F12}</Property>
+				<Property Name="PKG_shortcuts[2].Target.Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_shortcuts[2].Target.Source" Type="Ref">/我的电脑/程序生成规范/消除电流零偏</Property>
+				<Property Name="PKG_shortcuts[2].Type" Type="Str">NIPKG</Property>
+				<Property Name="PKG_sources.Count" Type="Int">3</Property>
+				<Property Name="PKG_sources[0].Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_sources[0].ID" Type="Ref">/我的电脑/程序生成规范/数据处理</Property>
+				<Property Name="PKG_sources[0].Type" Type="Str">EXE Build</Property>
+				<Property Name="PKG_sources[1].Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_sources[1].ID" Type="Ref">/我的电脑/程序生成规范/数据格式转化</Property>
+				<Property Name="PKG_sources[1].Type" Type="Str">EXE Build</Property>
+				<Property Name="PKG_sources[2].Destination" Type="Str">{A19001DE-99BC-4E2D-B553-558312920877}</Property>
+				<Property Name="PKG_sources[2].ID" Type="Ref">/我的电脑/程序生成规范/消除电流零偏</Property>
+				<Property Name="PKG_sources[2].Type" Type="Str">EXE Build</Property>
+				<Property Name="PKG_synopsis" Type="Str">MemristorCharacterization</Property>
+				<Property Name="PKG_version" Type="Str">1.0.0</Property>
+			</Item>
+		</Item>
+	</Item>
+</Project>

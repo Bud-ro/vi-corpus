@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CustomDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Custom Device.xsd">
+	<XSDVersion Major="2010" Minor="0" Fix="0" Build="0" />
+	<AddMenu>
+		<eng>National Instruments::PXI-4132</eng>
+		<loc>National Instruments::PXI-4132</loc>
+	</AddMenu>
+	<Version>1.0</Version>
+	<Type>Asynchronous</Type>
+	<MaxOccurrence>2474</MaxOccurrence>
+	<MainPageGUID>3049817F-C42D-F1C2-4ECB-CA12CE6DADC9</MainPageGUID>
+	<InitializationVI>
+		<Type>Action</Type>
+		<Item2Launch>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-4132\PXI-4132 Configuration.llb\PXI-4132 Initialization VI.vi</Path>
+		</Item2Launch>
+	</InitializationVI>
+	<CustomDeviceVI>
+		<Source>
+			<Type>To Common Doc Dir</Type>
+			<Path>Custom Devices\PXI-4132\c\PXI-4132 Engine.llb\PXI-4132 RT Driver VI.vi</Path>
+		</Source>
+		<RealTimeSystemDestination>c:\ni-rt\VeriStand\Custom Devices\PXI-4132\PXI-4132 Engine.llb\PXI-4132 RT Driver VI.vi</RealTimeSystemDestination>
+	</CustomDeviceVI>
+	<Dependencies />
+	<Pages>
+		<Page>
+			<Name>
+				<eng>PXI-4132</eng>
+				<loc>PXI-4132</loc>
+			</Name>
+			<GUID>3049817F-C42D-F1C2-4ECB-CA12CE6DADC9</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-4132\PXI-4132 Configuration.llb\PXI-4132 Main Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>Channel Selection Page</eng>
+				<loc>Channel Selection Page</loc>
+			</Name>
+			<DeleteProtection>true</DeleteProtection>
+			<GUID>FD5B43A4-FA44-3A15-FF7F-9A4D2BD3843B</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga category.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-4132\PXI-4132 Configuration.llb\PXI-4132 Channel Section Page.vi</Path>
+			</Item2Launch>
+		</Page>
+		<Page>
+			<Name>
+				<eng>Channel Page</eng>
+				<loc>Channel Page</loc>
+			</Name>
+			<DeleteProtection>true</DeleteProtection>
+			<GUID>FBDECBFD-0B74-2800-272B-93C68C74A507</GUID>
+			<Glyph>
+				<Type>To Application Data Dir</Type>
+				<Path>System Explorer\Glyphs\default fpga channel.png</Path>
+			</Glyph>
+			<Item2Launch>
+				<Type>To Common Doc Dir</Type>
+				<Path>Custom Devices\PXI-4132\PXI-4132 Configuration.llb\PXI-4132 Input Channel Page.vi</Path>
+			</Item2Launch>
+		</Page>
+	</Pages>
+	<CustomXML>
+		<Dummy />
+	</CustomXML>
+</CustomDevice>

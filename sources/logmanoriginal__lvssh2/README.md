@@ -1,0 +1,186 @@
+<!-- Based on https://github.com/othneildrew/Best-README-Template -->
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Build Status][azure-build-status-shield]][azure-build-status-url]
+[![BSD-3-Clause License][license-shield]][license-url]
+
+<!-- PROJECT LOGO -->
+<br>
+<p align="center">
+  <a href="https://github.com/logmanoriginal/lvssh2">
+    <img src="images/logo.svg" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">lvssh2</h3>
+
+  <p align="center">
+    LabVIEW&trade; bindings for <a href="https://github.com/libssh2/libssh2">libssh2</a>.
+    <br>
+    <a href="https://github.com/logmanoriginal/lvssh2"><strong>Explore the docs »</strong></a>
+    <br>
+    <br>
+    <a href="https://github.com/logmanoriginal/lvssh2">View Demo</a>
+    <br>
+    <a href="https://github.com/logmanoriginal/lvssh2/issues">Report Bug</a>
+    <br>
+    <a href="https://github.com/logmanoriginal/lvssh2/issues">Request Feature</a>
+  </p>
+</p>
+
+## About The Project
+
+**lvssh2** provides LabVIEW&trade; bindings for [libssh2](https://github.com/libssh2/libssh2).
+
+See [libssh2-api](docs/libssh2-api.md) for API coverage.
+
+### Limitations
+
+> [!NOTE]
+> There is currently no built-in support for macOS.
+
+Although this project aims to provide complete bindings for libssh2, there are several limitations users need to be aware of:
+
+- Buffer sizes are limited to 2^31-1 bytes (2 GiB) instead of 2^32-1 bytes (4 GiB). The reason for this is that arrays and strings in LabVIEW are limited to 2^31-1 elements. Additional limits may apply due to memory copies when calling external functions.
+- This project includes an extension library to provide functionality that cannot otherwise be realized in LabVIEW. Callers can specify a conditional disable symbol `LVSSH2_NO_EXTENSIONS=True` to disable the extension library. When this conditional disable symbol is set, then all functions utilizing the extension library will turn into stubs.
+- The public key subsystem is currently not implemented because of lack of support in OpenSSH and other major SSH servers. You can find more information at [ssh-publickeyd](https://github.com/grawity/ssh-publickeyd).
+
+### Design Decisions
+
+- **Thread Safety**: This project uses semaphores to ensure thread safety on a session level. This means that all functions on a session (including channels, subsystems, etc.) execute mutually exclusive (with few exceptions). This is done to ensure that the underlying libssh2 session (and by extension the underlying TCP connection) is not accessed concurrently, which could result in memory corruption and undefined behaviour. Note that this does not prevent callers from using multiple sessions concurrently. For example, a caller could use one session to execute a command and another session to transfer files without interering with each other.
+- **Error Handling**: This project uses the LabVIEW error handling mechanism. All functions return an error cluster that corresponds to a libssh2 error code (see [lvssh2-errors.txt](/lvssh2-errors.txt) and [lvssh2-sftp-errors.txt](/lvssh2-sftp-errors.txt)). See [libssh2-api](docs/libssh2-api.md) for a complete overview of error codes and how they are defined.
+- **Length Parameters for String and Array types**: All functions that take a string or array type as an input parameter do not expose a separate length parameter. Instead, the length of the string or array is determined by the type itself. Because of this, some of the libssh2 convenience functions are not included. For example, `libssh2_channel_window_write` is not included because it would be equivalent to `libssh2_channel_window_write_ex`. For a complete overview of the functions that are included, see [libssh2-api](docs/libssh2-api.md).
+- **Pointer Handling**: Pointers are not exposed to the caller. Instead, the caller receives a Refnum that represents a Data Value Reference which contains the pointer. This is done to provide a more LabVIEW-like interface and to avoid pointer handling for the caller. Note that this also ensures 32-bit and 64-bit compatibility.
+- **Constants**: Constants are defined as enum typedefs in the lvssh2 library. This is done to provide a more LabVIEW-like interface. See [libssh2-api](docs/libssh2-api.md) for a complete overview of the constants and how they are defined.
+- **Naming Conventions**: The naming conventions for functions are based on the libssh2 function names. VI titles contain a human-readable function name and the function name of libssh2 in parenthesis. For example, the title for `libssh2_agent_get_identity` is "SSH Agent Get Identity (libssh2_agent_get_identity)". This makes it easier to find functions in quick-drop.
+
+> [!NOTE]
+> VI titles and descriptions are defined in [lvssh2-descriptions.xml](/lvssh2-descriptions.xml) using [Update Descriptions.vi](/Update%20Descriptions.vi). This is done to allow for easy updating of the descriptions using modern text editors (e.g., with Copilot support).
+
+### Built With
+
+* [LabVIEW&trade;](https://www.ni.com/labview)
+* [Visual Studio](https://visualstudio.microsoft.com)
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+* [LabVIEW&trade;](https://ni.com/labview) 2017 or later
+* [VI Package Manager](https://vipm.io/download/)
+* [CMake](https://cmake.org/download/) 4.2 or later
+* Windows:
+  * [Visual Studio](https://visualstudio.microsoft.com/download/) 2026 or later (or any compatible C compiler)
+
+### Installation
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/logmanoriginal/lvssh2.git
+   ```
+
+### Build Instructions
+
+* See [Build Instructions](docs/cmake-build-instructions.md)
+
+## Usage
+
+Here is an example that uses lvssh2 to execute a command on a remote SSH server.
+
+![Example](images/example.png)
+
+> [!NOTE]
+> There are many more examples in the [examples](/examples) folder.
+> These examples are also available in Example Finder in directory view under `PNR/lvssh2`.
+
+![Example Finder](images/example-finder.png)
+
+## Security Recommendations
+
+Host key verification is strongly recommended before authentication.
+
+Required sequence:
+1. Connect TCP socket and call `libssh2_session_handshake`.
+2. Read remote host key with `libssh2_session_hostkey`.
+3. Check key with `libssh2_knownhost_checkp`.
+4. Continue only when the check result is `LIBSSH2_KNOWNHOST_CHECK_MATCH`.
+
+Do not call authentication methods (password, public key, keyboard-interactive, agent) before a successful host key check. This includes `libssh2_channel_request_auth_agent`, which should only be used after host identity is verified.
+
+See [SECURITY](SECURITY.md) for the complete secure usage guidance.
+See [Secure Usage Guide](docs/secure-usage.md) for a step-by-step integration workflow.
+
+## Roadmap
+
+See the [open issues](https://github.com/logmanoriginal/labview-composition/issues) for a list of proposed features (and known issues).
+
+## Further Reading
+
+- [RFC4251](https://www.rfc-editor.org/rfc/rfc4251): The Secure Shell (SSH) Protocol Architecture
+- [RFC4252](https://www.rfc-editor.org/rfc/rfc4252): The Secure Shell (SSH) Authentication Protocol
+- [RFC4253](https://www.rfc-editor.org/rfc/rfc4253): The Secure Shell (SSH) Transport Layer Protocol
+- [RFC4254](https://www.rfc-editor.org/rfc/rfc4254): The Secure Shell (SSH) Connection Protocol
+- [RFC4819](https://www.rfc-editor.org/rfc/rfc4819): Secure Shell Public Key Subsystem
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+Keep in mind that LabVIEW&trade; VIs are binary files, which are difficult to merge.
+- Only change a single VI or library.
+- Avoid conflicts with other pull requests (don't work on the same libraries or VIs).
+- Send VI Snippets (via issues) instead of pull requests when possible.
+
+> [!NOTE]
+> This project contains C code that is compiled into a shared library (see [extensions](/extensions/)). If you are familiar with C and want to contribute to the project, please consider contributing to the C code as well.
+
+## License
+
+Distributed under the BSD-3-Clause License. See [`LICENSE`](LICENSE.txt) for more information.
+
+This project uses third-party libraries or other resources that may be distributed under different licenses. See [`THIRD-PARTY-NOTICES`](THIRD-PARTY-NOTICES.txt) for more information.
+
+## Contact
+
+Project Link: [https://github.com/logmanoriginal/lvssh2](https://github.com/logmanoriginal/lvssh2)
+
+## Acknowledgements
+
+* [libssh2](https://github.com/libssh2/libssh2)
+* [Code Capture Tool](https://lavag.org/files/file/63-code-capture-tool)
+* [JSONtext](https://bitbucket.org/drjdpowell/jsontext)
+* [Transparent Assertions](https://github.com/logmanoriginal/TransparentAssertions)
+* [LVUnit](https://github.com/logmanoriginal/LVUnit)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/logmanoriginal/lvssh2.svg?style=for-the-badge
+[contributors-url]: https://github.com/logmanoriginal/lvssh2/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/logmanoriginal/lvssh2.svg?style=for-the-badge
+[forks-url]: https://github.com/logmanoriginal/lvssh2/network/members
+[stars-shield]: https://img.shields.io/github/stars/logmanoriginal/lvssh2.svg?style=for-the-badge
+[stars-url]: https://github.com/logmanoriginal/lvssh2/stargazers
+[issues-shield]: https://img.shields.io/github/issues/logmanoriginal/lvssh2.svg?style=for-the-badge
+[issues-url]: https://github.com/logmanoriginal/lvssh2/issues
+[license-shield]: https://img.shields.io/github/license/logmanoriginal/lvssh2.svg?style=for-the-badge
+[license-url]: https://github.com/logmanoriginal/lvssh2/blob/master/LICENSE.txt
+[azure-build-status-url]: https://dev.azure.com/neuperger/Public/_build/latest?definitionId=21&branchName=main
+[azure-build-status-shield]: https://img.shields.io/azure-devops/build/neuperger/public/21/main?style=for-the-badge&logo=azure-pipelines&label=Azure%20Pipelines

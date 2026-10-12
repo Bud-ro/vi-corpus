@@ -1,0 +1,17 @@
+[package]
+name = "labview-test-library"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+labview-interop = { path = "../labview-interop", features = [
+    "link",
+    "ndarray",
+] }
+ndarray = "0.17"
+
+[lib]
+crate-type = ["cdylib"]

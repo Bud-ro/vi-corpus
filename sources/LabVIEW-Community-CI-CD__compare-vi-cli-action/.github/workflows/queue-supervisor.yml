@@ -1,0 +1,155 @@
+name: Queue Supervisor
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Apply enqueue actions (false = dry-run only)'
+        required: false
+        default: false
+        type: boolean
+      adaptive_cap:
+        description: 'Enable adaptive inflight cap tuning'
+        required: false
+        default: true
+        type: boolean
+      max_inflight:
+        description: 'Optional inflight cap override'
+        required: false
+        type: string
+      min_inflight:
+        description: 'Optional adaptive inflight floor override'
+        required: false
+        type: string
+      burst_mode:
+        description: 'Burst mode override (auto|on|off)'
+        required: false
+        type: string
+      burst_refill_cycles:
+        description: 'Burst refill cycles override'
+        required: false
+        type: string
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_run:
+    workflows:
+      - Validate
+      - Policy Guard (Upstream)
+    types:
+      - completed
+    branches:
+      - develop
+
+concurrency:
+  group: queue-supervisor-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  queue-supervisor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Prepare supervisor token
+        shell: pwsh
+        env:
+          INPUT_TOKEN_PRIMARY: ${{ secrets.GH_TOKEN }}
+          INPUT_TOKEN_SECONDARY: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_TOKEN_TERTIARY: ${{ github.token }}
+        run: |
+          pwsh -NoLogo -NoProfile -File tools/priority/Resolve-PolicyToken.ps1 -TokenFileName queue-supervisor-gh-token.txt
+
+      - name: Evaluate remediation SLO governor state
+        shell: pwsh
+        env:
+          QUEUE_GOVERNOR_STATE_PATH: ${{ vars.QUEUE_GOVERNOR_STATE_PATH || 'tests/results/_agent/slo/ops-governor-state.json' }}
+        run: |
+          $governorStatePath = $env:QUEUE_GOVERNOR_STATE_PATH
+          node tools/npm/run-script.mjs priority:remediation:slo -- --output tests/results/_agent/slo/remediation-slo-report.json --governor-state $governorStatePath
+
+      - name: Run queue supervisor
+        shell: pwsh
+        env:
+          QUEUE_AUTOPILOT_PAUSED: ${{ vars.QUEUE_AUTOPILOT_PAUSED || '0' }}
+          QUEUE_AUTOPILOT_MAX_INFLIGHT: ${{ vars.QUEUE_AUTOPILOT_MAX_INFLIGHT || '' }}
+          QUEUE_AUTOPILOT_MIN_INFLIGHT: ${{ vars.QUEUE_AUTOPILOT_MIN_INFLIGHT || '' }}
+          QUEUE_AUTOPILOT_ADAPTIVE_CAP: ${{ vars.QUEUE_AUTOPILOT_ADAPTIVE_CAP || '1' }}
+          QUEUE_BURST_MODE: ${{ vars.QUEUE_BURST_MODE || 'auto' }}
+          QUEUE_BURST_REFILL_CYCLES: ${{ vars.QUEUE_BURST_REFILL_CYCLES || '3' }}
+          QUEUE_GOVERNOR_STATE_PATH: ${{ vars.QUEUE_GOVERNOR_STATE_PATH || 'tests/results/_agent/slo/ops-governor-state.json' }}
+        run: |
+          $reportPath = 'tests/results/_agent/queue/queue-supervisor-report.json'
+          $governorStatePath = $env:QUEUE_GOVERNOR_STATE_PATH
+          $args = @(
+            'tools/npm/run-script.mjs',
+            'priority:queue:supervisor',
+            '--',
+            '--report',
+            $reportPath,
+            '--governor-state',
+            $governorStatePath
+          )
+
+          $eventName = '${{ github.event_name }}'
+          $apply = $false
+          if ($eventName -eq 'workflow_dispatch') {
+            $apply = ('${{ inputs.apply }}' -eq 'true')
+          } elseif ($eventName -eq 'workflow_run') {
+            $apply = $true
+          }
+
+          if ($apply) {
+            $args += '--apply'
+          } else {
+            $args += '--dry-run'
+          }
+
+          $maxInflightInput = '${{ inputs.max_inflight }}'
+          if (-not [string]::IsNullOrWhiteSpace($maxInflightInput)) {
+            $args += @('--max-inflight', $maxInflightInput.Trim())
+          }
+
+          $minInflightInput = '${{ inputs.min_inflight }}'
+          if (-not [string]::IsNullOrWhiteSpace($minInflightInput)) {
+            $args += @('--min-inflight', $minInflightInput.Trim())
+          }
+
+          $burstModeInput = '${{ inputs.burst_mode }}'
+          if (-not [string]::IsNullOrWhiteSpace($burstModeInput)) {
+            $args += @('--burst-mode', $burstModeInput.Trim().ToLowerInvariant())
+          }
+
+          $burstRefillCyclesInput = '${{ inputs.burst_refill_cycles }}'
+          if (-not [string]::IsNullOrWhiteSpace($burstRefillCyclesInput)) {
+            $args += @('--burst-refill-cycles', $burstRefillCyclesInput.Trim())
+          }
+
+          if ('${{ github.event_name }}' -eq 'workflow_dispatch' -and '${{ inputs.adaptive_cap }}' -ne 'true') {
+            $args += '--no-adaptive-cap'
+          }
+
+          node @args
+
+      - name: Upload queue supervisor artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: queue-supervisor-${{ github.run_id }}
+          path: |
+            tests/results/_agent/queue/*.json
+            tests/results/_agent/slo/ops-governor-state.json
+            tests/results/_agent/slo/remediation-slo-report.json
+          if-no-files-found: error

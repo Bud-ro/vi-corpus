@@ -1,0 +1,52 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+      - release/*
+
+resources:
+  repositories:
+    - repository: niveristand-custom-device-build-tools
+      type:       github
+      ref:        main
+      endpoint:   nivs-custom-devices
+      name:       ni/niveristand-custom-device-build-tools
+
+stages:
+  - template: azure-templates/stages.yml@niveristand-custom-device-build-tools
+    parameters:
+
+      lvVersionsToBuild:
+        - version: '2024'
+          bitness: '32bit'
+        - version: '2024'
+          bitness: '64bit'          
+        - version: '2025'
+          bitness: '32bit'
+        - version: '2025'
+          bitness: '64bit'
+        - version: '2026'
+          bitness: '32bit'
+        - version: '2026'
+          bitness: '64bit'
+        - version: '2027'
+          bitness: '32bit'
+        - version: '2027'
+          bitness: '64bit'
+
+      codegenVis:
+        - 'Source\Script FXP Read.vi'
+        - 'Source\Script FXP Write.vi'
+
+      buildSteps:
+        - projectLocation: 'Source\FXP LLB.lvproj'
+          buildOperation: 'ExecuteBuildSpecAllTargets'
+          target: 'All'
+          buildSpec: 'FXP LLB'
+
+      releaseVersion: '26.8.0'
+      buildOutputLocation: 'Built'
+      archiveLocation: '\\nirvana\Measurements\VeriStandAddons\scan_engine_fxp'
+      repoName: 'niveristand-scan-engine-fxp-libraries'
+      createNetCoreRepo: true

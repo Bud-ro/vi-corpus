@@ -1,0 +1,780 @@
+{
+ "repo": "AntoineChalons/lv-redis",
+ "url": "https://github.com/AntoineChalons/lv-redis",
+ "commit": "f547c13e7a81ef9a7b2a0b89b62c4c47941903d5",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "sources/lv-redis.lvproj",
+   "bytes": 11440,
+   "sha256": "3a457ef60824788ca21a7eadbf87487f637373f20d9e5128a26b5416cfa0d74e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Acquire Module Semaphore.vi",
+   "bytes": 25132,
+   "sha256": "5e60c64bbb3bf0be4210da4d3b06c095b9fc0a1c503870ab27de901c60b01883",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Addressed to This Module.vi",
+   "bytes": 15724,
+   "sha256": "1e69646917d9924f03e497a0334fc2cda37e51a50ace875d7a3988081a4167d0",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Broadcast Events--cluster.ctl",
+   "bytes": 17910,
+   "sha256": "94e508dc206ba22dbdbb0a2a0837d7b0839526e99269e6b2e31c7fd35c35689c",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Action--enum.ctl",
+   "bytes": 12153,
+   "sha256": "bfec7d695bd2b69e87e3bd27cb65ed9bc718bcb288ad5e73d4d681d3d95cc31c",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Add.vi",
+   "bytes": 15015,
+   "sha256": "0e5958d4daef1de669545d3b1cbe6462e10dcd524b5fa5b8e9c1befbedaee2a4",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Clone Registration AE.vi",
+   "bytes": 23569,
+   "sha256": "c73c4a47b7cf6517366f41c870e0ef7fcd5b1e5528a294ab2b4b1444ec3cbe7c",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Clone Registration.lvlib",
+   "bytes": 27316,
+   "sha256": "f0873fa9ba43237efc75fbf0469341e800d4da75219fb8e773229ec0a1961324",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Destroy Last Clone Instance Notifier.vi",
+   "bytes": 18104,
+   "sha256": "614959c91394f9a2daa8bb38e3240591ddf6ce4c741edbd25576e302c7334a62",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Init.vi",
+   "bytes": 18852,
+   "sha256": "5966798ab480e085886612026269af78c7cd346596e39caefde47f39a6b6cc26",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Is Empty.vi",
+   "bytes": 14732,
+   "sha256": "10be49b635586a652de7aa096ff397d356b10b52e83abfef2fc9e30097efa2ca",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Is First.vi",
+   "bytes": 14940,
+   "sha256": "9ff7cfdae2db02de828e7009e4f19055a79f6a6c9039a27d3198691dbe474ec6",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/List Instances.vi",
+   "bytes": 15806,
+   "sha256": "7eb0a545539c4979dca30b4f163413163f276d97c680bb3b7935ed3d5f89fa27",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Obtain Last Clone Instance Notifier.vi",
+   "bytes": 16175,
+   "sha256": "d3e6078493f6368cb5873d0954c81143bef855407ee03f85881d8552d51f02c0",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Remove.vi",
+   "bytes": 14898,
+   "sha256": "4bda1a9e69444a039028c48f282d6b6202bec6a02401feb133123be0c5739f06",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Send Last Clone Instance Notification.vi",
+   "bytes": 17033,
+   "sha256": "c5e00e7f50637f5141b4c70e9476705e85303153202ae7d3e1b1c2790a7f5d3f",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Test Clone Registration API.vi",
+   "bytes": 19699,
+   "sha256": "ee52c61ef303df7dfa3e75f0757dcc3efc24a6de54aaff3247a413201360c542",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Clone Registration/Wait on Last Clone Instance Notification.vi",
+   "bytes": 15448,
+   "sha256": "5aea5760ee2b4083afaf9b140ca5ae7ea3327fcf3c43de1ace4ee47d83a77bcd",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Close Module.vi",
+   "bytes": 37516,
+   "sha256": "fc614818f145e30aaef52faf97ffe18339efa4e3055c3981709e5f48b57b64de",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Destroy Broadcast Events.vi",
+   "bytes": 19852,
+   "sha256": "b9fa2016499f1d59fbd77dd7f2eeda59c236af288524c7a3fa2c47ac20e6041c",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Destroy Module Semaphore Reference.vi",
+   "bytes": 21990,
+   "sha256": "5e739b8cc20c317a422dd686d50fd920628d7b6af1e0615b7b9fe62198ecfea2",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Destroy Request Events.vi",
+   "bytes": 20442,
+   "sha256": "b97615cd4d536984384f0f82c6a638ec456e550c9295abcfca553bbff1fd526b",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Destroy Sync Refnums.vi",
+   "bytes": 21448,
+   "sha256": "5f3c8001398b7d1742bd48f869b9f9c420eb89497264949eab8a39b4d620df02",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Did Init Argument--cluster.ctl",
+   "bytes": 13235,
+   "sha256": "726b60a5155f70b2afe7f91e4042cdf97a26436848abb4bd10d2b551f7da165e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Error Reported Argument--cluster.ctl",
+   "bytes": 14333,
+   "sha256": "acf58198e84d0096bec248239b17e5415053b34e7dbb9b1d6738beaf7f3b4585",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Error Reported.vi",
+   "bytes": 21742,
+   "sha256": "addd41f8fb5dbc7db0e56848421c26c3d08ebe09c6d3d31cf54731be67bc3cf0",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Get Module Execution Status Argument--cluster.ctl",
+   "bytes": 15958,
+   "sha256": "91ca0ba2e2171aa409b5bc1b951caff82d920feb19644d97976d0c6b43a5016f",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Get Module Execution Status.vi",
+   "bytes": 21355,
+   "sha256": "f75b3dcbe93ea8fe6dbedb19dbbdd7ea43ce8638d90feb708e6905ea7f80fca4",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Get Module Running State.vi",
+   "bytes": 14624,
+   "sha256": "719603b0e273ae27080afdbf7720173729e2b70e44626e0fefff54a8437848cc",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Get Sync Refnums.vi",
+   "bytes": 21328,
+   "sha256": "0d7c501e130e4beea312c1c62d9baa9a64222fa4270aafdbe0dd1faf0083f7e3",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Handle Exit.vi",
+   "bytes": 21487,
+   "sha256": "7f9e611446f057b10ee9694250cf4ccc2d2c795555f9395f8eb4c7a982e17a80",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Hide Panel Argument--cluster.ctl",
+   "bytes": 12645,
+   "sha256": "0bebf496eed5b24bf743e9db04159cb9316969dec0f6cda55e072846dd2b108e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Hide Panel.vi",
+   "bytes": 17966,
+   "sha256": "d1690cb1b033611dde1253392693372d18bc9d6ba9790e194ce6223a184ed4fb",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Hide VI Panel.vi",
+   "bytes": 13797,
+   "sha256": "82abf74e7e1a33a7676e4ad7cdcf087bac9cd67877b40535b32dc386a3adbabb",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Init Module.vi",
+   "bytes": 38903,
+   "sha256": "1081dec9e3014efcf87e711f64a280d3a0cb34443f00d62ea20e7fe10edf0e4a",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Init Select Module Ring.vi",
+   "bytes": 14939,
+   "sha256": "cf28121b78f4dcf03f934ec1aee5d292bf406690bb8c5101121351914fc04dc8",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Is Safe to Destroy Refnums.vi",
+   "bytes": 18638,
+   "sha256": "d044784032fbd3f66bd45835d0324fcef223ab69bc197de7c9d3bd937e43f103",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Main.vi",
+   "bytes": 94804,
+   "sha256": "328fca91db87720d92d391b0467f83f54891658fd0f8bd20010334ce6b81c73f",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Master Reference Not Closed--error.vi",
+   "bytes": 18158,
+   "sha256": "32111756c9eb5ed10ab209d4cca08b81a06b5ebf9ce6279f8f65e133d90316ef",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Data--cluster.ctl",
+   "bytes": 14145,
+   "sha256": "450c09d355b703aca043bac72a8ec99e2a4ba42c0e206f90e464a8f049b3b3d4",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Did Init.vi",
+   "bytes": 17651,
+   "sha256": "1f25249aa35840ad76bb9d2887f2d211793c7bd136431a7b973eccca98f41a58",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Did Stop.vi",
+   "bytes": 18147,
+   "sha256": "b078768b39cabadb53a9e1a9e82e474409268131a02af4f2b14916f16c131175",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Name--constant.vi",
+   "bytes": 13305,
+   "sha256": "7a8a98db6bb406395832ed9f7aba298bceb93a0c0f6681ad8e20c9732521a903",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Not Running--error.vi",
+   "bytes": 17829,
+   "sha256": "427d838e2c77ceaf31e24981d48ccf03c5267ef64b5c1beadc528d99824ec683",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Not Stopped--error.vi",
+   "bytes": 17965,
+   "sha256": "d82a2691d3042428daea8a23a1f9e02eaf835f7492acbae76d9614b176904cbd",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Not Synced--error.vi",
+   "bytes": 17864,
+   "sha256": "d3fc13a0c4176267476219317e38694c2d9700c5398b4cbe5848e1e34cd482cd",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Running State--enum.ctl",
+   "bytes": 12179,
+   "sha256": "d78223d7952799ed88ffd2680bbb7b4922aee7a0824dfbbd14676a52a2a1bf58",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Running as Cloneable--error.vi",
+   "bytes": 18078,
+   "sha256": "fd83cfe969fc12f49a5ad0966f53f7c24b05badaad2dcb4a226b1f14d81caa82",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Running as Singleton--error.vi",
+   "bytes": 18070,
+   "sha256": "1867a831d0541ba00ea2e6e2e698123970c32bc9b7029b5d6ceb1545e5098950",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Module Timeout--constant.vi",
+   "bytes": 12028,
+   "sha256": "ac10c7ae7eca2246bc01dc01c83ae2733057ef6c2b46e6d2c37a6640c992a9c1",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Null Broadcast Events--constant.vi",
+   "bytes": 21079,
+   "sha256": "23284fe44d8790de8e8d1d8cfd437acfa266a516ef294b6505c3d0a7e2831f3d",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Obtain Broadcast Events for Registration.vi",
+   "bytes": 20360,
+   "sha256": "219e2519e4081f7bac0773949e4cbd9ace7601ea13f61419b250e238de897fad",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Obtain Broadcast Events.vi",
+   "bytes": 31083,
+   "sha256": "67facb03ec7e54367afca917a772262b115f59328c015f4c0648643b3a48a38d",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Obtain Module Semaphore.vi",
+   "bytes": 22427,
+   "sha256": "72fd6f0d12d1587743b08b0d7df8136f6bef5ebc8c43de3e1134d5ae3d995174",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Obtain Request Events.vi",
+   "bytes": 45429,
+   "sha256": "0dfeab2a492734762932d36b76d5c5671b8615ebe1cb9b9a3d409aaa3a6aa7d7",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Open VI Panel.vi",
+   "bytes": 13665,
+   "sha256": "08f58f626365f72a7aff7522bd49d02d1772b001770b679faeebf79e5534e618",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Release Module Semaphore.vi",
+   "bytes": 25096,
+   "sha256": "9312959fba722af3e7a1a2dfd6fef0c61d5581b9f8ebcaddfda56fd2cecd5d9e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Request Events--cluster.ctl",
+   "bytes": 25468,
+   "sha256": "bc3a4ea9379e5b1e136a882970c7cf42d66ea69acecb831a47a15cd44617f049",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Request and Wait for Reply Timeout--error.vi",
+   "bytes": 17177,
+   "sha256": "e67ce75d34318f771f225659c9ec5768506e7bd408536419984d04c048869304",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Show Diagram Argument--cluster.ctl",
+   "bytes": 15899,
+   "sha256": "b04b070ccc94d149bdbf82567065f761a67f638a43819b06401ccb8311dd5133",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Show Diagram.vi",
+   "bytes": 21432,
+   "sha256": "5e4d0f65b86e8123deccbbd0504dc00ae5db2134c96ae906fa0f497b11242fdf",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Show Panel Argument--cluster.ctl",
+   "bytes": 12649,
+   "sha256": "60ba7041732db5c109b0128d54491e76d122fd538efc51346fbeb830e6d89006",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Show Panel.vi",
+   "bytes": 17898,
+   "sha256": "18c415a2fa73e864335615afc45a5e06f56520dae467dbb60f4679d22bdd70a5",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Start Module.vi",
+   "bytes": 45444,
+   "sha256": "1695ebc420a1d3174e4fa897baf60ce3ae39476da8f4e7ed80d7178c64b88f07",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Status Updated Argument--cluster.ctl",
+   "bytes": 12973,
+   "sha256": "4883dd212476a3f40bbca09ad7fd0cf7625948b7693786fd0c1122b1d0bdbac5",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Status Updated.vi",
+   "bytes": 18046,
+   "sha256": "5779afc31160367dd3de360dc37b71ad69f2adb90f76021c498e66e665cf00ef",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Stop Argument--cluster.ctl",
+   "bytes": 13375,
+   "sha256": "765704703d98218a89f16c86a2ff363926a18573a392a1bbac7dfdea93f763fe",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Stop Module.vi",
+   "bytes": 50659,
+   "sha256": "40c964a37f4d3ad853248b07f452d37f11fb2ab06b2adf9c2a1cc791e6d6cb5e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Synchronize Caller Events.vi",
+   "bytes": 18141,
+   "sha256": "996bd78f2b22e8b85afb3a0146f73fc05891044da1c1f47cf7db15bae822d637",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Synchronize Module Events.vi",
+   "bytes": 15961,
+   "sha256": "c48b25f977d73f1f71d81bde4b9d16650eb4a13ff34364044d5be0b93623aa33",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Test reporting-device API.vi",
+   "bytes": 58889,
+   "sha256": "19f450ad412d7bc223291e3f6fe734aa79172da30b00b1a9c2cc9c8b3d3106d7",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Update Module Execution Status.vi",
+   "bytes": 17330,
+   "sha256": "a0bcc0471acbc48cf89f7dda0a6930ac68058fd263fb6027e5710ee35c10a021",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Update Select Module Ring.vi",
+   "bytes": 21021,
+   "sha256": "ad426fda2971148129db3309eb77e928ee14e446017b2b7776c80aa41a6219bd",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Action--enum.ctl",
+   "bytes": 12145,
+   "sha256": "f6110166ad8c3e8e99ebe5236ce47ad08ad10af9d654280b3c958871041e12c6",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Close.vi",
+   "bytes": 13685,
+   "sha256": "0b9638bc45aab55054e339e22a854d0551e3c7a492037397dd492354214f5952",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Create.vi",
+   "bytes": 15034,
+   "sha256": "536534dcaaf1aeb001ec047b151d70221f8de8b254d8c63c3d60b10d23f4350d",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Get or Create Master Reference.vi",
+   "bytes": 16290,
+   "sha256": "f7fad093e704685acde0c805c85cc3d2cf8c0b4b2d614dbab570da2ebacde557",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Get.vi",
+   "bytes": 14639,
+   "sha256": "aa4c97caabc72ae179d6d155ff6bc90343506849964efbe01f33e8707b1dc223",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/Main VI Type--strict_vi_ref.ctl",
+   "bytes": 12740,
+   "sha256": "171415b280bbf5c215096c7860a2b915528647deb92a364305e7eab19e026e17",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/VI Reference AE.vi",
+   "bytes": 17971,
+   "sha256": "a3828661d12f275172ae89d70e6decee29b5fe1dfb18c7b7704095313221adb1",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/VI Reference Management/VI Reference Management.lvlib",
+   "bytes": 14480,
+   "sha256": "f912d983652f38f54707736c5631130e92ff530742cbacaec2fd7e5ed21a4844",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Wait on Event Sync.vi",
+   "bytes": 28930,
+   "sha256": "3fd92c9a668cfe9361697fa17d670f3324249ef94441d42729b530a915cfef87",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Wait on Module Sync.vi",
+   "bytes": 28891,
+   "sha256": "baf8df3114e4e7cb1d4e260ce1a00ddede8a45574bdb27c2527685d9d8aa181d",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/Wait on Stop Sync.vi",
+   "bytes": 41261,
+   "sha256": "95d74d374fa24d6e2aedc059ce3d3c5596b12df19661c0c1b781498ab9b51586",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/clear-private-data.vi",
+   "bytes": 17718,
+   "sha256": "c3282c506fedbc2e16c36bea82ed1750926d3d842b43ef797f039d35b744360e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/connect (Reply Payload)--cluster.ctl",
+   "bytes": 17669,
+   "sha256": "540dc1b78f058ac920843178a8ac69c58e165b028e4f5d98e261666aeb79385c",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/connect Argument--cluster.ctl",
+   "bytes": 19406,
+   "sha256": "abc2d8a94fac2911edffcd177083d053b31543479e73143f61e88f0425af9d7b",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/connect.vi",
+   "bytes": 29591,
+   "sha256": "ed34c7b94839525032e4ad824a5f7ddecfa46796e2d0f1c7124478088c7c9f26",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/dvr-redis-get.vi",
+   "bytes": 15169,
+   "sha256": "038c5b559db8acf1257d1dc9524d5bbd24e8de7ca8ff11e7e74d5fa3414ce5a4",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/init-private-data.vi",
+   "bytes": 19993,
+   "sha256": "614db1ef56751b82a145029fe9c098d0c820798babc7a70101e064a648584c7e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/publish-measurements.vi",
+   "bytes": 22704,
+   "sha256": "2f219f048f0f47a45d52e569e97f669f952635703201daa96c8cdbe8eeb10291",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/reporting-device.lvlib",
+   "bytes": 34873,
+   "sha256": "d2091f05de7a5efd0399e1f18da35cbd3a26fddbc8cb7f694a0d97e5e47ff62e",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/set-reporting-device (Reply Payload)--cluster.ctl",
+   "bytes": 17398,
+   "sha256": "0bcfc9f81665c61a40f16a121befd77a1767b1d2ebc5787f798d64ffac2fdc93",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/set-reporting-device Argument--cluster.ctl",
+   "bytes": 20559,
+   "sha256": "c46fd4bc52db97ddae5282fe53c055b9315d6f71b34ba584684a395d70baa541",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/set-reporting-device.vi",
+   "bytes": 31812,
+   "sha256": "369c4d15db89c3ca67e6ffa65797b40c769d15c2a47ffecd595249d925ac2989",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/start-publishing (Reply Payload)--cluster.ctl",
+   "bytes": 17706,
+   "sha256": "a10af32f2fb4d43f4fc19de8830c50a40709a09f46ff9ffe513cea11612bcb37",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/start-publishing Argument--cluster.ctl",
+   "bytes": 18931,
+   "sha256": "0db7cf6f6b23dae9de9eff0d94149752177ddd4deb345b726116567d484ec308",
+   "via": "extension"
+  },
+  {
+   "path": "sources/modules/reporting-device/start-publishing.vi",
+   "bytes": 29212,
+   "sha256": "c928d077b4cf6537ef5afe0a9ccb52028395463fe15c7b9ae3021aaeb706eff6",
+   "via": "extension"
+  },
+  {
+   "path": "sources/sandbox/consumer.vi",
+   "bytes": 769840,
+   "sha256": "c7298d229c608f2b6d0e007c836faa72dc2b987ff6379f937b89679a42fae9ac",
+   "via": "extension"
+  },
+  {
+   "path": "sources/sandbox/launcher-a.vi",
+   "bytes": 18538,
+   "sha256": "6f986b0cfe9839ef738073d1ad462d7bcd0d698403a4d8964bc660a1f1e100da",
+   "via": "extension"
+  },
+  {
+   "path": "sources/sandbox/launcher-b.vi",
+   "bytes": 17578,
+   "sha256": "3c1f653437a9f4dad8af331cf7d986db73b28791172bebb53f3b91ba4911b4b7",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 150,
+   "sha256": "8f7268d22d6bf29ff0f07a2cd256d4de1c13fae0e746b5f8f6527e55fef3b294",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1072,
+   "sha256": "e08539cfd18f9a4e9b5904c453d97199dc0d1020ffed43d0ce8e4b5be76e11eb",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 318,
+   "sha256": "7fc168f196afd354ab2cb337e3ab8e704dbae1a27d82d1ba596ce419687eafde",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/0-about-me.md",
+   "bytes": 282,
+   "sha256": "ae9e12a3e5b178bcda6a0055e151c63ecd33466e50830b2f4b8d0542bb0f2078",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/1-about-this-presentation.md",
+   "bytes": 1022,
+   "sha256": "5a08bb76e8507e4ebc29853fdcbc5307ee0705457abac9f5c9fe72770cdb62af",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/2-disclaimer.md",
+   "bytes": 331,
+   "sha256": "f2e22c942dfc3da525dfd0c57d523dca6b8767410610f34a7cd6f3e2c38f0892",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/3-how.md",
+   "bytes": 391,
+   "sha256": "4557408eb152f3025f6e9d1807283703ef94c543c04970defbd5e5acdf85bce9",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/4-why.md",
+   "bytes": 1176,
+   "sha256": "14723c6ebdad6f1e22bacb02d581f437d11277e0085d8fa8ab0181d4aab4e799",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/5-demo.md",
+   "bytes": 205,
+   "sha256": "dcbd08fa9fe8ef978b6da26e1574c9c7950e44dfffc74cdaa033c87908000300",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/A2-useful-links.md",
+   "bytes": 219,
+   "sha256": "bb0ba2bb601e65606ae3a6ac0ec8741af4f9965057d94b360e9f594b98196a5b",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/doc/deployment-before.puml",
+   "bytes": 840,
+   "sha256": "a126d12ce45a30478e9bdd9efab7ee98b9f788c7c64729005bcc303e1aefa087",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/doc/deployment.puml",
+   "bytes": 1175,
+   "sha256": "d9d8745f6f5d5a2b0e27effbcd4d26263320f35dac5313b8f381b8da90284e0f",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/img/before-redis.png",
+   "bytes": 25069,
+   "sha256": "ab3b9893fa98a501bf6afd28bbb5db85215dd5d2659eea3b42a15d4a430c5d35",
+   "via": "tree"
+  },
+  {
+   "path": "presentation/img/with-redis.png",
+   "bytes": 29613,
+   "sha256": "35fa8b7ce10053c84ef9bc88177f358cb5bd2550e3a18b53704571360958b228",
+   "via": "tree"
+  },
+  {
+   "path": "sources/config/reporting-device.json",
+   "bytes": 518,
+   "sha256": "59378589865128b50a4a98ae262abc04c9abf2f296b1873d9bc59a9ed8904d05",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\glang.chm",
+  "<helpdir>\\lvexpress.chm",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Close_Redis.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Connection\\PING.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Connection\\QUIT.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Connection\\Send-command.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Hashes\\HMGET.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Hashes\\HSET.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Hashes\\SCAN.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Keys\\EXPIRE.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Lists\\LPUSH.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Open_Redis.vi",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Redis.lvclass",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\Redis.lvclass\\Redis.ctl",
+  "<userlib>\\Zaphiro\\GTools\\Redis\\Sources\\Redis\\subVIs\\LL_collect-response.vi",
+  "<userlib>\\Zaphiro\\GTools\\Time\\public\\convert lv time to unix-scalar__ZGTools.vi",
+  "<userlib>\\Zaphiro\\GTools\\Time\\public\\convert time--poly__ZGTools.vi",
+  "<userlib>\\Zaphiro\\GTools\\Time\\public\\convert unix time to lv-scalar__ZGTools.vi",
+  "<userlib>\\Zaphiro\\GTools\\Time\\time__ZGTools.lvlib",
+  "<vilib>\\AdvancedString\\1D String Array to Delimited String.vi",
+  "<vilib>\\Array\\Helpers\\Sort 1D Array Core.vim",
+  "<vilib>\\Array\\Sort 1D Array.vim",
+  "<vilib>\\Comparison\\Less.vim",
+  "<vilib>\\Comparison\\Less\\Less Comparable\\Less Comparable.lvclass",
+  "<vilib>\\Comparison\\Less\\Less Comparable\\Less Than.vi",
+  "<vilib>\\Comparison\\Less\\Less Functor\\Less Functor.lvclass",
+  "<vilib>\\Comparison\\Less\\Less Functor\\Less Than.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Cloneable Module Admin.lvclass",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Cloneable Module Admin.lvclass\\Delacor_lib_QMH_Cloneable Module Admin.ctl",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Get Close Master Reference.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Get First.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Get Module ID.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Set Close Master Reference.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Set First.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Cloneable Module Admin_class\\Delacor_lib_QMH_Set Module ID.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Message Queue_class\\Delacor_lib_QMH_Create Message Queue.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Message Queue_class\\Delacor_lib_QMH_DQMH Error Tags--constant.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Message Queue_class\\Delacor_lib_QMH_Enqueue Message (Single).vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Message Queue_class\\Delacor_lib_QMH_Enqueue Message (poly).vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Message Queue_class\\Delacor_lib_QMH_Message Queue.lvclass",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Module Admin_class\\Delacor_lib_QMH_Get External Launch.vi",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Module Admin_class\\Delacor_lib_QMH_Module Admin.lvclass\\Delacor_lib_QMH_Module Admin.ctl",
+  "<vilib>\\Delacor\\Delacor QMH\\Libraries\\Module Admin_class\\Delacor_lib_QMH_Set External Launch.vi",
+  "<vilib>\\Utility\\High Resolution Relative Seconds.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\DialogType.ctl",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Search and Replace Pattern.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVPointTypeDef.ctl",
+  "<vilib>\\Utility\\rendezvs.llb\\Create Rendezvous.vi",
+  "<vilib>\\Utility\\rendezvs.llb\\Destroy Rendezvous.vi",
+  "<vilib>\\Utility\\rendezvs.llb\\Rendezvous RefNum",
+  "<vilib>\\Utility\\rendezvs.llb\\Wait at Rendezvous.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Acquire Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Obtain Semaphore Reference.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Release Semaphore Reference.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Release Semaphore.vi",
+  "<vilib>\\Utility\\semaphor.llb\\Semaphore RefNum",
+  "<vilib>\\VIPM\\Collection_Extensions\\Set\\Convert Set to Array__vipm_lv_collection_ext.vim",
+  "<vilib>\\Wovalab\\Utilities\\Helper Loop Periodic Timing\\Get Timeout.vi",
+  "<vilib>\\Wovalab\\Utilities\\Helper Loop Periodic Timing\\Helper Loop Periodic Timing.lvclass",
+  "<vilib>\\Wovalab\\Utilities\\Helper Loop Periodic Timing\\Init Helper Loop Info-v3.vi",
+  "<vilib>\\Wovalab\\Utilities\\Helper Loop Periodic Timing\\Set Helper Loop Period.vi",
+  "<vilib>\\Wovalab\\Utilities\\Helper Loop Periodic Timing\\Update Last Execution Time-v2.vi",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\event_ctls.llb\\usereventprio.ctl",
+  "<vilib>\\express\\express execution control\\ElapsedTimeBlock.llb\\Ex_Inst_Elapsed Time.vi",
+  "<vilib>\\express\\express execution control\\ElapsedTimeBlock.llb\\subElapsedTime.vi",
+  "<vilib>\\express\\express execution control\\ElapsedTimeConfig.llb\\Configure Elapsed Time.vi",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\vi.lib\\Delacor\\Delacor QMH\\Libraries\\Module Admin_class\\Delacor_lib_QMH_Module Admin.lvclass"
+ ]
+}

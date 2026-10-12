@@ -1,0 +1,631 @@
+﻿using System.Xml.Linq;
+using LabVIEWMcp.Infra;
+using LabVIEWMcp.Tools;
+using Xunit;
+
+namespace LabVIEWMcp.Tests.Tools;
+
+/// <summary>
+/// The CLASS round-trip generator, offline: the sockets it authors and the test diagram it wires.
+/// No LabVIEW involved.
+///
+/// This file carries more weight than most, because the route it describes cannot be checked by
+/// running the tool in the session that writes it - a build takes the lvai_* tools away until the
+/// client restarts. Everything here is therefore a property that must hold by construction:
+/// the socket panes must be NI's accessor layout or the swap breaks the wires, the seed constant
+/// must be a path with the label the swap searches for, and the written value must be the SAME
+/// constant the assertion compares against.
+/// </summary>
+public sealed class GenerateClassTestTests
+{
+    private static TestTools.ClassCase Case(int slot, string field, string type, string value) =>
+        new(slot, field, type, value, $"{field} round trip",
+            $@"C:\cls\Write {field}.vi", $@"C:\cls\Read {field}.vi", @"C:\cls\Netzteil.lvclass");
+
+    private static XElement Author(params TestTools.ClassCase[] cases) =>
+        XElement.Parse(TestTools.ClassTestAixml(@"C:\cls\Test Netzteil.vi", "Netzteil", cases));
+
+    // ------------------------------------------------------------------ the direct route, 2026-09-25
+
+    private const string Err = "cluster{bool.status,int32.code,string.source}";
+
+    /// <summary>An accessor pane in the shape LabVIEW's own export gives NI's wizard accessors.</summary>
+    private static ViTerminals.Result Accessor(string name, bool write, string data, string type)
+    {
+        var inputs = new List<string>
+        {
+            $"<Control _name=\"error in (no error)\" conIdx=\"8\" connection=\"recommended\" type=\"{Err}\" outputs=\"value:1.v\" uid=\"1\" uid_parent=\"root\" value=\"[false,0,]\"/>",
+            "<Control _name=\"Netzteil in\" conIdx=\"11\" connection=\"dynamic\" type=\"ref{UDClassInst}\" outputs=\"value:2.v\" uid=\"2\" uid_parent=\"root\" value=\"\"/>",
+        };
+        var outputs = new List<string>
+        {
+            $"<Indicator _name=\"error out\" conIdx=\"0\" connection=\"recommended\" type=\"{Err}\" inputs=\"value:1.v\" uid=\"3\" uid_parent=\"root\" value=\"[false,0,]\"/>",
+            "<Indicator _name=\"Netzteil out\" conIdx=\"3\" connection=\"dynamic\" type=\"ref{UDClassInst}\" inputs=\"value:2.v\" uid=\"4\" uid_parent=\"root\" value=\"\"/>",
+        };
+        if (write)
+            inputs.Add($"<Control _name=\"{data}\" conIdx=\"10\" connection=\"required\" type=\"{type}\" outputs=\"value:5.v\" uid=\"5\" uid_parent=\"root\" value=\"\"/>");
+        else
+            outputs.Add($"<Indicator _name=\"{data}\" conIdx=\"2\" connection=\"recommended\" type=\"{type}\" inputs=\"value:5.v\" uid=\"5\" uid_parent=\"root\" value=\"\"/>");
+        return ViTerminals.Parse(
+            $"<VI _name=\"Netzteil.lvclass:{name}\" description=\"\">{string.Concat(inputs)}{string.Concat(outputs)}</VI>")!;
+    }
+
+    [Fact]
+    public void AWizardAccessorPairIsReadByTypeNotByName()
+    {
+        // A typedef-bound field: the accessors are named after the FIELD, the data terminal after
+        // the TYPEDEF - measured 2026-09-25 on `Write Profile.vi` / terminal `IMC Setpoint`.
+        var (call, why) = TestTools.DirectAccessorCall.From(
+            Accessor("Write Profile.vi", write: true, "IMC Setpoint", "cluster{double.Setpoint,double.Tolerance}"),
+            Accessor("Read Profile.vi", write: false, "IMC Setpoint", "cluster{double.Setpoint,double.Tolerance}"),
+            @"Netzteil.lvclass\3AWrite Profile.vi", @"Netzteil.lvclass\3ARead Profile.vi");
+
+        Assert.Null(why);
+        Assert.Equal("Netzteil in", call!.WriteClassIn);
+        Assert.Equal("Netzteil out", call.WriteClassOut);
+        Assert.Equal("IMC Setpoint", call.WriteData);
+        Assert.Equal("Netzteil in", call.ReadClassIn);
+        Assert.Equal("IMC Setpoint", call.ReadData);
+    }
+
+    [Fact]
+    public void AVIWithoutClassTerminalsIsNotAnAccessorPairAndSaysSo()
+    {
+        var plain = ViTerminals.Parse(
+            $"<VI _name=\"Plain.vi\" description=\"\"><Control _name=\"x\" conIdx=\"0\" connection=\"required\" type=\"double\" outputs=\"value:1.v\" uid=\"1\" uid_parent=\"root\" value=\"0\"/></VI>")!;
+
+        var (call, why) = TestTools.DirectAccessorCall.From(plain, plain, "a", "b");
+
+        Assert.Null(call);
+        Assert.Contains("class input and output", why);
+    }
+
+    [Fact]
+    public void AClassInALibraryIsCalledByItsLibraryQualifiedName()
+    {
+        var folder = Path.Combine(Path.GetTempPath(), "lvaimcp-tests", "qual-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(folder);
+        try
+        {
+            var owned = Path.Combine(folder, "Ofen.lvclass");
+            File.WriteAllText(owned,
+                "<?xml version='1.0' encoding='UTF-8'?><Library LVVersion=\"26008000\">" +
+                "<Property Name=\"NI.Lib.ContainingLib\" Type=\"Str\">Ofen.lvlib</Property></Library>");
+            var loose = Path.Combine(folder, "Netzteil.lvclass");
+            File.WriteAllText(loose, "<?xml version='1.0' encoding='UTF-8'?><Library LVVersion=\"26008000\"/>");
+
+            Assert.Equal(@"Ofen.lvlib\3AOfen.lvclass\3AWrite Profil.vi",
+                TestTools.DirectAccessorCall.Target(owned, Path.Combine(folder, "Write Profil.vi")));
+            Assert.Equal(@"Netzteil.lvclass\3ARead Hersteller.vi",
+                TestTools.DirectAccessorCall.Target(loose, Path.Combine(folder, "Read Hersteller.vi")));
+        }
+        finally { Directory.Delete(folder, recursive: true); }
+    }
+
+    [Fact]
+    public void TheDirectDiagramCallsTheRealAccessorsWithTheirOwnTerminalNamesAndKeepsThePathSeed()
+    {
+        var cases = new[] { Case(1, "Hersteller", "string", "Fluke") };
+        var shapes = new[]
+        {
+            new TestTools.DirectAccessorCall(@"Netzteil.lvclass\3AWrite Hersteller.vi", "Netzteil in",
+                "Hersteller", "Netzteil out", @"Netzteil.lvclass\3ARead Hersteller.vi", "Netzteil in",
+                "Hersteller"),
+        };
+        var root = XElement.Parse(TestTools.ClassTestAixml(@"C:\cls\Test Netzteil.vi", "Netzteil",
+                                                          cases, shapes));
+
+        var write = root.Elements("Call").Single(c =>
+            (string?)c.Attribute("target") == @"Netzteil.lvclass\3AWrite Hersteller.vi");
+        var read = root.Elements("Call").Single(c =>
+            (string?)c.Attribute("target") == @"Netzteil.lvclass\3ARead Hersteller.vi");
+        Assert.StartsWith("Netzteil in:", (string?)write.Attribute("inputs"));
+        Assert.Contains(",Hersteller:", (string?)write.Attribute("inputs"));
+        Assert.StartsWith("Netzteil in:", (string?)read.Attribute("inputs"));
+        Assert.StartsWith("Hersteller:", (string?)read.Attribute("outputs"));
+        Assert.DoesNotContain(root.Elements("Call"), c => ((string?)c.Attribute("target"))!.StartsWith("LVMCP Cls"));
+
+        // the seed is still the PATH constant the Replace turns into the class
+        var seed = root.Elements("Constant").Single(c => (string?)c.Attribute("_name") == "object 1");
+        Assert.Equal("path", (string?)seed.Attribute("type"));
+    }
+
+    // ------------------------------------------------------------------ the sockets
+
+    [Fact]
+    public void WriteSocket_PutsTheClassTerminalsOnNIsAccessorSlots()
+    {
+        var xml = XElement.Parse(TestTools.SocketAixml("LVMCP ClsW1.vi", "string", write: true));
+
+        var slots = xml.Elements()
+            .Where(e => e.Attribute("conIdx") is not null)
+            .ToDictionary(e => (string)e.Attribute("_name")!, e => (string)e.Attribute("conIdx")!);
+
+        // NI's wizard puts the class in at 11, the data in at 10 and the class out at 3. A socket
+        // that disagrees moves the wires onto other terminals when Replace swaps the node in.
+        Assert.Equal("11", slots["obj in"]);
+        Assert.Equal("10", slots["value"]);
+        Assert.Equal("3", slots["obj out"]);
+    }
+
+    [Fact]
+    public void ReadSocket_PutsTheDataOutputAtTwo_NotAtTen()
+    {
+        var xml = XElement.Parse(TestTools.SocketAixml("LVMCP ClsR1.vi", "double", write: false));
+
+        var slots = xml.Elements()
+            .Where(e => e.Attribute("conIdx") is not null)
+            .ToDictionary(e => (string)e.Attribute("_name")!, e => (string)e.Attribute("conIdx")!);
+
+        Assert.Equal("11", slots["obj in"]);
+        Assert.Equal("3", slots["obj out"]);
+        Assert.Equal("2", slots["value"]);
+    }
+
+    [Fact]
+    public void ClassTerminalsAreAlwaysPaths_BecauseAixmlRefusesTheClass()
+    {
+        foreach (var write in new[] { true, false })
+        {
+            var xml = XElement.Parse(TestTools.SocketAixml("LVMCP Cls1.vi", "int32", write));
+            foreach (var name in new[] { "obj in", "obj out" })
+                Assert.Equal("path", (string?)xml.Elements()
+                    .First(e => (string?)e.Attribute("_name") == name).Attribute("type"));
+        }
+    }
+
+    [Fact]
+    public void TheDataTerminalCarriesTheFieldsType_NotAVariant()
+    {
+        // A Variant socket would look interchangeable and is not: the constant is wired while the
+        // terminal is still the socket's type, and after Replace a Variant meeting a `string`
+        // terminal is a type conflict LabVIEW will not coerce away.
+        var xml = XElement.Parse(TestTools.SocketAixml("LVMCP ClsW2.vi", "double", write: true));
+        Assert.Equal("double", (string?)xml.Elements()
+            .First(e => (string?)e.Attribute("_name") == "value").Attribute("type"));
+    }
+
+    // ------------------------------------------------------------------ what AIXML demands
+
+    // Both of these pin a defect that shipped and was caught only by LabVIEW, in a batch where the
+    // three string-typed sockets generated and the two double-typed ones did not.
+
+    [Theory]
+    [InlineData("string", true)]
+    [InlineData("double", true)]
+    [InlineData("int32", false)]
+    [InlineData("bool", false)]
+    public void EveryTerminalDeclaresItsWire(string type, bool write)
+    {
+        var xml = XElement.Parse(TestTools.SocketAixml("LVMCP Cls9.vi", type, write));
+
+        foreach (var element in xml.Elements())
+        {
+            // `outputs` is REQUIRED on a Control and a Constant even when nothing consumes the net.
+            // Leaving it off answers `Error -2628 ... missing required attribute 'outputs'` with a
+            // line and column, which reads like malformed XML and is not.
+            if (element.Name == "Control" || element.Name == "Constant")
+                Assert.True(element.Attribute("outputs") is not null,
+                    $"{element.Name} '{(string?)element.Attribute("_name")}' has no outputs");
+            if (element.Name == "Indicator")
+                Assert.True(element.Attribute("inputs") is not null,
+                    $"Indicator '{(string?)element.Attribute("_name")}' has no inputs");
+        }
+    }
+
+    [Theory]
+    [InlineData("double")]
+    [InlineData("int32")]
+    [InlineData("uint16")]
+    public void ANumericTerminalNeverCarriesAnEmptyValue(string type)
+    {
+        // `type="double" value=""` is refused - Error 53, "Unrecognized or unsupported attribute
+        // set in Constant with UID 11", which names the object and not the attribute.
+        foreach (var write in new[] { true, false })
+        {
+            var xml = XElement.Parse(TestTools.SocketAixml("LVMCP Cls9.vi", type, write));
+            foreach (var element in xml.Elements()
+                         .Where(e => (string?)e.Attribute("type") == type))
+                Assert.False(string.IsNullOrEmpty((string?)element.Attribute("value")),
+                    $"{element.Name} of type {type} has an empty value");
+        }
+    }
+
+    [Fact]
+    public void DefaultForKnowsWhichTypesTakeAnEmptyString()
+    {
+        Assert.Equal("", TestTools.DefaultFor("string"));
+        Assert.Equal("", TestTools.DefaultFor("path"));
+        Assert.Equal("false", TestTools.DefaultFor("bool"));
+        Assert.Equal("0", TestTools.DefaultFor("double"));
+        Assert.Equal("0", TestTools.DefaultFor("int32"));
+        Assert.Equal("0", TestTools.DefaultFor("uint64"));
+    }
+
+    /// <summary>
+    /// A TIMESTAMP IS EMPTY, NOT ZERO, and this returned "0" until 2026-09-14 while
+    /// `LvClass.Literals` said "" - two implementations of one rule, disagreeing. Settled by
+    /// counting LabVIEW's own cached exports: 701 files, 40 elements carrying `type="timestamp"`,
+    /// every one of them `value=""` and not one "0". `LvClass` was right.
+    /// </summary>
+    [Fact]
+    public void ATimestampIsEmptyRatherThanZero()
+    {
+        Assert.Equal("", TestTools.DefaultFor("timestamp"));
+        Assert.Equal(LvClass.LiteralFor("timestamp"), TestTools.DefaultFor("timestamp"));
+    }
+
+    /// <summary>
+    /// THE GUARD AGAINST THE WHOLE CLASS OF DRIFT, not just the one row that was wrong. Two tables
+    /// carry the literal for a scalar type - LvClass.Literals for a class's private data, and
+    /// TestTools.DefaultFor for everything generated against it - and nothing compared them until
+    /// `timestamp` had been "0" on one side and "" on the other for long enough to ship.
+    /// A type LvClass cannot make a field of is not this test's business; a type it CAN must mean
+    /// the same thing on both sides.
+    /// </summary>
+    [Fact]
+    public void TheTwoLiteralTablesAgreeOnEveryTypeAClassCanHold()
+    {
+        var disagree = LvClass.KnownTypes
+            .Where(t => LvClass.LiteralFor(t) != TestTools.DefaultFor(t))
+            .Select(t => $"{t}: LvClass \"{LvClass.LiteralFor(t)}\" vs TestTools \"{TestTools.DefaultFor(t)}\"")
+            .ToList();
+
+        Assert.Empty(disagree);
+    }
+
+    // ---------------------------------------------------------- compound fields, the 2026-09-02 bug
+
+    // DefaultFor used to end `_ => "0"`, so EVERY non-scalar field authored `value="0"` against a
+    // compound type and ValidateAIXML refused the socket with Error 53. A class whose first field
+    // is the standard error cluster could not be tested by this tool at all - which is what sent an
+    // agent building two suites by hand for ~240 s of wall clock against 24 s of LabVIEW time.
+
+    [Fact]
+    public void AnErrorClusterGetsTheLiteralNIsOwnExportsCarry()
+    {
+        Assert.Equal("[false,0,]",
+            TestTools.DefaultFor("cluster{bool.status,int32.code,string.source}"));
+    }
+
+    [Theory]
+    [InlineData("array{double}")]
+    [InlineData("array{string}")]
+    [InlineData("array.2{double.Numeric}")]      // a 2D array is array.N{}, never array{array{}}
+    public void AnArrayIsEmptyAtEveryRank(string type) =>
+        Assert.Equal("[]", TestTools.DefaultFor(type));
+
+    [Theory]
+    [InlineData("ref{Queue}{string}")]
+    [InlineData("ref{UDClassInst}")]
+    [InlineData("tag{14}")]                      // an IO name control - a DAQmx physical channel
+    [InlineData("{LV.VI}")]
+    [InlineData("variant")]
+    public void ARefnumTakesAnEmptyLiteral(string type) =>
+        Assert.Equal("", TestTools.DefaultFor(type));
+
+    [Fact]
+    public void AnEnumIsItsNumericBase() =>
+        // The braces carry item strings, not member types - so this must not read as a cluster.
+        Assert.Equal("0", TestTools.DefaultFor("uint8{Differential,RSE,NRSE}"));
+
+    [Fact]
+    public void ANestedClusterKeepsItsOwnCommasOutOfTheSplit()
+    {
+        // The inner cluster's two commas are structure BELONGING TO IT. Splitting on them would
+        // produce five fields where there are three, and a literal LabVIEW cannot read.
+        var type = "cluster{bool.enabled,cluster{double.min,double.max}.Range,string.name}";
+        Assert.Equal("[false,[0,0],]", TestTools.DefaultFor(type));
+    }
+
+    [Fact]
+    public void AFieldNameContainingADotDoesNotEatTheType()
+    {
+        // The separator is the FIRST dot after the last closing brace. Read as the LAST dot, the
+        // type here becomes `double.Max` and only reaches the right answer by luck.
+        Assert.Equal("[0,]", TestTools.DefaultFor("cluster{double.Max. Spannung,string.Einheit}"));
+    }
+
+    [Fact]
+    public void AClusterSocketIsAuthoredWithACompoundLiteral()
+    {
+        // The end-to-end property: the socket for an error-cluster field must carry a literal the
+        // validator accepts, in BOTH the write and the read shape.
+        const string cluster = "cluster{bool.status,int32.code,string.source}";
+        foreach (var write in new[] { true, false })
+        {
+            var xml = XElement.Parse(TestTools.SocketAixml("LVMCP Cls9.vi", cluster, write));
+            foreach (var element in xml.Elements()
+                         .Where(e => (string?)e.Attribute("type") == cluster))
+                Assert.Equal("[false,0,]", (string?)element.Attribute("value"));
+        }
+    }
+
+    [Theory]
+    [InlineData("TRUE", "true")]
+    [InlineData("True", "true")]
+    [InlineData("T", "true")]
+    [InlineData("1", "true")]
+    [InlineData("FALSE", "false")]
+    [InlineData("0", "false")]
+    public void ABooleanValueIsLowerCased(string given, string expected)
+    {
+        // `type="bool" value="TRUE"` validates, generates, runs - and LabVIEW's export reads it
+        // back as false, because the format wants lower case. A round trip written that way put
+        // FALSE onto a default-FALSE object and passed while testing nothing. Measured.
+        Assert.Equal(expected, TestTools.ValueFor("bool", given));
+    }
+
+    [Fact]
+    public void ANonBooleanValueIsPassedThroughUntouched()
+    {
+        Assert.Equal("TRUE", TestTools.ValueFor("string", "TRUE"));
+        Assert.Equal("30", TestTools.ValueFor("double", "30"));
+        // An unrecognised boolean is NOT reinterpreted - it must still fail at validation.
+        Assert.Equal("vielleicht", TestTools.ValueFor("bool", "vielleicht"));
+    }
+
+    [Fact]
+    public void TheAuthoredBooleanConstantIsLowerCase()
+    {
+        var root = Author(Case(1, "Ausgang aktiv", "bool", "TRUE"));
+        var constant = root.Elements("Constant")
+            .First(c => (string?)c.Attribute("type") == "bool");
+        Assert.Equal("true", (string?)constant.Attribute("value"));
+    }
+
+    // ------------------------------------------------------------------ the test diagram
+
+    [Fact]
+    public void TheSuiteIsNamedAfterTheTestVi_NotTheClass()
+    {
+        // Caraya puts this string in the report as <testsuite name="…">. Deriving it from the class
+        // made three of five suites report as `Test Netzteil` - two of them inheritance tests
+        // seeded with a different class - and a report you cannot map back to a file is not much
+        // of a report. Measured 2026-08-29.
+        var root = XElement.Parse(TestTools.ClassTestAixml(
+            @"C:\cls\Test Vererbung AC.vi", "Netzteil",
+            [Case(1, "Hersteller", "string", "Fluke")]));
+
+        var define = root.Elements("Call")
+            .First(c => ((string)c.Attribute("target")!).Contains("Define Test"));
+        var titleUid = Wire(define, "Label (VI Title)").Split('.')[0];
+        var title = root.Elements("Constant")
+            .First(c => (string)c.Attribute("uid")! == titleUid);
+
+        Assert.Equal("Test Vererbung AC", (string?)title.Attribute("value"));
+    }
+
+    [Fact]
+    public void EachCaseGetsItsOwnSocketPair_SoTheSwapCanTellThemApart()
+    {
+        var root = Author(Case(1, "Hersteller", "string", "Fluke"),
+                          Case(2, "Modell", "string", "PS 3010"));
+
+        var targets = root.Elements("Call")
+            .Select(c => (string)c.Attribute("target")!)
+            .Where(t => t.StartsWith("LVMCP Cls", StringComparison.Ordinal))
+            .ToList();
+
+        Assert.Equal(4, targets.Count);
+        Assert.Equal(4, targets.Distinct().Count());
+        Assert.Contains("LVMCP ClsW1.vi", targets);
+        Assert.Contains("LVMCP ClsR2.vi", targets);
+    }
+
+    [Fact]
+    public void EveryCaseHasItsOwnSeedConstant_AsAPathWithTheLabelTheSwapSearchesFor()
+    {
+        var root = Author(Case(1, "Hersteller", "string", "Fluke"),
+                          Case(2, "Modell", "string", "PS 3010"));
+
+        var seeds = root.Elements("Constant")
+            .Where(c => (string?)c.Attribute("type") == "path")
+            .Select(c => (string)c.Attribute("_name")!)
+            .ToList();
+
+        // lvai_swap_subvis finds a constant by its block diagram label, and AIXML's _name IS that
+        // label. A seed the swap cannot find stays a path, and the dynamic dispatch input - a
+        // REQUIRED terminal - is then wired with the wrong type.
+        // ENGLISH, since 2026-09-03: these labels are written into the USER's VI, and this
+        // repository's rule is that everything authored into a VI is English whatever language
+        // the request was in. A test agent reading a generated suite spotted `objekt`/`wert`
+        // and was right to flag them.
+        Assert.Equal(["object 1", "object 2"], seeds);
+    }
+
+    [Fact]
+    public void TheWrittenValueIsTheSameConstantTheAssertionCompares()
+    {
+        var root = Author(Case(1, "Max Spannung V", "double", "30"));
+
+        var write = root.Elements("Call")
+            .First(c => ((string)c.Attribute("target")!).StartsWith("LVMCP ClsW",
+                                                                    StringComparison.Ordinal));
+        var assertion = root.Elements("Call")
+            .First(c => ((string)c.Attribute("target")!).Contains("Assert Equal"));
+
+        // "value:<uid>.value" on the write, "Expected:<uid>.value" on the assertion - the SAME uid.
+        var written = Wire(write, "value");
+        var expected = Wire(assertion, "Expected");
+        Assert.Equal(written, expected);
+
+        // And the expectation is a real constant of the field's type, not a restatement.
+        var constant = root.Elements("Constant")
+            .First(c => (string)c.Attribute("uid")! == written.Split('.')[0]);
+        Assert.Equal("double", (string?)constant.Attribute("type"));
+        Assert.Equal("30", (string?)constant.Attribute("value"));
+    }
+
+    [Fact]
+    public void TheReadSocketTakesItsObjectFromTheWriteSocket()
+    {
+        var root = Author(Case(1, "Hersteller", "string", "Fluke"));
+
+        var write = root.Elements("Call").First(
+            c => (string)c.Attribute("target")! == "LVMCP ClsW1.vi");
+        var read = root.Elements("Call").First(
+            c => (string)c.Attribute("target")! == "LVMCP ClsR1.vi");
+
+        var produced = ((string)write.Attribute("outputs")!)
+            .Split(',').First(o => o.StartsWith("obj out:", StringComparison.Ordinal))[8..];
+        Assert.Equal(produced, Wire(read, "obj in"));
+    }
+
+    [Fact]
+    public void EveryAssertionHangsOffDefineTest_NotOffThePreviousOne()
+    {
+        // The same defect the plain generator has pinned: chaining them is the tidier diagram and
+        // silently loses cases, because a node does not execute with an incoming error.
+        var root = Author(Case(1, "Hersteller", "string", "Fluke"),
+                          Case(2, "Modell", "string", "PS 3010"),
+                          Case(3, "Ausgang aktiv", "bool", "TRUE"));
+
+        var define = root.Elements("Call")
+            .First(c => ((string)c.Attribute("target")!).Contains("Define Test"))
+            .Attribute("uid")!.Value;
+
+        var assertions = root.Elements("Call")
+            .Where(c => ((string)c.Attribute("target")!).Contains("Assert Equal"))
+            .ToList();
+
+        Assert.Equal(3, assertions.Count);
+        foreach (var assertion in assertions)
+            Assert.Equal($"{define}.error out", Wire(assertion, "error in (no error)"));
+    }
+
+    // ------------------------------------------------------------------ the cases
+
+    [Fact]
+    public void ARepeatedFieldIsRefused()
+    {
+        var bad = Assert.Throws<ArgumentException>(() => TestTools.ClassCaseRequest.ParseAll(
+            """[{"field":"Hersteller","value":"a"},{"field":"Hersteller","value":"b"}]"""));
+        Assert.Contains("Hersteller", bad.Message);
+    }
+
+    [Fact]
+    public void ACaseWithNoValueIsRefused_BecauseARoundTripHasNothingToAssert()
+    {
+        var bad = Assert.Throws<ArgumentException>(
+            () => TestTools.ClassCaseRequest.ParseAll("""[{"field":"Hersteller"}]"""));
+        Assert.Contains("value", bad.Message);
+    }
+
+    [Fact]
+    public void TypeIsOptional_AndSurvivesWhenGiven()
+    {
+        var cases = TestTools.ClassCaseRequest.ParseAll(
+            """[{"field":"Phasenzahl","value":"3","type":"int32","label":"drei Phasen"}]""");
+        Assert.Equal("int32", cases[0].Type);
+        Assert.Equal("drei Phasen", cases[0].Label);
+
+        var derived = TestTools.ClassCaseRequest.ParseAll("""[{"field":"X","value":"1"}]""");
+        Assert.Null(derived[0].Type);
+        Assert.Null(derived[0].Label);
+    }
+
+    private static string Wire(XElement call, string terminal) =>
+        ((string)call.Attribute("inputs")!)
+        .Split(',')
+        .First(i => i.StartsWith(terminal + ":", StringComparison.Ordinal))[(terminal.Length + 1)..];
+
+    // ---------- uids must stay above LabVIEW's reserved range ----------
+
+    /// <summary>
+    /// A uid inside LabVIEW's reserved range costs TWO lines in NI's log per object per
+    /// generation: `panel\HeapObjMapImpl.cpp(226) : DWarn 0xBB613420: trying to override with
+    /// non-reserved UID, request: 10 res: 0 max: 42`. LabVIEW substitutes its own number and logs
+    /// it.
+    ///
+    /// MEASURED 2026-09-07 as a controlled pair rather than assumed: one socket-shaped VI
+    /// generated twice through `ConvertAIXMLToVI`, identical but for the four uid numbers —
+    /// 10/11/12/13 gave **4** warnings, 4200/4210/4220/4230 gave **0**.
+    ///
+    /// The reason it is worth a guard: `dwarnCount` saturates at 200 and `looksDegraded` flips
+    /// with it, so a signature we emit ourselves crowds out the ones that mean something. A cold
+    /// class build with five test suites logged 24 of these — 60 % of that run's warnings — and
+    /// the runner generator was having three uids repaired on every single build.
+    /// </summary>
+    [Theory]
+    [InlineData("double", true)]
+    [InlineData("double", false)]
+    [InlineData("string", true)]
+    [InlineData("cluster{bool.status,int32.code,string.source}", false)]
+    public void ASocketNumbersEveryUidAboveTheReservedRange(string dataType, bool write)
+    {
+        var aixml = TestTools.SocketAixml("LVMCP Socket.vi", dataType, write);
+
+        AssertNoReservedUid(aixml);
+    }
+
+    [Fact]
+    public void TheRunnerNumbersEveryUidAboveTheReservedRange()
+    {
+        // Including the case that used to need repairing: `here`, `strip` and `array` were 10, 11
+        // and 40, and the generator's own repair pass raised all three on every runner build.
+        var aixml = TestTools.CarayaRunnerAixml(
+            @"C:\temp\Suite\Run Suite Tests.vi",
+            ["Bicycle\\Test Bicycle.vi", "Car\\Test Car.vi", "Test Three.vi"],
+            "Suite-TestReport.xml");
+
+        AssertNoReservedUid(aixml);
+    }
+
+    /// <summary>
+    /// LabVIEW reports the ceiling it allocated above in the DWarn itself (`max: 42`, `59`, `89`
+    /// on the measured probe), so the ceiling is not a fixed number. 200 is well clear of every
+    /// value observed and is what <see cref="TestTools.UidBase"/> sits above.
+    /// </summary>
+    private static void AssertNoReservedUid(string aixml)
+    {
+        var low = System.Text.RegularExpressions.Regex
+            .Matches(aixml, "uid=\"(\\d+)\"")
+            .Select(m => int.Parse(m.Groups[1].Value))
+            .Where(uid => uid != 0 && uid < 200)          // 0 is the documented sentinel
+            .Distinct()
+            .OrderBy(uid => uid)
+            .ToList();
+
+        Assert.True(low.Count == 0,
+            "these uids sit in LabVIEW's reserved range and cost two log lines each per "
+            + "generation: " + string.Join(", ", low));
+    }
+
+    /// <summary>
+    /// AN UNKNOWN CASE KEY IS REFUSED BY NAME HERE TOO, and the hint points at the tool that can
+    /// actually do what the stray key was reaching for. This tool does ONE ROUND TRIP per field;
+    /// "the value the field should hold after a method ran" is lvai_generate_method_test's
+    /// <c>expectFieldValue</c>, which is exactly the key two agents invented on 2026-09-15.
+    /// </summary>
+    [Theory]
+    [InlineData("""[{"field":"Hersteller","value":"Fluke","expectFieldValue":"0"}]""")]
+    [InlineData("""[{"field":"Hersteller","value":"Fluke","readField":"Hersteller"}]""")]
+    [InlineData("""[{"field":"Hersteller","value":"Fluke","Type":"string"}]""")]
+    public void AnUnknownCaseKeyIsRefused(string json)
+    {
+        var refusal = Assert.Throws<ArgumentException>(
+            () => TestTools.ClassCaseRequest.ParseAll(json));
+
+        Assert.Contains("Accepted:", refusal.Message, StringComparison.Ordinal);
+        Assert.Contains("field", refusal.Message, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// THE CONTROL. Both documented shapes - the bare pair and the fully specified case - must
+    /// still parse, or the guard has bought its safety by refusing the tool's own examples.
+    /// </summary>
+    [Fact]
+    public void TheDocumentedCaseShapesAreUnchanged()
+    {
+        var bare = TestTools.ClassCaseRequest.ParseAll(
+            """[{"field":"Hersteller","value":"Fluke"},{"field":"Max Spannung V","value":"30"}]""");
+        Assert.Equal(2, bare.Count);
+        Assert.Null(bare[0].Type);
+
+        var full = TestTools.ClassCaseRequest.ParseAll(
+            """[{"field":"Phasenzahl","value":"3","type":"int32","label":"drei Phasen"}]""");
+        Assert.Equal("int32", full[0].Type);
+        Assert.Equal("drei Phasen", full[0].Label);
+    }
+}

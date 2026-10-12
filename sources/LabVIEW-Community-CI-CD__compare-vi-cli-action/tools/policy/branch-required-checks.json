@@ -1,0 +1,73 @@
+{
+  "schema": "branch-required-checks/v1",
+  "schemaVersion": "1.0.0",
+  "branchClassBindings": {
+    "develop": "upstream-integration",
+    "downstream/develop": "downstream-consumer-proving-rail",
+    "main": "upstream-release",
+    "release/*": "upstream-release-prep"
+  },
+  "branchClassRequiredChecks": {
+    "upstream-integration": [
+      "lint",
+      "fixtures",
+      "Policy Guard (Upstream) / policy-guard",
+      "vi-history-scenarios-linux",
+      "commit-integrity"
+    ],
+    "downstream-consumer-proving-rail": [
+      "Downstream Promotion / downstream-promotion"
+    ],
+    "upstream-release": [
+      "lint",
+      "pester",
+      "vi-binary-check",
+      "vi-compare",
+      "Policy Guard (Upstream) / policy-guard",
+      "commit-integrity"
+    ],
+    "upstream-release-prep": [
+      "lint",
+      "pester / normalize",
+      "smoke-gate",
+      "Policy Guard (Upstream) / policy-guard",
+      "commit-integrity"
+    ]
+  },
+  "branches": {
+    "develop": [
+      "lint",
+      "fixtures",
+      "Policy Guard (Upstream) / policy-guard",
+      "vi-history-scenarios-linux",
+      "commit-integrity"
+    ],
+    "downstream/develop": [
+      "Downstream Promotion / downstream-promotion"
+    ],
+    "main": [
+      "lint",
+      "pester",
+      "vi-binary-check",
+      "vi-compare",
+      "Policy Guard (Upstream) / policy-guard",
+      "commit-integrity"
+    ],
+    "release/*": [
+      "lint",
+      "pester / normalize",
+      "smoke-gate",
+      "Policy Guard (Upstream) / policy-guard",
+      "commit-integrity"
+    ]
+  },
+  "observed": {
+    "develop": [
+      "agent-review-policy",
+      "commit-integrity"
+    ],
+    "main": [
+      "commit-integrity"
+    ]
+  }
+}

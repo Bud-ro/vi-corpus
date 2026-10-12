@@ -1,0 +1,1459 @@
+{
+ "repo": "NIVeriStandAdd-Ons/Fuel-Injector-Analysis-Addon",
+ "url": "https://github.com/NIVeriStandAdd-Ons/Fuel-Injector-Analysis-Addon",
+ "commit": "d55eb548df1d121487dac6ee2553be1ac81ee4ee",
+ "license": "BSD-2-Clause",
+ "licenseFile": "License.txt",
+ "fetched": "2026-10-11",
+ "files": [
+  {
+   "path": "Source/APIs/System Definition API/Create Fuel Injector Analysis Addon.vi",
+   "bytes": 24487,
+   "sha256": "92a77aa562a0f4ce7c192bc35bb47cd9806cbcae0a9706eb54e522f5ebcecd9b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/APIs/System Definition API/Fuel Injection Analysis Addon SysDef Example.vi",
+   "bytes": 13032,
+   "sha256": "3b21121b39ff87783ce88c24cc1297001c74fa9505488a9208ec3fe8e2d7a4bb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/APIs/System Definition API/Fuel Injector Analysis System Definition API.lvlib",
+   "bytes": 28040,
+   "sha256": "43728f03c35b9ca84ba7adfaad8818647c1e1dcb351f917cbe4b6781d6f5e0bf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Fuel Injector Analysis Addon Engine.lvlib",
+   "bytes": 31858,
+   "sha256": "38eb7c22853ead029d2f1addb659abd604591739e5aa2c6e11bc29b28fc6fd97",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Processes/Async Engine.vi",
+   "bytes": 61628,
+   "sha256": "a1a16515e8dc3faf0b7666e75841affce89a5e3b4da0240bde86d49610673549",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/RT Driver VI.vi",
+   "bytes": 50464,
+   "sha256": "006372f354bf38dbb106cc34c925fbe72c3778a0b58bfed166cd422e3ca54742",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Build Event from Shots.vi",
+   "bytes": 53698,
+   "sha256": "354c18797a17220a06da31c8303038c9e1cb7b0cedce0edb427899c0749d0d1d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Build Result Array from Shots.vi",
+   "bytes": 22597,
+   "sha256": "e9599ae2db1c13e9b14e78af343ae1c8d2b334abe73b87dfa75d8673a1634746",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Calculate Current Magnitude Measurements.vi",
+   "bytes": 47992,
+   "sha256": "20faddecb88ac5b0c694e78e2d4b11d554b81dceb1cddf52b259dd7ba0ffdd76",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Calculate Hold-In Measurements.vi",
+   "bytes": 26658,
+   "sha256": "404d48b00c659537aca2e7e24d2803c498499ec971b7a0a873088f6500d7887d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Calculate Hold-In Voltage Measurements.vi",
+   "bytes": 24098,
+   "sha256": "a1bdc7f4a226e0c9c40f5626b6ed601a459c4ff70c9f905e77b98faa7ee097d3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Calculate Voltage Pulses.vi",
+   "bytes": 21696,
+   "sha256": "7440fb668dbc20bb73e7043ddc1c31102705ec2033ada40b59639a1ba82e2663",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Check for Injector Timeout.vi",
+   "bytes": 61378,
+   "sha256": "1fff910abae02f2d4d29ccf029c0466587f75604059b2799129b17653efc1dd6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Close FPGA Refs.vi",
+   "bytes": 25807,
+   "sha256": "56de96105bd1a2cdd84c55770ece434af29b0635f17e154b10f12d6303416e91",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Close Waveform Sessions.vi",
+   "bytes": 40623,
+   "sha256": "d271e30ccc501fd43d3acd0fb7ac1a8a6265d704b3800633d2b8ecfb8753f537",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Format Debug String.vi",
+   "bytes": 22095,
+   "sha256": "6ed718f399ebe04d0c4f31715756e9083984989518ba3baad75537d1cf373c01",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Initialize Injector Timeouts.vi",
+   "bytes": 57588,
+   "sha256": "e1ea9a4b14cba5e9c43a90d0dc520375f114ef14aebf40f6b96be01ed925c609",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Initialize MUX Register.vi",
+   "bytes": 27491,
+   "sha256": "7ff07874b4ff1fa33a383786150fa63cfb6b42112eba630edd50da1409d39bb2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Initialize Time Register.vi",
+   "bytes": 33312,
+   "sha256": "0dc1491e8ec08bae4ab96e266335c24c6af2c7e11daced84013e47fba4cb08f5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Open FPGA Reference.vi",
+   "bytes": 78643,
+   "sha256": "ea70e335532bed697fe87c02f5c8ff234b522a8e20fbc396ded09841e03762f1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Open Waveform Sessions.vi",
+   "bytes": 59266,
+   "sha256": "d92e87967a2f672b5a548c45a107b4069f8821bd7f45583c67e44fca2b4cc9a5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Pack Data and Write to Inline.vi",
+   "bytes": 67409,
+   "sha256": "2ce2a09f8c54884c06057abca9f5ec6d3d5d823fd932b1e60adf266d3a73cf50",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Parse Injection Data.vi",
+   "bytes": 51648,
+   "sha256": "23bb59291d7f4d41d0ee2f0d972e36ee0b48c2bdd55d857c5180be1309497e47",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Poll DMA.vi",
+   "bytes": 65876,
+   "sha256": "8cd8f174fed6b935a67e615b859f789573c233958f3e52c7c385d856f8e6ec90",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Process Injection Event Data.vi",
+   "bytes": 54124,
+   "sha256": "23c4a8b4b3bc2d9df77293d0e656d7bc0fb7777baf4cdd903186869f6a39c42b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/RT.Stages.Find.vi",
+   "bytes": 57578,
+   "sha256": "c121d2b1a27e5af48c91da80972f805ca87957487d61d71379b8148e5f867fa6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Register.Initialize.vi",
+   "bytes": 33075,
+   "sha256": "b1951df025e0cd40a4bd8184d308ccddc0338a8144c8327c78146af59f87b2b7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Registers.Initialize.vi",
+   "bytes": 23292,
+   "sha256": "332305e357510f973c14636205e5be7a61c3e425be817cbc8c5b309102b59875",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Stages.GetValues.vi",
+   "bytes": 46200,
+   "sha256": "d20e0fc3ba459cc80c3301f09cd29164e29345613701a034bcb6fb6ac07cdc4c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Update RIO INI File.vi",
+   "bytes": 20959,
+   "sha256": "2243ff64fda73a8759a3e54850fefc5409f31b99e819cd25a54a33d8f2bc504e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Waveform Write.vi",
+   "bytes": 61658,
+   "sha256": "5710dfa014812899208dc16a2e53ae962817a9c7d64e6f681397d39851e5be06",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/SubVIs/Write To FPGA.vi",
+   "bytes": 36101,
+   "sha256": "c7ff1ac73cddf9eefb9e4bcd22627952c491997bff0bcbaf18c4fba2ef6bc591",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Async Parameters.ctl",
+   "bytes": 34069,
+   "sha256": "5911aa9f14cc9c57d9e62d7f22686d033cec068cf5fbaae27743fb5f652267a7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/FPGA Refs.ctl",
+   "bytes": 16310,
+   "sha256": "03e122da7b1a87db27419faf673db6657451817145bcc72677501467aff50551",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Injector Event Data Cluster.ctl",
+   "bytes": 18772,
+   "sha256": "209f746672fbbd0633366e28e7149e84e21667ae85513d22948e37aef51f7d34",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Injector.State.ctl",
+   "bytes": 12239,
+   "sha256": "afff336f9ebc00bc3d6329b94ec70d3fb219fe7884463ebc2e0cbf97199ff542",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Inline State Data.ctl",
+   "bytes": 27530,
+   "sha256": "0aab4767ebdf63dfa3d963871f0fdef2852471ec28a5e46fe387e683025693d7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Search.StateVariables.ctl",
+   "bytes": 13206,
+   "sha256": "06b61dfb488b36d52e3e0645c9c98560b8d2b77a2669335298fcaede233ba3fc",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Shot Information Control.ctl",
+   "bytes": 19285,
+   "sha256": "bd980843ec5d67f3e62745c72d6f5995295ef13ceaf6bfe6b4d2ec10b27e5e5a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Engine/Types/Stage.Measurements.ctl",
+   "bytes": 13919,
+   "sha256": "3147cee3fb0fcc06b1299a1a02b30055563ecdb0e42d6f4864223f66f1e0fcb9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Fuel Injector Analysis Addon Shared.lvlib",
+   "bytes": 30054,
+   "sha256": "12d691fcd576acfb020ea071294264e6dfd3e3d920772d2f1b38c4ee3c056680",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/SubVIs/Constants.vi",
+   "bytes": 22625,
+   "sha256": "a013f1a4addb1ecacbd402fb3e58542d0e0ee4ae16aea0cd31c36c1e440e90d3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/SubVIs/Main Settings FG.vi",
+   "bytes": 24484,
+   "sha256": "c34dbdec87235de0333c7ebb0a65f2b0a982fa8f9d310840b0704d44ad826bbf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/SubVIs/Measurement Type FG.vi",
+   "bytes": 22091,
+   "sha256": "9f027ac1ea3d6d16670e2c17c7fe4f42eb5126e7154adce8c9b5b16d82197228",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Analysis.Channels.Select.ctl",
+   "bytes": 13297,
+   "sha256": "78ebc8f48594c3e7ca3a64c5e372cd6a79e4aece3564de5bb8da0e0d5557bd8b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Compiled.Group.Timing.ctl",
+   "bytes": 12730,
+   "sha256": "354e5588222fe4f03efd7775d1c4a8e3e90174d6737b16d1a328e116710b057d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Compiled.Group.WaveformRefs.ctl",
+   "bytes": 13640,
+   "sha256": "2c9a912ae793ddc1d3cee811dbfbbeb1521092761b16e61a577a7b79c5bacdc5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Compiled.Settings.ctl",
+   "bytes": 31698,
+   "sha256": "45d1d8cc7887df0be6fc5334db3f59064388620cd8465b01d06719d69504ed65",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/FPGA Data Types.ctl",
+   "bytes": 12000,
+   "sha256": "9ed2657cab47720d0d9a10b875c3a41ec10aa88e96f806cbe2bb9ea78dd1fe08",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/FPGA Settings.ctl",
+   "bytes": 12982,
+   "sha256": "145a3ca6faa26f55c2e59c769f7fd32bd92e35a7575781b9d2eb2bb477e95eea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Injector info.ctl",
+   "bytes": 12410,
+   "sha256": "bc751a1dd5b188e3f9f8f62bf0a09d1ee056ecea183d8b0080d5c4fd9c164f24",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Main Settings.ctl",
+   "bytes": 13258,
+   "sha256": "f9c2b3e541c963682ad28a897641f00f632d6e41d9236bb3055f96279e695afd",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Register.Info.ctl",
+   "bytes": 13402,
+   "sha256": "8cb161952542356833369ab10a03d7aa19373372524f7b20a14e2ee273a29497",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Shot.Parameters.ctl",
+   "bytes": 17736,
+   "sha256": "c2e9b57eabb04b1ee4a935b75915770e5133fc2b92217cdc82d3d7fe42c2d08d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Stage.Events.ctl",
+   "bytes": 11873,
+   "sha256": "58f1043b2ba602e24221b5278e4381fa45820ca885c5aab004ffd9822bd7d425",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Stage.Parameters.ctl",
+   "bytes": 15345,
+   "sha256": "4d81699435e018b06421de1947027cca3099eab3344dcd684ab5916663269456",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Stage.PullIn.Types.ctl",
+   "bytes": 11839,
+   "sha256": "a6ba0659f5088b5a15d754b906af89785250b5e44131f7ef23ef9876b1df38aa",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/Stage.Transition.Types.ctl",
+   "bytes": 11923,
+   "sha256": "d9960c72ce963aa78ea61e8885da04dceaf995b4f4d7ef96114ca71f234c2567",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon Shared/Types/VS.Register.Info.ctl",
+   "bytes": 14281,
+   "sha256": "b6340e0f6b09ba589d78319e27197cfc5cbb3fde128d48720c212c93a68832ea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Actions/ActionVIOnCompile.vi",
+   "bytes": 89473,
+   "sha256": "e32fdfc4061887211642efff999615b7eb40887631325ada0d8a5024ca72a3a1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Actions/ActionVIOnLoad.vi",
+   "bytes": 36182,
+   "sha256": "f44f0b845324bbf90b98abae493cfebcb5e28787b930d53cbdb7b106cea3e49e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Analysis Section.vi",
+   "bytes": 144246,
+   "sha256": "5ac53c3f7290d25e796d848c2ae1ccf3f2d2e6774c36f1b4d2702fe882478452",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Analysis Selection.vi",
+   "bytes": 42456,
+   "sha256": "bb2b41a9b7ed789fdf597ec479838ec435a16d670d3480c531a707894927ccd3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi",
+   "bytes": 32277,
+   "sha256": "bfb3937804f9aa46a7fb929f65b756e87e4bf77085b90e504005ccc5ca43f50f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Measurement Type Section.vi",
+   "bytes": 42158,
+   "sha256": "417afe3bd250e258cb7d553b3ff20ccc97dc31dafd22b37a846dbf235e31cbd0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Pull In Transition.vi",
+   "bytes": 37348,
+   "sha256": "ea1941dbc684480c80ba43655a9820c65024e9ae1dac78d5d6cf1e4440b544c4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Section.vi",
+   "bytes": 32869,
+   "sha256": "93395d023c99578cb5b3c6263a457d42b881cc87a02dfe0058b2bf4b42e74be5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Stage Transition.vi",
+   "bytes": 37650,
+   "sha256": "10cf715249b5be62da32ca2f28115e9f9c2333285c9bd282ec93b9f5e7f97f58",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Stage Voltage Threshold.vi",
+   "bytes": 33357,
+   "sha256": "6a4906995df4e3648707722ca547f019a7f2ce309b2b3cdc13488adf2e66a14d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Global Settings.vi",
+   "bytes": 37611,
+   "sha256": "17d66f86dffc4d25922f7528d92830064b9c40a7dbc88a9b428df2dbb71e8bc0",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Extra Pages/Protected Channel.vi",
+   "bytes": 35121,
+   "sha256": "063b28ee5a89d454abe5b3b1f351e021b06f2694715c2c1f4f79f2c758157ed1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Fuel Injector Analysis Addon System Explorer.lvlib",
+   "bytes": 34046,
+   "sha256": "c45996dc4a91cbd6e4624f68c38d6ea7490ffd027f9adb61fe59b7a8e7701c58",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Initialization VI.vi",
+   "bytes": 21181,
+   "sha256": "c38af0f5c01f48b9ae8bd23a928ae85002be43a3e7472b49b289f37a3756db8b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Main Page.vi",
+   "bytes": 40941,
+   "sha256": "3c8ad8464f4efc9e298d6faf30582fcc8351ef1b34439a8c136fbd96d2f18a30",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/RTM/EnableDisable Main Page.vi",
+   "bytes": 19383,
+   "sha256": "4385f8b4d56950b65a81f4f87cd2456ac4b1b663c01f4c345e018c161fc5f286",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/RTM/ExportConfigurationToFile.vi",
+   "bytes": 16001,
+   "sha256": "0ba67eb94b97be2294f1c24323a3b6bbea08cd32fe6b69f30f57603b1bdcac5c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Types/Analysis.UI.Refs.ctl",
+   "bytes": 20365,
+   "sha256": "d89b8b99cecaf4b6fd30d91398f9c7132b1139ca81200925ed6ab62329131cee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Types/Stage Measurement Channel Names Control.ctl",
+   "bytes": 13664,
+   "sha256": "1a1574c6ff7e2aa7a98c4fec6b1c4925ca8b92197d471c48ef59345af2010414",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Bitfile as Dependent File Property.vi",
+   "bytes": 27566,
+   "sha256": "42203516ae8120f99fea64ac491619501ca038b428df691adddcbd43dd0ad3cb",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Boost Stage.vi",
+   "bytes": 22699,
+   "sha256": "f6ffb5ec930ab10cb1b2f8c89d69a692aff7bd2337ece00829e7c28a3a84dcf4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Injector Commands Section.vi",
+   "bytes": 27525,
+   "sha256": "b44d0621e4589b20439b1e525294818821791ae89b9b1d6f5a71d15bfb0d5eee",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Injector Shots (with separate stage section).vi",
+   "bytes": 32456,
+   "sha256": "dcf75bd9306c6ad1affcfc97dbf737b4dd06637ba14ce75bf32d3cd1e23f2bcf",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Injector.vi",
+   "bytes": 47400,
+   "sha256": "eecc1238278222fd43169fae9e146600fae5014f8933702d2dd56e60b309f6b9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Peak and Valley Detection Settings Section.vi",
+   "bytes": 28170,
+   "sha256": "1da6d6ad2a1b7e3b360bb006d707ecd3696c233e9107ae34108fd68b0b34f203",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Stage Section.vi",
+   "bytes": 29541,
+   "sha256": "12d365c0ba3450c11a91df81dd11f7b9f2a54f5bd16d0f23fe54e77c6a02f936",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Add Waveform Section.vi",
+   "bytes": 26632,
+   "sha256": "455a4d1806213716f692a8c96ff51d055fd43ff2cc1bdcd3eb06c9e9af7c4661",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Analysis.Selection.Create.vi",
+   "bytes": 32509,
+   "sha256": "239c9bcb1442a7549cf3ca9f1cb15abcda5d1165cfaea0e1532870deecfa5baa",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Analysis.Selection.Get.vi",
+   "bytes": 29798,
+   "sha256": "50d5a626953f18224350bda5c3579bcf2f1ca3a6b4077bde64d2aadb013a63c7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Build FromVSEngine Command Channels.vi",
+   "bytes": 22635,
+   "sha256": "067d8cb33fb96426718b4eacba7add3907afbf796d4734374b95213bf0a8e594",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Build ToVSEngine Return Channels.vi",
+   "bytes": 27160,
+   "sha256": "fa0691c50b82c204b2ee6105dfb86ee92d1d6ac43ed1f0dfe2c05309160529b4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Build Waveform Channels.vi",
+   "bytes": 23379,
+   "sha256": "94afd20624c3959fcde427b31de6d18ae9314c0a21a648210acac1b02941e711",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Channel.Index.Get.vi",
+   "bytes": 26905,
+   "sha256": "0a312af20567da5d9f33149df733c5b336cd8469240020782b7fde54815e37d9",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Channel.Index.Set.vi",
+   "bytes": 20109,
+   "sha256": "2b69b3f391831c1251cd0aa48264b7ad811b61a16634edda47309dda2cac28d6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Channel.OriginalName.Get.vi",
+   "bytes": 23592,
+   "sha256": "224c7afd8935cc330898e5f7933e84c33a4ba65f5a0e00a2b12d05eba5ff6175",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Channel.OriginalName.Set.vi",
+   "bytes": 23580,
+   "sha256": "e87388b7ec7456095edded1c5b74a72c5ed871388f76c1f6e04297d4182ad587",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Find Expected Controls.vi",
+   "bytes": 45442,
+   "sha256": "8c02289c894fb278d4c5673541593356b9d6b354e56cf859ab16804b70df4715",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Find Group Sample Rate.vi",
+   "bytes": 23586,
+   "sha256": "7e3e0ea48a6b4b5f3ddeb3df3d84a7675c93ea8cd035ec22f4f3e2cba1c884ed",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/GlobalSettings.Create.vi",
+   "bytes": 33461,
+   "sha256": "e43e2e6082e15998ca6c60216e5b4b4a7e5dab18eef7bd748fbccba7bb1b7b85",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/GlobalSettings.GetGroupName.vi",
+   "bytes": 26995,
+   "sha256": "4588784ed8b009bd7284b957627a518f0ae0e22f329317ac29ade8c0275da65c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Group.Create.vi",
+   "bytes": 33644,
+   "sha256": "027a2c57b1bf7fddda8713a2fe2a3137bcb55e5c7e87bfe27171b9d6803341a1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Group.Find.vi",
+   "bytes": 29950,
+   "sha256": "d1c14fdbc36140cbf815a5403ac638dca6f0bd1999be426b5ddee9c0730960ae",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Groups.Create.vi",
+   "bytes": 31725,
+   "sha256": "ad3249813aaf9c4c19d95f56d80c72f9b9db72862bf77cd4ea2fe1d29a008337",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/IPCore.GetGroupName.vi",
+   "bytes": 20579,
+   "sha256": "edf4b38c742349e6196698abab3be3c7997bb4b120955a647205b4626456539d",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Load Help File.vi",
+   "bytes": 22030,
+   "sha256": "7392f24049d52e7c4911ff72842942f92efadaf01f425e81d48b62f2ac1ee27f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/MeasurementType.Edit.vi",
+   "bytes": 31208,
+   "sha256": "febaec6bc255c35c5414e84564fcd5586c601c47d9270f8e39a22bbf44413078",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Parse FPGA Bitfile.vi",
+   "bytes": 28022,
+   "sha256": "9e233bf7a1ff0bf2708e5ebf3c01cb421e1ff2265b5bfb9a008a33e07718c5f1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Pulses.Count.vi",
+   "bytes": 17888,
+   "sha256": "18ddd34289f523b200ff3392b7ef6c4f40f1a3b8c8936be2a794ced667b63508",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Register.Get.vi",
+   "bytes": 25028,
+   "sha256": "f5bafb1f53b44f99686f85ea389fe8177c2157f341b69e010a630ece5c6c7977",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Remove FPGA Sections.vi",
+   "bytes": 22200,
+   "sha256": "dbabebc24287e28a4878dc38f8318832cc72b5e40b270adc3b3339743899ae76",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Selection.Convert.Get.vi",
+   "bytes": 28385,
+   "sha256": "9801a31f28c3767e0cbf5321c4254a121d90051f8314130ba88ee7f4e39ddfe3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Selection.Convert.Set.vi",
+   "bytes": 24749,
+   "sha256": "901f4000f0cb2d7ccb415d50e0c42183b1eaf6ba1fcb3468ae12fb8f97b26b3a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/subVIs/Waveform.Selection.vi",
+   "bytes": 41610,
+   "sha256": "a5e65726d531c73cc906315b9d88411b67707d1cb3804147571bbf1a4d8f8f59",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/Build CHM.vi",
+   "bytes": 27541,
+   "sha256": "1ef4866064854646adb4a120df71d001879a9a85e387b94710f88c58a3d842e1",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA Injection Capture.lvproj",
+   "bytes": 253519,
+   "sha256": "d64c0d1006101981a71581b59535b78b82b683e2599eb9e742142d4e5cc20848",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA VI_Multiple Groups_Multiple Rates_Simulated_WithNoise_Example.vi",
+   "bytes": 345110,
+   "sha256": "5c78d567c16113513c74423c3043269ade2f2869a35aaa74070d70f8a194b8f2",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA VI_Multiple Groups_Simulated_WithNoise_Example.vi",
+   "bytes": 240255,
+   "sha256": "d33f9ef760ead2d0b32435f952dbe96c87bce1c9b9b013a639cc70a8664d976a",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA VI_Simulated_PeakandHold_Example.vi",
+   "bytes": 147837,
+   "sha256": "a56bdeeacdcd87eb2d230bbf7c9f5cc433b129f75e8af372f4ed613afbdc9db6",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA VI_Simulated_WithNoise.vit",
+   "bytes": 195944,
+   "sha256": "271cecbcadcf378e4af92f92b12ef5333866c5c5a47acb15e7f448657db9d11e",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/FPGA VI_Simulated_WithNoise_Example.vi",
+   "bytes": 421779,
+   "sha256": "816cb11a35c86dda939b3d66a306caa7dc259cc96014e706479a0044c189a3e4",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/SubVIs/Injection.Capture.vi",
+   "bytes": 56057,
+   "sha256": "b36884bc3022c7159417743577a90a83cb93f5318ad77aaf9e005f5466fad999",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/SubVIs/Injection.DelayAndDigitalFilter.vi",
+   "bytes": 43727,
+   "sha256": "4f658f309fe65c59e9e0c7ca4355c49fbacd76af564adc6e08d34f26b0969e04",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Core.Internal.Settings.ctl",
+   "bytes": 6897,
+   "sha256": "a02217f234e2d8b64f2899674ab22886c3408c03d12bdd43725c56c32fd423b3",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Core.Settings.ctl",
+   "bytes": 4864,
+   "sha256": "2f07cb3e585fe3ad61e04d5281eba07c0d3bc46a8d80dccae6e4b911d7e6beca",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Core.State.ctl",
+   "bytes": 4401,
+   "sha256": "47e90fe0996c3802bbfceccb714e15d163d92fffaf9764ce51171b098d70c5f7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Global.Settings.ctl",
+   "bytes": 5822,
+   "sha256": "a798de7ee4758fcb4e738ccedf364e3dc2086ec56bca26c957ad1384ac35f418",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Mux.State.ctl",
+   "bytes": 4496,
+   "sha256": "658135e2415258df4ecf7624915513df18c24ee473bd9f05b23a0a219e00ee54",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Addon/Support Libraries/Injection Capture IP/Types/Injection.Timing.ctl",
+   "bytes": 4725,
+   "sha256": "8e6a322e0ebf848315a5075c4801db1ecffb18fdcd9903eb718046bb0b3deabe",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Fuel Injector Analysis Addon SysDef API.lvproj",
+   "bytes": 7507,
+   "sha256": "507a648d4da421a5b23379b11075cdc167fbb6d548418e0d5199576a8334106b",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Fuel Injector Analysis Addon.lvproj",
+   "bytes": 89382,
+   "sha256": "7d856467291116c001ef66bc83b7f764b9aa7fd771af09002987d15a2d1928a7",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Testing/Fuel Injection FPGA/FPGA Injection Capture_Examples.lvproj",
+   "bytes": 323763,
+   "sha256": "44590655de046b896a11f3873ae310aaf94f3791de88e4cb3719294f476af0a5",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Testing/Fuel Injection FPGA/FPGA VI_8 Channels.vi",
+   "bytes": 137578,
+   "sha256": "0046f5b34c2404de07355f91be230091d94d1e43a18a52d3ca3a1239ea17e95c",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Testing/Fuel Injection FPGA/FPGA VI_8 Channels_High Speed.vi",
+   "bytes": 212557,
+   "sha256": "40ca8f7f70eb7bb760a5f4c73c19663da5e6c8c2cf228cf582842c35ff9d35ea",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utilities/Copy .LLB to NI VeriStand dir.vi",
+   "bytes": 18593,
+   "sha256": "a812daecd9f7411ed48136cf8fedc8bac701fe7a80bf178051745afec8b8682f",
+   "via": "extension"
+  },
+  {
+   "path": "Source/Utilities/LLB Pre-Build CHM Build.vi",
+   "bytes": 9191,
+   "sha256": "fdddebabf946320c2e528890d6ce7fcd6a2f04bd66c63704171fb7ce135a3253",
+   "via": "extension"
+  },
+  {
+   "path": "Source/APIs/System Definition API/Injection Addon.dat",
+   "bytes": 263921,
+   "sha256": "580a817f970f796f07bea1339a3e7b4d6c41ee441d46d020a443e2fa94397125",
+   "via": "ref:Source/APIs/System Definition API/Fuel Injection Analysis Addon SysDef Example.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector.html",
+   "bytes": 1256,
+   "sha256": "64f797e0261355bb0c7c8ba00cbd4152dc40c1b21c97fe43171daf5a720f8d43",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Settings.html",
+   "bytes": 1269,
+   "sha256": "ecac3a48aefa0e5ba3b716af5ca0c38989fc1a148ead11caf35d3771c1c673ee",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Waveforms.html",
+   "bytes": 1045,
+   "sha256": "e11219478958d48144ace3c2688795779fae8109636691387261eb584f439206",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Results.html",
+   "bytes": 1217,
+   "sha256": "127a4cd641245790b18f0f5354d2bba99f9af7fab5f3ff4f6dec690d4a6b627a",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Stage.html",
+   "bytes": 3576,
+   "sha256": "84764c1286799d73d0d6f948324b85beb39fb96379575933d6aea3d9c46f8610",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Shot.html",
+   "bytes": 1183,
+   "sha256": "50cfb05e81bf0a5a797f0516f71037fb30ef36142e957891bc43eaace6618344",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector FPGA Status.html",
+   "bytes": 1046,
+   "sha256": "f944c3878856537289f47ca7a5c28308a2f3ef366f36ff2994f4380a25a64611",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Global Settings.html",
+   "bytes": 1954,
+   "sha256": "03d77584b7ebc17bf02334f9215ca8607dbe3850e1b81b95d84b7f8b9186ec0a",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Default Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Measurement.html",
+   "bytes": 1290,
+   "sha256": "d6abaff524123a77a692b238e1cc966243733cbd1d71679ebb7c2dc9254bbb9d",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Measurement Type Section.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Stage Voltage Threshold.html",
+   "bytes": 1139,
+   "sha256": "dae2c778f59a03087eb79ef025369647de214792e04980098564fd90dc4d7296",
+   "via": "ref:Source/Addon/Addon System Explorer/Extra Pages/Fuel Injector Stage Voltage Threshold.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Main.html",
+   "bytes": 2464,
+   "sha256": "208f83ff2082a057e301819931f92938e759fc890cecdda6086dcdee266d39db",
+   "via": "ref:Source/Addon/Addon System Explorer/Main Page.vi"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/Build CHM.cfg",
+   "bytes": 174,
+   "sha256": "dbfc8814245bf2c78297b617c0a0777e98ba3c1102d5107487013ca201e41628",
+   "via": "ref:Source/Addon/Support Files/Help/Build CHM.vi"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 212,
+   "sha256": "80e20d1f6f718de3fc444e2b479e2b6ab95a46fa72a8e4834cc7f9ad5964196c",
+   "via": "tree"
+  },
+  {
+   "path": "Jenkinsfile",
+   "bytes": 204,
+   "sha256": "ee696b9871e36fc431bbe498969d611be886d9d4c880ef4e3845f8864d9d8c74",
+   "via": "tree"
+  },
+  {
+   "path": "License.txt",
+   "bytes": 1306,
+   "sha256": "1073a38777a76aeea44012ef5dc8e5dc6da5188e600d8590a4fde4e511f67d85",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 1672,
+   "sha256": "c7844cc3ab648d83ef8b6f9d36289d7b0fae824e952417417678a3b1cf0e60d2",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Addon System Explorer/Files/Analysis.Selection.rtm",
+   "bytes": 192,
+   "sha256": "df72da4158360faaadc9c80b0c994d21a5c355e3e6af99737ea40bf91bc1b4b1",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Custom Device Fuel Injector Analysis Addon.xml",
+   "bytes": 17820,
+   "sha256": "12106a13c004b21d350d88f9a235b248e9658a46044b699633369407d2d9d272",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Custom Device.xsd",
+   "bytes": 20348,
+   "sha256": "dc8c7868bfddf2b2a8a329917c236028f9cfcb6178b2ceca83ba0b9b77fd6f69",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Glyphs/fuel injector analysis addon disabled.png",
+   "bytes": 682,
+   "sha256": "3df98421b1a16b067c03254ebb7eaae1d8c01567259c53c38cdab9387860086d",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Glyphs/fuel injector analysis addon.png",
+   "bytes": 685,
+   "sha256": "ec3d02d324cc39a9568c12e3242e57bc5acd822ea66dc4dc03ec5514966cf73f",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/Build CHM.log",
+   "bytes": 420,
+   "sha256": "f7d7a3437326e035eefe1c069705fac7b2f905bb0ce48d25f335670486910b5c",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Analysis Stage.html",
+   "bytes": 4287,
+   "sha256": "8d710a4cb1996c2cf8fde08f8e17f3be5e561b1abd1e6c1724b7b2098bd06254",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Pull In Transition.html",
+   "bytes": 1557,
+   "sha256": "f0aa3d52867b35bc1fd4f30d5edbeaf56e3f14f3790efdc1e61a3e94af9500c1",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Fuel Injector Stage Transition.html",
+   "bytes": 2195,
+   "sha256": "2ddb3c20e007a9f8f6877386c11ccf97cff09efc341a2e9a95d9c266c4b688c8",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/Injection.jpg",
+   "bytes": 56853,
+   "sha256": "3e1764732971f3a6b96d68c00e6a7d07327ec014448b8550003f81400bd60f02",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/css/VSsystemexplorer.css",
+   "bytes": 2588,
+   "sha256": "1347b88c64e1c5bd62be31856067714bc3a0e77c8ccfae959c961dcba651f520",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/css/expandable_tree.css",
+   "bytes": 768,
+   "sha256": "09b7a129cb7afde7ff3c5641bf7dd19ffa9285282ccdbb90c0417d31737fa19a",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/Globals.js",
+   "bytes": 955,
+   "sha256": "908bbece31d21089b064359b024cf844638298fcdc0037481a18532f8e546853",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/arraytools.js",
+   "bytes": 1690,
+   "sha256": "527db7e3cfcb4212e5911edde797ad3ffd61fc6e4f6bdc69f9baa08db23d915a",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/checkinstalled.js",
+   "bytes": 1997,
+   "sha256": "a2297a85627f385c8459e26d57a931f1016f52b46523bdb98576d2ece190bc18",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/common.js",
+   "bytes": 2250,
+   "sha256": "7cd063b2ce86a227728dab343142ea8dfb8dd38428349cbaee33c83cdae2b82b",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/cssframes.js",
+   "bytes": 10860,
+   "sha256": "41f4fdada546c51e496d624f07a1e222d85f54f33c9969065556f5526b7bdc74",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/domtools.js",
+   "bytes": 3416,
+   "sha256": "a16f117f276d1e78cc9ba6d4f3ecccdb9c1812ec7b40d65ec758da019a265ec6",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/dynamiccontent.js",
+   "bytes": 2639,
+   "sha256": "5e3d893df5806b9da7d78beca14fc5fbf79ec4739d22a26e041c1011de3a80c1",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/dynamicjumps.js",
+   "bytes": 11818,
+   "sha256": "989bd5e6a6fc0a3f7a0214842f3630d054c5db10fb604141185eade4865e2d2e",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/dynamiclinks.js",
+   "bytes": 955,
+   "sha256": "908bbece31d21089b064359b024cf844638298fcdc0037481a18532f8e546853",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/expandable_tree.js",
+   "bytes": 4845,
+   "sha256": "e6cccd010c1f672e37c3cf93378bdab11859efedc540db05332c28a4245fc2ea",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/feedbacklink.js",
+   "bytes": 5043,
+   "sha256": "28bc381ad5da67fef8124a165b95269bd86f78861b0b0ba2fa3d7c9308989119",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/initpagedyn.js",
+   "bytes": 827,
+   "sha256": "77e6908c82af211abffb395e98275a6d75c7ef889f0a65e2ac8b112686f87cf9",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/launchhelp.js",
+   "bytes": 7331,
+   "sha256": "741394a3927f4c0a103e841910b8d60ee35ad27f0f5b5857c3a098fe08df5095",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/linking.js",
+   "bytes": 1166,
+   "sha256": "2e240a20b410b5d62cb2b14fb4ea6f36f2bee18967d4eba34ad4088ca430eeb4",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/objectnames.js",
+   "bytes": 197363,
+   "sha256": "37ec4ccecdb968721b4e14dd9d9a5cb217c5dda76ae053354c7dbb573f03d919",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/osbrowser.js",
+   "bytes": 23510,
+   "sha256": "c46ba5db2e571de0fc25f08bf4675d2e77a7ebf5df9161a3578205766bd44c92",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/pdf.js",
+   "bytes": 2108,
+   "sha256": "71533ea585be5581873e7ea2cd22bda9d391ef8371c04e4aee486f0f497d5d91",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/polyviselect.js",
+   "bytes": 308,
+   "sha256": "9e3c02cd93b9d3fe3b365728b472eb4bb30eaa66f52c10092540f3bd4d756d7d",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/stylesheets.js",
+   "bytes": 3298,
+   "sha256": "657383dcbbe66bfa3d7b1004077e15e5570e221a6f4640084112bc649234fe0c",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/variables.js",
+   "bytes": 1315,
+   "sha256": "110c751e934ff27e3e9a4d5de5a982beefa4136a48a5f5621507114f7493627b",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/HTML Help Source/js/web.js",
+   "bytes": 32350,
+   "sha256": "6bbb6983794ea6687fd070aec61745e07e7de137825937975732a9044b955639",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/Injector Analysis Addon.chm",
+   "bytes": 137107,
+   "sha256": "a4542e5cf4f45b1739b3d8dc257e04a65322fc58abc91ee3b49864aed4f460ea",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Addon/Support Files/Help/Injector Analysis Addon.hhp",
+   "bytes": 1666,
+   "sha256": "33d3f5ca1def9134b614bb1db473cc9ba76324425033ff86e07d6565ea2a0f16",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Fuel Injector Analysis Addon SysDef API.lvproj.config",
+   "bytes": 8880,
+   "sha256": "9dd72d7150a8d5dc5b73d906af53b02594573d39faab0ce960fb14d0a1239c41",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Fuel Injector Analysis Addon.lvproj.config",
+   "bytes": 8880,
+   "sha256": "9dd72d7150a8d5dc5b73d906af53b02594573d39faab0ce960fb14d0a1239c41",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/InjectorData.tdms",
+   "bytes": 32480,
+   "sha256": "7af5de44f77b21e9f7bdac1b048c2b10d5fc37880d17459d1014b607e415ecf8",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/InjectorData.tdms_index",
+   "bytes": 480,
+   "sha256": "9c6805c7aeae033f771d94fee71348cd406745115880fd46079ea969265ad3e7",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/InjectorData_Multishot.tdms",
+   "bytes": 160480,
+   "sha256": "c82f4e9c0b4c0e721a8fa009e949e33d3b39699d1db87c38e893c3a5f91d537e",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/InjectorData_Multishot.tdms_index",
+   "bytes": 480,
+   "sha256": "575bdccda3fac7f5168a759b0f53921c8b11c98028e4548e399fc1532d54305f",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/PeakAndHold.tdms",
+   "bytes": 48656,
+   "sha256": "bc7fb38781352de2a2525d255792231132757f008a153ad27d2ee5934be94e9f",
+   "via": "tree"
+  },
+  {
+   "path": "Source/Testing/Data Files/PeakAndHold.tdms_index",
+   "bytes": 656,
+   "sha256": "ad2078f428209833aaec64eaf1d352ae3a9f635a98b2c00916257be9b8ca44a6",
+   "via": "tree"
+  },
+  {
+   "path": "build.toml",
+   "bytes": 1048,
+   "sha256": "13e8b37ac2970c410b2be1edeafbf2b3bf528d5aad9cacbed31cd33ea89d0cb9",
+   "via": "tree"
+  },
+  {
+   "path": "control",
+   "bytes": 1128,
+   "sha256": "a4c7dd3daae8fd518a54f937ccf7724e5d2d1eb7561e3ee03081d9529abd18c2",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "<helpdir>\\lvexpress.chm",
+  "<helpdir>\\lvfpga.chm",
+  "<instcachedir>\\0\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5.lvgen\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5_001.vi",
+  "<instcachedir>\\0\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5.lvgen\\nirviFifoEmulationQueueMgr_E5CAEC123FF24DC58D834DCA3CDAA9B5_002.vi",
+  "<resource>\\RVI\\compilationResultUtilities\\niLvFpgaGetDmaChannelInfoFromXML.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Get Cluster Element Names__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Get Cluster Element by Name__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Get TDEnum from Data__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Set Cluster Element by Name__ogtk.vi",
+  "<userlib>\\_OpenG.lib\\lvdata\\lvdata.llb\\Set Enum String Value__ogtk.vi",
+  "<vilib>\\Analysis\\8numeric.llb\\Peak Detector.vi",
+  "<vilib>\\Analysis\\NI_AALBase.lvlib",
+  "<vilib>\\Analysis\\NI_AAL_SigProc.lvlib",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean (DBL).vi",
+  "<vilib>\\Analysis\\baseanly.llb\\Mean.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_AcknowledgeIrq_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_Close_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_ConfigureFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_ReadFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_StartFifo_Dynamic.vi",
+  "<vilib>\\FPGAPlugInAG\\Dynamic\\niLvFpga_WaitOnIrq_Dynamic.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Block Data Reference.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device API.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Channel Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Channel.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Item Ref.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Target Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Waveform DataType.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Custom Device Waveform.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Data Access Type.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Data Reference.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Dependent File Optional Info.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Boolean).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Double).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Path).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (String).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (U16).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (U32).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Get Item Property (Variant).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Hardware Interface Driver VI Operation.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Add Custom Device Channel.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Add Custom Device Section.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Add Custom Device Waveform.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Commit System Explorer Update Buffer.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Enable System Explorer Update Buffer.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Channel Block Data References.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Channel Values by Block Data Reference.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Custom Device Channel Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Custom Device Version.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Custom Device Waveform Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Event Refnum.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Children.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item GUID.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Parent.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Property.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Item Reference by Name.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Target Type.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Get Waveform Data Reference.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Move Custom Device Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Parse Incoming Command Data.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Remove Custom Device Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Remove Item Property.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Rename Custom Device Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Custom Device Channel Default Value.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Custom Device Channel Units.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Custom Device Version.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item Description.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item GUID.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Set Item Property.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Signal When Ready for Shutdown.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Unset Busy Cursor.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\NI VeriStand - Update Custom Device Flag.vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Boolean).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Dependent File).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Double).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Path).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (String).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (U16).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (U32).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Set Item Property (Variant).vi",
+  "<vilib>\\NI VeriStand\\Custom Device API\\Waveform Data Reference.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\Custom Device Utility Library.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get Item Ref by Relative Path.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Get Target Ref.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Highlight Node in System Explorer.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for All Items by GUID.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for Item by GUID.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for Item by Name.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\NI VeriStand - Search for Item.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Tools\\Custom Device Utility Library\\Search Direction.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Check Opened.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Communication Properties.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\Convert Q Error to Shutdown Error.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\Direct Send WPL Command.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\WPL Comm (1D DBL)\\Comm_write 1d dbl.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\WPL Comm (1D DBL)\\WPL Comm (1D DBL).lvclass",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\WPL Comm (1D DBL)\\WPL Comm (1D DBL).lvclass\\WPL Comm (1D DBL).ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\WPL Comm.lvclass\\WPL Comm.ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\NI VeriStand - Close Waveform Session.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\NI VeriStand - Open Waveform Session.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\NI VeriStand - Write Waveform(s).vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\NI_VS Custom Device Waveform API.lvlib",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Read Sample offset DVR.vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Single Waveform Write (DBL)\\NI VeriStand - Close Single Waveform Write Session (DBL).vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Single Waveform Write (DBL)\\NI VeriStand - Open Single Waveform Write Session (DBL).vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Single Waveform Write (DBL)\\NI VeriStand - Write Single Waveform (DBL).vi",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Single Waveform Write (DBL)\\Single Waveform Write (DBL).lvclass",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Single Waveform Write (DBL)\\Single Waveform Write (DBL).lvclass\\Single Waveform Write (DBL).ctl",
+  "<vilib>\\NI VeriStand\\Custom Device Waveform API\\Waveform Session.lvclass\\Waveform Session.ctl",
+  "<vilib>\\NI\\Compiled HTML Menu Tool\\CHM Generator\\CHM Generator.lvclass",
+  "<vilib>\\NI\\Compiled HTML Menu Tool\\CHM Generator\\Compile CHM.vi",
+  "<vilib>\\NI\\Compiled HTML Menu Tool\\CHM Generator\\New.vi",
+  "<vilib>\\NI\\Compiled HTML Menu Tool\\Load CHM Page.vi",
+  "<vilib>\\NI\\LVFPGA Adv Session Resources\\LVFPGAAdvSessionResources.lvlib",
+  "<vilib>\\NI\\LVFPGA Adv Session Resources\\OpenByName.xnode",
+  "<vilib>\\NI\\LVFPGA Adv Session Resources\\OpenByNameSubVI.vi",
+  "<vilib>\\NI\\NI VeriStand Advanced SysDef API\\SysDef API\\Advanced System Definition.lvlib",
+  "<vilib>\\NI\\NI VeriStand Advanced SysDef API\\SysDef API\\SysDef.Property.Set.vi",
+  "<vilib>\\NI\\NI VeriStand Advanced SysDef API\\_SubVIs\\SysDef.Property.Set.String.vi",
+  "<vilib>\\NI\\NI VeriStand Custom Device Import and Export Tool\\Export Custom Device Configuration.vi",
+  "<vilib>\\NI\\NI VeriStand Custom Device Import and Export Tool\\Import Custom Device Configuration.vi",
+  "<vilib>\\NI\\NI VeriStand Custom Device Import and Export Tool\\ImportExport.lvlib",
+  "<vilib>\\NI\\NI VeriStand Hardware Resource Discovery\\NIVS Hardware Discovery.lvlib",
+  "<vilib>\\NI\\NI VeriStand Hardware Resource Discovery\\Select Device Dialog.vi",
+  "<vilib>\\NI\\NI VeriStand Hardware Resource Discovery\\_Types\\Filter Type.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Read\\Read.ProcessData.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Read\\Read.lvclass",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Read\\Read.lvclass\\Read.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Write\\Write.Buffer.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Write\\Write.Commit.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Write\\Write.ProcessData.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Write\\Write.lvclass",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Access Type Classes\\Write\\Write.lvclass\\Write.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Data Access Engine.lvclass",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Data.Processes.Execute.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Data.Processes.Lookup.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Read.Data.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Read.Lookup.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Write.Data.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Methods\\Write.Lookup.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Types\\Read.DVR.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access Engine\\Data Access Engine\\Types\\Write.DVR.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access System Explorer\\Data Access System Explorer.lvlib",
+  "<vilib>\\NI\\NIVS Inline Async API\\_Data Access System Explorer\\Methods\\Data.OnCompile.Execute.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Error Handling Process\\SubVIs\\Error.ConvertArray.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Process\\Data Member Access\\Read Data Access.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Process\\Methods\\Async.Processes.Report.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Process\\Methods\\Async.Processes.WaitonStart.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Process\\Process.lvclass",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\Process\\Process.lvclass\\Process.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Methods\\Async.Engine.Close.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Methods\\Async.Engine.Initialize.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Methods\\Async.Engine.Read Data from HW.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Methods\\Async.Engine.Start.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Methods\\Async.Engine.Write Data to HW.vi",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\Types\\Error Handling Settings.ctl",
+  "<vilib>\\NI\\NIVS Inline Async API\\_VS Inline Async API\\VS Inline Async API\\VS Inline Async API.lvclass",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDNodeRunTimeDep.lvlib",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\XDataNode.xnode",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\nitl_modes.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\timing_clust.ctl",
+  "<vilib>\\Platform\\TimedLoop\\XDataNode\\wakeup.ctl",
+  "<vilib>\\Utility\\MD5Checksum.llb\\MD5Checksum File.vi",
+  "<vilib>\\Utility\\SystemLogging\\NI_SystemLogging.lvlib",
+  "<vilib>\\Utility\\SystemLogging\\Write to System Log.vi",
+  "<vilib>\\Utility\\config.llb\\Close Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Get Key Names.vi",
+  "<vilib>\\Utility\\config.llb\\NI_LVConfig.lvlib",
+  "<vilib>\\Utility\\config.llb\\Open Config Data.vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (Path).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key (String).vi",
+  "<vilib>\\Utility\\config.llb\\Read Key.vi",
+  "<vilib>\\Utility\\config.llb\\Write Key (I32).vi",
+  "<vilib>\\Utility\\config.llb\\Write Key.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\General Error Handler.vi",
+  "<vilib>\\Utility\\error.llb\\Simple Error Handler.vi",
+  "<vilib>\\Utility\\libraryn.llb\\Check if File or Folder Exists.vi",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "<vilib>\\dlg_ctls.llb\\Space Constant.vi",
+  "<vilib>\\eio\\EIOGrowableMethodNode\\genericMethod\\EIOGrowableMethodNode.xnode",
+  "<vilib>\\eio\\EIONode\\EIONode.xnode",
+  "<vilib>\\express\\rvi\\timing\\nirviGetTickCount.vi",
+  "<vilib>\\express\\rvi\\timing\\nirviLoopTimer.vi",
+  "<vilib>\\express\\rvi\\timingcommon\\nirviCommon.vi",
+  "<vilib>\\picture\\picture.llb\\imagedata.ctl",
+  "<vilib>\\rvi\\Analysis\\common\\codeGenErrors\\niFpgaCodeGenErrorHandle.vi",
+  "<vilib>\\rvi\\Analysis\\siggen\\WhiteNoise\\Configure niFPGA White Noise Generator.vi",
+  "<vilib>\\rvi\\Analysis\\siggen\\WhiteNoise\\niFPGA White Noise Generator.vi",
+  "<vilib>\\rvi\\Bitfile\\Public\\niFpgaBitfileGet_ViInfo.vi",
+  "<vilib>\\rvi\\Bitfile\\niFpgaBitfileStructure_VI.ctl",
+  "<vilib>\\rvi\\Bitfile\\nirviClusterElementControl.ctl",
+  "<vilib>\\rvi\\Bitfile\\nirviControlStructure.ctl",
+  "<vilib>\\rvi\\Bitfile\\nirviMechanicalAction.ctl",
+  "<vilib>\\rvi\\Bitfile\\nirviSubControlStructure.ctl",
+  "<vilib>\\rvi\\Bitfile\\nirviTypdefDescription.ctl",
+  "<vilib>\\rvi\\ClientSDK\\Core\\ModuleGeneration\\CommunicationInterfaceUtility\\niFpgaDmaChannelImplementation.ctl",
+  "<vilib>\\rvi\\ClientSDK\\Host Interface\\DMA\\public\\niFpgaDmaChannelVisibilityFilter.ctl",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerExecOnDevCompGetState.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerGetUniqueNameForEmu.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaContainerSetEmuInfo.vi",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\Common\\niFpgaDataTypeControl.ctl",
+  "<vilib>\\rvi\\DataTransferAndStorage\\Container\\XNode\\niFpgaContainer.xnode",
+  "<vilib>\\rvi\\Emulation\\niFpgaCriticalErrorInLSC.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationIsFPGAContextNoSignature.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaEmulationReportErrorSimple.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaGetClockAttributes.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaProcessEmulError.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaSctlEmulationGetInTimedLoop.vi",
+  "<vilib>\\rvi\\Emulation\\niFpgaSctlEmulationResourceMgr.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\niFpgaFifoEmulationRefIn.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirviFifoEmulationQueueMgr.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationCreateLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationDetermineInputValidOut.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationObtainLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationReleaseLock.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Resource\\nirvififoEmulationSetSize.vi",
+  "<vilib>\\rvi\\FIFO\\Fifo_Types\\Fifo_DMA_Config.ctl",
+  "<vilib>\\rvi\\FXPMathLib\\FxpAdd\\XNode\\nifxpmath_Add.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\FxpMul\\XNode\\nifxpmath_Multiplier.xnode",
+  "<vilib>\\rvi\\FXPMathLib\\sim\\FxpSim.dll",
+  "<vilib>\\rvi\\LocalResourceManager\\LocalResourceManager.xnode",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\niFpgaMemoryEmulationCacheClearOnFirstRun.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\niFpgaMemoryEmulationRefIn.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\niFpgaMemoryEmulationValidateCache.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulation.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_GetValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_InsertValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_MakeExclusive.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_ReleaseExclusive.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryEmulationManagerCache_SetValue.vi",
+  "<vilib>\\rvi\\Memory\\Memory_Emulation\\nirvimemoryFastEmulation.vi",
+  "<vilib>\\rvi\\Simulation\\lvSimController.dll",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuClasses.ctl",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuReportErrorAndStop.vi",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuTemplateMethod_errors.vi",
+  "<vilib>\\rvi\\eio\\common\\nirviEmuTemplateMethod_noerrors.vi",
+  "<vilib>\\rvi\\eio\\nirviEIOMethodImplementation\\nirviEIOMethodImplementation.xnode",
+  "<vilib>\\rvi\\eio\\nirviErrorMerge\\nirviErrorMerge.xnode",
+  "<vilib>\\rvi\\errors\\niFpgaSetErrorForExecOnDevCompSimple.vi",
+  "<vilib>\\rvi\\errors\\niLvFpgaAdjustHostInterfaceError.vi",
+  "<vilib>\\rvi\\errors\\niLvFpgaMergeErrorWithErrorCode.vi",
+  "<vilib>\\rvi\\errors\\nirviReportUnexpectedCaseInternalError (U32).vi",
+  "<vilib>\\rvi\\errors\\nirviReportUnexpectedCaseInternalError.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\niFpgaRandomDataHandleErrors.vi",
+  "<vilib>\\rvi\\interface\\RandomDataEmulation\\nirviRandomDataFpgaReadWriteTemplate.vi",
+  "<vilib>\\rvi\\interface\\Simulation\\niFpgaSimulationCallBeginRW.vi",
+  "<vilib>\\rvi\\interface\\common\\dynamic\\niFpgaEscapeDelimiterAndNull.vi",
+  "<vilib>\\rvi\\interface\\nirviCloseFPGA\\nirviCloseFPGA.xnode",
+  "<vilib>\\rvi\\interface\\nirviMethod\\StockFPGA_InlinedMethodWaitForSingleIRQ.vi",
+  "<vilib>\\rvi\\interface\\nirviMethod\\nirviMethod.xnode",
+  "<vilib>\\rvi\\interface\\nirviReadWriteControl\\nirviReadWriteControl.xnode",
+  "<vilib>\\rvi\\interrupt\\niFPGA Interrupt.vi",
+  "<vilib>\\rvi\\occurrence\\nirviWaitOnOccurrenceBase.vi",
+  "C:\\FPGA Addon\\Source\\Engine\\Types\\DMA Input Ref.ctl",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\NI VeriStand\\Custom Device Waveform API\\Internal Comm Classes\\WPL Comm\\WPL Comm.lvclass",
+  "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2019\\vi.lib\\NI VeriStand\\Custom Device Waveform API\\Waveform Session.lvclass",
+  "C:\\Users\\Public\\Documents\\National Instruments\\NI VeriStand 2015\\Projects\\DynamicallyCreatedProject\\DynamicallyCreatedProject.nivssdf",
+  "C:\\Users\\achurch\\Documents\\Source\\Conti-EMC-Tester\\Injection Analysis\\Custom Device Source\\Fuel Injection Addon\\Source\\Engine\\Types\\FPGA Reference.ctl",
+  "C:\\Users\\deaton\\Desktop\\Delete.vi",
+  "C:\\Users\\deaton\\Desktop\\DeleteCurrent.vi",
+  "C:\\Users\\deaton\\Desktop\\MultiAir\\DeleteHS.vi",
+  "C:\\addons\\FPGA Addon\\Source\\Engine\\Types\\DMA Input Ref.ctl",
+  "C:\\addons\\Fuel Injector Analysis Addon\\Source\\System Definition API\\Example\\Injection Addon.dat",
+  "C:\\addons\\Injection Addon\\Injection Analysis\\Custom Device Source Project\\Fuel Injection Addon\\Source\\Engine\\Types\\FPGA Reference.ctl",
+  "c:\\ni-rt\\system\\nirio.ini"
+ ]
+}

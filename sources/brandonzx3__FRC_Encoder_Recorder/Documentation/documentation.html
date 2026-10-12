@@ -1,0 +1,140 @@
+<head>
+    <title>Welcome</title>
+    <style>
+        div {
+            border-left: 4px solid cyan;
+            padding-left: 10px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <h1>FRC Encoder Recorder Documentation</h1>
+    <h2>What is the FRC Encoder Recorder?</h2>
+    <p>the FRC Encoder Recorder is a labview library written to make the use of motor encoders simple.</p>
+    <br>
+    <h4>How To Use</h4>
+    <p>all the thing you need are inside of two virtual folders</p>
+    <img src="images/Screenshot_1.jpg">
+    <p>inside of the record folder are vi's used to record encoder distance and display it to the user</p>
+    <p>inside of the execute folder are vi's used to move a motor or motors to a desired encoder distance</p>
+    <br>
+    <h2>Table of Contents</h2>
+    <ul>
+        <li><a href="#tankdriverec">tank drive record.vi</a></li>
+        <li><a href="#tankdriveexec">tank drive execute.vi</a></li>
+        <li><a href="#motorencoderrecord">motor encoder record.vi</a></li>
+        <li><a href="#motorencoderexecute">motor encoder execute.vi</a></li>
+    </ul>
+    <p>note: all users have the right to decompile, modify and redistribute the source code of this library.</p>
+    <br>
+    <br>
+    <div id="tankdriverec">
+        <h1>tank drive recorder.vi</h1>
+        <p>
+            this vi is used to record the endoced distance from 2 drive motors(1 left motor and one right motor)
+        </p>
+        <h2>Parameters</h2>
+        <ul>
+            <li>leftSpeed: Numeric</li>
+            <li>righSpeed: Numeric</li>
+            <li>driveMotors: String</li>
+            <li>leftMotor: String</li>
+            <li>rightMotor: String</li>
+            <li>motorController</li>
+        </ul>
+        <p>leftSpeed: the % output of the left drive motors</p>
+        <p>rightSpeed: the % output of the right drive motors</p>
+        <p>driveMotors: the refnum name of the drive motors</p>
+        <p>leftMotor: the left motor encoder that tracks the distance travled</p>
+        <p>rightMotor: the right motor encoder that tracks the distance travled</p>
+        <p>motorController: indicates which type of motor controller is being used</p>
+        <br>
+        <br>
+        <h2>Returns</h2>
+        <ul>
+            <li>leftDistance: Numeric</li>
+            <li>rightDistance: Numeric</li>
+        </ul>
+        <p>leftDistance: the encoder distance of the left motor encoder</p>
+        <p>rightDistance: the encoder distance of the right motor encoder</p>
+    </div>
+    <br>
+    <br>
+    <div id="tankdriveexec">
+        <h1>tank drive execute.vi</h1>
+        <p>
+            this vi is used to move the drive train a set number of encoder distance
+        </p>
+        <h2>Parameters</h2>
+        <ul>
+            <li>leftSpeed: Numeric</li>
+            <li>righSpeed: Numeric</li>
+            <li>driveMotors: String</li>
+            <li>leftMotor: String</li>
+            <li>rightMotor: String</li>
+            <li>motorController: String</li>
+            <li>desiredDistanceLeft: Numeric</li>
+            <li>desiredDistanceRight: Numeric</li>
+        </ul>
+        <p>leftSpeed: the % output of the left drive motors</p>
+        <p>rightSpeed: the % output of the right drive motors</p>
+        <p>driveMotors: the refnum name of the drive motors</p>
+        <p>leftMotor: the left motor encoder that tracks the distance travled</p>
+        <p>rightMotor: the right motor encoder that tracks the distance travled</p>
+        <p>motorController: indicates which type of motor controller is being used</p>
+        <p>desiredDistanceLeft: the desired encoder distance of the left motor</p>
+        <p>desiredDistanceRight: the desired encoder distance of the right motor</p>
+        <br>
+        <br>
+        <h2>Returns</h2>
+        <p>returns nothing</p>
+    </div>
+    <br>
+    <br>
+    <div id="motorencoderrecord">
+        <h1>motor encoder record.vi</h1>
+        <p>
+            this vi is used to record encoder distance of a singular motor
+        </p>
+        <h2>Parameters</h2>
+        <ul>
+            <li>refnumName: String</li>
+            <li>speed: Numeric</li>
+            <li>motorController: String</li>
+        </ul>
+        <p>refnumName: the refnum name of the motor</p>
+        <p>speed: the % output of the motor</p>
+        <p>motorController: indicates which type of motor controller is being used</p>
+        <br>
+        <br>
+        <h2>Returns</h2>
+        <ul>
+            <li>distance: Numeric</li>
+        </ul>
+        <p>distance: the encoder distance of the motor encoder</p>
+    </div>
+    <div id="motorencoderexecute">
+        <h1>motor encoder execute.vi</h1>
+        <p>
+            this vi is used to move a single motor to a desired distance
+        </p>
+        <h2>Parameters</h2>
+        <ul>
+            <li>speed: Numeric</li>
+            <li>desiredDistance: Numeric</li>
+            <li>refnumName: String</li>
+            <li>motorController: String</li>
+        </ul>
+        <p>speed: the % output of the motor</p>
+        <p>desiredDistance: the desired encoder distance of the motor</p>
+        <p>refnumName: the refnum name of the motor</p>
+        <p>motorController: indicates which type of motor controller is being used</p>
+        <br>
+        <br>
+        <h2>Returns</h2>
+        <p>returns nothing</p>
+    </div>
+</body>
