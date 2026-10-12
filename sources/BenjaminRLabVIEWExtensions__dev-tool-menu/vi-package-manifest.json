@@ -1,0 +1,85 @@
+[
+ {
+  "path": "releases/v1.0.0/benjaminr_labview_menus-1.0.0.4.vip",
+  "url": "https://raw.githubusercontent.com/BenjaminRLabVIEWExtensions/dev-tool-menu/ccc9fb9c361b34d5d04265562beb207307671eb6/releases/v1.0.0/benjaminr_labview_menus-1.0.0.4.vip",
+  "bytes": 165426,
+  "sha256": "9eb1ec83f9a97ad3ecd4de9b2a5f53b38484d4968db4e6a6ebadc7c1693b1a1a",
+  "members": [
+   {
+    "path": "spec",
+    "bytes": 1960,
+    "crc32": 4161365597,
+    "sha256": "f4a802f0a94e37eb03fa25b26ac80086b69938339590b935fe0d7f74910c8abd"
+   },
+   {
+    "path": "icon.bmp",
+    "bytes": 4230,
+    "crc32": 355667963,
+    "sha256": "1d39a733efbd49a6fb6052e85acdbfe852131d44dc9cbba679807d36bf780a91"
+   },
+   {
+    "path": "File Group 0/wizard/BenjaminR/_BenjaminR_VI_Template.vit",
+    "bytes": 13143,
+    "crc32": 3388317901,
+    "sha256": "9bb76c8e09dfffe8e0d56961585012874b4ee610860bce731de3dd9af5210bf1"
+   },
+   {
+    "path": "File Group 0/wizard/BenjaminR/Create New VI.vi",
+    "bytes": 13941,
+    "crc32": 1019384534,
+    "sha256": "a548c9e598dcedc8c60fb14e61bdee133f6deb3d7d710120e951d0e917fa3c3a"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/VI Tools/_systemErrorClusterReplacement.vi",
+    "bytes": 78422,
+    "crc32": 879413474,
+    "sha256": "a13c7ae9eded596ac2cc9ef1ffa3bb2da7aee45720470632a457a32e4219297f"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/VI Tools/Determine ConPane Pattern.vi",
+    "bytes": 30913,
+    "crc32": 1493844656,
+    "sha256": "46234931cff7623e75df29ff678f4e97bf460e3c132547c7c72c9837bf7d84a1"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/VI Tools/Save Global.vi",
+    "bytes": 82299,
+    "crc32": 297079065,
+    "sha256": "b039d1c99650fc00af7d184ffd1176ccf7b88f731aeb27bebef5698745024fb4"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/VI Tools/System Error Cluster Replacement.vi",
+    "bytes": 49884,
+    "crc32": 3418283882,
+    "sha256": "baa4c04519b5930d7b56a53edac0505e859b4d72b1b4eacf374fec128ddd195c"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/IDE Tools/Quit and Restart LabVIEW.vi",
+    "bytes": 13012,
+    "crc32": 4184341142,
+    "sha256": "bd60bca267891febb7592fe3228f152a696c217f54097870133b4870496698d7"
+   },
+   {
+    "path": "File Group 0/project/BenjaminR/IDE Tools/Refresh LabVIEW Menus.vi",
+    "bytes": 72069,
+    "crc32": 4003096020,
+    "sha256": "d471ef3c6e4d7ea9368ee1e15c2e13a743664d0310dd9694c09885020285d0c6"
+   },
+   {
+    "path": "File Group 0/help/BenjaminR/About.vi",
+    "bytes": 17281,
+    "crc32": 49095635,
+    "sha256": "9b89167177fdd0a9ec0a797b4e247857740850d1d0d8355011ea9f19a969d13f"
+   },
+   {
+    "path": "PostInstall.vi",
+    "bytes": 16194,
+    "crc32": 3507970665,
+    "sha256": "1e43d978954f227374903b563102eb297d77e17c073232b0468f4dc347e2e418"
+   }
+  ],
+  "spec": {
+   "spec": "[Package]\r\nName=\"benjaminr_labview_menus\"\r\nVersion=\"1.0.0.4\"\r\nRelease=\"\"\r\nID=0f626301a5dcc5e6959ae3a05fb81ac4\r\nFile Format=\"vip\"\r\nFormat Version=\"2017\"\r\nDisplay Name=\"BenjaminR LabVIEW Menus\"\r\n\r\n\r\n[Description]\r\nDescription=\"This package adds entries to the LabVIEW New, Tools and Help menus.\"\r\nSummary=\"Adds BenjaminR VIs into the New,Tools and Help menus.\"\r\nLicense=\"Zero-Clause BSD\"\r\nCopyright=\"Copyright (c) 2022, BenjaminR\"\r\nDistribution=\"\"\r\nVendor=\"BenjaminR\"\r\nURL=\"https://benjaminrlabviewextensions.github.io/dev-tool-menu/\"\r\nPackager=\"BenjaminR\"\r\nDemo=\"FALSE\"\r\nRelease Notes=\"- First release\"\r\nSystem Package=\"FALSE\"\r\nSub Package=\"FALSE\"\r\nLicense Agreement=\"FALSE\"\r\n\r\n\r\n[LabVIEW]\r\nclose labview before install=\"FALSE\"\r\nrestart labview after install=\"FALSE\"\r\nskip mass compile after install=\"FALSE\"\r\ninstall into global environment=\"FALSE\"\r\n\r\n\r\n[Platform]\r\nExclusive_LabVIEW_Version=\"LabVIEW>=17.0\"\r\nExclusive_LabVIEW_System=\"ALL\"\r\nExclusive_OS=\"ALL\"\r\n\r\n\r\n[Script VIs]\r\nPreInstall=\"\"\r\nPostInstall=\"<OS User Documents>\\\\WC\\\\dev-tool-menu\\\\src\\\\support\\\\Post-Install Custom Action.vi\"\r\nPreUninstall=\"\"\r\nPostUninstall=\"\"\r\nVerify=\"\"\r\nPreBuild=\"\"\r\nPostBuild=\"\"\r\n\r\n\r\n[Dependencies]\r\nAutoReqProv=FALSE\r\nRequires=\"\"\r\nConflicts=\"\"\r\n\r\n\r\n[Activation]\r\nLicense File=\"\"\r\nLicensed Library=\"\"\r\n\r\n\r\n[Files]\r\nNum File Groups=\"1\"\r\nSub-Packages=\"\"\r\nNamespaces=\"\"\r\n\r\n\r\n[File Group 0]\r\nTarget Dir=\"<application>\"\r\nReplace Mode=\"Always\"\r\nNum Files=9\r\nFile 0=\"wizard/BenjaminR/_BenjaminR_VI_Template.vit\"\r\nFile 1=\"wizard/BenjaminR/Create New VI.vi\"\r\nFile 2=\"project/BenjaminR/VI Tools/_systemErrorClusterReplacement.vi\"\r\nFile 3=\"project/BenjaminR/VI Tools/Determine ConPane Pattern.vi\"\r\nFile 4=\"project/BenjaminR/VI Tools/Save Global.vi\"\r\nFile 5=\"project/BenjaminR/VI Tools/System Error Cluster Replacement.vi\"\r\nFile 6=\"project/BenjaminR/IDE Tools/Quit and Restart LabVIEW.vi\"\r\nFile 7=\"project/BenjaminR/IDE Tools/Refresh LabVIEW Menus.vi\"\r\nFile 8=\"help/BenjaminR/About.vi\"\r\n"
+  }
+ }
+]
