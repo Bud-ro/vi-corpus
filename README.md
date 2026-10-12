@@ -1,8 +1,8 @@
 # vi-corpus
 
 A large collection of `.vi`, `.ctl`, `.lvlib`, `.lvclass`, `.lvproj` and the
-other files LabVIEW saves, vendored from public repositories together with
-their licenses and the assets they refer to.
+other files the LabVIEW™ software saves, vendored from public repositories
+together with their licenses and the assets they refer to.
 
 Each upstream repository lives under `sources/<owner>__<repo>/` with its own
 tree layout preserved, so relative links between VIs, controls, libraries,
@@ -13,7 +13,13 @@ classes and projects resolve as they did upstream. Next to the tree:
   identifier, the fetch date, every file kept (path, size, sha256, and whether it
   was kept for its extension, as a reference from another kept file, or as part
   of the tree), files left out for size, and references that point outside the
-  repository (`<vilib>` paths and absolute paths).
+  repository (`<vilib>` paths and absolute paths);
+- `vi-package-manifest.json`, when the repository ships VI Package Manager
+  packages (`.vip`) or configurations (`.vipc`): for each one its path, size,
+  sha256 and raw-download URL at the vendored commit, every zip member with
+  size, CRC-32 and sha256, and the text of its `spec` and `config.xml` members.
+  The packages themselves are not stored; they are re-saves of the VIs already
+  in the tree, and the manifest is enough to fetch and verify them.
 
 `sources.json` lists every vendored source; `candidates.json` lists public
 repositories that are not vendored, with the reason: no license file, a
@@ -22,14 +28,19 @@ files at the pinned commit, or every file a byte-identical copy of another
 source's. `corpus.json` names the file extensions the corpus collects. Beyond
 those, a tree keeps every file another kept file refers to (PTH0 path records,
 LabVIEW XML `URL` attributes, file names in TestStand files) and the rest of
-the tree except installers, archives, VIPM packages, FPGA bitfiles, build and
-IDE caches, office documents, video, 3D models and unreferenced files over
-1 MB, so a project's assets stay in place.
+the tree except installers, archives, VI Package Manager packages, FPGA
+bitfiles, build and IDE caches, office documents, video, 3D models and
+unreferenced files over 1 MB, so a project's assets stay in place.
 
 Files are redistributed under their upstream licenses only; this repository
 adds no license of its own. Only sources with an explicit license file are
 vendored. Mirrors of NI-shipped product content (`vi.lib`, `instr.lib`) and
 sources under NI's sample-code terms are not.
+
+LabVIEW™ is a trademark of National Instruments. This collection is not
+affiliated with, endorsed by, or sponsored by National Instruments; the name is
+used only to identify the file formats the files are saved in. See NI's
+[trademark and logo guidelines](https://www.ni.com/en/about-ni/legal/trademarks-and-logo-guidelines.html).
 
 ## Checking out a few sources
 
