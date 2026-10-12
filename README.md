@@ -15,11 +15,15 @@ classes and projects resolve as they did upstream. Next to the tree:
   repository (`<vilib>` paths and absolute paths).
 
 `sources.json` lists every vendored source; `candidates.json` lists public
-repositories that were surveyed but not vendored, with the reason (no license
-file, a non-commercial or non-redistributable license, or NI product content),
-so they can be revisited with permission. `corpus.json` names the file
-extensions the corpus collects; everything else in a tree is kept as a
-dependency candidate except installers, archives, office documents and video.
+repositories that are not vendored, with the reason: no license file, a
+non-commercial or non-redistributable license, NI product content, no LabVIEW
+files at the pinned commit, or every file a byte-identical copy of another
+source's. `corpus.json` names the file extensions the corpus collects. Beyond
+those, a tree keeps every file another kept file refers to (PTH0 path records,
+LabVIEW XML `URL` attributes, file names in TestStand files) and the rest of
+the tree except installers, archives, VIPM packages, FPGA bitfiles, build and
+IDE caches, office documents, video, 3D models and unreferenced files over
+1 MB, so a project's assets stay in place.
 
 Files are redistributed under their upstream licenses only; this repository
 adds no license of its own. Only sources with an explicit license file are
