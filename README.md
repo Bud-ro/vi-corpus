@@ -1,7 +1,8 @@
 # vi-corpus
 
-LabVIEW source files vendored from public repositories, with their licenses,
-for measuring the [labwright](https://github.com/Bud-ro/labwright) RSRC reader.
+A large collection of `.vi`, `.ctl`, `.lvlib`, `.lvclass`, `.lvproj` and the
+other files LabVIEW saves, vendored from public repositories together with
+their licenses and the assets they refer to.
 
 Each upstream repository lives under `sources/<owner>__<repo>/` with its own
 tree layout preserved, so relative links between VIs, controls, libraries,
@@ -30,16 +31,13 @@ adds no license of its own. Only sources with an explicit license file are
 vendored. Mirrors of NI-shipped product content (`vi.lib`, `instr.lib`) and
 sources under NI's sample-code terms are not.
 
-## Using it
+## Checking out a few sources
 
-The repository is plain git. To check out a few sources without the rest:
+The repository is plain git; a partial clone with a sparse checkout takes only
+the sources named:
 
 ```
 git clone --filter=blob:none --sparse https://github.com/Bud-ro/vi-corpus
 cd vi-corpus
 git sparse-checkout set sources/picotech__picosdk-ni-labview-examples
 ```
-
-labwright pins a commit of this repository in `corpus/repos.json` and fetches
-the sources it tests against with `dart run tool/fetch_corpus.dart`; new sources
-are added with `dart run tool/vendor_corpus.dart <this directory> owner/repo@sha`.
