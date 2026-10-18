@@ -1,0 +1,683 @@
+{
+ "repo": "425J/atsj-peakcan-basic-for-labview",
+ "url": "https://github.com/425J/atsj-peakcan-basic-for-labview",
+ "commit": "342bc177bd5f9a15b8e862e15178b48d4e043a71",
+ "license": "MIT",
+ "licenseFile": "LICENSE",
+ "fetched": "2026-10-18",
+ "files": [
+  {
+   "path": "atsj peakcan basic for labview.lvproj",
+   "bytes": 6075,
+   "sha256": "f1177df26893b9aa211487d904616c6a0eb38aa59d29eb8e0850197288f6134a",
+   "via": "extension"
+  },
+  {
+   "path": "src/API.vi",
+   "bytes": 23335,
+   "sha256": "783a57965fa65de4a3f7f9459737b127b92e04185433de9de57a964c017d2cee",
+   "via": "extension"
+  },
+  {
+   "path": "src/Example.vi",
+   "bytes": 23355,
+   "sha256": "3417c68ca5fb4fd409d06a0bfe2c8b400b42dc161669197be3b28c96ae9817be",
+   "via": "extension"
+  },
+  {
+   "path": "src/atsj peakcan basic.lvlib",
+   "bytes": 22626,
+   "sha256": "903188224620624b940368f6e34ecd3bf3c74becc9265963e995972066e1784b",
+   "via": "extension"
+  },
+  {
+   "path": "src/bitrate e2n.vi",
+   "bytes": 12875,
+   "sha256": "14862d37327d9ca1862949ea6bf9788cad7ede006448735cccbd8d12c0d87025",
+   "via": "extension"
+  },
+  {
+   "path": "src/bitrate n2e.vi",
+   "bytes": 16883,
+   "sha256": "a5dc26dd81816bd2024cb3ce0501bf0b95917be2eb2a27dc122493fe2b66aec6",
+   "via": "extension"
+  },
+  {
+   "path": "src/bitrate parameters.ctl",
+   "bytes": 11647,
+   "sha256": "7df899d2749604bb313484f80603769e892f6cbe6f360f93f667face4644c916",
+   "via": "extension"
+  },
+  {
+   "path": "src/bitrate.ctl",
+   "bytes": 11292,
+   "sha256": "ad7cb710d7e1e684ec516b40e241a3db8a3e3e447f655e2c498d4573f6326c7c",
+   "via": "extension"
+  },
+  {
+   "path": "src/build lookup string.vi",
+   "bytes": 15659,
+   "sha256": "e37d4339b0ccfd66358dd938109234794da22b225dd92ce5d1507509f991b3e4",
+   "via": "extension"
+  },
+  {
+   "path": "src/calculate timestamp microseconds.vi",
+   "bytes": 12828,
+   "sha256": "972dc300caaa7eaec4d994043b0154e4380502b4455199a074a33cfbe46f1499",
+   "via": "extension"
+  },
+  {
+   "path": "src/can fd bitrate constant (sae j2284-4).vi",
+   "bytes": 16817,
+   "sha256": "02dd433cbe42eb2170172202b9f072fd5c146e178895e75dea9bfde84891723a",
+   "via": "extension"
+  },
+  {
+   "path": "src/can fd bitrate constant (sae j2284-5).vi",
+   "bytes": 16841,
+   "sha256": "fdcbc0934d0a34b4a237e3858fed098a90f883ee815ae1355f3e5b270e443eb5",
+   "via": "extension"
+  },
+  {
+   "path": "src/clear caution status flag.vi",
+   "bytes": 13905,
+   "sha256": "576efc2319c7a9e468df0ddbe5757ca3d70a95c496077b1ae707361783319f56",
+   "via": "extension"
+  },
+  {
+   "path": "src/clear status flag.vi",
+   "bytes": 18073,
+   "sha256": "625a3e381b0f224714c1cdad55a5e88c56b1dfcf8a2f6c71c2b7b970272d885f",
+   "via": "extension"
+  },
+  {
+   "path": "src/clock frequency.ctl",
+   "bytes": 11216,
+   "sha256": "7d8eba431d49265e6ada2ce219a7d5ceb8022137051b9a47ebad2e4dc6a0d70c",
+   "via": "extension"
+  },
+  {
+   "path": "src/configure filter.vi",
+   "bytes": 16028,
+   "sha256": "03891058ed86bf63e12c447052e3118b329ac67daff1ccf77547c239bc622e87",
+   "via": "extension"
+  },
+  {
+   "path": "src/convert message into string.vi",
+   "bytes": 14111,
+   "sha256": "f08016cc36a4775b6eb03c7e182fb51db907c004155e966b953f428efb61c0b6",
+   "via": "extension"
+  },
+  {
+   "path": "src/create messages summary.vi",
+   "bytes": 15059,
+   "sha256": "0a1286d1c8ba06142bc7b8bc28d65384ddad5e2ca5a088a3354eaa6b719ddd2d",
+   "via": "extension"
+  },
+  {
+   "path": "src/decode btr.vi",
+   "bytes": 18042,
+   "sha256": "396e57b959c0ec31eb0d555b218054701a4752868d407938d47a5366a1a37b95",
+   "via": "extension"
+  },
+  {
+   "path": "src/deinitialize.vi",
+   "bytes": 14668,
+   "sha256": "ccf14562b61d79f4022dbf0e717441b3e6afad2136ba98eaa41fb2bc59d66315",
+   "via": "extension"
+  },
+  {
+   "path": "src/device type.ctl",
+   "bytes": 11200,
+   "sha256": "d030f0ef5e28704593c4b96f4235df2cb5faf4658d793d8139edeae932845c2e",
+   "via": "extension"
+  },
+  {
+   "path": "src/dlc 2 length.vi",
+   "bytes": 11404,
+   "sha256": "1755f24489f5ecbf7ee8d22c93c28f92a0059d5f7dc9da5614b0be8dd4b8b95e",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register direction.ctl",
+   "bytes": 11199,
+   "sha256": "e4255929c3bbc3177e9a02a5deeeabce3b5758f4c131ba5af138bdd27ebf55c2",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register error code n2e.vi",
+   "bytes": 15711,
+   "sha256": "de156a31cf6cabf42daf9f758712b021451bb0d0bbb4620cc0e804d71cad4297",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register error code.ctl",
+   "bytes": 11280,
+   "sha256": "5cc4ef55b8afc2a3766b4030c21e5ba8142f0a4f53a2ac416e9b55ccf7404a5c",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register segment n2e.vi",
+   "bytes": 19196,
+   "sha256": "94838f7f276e6120076104dd2d60bf2657b57f59b8e64e0fc7407031df9676e2",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register segment.ctl",
+   "bytes": 11609,
+   "sha256": "36b63cd68493e8a5feab60f41896e1f129f81e6e2b4982256a48119f75eb187f",
+   "via": "extension"
+  },
+  {
+   "path": "src/ecc register.ctl",
+   "bytes": 13269,
+   "sha256": "f46b911038221ccb1bbf5e6f0e872482a652f6cc6c991233d9b329ffd16f65bc",
+   "via": "extension"
+  },
+  {
+   "path": "src/encode btr.vi",
+   "bytes": 15674,
+   "sha256": "53597c4296f235f8439ead212515a1ad86a40e581d9ebb451add840de44b6c1d",
+   "via": "extension"
+  },
+  {
+   "path": "src/fd bitrate c2s.vi",
+   "bytes": 11850,
+   "sha256": "86ac743afc447e6d953e882534fe4f918c2322a11440c699aab3c136b6f05dcc",
+   "via": "extension"
+  },
+  {
+   "path": "src/fd bitrate.ctl",
+   "bytes": 13003,
+   "sha256": "e2965e91a0a9e55962eb2fdfee225789ac42b3ad3bcae0615ad2c3683c6c29e3",
+   "via": "extension"
+  },
+  {
+   "path": "src/features.ctl",
+   "bytes": 11593,
+   "sha256": "76ff00a3ffd20381fd82f5325bccb28b543a5530087861c4f141bc4d431bb3cd",
+   "via": "extension"
+  },
+  {
+   "path": "src/find channel.vi",
+   "bytes": 15244,
+   "sha256": "e8829fb266b1c84f7039f6dc3b81e28f51425e652cc11668e9af1861da512760",
+   "via": "extension"
+  },
+  {
+   "path": "src/get api version.vi",
+   "bytes": 16411,
+   "sha256": "f7e576efc74c7962a0bced0aa5d50751305e1010337c28256aabbc78a7aced5b",
+   "via": "extension"
+  },
+  {
+   "path": "src/get bitrate adapting.vi",
+   "bytes": 16628,
+   "sha256": "6a0c7e6f5fdcbe5a0a2d56b4f999cdbfdf43530376fd914f664631f2fb933364",
+   "via": "extension"
+  },
+  {
+   "path": "src/get bitrate info.vi",
+   "bytes": 16428,
+   "sha256": "ae30d18a7eb7d175715a5e2d8d6aec2c9d2f34bd33fda0d73e73ab2bffedbedb",
+   "via": "extension"
+  },
+  {
+   "path": "src/get busspeed data.vi",
+   "bytes": 16101,
+   "sha256": "d8fcba667c0db4f319a8e9954c85c14518d017d311a664bfc61f91f7a9442056",
+   "via": "extension"
+  },
+  {
+   "path": "src/get busspeed nominal.vi",
+   "bytes": 16488,
+   "sha256": "2094dfedbc723c7088f6c06289b9d002df236427f54928ac7d388753f8bf2430",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel features.vi",
+   "bytes": 17604,
+   "sha256": "e0c1a142c05dec605842036c2c063a671dc7731b90a99dc416a82120f23bfbdf",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel handle - by bus channel index.vi",
+   "bytes": 17465,
+   "sha256": "6ae07f622a34ce8cebbbe6654729b1f91e066fcec1b3d16b1a8460caaa0132f5",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel handle - by device controller index.vi",
+   "bytes": 15819,
+   "sha256": "613ce35de497cfc890cc95585c72f76008e3b8532e0114d75ed03fcba2f8558d",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel handle - by device id.vi",
+   "bytes": 15845,
+   "sha256": "2f8e6e4deed9c6eee5fbae84ae2cd0ea432dc18c20ae1a196701edfa8c20e53a",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel handle base value.vi",
+   "bytes": 14601,
+   "sha256": "164b0365bbf10cdbf612ecd8fa4a0c14528cd62c23e3fcb3475becfb63f3024b",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel handle.vi",
+   "bytes": 12314,
+   "sha256": "774e9091284ad58ca183b5a13d34ab410f0928264726d99a54d0e2358fcf45a1",
+   "via": "extension"
+  },
+  {
+   "path": "src/get channel info.vi",
+   "bytes": 14256,
+   "sha256": "b6d71038944f7dbe10aaaef0c80ef2e34b04e470bcc29400108f7164e2918c74",
+   "via": "extension"
+  },
+  {
+   "path": "src/get ip address.vi",
+   "bytes": 16310,
+   "sha256": "cd24f49b78d7ac25ed8cb641ff18f8e76caf218df0207dfd69dc396f2b4c4f65",
+   "via": "extension"
+  },
+  {
+   "path": "src/get lan service status.vi",
+   "bytes": 16186,
+   "sha256": "9ec1120ea71991bddf8ac4d242e932c371157b32f25f8b8dea82e9f1be20d962",
+   "via": "extension"
+  },
+  {
+   "path": "src/get log configure.vi",
+   "bytes": 18461,
+   "sha256": "ff83cd06c8f23096773a011d638e312c5f6b5ffe1347960ffe6f0aa25d5b75ea",
+   "via": "extension"
+  },
+  {
+   "path": "src/get log location.vi",
+   "bytes": 16552,
+   "sha256": "1a0bc46ed2248c92b2e35f0d9471787ccfe66a9a2bba36a681f98ca8f8685519",
+   "via": "extension"
+  },
+  {
+   "path": "src/get log status.vi",
+   "bytes": 16022,
+   "sha256": "2e2092e69cc30ed5e91bd573123f56d9b44ae0b8e090eb3a68b6061ab4d5bf70",
+   "via": "extension"
+  },
+  {
+   "path": "src/get number of physical channels.vi",
+   "bytes": 14659,
+   "sha256": "96a1cfe378214eeb49d2fa47dc797400a4eddf1fc06c5017cf89eaa86fd42ecb",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - array of bytes.vi",
+   "bytes": 15566,
+   "sha256": "90559db033c7ab403ea2446a8d9a8fbfce2f6dc2b5ec858bc930c62e64624915",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - i16.vi",
+   "bytes": 14951,
+   "sha256": "38a425a204e94346bd49f6377a0cc50d8c8409dfe22f1ebc6400a0d72b83b7b9",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - i32.vi",
+   "bytes": 14943,
+   "sha256": "564a7cedaef5e1c8593d3c9e4880390ee0a7dfd13b280e58e24c53251ea219b7",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - i64.vi",
+   "bytes": 14955,
+   "sha256": "934e607c24190198ca3902cdfc5228576f084d17a2e43918be89e7488c1c4e9f",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - i8.vi",
+   "bytes": 14942,
+   "sha256": "61bf8ba05f234f04a56372f54574646318766fd3107b31e010b8368dd5f28663",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - string.vi",
+   "bytes": 15342,
+   "sha256": "1081c077aea211a2e0321ad994ced84e8e1c98dd6165090d7a8e9489b688f962",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - u16.vi",
+   "bytes": 14939,
+   "sha256": "ec8e48f7477165609caf48df496a7d68e57bb7b9833efd2cead523f5595e6b92",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - u32.vi",
+   "bytes": 14943,
+   "sha256": "33479e7c153ad334a6a83b5811e1c8aa18a99d02d74892d4b82e7640befc623d",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - u64.vi",
+   "bytes": 14943,
+   "sha256": "574f0cdd00bc7313a834a8729034cedf4ad802039fb24299e9e03b2e13e808fe",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter - u8.vi",
+   "bytes": 14938,
+   "sha256": "28375608b5567aa213fb84399f1e97c94615b59580b9eb165677e913ed95ecd3",
+   "via": "extension"
+  },
+  {
+   "path": "src/get parameter.vi",
+   "bytes": 14369,
+   "sha256": "ac7921d03d960ab46ab45d52db1ef64525281947795dfbde8201648bd3c845b4",
+   "via": "extension"
+  },
+  {
+   "path": "src/get status summary.vi",
+   "bytes": 18514,
+   "sha256": "991ccd450e55a5b1f8e722462982e91a342a24bee4ad2a0488948830030732f8",
+   "via": "extension"
+  },
+  {
+   "path": "src/get status.vi",
+   "bytes": 15722,
+   "sha256": "40e045c3cc139b0da874bd7ab6ded4c05d82bbb1af11e5454da6973aca2b209c",
+   "via": "extension"
+  },
+  {
+   "path": "src/indentation constant.vi",
+   "bytes": 7400,
+   "sha256": "423f8ffb4bcfe2b4c368f52b47ffa2aa1396988ee4e4589ddd67fb290d7f4350",
+   "via": "extension"
+  },
+  {
+   "path": "src/initialize - lan.vi",
+   "bytes": 20180,
+   "sha256": "d2f53ae7c70d3c6f313e6d3a36056a8aa2afe755e71d88b638d1876955032afb",
+   "via": "extension"
+  },
+  {
+   "path": "src/initialize fd.vi",
+   "bytes": 17185,
+   "sha256": "bc33e82baff0636fa015ab1b8b3422f018c2ed1334afb3143b7a2de7ff5b27a0",
+   "via": "extension"
+  },
+  {
+   "path": "src/initialize.vi",
+   "bytes": 16726,
+   "sha256": "a6fd423b3775746335bd0a019b424205ada4b5f7a47884c1f214ba10d431835f",
+   "via": "extension"
+  },
+  {
+   "path": "src/insert message into map.vi",
+   "bytes": 27543,
+   "sha256": "273509f9e739bdda57d896f8412227231ff633e70819d905e077fd7d73691569",
+   "via": "extension"
+  },
+  {
+   "path": "src/length 2 dlc.vi",
+   "bytes": 8548,
+   "sha256": "c90b736f42db6d4faf24e5f9731afc9259a382c502cf9c34871161ccbcbc01d3",
+   "via": "extension"
+  },
+  {
+   "path": "src/log options.ctl",
+   "bytes": 11600,
+   "sha256": "216c52ea2e3bda94705afbbf34ddd1b7e31fb35656c3df9a5effd658d58dffa1",
+   "via": "extension"
+  },
+  {
+   "path": "src/message c2s.vi",
+   "bytes": 20719,
+   "sha256": "6d588b1d9e40b700059ccf3ceb0638a78ba0adf9ae0b2b52496b30fde891b56c",
+   "via": "extension"
+  },
+  {
+   "path": "src/message type.ctl",
+   "bytes": 11857,
+   "sha256": "c4fbfd22fdfe02958cbc86eb8032e722beba8461b6946bfae7457c8058febc8c",
+   "via": "extension"
+  },
+  {
+   "path": "src/message with stats c2s.vi",
+   "bytes": 17602,
+   "sha256": "ba607781023290080fa376cc60a3baf0c630ae4c05c04ce5e9887596bbce9fab",
+   "via": "extension"
+  },
+  {
+   "path": "src/message with stats.ctl",
+   "bytes": 13583,
+   "sha256": "5cb35e6aa367aa13f7bd92cb8d6ee119aeeafcb70dc09db302002889cd0cbfff",
+   "via": "extension"
+  },
+  {
+   "path": "src/message.ctl",
+   "bytes": 13048,
+   "sha256": "26f4ef324a2bd233f184ed7afc0b2e3b0971a9cb71524a41db875f4a238cdbdd",
+   "via": "extension"
+  },
+  {
+   "path": "src/pack frame.vi",
+   "bytes": 16522,
+   "sha256": "a7170aa02c6301165a27b42f191f78b363bd03fd408e059321033d47eca2e27b",
+   "via": "extension"
+  },
+  {
+   "path": "src/parameter e2n.vi",
+   "bytes": 16193,
+   "sha256": "e1e8cc63b4903d341a19814f1c690d81a9b1441cef965fb114f3825fab22c233",
+   "via": "extension"
+  },
+  {
+   "path": "src/parameter.ctl",
+   "bytes": 12006,
+   "sha256": "340d1ebeed15ae0fed5e5537cbaba06b6ba311e77ef1fcf60f826cd5465f5e31",
+   "via": "extension"
+  },
+  {
+   "path": "src/read fd.vi",
+   "bytes": 23439,
+   "sha256": "92f02506497a5b6ddb3900c3d4dfb83a0cffc1e4e33c39b63d494e49540457cb",
+   "via": "extension"
+  },
+  {
+   "path": "src/read.vi",
+   "bytes": 23440,
+   "sha256": "a0ccd8cdda3e1033b008851861bb594ce36eade93b2961680a8c073ed9455dc4",
+   "via": "extension"
+  },
+  {
+   "path": "src/reset.vi",
+   "bytes": 14605,
+   "sha256": "b5540ed5eef8fa35b56927cf171a62e10e5418a130a33d5e5f1504fb9cc81342",
+   "via": "extension"
+  },
+  {
+   "path": "src/set bitrate adapting.vi",
+   "bytes": 16732,
+   "sha256": "5048b987a5a59f9e272e4e842dfc9164ebfa3d7572df23464ea92ec55d40d576",
+   "via": "extension"
+  },
+  {
+   "path": "src/set log configure.vi",
+   "bytes": 18445,
+   "sha256": "42bf2690603e2b7a24c8d02e0d4d54532368a92eaf0d49bd4f5bd52201aec8da",
+   "via": "extension"
+  },
+  {
+   "path": "src/set log location.vi",
+   "bytes": 17132,
+   "sha256": "a740b5aa2b0674213035e6d7f60979c06ae708a0e0b9d8ad2e707e5b0f3b3eb4",
+   "via": "extension"
+  },
+  {
+   "path": "src/set log status.vi",
+   "bytes": 16582,
+   "sha256": "569958aba6f6f36ce335a98f039d503fe2570d8f193c724984e12fefa919fbd2",
+   "via": "extension"
+  },
+  {
+   "path": "src/set log text.vi",
+   "bytes": 15912,
+   "sha256": "fa2ef4bbf6b7e048f0a5499e30d37793f0730b1b72c466ffee7190bb75637cb1",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - array of bytes.vi",
+   "bytes": 15082,
+   "sha256": "f34aec15eec4ae2f6504652929852c800f6d4a676a33989b6e95f92ba7992316",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - i16.vi",
+   "bytes": 14823,
+   "sha256": "5321549e6209c7d719cb23c58f3afa97d6b22305afcb8c450f5a989656d5f9bc",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - i32.vi",
+   "bytes": 14815,
+   "sha256": "3bc78933dfcd83b1322d2c4198923e6185c1b2c80c7b6fd52fd32801be0c0488",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - i64.vi",
+   "bytes": 14827,
+   "sha256": "2f240294848c1a13149b13c56a1b6087fe8e7cd47078cf6513a3826b1d6ca918",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - i8.vi",
+   "bytes": 14818,
+   "sha256": "0d61bbfb972c769fd9cb8b289baf27a91e08f2de860078bf38ac63385a4539c2",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - string.vi",
+   "bytes": 14942,
+   "sha256": "8a3e37a503e50ac1ebb7ed1940ee8fdca3ae29491343b18465da7827430b5394",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - u16.vi",
+   "bytes": 14811,
+   "sha256": "1cff1b7001dac244abd448ec3cc0349f1df380910ab0231c7df404a7c3385d14",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - u32.vi",
+   "bytes": 14811,
+   "sha256": "0dcab09a699022886ff1fb52828b4cf9986f269eca3eb38ae903287db833700e",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - u64.vi",
+   "bytes": 14819,
+   "sha256": "1054275c4fe2c3ba340b3d18736f6e0bcc6a15f55f95ff6c1fcc1848f0300c01",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter - u8.vi",
+   "bytes": 14810,
+   "sha256": "807f1c04af2225845552cd466cb279236374d7ce444c70654d476ec9386d83bf",
+   "via": "extension"
+  },
+  {
+   "path": "src/set parameter.vi",
+   "bytes": 14365,
+   "sha256": "662cb73914d1dae8440fdedf702e3e0aeb1e2bb080884323a25947f7fa1b3319",
+   "via": "extension"
+  },
+  {
+   "path": "src/status.ctl",
+   "bytes": 12939,
+   "sha256": "4461e7d03fe6435455d41d76e2069abaf5bfa5a559c2bb69f11fc2cb3788b0af",
+   "via": "extension"
+  },
+  {
+   "path": "src/translate error code.vi",
+   "bytes": 20364,
+   "sha256": "e8678050482b301cb1a73da7a3ea9a21cc531abde3b227d04ad23d1e0bc0e3ec",
+   "via": "extension"
+  },
+  {
+   "path": "src/uninitialize.vi",
+   "bytes": 15952,
+   "sha256": "171557b62969256dac8e16f74b8d1aac1cb28f51d13cec8cb92bc72f64eaefe7",
+   "via": "extension"
+  },
+  {
+   "path": "src/unpack frame.vi",
+   "bytes": 26196,
+   "sha256": "56e5742d9555c5bacd3a2fc1cd19c9caffeadc812efa7baf0437b20d8113761d",
+   "via": "extension"
+  },
+  {
+   "path": "src/write fd.vi",
+   "bytes": 16900,
+   "sha256": "71b70a51fa6d6b2fe0f676a9eadf408cccc2f88418e01e1df8909e540501b9f8",
+   "via": "extension"
+  },
+  {
+   "path": "src/write.vi",
+   "bytes": 16533,
+   "sha256": "ac61df6549028875abb9b019f78a274583889b69e1b0d58093698e49d9056ba8",
+   "via": "extension"
+  },
+  {
+   "path": ".gitignore",
+   "bytes": 169,
+   "sha256": "6badd2b9a40b0fd5cd49a4daf8b40ce2872f352f2ef436cd6d851bb34ba881ec",
+   "via": "tree"
+  },
+  {
+   "path": "LICENSE",
+   "bytes": 1075,
+   "sha256": "79812e22a40e03d9b135bbe37375fbcacb245cce0031ba6c3d0f05511687ac6e",
+   "via": "tree"
+  },
+  {
+   "path": "README.md",
+   "bytes": 15242,
+   "sha256": "717d092c52d3a0d8a818363d82f4d50aa21f1f116b125f09585ccb5a36c06286",
+   "via": "tree"
+  },
+  {
+   "path": "download-support.bat",
+   "bytes": 585,
+   "sha256": "4e643324005d77a3f6801928eab81f639f86d2f48bb43ee1606c9e0eb977989d",
+   "via": "tree"
+  }
+ ],
+ "skipped": [],
+ "external": [
+  "/<vilib>/Utility/error.llb/Clear Errors.vi",
+  "/<vilib>/Utility/error.llb/Error Cluster From Error Code.vi",
+  "/<vilib>/Utility/error.llb/Search and Replace Pattern.vi",
+  "/<vilib>/Utility/error.llb/Trim Whitespace One-Sided.vi",
+  "/<vilib>/Utility/error.llb/Trim Whitespace.vi",
+  "/<vilib>/Utility/error.llb/whitespace.ctl",
+  "/<vilib>/Utility/libraryn.llb/Create Directory Recursive.vi",
+  "/<vilib>/Utility/miscctls.llb/LVMapReplaceAction.ctl",
+  "/<vilib>/Utility/sysdir.llb/Get System Directory.vi",
+  "/<vilib>/Utility/sysdir.llb/System Directory Type.ctl",
+  "<vilib>\\AdvancedString\\1D String Array to Delimited String.vi",
+  "<vilib>\\Utility\\error.llb\\Clear Errors.vi",
+  "<vilib>\\Utility\\error.llb\\Error Cluster From Error Code.vi",
+  "<vilib>\\Utility\\error.llb\\Search and Replace Pattern.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace One-Sided.vi",
+  "<vilib>\\Utility\\error.llb\\Trim Whitespace.vi",
+  "<vilib>\\Utility\\error.llb\\whitespace.ctl",
+  "<vilib>\\Utility\\libraryn.llb\\Create Directory Recursive.vi",
+  "<vilib>\\Utility\\miscctls.llb\\LVMapReplaceAction.ctl",
+  "<vilib>\\Utility\\sysdir.llb\\Get System Directory.vi",
+  "<vilib>\\Utility\\sysdir.llb\\System Directory Type.ctl",
+  "C:\\atsj\\plateau\\atsj-peakcan-basic-for-labview\\src\\support\\x64\\PCANBasic.dll"
+ ]
+}
