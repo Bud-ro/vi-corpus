@@ -1,0 +1,59 @@
+{
+  "schema": "priority/template-agent-verification-report@v1",
+  "generatedAt": "2026-03-21T22:44:32.705Z",
+  "repo": "LabVIEW-Community-CI-CD/compare-vi-cli-action",
+  "summary": {
+    "status": "pending",
+    "blockerCount": 0,
+    "recommendation": "wait-for-template-verification"
+  },
+  "iteration": {
+    "label": "post-merge #1632",
+    "ref": "issue/origin-1632-template-agent-verification-lane-followup",
+    "headSha": "345b521624e84b434f4f589bb4e9db9a65df2dff"
+  },
+  "lane": {
+    "enabled": true,
+    "reservedSlotCount": 1,
+    "minimumImplementationSlots": 3,
+    "implementationSlotsRemaining": 7,
+    "executionMode": "hosted-first",
+    "targetRepository": "LabVIEW-Community-CI-CD/LabviewGitHubCiTemplate",
+    "consumerRailBranch": "downstream/develop"
+  },
+  "verification": {
+    "provider": "hosted-github-workflow",
+    "status": "pending",
+    "durationSeconds": null,
+    "runUrl": null
+  },
+  "provenance": {
+    "templateDependency": {
+      "repository": "LabVIEW-Community-CI-CD/LabviewGitHubCiTemplate",
+      "version": null,
+      "ref": null,
+      "cookiecutterVersion": null
+    },
+    "execution": {
+      "executionPlane": null,
+      "containerImage": null,
+      "generatedConsumerWorkspaceRoot": null,
+      "laneId": null,
+      "agentId": null,
+      "fundingWindowId": null
+    }
+  },
+  "goals": {
+    "maxVerificationLagIterations": 1,
+    "maxHostedDurationMinutes": 30,
+    "requireMachineReadableRecommendation": true
+  },
+  "metrics": {
+    "targetSlotCount": 8,
+    "reservedSlotCount": 1,
+    "implementationSlotsRemaining": 7,
+    "durationWithinGoal": null,
+    "recommendationPresent": true
+  },
+  "blockers": []
+}
